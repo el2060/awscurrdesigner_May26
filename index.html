@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CurrCraft — AI-Assisted Curriculum Designer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: var(--color-surface); }
+    .nav-topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--color-bg); border-bottom: 1px solid var(--color-border);
+      height: 56px; display: flex; align-items: center; padding: 0 var(--space-8);
+      gap: var(--space-4);
+    }
+    .nav-search {
+      display: flex; align-items: center; gap: var(--space-2);
+      padding: 7px 14px; background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm); font-size: 13px; color: var(--color-text-tertiary);
+      cursor: text; width: 240px; transition: border-color var(--transition-fast);
+    }
+    .nav-search:hover { border-color: var(--color-border-hover); }
+    .wizard-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    .wizard-preview-box {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-md); padding: var(--space-4);
+    }
+    .wizard-preview-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--color-border); font-size: 13px; }
+    .wizard-preview-row:last-child { border-bottom: none; }
+    .wizard-preview-row .key { color: var(--color-text-secondary); }
+    .wizard-preview-row .val { font-weight: 500; color: var(--color-text-primary); font-family: var(--font-mono); font-size: 12px; }
+    .ai-draft-row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); background: var(--color-ai-light); border-radius: var(--radius-md); border: 1px dashed rgba(155,114,207,0.3); cursor: pointer; transition: background var(--transition-fast); }
+    .ai-draft-row:hover { background: rgba(155,114,207,0.12); }
+    .ai-draft-row-icon { font-size: 24px; }
+    .ai-draft-row-text h4 { font-size: 14px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 2px; }
+    .ai-draft-row-text p { font-size: 12px; color: var(--color-text-secondary); }
+    .empty-state { display: flex; flex-direction: column; align-items: center; text-align: center; padding: var(--space-12) var(--space-8); }
+    .empty-icon { font-size: 40px; margin-bottom: var(--space-4); opacity: 0.4; }
+    .filter-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--color-border); margin-bottom: var(--space-6); }
+    .filter-tab { padding: 8px 16px; font-size: 13px; font-weight: 500; color: var(--color-text-secondary); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all var(--transition-fast); }
+    .filter-tab:hover { color: var(--color-text-primary); }
+    .filter-tab.active { color: var(--color-accent); border-bottom-color: var(--color-accent); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<!-- Top Navigation -->
+<nav class="nav-topbar">
+  <div class="topbar-logo">
+    <img src="assets/np-logo-horizontal.png" alt="Ngee Ann Polytechnic" class="topbar-logo-img">
+    <div class="topbar-logo-wordmark">
+      <span class="product">CurrCraft</span>
+      <span class="tag">AI Curriculum Designer</span>
+    </div>
+  </div>
+  <div style="margin-left: auto; display:flex; align-items:center; gap:var(--space-3);">
+    <div class="nav-search">
+      <span>🔍</span> Search modules...
+    </div>
+    <button class="btn btn-secondary btn-sm">Help &amp; Docs</button>
+    <a href="chat-onboarding.html" class="btn btn-ai" style="background: linear-gradient(135deg, var(--color-ai-light) 0%, rgba(155,114,207,0.2) 100%); color: var(--color-ai-glow);">✦ Chat to Create</a>
+    <button class="btn btn-primary" id="new-mdd-btn">+ New MDD</button>
+    <div class="topbar-avatar" title="Lim Mei Ling — SIDM">ML</div>
+  </div>
+</nav>
+
+<main class="dashboard-layout">
+
+  <!-- Welcome + Quick Stats -->
+  <div style="display:grid; grid-template-columns: 1fr auto; gap:var(--space-8); align-items:start; margin-bottom:var(--space-8);">
+    <div>
+      <div class="dashboard-greeting">Good afternoon, Mei Ling 👋</div>
+      <div class="dashboard-sub">You have 2 modules in progress and 1 pending review. Start a new MDD the way you prefer.</div>
+    </div>
+    <div style="display:flex; gap:var(--space-2); align-items:center;">
+      <a href="chat-onboarding.html" class="btn btn-lg" style="white-space:nowrap; background: linear-gradient(135deg, var(--color-ai-glow) 0%, var(--color-accent) 100%); color: white;">
+        ✦ Chat to Create
+      </a>
+      <button class="btn btn-secondary btn-lg" id="new-mdd-btn-2" style="white-space:nowrap;">
+        + Form Wizard
+      </button>
+    </div>
+  </div>
+
+  <div class="stats-strip" style="grid-template-columns: repeat(5, 1fr);">
+    <div class="stat-card accent">
+      <div class="stat-number">4</div>
+      <div class="stat-label">My Modules This Term</div>
+    </div>
+    <div class="stat-card warning">
+      <div class="stat-number">2</div>
+      <div class="stat-label">Drafts In Progress</div>
+    </div>
+    <div class="stat-card success">
+      <div class="stat-number">1</div>
+      <div class="stat-label">Submitted for Review</div>
+    </div>
+    <div class="stat-card ai">
+      <div class="stat-number">87%</div>
+      <div class="stat-label">Avg Completion Rate</div>
+    </div>
+    <div class="stat-card" style="border-top: 3px solid var(--color-npgc-2);">
+      <div class="stat-number" style="display:flex; align-items:baseline; gap:4px;">
+        5.2<span style="font-size:14px; color:var(--color-text-tertiary); font-weight:400;">/ 7</span>
+      </div>
+      <div class="stat-label">NPGC Coverage Avg</div>
+      <div style="display:flex; gap:2px; margin-top:6px;">
+        <span style="width:8px; height:8px; border-radius:2px; background:var(--color-npgc-1);"></span>
+        <span style="width:8px; height:8px; border-radius:2px; background:var(--color-npgc-2);"></span>
+        <span style="width:8px; height:8px; border-radius:2px; background:var(--color-npgc-3);"></span>
+        <span style="width:8px; height:8px; border-radius:2px; background:var(--color-npgc-4);"></span>
+        <span style="width:8px; height:8px; border-radius:2px; background:var(--color-npgc-5); opacity:0.35;"></span>
+        <span style="width:8px; height:8px; border-radius:2px; background:var(--color-npgc-6); opacity:0.35;"></span>
+        <span style="width:8px; height:8px; border-radius:2px; background:var(--color-npgc-7);"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Module Grid -->
+  <div class="section-label-row">
+    <div class="section-label-title">My Modules</div>
+    <button class="btn btn-ghost btn-sm">View all →</button>
+  </div>
+  <div class="filter-tabs">
+    <div class="filter-tab active">All</div>
+    <div class="filter-tab">In Progress</div>
+    <div class="filter-tab">Submitted</div>
+    <div class="filter-tab">Archived</div>
+  </div>
+
+  <div class="module-grid">
+
+    <!-- Module 1: In Progress — what the user is actively editing -->
+    <div class="card card-hover module-card">
+      <div class="module-card-header">
+        <div>
+          <div class="module-card-code">ICT1234 · ELE</div>
+          <div class="module-card-title">Data Structures &amp; Algorithms</div>
+          <div class="module-card-badges">
+            <span class="badge badge-level">L2</span>
+            <span class="badge badge-school">SIDM</span>
+            <span class="badge badge-cu">4 CU</span>
+            <span class="badge badge-draft">Draft</span>
+          </div>
+        </div>
+        <div class="module-card-more">⋯</div>
+      </div>
+      <div class="module-card-progress">
+        <div class="progress-label">
+          <span class="text-sm text-secondary">Completion</span>
+          <span class="text-sm font-600" style="color:var(--color-accent)">5 / 7 sections</span>
+        </div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:71%"></div></div>
+      </div>
+      <div class="module-card-footer">
+        <div style="font-size:11px; color:var(--color-text-tertiary)">Updated 2 hours ago</div>
+        <a href="mdd-editor.html" class="btn btn-primary btn-sm">Continue →</a>
+      </div>
+    </div>
+
+    <!-- Module 2 -->
+    <div class="card card-hover module-card">
+      <div class="module-card-header">
+        <div>
+          <div class="module-card-code">ICT2210 · WEB</div>
+          <div class="module-card-title">Advanced Web Development</div>
+          <div class="module-card-badges">
+            <span class="badge badge-level">L2</span>
+            <span class="badge badge-school">SIDM</span>
+            <span class="badge badge-cu">4 CU</span>
+            <span class="badge badge-draft">Draft</span>
+          </div>
+        </div>
+        <div class="module-card-more">⋯</div>
+      </div>
+      <div class="module-card-progress">
+        <div class="progress-label">
+          <span class="text-sm text-secondary">Completion</span>
+          <span class="text-sm font-600" style="color:var(--color-warning)">3 / 7 sections</span>
+        </div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:43%; background:var(--color-warning)"></div></div>
+      </div>
+      <div class="module-card-footer">
+        <div style="font-size:11px; color:var(--color-text-tertiary)">Updated yesterday</div>
+        <a href="section-synopsis.html" class="btn btn-primary btn-sm">Continue →</a>
+      </div>
+    </div>
+
+    <!-- Module 3 — Submitted -->
+    <div class="card module-card" style="opacity:0.8;">
+      <div class="module-card-header">
+        <div>
+          <div class="module-card-code">ICT3301 · SEC</div>
+          <div class="module-card-title">Cybersecurity Fundamentals</div>
+          <div class="module-card-badges">
+            <span class="badge badge-level" style="background:var(--color-ai-light);color:var(--color-ai-glow)">L3</span>
+            <span class="badge badge-school">SIDM</span>
+            <span class="badge badge-cu">3 CU</span>
+            <span class="badge badge-submitted">Submitted</span>
+          </div>
+        </div>
+        <div class="module-card-more">⋯</div>
+      </div>
+      <div class="module-card-progress">
+        <div class="progress-label">
+          <span class="text-sm text-secondary">Completion</span>
+          <span class="text-sm font-600" style="color:var(--color-success)">7 / 7 sections</span>
+        </div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:100%; background:var(--color-success)"></div></div>
+      </div>
+      <div class="module-card-footer">
+        <div style="font-size:11px; color:var(--color-text-tertiary)">Submitted 3 days ago</div>
+        <button class="btn btn-secondary btn-sm">View →</button>
+      </div>
+    </div>
+
+    <!-- Module 4 — New / empty -->
+    <div class="card card-hover module-card" style="border-style:dashed; cursor:pointer;" id="new-from-card">
+      <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:var(--space-8) var(--space-4); gap:var(--space-3);">
+        <div style="font-size:32px; opacity:0.3;">+</div>
+        <div style="font-size:14px; font-weight:600; color:var(--color-text-secondary);">Start New MDD</div>
+        <div style="font-size:12px; color:var(--color-text-tertiary);">Create a new module design document with AI assistance</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- AI Feature Banner -->
+  <div class="ai-banner">
+    <div class="ai-banner-text">
+      <h3>✦ Chat your module into existence</h3>
+      <p>Have a 5-minute conversation with the AI. It will ask the right questions — module aim, cohort, NPGC focus, assessment shape — and produce a complete draft MDD anchored on the NP Assessment Framework, ready to refine in the editor.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:var(--space-2); flex-shrink:0;">
+      <a href="chat-onboarding.html" class="btn btn-ai" style="text-decoration:none; text-align:center; justify-content:center;">Chat to Create →</a>
+      <button class="btn btn-ghost btn-sm" id="new-mdd-btn-3" style="text-align:center;">Or use the form wizard</button>
+    </div>
+  </div>
+
+  <!-- School-wide Activity (read-only info) -->
+  <div style="margin-top:var(--space-8);">
+    <div class="section-label-row">
+      <div class="section-label-title">School Activity — SIDM AY25/26 Sem 1</div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--space-4);">
+      <div class="card">
+        <div class="text-xs text-tertiary uppercase-label mb-2">Modules with MDD</div>
+        <div style="font-size:22px; font-weight:700; color:var(--color-text-primary)">24 <span style="font-size:14px; color:var(--color-text-tertiary); font-weight:400">/ 31</span></div>
+        <div class="progress-bar-track mt-2"><div class="progress-bar-fill" style="width:77%"></div></div>
+        <div class="text-xs text-secondary mt-2">77% complete</div>
+      </div>
+      <div class="card">
+        <div class="text-xs text-tertiary uppercase-label mb-2">Avg Sections Filled</div>
+        <div style="font-size:22px; font-weight:700; color:var(--color-text-primary)">5.2 <span style="font-size:14px; color:var(--color-text-tertiary); font-weight:400">/ 7</span></div>
+        <div class="text-xs text-secondary mt-2">⚑ Most skipped: Service-Learning</div>
+      </div>
+      <div class="card">
+        <div class="text-xs text-tertiary uppercase-label mb-2">AI Assistance Used</div>
+        <div style="font-size:22px; font-weight:700; color:var(--color-ai-glow)">16</div>
+        <div class="text-xs text-secondary mt-2">MLs using AI drafts this term</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ======================================================
+     New MDD Wizard Modal
+     ====================================================== -->
+<div class="modal-overlay hidden" id="new-mdd-modal">
+  <div class="modal">
+    <div class="modal-header" style="display:flex; align-items:start; justify-content:space-between;">
+      <div>
+        <div class="modal-title">Start a New Module Design Document</div>
+        <div class="modal-subtitle">Fill in the basics and let AI help you draft the rest.</div>
+      </div>
+      <button class="btn btn-ghost btn-sm modal-close" style="font-size:18px; padding:4px 8px;">×</button>
+    </div>
+    <div class="modal-body">
+      <!-- Wizard Steps -->
+      <div class="wizard-steps">
+        <div class="wizard-step active">
+          <div class="wizard-step-dot">1</div>
+          <div class="wizard-step-label">Module Info</div>
+        </div>
+        <div class="wizard-connector"></div>
+        <div class="wizard-step">
+          <div class="wizard-step-dot">2</div>
+          <div class="wizard-step-label">Programme</div>
+        </div>
+        <div class="wizard-connector"></div>
+        <div class="wizard-step">
+          <div class="wizard-step-dot">3</div>
+          <div class="wizard-step-label">AI Kick-off</div>
+        </div>
+        <div class="wizard-connector"></div>
+        <div class="wizard-step">
+          <div class="wizard-step-dot">4</div>
+          <div class="wizard-step-label">Confirm</div>
+        </div>
+      </div>
+
+      <!-- Step 1: Module Info -->
+      <div class="wizard-pane active" id="step-1">
+        <div style="display:flex; flex-direction:column; gap:var(--space-5);">
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label class="form-label">Module Title <span class="required">*</span></label>
+              <input class="input" type="text" placeholder="e.g. Data Structures & Algorithms" value="">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Catalogue Number <span class="required">*</span></label>
+              <input class="input" type="text" placeholder="e.g. ICT1234" value="">
+            </div>
+          </div>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label class="form-label">Module Level</label>
+              <select class="select">
+                <option>L1 — Foundation</option>
+                <option selected>L2 — Intermediate</option>
+                <option>L3 — Advanced</option>
+                <option>L4 — Specialist</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Credit Units (CU)</label>
+              <div class="number-stepper">
+                <button class="stepper-btn">−</button>
+                <input class="stepper-input" value="4" type="number" min="1" max="8">
+                <button class="stepper-btn">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label class="form-label">Contact Hours / Week</label>
+              <div class="number-stepper">
+                <button class="stepper-btn">−</button>
+                <input class="stepper-input" value="3" type="number" min="1" max="10">
+                <button class="stepper-btn">+</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Cohort Size (est.)</label>
+              <div class="number-stepper">
+                <button class="stepper-btn">−</button>
+                <input class="stepper-input" value="30" type="number" min="5">
+                <button class="stepper-btn">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Prerequisites (leave blank if none)</label>
+            <input class="input" type="text" placeholder="e.g. ICT1101 Programming Fundamentals">
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Programme -->
+      <div class="wizard-pane" id="step-2">
+        <div style="display:flex; flex-direction:column; gap:var(--space-5);">
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label class="form-label">School <span class="required">*</span></label>
+              <select class="select">
+                <option>School of Design &amp; Environment (SDE)</option>
+                <option>School of Business &amp; Accountancy (SBA)</option>
+                <option>School of Engineering (SE)</option>
+                <option>School of Film &amp; Media Studies (SFMS)</option>
+                <option>School of Health Sciences (SHS)</option>
+                <option>School of Humanities &amp; Social Sciences (SHSS)</option>
+                <option>School of ICT (SICT)</option>
+                <option selected>School of Infocomm Technology (SIDM)</option>
+                <option>School of Life Sciences &amp; Chemical Technology (LSCT)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Module Leader Name</label>
+              <input class="input" type="text" value="Lim Mei Ling">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Diploma / Programme</label>
+            <input class="input" type="text" placeholder="e.g. Diploma in Information Technology" value="Diploma in Information Technology">
+          </div>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label class="form-label">Academic Year &amp; Semester</label>
+              <select class="select">
+                <option selected>AY2025/2026 Semester 1</option>
+                <option>AY2025/2026 Semester 2</option>
+                <option>AY2026/2027 Semester 1</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Exam Status</label>
+              <select class="select">
+                <option selected>Non-examination (CA only)</option>
+                <option>With final examination</option>
+                <option>With common test only</option>
+              </select>
+            </div>
+          </div>
+          <div class="callout">
+            💡 <strong>Tip:</strong> Module ID, Catalogue Number, and NPAL data will be auto-populated from the school system once your module is created.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: AI Kick-off -->
+      <div class="wizard-pane" id="step-3">
+        <div style="margin-bottom:var(--space-4);">
+          <div class="text-md font-600 mb-2">Let AI give you a head start ✦</div>
+          <div class="text-base text-secondary">Choose which sections you'd like AI to draft for you. You can always edit or regenerate any section later.</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:var(--space-3);">
+          <label style="display:flex; align-items:center; gap:var(--space-3); padding:var(--space-3) var(--space-4); background:var(--color-ai-light); border-radius:var(--radius-md); cursor:pointer; border:1px solid rgba(155,114,207,0.2);">
+            <input type="checkbox" checked style="width:16px; height:16px; accent-color:var(--color-ai-glow);">
+            <div>
+              <div class="text-base font-600">Module Synopsis</div>
+              <div class="text-sm text-secondary">AI will write a draft synopsis based on your module title and level.</div>
+            </div>
+          </label>
+          <label style="display:flex; align-items:center; gap:var(--space-3); padding:var(--space-3) var(--space-4); background:var(--color-ai-light); border-radius:var(--radius-md); cursor:pointer; border:1px solid rgba(155,114,207,0.2);">
+            <input type="checkbox" checked style="width:16px; height:16px; accent-color:var(--color-ai-glow);">
+            <div>
+              <div class="text-base font-600">Learning Outcomes (MOs)</div>
+              <div class="text-sm text-secondary">AI will suggest 6–8 module outcomes aligned to your module synopsis.</div>
+            </div>
+          </label>
+          <label style="display:flex; align-items:center; gap:var(--space-3); padding:var(--space-3) var(--space-4); background:var(--color-surface); border-radius:var(--radius-md); cursor:pointer; border:1px solid var(--color-border);">
+            <input type="checkbox" style="width:16px; height:16px; accent-color:var(--color-ai-glow);">
+            <div>
+              <div class="text-base font-600">Weekly Topic Schedule</div>
+              <div class="text-sm text-secondary">AI will generate a 17-week topic breakdown based on your outcomes.</div>
+            </div>
+          </label>
+          <label style="display:flex; align-items:center; gap:var(--space-3); padding:var(--space-3) var(--space-4); background:var(--color-surface); border-radius:var(--radius-md); cursor:pointer; border:1px solid var(--color-border);">
+            <input type="checkbox" style="width:16px; height:16px; accent-color:var(--color-ai-glow);">
+            <div>
+              <div class="text-base font-600">Teaching &amp; Learning Strategy</div>
+              <div class="text-sm text-secondary">AI will suggest suitable pedagogical approaches for your module type.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Step 4: Confirm -->
+      <div class="wizard-pane" id="step-4">
+        <div class="text-md font-600 mb-4">Review your module details</div>
+        <div class="wizard-preview-box">
+          <div class="wizard-preview-row"><span class="key">Module Title</span><span class="val">Data Structures &amp; Algorithms</span></div>
+          <div class="wizard-preview-row"><span class="key">Catalogue No.</span><span class="val">ICT1234</span></div>
+          <div class="wizard-preview-row"><span class="key">Level</span><span class="val">L2 — Intermediate</span></div>
+          <div class="wizard-preview-row"><span class="key">Credit Units</span><span class="val">4 CU</span></div>
+          <div class="wizard-preview-row"><span class="key">Contact Hours</span><span class="val">3 hrs / week</span></div>
+          <div class="wizard-preview-row"><span class="key">School</span><span class="val">SIDM</span></div>
+          <div class="wizard-preview-row"><span class="key">Module Leader</span><span class="val">Lim Mei Ling</span></div>
+          <div class="wizard-preview-row"><span class="key">Term</span><span class="val">AY2025/2026 Sem 1</span></div>
+          <div class="wizard-preview-row"><span class="key">AI to draft</span><span class="val" style="color:var(--color-ai-glow); font-family:inherit; font-size:13px;">Synopsis, Learning Outcomes</span></div>
+        </div>
+        <div class="alert-card info mt-4">
+          <span class="alert-icon">✦</span>
+          <div class="alert-content">
+            <div class="alert-title">AI drafting will begin when you open the editor</div>
+            <div class="alert-desc">Your synopsis and learning outcomes will be AI-generated as a starting point. Review and edit before finalising.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost wizard-prev" style="visibility:hidden;">← Back</button>
+      <button class="btn btn-primary wizard-next">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initWizard, initSteppers } from './ai-assistant.js';
+  initWizard('new-mdd-modal', 'new-mdd-btn');
+  initSteppers();
+
+  // Additional open buttons
+  document.getElementById('new-mdd-btn-2')?.addEventListener('click', () => {
+    document.getElementById('new-mdd-modal').classList.remove('hidden');
+  });
+  document.getElementById('new-mdd-btn-3')?.addEventListener('click', () => {
+    document.getElementById('new-mdd-modal').classList.remove('hidden');
+  });
+  document.getElementById('new-from-card')?.addEventListener('click', () => {
+    document.getElementById('new-mdd-modal').classList.remove('hidden');
+  });
+
+  // Filter tabs
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

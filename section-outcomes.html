@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Outcomes — ICT1234 | CurrCraft</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .mo-table { width: 100%; border-collapse: collapse; }
+    .mo-table th {
+      padding: 10px 12px; text-align: left; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-secondary);
+      background: var(--color-surface); border-bottom: 2px solid var(--color-border);
+      white-space: nowrap;
+    }
+    .mo-table td { padding: 8px 10px; border-bottom: 1px solid var(--color-border); vertical-align: middle; }
+    .mo-table tr:last-child td { border-bottom: none; }
+    .mo-table tr:hover td { background: rgba(247,247,245,0.6); }
+    .mo-id-cell { width: 52px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--color-accent); }
+    .mo-text-cell { min-width: 280px; }
+    .mo-text-input {
+      width: 100%; border: 1px solid transparent; background: transparent;
+      padding: 5px 7px; border-radius: var(--radius-sm); font-size: 13px;
+      font-family: inherit; color: var(--color-text-primary); line-height: 1.5; resize: none;
+      transition: all var(--transition-fast);
+    }
+    .mo-text-input:hover { background: var(--color-surface); border-color: var(--color-border); }
+    .mo-text-input:focus { outline: none; background: white; border-color: var(--color-accent); box-shadow: 0 0 0 2px rgba(35,131,226,0.1); }
+    .co-cell { width: 80px; }
+    .npgc-cell { width: 38px; text-align: center; padding: 8px 4px !important; }
+    .npgc-cb { width: 16px; height: 16px; accent-color: var(--color-accent); cursor: pointer; }
+    .npgc-col-h {
+      width: 38px; text-align: center; padding: 8px 4px !important;
+      font-size: 11px; font-weight: 700;
+    }
+    .npgc-col-h span {
+      display: inline-block; width: 24px; height: 24px; border-radius: 50%;
+      font-size: 10px; font-weight: 700; line-height: 24px; text-align: center;
+    }
+    .drag-handle { cursor: grab; color: var(--color-text-tertiary); font-size: 14px; width: 20px; text-align: center; opacity: 0; transition: opacity var(--transition-fast); }
+    tr:hover .drag-handle { opacity: 1; }
+    .delete-row { width: 24px; height: 24px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--color-text-tertiary); cursor: pointer; transition: all var(--transition-fast); opacity: 0; font-size: 14px; }
+    tr:hover .delete-row { opacity: 1; }
+    .delete-row:hover { background: var(--color-danger-light); color: var(--color-danger); }
+    .npgc-coverage-bar { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+    .npgc-pill {
+      display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px;
+      border-radius: var(--radius-full); font-size: 12px; font-weight: 600;
+    }
+    .npgc-pill.covered { background: var(--color-success-light); color: var(--color-success); }
+    .npgc-pill.uncovered { background: var(--color-danger-light); color: var(--color-danger); }
+    .npgc-pill.weak { background: var(--color-warning-light); color: var(--color-warning); }
+    .co-table { width: 100%; border-collapse: collapse; }
+    .co-table th { padding: 10px 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-secondary); background: var(--color-surface); border-bottom: 1px solid var(--color-border); }
+    .co-table td { padding: 9px 12px; border-bottom: 1px solid var(--color-border); font-size: 13px; }
+    .co-table tr:last-child td { border-bottom: none; }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar-logo" style="text-decoration:none;"><div class="topbar-logo-icon">C</div>CurrCraft</a>
+  <div class="topbar-divider"></div>
+  <span class="topbar-module-title">ICT1234 — Data Structures &amp; Algorithms</span>
+  <div class="topbar-actions">
+    <span class="topbar-status-badge">Draft</span>
+    <button class="btn btn-secondary btn-sm" id="save-draft-btn">💾 Save Draft</button>
+    <a href="review-export.html" class="btn btn-primary btn-sm" style="text-decoration:none;">Preview MDD →</a>
+    <div class="topbar-avatar">ML</div>
+  </div>
+</header>
+
+<div class="app-shell" style="grid-template-rows:unset;">
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-back">← Dashboard</a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-module-info">
+      <div class="sidebar-module-code">ICT1234 · ELE</div>
+      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-meta">L2 · SIDM · 4 CU</div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Sections</div>
+    <a href="mdd-editor.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">🗂</span>Module Overview<span class="sidebar-status-icon done">✓</span></a>
+    <a href="section-synopsis.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">📝</span>Synopsis &amp; Skills<span class="sidebar-status-icon done">✓</span></a>
+    <a href="section-outcomes.html" class="sidebar-nav-item active"><span class="sidebar-nav-icon">🎯</span>Learning Outcomes<span class="sidebar-status-icon active">◉</span></a>
+    <a href="section-schedule.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">📅</span>Topics &amp; Schedule<span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span></a>
+    <a href="section-tls.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">🧑‍🏫</span>T&amp;L Strategies<span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span></a>
+    <a href="section-assessment.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">📊</span>Assessment<span class="sidebar-status-icon warn">⚠</span></a>
+    <a href="section-service.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">🤝</span>Service-Learning<span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span></a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Cross-cutting checks</div>
+    <a href="section-comms-alignment.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">🎤</span>Comms Alignment<span class="sidebar-status-icon warn">⚠</span></a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-footer">
+      <div>
+        <div class="progress-label"><span>Completion</span><span class="font-600" style="color:var(--color-accent)">3 / 7</span></div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:43%"></div></div>
+      </div>
+      <button class="btn btn-secondary btn-sm w-full" style="justify-content:center;">🤖 AI Check</button>
+      <a href="review-export.html" class="btn btn-ai btn-sm w-full" style="justify-content:center;text-decoration:none;text-align:center;">👁 Preview &amp; Export</a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="content-inner">
+      <div class="breadcrumb">
+        <a href="index.html">Dashboard</a><span class="breadcrumb-sep">/</span>
+        <a href="mdd-editor.html">ICT1234</a><span class="breadcrumb-sep">/</span>
+        <span>Learning Outcomes</span>
+      </div>
+
+      <div class="section-header">
+        <div class="section-header-left">
+          <div class="section-number">Sections 3 – 5</div>
+          <div class="section-title">Learning Outcomes</div>
+          <div class="section-description">Define Module Outcomes (MOs), map them to Course Outcomes (COs), and align to the 5 National Polytechnic Graduate Competencies (NPGCs).</div>
+        </div>
+        <div class="section-header-actions">
+          <button class="btn-draft-ai" id="generate-mos-btn"><span class="sparkle">✦</span> Suggest MOs from Synopsis</button>
+        </div>
+      </div>
+
+      <!-- NPGC Coverage Meter (7 Graduate Competencies) -->
+      <div class="npgc-meter" id="npgc-summary-card">
+        <div class="npgc-meter-header">
+          <div class="npgc-meter-title">
+            <span class="ai-icon">✦</span> NPGC Coverage — 7 Graduate Competencies
+          </div>
+          <span class="npgc-meter-sub">Updates live as you tick MO checkboxes</span>
+        </div>
+        <div class="npgc-meter-grid">
+          <div class="npgc-meter-cell">
+            <span class="npgc-num" style="background:var(--color-npgc-1);">1</span>
+            <span class="npgc-name">Domain &amp; Interdisciplinary</span>
+            <div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:80%; background:var(--color-npgc-1);"></div></div>
+            <span class="npgc-count">4 MOs</span>
+            <span class="npgc-tooltip">Apply domain knowledge · interdisciplinary connections</span>
+          </div>
+          <div class="npgc-meter-cell">
+            <span class="npgc-num" style="background:var(--color-npgc-2);">2</span>
+            <span class="npgc-name">Critical Thinking</span>
+            <div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:80%; background:var(--color-npgc-2);"></div></div>
+            <span class="npgc-count">4 MOs</span>
+            <span class="npgc-tooltip">Analyse · evaluate · solve complex problems</span>
+          </div>
+          <div class="npgc-meter-cell warn">
+            <span class="npgc-num" style="background:var(--color-npgc-3);">3</span>
+            <span class="npgc-name">Innovation &amp; Entrepreneurial</span>
+            <div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:20%; background:var(--color-npgc-3);"></div></div>
+            <span class="npgc-count">1 MO</span>
+            <span class="npgc-tooltip">Generate ideas · take initiative · entrepreneurial mindset</span>
+          </div>
+          <div class="npgc-meter-cell">
+            <span class="npgc-num" style="background:var(--color-npgc-4);">4</span>
+            <span class="npgc-name">Digital Competence</span>
+            <div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:20%; background:var(--color-npgc-4);"></div></div>
+            <span class="npgc-count">1 MO</span>
+            <span class="npgc-tooltip">Use digital tools · evaluate AI outputs · data literacy</span>
+          </div>
+          <div class="npgc-meter-cell warn">
+            <span class="npgc-num" style="background:var(--color-npgc-5);">5</span>
+            <span class="npgc-name">Self-Development</span>
+            <div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:20%; background:var(--color-npgc-5);"></div></div>
+            <span class="npgc-count">1 MO</span>
+            <span class="npgc-tooltip">Reflect · adapt · lifelong learning</span>
+          </div>
+          <div class="npgc-meter-cell warn">
+            <span class="npgc-num" style="background:var(--color-npgc-6);">6</span>
+            <span class="npgc-name">Collaboration</span>
+            <div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:20%; background:var(--color-npgc-6);"></div></div>
+            <span class="npgc-count">1 MO</span>
+            <span class="npgc-tooltip">Teamwork · cross-cultural sensitivity</span>
+          </div>
+          <div class="npgc-meter-cell warn">
+            <span class="npgc-num" style="background:var(--color-npgc-7);">7</span>
+            <span class="npgc-name">Communication</span>
+            <div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:20%; background:var(--color-npgc-7);"></div></div>
+            <span class="npgc-count">1 MO</span>
+            <span class="npgc-tooltip">Convey ideas clearly · adapt to audience</span>
+          </div>
+        </div>
+        <div id="npgc-warnings"></div>
+        <div style="margin-top:var(--space-3); padding-top:var(--space-3); border-top:1px dashed var(--color-border); display:flex; align-items:center; justify-content:space-between; gap:var(--space-3); flex-wrap:wrap;">
+          <div style="font-size:11px; color:var(--color-text-secondary);">
+            ⚠ NPGCs 3, 5, 6, 7 are under-represented. The framework recommends ≥ 2 MOs per competency you've chosen to anchor.
+          </div>
+          <button class="btn btn-ai btn-sm" id="ai-rebalance-btn"><span class="sparkle">✦</span> Suggest rebalance</button>
+        </div>
+      </div>
+
+      <!-- MO Table -->
+      <div class="form-section">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-4);">
+          <div class="form-sub-title" style="margin:0;">
+            <div class="form-sub-title-number">3</div>
+            Module Outcomes (MOs)
+          </div>
+          <div style="display:flex; gap:var(--space-2);">
+            <button class="btn btn-secondary btn-sm" id="add-mo-btn">+ Add Outcome</button>
+          </div>
+        </div>
+
+        <div class="callout mb-4">
+          💡 Write outcomes using <strong>Bloom's Taxonomy</strong> action verbs (e.g., <em>explain, implement, analyse, design, evaluate</em>). Aim for 5–8 MOs. Check at least one NPGC per outcome row.
+        </div>
+
+        <div class="table-wrapper">
+          <table class="mo-table" id="mo-table">
+            <thead>
+              <tr>
+                <th style="width:20px;"></th>
+                <th class="mo-id-cell">MO #</th>
+                <th class="mo-text-cell">Outcome Statement <span style="color:var(--color-danger)">*</span></th>
+                <th class="co-cell">CO</th>
+                <th class="npgc-col-h"><span style="background:rgba(35,131,226,0.15);color:var(--color-accent);">1</span></th>
+                <th class="npgc-col-h"><span style="background:rgba(15,123,108,0.15);color:var(--color-success);">2</span></th>
+                <th class="npgc-col-h"><span style="background:rgba(203,145,47,0.15);color:var(--color-warning);">3</span></th>
+                <th class="npgc-col-h"><span style="background:rgba(155,114,207,0.15);color:var(--color-ai-glow);">4</span></th>
+                <th class="npgc-col-h"><span style="background:rgba(224,62,62,0.15);color:var(--color-danger);">5</span></th>
+                <th style="width:32px;"></th>
+              </tr>
+            </thead>
+            <tbody id="mo-tbody">
+              <tr class="row-appear">
+                <td><span class="drag-handle">⠿</span></td>
+                <td class="mo-id-cell">MO1</td>
+                <td><textarea class="mo-text-input" rows="2">Explain and compare the properties, operations, and use cases of fundamental data structures including arrays, linked lists, stacks, queues, trees, and graphs.</textarea></td>
+                <td><select class="select" style="font-size:12px;padding:5px 8px;"><option>CO1</option><option>CO2</option><option>CO3</option></select></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="1" checked></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="2" checked></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="3"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="4"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="5"></td>
+                <td><div class="delete-row" onclick="deleteRow(this)">×</div></td>
+              </tr>
+              <tr class="row-appear">
+                <td><span class="drag-handle">⠿</span></td>
+                <td class="mo-id-cell">MO2</td>
+                <td><textarea class="mo-text-input" rows="2">Implement data structures and algorithms in Python, demonstrating correct logic, code organisation, and adherence to coding standards.</textarea></td>
+                <td><select class="select" style="font-size:12px;padding:5px 8px;"><option>CO1</option><option selected>CO2</option><option>CO3</option></select></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="1" checked></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="2"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="3"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="4"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="5"></td>
+                <td><div class="delete-row" onclick="deleteRow(this)">×</div></td>
+              </tr>
+              <tr class="row-appear">
+                <td><span class="drag-handle">⠿</span></td>
+                <td class="mo-id-cell">MO3</td>
+                <td><textarea class="mo-text-input" rows="2">Apply searching and sorting algorithms to structured datasets, justifying the choice of algorithm based on efficiency and context.</textarea></td>
+                <td><select class="select" style="font-size:12px;padding:5px 8px;"><option>CO1</option><option selected>CO2</option><option>CO3</option></select></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="1" checked></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="2" checked></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="3"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="4"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="5"></td>
+                <td><div class="delete-row" onclick="deleteRow(this)">×</div></td>
+              </tr>
+              <tr class="row-appear">
+                <td><span class="drag-handle">⠿</span></td>
+                <td class="mo-id-cell">MO4</td>
+                <td><textarea class="mo-text-input" rows="2">Analyse the time and space complexity of algorithms using Big-O notation and evaluate algorithmic trade-offs.</textarea></td>
+                <td><select class="select" style="font-size:12px;padding:5px 8px;"><option>CO1</option><option selected>CO2</option><option>CO3</option></select></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="1"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="2" checked></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="3"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="4"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="5"></td>
+                <td><div class="delete-row" onclick="deleteRow(this)">×</div></td>
+              </tr>
+              <tr class="row-appear">
+                <td><span class="drag-handle">⠿</span></td>
+                <td class="mo-id-cell">MO5</td>
+                <td><textarea class="mo-text-input" rows="2">Design and implement solutions to computational problems by selecting and applying appropriate data structures and algorithms.</textarea></td>
+                <td><select class="select" style="font-size:12px;padding:5px 8px;"><option>CO1</option><option>CO2</option><option selected>CO3</option></select></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="1" checked></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="2" checked></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="3"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="4"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="5"></td>
+                <td><div class="delete-row" onclick="deleteRow(this)">×</div></td>
+              </tr>
+              <tr class="row-appear">
+                <td><span class="drag-handle">⠿</span></td>
+                <td class="mo-id-cell">MO6</td>
+                <td><textarea class="mo-text-input" rows="2">Collaborate effectively with peers to design, implement, and present software solutions, demonstrating teamwork and communication skills.</textarea></td>
+                <td><select class="select" style="font-size:12px;padding:5px 8px;"><option>CO1</option><option>CO2</option><option selected>CO3</option></select></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="1"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="2"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="3" checked></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="4" checked></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="5"></td>
+                <td><div class="delete-row" onclick="deleteRow(this)">×</div></td>
+              </tr>
+              <tr class="row-appear">
+                <td><span class="drag-handle">⠿</span></td>
+                <td class="mo-id-cell">MO7</td>
+                <td><textarea class="mo-text-input" rows="2">Evaluate and critique code implementations for correctness, efficiency, and maintainability, applying peer review practices.</textarea></td>
+                <td><select class="select" style="font-size:12px;padding:5px 8px;"><option>CO1</option><option selected>CO2</option><option>CO3</option></select></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="1"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="2" checked></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="3"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="4"></td>
+                <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="5" checked></td>
+                <td><div class="delete-row" onclick="deleteRow(this)">×</div></td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="add-row-btn" id="add-mo-btn-2">
+            <span style="font-size:16px; line-height:1;">+</span> Add Module Outcome
+          </button>
+        </div>
+
+        <!-- NPGC Legend -->
+        <div style="display:flex; gap:var(--space-4); flex-wrap:wrap; margin-top:var(--space-3); padding:var(--space-3); background:var(--color-surface); border-radius:var(--radius-md); font-size:12px; color:var(--color-text-secondary);">
+          <span><strong style="color:var(--color-accent);">NPGC1</strong> Domain Competencies</span>
+          <span><strong style="color:var(--color-success);">NPGC2</strong> Critical Thinking &amp; Problem-Solving</span>
+          <span><strong style="color:var(--color-warning);">NPGC3</strong> Communication</span>
+          <span><strong style="color:var(--color-ai-glow);">NPGC4</strong> Collaboration &amp; Teamwork</span>
+          <span><strong style="color:var(--color-danger);">NPGC5</strong> Lifelong Learning</span>
+        </div>
+
+        <div id="ai-mo-suggestion"></div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- Course Outcomes -->
+      <div class="form-section">
+        <div class="form-sub-title">
+          <div class="form-sub-title-number">4</div>
+          Course Outcomes (COs)
+        </div>
+        <div class="callout mb-4">
+          Course Outcomes describe broader programme-level competencies. MOs above should map to at least one CO. These are typically set at the programme level — confirm with your Course Chair.
+        </div>
+        <div class="table-wrapper">
+          <table class="co-table">
+            <thead>
+              <tr>
+                <th style="width:60px;">CO #</th>
+                <th>Course Outcome Statement</th>
+                <th style="width:120px;">MOs Mapped</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono" style="color:var(--color-success);font-weight:700;">CO1</td>
+                <td>Apply technical knowledge and skills to solve problems in the ICT domain using appropriate tools and methodologies.</td>
+                <td style="font-size:12px; color:var(--color-accent); font-family:var(--font-mono);">MO1, MO2</td>
+              </tr>
+              <tr>
+                <td class="mono" style="color:var(--color-success);font-weight:700;">CO2</td>
+                <td>Demonstrate critical thinking and analytical skills to evaluate, optimise, and justify technical solutions.</td>
+                <td style="font-size:12px; color:var(--color-accent); font-family:var(--font-mono);">MO3, MO4, MO7</td>
+              </tr>
+              <tr>
+                <td class="mono" style="color:var(--color-success);font-weight:700;">CO3</td>
+                <td>Work effectively as an individual and in teams to design and deliver computing solutions in professional contexts.</td>
+                <td style="font-size:12px; color:var(--color-accent); font-family:var(--font-mono);">MO5, MO6</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Nav footer -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding-top:var(--space-6); border-top:1px solid var(--color-border); margin-top:var(--space-6);">
+        <a href="section-synopsis.html" class="btn btn-secondary" style="text-decoration:none;">← Synopsis &amp; Skills</a>
+        <div style="display:flex; gap:var(--space-3);">
+          <button class="btn btn-secondary" id="save-footer">💾 Save</button>
+          <a href="section-schedule.html" class="btn btn-primary" style="text-decoration:none;">Next: Topics &amp; Schedule →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="ai-sidebar" id="ai-sidebar">
+    <div class="ai-sidebar-header">
+      <div class="ai-sidebar-title"><span class="ai-icon">✦</span> AI Assistant</div>
+      <button class="btn btn-ghost btn-sm btn-icon" id="ai-sidebar-close">×</button>
+    </div>
+    <div class="ai-sidebar-body">
+      <div class="ai-suggestion-card ai-purple">
+        <div class="ai-suggestion-header">
+          <span class="sparkle">✦</span>
+          <span class="ai-suggestion-label" style="color:var(--color-ai-glow);">Coverage Notice</span>
+        </div>
+        <div class="ai-suggestion-body">
+          <strong>NPGC3 (Communication)</strong> only has 1 MO mapped. Consider adding an outcome about presenting or reporting technical work — this is a common requirement across all NP programmes.
+        </div>
+        <div class="ai-suggestion-actions">
+          <button class="btn btn-ai btn-sm" id="add-comm-mo">+ Add Communication MO</button>
+          <span class="ai-suggestion-dismiss" onclick="this.closest('.ai-suggestion-card').remove()">Dismiss ×</span>
+        </div>
+      </div>
+      <div id="ai-messages" class="ai-chat-messages">
+        <div class="ai-chat-bubble assistant">
+          I can help you write strong learning outcomes. Try: <em>"Suggest an MO about code documentation"</em> or <em>"How many MOs should a 4 CU module have?"</em>
+        </div>
+      </div>
+    </div>
+    <div class="ai-sidebar-footer">
+      <div class="prompt-chip-strip">
+        <div class="prompt-chip-strip-label">✦ Try a prompt</div>
+        <button class="prompt-chip">Suggest 6 outcomes from my synopsis</button>
+        <button class="prompt-chip">Map outcomes to NPGC</button>
+        <button class="prompt-chip">Rewrite at L2 difficulty</button>
+        <button class="prompt-chip">Add an Apply-level outcome</button>
+      </div>
+      <div class="ai-chat-input-row">
+        <textarea class="ai-chat-input" id="ai-input" placeholder="Ask about learning outcomes…" rows="1"></textarea>
+        <button class="ai-chat-send" id="ai-send">↑</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<button class="ai-fab" id="ai-fab">✦</button>
+
+<script type="module">
+  import { MOCK_DATA, showSuggestion, initAIChat, initSaveDraft, showToast } from './ai-assistant.js';
+  initAIChat();
+  initSaveDraft('save-draft-btn');
+  initSaveDraft('save-footer');
+
+  document.querySelectorAll('.prompt-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const input = document.getElementById('ai-input');
+      if (input) { input.value = chip.textContent.trim(); input.focus(); }
+    });
+  });
+
+  document.getElementById('ai-rebalance-btn')?.addEventListener('click', () => {
+    showToast('✦ AI: drafting rebalanced MO list to lift NPGC 6 & 7…');
+  });
+
+  // Renumber MO IDs
+  function renumberMOs() {
+    document.querySelectorAll('#mo-tbody tr').forEach((row, i) => {
+      const idCell = row.querySelector('.mo-id-cell');
+      if (idCell) idCell.textContent = `MO${i + 1}`;
+    });
+  }
+
+  // Delete row
+  window.deleteRow = function(btn) {
+    btn.closest('tr').remove();
+    renumberMOs();
+    updateNPGCCoverage();
+  };
+
+  // Add new MO row
+  function addMORow(text = '') {
+    const tbody = document.getElementById('mo-tbody');
+    const rowNum = tbody.querySelectorAll('tr').length + 1;
+    const tr = document.createElement('tr');
+    tr.className = 'row-appear';
+    tr.innerHTML = `
+      <td><span class="drag-handle">⠿</span></td>
+      <td class="mo-id-cell">MO${rowNum}</td>
+      <td><textarea class="mo-text-input" rows="2">${text}</textarea></td>
+      <td><select class="select" style="font-size:12px;padding:5px 8px;"><option>CO1</option><option>CO2</option><option>CO3</option></select></td>
+      <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="1"></td>
+      <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="2"></td>
+      <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="3"></td>
+      <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="4"></td>
+      <td class="npgc-cell"><input type="checkbox" class="npgc-cb" data-npgc="5"></td>
+      <td><div class="delete-row" onclick="deleteRow(this)">×</div></td>
+    `;
+    tbody.appendChild(tr);
+    tr.querySelector('textarea').focus();
+    tbody.closest('.table-wrapper').addEventListener('change', updateNPGCCoverage);
+  }
+
+  document.getElementById('add-mo-btn').addEventListener('click', () => addMORow());
+  document.getElementById('add-mo-btn-2').addEventListener('click', () => addMORow());
+
+  // NPGC coverage update
+  const npgcNames = ['Domain', 'Critical Thinking', 'Communication', 'Collaboration', 'Lifelong Learning'];
+  function updateNPGCCoverage() {
+    const counts = [0, 0, 0, 0, 0];
+    document.querySelectorAll('.npgc-cb:checked').forEach(cb => {
+      const idx = parseInt(cb.dataset.npgc) - 1;
+      if (idx >= 0) counts[idx]++;
+    });
+    const pills = document.getElementById('npgc-pills');
+    pills.innerHTML = counts.map((c, i) => {
+      const cls = c === 0 ? 'uncovered' : c === 1 ? 'weak' : 'covered';
+      const icon = c === 0 ? '✗' : c === 1 ? '⚠' : '✓';
+      return `<span class="npgc-pill ${cls}">NPGC${i+1} ${icon} ${npgcNames[i]}</span>`;
+    }).join('');
+  }
+  document.getElementById('mo-table').addEventListener('change', updateNPGCCoverage);
+
+  // AI generate MOs
+  document.getElementById('generate-mos-btn').addEventListener('click', () => {
+    const tbody = document.getElementById('mo-tbody');
+    const existing = tbody.querySelectorAll('tr').length;
+    if (existing > 0) {
+      const area = document.getElementById('ai-mo-suggestion');
+      area.innerHTML = '';
+      showSuggestion(area, {
+        label: '✦ AI Suggestion',
+        body: `I've drafted 7 module outcomes based on your Data Structures & Algorithms synopsis. Click <strong>Accept</strong> to replace your current outcomes, or <strong>Edit first</strong> to review before applying.`,
+        variant: 'blue',
+        onAccept: () => {
+          tbody.innerHTML = '';
+          MOCK_DATA.outcomes.ICT1234.forEach((mo, i) => {
+            setTimeout(() => {
+              addMORow(mo.text);
+              renumberMOs();
+            }, i * 120);
+          });
+          area.innerHTML = '';
+          showToast('✓ AI outcomes accepted — review and edit as needed');
+        },
+        onEdit: true
+      });
+    } else {
+      MOCK_DATA.outcomes.ICT1234.forEach((mo, i) => {
+        setTimeout(() => { addMORow(mo.text); renumberMOs(); }, i * 120);
+      });
+    }
+  });
+
+  // Add Communication MO from sidebar suggestion
+  document.getElementById('add-comm-mo')?.addEventListener('click', () => {
+    addMORow('Present technical solutions clearly and concisely in written reports and oral presentations, adapting communication style to different audiences.');
+    renumberMOs();
+    showToast('✓ Communication MO added');
+    document.querySelector('.ai-suggestion-card.ai-purple')?.remove();
+  });
+</script>
+</body>
+</html>

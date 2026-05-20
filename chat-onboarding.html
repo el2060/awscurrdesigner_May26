@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat to Create — CurrCraft</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Topbar -->
+<header class="topbar">
+  <a href="index.html" class="topbar-logo" style="text-decoration:none;">
+    <div class="topbar-logo-icon">C</div>
+    CurrCraft
+  </a>
+  <div class="topbar-divider"></div>
+  <span class="topbar-module-title" style="cursor:default;">
+    ✦ Chat to Create &nbsp;<span style="color:var(--color-text-tertiary); font-weight:400;">— new module</span>
+  </span>
+  <div class="topbar-actions">
+    <a href="index.html" class="btn btn-ghost btn-sm">← Back to Dashboard</a>
+    <button class="btn btn-secondary btn-sm">Switch to Form Wizard</button>
+    <div class="topbar-avatar" title="Lim Mei Ling">ML</div>
+  </div>
+</header>
+
+<div class="chat-shell">
+
+  <!-- Progress strip -->
+  <div class="chat-progress-strip">
+    <div class="chat-progress-label">Drafting MDD</div>
+    <div class="chat-progress-steps">
+      <span class="chat-progress-step done"><span class="dot"></span> Basics</span>
+      <span class="chat-progress-arrow">›</span>
+      <span class="chat-progress-step active"><span class="dot"></span> NPGC Focus</span>
+      <span class="chat-progress-arrow">›</span>
+      <span class="chat-progress-step"><span class="dot"></span> Assessment</span>
+      <span class="chat-progress-arrow">›</span>
+      <span class="chat-progress-step"><span class="dot"></span> Constraints</span>
+      <span class="chat-progress-arrow">›</span>
+      <span class="chat-progress-step"><span class="dot"></span> Generate Draft</span>
+    </div>
+    <div class="chat-progress-percent">4 of 7 questions answered</div>
+  </div>
+
+  <!-- Main chat column -->
+  <main class="chat-main">
+    <div class="chat-transcript" id="chat-transcript">
+
+      <!-- Assistant intro -->
+      <div class="chat-msg">
+        <div class="chat-avatar assistant">✦</div>
+        <div class="chat-bubble assistant">
+          Hi Mei Ling 👋 &nbsp;Let's draft a new module together. I'll ask a few quick questions, then auto-generate a starter MDD — synopsis, outcomes, schedule, and assessment plan — that you can refine in the editor.<br><br>
+          <strong>What's the module about?</strong> A short working title plus a sentence on what students will mainly learn.
+        </div>
+      </div>
+
+      <!-- User answer 1 -->
+      <div class="chat-msg user">
+        <div class="chat-avatar user">ML</div>
+        <div class="chat-bubble user">
+          Working title: <em>Applied Generative AI for Business</em>. Students will learn to use GenAI tools (LLMs, image gen, agents) to solve real business problems — prompt design, evaluation, and responsible use.
+        </div>
+      </div>
+
+      <!-- Assistant Q2 -->
+      <div class="chat-msg">
+        <div class="chat-avatar assistant">✦</div>
+        <div class="chat-bubble assistant">
+          Great — sounds like a Level 2 or 3 elective. Which <strong>school / diploma</strong> is this for, and what <strong>module level</strong>?
+        </div>
+      </div>
+      <div class="chat-quickreplies">
+        <span class="quickreply-chip">L1 — Foundation</span>
+        <span class="quickreply-chip selected">L2 — Intermediate</span>
+        <span class="quickreply-chip">L3 — Advanced</span>
+        <span class="quickreply-chip">L4 — Specialist</span>
+      </div>
+
+      <!-- User answer 2 -->
+      <div class="chat-msg user">
+        <div class="chat-avatar user">ML</div>
+        <div class="chat-bubble user">
+          SIDM — Diploma in Information Technology. Level 2 elective.
+        </div>
+      </div>
+
+      <!-- Assistant Q3 — inline structured widget -->
+      <div class="chat-msg">
+        <div class="chat-avatar assistant">✦</div>
+        <div class="chat-bubble assistant">
+          Got it. How many <strong>credit units</strong> and <strong>contact hours per week</strong>? (NP norm for L2 electives is 3–4 CU.)
+        </div>
+      </div>
+      <div class="chat-inline-widget">
+        <span class="label">CU</span>
+        <div class="number-stepper">
+          <button class="stepper-btn">−</button>
+          <input class="stepper-input" value="4">
+          <button class="stepper-btn">+</button>
+        </div>
+        <span class="label" style="margin-left:12px;">Contact hrs/week</span>
+        <div class="number-stepper">
+          <button class="stepper-btn">−</button>
+          <input class="stepper-input" value="3">
+          <button class="stepper-btn">+</button>
+        </div>
+        <button class="btn btn-ai btn-sm" style="margin-left:auto;">Confirm →</button>
+      </div>
+
+      <!-- User answer 3 -->
+      <div class="chat-msg user">
+        <div class="chat-avatar user">ML</div>
+        <div class="chat-bubble user">
+          4 CU, 3 hours per week.
+        </div>
+      </div>
+
+      <!-- Assistant Q4 — NPGC chips -->
+      <div class="chat-msg">
+        <div class="chat-avatar assistant">✦</div>
+        <div class="chat-bubble assistant">
+          Now the important part — which <strong>NP Graduate Competencies</strong> should this module most strongly develop? Pick 2–4 that are core; I'll thread them through the outcomes and assessments.
+        </div>
+      </div>
+      <div class="chat-quickreplies">
+        <span class="quickreply-chip selected"><span class="npgc-pill n1" style="margin-right:2px;">1</span> Domain &amp; Interdisciplinary Knowledge</span>
+        <span class="quickreply-chip selected"><span class="npgc-pill n2" style="margin-right:2px;">2</span> Critical Thinking &amp; Problem Solving</span>
+        <span class="quickreply-chip"><span class="npgc-pill n3" style="margin-right:2px;">3</span> Innovation &amp; Entrepreneurial</span>
+        <span class="quickreply-chip selected"><span class="npgc-pill n4" style="margin-right:2px;">4</span> Digital Competence</span>
+        <span class="quickreply-chip"><span class="npgc-pill n5" style="margin-right:2px;">5</span> Self-Development</span>
+        <span class="quickreply-chip"><span class="npgc-pill n6" style="margin-right:2px;">6</span> Collaboration</span>
+        <span class="quickreply-chip selected"><span class="npgc-pill n7" style="margin-right:2px;">7</span> Communication</span>
+      </div>
+
+      <!-- User answer 4 -->
+      <div class="chat-msg user">
+        <div class="chat-avatar user">ML</div>
+        <div class="chat-bubble user">
+          NPGC 1, 2, 4, and 7 — strong on Digital Competence and Communication, since they'll be writing prompts and presenting AI solutions.
+        </div>
+      </div>
+
+      <!-- Assistant Q5 — assessment shape -->
+      <div class="chat-msg">
+        <div class="chat-avatar assistant">✦</div>
+        <div class="chat-bubble assistant">
+          Makes sense. What's the <strong>assessment shape</strong>? Per the NP Assessment Framework, examinable modules need a 40–60% final exam; CA-only modules cap any single component and spread across the semester.
+        </div>
+      </div>
+      <div class="chat-quickreplies">
+        <span class="quickreply-chip selected">CA only — no final exam</span>
+        <span class="quickreply-chip">Examinable (with final exam)</span>
+        <span class="quickreply-chip">With common test only</span>
+      </div>
+
+      <!-- Assistant follow-up still pending -->
+      <div class="chat-msg">
+        <div class="chat-avatar assistant">✦</div>
+        <div class="chat-bubble assistant">
+          A few more — any <strong>constraints</strong> I should know? e.g. cohort size, prerequisites, an industry partner, or required tools.
+        </div>
+      </div>
+      <div class="chat-quickreplies">
+        <span class="quickreply-chip">Cohort ≈ 30</span>
+        <span class="quickreply-chip">Industry partner (AWS)</span>
+        <span class="quickreply-chip">No prerequisites</span>
+        <span class="quickreply-chip">Skip — none</span>
+      </div>
+
+      <!-- "Draft ready" system card (preview of what AI is about to generate) -->
+      <div class="chat-msg">
+        <div class="chat-avatar assistant">✦</div>
+        <div class="chat-bubble system-card">
+          <div class="sys-title">✦ Ready to draft</div>
+          <div class="sys-body">
+            I have enough to generate a starter MDD. Here's what I'll produce — review the preview, then open the editor to refine.
+          </div>
+          <div class="sys-preview">
+            <strong>Module:</strong> ICT2245 · Applied Generative AI for Business · L2 · 4 CU · SIDM · CA-only<br>
+            <strong>Synopsis:</strong> 110-word industry-anchored draft mentioning prompt design, evaluation, and responsible use…<br>
+            <strong>Outcomes:</strong> 6 MOs covering NPGC 1 / 2 / 4 / 7, balanced Apply + Analyse levels<br>
+            <strong>Schedule:</strong> 17-week plan with mid-sem common test (Week 8) + capstone project (Weeks 14–16)<br>
+            <strong>Assessment:</strong> 4-component CA plan — Quizzes 15% · Prompt Portfolio 25% · Group Project 30% · Reflection 30%<br>
+            <strong>Framework checks:</strong> <span class="export-status-pill ok">✓ NPGC 4/7 covered</span> &nbsp; <span class="export-status-pill ok">✓ 4 components</span> &nbsp; <span class="export-status-pill warn">⚠ Group work 30% — at cap</span>
+          </div>
+          <div class="sys-actions">
+            <a href="mdd-editor.html" class="btn btn-primary">✦ Generate &amp; Open Editor →</a>
+            <button class="btn btn-secondary btn-sm">Tweak my answers first</button>
+            <button class="btn btn-ghost btn-sm">Save chat &amp; finish later</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Composer (sticky) -->
+    <div class="chat-composer-wrap">
+      <div class="chat-composer">
+        <textarea class="chat-composer-input" id="chat-input" placeholder="Reply to ✦ AI — or type a constraint…" rows="1"></textarea>
+        <div class="chat-composer-row">
+          <span class="chat-composer-hint">Shift + Enter for newline · ⌘K for shortcuts</span>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <button class="btn btn-ghost btn-sm" title="Attach a document">📎 Attach syllabus</button>
+            <button class="chat-composer-send" id="chat-send">↑</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Right rail: gathered so far -->
+  <aside class="gathered-rail">
+    <div class="gathered-title">✦ Gathered so far</div>
+
+    <div class="gathered-section">
+      <div class="gathered-section-label">Basics</div>
+      <div class="gathered-item done"><span class="check">✓</span> Module title <span class="val">Applied GenAI</span></div>
+      <div class="gathered-item done"><span class="check">✓</span> School <span class="val">SIDM</span></div>
+      <div class="gathered-item done"><span class="check">✓</span> Level <span class="val">L2</span></div>
+      <div class="gathered-item done"><span class="check">✓</span> Credit Units <span class="val">4 CU</span></div>
+      <div class="gathered-item done"><span class="check">✓</span> Contact hrs <span class="val">3/wk</span></div>
+    </div>
+
+    <div class="gathered-section">
+      <div class="gathered-section-label">NPGC Focus</div>
+      <div class="gathered-item done"><span class="check">✓</span> 4 competencies <span class="val">1·2·4·7</span></div>
+    </div>
+
+    <div class="gathered-section">
+      <div class="gathered-section-label">Assessment</div>
+      <div class="gathered-item done"><span class="check">✓</span> Module type <span class="val">CA only</span></div>
+      <div class="gathered-item pending"><span class="check">◌</span> Components <span class="val">pending</span></div>
+    </div>
+
+    <div class="gathered-section">
+      <div class="gathered-section-label">Constraints</div>
+      <div class="gathered-item pending"><span class="check">◌</span> Cohort size <span class="val">—</span></div>
+      <div class="gathered-item pending"><span class="check">◌</span> Prerequisites <span class="val">—</span></div>
+      <div class="gathered-item pending"><span class="check">◌</span> Industry partner <span class="val">—</span></div>
+    </div>
+
+    <div style="margin-top:auto; padding-top:var(--space-4); border-top:1px solid var(--color-border);">
+      <div style="font-size:11px; color:var(--color-text-tertiary); margin-bottom:6px;">Framework anchors</div>
+      <div style="display:flex; flex-wrap:wrap; gap:4px;">
+        <span class="npgc-pill n4">NPGC</span>
+        <span class="npgc-pill n2" style="background:var(--color-surface); color:var(--color-text-secondary); border:1px solid var(--color-border);">NP Assessment</span>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<script type="module">
+  import { initSteppers, initChatOnboarding } from './ai-assistant.js';
+  initSteppers();
+  initChatOnboarding();
+</script>
+</body>
+</html>

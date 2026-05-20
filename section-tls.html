@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T&L Strategies — ICT1234 | CurrCraft</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .ped-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+    .ped-card {
+      border: 2px solid var(--color-border); border-radius: var(--radius-md);
+      padding: var(--space-4); cursor: pointer; transition: all var(--transition-fast);
+      display: flex; flex-direction: column; gap: var(--space-1);
+    }
+    .ped-card:hover { border-color: var(--color-accent); background: var(--color-accent-light); }
+    .ped-card.selected { border-color: var(--color-accent); background: var(--color-accent-light); }
+    .ped-card.selected .ped-check { opacity: 1; }
+    .ped-abbr { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--color-accent); }
+    .ped-name { font-size: 13px; font-weight: 600; color: var(--color-text-primary); }
+    .ped-desc { font-size: 11px; color: var(--color-text-secondary); line-height: 1.4; }
+    .ped-check { font-size: 16px; margin-left: auto; opacity: 0; transition: opacity var(--transition-fast); color: var(--color-accent); align-self: flex-start; }
+    .ped-card.selected .ped-check { opacity: 1; }
+    .ped-header { display: flex; align-items: flex-start; justify-content: space-between; }
+    .hours-visual { display: flex; gap: 3px; align-items: flex-end; height: 40px; }
+    .hours-bar { border-radius: 3px 3px 0 0; transition: height 0.5s ease, background 0.3s ease; min-width: 18px; }
+    .flip-detail { display: none; }
+    .flip-detail.show { display: block; animation: fade-in 200ms ease; }
+    .settings-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border);
+    }
+    .settings-row:last-child { border-bottom: none; }
+    .settings-row-left { display: flex; flex-direction: column; gap: 3px; }
+    .settings-row-title { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
+    .settings-row-desc { font-size: 12px; color: var(--color-text-secondary); max-width: 420px; }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar-logo" style="text-decoration:none;"><div class="topbar-logo-icon">C</div>CurrCraft</a>
+  <div class="topbar-divider"></div>
+  <span class="topbar-module-title">ICT1234 — Data Structures &amp; Algorithms</span>
+  <div class="topbar-actions">
+    <span class="topbar-status-badge">Draft</span>
+    <button class="btn btn-secondary btn-sm" id="save-draft-btn">💾 Save Draft</button>
+    <a href="review-export.html" class="btn btn-primary btn-sm" style="text-decoration:none;">Preview MDD →</a>
+    <div class="topbar-avatar">ML</div>
+  </div>
+</header>
+
+<div class="app-shell" style="grid-template-rows:unset;">
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-back">← Dashboard</a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-module-info">
+      <div class="sidebar-module-code">ICT1234 · ELE</div>
+      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-meta">L2 · SIDM · 4 CU</div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Sections</div>
+    <a href="mdd-editor.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">🗂</span>Module Overview<span class="sidebar-status-icon done">✓</span></a>
+    <a href="section-synopsis.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">📝</span>Synopsis &amp; Skills<span class="sidebar-status-icon done">✓</span></a>
+    <a href="section-outcomes.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">🎯</span>Learning Outcomes<span class="sidebar-status-icon active">◉</span></a>
+    <a href="section-schedule.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">📅</span>Topics &amp; Schedule<span class="sidebar-status-icon active">◉</span></a>
+    <a href="section-tls.html" class="sidebar-nav-item active"><span class="sidebar-nav-icon">🧑‍🏫</span>T&amp;L Strategies<span class="sidebar-status-icon active">◉</span></a>
+    <a href="section-assessment.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">📊</span>Assessment<span class="sidebar-status-icon warn">⚠</span></a>
+    <a href="section-service.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">🤝</span>Service-Learning<span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span></a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Cross-cutting checks</div>
+    <a href="section-comms-alignment.html" class="sidebar-nav-item"><span class="sidebar-nav-icon">🎤</span>Comms Alignment<span class="sidebar-status-icon warn">⚠</span></a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-footer">
+      <div>
+        <div class="progress-label"><span>Completion</span><span class="font-600" style="color:var(--color-accent)">4 / 7</span></div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:57%"></div></div>
+      </div>
+      <button class="btn btn-secondary btn-sm w-full" style="justify-content:center;">🤖 AI Check</button>
+      <a href="review-export.html" class="btn btn-ai btn-sm w-full" style="justify-content:center;text-decoration:none;text-align:center;">👁 Preview &amp; Export</a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="content-inner">
+      <div class="breadcrumb">
+        <a href="index.html">Dashboard</a><span class="breadcrumb-sep">/</span>
+        <a href="mdd-editor.html">ICT1234</a><span class="breadcrumb-sep">/</span>
+        <span>T&amp;L Strategies</span>
+      </div>
+
+      <div class="section-header">
+        <div class="section-header-left">
+          <div class="section-number">Section 8</div>
+          <div class="section-title">Teaching &amp; Learning Strategies</div>
+          <div class="section-description">Choose the pedagogical approaches that will guide how this module is taught and how students engage with content.</div>
+        </div>
+        <div class="section-header-actions">
+          <button class="btn-draft-ai" id="suggest-ped-btn"><span class="sparkle">✦</span> Suggest Strategies</button>
+        </div>
+      </div>
+
+      <!-- Comms alignment alert -->
+      <div class="comms-alert">
+        <div class="comms-alert-icon">🎤</div>
+        <div class="comms-alert-body">
+          <div class="comms-alert-title">Comms activities detected — align with NP standards?</div>
+          <div class="comms-alert-desc">
+            Your <strong>Lab-based Learning</strong> strategy includes in-class demos, and your assessment plan has a <strong>Team Project Presentation</strong>. These are comms-rich activities — align them with the <span class="source-badge">📚 SoH&amp;IS</span> Presentation Rubric &amp; Impact Toolkit so students get consistent expectations across NP modules.
+          </div>
+          <div class="comms-alert-meta">2 activities detected · 1 partial · 1 missing rubric</div>
+        </div>
+        <div class="comms-alert-actions">
+          <a href="section-comms-alignment.html" class="btn btn-ai btn-sm">Review &amp; align →</a>
+          <button class="btn btn-ghost btn-sm">Dismiss</button>
+        </div>
+      </div>
+
+      <!-- Section A: Instructional Settings -->
+      <div class="form-section">
+        <div class="form-sub-title mb-4">
+          <div class="form-sub-title-number">A</div>
+          Instructional Settings
+        </div>
+
+        <div style="border:1px solid var(--color-border); border-radius:var(--radius-md); padding:0 var(--space-5);">
+          <!-- Flipped Learning toggle -->
+          <div class="settings-row">
+            <div class="settings-row-left">
+              <div class="settings-row-title">Flipped Learning</div>
+              <div class="settings-row-desc">Students review pre-recorded content or readings before class. In-person time is used for active learning, discussion, or lab work.</div>
+            </div>
+            <label class="toggle-switch" style="margin-left:var(--space-5);">
+              <input type="checkbox" id="flipped-toggle" checked>
+              <div class="toggle-track"></div>
+              <div class="toggle-thumb"></div>
+            </label>
+          </div>
+
+          <!-- Flipped detail — shown when toggle is ON -->
+          <div class="flip-detail show" id="flip-detail">
+            <div style="padding:var(--space-4) 0 var(--space-5); border-bottom:1px solid var(--color-border);">
+              <div class="form-row form-row-2" style="margin-bottom:var(--space-4);">
+                <div class="hours-card">
+                  <div class="hours-card-label">IPL — In-Person Learning</div>
+                  <div style="display:flex; align-items:center; gap:var(--space-3);">
+                    <div class="number-stepper">
+                      <button class="stepper-btn">−</button>
+                      <input class="stepper-input" id="ipl-hours" value="24" type="number" min="0" max="51">
+                      <button class="stepper-btn">+</button>
+                    </div>
+                    <span style="font-size:13px; color:var(--color-text-secondary);">hrs / sem</span>
+                  </div>
+                  <div class="hours-card-sub" id="ipl-pct">47% of contact time</div>
+                </div>
+                <div class="hours-card">
+                  <div class="hours-card-label">OAL — Online / Async Learning</div>
+                  <div style="display:flex; align-items:center; gap:var(--space-3);">
+                    <div class="number-stepper">
+                      <button class="stepper-btn">−</button>
+                      <input class="stepper-input" id="oal-hours" value="27" type="number" min="0" max="51">
+                      <button class="stepper-btn">+</button>
+                    </div>
+                    <span style="font-size:13px; color:var(--color-text-secondary);">hrs / sem</span>
+                  </div>
+                  <div class="hours-card-sub" id="oal-pct">53% of contact time</div>
+                </div>
+              </div>
+              <!-- Visual bar -->
+              <div style="height:12px; border-radius:var(--radius-full); overflow:hidden; background:var(--color-border); display:flex;">
+                <div id="ipl-bar" style="height:100%; background:var(--color-accent); transition:width 0.4s ease; width:47%;"></div>
+                <div id="oal-bar" style="height:100%; background:var(--color-ai-glow); transition:width 0.4s ease; width:53%;"></div>
+              </div>
+              <div style="display:flex; gap:var(--space-4); margin-top:var(--space-2); font-size:11px; color:var(--color-text-secondary);">
+                <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:var(--color-accent);display:inline-block;"></span>IPL</span>
+                <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:var(--color-ai-glow);display:inline-block;"></span>OAL</span>
+                <span id="hours-total-note" style="margin-left:auto; font-weight:600; color:var(--color-success);">Total: 51 hrs ✓</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Industry in Curriculum -->
+          <div class="settings-row">
+            <div class="settings-row-left">
+              <div class="settings-row-title">Industry in Curriculum</div>
+              <div class="settings-row-desc">This module incorporates real-world industry cases, guest speakers, or live project briefs from industry partners.</div>
+            </div>
+            <label class="toggle-switch" style="margin-left:var(--space-5);">
+              <input type="checkbox" id="industry-toggle">
+              <div class="toggle-track"></div>
+              <div class="toggle-thumb"></div>
+            </label>
+          </div>
+
+          <!-- Common Test -->
+          <div class="settings-row">
+            <div class="settings-row-left">
+              <div class="settings-row-title">Common Test (CT)</div>
+              <div class="settings-row-desc">A school-wide or programme-wide common test is administered for this module.</div>
+            </div>
+            <label class="toggle-switch" style="margin-left:var(--space-5);">
+              <input type="checkbox" id="ct-toggle" checked>
+              <div class="toggle-track"></div>
+              <div class="toggle-thumb"></div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- Section B: Key Pedagogies -->
+      <div class="form-section">
+        <div class="form-sub-title mb-2">
+          <div class="form-sub-title-number">B</div>
+          Key Teaching Pedagogies
+        </div>
+        <p class="text-base text-secondary mb-4">Select all approaches used in this module. Selected pedagogies will appear in the MDD summary.</p>
+
+        <div class="ped-grid" id="ped-grid">
+          <div class="ped-card selected" data-ped="DI">
+            <div class="ped-header"><div><div class="ped-abbr">DI</div><div class="ped-name">Direct Instruction</div></div><span class="ped-check">✓</span></div>
+            <div class="ped-desc">Structured teacher-led instruction through lectures, demonstrations, or worked examples.</div>
+          </div>
+          <div class="ped-card selected" data-ped="LL">
+            <div class="ped-header"><div><div class="ped-abbr">LL</div><div class="ped-name">Lab-based Learning</div></div><span class="ped-check">✓</span></div>
+            <div class="ped-desc">Hands-on practical sessions in a computer lab setting, applying concepts through coding exercises.</div>
+          </div>
+          <div class="ped-card selected" data-ped="PBL">
+            <div class="ped-header"><div><div class="ped-abbr">PBL</div><div class="ped-name">Problem-based Learning</div></div><span class="ped-check">✓</span></div>
+            <div class="ped-desc">Students tackle open-ended real-world problems, driving inquiry and self-directed learning.</div>
+          </div>
+          <div class="ped-card" data-ped="DL">
+            <div class="ped-header"><div><div class="ped-abbr">DL</div><div class="ped-name">Discussion-based Learning</div></div><span class="ped-check">✓</span></div>
+            <div class="ped-desc">Structured discussions, peer debates, and group analysis of case studies or topics.</div>
+          </div>
+          <div class="ped-card" data-ped="CL">
+            <div class="ped-header"><div><div class="ped-abbr">CL</div><div class="ped-name">Case-based Learning</div></div><span class="ped-check">✓</span></div>
+            <div class="ped-desc">Analysis of real or simulated scenarios to connect theory with professional practice.</div>
+          </div>
+          <div class="ped-card" data-ped="EL">
+            <div class="ped-header"><div><div class="ped-abbr">EL</div><div class="ped-name">Experiential Learning</div></div><span class="ped-check">✓</span></div>
+            <div class="ped-desc">Learning through doing — reflects on direct experience to build deeper understanding.</div>
+          </div>
+          <div class="ped-card" data-ped="IL">
+            <div class="ped-header"><div><div class="ped-abbr">IL</div><div class="ped-name">Inquiry-based Learning</div></div><span class="ped-check">✓</span></div>
+            <div class="ped-desc">Students investigate questions or problems, constructing knowledge through exploration.</div>
+          </div>
+          <div class="ped-card" data-ped="DT">
+            <div class="ped-header"><div><div class="ped-abbr">DT</div><div class="ped-name">Design Thinking</div></div><span class="ped-check">✓</span></div>
+            <div class="ped-desc">Human-centred approach: empathise, define, ideate, prototype, and test solutions.</div>
+          </div>
+          <div class="ped-card" data-ped="FL">
+            <div class="ped-header"><div><div class="ped-abbr">FL</div><div class="ped-name">Field-based Learning</div></div><span class="ped-check">✓</span></div>
+            <div class="ped-desc">Learning outside the classroom — site visits, industry attachments, or community engagement.</div>
+          </div>
+        </div>
+
+        <div id="ped-suggestion-area" class="mt-4"></div>
+
+        <div class="callout mt-4">
+          💡 Most technical modules use <strong>DI + LL + PBL</strong>. Selecting more than 5 pedagogies without clear implementation plans may appear unfocused. The AI can suggest an appropriate mix based on your module outcomes.
+        </div>
+      </div>
+
+      <!-- Nav footer -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding-top:var(--space-6); border-top:1px solid var(--color-border); margin-top:var(--space-6);">
+        <a href="section-schedule.html" class="btn btn-secondary" style="text-decoration:none;">← Topics &amp; Schedule</a>
+        <div style="display:flex; gap:var(--space-3);">
+          <button class="btn btn-secondary" id="save-footer">💾 Save</button>
+          <a href="section-assessment.html" class="btn btn-primary" style="text-decoration:none;">Next: Assessment →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="ai-sidebar" id="ai-sidebar">
+    <div class="ai-sidebar-header">
+      <div class="ai-sidebar-title"><span class="ai-icon">✦</span> AI Assistant</div>
+      <button class="btn btn-ghost btn-sm btn-icon" id="ai-sidebar-close">×</button>
+    </div>
+    <div class="ai-sidebar-body">
+      <div class="ai-suggestion-card ai-purple">
+        <div class="ai-suggestion-header"><span class="sparkle">✦</span><span class="ai-suggestion-label" style="color:var(--color-ai-glow);">Recommendation</span></div>
+        <div class="ai-suggestion-body">
+          For a <strong>L2 technical module</strong> with lab components and a group project, I recommend: <strong>DI + LL + PBL</strong>. These three complement your outcomes on implementation (MO2), design (MO5), and collaboration (MO6).
+        </div>
+        <div class="ai-suggestion-actions">
+          <button class="btn btn-ai btn-sm" id="apply-ped-rec">Apply DI + LL + PBL</button>
+          <span class="ai-suggestion-dismiss" onclick="this.closest('.ai-suggestion-card').remove()">Dismiss ×</span>
+        </div>
+      </div>
+      <div id="ai-messages" class="ai-chat-messages">
+        <div class="ai-chat-bubble assistant">Ask me about pedagogy: <em>"What is PBL?"</em> or <em>"When should I use flipped learning?"</em></div>
+      </div>
+    </div>
+    <div class="ai-sidebar-footer">
+      <div class="prompt-chip-strip">
+        <div class="prompt-chip-strip-label">✦ Try a prompt</div>
+        <button class="prompt-chip">Suggest a flipped-learning approach</button>
+        <button class="prompt-chip">Add an OAL component</button>
+        <button class="prompt-chip">Recommend authentic activities</button>
+        <button class="prompt-chip">Align comms activities with SoH&amp;IS</button>
+      </div>
+      <div class="ai-chat-input-row">
+        <textarea class="ai-chat-input" id="ai-input" placeholder="Ask about teaching strategies…" rows="1"></textarea>
+        <button class="ai-chat-send" id="ai-send">↑</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<button class="ai-fab" id="ai-fab">✦</button>
+
+<script type="module">
+  import { initAIChat, initSaveDraft, initSteppers, showToast, showSuggestion } from './ai-assistant.js';
+  initAIChat();
+  initSaveDraft('save-draft-btn');
+  initSaveDraft('save-footer');
+  initSteppers();
+
+  document.querySelectorAll('.prompt-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const input = document.getElementById('ai-input');
+      if (input) { input.value = chip.textContent.trim(); input.focus(); }
+    });
+  });
+
+  // Flipped toggle reveal
+  const flippedToggle = document.getElementById('flipped-toggle');
+  const flipDetail = document.getElementById('flip-detail');
+  flippedToggle.addEventListener('change', () => {
+    flipDetail.classList.toggle('show', flippedToggle.checked);
+  });
+
+  // IPL/OAL bar update
+  const TOTAL_HRS = 51;
+  function updateHoursBar() {
+    const ipl = parseInt(document.getElementById('ipl-hours').value) || 0;
+    const oal = parseInt(document.getElementById('oal-hours').value) || 0;
+    const total = ipl + oal;
+    const iplPct = total > 0 ? Math.round((ipl / total) * 100) : 50;
+    const oalPct = 100 - iplPct;
+    document.getElementById('ipl-bar').style.width = iplPct + '%';
+    document.getElementById('oal-bar').style.width = oalPct + '%';
+    document.getElementById('ipl-pct').textContent = `${iplPct}% of contact time`;
+    document.getElementById('oal-pct').textContent = `${oalPct}% of contact time`;
+    const note = document.getElementById('hours-total-note');
+    note.textContent = `Total: ${total} hrs ${total === TOTAL_HRS ? '✓' : '— expected ' + TOTAL_HRS}`;
+    note.style.color = total === TOTAL_HRS ? 'var(--color-success)' : 'var(--color-warning)';
+  }
+  document.getElementById('ipl-hours').addEventListener('input', updateHoursBar);
+  document.getElementById('oal-hours').addEventListener('input', updateHoursBar);
+  document.querySelectorAll('.stepper-btn').forEach(btn => {
+    btn.addEventListener('click', () => setTimeout(updateHoursBar, 50));
+  });
+
+  // Pedagogy card toggle
+  document.querySelectorAll('.ped-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('selected'));
+  });
+
+  // Apply AI recommendation
+  document.getElementById('apply-ped-rec')?.addEventListener('click', () => {
+    document.querySelectorAll('.ped-card').forEach(c => c.classList.remove('selected'));
+    ['DI', 'LL', 'PBL'].forEach(code => {
+      document.querySelector(`[data-ped="${code}"]`)?.classList.add('selected');
+    });
+    document.querySelector('.ai-suggestion-card.ai-purple')?.remove();
+    showToast('✓ DI + LL + PBL selected');
+  });
+
+  // Suggest strategies AI button
+  document.getElementById('suggest-ped-btn').addEventListener('click', () => {
+    const area = document.getElementById('ped-suggestion-area');
+    area.innerHTML = '';
+    showSuggestion(area, {
+      label: '✦ AI Recommendation',
+      body: 'Based on your 7 MOs, I suggest <strong>Direct Instruction (DI)</strong> for foundational concepts (MO1), <strong>Lab-based Learning (LL)</strong> for coding practice (MO2, MO3), and <strong>Problem-based Learning (PBL)</strong> for the design project (MO5, MO6). This combination suits L2 technical modules well.',
+      variant: 'blue',
+      onAccept: () => {
+        document.querySelectorAll('.ped-card').forEach(c => c.classList.remove('selected'));
+        ['DI', 'LL', 'PBL'].forEach(code => {
+          document.querySelector(`[data-ped="${code}"]`)?.classList.add('selected');
+        });
+        area.innerHTML = '';
+        showToast('✓ Pedagogies applied');
+      }
+    });
+  });
+</script>
+</body>
+</html>

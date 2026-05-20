@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service-Learning — ICT1234 | CurrCraft</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar-logo" style="text-decoration:none;">
+    <div class="topbar-logo-icon">C</div>
+    CurrCraft
+  </a>
+  <div class="topbar-divider"></div>
+  <span class="topbar-module-title" style="cursor:default;">
+    ICT1234 — Data Structures &amp; Algorithms
+  </span>
+  <div class="topbar-actions">
+    <span class="topbar-status-badge">Draft</span>
+    <button class="btn btn-secondary btn-sm">💾 Save Draft</button>
+    <a href="review-export.html" class="btn btn-primary btn-sm">Preview MDD →</a>
+    <div class="topbar-avatar" title="Lim Mei Ling">ML</div>
+  </div>
+</header>
+
+<div class="app-shell" style="grid-template-rows: unset;">
+
+  <!-- Left Sidebar (reused pattern) -->
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-back">← Dashboard</a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-module-info">
+      <div class="sidebar-module-code">ICT1234 · ELE</div>
+      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-meta">L2 · SIDM · 4 CU · AY25/26 S1</div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Sections</div>
+    <a href="mdd-editor.html" class="sidebar-nav-item">
+      <span class="sidebar-nav-icon">🗂</span> Module Overview
+      <span class="sidebar-status-icon done">✓</span>
+    </a>
+    <a href="section-synopsis.html" class="sidebar-nav-item">
+      <span class="sidebar-nav-icon">📝</span> Synopsis &amp; Skills
+      <span class="sidebar-status-icon done">✓</span>
+    </a>
+    <a href="section-outcomes.html" class="sidebar-nav-item">
+      <span class="sidebar-nav-icon">🎯</span> Learning Outcomes
+      <span class="sidebar-status-icon active">◉</span>
+    </a>
+    <a href="section-schedule.html" class="sidebar-nav-item">
+      <span class="sidebar-nav-icon">📅</span> Topics &amp; Schedule
+      <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span>
+    </a>
+    <a href="section-tls.html" class="sidebar-nav-item">
+      <span class="sidebar-nav-icon">🧑‍🏫</span> T&amp;L Strategies
+      <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span>
+    </a>
+    <a href="section-assessment.html" class="sidebar-nav-item">
+      <span class="sidebar-nav-icon">📊</span> Assessment
+      <span class="sidebar-status-icon warn">⚠</span>
+    </a>
+    <a href="section-service.html" class="sidebar-nav-item active">
+      <span class="sidebar-nav-icon">🤝</span> Service-Learning
+      <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span>
+    </a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Cross-cutting checks</div>
+    <a href="section-comms-alignment.html" class="sidebar-nav-item">
+      <span class="sidebar-nav-icon">🎤</span> Comms Alignment
+      <span class="sidebar-status-icon warn">⚠</span>
+    </a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-footer">
+      <div>
+        <div class="progress-label">
+          <span>Completion</span>
+          <span class="font-600" style="color:var(--color-accent)">3 / 7</span>
+        </div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:43%"></div></div>
+      </div>
+      <a href="review-export.html" class="btn btn-ai btn-sm w-full" style="justify-content:center; text-decoration:none; text-align:center;">
+        👁 Preview &amp; Export
+      </a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="content-inner">
+
+      <div class="breadcrumb">
+        <a href="index.html">Dashboard</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="mdd-editor.html">ICT1234</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Service-Learning</span>
+      </div>
+
+      <div class="section-header">
+        <div class="section-header-left">
+          <div class="section-number">SECTION 10 · OPTIONAL</div>
+          <div class="section-title">Service-Learning</div>
+          <div class="section-description">Add a service-learning component that links module outcomes to community service. Optional — leave off if not applicable.</div>
+        </div>
+        <div class="section-header-actions">
+          <div class="toggle-group">
+            <label class="toggle-switch">
+              <input type="checkbox" id="sl-toggle">
+              <span class="toggle-track"></span>
+              <span class="toggle-thumb"></span>
+            </label>
+            <span class="toggle-label">Enable Service-Learning</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty state when off -->
+      <div class="card" style="text-align:center; padding: var(--space-12) var(--space-8);">
+        <div style="font-size:40px; opacity:0.3; margin-bottom:var(--space-3);">🤝</div>
+        <div class="text-md font-600 mb-2">Service-Learning is off for this module</div>
+        <div class="text-base text-secondary" style="max-width:420px; margin: 0 auto var(--space-4);">
+          Toggle on above to add pre-service preparation, the service activity, and post-service reflection — each phase will appear here for editing.
+        </div>
+        <button class="btn btn-ai btn-sm">
+          ✦ AI: Suggest if SL fits this module
+        </button>
+      </div>
+
+      <!-- Preview of phase structure (greyed) -->
+      <div class="form-sub-title mt-6 mb-4">
+        <div class="form-sub-title-number">≡</div>
+        Phase Structure (preview)
+      </div>
+
+      <div class="sl-phase disabled">
+        <div class="sl-phase-header">
+          <div class="sl-phase-title">
+            <span style="font-size:13px; color:var(--color-text-tertiary)">1</span>
+            Pre-service Preparation
+          </div>
+          <span class="text-xs text-tertiary">Briefing · context-setting · skills training</span>
+        </div>
+      </div>
+      <div class="sl-phase disabled">
+        <div class="sl-phase-header">
+          <div class="sl-phase-title">
+            <span style="font-size:13px; color:var(--color-text-tertiary)">2</span>
+            Service Activity
+          </div>
+          <span class="text-xs text-tertiary">On-site engagement with community partner</span>
+        </div>
+      </div>
+      <div class="sl-phase disabled">
+        <div class="sl-phase-header">
+          <div class="sl-phase-title">
+            <span style="font-size:13px; color:var(--color-text-tertiary)">3</span>
+            Post-service Reflection
+          </div>
+          <span class="text-xs text-tertiary">Structured reflection · presentation · assessment</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- AI Sidebar -->
+  <aside class="ai-sidebar" id="ai-sidebar">
+    <div class="ai-sidebar-header">
+      <div class="ai-sidebar-title">
+        <span class="ai-icon">✦</span> AI Assistant
+      </div>
+      <button class="btn btn-ghost btn-sm btn-icon" id="ai-sidebar-close" title="Close">×</button>
+    </div>
+
+    <div class="ai-sidebar-body">
+      <div class="ai-suggestion-card ai-purple">
+        <div class="ai-suggestion-header">
+          <span class="sparkle">✦</span>
+          <span class="ai-suggestion-label" style="color:var(--color-ai-glow);">Hint</span>
+        </div>
+        <div class="ai-suggestion-body">
+          Service-Learning is most impactful when MOs already touch <strong>Collaboration (NPGC6)</strong> and <strong>Self-Development (NPGC5)</strong>. This module's outcomes don't strongly emphasise either — SL may be a stretch fit.
+        </div>
+      </div>
+      <div id="ai-messages" class="ai-chat-messages">
+        <div class="ai-chat-bubble assistant">
+          Want help deciding if Service-Learning fits, or designing a 3-phase plan? I can draft sample reflection prompts or suggest community partners.
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-sidebar-footer">
+      <div class="prompt-chip-strip">
+        <div class="prompt-chip-strip-label">✦ Try one</div>
+        <button class="prompt-chip">Does SL fit this module?</button>
+        <button class="prompt-chip">Draft a 3-phase SL plan</button>
+        <button class="prompt-chip">Sample reflection prompts</button>
+      </div>
+      <div class="ai-chat-input-row">
+        <textarea class="ai-chat-input" id="ai-input" placeholder="Ask about service-learning…" rows="1"></textarea>
+        <button class="ai-chat-send" id="ai-send">↑</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<button class="ai-fab" id="ai-fab" title="Open AI Assistant">✦</button>
+
+<script type="module">
+  import { initAIChat, showToast } from './ai-assistant.js';
+  initAIChat();
+
+  document.querySelectorAll('.prompt-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const input = document.getElementById('ai-input');
+      if (input) input.value = chip.textContent.trim();
+      input?.focus();
+    });
+  });
+</script>
+</body>
+</html>
