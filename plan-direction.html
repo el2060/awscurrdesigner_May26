@@ -125,6 +125,18 @@
     .side-card.ai-side { background: #fffef8; border-color: #ecd88f; }
     .side-card.ai-side .side-label { color: #7a5f00; }
 
+    /* ── Inline contextual AI insight ── */
+    .ai-inline {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 9px 12px; margin-top: 10px;
+      background: #fffef8; border-left: 2px solid #FCB040;
+      font-size: 11px; color: #555; line-height: 1.5;
+    }
+    .ai-inline::before {
+      content: '✦'; color: #b8901c; flex-shrink: 0;
+      font-size: 10px; margin-top: 1px; font-weight: 700;
+    }
+
     /* ── Bottom bar ── */
     .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #fff; border-top: 1px solid #e0e0e0; z-index: 50; }
     .bottom-inner { max-width: var(--workspace-max); height: 100%; margin: 0 auto; padding: 0 var(--workspace-pad); display: flex; align-items: center; justify-content: space-between; }
@@ -275,6 +287,7 @@
             <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC7</div><div class="npgc-name">Communication</div></div></div>
           </div>
           <div class="npgc-note">Choose 2–3 priorities for a clear module focus.</div>
+          <div class="ai-inline">Critical Thinking is frequently prioritised in employer feedback for this discipline.</div>
         </div>
       </div>
 
@@ -311,6 +324,7 @@
               <span class="chip" onclick="selChip(this,'group')">Individual only</span>
             </div>
           </div>
+          <div class="ai-inline">Project-Based assessment is often used for applied industry competencies. Consider balancing workload across CA components.</div>
         </div>
       </div>
 
@@ -342,6 +356,7 @@
               <span class="chip" onclick="selChip(this,'delivery')">Fully Online</span>
             </div>
           </div>
+          <div class="ai-inline">Case-Based Learning with blended delivery suits applied modules in this discipline.</div>
         </div>
       </div>
 
@@ -350,17 +365,7 @@
     <!-- Sidebar -->
     <div class="layout-side">
 
-      <!-- AI suggestions (subtle) -->
-      <div class="side-card ai-side">
-        <span class="side-label">✦ AI Suggestions</span>
-        <div class="side-card-body">
-          <div class="side-rec-item">Critical Thinking flagged as employer gap area</div>
-          <div class="side-rec-item">Project-based CA matches industry expectations</div>
-          <div class="side-rec-item">Case-Based Learning suits this domain</div>
-        </div>
-      </div>
-
-      <!-- Plan summary -->
+      <!-- Plan summary (quiet support) -->
       <div class="side-card">
         <span class="side-label">Plan Summary</span>
         <div class="side-card-body">

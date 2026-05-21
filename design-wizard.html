@@ -336,13 +336,40 @@
 
     /* ── Done state ── */
     .done-card {
-      margin-top: 24px;
+      margin-top: 14px;
       border: 1px solid #1a1a1a;
-      padding: 20px 24px;
+      padding: 18px 22px;
       background: #1a1a1a; color: #fff;
       display: none;
     }
     .done-card.show { display: block; }
+
+    /* ── AI drafting notes ── */
+    .draft-notes {
+      margin-top: 14px;
+      border: 1px solid #ecd88f;
+      background: #fffef8;
+      padding: 16px 20px;
+      display: none;
+    }
+    .draft-notes.show { display: block; }
+    .draft-notes-title {
+      font-size: 11px; font-weight: 700; color: #7a5f00;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .draft-note-item {
+      padding: 9px 0; border-bottom: 1px solid #f3e8b8;
+    }
+    .draft-note-item:last-child { border-bottom: none; }
+    .draft-note-section {
+      font-size: 12px; font-weight: 700; color: #1a1a1a;
+      margin-bottom: 3px;
+    }
+    .draft-note-text {
+      font-size: 11px; color: #555; line-height: 1.5;
+    }
     .done-title {
       font-size: 14px; font-weight: 700;
       margin-bottom: 4px; display: flex; align-items: center; gap: 8px;
@@ -540,10 +567,31 @@
     <ul class="gen-steps" id="gen-steps"></ul>
   </div>
 
+  <!-- AI drafting notes (visible after draft pass completes) -->
+  <div class="draft-notes" id="draft-notes">
+    <div class="draft-notes-title">✦ AI drafting notes</div>
+    <div class="draft-note-item">
+      <div class="draft-note-section">Synopsis &amp; Aims</div>
+      <div class="draft-note-text">Drafted to highlight applied industry relevance, drawing on the planned competencies and project-based assessment direction.</div>
+    </div>
+    <div class="draft-note-item">
+      <div class="draft-note-section">Module Learning Outcomes</div>
+      <div class="draft-note-text">6 outcomes drafted, mapped to GC1 Domain, GC2 Critical Thinking, GC4 Digital. Consider adding one outcome for GC5 Self-Development if reflection becomes part of the assessment.</div>
+    </div>
+    <div class="draft-note-item">
+      <div class="draft-note-section">Content: Topics &amp; Hours</div>
+      <div class="draft-note-text">17-week schedule with lecture-tutorial / online split. Weeks 5–7 are lecture-heavy — consider adding applied activities or peer critique to reinforce pacing.</div>
+    </div>
+    <div class="draft-note-item">
+      <div class="draft-note-section">Assessment Plan</div>
+      <div class="draft-note-text">3 CA components drafted. Coverage aligns with selected competencies. Group weighting at 35% — review for individual accountability against framework recommendation of ≤30%.</div>
+    </div>
+  </div>
+
   <!-- Done card -->
   <div class="done-card" id="done-card">
     <div class="done-title">✓ Draft pass complete</div>
-    <div class="done-sub">Selected sections are drafted. Review, refine, then run another pass for remaining sections if needed.</div>
+    <div class="done-sub">Review the AI notes above, then open in editor to refine — or run another pass for remaining sections.</div>
     <div class="done-actions">
       <a href="mdd-editor.html" class="btn-open">Open in Editor →</a>
       <a href="review-export.html" class="btn-skip">Skip to Review &amp; Export</a>
@@ -705,8 +753,9 @@
       document.getElementById('gen-title-text').textContent = 'Selected section drafting complete';
       document.getElementById('gen-status').textContent = total + ' of ' + total + ' selected sections';
       document.getElementById('gen-status').classList.add('done');
+      document.getElementById('draft-notes').classList.add('show');
       document.getElementById('done-card').classList.add('show');
-      document.getElementById('bb-note').textContent = 'Review output, then run another pass if needed';
+      document.getElementById('bb-note').textContent = 'Review AI notes, then open in editor';
       return;
     }
 
@@ -746,6 +795,7 @@
     document.getElementById('gen-status').textContent = '0 selected';
     document.getElementById('gen-status').classList.remove('done');
     document.getElementById('overall-spinner').classList.remove('done');
+    document.getElementById('draft-notes').classList.remove('show');
     document.getElementById('done-card').classList.remove('show');
     document.getElementById('bb-note').textContent = 'Select sections, add context, then draft in manageable passes';
     updateBuildLoop();
