@@ -130,29 +130,210 @@ function showSuggestion(container, { label = '✦ AI Suggestion', body, onAccept
 
 // ─── AI Chat Sidebar ────────────────────────────────────────────
 function initAIChat() {
-  const sidebar = document.getElementById('ai-sidebar');
-  const fab = document.getElementById('ai-fab');
-  const closeBtn = document.getElementById('ai-sidebar-close');
-  const sendBtn = document.getElementById('ai-send');
-  const input = document.getElementById('ai-input');
-  const messages = document.getElementById('ai-messages');
+  const sectionLabelRaw = (document.querySelector('.sidebar-nav-item.active')?.textContent || 'Current Section').replace(/\s+/g, ' ').trim();
+  const sectionLabel = sectionLabelRaw.replace(/[✓◉○⚠]/g, '').trim() || 'Current Section';
+  const sectionKey = (() => {
+    const lower = sectionLabel.toLowerCase();
+    if (lower.includes('outcome')) return 'outcomes';
+    if (lower.includes('assessment')) return 'assessment';
+    if (lower.includes('t&l') || lower.includes('teaching') || lower.includes('strateg')) return 'tls';
+    if (lower.includes('schedule') || lower.includes('topic')) return 'schedule';
+    if (lower.includes('synopsis') || lower.includes('skill')) return 'synopsis';
+    if (lower.includes('comms') || lower.includes('communication')) return 'comms';
+    return 'default';
+  })();
 
-  function openSidebar() {
-    if (sidebar) {
-      sidebar.classList.remove('hidden');
-      sidebar.style.display = 'flex';
+  const sectionAssists = {
+    outcomes: {
+      summary: '2 recommendations available: 1 measurability issue, 1 competency coverage gap.',
+      cards: [
+        { issue: 'Several MOs are broad and hard to assess directly.', suggestion: 'Use measurable verbs and success criteria per outcome.', why: 'Improves assessment validity and rubric design.' },
+        { issue: 'GC3 Innovation mapping is weak.', suggestion: 'Add one design/evaluate-oriented MO tied to GC3.', why: 'Balances competency coverage across the module.' }
+      ]
+    },
+    assessment: {
+      summary: '2 recommendations available: weighting balance and evidence coverage.',
+      cards: [
+        { issue: 'Group weighting appears high.', suggestion: 'Rebalance group component to 25-30%.', why: 'Improves individual accountability.' },
+        { issue: 'One MO lacks explicit assessment evidence.', suggestion: 'Add a low-stakes checkpoint for uncovered MO.', why: 'Ensures all outcomes are assessable.' }
+      ]
+    },
+    tls: {
+      summary: '2 recommendations available: pedagogy mix and delivery alignment.',
+      cards: [
+        { issue: 'Current mix is lecture-heavy.', suggestion: 'Add one inquiry-based activity every 2-3 weeks.', why: 'Strengthens active learning depth.' },
+        { issue: 'Blended mode does not show explicit OAL flow.', suggestion: 'Map pre-class OAL tasks to in-class IPL activities.', why: 'Creates clearer learning continuity.' }
+      ]
+    },
+    schedule: {
+      summary: '1 recommendation available: pacing congestion near assessment weeks.',
+      cards: [
+        { issue: 'Assessment tasks are clustered too closely.', suggestion: 'Spread two milestones across adjacent weeks.', why: 'Reduces student workload spikes.' }
+      ]
+    },
+    synopsis: {
+      summary: '1 recommendation available: sharpen module value proposition.',
+      cards: [
+        { issue: 'Synopsis is descriptive but not outcome-forward.', suggestion: 'Add a concise end-state sentence for graduates.', why: 'Improves clarity for learners and reviewers.' }
+      ]
+    },
+    comms: {
+      summary: '2 recommendations available: criteria specificity and rubric consistency.',
+      cards: [
+        { issue: 'Communication criteria are implicit.', suggestion: 'Add explicit verbal and non-verbal descriptors.', why: 'Improves marking consistency.' },
+        { issue: 'Rubric examples are generic.', suggestion: 'Use discipline-specific communication examples.', why: 'Strengthens contextual relevance.' }
+      ]
+    },
+    default: {
+      summary: 'AI support is ready for this section.',
+      cards: [
+        { issue: 'Section can be made more measurable.', suggestion: 'Tighten action verbs and success criteria.', why: 'Improves quality and assessability.' }
+      ]
     }
-    if (fab) fab.style.display = 'none';
-  }
-  function closeSidebar() {
-    if (sidebar) {
-      sidebar.style.display = 'none';
-    }
-    if (fab) fab.style.display = 'flex';
+  };
+
+  if (document.getElementById('ai-copilot-bubble')) return;
+
+  const assistPack = sectionAssists[sectionKey] || sectionAssists.default;
+
+  const bubble = document.createElement('button');
+  bubble.id = 'ai-copilot-bubble';
+  bubble.className = 'ai-copilot-bubble';
+  bubble.type = 'button';
+  bubble.innerHTML = '✦ AI Copilot <span id="ai-copilot-badge" class="ai-copilot-badge">' + assistPack.cards.length + '</span>';
+
+  const drawer = document.createElement('aside');
+  drawer.id = 'ai-copilot-drawer';
+  drawer.className = 'ai-copilot-drawer';
+  drawer.innerHTML =
+    '<div class="ai-copilot-head">' +
+      '<div class="ai-copilot-title">AI Copilot</div>' +
+      '<button type="button" id="ai-copilot-close" class="ai-copilot-close">Close</button>' +
+    '</div>' +
+    '<div class="ai-copilot-body">' +
+      '<div class="ai-copilot-context">Section: <strong>' + sectionLabel + '</strong></div>' +
+      '<div class="ai-copilot-summary">' + assistPack.summary + '</div>' +
+      '<div class="ai-copilot-recs" id="ai-copilot-recs"></div>' +
+      '<div class="ai-copilot-chips">' +
+        '<button type="button" class="ai-chip">Tighten wording</button>' +
+        '<button type="button" class="ai-chip">Make more measurable</button>' +
+        '<button type="button" class="ai-chip">Map to NPGC</button>' +
+        '<button type="button" class="ai-chip">Show 2 alternatives</button>' +
+      '</div>' +
+      '<div id="ai-copilot-messages" class="ai-copilot-messages"></div>' +
+    '</div>' +
+    '<div class="ai-copilot-foot">' +
+      '<textarea id="ai-copilot-input" class="ai-copilot-input" rows="1" placeholder="Ask to refine this section..."></textarea>' +
+      '<button type="button" id="ai-copilot-send" class="ai-copilot-send">↑</button>' +
+    '</div>';
+
+  document.body.appendChild(drawer);
+  document.body.appendChild(bubble);
+
+  const badge = document.getElementById('ai-copilot-badge');
+  const recRoot = document.getElementById('ai-copilot-recs');
+  const input = document.getElementById('ai-copilot-input');
+  const sendBtn = document.getElementById('ai-copilot-send');
+  const messages = document.getElementById('ai-copilot-messages');
+
+  function updateBadge() {
+    const remaining = recRoot ? recRoot.querySelectorAll('.ai-rec-card').length : 0;
+    if (badge) badge.textContent = String(remaining);
   }
 
-  if (fab) fab.addEventListener('click', openSidebar);
-  if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+  function renderRec(rec) {
+    const card = document.createElement('div');
+    card.className = 'ai-rec-card';
+    card.dataset.iterations = '0';
+    card.innerHTML =
+      '<div class="ai-rec-issue">' + rec.issue + '</div>' +
+      '<div class="ai-rec-why">Why: ' + rec.why + '</div>' +
+      '<div class="ai-rec-suggestion">Suggested: ' + rec.suggestion + '</div>' +
+      '<div class="ai-rec-iter">Iterations: 0</div>' +
+      '<div class="ai-rec-actions">' +
+        '<button type="button" class="btn btn-primary btn-sm ai-rec-apply">Apply</button>' +
+        '<button type="button" class="btn btn-secondary btn-sm ai-rec-refine">Refine</button>' +
+        '<button type="button" class="btn btn-ghost btn-sm ai-rec-ignore">Ignore</button>' +
+      '</div>';
+
+    card.querySelector('.ai-rec-apply')?.addEventListener('click', () => {
+      card.classList.add('applied');
+      const issue = card.querySelector('.ai-rec-issue');
+      if (issue) issue.textContent = 'Applied ✓ ' + rec.issue;
+      showToast('Applied recommendation');
+    });
+
+    card.querySelector('.ai-rec-refine')?.addEventListener('click', () => {
+      const next = Number(card.dataset.iterations || '0') + 1;
+      card.dataset.iterations = String(next);
+      const iter = card.querySelector('.ai-rec-iter');
+      const sug = card.querySelector('.ai-rec-suggestion');
+      if (iter) iter.textContent = 'Iterations: ' + next;
+      if (sug) sug.textContent = 'Suggested: ' + rec.suggestion + ' (refined ' + next + 'x)';
+      showToast('Refinement generated');
+    });
+
+    card.querySelector('.ai-rec-ignore')?.addEventListener('click', () => {
+      card.remove();
+      updateBadge();
+    });
+
+    recRoot?.appendChild(card);
+  }
+
+  assistPack.cards.forEach(renderRec);
+  updateBadge();
+
+  function openDrawer() { drawer.classList.add('open'); }
+  function closeDrawer() { drawer.classList.remove('open'); }
+
+  bubble.addEventListener('click', openDrawer);
+  document.getElementById('ai-copilot-close')?.addEventListener('click', closeDrawer);
+
+  function getAIResponse(userMsg) {
+    const lower = userMsg.toLowerCase();
+    if (lower.includes('synopsis') || lower.includes('description')) return MOCK_DATA.chatResponses.synopsis;
+    if (lower.includes('outcome') || lower.includes('mo') || lower.includes('learning')) return MOCK_DATA.chatResponses.outcomes;
+    if (lower.includes('assessment') || lower.includes('quiz') || lower.includes('exam') || lower.includes('weight')) return MOCK_DATA.chatResponses.assessment;
+    if (lower.includes('npgc') || lower.includes('graduate') || lower.includes('competenc')) return MOCK_DATA.chatResponses.npgc;
+    if (lower.includes('schedule') || lower.includes('week') || lower.includes('topic')) return MOCK_DATA.chatResponses.schedule;
+    if (lower.includes('pedagog') || lower.includes('teaching') || lower.includes('strategy') || lower.includes('tls') || lower.includes('flip')) return MOCK_DATA.chatResponses.tls;
+    return MOCK_DATA.chatResponses.default;
+  }
+
+  function addMessage(text, role) {
+    if (!messages) return;
+    const bubbleEl = document.createElement('div');
+    bubbleEl.className = 'ai-copilot-msg ' + role;
+    bubbleEl.textContent = text;
+    messages.appendChild(bubbleEl);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function sendMessage() {
+    if (!input) return;
+    const text = input.value.trim();
+    if (!text) return;
+    addMessage(text, 'user');
+    input.value = '';
+    setTimeout(() => addMessage(getAIResponse(text), 'assistant'), 450);
+  }
+
+  sendBtn?.addEventListener('click', sendMessage);
+  input?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  drawer.querySelectorAll('.ai-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      if (!input) return;
+      input.value = chip.textContent || '';
+      input.focus();
+    });
+  });
 
   function getAIResponse(userMsg) {
     const lower = userMsg.toLowerCase();

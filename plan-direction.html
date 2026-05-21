@@ -49,11 +49,43 @@
     }
     .ws-tab.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
 
+    .review-config {
+      display: none;
+      border: 1px solid #e4e4e4;
+      background: #fffef8;
+      margin-bottom: 12px;
+      padding: 12px 14px;
+    }
+    .review-config.on { display: block; }
+    .review-title {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #7a5f00; margin-bottom: 7px;
+    }
+    .review-line { font-size: 12px; color: #555; line-height: 1.5; margin-bottom: 5px; }
+    .review-line:last-child { margin-bottom: 0; }
+
+    .context-strip {
+      border: 1px solid #e4e4e4;
+      background: #fafafa;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .ctx-chip {
+      font-size: 11px;
+      color: #666;
+      border: 1px solid #e1e1e1;
+      background: #fff;
+      padding: 3px 8px;
+    }
+
     .work-panel {
       border: 1px solid #e4e4e4; background: #fafafa;
       margin-bottom: 10px;
     }
-    .work-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px; padding: 14px; }
+    .work-grid { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 10px; }
     .work-card { border: 1px solid #e3e3e3; background: #fff; padding: 12px; }
     .work-title { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
     .work-row { display: flex; gap: 8px; margin-bottom: 8px; }
@@ -81,19 +113,52 @@
     .state-pill.ai { color: #4f3f00; background: #fff7d6; border-color: #ecd88f; }
 
     /* ── Layout ── */
-    .layout { display: flex; gap: 28px; align-items: flex-start; }
+    .layout { display: grid; grid-template-columns: 220px 1fr; gap: 14px; align-items: flex-start; }
     .layout-main { flex: 1; min-width: 0; }
-    .layout-side { width: 220px; flex-shrink: 0; position: sticky; top: 100px; }
+    .layout-side { width: 220px; flex-shrink: 0; position: sticky; top: 100px; order: -1; }
+
+    .section-nav {
+      border: 1px solid #e4e4e4;
+      background: #fff;
+      padding: 10px;
+    }
+    .nav-group-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 7px;
+    }
+    .nav-module { font-size: 12px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+    .nav-meta { font-size: 11px; color: #777; margin-bottom: 10px; }
+    .nav-list { display: flex; flex-direction: column; gap: 3px; margin-bottom: 10px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 12px; color: #666;
+      padding: 4px 6px; cursor: pointer;
+      border: 1px solid transparent;
+    }
+    .nav-item:hover { border-color: #e2e2e2; background: #fafafa; }
+    .nav-dot { width: 7px; height: 7px; border: 1px solid #bbb; border-radius: 50%; flex-shrink: 0; }
+    .nav-item.done .nav-dot { background: #1a1a1a; border-color: #1a1a1a; }
+    .nav-item.current .nav-dot { background: #777; border-color: #777; }
+    .nav-item.warn .nav-dot { background: #fff7d6; border-color: #d7be62; }
+    .review-flag { font-size: 11px; color: #666; padding: 2px 0; }
+    .completion-wrap { margin-top: 8px; }
+    .completion-bar { height: 8px; border: 1px solid #d9d9d9; background: #fff; }
+    .completion-fill { height: 100%; width: 50%; background: #1a1a1a; }
+    .completion-label { margin-top: 5px; font-size: 11px; color: #777; }
 
     /* ── Plan sections ── */
     .plan-section {
       border: 1px solid #e4e4e4;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       background: #fff;
     }
     .ps-header {
       display: flex; align-items: center; gap: 12px;
-      padding: 14px 20px 12px;
+      padding: 10px 14px;
       border-bottom: 1px solid #f0f0f0;
     }
     .ps-num {
@@ -104,10 +169,10 @@
     }
     .ps-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
     .ps-desc { font-size: 11px; color: #aaa; margin-left: auto; max-width: 280px; text-align: right; line-height: 1.4; }
-    .ps-body { padding: 16px 20px 18px; }
+    .ps-body { padding: 12px 14px; }
 
     /* ── Form rows ── */
-    .field-row { display: flex; gap: 12px; margin-bottom: 14px; }
+    .field-row { display: flex; gap: 10px; margin-bottom: 10px; }
     .field-row:last-child { margin-bottom: 0; }
     .field { display: flex; flex-direction: column; gap: 5px; flex: 1; }
     .field-label {
@@ -130,8 +195,8 @@
     }
     .plan-textarea {
       font-family: var(--font-sans); font-size: 13px; color: #1a1a1a;
-      border: 1px solid #d8d8d8; padding: 10px 12px;
-      background: #fff; outline: none; width: 100%; resize: vertical; min-height: 82px;
+      border: 1px solid #d8d8d8; padding: 8px 10px;
+      background: #fff; outline: none; width: 100%; resize: vertical; min-height: 64px;
       line-height: 1.7; transition: border-color 100ms;
     }
     .plan-textarea:focus { border-color: #888; }
@@ -171,7 +236,7 @@
     .npgc-item.on .npgc-cb::after { content: '✓'; color: #fff; font-size: 9px; font-weight: 700; }
     .npgc-num { font-size: 9px; font-weight: 700; font-family: var(--font-mono); color: #aaa; flex-shrink: 0; margin-top: 2px; }
     .npgc-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
-    .npgc-sub { font-size: 10px; color: #aaa; margin-top: 1px; line-height: 1.35; }
+    .npgc-sub { font-size: 10px; color: #aaa; margin-top: 1px; line-height: 1.35; display: none; }
     .npgc-note { font-size: 11px; color: #bbb; margin-top: 10px; line-height: 1.45; }
 
     /* ── Check group ── */
@@ -191,46 +256,19 @@
 
     .check-group-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 
-    /* ── Sidebar ── */
-    .side-rec {
-      border: 1px solid #e4e4e4;
-      margin-bottom: 8px;
-      padding: 14px 16px;
-    }
-    .side-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #bbb;
-      margin-bottom: 12px; display: block;
-    }
-    .rec-item {
-      font-size: 11px; color: #666; line-height: 1.45;
-      padding: 5px 0; border-bottom: 1px solid #f4f4f4;
-      display: flex; gap: 8px; align-items: flex-start;
-    }
-    .rec-item:last-child { border-bottom: none; }
-    .rec-item::before { content: '·'; color: #bbb; flex-shrink: 0; }
-    .rec-sub {
-      font-size: 10px; color: #aaa; font-weight: 700;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      margin-bottom: 8px; margin-top: 12px; display: block;
-    }
-    .rec-sub:first-of-type { margin-top: 0; }
-    .rec-tag { display: inline-block; font-size: 10px; color: #777; border: 1px solid #ddd; padding: 2px 7px; margin: 2px 2px 0 0; background: #f9f9f9; }
+    .sum-val.empty { color: #bbb; }
 
-    /* ── Dynamic summary ── */
-    .side-summary {
-      border: 1px solid #e4e4e4;
-      padding: 14px 16px;
+    .inline-insight {
+      display: none;
+      margin-top: 10px;
+      border: 1px solid #e8d990;
+      background: #fffef8;
+      padding: 10px 11px;
     }
-    .sum-row {
-      display: flex; justify-content: space-between;
-      padding: 5px 0; border-bottom: 1px solid #f4f4f4;
-      font-size: 11px;
-    }
-    .sum-row:last-child { border-bottom: none; }
-    .sum-key { color: #aaa; }
-    .sum-val { color: #1a1a1a; font-weight: 600; font-size: 11px; text-align: right; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .sum-val.empty { color: #ccc; font-weight: 400; }
+    .inline-insight.on { display: block; }
+    .ii-title { font-size: 11px; font-weight: 700; color: #7a5f00; margin-bottom: 4px; }
+    .ii-text { font-size: 12px; color: #555; line-height: 1.45; }
+    .ii-actions { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
 
     /* ── Bottom bar ── */
     .bottom-bar {
@@ -270,6 +308,44 @@
     .side-rec .side-label { color: #9a8030; }
     .ai-card { background: #fffef8; border-color: #e8d990; }
     .ai-card .work-title { color: #7a5f00; }
+
+    .copilot-fab {
+      position: fixed;
+      right: 24px;
+      bottom: 76px;
+      border: 1px solid #1a1a1a;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 12px;
+      cursor: pointer;
+      z-index: 80;
+    }
+    .ai-drawer {
+      position: fixed;
+      right: -360px;
+      top: 92px;
+      width: 340px;
+      height: calc(100vh - 168px);
+      border: 1px solid #e4e4e4;
+      background: #fff;
+      z-index: 75;
+      transition: right 180ms;
+      display: flex;
+      flex-direction: column;
+    }
+    .ai-drawer.open { right: 24px; }
+    .ai-head {
+      padding: 10px 12px;
+      border-bottom: 1px solid #efefef;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ai-head-title { font-size: 12px; font-weight: 700; color: #7a5f00; }
+    .ai-close { border: 1px solid #d9d9d9; background: #fff; color: #666; font-size: 11px; padding: 4px 7px; cursor: pointer; }
+    .ai-body { padding: 10px 12px; overflow: auto; }
   </style>
 </head>
 <body>
@@ -330,6 +406,22 @@
     <span class="ws-tab">Export &amp; Resources</span>
   </div>
 
+  <div class="review-config" id="review-config">
+    <div class="review-title">Review Configuration</div>
+    <div class="review-line" id="review-areas">Review lenses: None selected</div>
+    <div class="review-line" id="review-refs">Reference frameworks: None selected</div>
+    <div class="review-line" id="review-notes">Lecturer notes: None provided</div>
+  </div>
+
+  <div class="context-strip" id="context-strip">
+    <span class="ctx-chip" id="ctx-module">Module: Not set</span>
+    <span class="ctx-chip" id="ctx-level">Level: L2</span>
+    <span class="ctx-chip" id="ctx-cu">4 CU</span>
+    <span class="ctx-chip" id="ctx-asmt">Assessment: CA Only</span>
+    <span class="ctx-chip" id="ctx-delivery">Delivery: Blended</span>
+    <span class="ctx-chip" id="ctx-npgc">NPGCs: 3 selected</span>
+  </div>
+
   <div class="work-panel">
     <div class="work-grid">
       <div class="work-card">
@@ -343,17 +435,6 @@
           <button class="btn-mini" onclick="addLink()">Add link</button>
         </div>
         <textarea class="plan-textarea" id="context-notes" placeholder="Paste key context snippets, meeting points, or constraints" style="min-height:70px;"></textarea>
-      </div>
-      <div class="work-card ai-card">
-        <div class="work-title">AI Suggestions</div>
-        <div class="sugg-item">Prioritise outcomes that map to GC1, GC2, and GC4 first.</div>
-        <div class="sugg-item">Draft assessments early so learning activities can align to evidence needs.</div>
-        <div class="sugg-item">Use industry examples as prompts inside activities for stronger authenticity.</div>
-        <div class="sugg-actions">
-          <button class="btn-mini">Accept</button>
-          <button class="btn-mini">Refine</button>
-          <button class="btn-mini">Suggest alternatives</button>
-        </div>
       </div>
     </div>
   </div>
@@ -514,6 +595,15 @@
             </div>
           </div>
           <div class="npgc-note">Tip: choose 2-3 priorities for a clear focus.</div>
+          <div class="inline-insight" data-area="Graduate Competencies">
+            <div class="ii-title">AI Insight · Graduate Competencies</div>
+            <div class="ii-text">GC7 Communication is not explicitly surfaced. Suggested enhancement: Present technical findings clearly to diverse stakeholders.</div>
+            <div class="ii-actions">
+              <button class="btn-mini primary">Insert Outcome</button>
+              <button class="btn-mini">Refine</button>
+              <button class="btn-mini">Ignore</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -565,6 +655,15 @@
                 <span class="chip on" onclick="selChip(this,'group')">Includes group work</span>
                 <span class="chip" onclick="selChip(this,'group')">Individual only</span>
               </div>
+            </div>
+          </div>
+          <div class="inline-insight" data-area="Assessment Strategy">
+            <div class="ii-title">AI Insight · Assessment Strategy</div>
+            <div class="ii-text">Group weighting exceeds recommended range. Suggested adjustment: rebalance to 25–30% for stronger individual accountability.</div>
+            <div class="ii-actions">
+              <button class="btn-mini primary">Apply Suggestion</button>
+              <button class="btn-mini">Refine</button>
+              <button class="btn-mini">Ignore</button>
             </div>
           </div>
         </div>
@@ -660,70 +759,30 @@
 
     </div><!-- end layout-main -->
 
-    <!-- Sidebar -->
+    <!-- Left navigator -->
     <div class="layout-side">
+      <div class="section-nav">
+        <div class="nav-group-title">Module</div>
+        <div class="nav-module" id="nav-module">Data Structures &amp; Algorithms</div>
+        <div class="nav-meta" id="nav-meta">L2 • 4 CU</div>
 
-      <!-- AI Recommendations from Phase 1 -->
-      <div class="side-rec">
-        <span class="side-label">Insights from Uploaded Context <span class="ai-chip">AI</span></span>
+        <div class="nav-group-title">Sections</div>
+        <div class="nav-list">
+          <div class="nav-item done" data-target="A"><span class="nav-dot"></span>Overview</div>
+          <div class="nav-item done" data-target="B"><span class="nav-dot"></span>Synopsis &amp; Skills</div>
+          <div class="nav-item current" data-target="C"><span class="nav-dot"></span>Learning Outcomes</div>
+          <div class="nav-item" data-target="D"><span class="nav-dot"></span>Assessment</div>
+          <div class="nav-item" data-target="E"><span class="nav-dot"></span>T&amp;L Strategies</div>
+          <div class="nav-item warn" data-target="F"><span class="nav-dot"></span>Build Focus</div>
+        </div>
 
-        <span class="rec-sub">Suggested competencies</span>
-        <div class="rec-item">GC1 Domain Knowledge</div>
-        <div class="rec-item">GC2 Critical Thinking</div>
-        <div class="rec-item">GC4 Digital Competence</div>
+        <div class="nav-group-title">Review Flags</div>
+        <div class="review-flag" id="flag-competency">2 competency flags</div>
+        <div class="review-flag" id="flag-assessment">1 assessment flag</div>
 
-        <span class="rec-sub">Assessment strategy</span>
-        <div class="rec-item">Project-based CA recommended</div>
-        <div class="rec-item">Include an industry-facing brief</div>
-
-        <span class="rec-sub">T&amp;L approaches</span>
-        <div class="rec-item">Case-based learning</div>
-        <div class="rec-item">Blended / e-learning delivery</div>
-
-        <span class="rec-sub">Skills to consider</span>
-        <div style="margin-top:4px; line-height:1.6;">
-          <span class="rec-tag">AI / ML literacy</span>
-          <span class="rec-tag">Data interpretation</span>
-          <span class="rec-tag">Cloud fundamentals</span>
-          <span class="rec-tag">Ethical practice</span>
-          <span class="rec-tag">Industry collaboration</span>
-        </div>
-      </div>
-
-      <!-- Dynamic plan summary -->
-      <div class="side-summary">
-        <span class="side-label">Plan summary</span>
-        <div class="sum-row">
-          <span class="sum-key">Module</span>
-          <span class="sum-val empty" id="sum-title">Not set</span>
-        </div>
-        <div class="sum-row">
-          <span class="sum-key">School</span>
-          <span class="sum-val empty" id="sum-school">Not set</span>
-        </div>
-        <div class="sum-row">
-          <span class="sum-key">Level</span>
-          <span class="sum-val" id="sum-level">L2</span>
-        </div>
-        <div class="sum-row">
-          <span class="sum-key">Credit Units</span>
-          <span class="sum-val" id="sum-cu">4</span>
-        </div>
-        <div class="sum-row">
-          <span class="sum-key">NPGCs</span>
-          <span class="sum-val" id="sum-npgc">3 selected</span>
-        </div>
-        <div class="sum-row">
-          <span class="sum-key">Assessment</span>
-          <span class="sum-val" id="sum-asmt">CA Only</span>
-        </div>
-        <div class="sum-row">
-          <span class="sum-key">Delivery</span>
-          <span class="sum-val" id="sum-delivery">Blended</span>
-        </div>
-        <div class="sum-row">
-          <span class="sum-key">Selected Sections</span>
-          <span class="sum-val" id="sum-focus">3 selected</span>
+        <div class="completion-wrap">
+          <div class="completion-bar"><div class="completion-fill" id="completion-fill"></div></div>
+          <div class="completion-label" id="completion-label">60% complete</div>
         </div>
       </div>
 
@@ -741,6 +800,24 @@
     <a href="design-wizard.html" class="btn-primary">Continue to Build Module →</a>
   </div>
 </div>
+
+<button class="copilot-fab" id="copilot-fab" onclick="toggleAIDrawer()">✦ AI Copilot</button>
+<aside class="ai-drawer" id="ai-drawer">
+  <div class="ai-head">
+    <div class="ai-head-title">AI Copilot</div>
+    <button class="ai-close" onclick="toggleAIDrawer(false)">Close</button>
+  </div>
+  <div class="ai-body">
+    <div class="sugg-item">Prioritise outcomes that map to GC1, GC2, and GC4 first.</div>
+    <div class="sugg-item">Draft assessments early so learning activities can align to evidence needs.</div>
+    <div class="sugg-item">Use industry examples as prompts inside activities for stronger authenticity.</div>
+    <div class="sugg-actions">
+      <button class="btn-mini">Accept</button>
+      <button class="btn-mini">Refine</button>
+      <button class="btn-mini">Suggest alternatives</button>
+    </div>
+  </div>
+</aside>
 
 <script>
   // ── Steppers ──
@@ -807,32 +884,65 @@
     const deliveryChip = document.querySelector('#chip-delivery .chip.on');
     const npgcCount = document.querySelectorAll('#npgc-grid .npgc-item.on').length;
 
-    setSum('sum-title', title || null);
-    setSum('sum-school', (school && school !== 'Select school…') ? school.replace('School of ', '') : null);
-    document.getElementById('sum-level').textContent = levelChip ? levelChip.textContent : '—';
-    document.getElementById('sum-cu').textContent = stepperVals.cu + ' CU';
-    document.getElementById('sum-npgc').textContent = npgcCount + ' selected';
-    document.getElementById('sum-asmt').textContent = asmtChip ? asmtChip.textContent.split(' —')[0] : '—';
-    document.getElementById('sum-delivery').textContent = deliveryChip ? deliveryChip.textContent : '—';
-    document.getElementById('sum-focus').textContent = document.querySelectorAll('#build-focus-grid .focus-item.on').length + ' selected';
+    const selectedFocus = document.querySelectorAll('#build-focus-grid .focus-item.on').length;
+    const activeSections = [title ? 1 : 0, school && school !== 'Select school…' ? 1 : 0, npgcCount > 0 ? 1 : 0, selectedFocus > 0 ? 1 : 0].reduce((a, b) => a + b, 0);
+    const completion = Math.round((activeSections / 6) * 100);
+
+    document.getElementById('ctx-module').textContent = 'Module: ' + (title || 'Not set');
+    document.getElementById('ctx-level').textContent = 'Level: ' + (levelChip ? levelChip.textContent : '—');
+    document.getElementById('ctx-cu').textContent = stepperVals.cu + ' CU';
+    document.getElementById('ctx-npgc').textContent = 'NPGCs: ' + npgcCount + ' selected';
+    document.getElementById('ctx-asmt').textContent = 'Assessment: ' + (asmtChip ? asmtChip.textContent.split(' —')[0] : '—');
+    document.getElementById('ctx-delivery').textContent = 'Delivery: ' + (deliveryChip ? deliveryChip.textContent : '—');
+
+    document.getElementById('nav-module').textContent = title || 'Untitled Module';
+    document.getElementById('nav-meta').textContent = (levelChip ? levelChip.textContent : '—') + ' • ' + stepperVals.cu + ' CU';
+    document.getElementById('completion-fill').style.width = completion + '%';
+    document.getElementById('completion-label').textContent = completion + '% complete';
+
+    const competencySignals = document.querySelectorAll('.inline-insight[data-area="Graduate Competencies"].on').length + npgcCount;
+    const competencyFlags = competencySignals < 3 ? 1 : 2;
+    const assessmentFlags = document.querySelectorAll('.inline-insight[data-area="Assessment Strategy"].on').length ? 1 : 0;
+    document.getElementById('flag-competency').textContent = competencyFlags + ' competency flag' + (competencyFlags > 1 ? 's' : '');
+    document.getElementById('flag-assessment').textContent = assessmentFlags + ' assessment flag' + (assessmentFlags !== 1 ? 's' : '');
   }
 
-  function setSum(id, val) {
-    const el = document.getElementById(id);
-    if (val) {
-      el.textContent = val;
-      el.classList.remove('empty');
-    } else {
-      el.textContent = 'Not set';
-      el.classList.add('empty');
-    }
+  function toggleAIDrawer(forceOpen) {
+    const drawer = document.getElementById('ai-drawer');
+    const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !drawer.classList.contains('open');
+    drawer.classList.toggle('open', shouldOpen);
   }
 
   // Initialise
   updateSummary();
 
+  // ── Review mode support (shared workspace entry from Review Existing Module) ──
+  const q = new URLSearchParams(window.location.search);
+  const mode = q.get('mode');
+  const reviewAreas = (q.get('areas') || '').split('|').filter(Boolean);
+  const reviewRefs = (q.get('refs') || '').split('|').filter(Boolean);
+  const reviewNotes = q.get('notes') || '';
+
+  if (mode === 'review') {
+    const cfg = document.getElementById('review-config');
+    cfg.classList.add('on');
+    document.querySelector('.page-title').textContent = 'Review Workspace';
+    document.querySelector('.page-sub').textContent = 'Review and refine this module inline. AI recommendations appear in context within each selected section.';
+    document.getElementById('review-areas').textContent = 'Review lenses: ' + (reviewAreas.length ? reviewAreas.join(', ') : 'None selected');
+    document.getElementById('review-refs').textContent = 'Reference frameworks: ' + (reviewRefs.length ? reviewRefs.join(', ') : 'None selected');
+    document.getElementById('review-notes').textContent = 'Lecturer notes: ' + (reviewNotes || 'None provided');
+
+    document.querySelectorAll('.inline-insight').forEach(card => {
+      const area = card.getAttribute('data-area');
+      if (reviewAreas.includes(area)) card.classList.add('on');
+    });
+
+    const bb = document.querySelector('.btn-primary');
+    bb.textContent = 'Continue to Draft & Refine →';
+  }
+
   // ── Collapsible plan sections ──
-  document.querySelectorAll('.plan-section').forEach(section => {
+  document.querySelectorAll('.plan-section').forEach((section, index) => {
     const header = section.querySelector('.ps-header');
     if (!header) return;
     const toggle = document.createElement('span');
@@ -840,6 +950,18 @@
     toggle.textContent = '▾';
     header.appendChild(toggle);
     header.addEventListener('click', () => section.classList.toggle('collapsed'));
+    section.dataset.section = String.fromCharCode(65 + index);
+    if (index > 0) section.classList.add('collapsed');
+  });
+
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const sectionKey = item.getAttribute('data-target');
+      const section = Array.from(document.querySelectorAll('.plan-section')).find(s => s.dataset.section === sectionKey);
+      if (!section) return;
+      section.classList.remove('collapsed');
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   });
 </script>
 

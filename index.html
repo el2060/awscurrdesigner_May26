@@ -46,10 +46,31 @@
     .path-block { margin-bottom: 0; }
 
     .path-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: #aaa;
+      font-size: 12px; font-weight: 600; letter-spacing: 0;
+      color: #666;
       margin-bottom: 12px; display: block;
     }
+
+    .optional-context {
+      border: 1px solid #e0e0e0;
+      background: #fafafa;
+      margin-bottom: 10px;
+    }
+    .optional-context summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 11px 14px;
+      font-size: 12px;
+      color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+    .optional-context summary::-webkit-details-marker { display: none; }
+    .optional-context summary::after { content: '▾'; color: #bbb; font-size: 11px; }
+    .optional-context:not([open]) summary::after { transform: rotate(-90deg); }
+    .optional-context-body { padding: 0 14px 14px; }
 
     /* ── Phase cards ── */
     .phase-card {
@@ -65,7 +86,7 @@
     /* Phase 1 — lighter, preparatory */
     .phase-prep {
       background: #fafafa;
-      padding: 20px 24px 18px;
+      padding: 14px 16px;
     }
     .phase-prep:hover { background: #f5f5f5; }
 
@@ -196,21 +217,22 @@
     <span class="path-label">Designing a new module</span>
 
     <!-- Optional Context Workspace -->
-    <a class="phase-card phase-prep" href="gather-context.html">
-      <div class="phase-tag">Optional Workspace</div>
-      <div class="phase-title">Gather &amp; Synthesise Context</div>
-      <div class="phase-desc">Optional: upload evidence once, then reuse the insights across both flows.</div>
-      <div class="source-tags">
-        <span class="source-tag">Industry feedback</span>
-        <span class="source-tag">Skills frameworks</span>
-        <span class="source-tag">Student surveys</span>
-        <span class="source-tag">Graduate data</span>
-        <span class="source-tag">Module evaluations</span>
-        <span class="source-tag">Benchmarking</span>
-        <span class="source-tag">Existing modules</span>
+    <details class="optional-context">
+      <summary>Optional: Context workspace for reusable references</summary>
+      <div class="optional-context-body">
+        <a class="phase-card phase-prep" href="gather-context.html">
+          <div class="phase-title">Gather &amp; Synthesise Context</div>
+          <div class="phase-desc">Upload reference inputs once and reuse insights across both workflows.</div>
+          <div class="source-tags">
+            <span class="source-tag">Industry</span>
+            <span class="source-tag">Frameworks</span>
+            <span class="source-tag">Student insights</span>
+            <span class="source-tag">Module materials</span>
+          </div>
+          <div class="phase-cta">Open Context Workspace →</div>
+        </a>
       </div>
-      <div class="phase-cta">Open Context Workspace →</div>
-    </a>
+    </details>
 
     <!-- Connector -->
     <div class="phase-connector">
@@ -246,13 +268,11 @@
 
     <a class="phase-card phase-main" href="refresh-align.html">
       <div class="phase-title">Module Review &amp; Enhancement</div>
-      <div class="phase-desc">Import an existing module to review and enhance selected areas against curriculum, assessment, competency, and industry considerations.</div>
+      <div class="phase-desc">Import a module, configure review lenses, then refine in the shared workspace.</div>
       <ol class="phase-steps">
         <li>Import existing module</li>
-        <li>Select review focus</li>
-        <li>Review insights &amp; recommendations</li>
-        <li>Apply &amp; refine updates</li>
-        <li>Export updated module document</li>
+        <li>Configure review lenses</li>
+        <li>Open review workspace</li>
       </ol>
       <div class="phase-cta">Start Review Flow →</div>
     </a>
