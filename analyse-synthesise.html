@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analyse & Synthesise — NP AI Curriculum Platform</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: #fff; color: #1a1a1a; min-height: 100vh; padding-bottom: 72px; }
+
+    /* ── Topbar ── */
+    .topbar {
+      height: 52px; border-bottom: 1px solid #e0e0e0;
+      display: flex; align-items: center; padding: 0 40px; background: #fff;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-brand {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 500; color: #1a1a1a; text-decoration: none;
+    }
+    .t-div { width: 1px; height: 16px; background: #e0e0e0; margin: 0 6px; }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+    .topbar-link { font-size: 12px; color: #888; text-decoration: none; }
+    .topbar-link:hover { color: #1a1a1a; }
+
+    /* ── Phase bar ── */
+    .phase-bar {
+      border-bottom: 1px solid #e0e0e0; padding: 0 40px;
+      display: flex; align-items: center; background: #fafafa; height: 40px;
+      overflow-x: auto;
+    }
+    .ph-step { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #bbb; white-space: nowrap; flex-shrink: 0; }
+    .ph-step.active { color: #1a1a1a; font-weight: 600; }
+    .ph-step.done { color: #666; }
+    .ph-num { width: 20px; height: 20px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; font-family: var(--font-mono); flex-shrink: 0; }
+    .ph-step.active .ph-num { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .ph-step.done .ph-num { background: #555; color: #fff; border-color: #555; }
+    .ph-connector { width: 28px; height: 1px; background: #e0e0e0; margin: 0 8px; flex-shrink: 0; }
+
+    /* ── Layout ── */
+    .page { max-width: 960px; margin: 0 auto; padding: 48px 40px 40px; }
+    .layout { display: flex; gap: 32px; align-items: flex-start; }
+    .layout-side { width: 200px; flex-shrink: 0; position: sticky; top: 100px; }
+    .layout-main { flex: 1; min-width: 0; }
+
+    /* ── Page header ── */
+    .page-title { font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .page-sub { font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 36px; }
+
+    /* ── Stat strip ── */
+    .stat-strip { display: flex; gap: 0; border: 1px solid #e4e4e4; margin-bottom: 32px; }
+    .stat-item {
+      flex: 1; padding: 16px 20px; border-right: 1px solid #e4e4e4;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-size: 24px; font-weight: 700; color: #1a1a1a; font-family: var(--font-mono); letter-spacing: -0.03em; }
+    .stat-label { font-size: 11px; color: #aaa; }
+
+    /* ── Analysis sections ── */
+    .analysis-section { margin-bottom: 20px; border: 1px solid #e4e4e4; }
+    .as-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      user-select: none;
+    }
+    .as-header:hover { background: #fafafa; }
+    .as-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+    .as-meta { display: flex; align-items: center; gap: 10px; }
+    .as-count { font-size: 10px; font-weight: 700; color: #999; font-family: var(--font-mono); background: #f2f2f2; border: 1px solid #e4e4e4; padding: 2px 7px; }
+    .as-toggle { font-size: 11px; color: #bbb; transition: transform 120ms; }
+    .as-toggle.open { transform: rotate(90deg); }
+
+    .as-body { padding: 4px 0; display: block; }
+    .as-body.hidden { display: none; }
+
+    .finding-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 11px 20px;
+      border-bottom: 1px solid #f6f6f6;
+      transition: background 80ms;
+    }
+    .finding-row:last-child { border-bottom: none; }
+    .finding-row:hover { background: #fafafa; }
+    .finding-dot { width: 5px; height: 5px; background: #d0d0d0; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+    .finding-content { flex: 1; }
+    .finding-text { font-size: 13px; color: #2a2a2a; line-height: 1.5; }
+    .finding-detail { font-size: 11px; color: #aaa; margin-top: 2px; }
+    .finding-tag { font-size: 10px; color: #888; border: 1px solid #e4e4e4; padding: 1px 6px; background: #f8f8f8; flex-shrink: 0; align-self: flex-start; margin-top: 3px; }
+
+    /* ── Recommendations (actionable) ── */
+    .rec-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 11px 20px;
+      border-bottom: 1px solid #f6f6f6;
+      transition: background 80ms;
+    }
+    .rec-row:last-child { border-bottom: none; }
+    .rec-row:hover { background: #fafafa; }
+    .rec-cb { flex-shrink: 0; margin-top: 2px; width: 14px; height: 14px; border: 1px solid #ccc; cursor: pointer; accent-color: #1a1a1a; }
+    .rec-text { font-size: 13px; color: #2a2a2a; flex: 1; line-height: 1.5; }
+    .rec-text.checked { color: #aaa; text-decoration: line-through; }
+
+    /* ── Sources sidebar ── */
+    .side-title { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #bbb; margin-bottom: 14px; }
+    .source-group { margin-bottom: 16px; }
+    .source-group-label { font-size: 10px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .source-file {
+      display: flex; align-items: center; gap: 7px;
+      padding: 5px 0; border-bottom: 1px solid #f4f4f4; font-size: 11px; color: #666;
+    }
+    .source-file:last-child { border-bottom: none; }
+    .source-ext { font-size: 9px; font-weight: 700; color: #999; font-family: var(--font-mono); background: #f2f2f2; border: 1px solid #e4e4e4; padding: 1px 4px; flex-shrink: 0; }
+
+    /* ── Bottom bar ── */
+    .bottom-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: 60px; background: #fff; border-top: 1px solid #e0e0e0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; z-index: 50;
+    }
+    .bb-note { font-size: 12px; color: #aaa; }
+    .bb-actions { display: flex; gap: 10px; }
+    .btn-ghost { font-size: 12px; font-weight: 500; color: #888; border: 1px solid #d8d8d8; padding: 7px 16px; background: #fff; cursor: pointer; text-decoration: none; }
+    .btn-ghost:hover { border-color: #999; color: #1a1a1a; }
+    .btn-primary { font-size: 12px; font-weight: 600; color: #fff; border: 1px solid #1a1a1a; padding: 7px 18px; background: #1a1a1a; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-primary:hover { background: #333; }
+    .btn-secondary { font-size: 12px; font-weight: 500; color: #555; border: 1px solid #d0d0d0; padding: 7px 14px; background: #fff; cursor: pointer; text-decoration: none; }
+    .btn-secondary:hover { border-color: #1a1a1a; color: #1a1a1a; }
+  </style>
+</head>
+<body>
+
+<!-- Topbar -->
+<nav class="topbar">
+  <a href="index.html" class="topbar-brand">
+    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
+         alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
+    <div class="t-div"></div>
+    <span>AI Curriculum Platform</span>
+  </a>
+  <div class="topbar-right">
+    <a href="index.html" class="topbar-link">← Home</a>
+  </div>
+</nav>
+
+<!-- Phase bar -->
+<div class="phase-bar">
+  <div class="ph-step done">
+    <div class="ph-num">✓</div>
+    <span>Gather Context</span>
+  </div>
+  <div class="ph-connector"></div>
+  <div class="ph-step active">
+    <div class="ph-num">02</div>
+    <span>Analyse &amp; Synthesise</span>
+  </div>
+  <div class="ph-connector"></div>
+  <div class="ph-step">
+    <div class="ph-num">03</div>
+    <span>Plan Direction</span>
+  </div>
+  <div class="ph-connector"></div>
+  <div class="ph-step">
+    <div class="ph-num">04</div>
+    <span>Generate Artifacts</span>
+  </div>
+  <div class="ph-connector"></div>
+  <div class="ph-step">
+    <div class="ph-num">05</div>
+    <span>Review &amp; Refine</span>
+  </div>
+</div>
+
+<!-- Page -->
+<main class="page">
+
+  <div class="page-title">Analyse &amp; Synthesise</div>
+  <div class="page-sub">AI has reviewed your 9 uploaded materials and extracted the following themes, gaps, and recommendations to inform curriculum planning.</div>
+
+  <!-- Stat strip -->
+  <div class="stat-strip">
+    <div class="stat-item">
+      <div class="stat-num">9</div>
+      <div class="stat-label">Sources analysed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">14</div>
+      <div class="stat-label">Themes identified</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Alignment gaps</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">7</div>
+      <div class="stat-label">Recommendations</div>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <!-- Analysis findings -->
+    <div class="layout-main">
+
+      <!-- Key Trends -->
+      <div class="analysis-section">
+        <div class="as-header" onclick="toggleSection(this)">
+          <div class="as-title">Key Trends</div>
+          <div class="as-meta">
+            <div class="as-count">3 themes</div>
+            <div class="as-toggle open">›</div>
+          </div>
+        </div>
+        <div class="as-body">
+          <div class="finding-row">
+            <div class="finding-dot"></div>
+            <div class="finding-content">
+              <div class="finding-text">Growing industry demand for AI literacy and applied data skills across ICT roles</div>
+              <div class="finding-detail">Source: IMDA Tech Skills Report 2025 · Student Feedback Sem 2</div>
+            </div>
+            <div class="finding-tag">High signal</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-dot"></div>
+            <div class="finding-content">
+              <div class="finding-text">Shift towards cloud-native development and DevOps practices in industry hiring</div>
+              <div class="finding-detail">Source: IMDA Tech Skills Report 2025</div>
+            </div>
+            <div class="finding-tag">Emerging</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-dot"></div>
+            <div class="finding-content">
+              <div class="finding-text">Increased emphasis on interdisciplinary collaboration and communication skills in technical roles</div>
+              <div class="finding-detail">Source: SIDM Curriculum Evaluation 2024 · NP Module Review</div>
+            </div>
+            <div class="finding-tag">Consistent</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Competency Gaps -->
+      <div class="analysis-section">
+        <div class="as-header" onclick="toggleSection(this)">
+          <div class="as-title">Competency Gaps</div>
+          <div class="as-meta">
+            <div class="as-count">3 gaps</div>
+            <div class="as-toggle open">›</div>
+          </div>
+        </div>
+        <div class="as-body">
+          <div class="finding-row">
+            <div class="finding-dot"></div>
+            <div class="finding-content">
+              <div class="finding-text">Data analytics proficiency: assessed module outcomes below industry benchmark</div>
+              <div class="finding-detail">68% coverage vs. 80% target in SSG ICT Skills Framework · affects 4 modules</div>
+            </div>
+            <div class="finding-tag">Critical</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-dot"></div>
+            <div class="finding-content">
+              <div class="finding-text">AI ethics and responsible technology use: explicit coverage missing across core ICT modules</div>
+              <div class="finding-detail">Referenced in SSG ICT Framework 2024 · not mapped in current MDDs</div>
+            </div>
+            <div class="finding-tag">Gap</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-dot"></div>
+            <div class="finding-content">
+              <div class="finding-text">Communication and presentation skills undertapped in technical modules</div>
+              <div class="finding-detail">4 of 7 modules reviewed have no explicit comms rubric or outcome · SoH&IS rubric not applied</div>
+            </div>
+            <div class="finding-tag">Gap</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emerging Skills -->
+      <div class="analysis-section">
+        <div class="as-header" onclick="toggleSection(this)">
+          <div class="as-title">Emerging Skills to Consider</div>
+          <div class="as-meta">
+            <div class="as-count">4 skills</div>
+            <div class="as-toggle open">›</div>
+          </div>
+        </div>
+        <div class="as-body">
+          <div class="finding-row">
+            <div class="finding-dot"></div>
+            <div class="finding-content">
+              <div class="finding-text">AI tool use and prompt engineering — increasingly expected in ICT job roles</div>
+              <div class="finding-detail">Source: IMDA 2025 · SSG Framework</div>
+            </div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-dot"></div>
+            <div class="finding-content">
+              <div class="finding-text">Responsible AI and data governance — regulatory and professional expectations rising</div>
+              <div class="finding-detail">Source: SSG ICT Skills Framework 2024</div>
+            </div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-dot"></div>
+            <div class="finding-content">
+              <div class="finding-text">Agile project management fundamentals — cited in employer feedback as undertaught</div>
+              <div class="finding-detail">Source: SIDM Curriculum Evaluation 2024</div>
+            </div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-dot"></div>
+            <div class="finding-content">
+              <div class="finding-text">Cloud and DevOps practices — present in industry frameworks, limited module coverage</div>
+              <div class="finding-detail">Source: IMDA 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alignment Opportunities -->
+      <div class="analysis-section">
+        <div class="as-header" onclick="toggleSection(this)">
+          <div class="as-title">Alignment Opportunities</div>
+          <div class="as-meta">
+            <div class="as-count">3 areas</div>
+            <div class="as-toggle open">›</div>
+          </div>
+        </div>
+        <div class="as-body">
+          <div class="finding-row">
+            <div class="finding-dot"></div>
+            <div class="finding-content">
+              <div class="finding-text">NPGC Competency 3 (Problem Solving) shows low coverage across L2 ICT modules</div>
+              <div class="finding-detail">Only 2 of 6 L2 modules explicitly map to NPGC-3 in their MDD outcomes</div>
+            </div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-dot"></div>
+            <div class="finding-content">
+              <div class="finding-text">NP Assessment Framework: 3 modules have group work component exceeding 30% threshold</div>
+              <div class="finding-detail">Ref: NP AF Para 4.2 — group work ≤30% of total assessment</div>
+            </div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-dot"></div>
+            <div class="finding-content">
+              <div class="finding-text">SoH&IS Comms Rubric applicable to 4 modules with presentation components — not yet applied</div>
+              <div class="finding-detail">Modules: ICT2001, ICT2045, ICT1234, ICT3012</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommendations -->
+      <div class="analysis-section">
+        <div class="as-header" onclick="toggleSection(this)">
+          <div class="as-title">AI Recommendations</div>
+          <div class="as-meta">
+            <div class="as-count">7 actions</div>
+            <div class="as-toggle open">›</div>
+          </div>
+        </div>
+        <div class="as-body" id="rec-body">
+          <div class="rec-row">
+            <input type="checkbox" class="rec-cb" checked onchange="toggleRec(this)">
+            <div class="rec-text">Integrate an AI/data angle into at least 2 existing L2 ICT modules — address analytics gap</div>
+          </div>
+          <div class="rec-row">
+            <input type="checkbox" class="rec-cb" checked onchange="toggleRec(this)">
+            <div class="rec-text">Add AI ethics unit or learning outcome to core ICT modules (ICT2001, ICT2045)</div>
+          </div>
+          <div class="rec-row">
+            <input type="checkbox" class="rec-cb" checked onchange="toggleRec(this)">
+            <div class="rec-text">Apply SoH&IS Comms Rubric to 4 modules with presentation components — explicit rubric alignment</div>
+          </div>
+          <div class="rec-row">
+            <input type="checkbox" class="rec-cb" onchange="toggleRec(this)">
+            <div class="rec-text">Review group work weighting in 3 flagged modules against NP Assessment Framework thresholds</div>
+          </div>
+          <div class="rec-row">
+            <input type="checkbox" class="rec-cb" onchange="toggleRec(this)">
+            <div class="rec-text">Strengthen NPGC Competency 3 (Problem Solving) coverage in L2 module suite</div>
+          </div>
+          <div class="rec-row">
+            <input type="checkbox" class="rec-cb" onchange="toggleRec(this)">
+            <div class="rec-text">Introduce Agile project management element into at least one L3 capstone module</div>
+          </div>
+          <div class="rec-row">
+            <input type="checkbox" class="rec-cb" onchange="toggleRec(this)">
+            <div class="rec-text">Benchmark assessment design against current industry project formats and SSG competency descriptors</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /layout-main -->
+
+    <!-- Sources sidebar -->
+    <div class="layout-side">
+      <div class="side-title">Sources analysed</div>
+
+      <div class="source-group">
+        <div class="source-group-label">Review reports</div>
+        <div class="source-file">
+          <span class="source-ext">PDF</span>
+          NP_ICT_Module_Review_AY2425.pdf
+        </div>
+        <div class="source-file">
+          <span class="source-ext">DOCX</span>
+          SIDM_Curriculum_Evaluation_2024.docx
+        </div>
+      </div>
+
+      <div class="source-group">
+        <div class="source-group-label">Student feedback</div>
+        <div class="source-file">
+          <span class="source-ext">XLSX</span>
+          Student_Feedback_Sem2_AY2425.xlsx
+        </div>
+      </div>
+
+      <div class="source-group">
+        <div class="source-group-label">Industry</div>
+        <div class="source-file">
+          <span class="source-ext">PDF</span>
+          IMDA_Tech_Skills_Report_2025.pdf
+        </div>
+      </div>
+
+      <div class="source-group">
+        <div class="source-group-label">Module docs</div>
+        <div class="source-file">
+          <span class="source-ext">XLSX</span>
+          MDD_ICT2001_DataStructures.xlsx
+        </div>
+        <div class="source-file">
+          <span class="source-ext">XLSX</span>
+          MDD_ICT2045_WebDevelopment.xlsx
+        </div>
+        <div class="source-file">
+          <span class="source-ext">PDF</span>
+          ICT1234_Assessment_Brief.pdf
+        </div>
+      </div>
+
+      <div class="source-group">
+        <div class="source-group-label">Frameworks</div>
+        <div class="source-file">
+          <span class="source-ext">PDF</span>
+          SSG_ICT_Skills_Framework_2024.pdf
+        </div>
+        <div class="source-file">
+          <span class="source-ext">PDF</span>
+          NP_NPGC_Competency_Framework.pdf
+        </div>
+      </div>
+
+    </div><!-- /layout-side -->
+
+  </div><!-- /layout -->
+
+</main>
+
+<!-- Bottom bar -->
+<div class="bottom-bar">
+  <div class="bb-note" id="bb-note">3 of 7 recommendations selected</div>
+  <div class="bb-actions">
+    <a href="gather-context.html" class="btn-ghost">← Back</a>
+    <a href="#" class="btn-secondary" onclick="exportSummary(); return false;">Export Summary</a>
+    <a href="design-wizard.html" class="btn-primary">Proceed to Planning →</a>
+  </div>
+</div>
+
+<script>
+  function toggleSection(header) {
+    const body = header.nextElementSibling;
+    const toggle = header.querySelector('.as-toggle');
+    body.classList.toggle('hidden');
+    toggle.classList.toggle('open');
+  }
+
+  function toggleRec(cb) {
+    const text = cb.closest('.rec-row').querySelector('.rec-text');
+    text.classList.toggle('checked', !cb.checked);
+    updateCount();
+  }
+
+  function updateCount() {
+    const checked = document.querySelectorAll('.rec-cb:checked').length;
+    const total = document.querySelectorAll('.rec-cb').length;
+    document.getElementById('bb-note').textContent = checked + ' of ' + total + ' recommendations selected';
+  }
+
+  function exportSummary() {
+    const note = document.getElementById('bb-note');
+    const orig = note.textContent;
+    note.textContent = 'Summary exported · analysis_synthesis_report.pdf';
+    setTimeout(() => { note.textContent = orig; }, 2500);
+  }
+</script>
+
+</body>
+</html>
