@@ -8,7 +8,10 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font-sans); background: #fff; color: #1a1a1a; min-height: 100vh; padding-bottom: 72px; }
-    :root { --workspace-max: 1360px; --workspace-pad: 32px; }
+    :root {
+      --workspace-max: 1360px;
+      --workspace-pad: 32px;
+    }
 
     /* ── Topbar ── */
     .topbar { height: 52px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; padding: 0 40px; background: #fff; position: sticky; top: 0; z-index: 100; }
@@ -39,9 +42,30 @@
     .layout-main { min-width: 0; }
     .layout-side { position: sticky; top: 76px; }
 
+    @media (max-width: 1280px) {
+      :root { --workspace-pad: 24px; }
+      .topbar { padding: 0 24px; }
+    }
+
     @media (max-width: 1080px) {
       .layout { grid-template-columns: 1fr; }
       .layout-side { position: static; }
+    }
+
+    @media (max-width: 900px) {
+      :root { --workspace-pad: 16px; }
+      body { padding-bottom: 84px; }
+      .topbar { padding: 0 16px; }
+      .page { padding: 28px var(--workspace-pad); }
+      .page-title { font-size: 20px; }
+      .page-sub { margin-bottom: 22px; }
+      .field-row { flex-direction: column; }
+      .field[style] { width: 100% !important; flex: 1 !important; }
+      .chip-group#chip-level { flex-wrap: wrap !important; }
+      .npgc-grid,
+      .check-group-2col { grid-template-columns: 1fr; }
+      .bottom-inner { gap: 10px; align-items: flex-start; padding-top: 10px; }
+      .bb-actions { width: 100%; justify-content: flex-end; }
     }
 
     /* ── Plan sections ── */
@@ -146,6 +170,40 @@
     .btn-ghost:hover { border-color: #999; color: #1a1a1a; }
     .btn-primary { font-size: 12px; font-weight: 600; color: #fff; border: 1px solid #004689; padding: 7px 18px; background: #004689; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
     .btn-primary:hover { background: #003366; border-color: #003366; }
+
+    /* ── Global readability profile (aligned to homepage scale) ── */
+    :root {
+      --workspace-max: 1120px;
+      --workspace-pad: 40px;
+    }
+    .topbar { padding: 0 40px; }
+    .topbar-link { font-size: 13px; }
+    .phase-inner { min-height: 44px; }
+    .ph-step { font-size: 12px; }
+    .page { max-width: var(--workspace-max); padding: 44px var(--workspace-pad); }
+    .page-title { font-size: 34px; margin-bottom: 10px; }
+    .page-sub { font-size: 18px; line-height: 1.55; margin-bottom: 32px; max-width: 720px; }
+    .ps-title { font-size: 15px; }
+    .ps-desc { font-size: 12px; }
+    .field-label { font-size: 11px; }
+    .plan-input, .plan-select, .plan-textarea { font-size: 14px; }
+    .chip, .check-label, .npgc-name { font-size: 13px; }
+    .btn-ghost, .btn-primary, .bb-note { font-size: 13px; }
+
+    @media (max-width: 1280px) {
+      :root { --workspace-pad: 28px; }
+      .topbar { padding: 0 28px; }
+      .page-title { font-size: 30px; }
+      .page-sub { font-size: 16px; }
+    }
+
+    @media (max-width: 900px) {
+      :root { --workspace-pad: 18px; }
+      .topbar { padding: 0 18px; }
+      .page { padding: 30px var(--workspace-pad); }
+      .page-title { font-size: 26px; }
+      .page-sub { font-size: 15px; margin-bottom: 24px; }
+    }
   </style>
 </head>
 <body>
@@ -189,7 +247,7 @@
     <div class="layout-main">
 
       <!-- Section A: Module Overview -->
-      <div class="plan-section">
+      <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">A</div>
           <div class="ps-title">Module Overview</div>
@@ -252,7 +310,7 @@
       </div>
 
       <!-- Section B: Module Purpose & Direction -->
-      <div class="plan-section">
+      <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">B</div>
           <div class="ps-title">Module Purpose &amp; Direction</div>
@@ -269,7 +327,7 @@
       </div>
 
       <!-- Section C: Key Graduate Competencies -->
-      <div class="plan-section">
+      <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">C</div>
           <div class="ps-title">Key Graduate Competencies</div>
@@ -292,7 +350,7 @@
       </div>
 
       <!-- Section D: Assessment Strategy -->
-      <div class="plan-section">
+      <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">D</div>
           <div class="ps-title">Assessment Strategy</div>

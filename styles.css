@@ -1885,3 +1885,54 @@ tr:hover .row-actions { opacity: 1; }
   .rubric-grid .rubric-band-head { text-align: left; }
 }
 
+/* ============================================================
+   GLOBAL READABILITY SCALE
+   ============================================================ */
+.topbar {
+  height: 56px;
+  padding: 0 32px;
+}
+.topbar-module-title { font-size: 15px; }
+.topbar-link { font-size: 13px; }
+
+.main-content {
+  max-width: 1120px;
+  padding: 32px 32px 44px;
+}
+.page-title,
+.section-title,
+.panel-title {
+  font-size: 18px;
+}
+
+.sidebar-nav-item { font-size: 14px; }
+.sidebar-module-name { font-size: 15px; }
+.sidebar-module-meta { font-size: 12px; }
+
+.form-label,
+.field-label,
+.chip,
+.btn,
+.btn-sm,
+.status-badge,
+.table-head,
+.table-cell,
+.review-toolbar-left,
+.review-toolbar-right {
+  font-size: 13px;
+}
+
+@media (max-width: 1280px) {
+  .topbar { padding: 0 24px; }
+  .main-content { padding: 28px 24px 40px; }
+}
+
+@media (max-width: 900px) {
+  .topbar { padding: 0 16px; }
+  .topbar-module-title { font-size: 14px; }
+  .main-content { padding: 24px 16px 36px; }
+  .page-title,
+  .section-title,
+  .panel-title { font-size: 17px; }
+}
+

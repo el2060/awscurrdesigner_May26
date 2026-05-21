@@ -407,15 +407,72 @@
     .btn-ghost { font-size: 12px; font-weight: 500; color: #888; border: 1px solid #d8d8d8; padding: 7px 16px; background: #fff; cursor: pointer; text-decoration: none; }
     .btn-ghost:hover { border-color: #999; color: #1a1a1a; }
 
+    @media (max-width: 1280px) {
+      :root { --workspace-pad: 24px; }
+      .topbar { padding: 0 24px; }
+      .build-workspace { grid-template-columns: 1fr; }
+    }
+
     @media (max-width: 1080px) {
       .layout { grid-template-columns: 1fr; }
       .layout-side {
         width: 100%;
         position: static;
       }
-      .build-workspace {
-        grid-template-columns: 1fr;
+    }
+
+    @media (max-width: 900px) {
+      :root { --workspace-pad: 16px; }
+      body { padding-bottom: 84px; }
+      .topbar { padding: 0 16px; }
+      .page { padding: 28px var(--workspace-pad); }
+      .page-title { font-size: 20px; }
+      .page-sub { margin-bottom: 22px; }
+      .recap-grid,
+      .scope-grid { grid-template-columns: 1fr; }
+      .recap-item,
+      .recap-item:nth-child(2n) {
+        border-right: none;
+        padding-left: 0;
+        padding-right: 0;
       }
+      .recap-item { border-bottom: 1px solid #ececec; padding: 10px 0; }
+      .recap-item:last-child { border-bottom: none; }
+      .mini-row { flex-direction: column; }
+      .bottom-inner { gap: 10px; align-items: flex-start; padding-top: 10px; }
+      .bb-actions { width: 100%; justify-content: flex-end; }
+    }
+
+    /* ── Global readability profile (aligned to homepage scale) ── */
+    :root {
+      --workspace-max: 1120px;
+      --workspace-pad: 40px;
+    }
+    .topbar { padding: 0 40px; }
+    .topbar-link { font-size: 13px; }
+    .phase-inner { min-height: 44px; }
+    .ph-step { font-size: 12px; }
+    .page { max-width: var(--workspace-max); padding: 44px var(--workspace-pad) 44px; }
+    .page-title { font-size: 34px; margin-bottom: 10px; }
+    .page-sub { font-size: 18px; line-height: 1.55; margin-bottom: 32px; max-width: 720px; }
+    .recap-key, .work-card h3, .cp-label, .sequence-title, .ai-loop-title { font-size: 11px; }
+    .recap-val, .scope-name, .mini-input, .suggestion, .gs-label { font-size: 14px; }
+    .scope-sub, .sequence-text, .ai-loop-text { font-size: 13px; }
+    .mini-btn, .btn-ghost, .bb-note { font-size: 13px; }
+
+    @media (max-width: 1280px) {
+      :root { --workspace-pad: 28px; }
+      .topbar { padding: 0 28px; }
+      .page-title { font-size: 30px; }
+      .page-sub { font-size: 16px; }
+    }
+
+    @media (max-width: 900px) {
+      :root { --workspace-pad: 18px; }
+      .topbar { padding: 0 18px; }
+      .page { padding: 30px var(--workspace-pad); }
+      .page-title { font-size: 26px; }
+      .page-sub { font-size: 15px; margin-bottom: 24px; }
     }
   </style>
 </head>

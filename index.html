@@ -192,6 +192,36 @@
       border-top: 1px solid #ebebeb;
       font-size: 11px; color: #ccc;
     }
+
+    /* ── Readability baseline for whole flow ── */
+    .topbar { padding: 0 40px; }
+    .page { max-width: 1120px; padding: 44px 40px 100px; }
+    .page-title { font-size: 34px; margin-bottom: 36px; }
+    .intro { font-size: 18px; margin-bottom: 30px; }
+    .path-label { font-size: 26px; }
+    .phase-title { font-size: 24px; }
+    .phase-desc { font-size: 14px; }
+    .phase-steps li { font-size: 14px; }
+    .source-tag { font-size: 12px; }
+    .phase-cta { font-size: 13px; }
+
+    @media (max-width: 1280px) {
+      .topbar { padding: 0 28px; }
+      .page { padding: 36px 28px 96px; }
+      .page-title { font-size: 30px; }
+      .intro { font-size: 16px; }
+      .phase-title { font-size: 22px; }
+    }
+
+    @media (max-width: 900px) {
+      .topbar { padding: 0 18px; }
+      .page { padding: 30px 18px 90px; }
+      .page-title { font-size: 26px; margin-bottom: 26px; }
+      .intro { font-size: 15px; margin-bottom: 24px; }
+      .phase-main, .phase-prep { padding: 16px; }
+      .phase-title { font-size: 20px; }
+      .phase-desc, .phase-steps li { font-size: 13px; }
+    }
   </style>
 </head>
 <body>

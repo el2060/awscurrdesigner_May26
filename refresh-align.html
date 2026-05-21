@@ -121,6 +121,37 @@
     .btn-ghost:hover { border-color: #999; color: #1a1a1a; }
     .btn-primary { font-size: 12px; font-weight: 600; color: #fff; border: 1px solid #004689; padding: 7px 18px; background: #004689; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-family: inherit; }
     .btn-primary:hover { background: #003366; border-color: #003366; }
+
+    /* ── Global readability profile (aligned to homepage scale) ── */
+    :root {
+      --workspace-max: 1120px;
+      --workspace-pad: 40px;
+    }
+    .topbar { padding: 0 40px; }
+    .topbar-link { font-size: 13px; }
+    .phase-inner { min-height: 44px; }
+    .ph-step { font-size: 12px; }
+    .page { max-width: var(--workspace-max); padding: 44px var(--workspace-pad); }
+    .page-title { font-size: 34px; margin-bottom: 10px; }
+    .page-sub { font-size: 18px; line-height: 1.55; margin-bottom: 32px; max-width: 760px; }
+    .ps-title { font-size: 15px; }
+    .ps-desc, .field-label, .side-label { font-size: 12px; }
+    .plan-input, .plan-textarea, .check-label, .btn-action, .btn-ghost, .btn-primary, .bb-note { font-size: 14px; }
+
+    @media (max-width: 1280px) {
+      :root { --workspace-pad: 28px; }
+      .topbar { padding: 0 28px; }
+      .page-title { font-size: 30px; }
+      .page-sub { font-size: 16px; }
+    }
+
+    @media (max-width: 900px) {
+      :root { --workspace-pad: 18px; }
+      .topbar { padding: 0 18px; }
+      .page { padding: 30px var(--workspace-pad); }
+      .page-title { font-size: 26px; }
+      .page-sub { font-size: 15px; margin-bottom: 24px; }
+    }
   </style>
 </head>
 <body>
