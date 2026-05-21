@@ -34,8 +34,10 @@
 
     /* ── Page ── */
     .page { max-width: var(--workspace-max); margin: 0 auto; padding: 40px var(--workspace-pad); }
+    .page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
     .page-title { font-size: 26px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 6px; }
-    .page-sub { font-size: 15px; color: #888; line-height: 1.55; margin-bottom: 32px; max-width: 760px; }
+    .page-sub { font-size: 15px; color: #888; line-height: 1.55; max-width: 760px; }
+    .page-head-actions { display: flex; gap: 8px; flex-shrink: 0; }
 
     /* ── Layout ── */
     .layout { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: flex-start; }
@@ -79,19 +81,19 @@
 
     @media (max-width: 900px) {
       :root { --workspace-pad: 16px; }
-      body { padding-bottom: 84px; }
       .topbar { padding: 0 16px; }
       .page { padding: 28px var(--workspace-pad); }
+      .page-head { flex-direction: column; margin-bottom: 24px; }
       .page-title { font-size: 20px; }
-      .page-sub { margin-bottom: 22px; }
+      .page-sub { font-size: 15px; margin-bottom: 0; }
       .field-row { flex-direction: column; }
       .field[style] { width: 100% !important; flex: 1 !important; }
       .chip-group#chip-level { flex-wrap: wrap !important; }
       .npgc-grid,
       .check-group-2col,
-      .recap-grid { grid-template-columns: 1fr; }
-      .bottom-inner { gap: 10px; align-items: flex-start; padding-top: 10px; }
-      .bb-actions { width: 100%; justify-content: flex-end; }
+      .recap-grid,
+      .assessment-bank,
+      .review-modal-body { grid-template-columns: 1fr; }
       .recap-item,
       .recap-item:nth-child(2n) {
         border-right: none;
@@ -410,11 +412,38 @@
     .draft-card h4 { font-size: 13px; color: #1a1a1a; margin-bottom: 6px; }
     .draft-card p { font-size: 12px; color: #555; line-height: 1.5; }
 
-    /* ── Bottom bar ── */
-    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #fff; border-top: 1px solid #e0e0e0; z-index: 50; }
-    .bottom-inner { max-width: var(--workspace-max); height: 100%; margin: 0 auto; padding: 0 var(--workspace-pad); display: flex; align-items: center; justify-content: space-between; }
-    .bb-note { font-size: 12px; color: #bbb; }
-    .bb-actions { display: flex; gap: 10px; }
+    /* ── Review modal ── */
+    .review-cta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .review-modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.35);
+      display: none; align-items: center; justify-content: center; padding: 24px; z-index: 300;
+    }
+    .review-modal-backdrop.show { display: flex; }
+    .review-modal {
+      width: min(860px, 100%); max-height: min(88vh, 900px); overflow: auto;
+      background: #fff; border: 1px solid #dedede; box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
+    }
+    .review-modal-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 16px 18px; border-bottom: 1px solid #f0f0f0;
+    }
+    .review-modal-title { font-size: 15px; font-weight: 700; color: #1a1a1a; }
+    .review-modal-sub { font-size: 12px; color: #777; margin-top: 2px; }
+    .review-modal-close {
+      border: 1px solid #d0d0d0; background: #fff; color: #555;
+      font-size: 12px; font-weight: 600; padding: 6px 10px; cursor: pointer; font-family: inherit;
+    }
+    .review-modal-body { padding: 16px 18px 18px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 16px; }
+    .review-panel { border: 1px solid #e8e8e8; background: #fbfbfb; padding: 12px; }
+    .review-panel-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; margin-bottom: 10px; }
+    .review-lines { display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: #444; line-height: 1.5; }
+    .review-line { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid #f0f0f0; }
+    .review-line:last-child { border-bottom: none; padding-bottom: 0; }
+    .review-line-key { color: #888; }
+    .review-line-val { text-align: right; font-weight: 600; color: #1a1a1a; }
+    .review-list { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #444; }
+    .review-list li { margin-left: 18px; }
+    .review-modal-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .btn-ghost { font-size: 12px; font-weight: 500; color: #888; border: 1px solid #d8d8d8; padding: 7px 16px; background: #fff; cursor: pointer; text-decoration: none; }
     .btn-ghost:hover { border-color: #999; color: #1a1a1a; }
     .btn-primary { font-size: 12px; font-weight: 600; color: #fff; border: 1px solid #004689; padding: 7px 18px; background: #004689; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
@@ -475,8 +504,15 @@
 <!-- Page -->
 <main class="page">
 
-  <div class="page-title">Plan Curriculum Direction</div>
-  <div class="page-sub">Start with the module idea, then shape the outcomes, learning plan, and assessment with light support beside the work.</div>
+  <div class="page-head">
+    <div>
+      <div class="page-title">Plan Curriculum Direction</div>
+      <div class="page-sub">Start with the module idea, then shape the outcomes, learning plan, and assessment with light support beside the work.</div>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn-subtle" type="button" onclick="openReviewModal()">Review</button>
+    </div>
+  </div>
 
   <div class="recap">
     <span class="recap-label">Module context</span>
@@ -839,33 +875,39 @@
         </div>
       </div>
 
-      <!-- Preview / Export -->
-      <div class="plan-section">
-        <div class="ps-header" onclick="toggleSection(this)">
-          <div class="ps-num">J</div>
-          <div class="ps-title">Preview / Export</div>
-          <div class="ps-desc">Review the assembled workspace and continue when ready</div>
-          <div class="ps-toggle">▾</div>
-        </div>
-        <div class="ps-body">
-          <div class="scope-actions">
-            <a href="review-export.html" class="btn-primary">Review &amp; Export →</a>
-          </div>
-        </div>
-      </div>
-
     </div><!-- end layout-main -->
 
   </div><!-- end layout -->
 
 </main>
 
-<!-- Bottom bar -->
-<div class="bottom-bar">
-  <div class="bottom-inner">
-    <div class="bb-note" id="bb-note">Shape the module one section at a time, then preview and export when ready</div>
-    <div class="bb-actions">
-      <a href="review-export.html" class="btn-primary">Review &amp; Export →</a>
+<div class="review-modal-backdrop" id="review-modal-backdrop" aria-hidden="true">
+  <div class="review-modal" role="dialog" aria-modal="true" aria-labelledby="review-modal-title">
+    <div class="review-modal-head">
+      <div>
+        <div class="review-modal-title" id="review-modal-title">Review &amp; Export</div>
+        <div class="review-modal-sub">A quick summary before you print, copy, or continue editing.</div>
+      </div>
+      <button class="review-modal-close" type="button" onclick="closeReviewModal()">Close</button>
+    </div>
+    <div class="review-modal-body">
+      <div class="review-panel">
+        <div class="review-panel-title">Module summary</div>
+        <div class="review-lines" id="review-summary-lines"></div>
+      </div>
+      <div class="review-panel">
+        <div class="review-panel-title">Export actions</div>
+        <ul class="review-list">
+          <li>Copy the summary for another document.</li>
+          <li>Print or save as PDF from the browser print dialog.</li>
+          <li>Close the modal and keep editing inline.</li>
+        </ul>
+        <div class="review-modal-actions">
+          <button class="btn-action" type="button" onclick="copyReviewSummary()">Copy summary</button>
+          <button class="btn-action" type="button" onclick="window.print()">Print / Save PDF</button>
+          <button class="btn-subtle" type="button" onclick="closeReviewModal()">Continue editing</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -1018,6 +1060,69 @@
     if (panel) panel.classList.remove('show');
   }
 
+  function buildReviewSummary() {
+    const title = document.getElementById('f-title').value.trim() || 'Not set';
+    const level = document.querySelector('#chip-level .chip.on')?.textContent?.trim() || 'L2';
+    const cu = String(stepperVals.cu) + ' CU';
+    const delivery = document.querySelector('#chip-delivery .chip.on')?.textContent?.trim() || 'Blended';
+    const assessment = document.querySelector('#chip-asmttype .chip.on')?.textContent?.trim() || 'CA Only';
+    const purpose = document.getElementById('f-purpose').value.trim() || 'Not filled in yet';
+    const outcomes = document.getElementById('f-outcomes').value.trim() || 'Not filled in yet';
+    const topics = document.getElementById('f-topics').value.trim() || 'Not filled in yet';
+    const assessmentType = document.getElementById('assessment-detail-title')?.textContent?.trim() || 'Project';
+    const assessmentWeight = document.getElementById('assessment-weight')?.value.trim() || '40%';
+    const competencies = Array.from(document.querySelectorAll('#npgc-grid .npgc-item.on .npgc-name')).map(el => el.textContent.trim()).join(', ') || 'None selected';
+
+    return [
+      { key: 'Module', val: title },
+      { key: 'Level / CU', val: `${level} • ${cu}` },
+      { key: 'Delivery / Assessment', val: `${delivery} • ${assessment}` },
+      { key: 'Purpose', val: purpose },
+      { key: 'Outcomes', val: outcomes },
+      { key: 'Weekly plan', val: topics },
+      { key: 'Assessment type', val: `${assessmentType} (${assessmentWeight})` },
+      { key: 'Competencies', val: competencies }
+    ];
+  }
+
+  function renderReviewSummary() {
+    const lines = document.getElementById('review-summary-lines');
+    if (!lines) return;
+    const summary = buildReviewSummary();
+    lines.innerHTML = '';
+    summary.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'review-line';
+      row.innerHTML = `<span class="review-line-key">${item.key}</span><span class="review-line-val">${item.val}</span>`;
+      lines.appendChild(row);
+    });
+  }
+
+  function openReviewModal() {
+    renderReviewSummary();
+    const backdrop = document.getElementById('review-modal-backdrop');
+    if (backdrop) backdrop.classList.add('show');
+  }
+
+  function closeReviewModal() {
+    const backdrop = document.getElementById('review-modal-backdrop');
+    if (backdrop) backdrop.classList.remove('show');
+  }
+
+  async function copyReviewSummary() {
+    const text = buildReviewSummary().map(item => `${item.key}: ${item.val}`).join('\n');
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (error) {
+      const temp = document.createElement('textarea');
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      temp.remove();
+    }
+  }
+
   function refreshObservations() {
     const observations = [];
     const level = document.querySelector('#chip-level .chip.on')?.textContent?.trim() || 'L2';
@@ -1168,7 +1273,6 @@
   }
 
   document.getElementById('ai-guidance').addEventListener('input', () => {
-    document.getElementById('bb-note').textContent = 'Guidance updated. Inline section assists will use this context as you refine each block.';
     refreshReadiness();
   });
 
