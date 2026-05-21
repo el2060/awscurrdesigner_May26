@@ -308,6 +308,103 @@
       line-height: 1.45;
       flex: 1;
     }
+    .output-widget {
+      margin-top: 10px;
+      border: 1px solid #cddcf1;
+      border-radius: 10px;
+      background: #fff;
+      padding: 9px;
+    }
+    .output-widget-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 7px;
+    }
+    .output-widget-title {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4f6d95;
+      font-weight: 700;
+    }
+    .output-widget-tools {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .output-format {
+      border: 1px solid #bfd0eb;
+      border-radius: 8px;
+      font-size: 12px;
+      padding: 5px 8px;
+      color: #30527b;
+      background: #fff;
+      font-family: inherit;
+    }
+    .output-text {
+      width: 100%;
+      min-height: 104px;
+      border: 1px solid #d8e3f4;
+      border-radius: 8px;
+      padding: 9px 10px;
+      font: inherit;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #2f4e70;
+      background: #f9fcff;
+      resize: vertical;
+    }
+    .output-preview {
+      display: none;
+      border: 1px solid #d8e3f4;
+      border-radius: 8px;
+      background: #f9fcff;
+      padding: 10px;
+      color: #2f4e70;
+    }
+    .output-preview.show { display: block; }
+    .preview-heading {
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 8px;
+      color: #1f3f62;
+    }
+    .preview-subheading {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #4f6d95;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .preview-label {
+      font-size: 12px;
+      font-weight: 600;
+      margin: 6px 0;
+      color: #35506d;
+    }
+    .preview-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      font-size: 12px;
+    }
+    .preview-table th,
+    .preview-table td {
+      border: 1px solid #c7d8f0;
+      padding: 7px 8px;
+      vertical-align: top;
+      text-align: left;
+    }
+    .preview-table th {
+      background: #edf4ff;
+      color: #2f4e70;
+      font-weight: 700;
+    }
 
     /* ── Stepper ── */
     .stepper { display: flex; align-items: center; border: 1px solid #d8d8d8; background: #fff; height: 34px; }
@@ -1299,7 +1396,135 @@
     return target ? target.value.trim() : '';
   }
 
+  function splitDraftIdeas(raw) {
+    const base = String(raw || '').replace(/^.*?:\s*/, '').trim();
+    if (!base) return [];
+    return base.split(/,|;|\n/).map(item => item.trim()).filter(Boolean);
+  }
+
+  function buildStructuredPreviewHtml(sectionKey, rawText) {
+    if (sectionKey !== 'topics') {
+      return `<pre style="margin:0; white-space:pre-wrap; font:inherit;">${escapeHtml(String(rawText || ''))}</pre>`;
+    }
+
+    const raw = String(rawText || '').trim();
+    const ideas = splitDraftIdeas(raw);
+    const topicLines = ideas.length
+      ? ideas
+      : [
+          'Foundations and orientation',
+          'Guided practice and worked examples',
+          'Applied case work',
+          'Project development and feedback',
+          'Consolidation and reflection'
+        ];
+    const onlineHours = document.getElementById('f-online-hours')?.value?.trim() || '20 hours';
+    const rows = Array.from({ length: Math.max(5, topicLines.length) }, (_, i) => {
+      const topic = topicLines[i] || 'Independent learning / consultation';
+      const hours = i < 2 ? '4 hrs' : i < 4 ? '3 hrs' : '2 hrs';
+      return `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${escapeHtml(topic)}</td>
+          <td>${hours}</td>
+        </tr>`;
+    }).join('');
+
+    return `
+      <div class="preview-heading">Teaching and Learning</div>
+      <div class="preview-subheading">Content</div>
+      <div class="preview-label">Topics and Hours</div>
+      <div class="preview-label">Online e-learning hours (*): ${escapeHtml(onlineHours)}</div>
+      <table class="preview-table">
+        <thead>
+          <tr>
+            <th style="width:90px;">Week</th>
+            <th>Topics</th>
+            <th style="width:220px;">Lecture- Tutorial hours</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+  }
+
+  function formatSectionOutput(sectionKey, rawText, format) {
+    const raw = String(rawText || '').trim();
+    if (!raw) return '';
+    if (format === 'plain') return raw;
+
+    const ideas = splitDraftIdeas(raw);
+    if (format === 'bullets') {
+      if (!ideas.length) return '- ' + raw;
+      return ideas.map(item => `- ${item}`).join('\n');
+    }
+
+    // Demo structured view for quick copy/paste to module document formats.
+    if (sectionKey === 'topics') {
+      const topicLines = ideas.length
+        ? ideas
+        : [
+            'Foundations and orientation',
+            'Guided practice and worked examples',
+            'Applied case work',
+            'Project development and feedback',
+            'Consolidation and reflection'
+          ];
+      const onlineHours = document.getElementById('f-online-hours')?.value?.trim() || '20 hours';
+      const rows = Array.from({ length: Math.max(5, topicLines.length) }, (_, i) => {
+        const topic = topicLines[i] || 'Independent learning / consultation';
+        const hours = i < 2 ? '4 hrs' : i < 4 ? '3 hrs' : '2 hrs';
+        return `${String(i + 1).padEnd(4)} | ${topic.padEnd(48)} | ${hours}`;
+      }).join('\n');
+
+      return `Teaching and Learning\nCONTENT\n\nTopics and Hours\nOnline e-learning hours (*): ${onlineHours}\n\nWeek | Topics                                           | Lecture-Tutorial hours\n-----|---------------------------------------------------|----------------------\n${rows}`;
+    }
+
+    if (sectionKey === 'assessment') {
+      return `Assessment strategy\n- Component: ${raw}\n- Rationale: Authentic and outcome-aligned\n- Evidence: Clear criteria and workload balance`;
+    }
+
+    if (!ideas.length) return raw;
+    return ideas.map((item, idx) => `${idx + 1}. ${item}`).join('\n');
+  }
+
+  function refreshOutputWidget(outputId, sectionKey) {
+    const panel = document.getElementById(outputId);
+    if (!panel) return;
+    const select = document.getElementById(outputId + '-format');
+    const textarea = document.getElementById(outputId + '-text');
+    const preview = document.getElementById(outputId + '-preview');
+    if (!select || !textarea || !preview) return;
+    const format = select.value;
+    const raw = panel.dataset.raw || panel.dataset.value || '';
+    const formatted = formatSectionOutput(sectionKey, raw, format);
+    textarea.value = formatted;
+    panel.dataset.value = formatted;
+
+    if (format === 'structured') {
+      preview.innerHTML = buildStructuredPreviewHtml(sectionKey, raw);
+      preview.classList.add('show');
+      textarea.style.display = 'none';
+    } else {
+      preview.classList.remove('show');
+      preview.innerHTML = '';
+      textarea.style.display = '';
+    }
+  }
+
+  function copySectionOutput(outputId) {
+    const textarea = document.getElementById(outputId + '-text');
+    const value = textarea ? textarea.value : '';
+    if (!value) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(value);
+      return;
+    }
+    textarea.select();
+    document.execCommand('copy');
+  }
+
   const DEMO_SCRIPTED_MODE = true;
+  const sectionAiRuntime = {};
 
   function shouldAskFollowUps(sectionKey, seed, current, mode) {
     // Demo-only heuristic to simulate adaptive probing in a prototype.
@@ -1530,38 +1755,75 @@
     const cfg = buildAiCoCreate(sectionKey, mode, seed, current);
     const followUpDepth = DEMO_SCRIPTED_MODE ? getFollowUpDepth(sectionKey, seed, current, mode) : 0;
     const followUps = followUpDepth > 0 ? cfg.questions.slice(0, followUpDepth) : [];
+    sectionAiRuntime[outputId] = { options: cfg.options || [], draft: cfg.draft || '' };
     panel.dataset.target = targetId;
+    panel.dataset.raw = cfg.draft;
     panel.dataset.value = cfg.draft;
     panel.innerHTML = `
       <div class="section-ai-output-title">${escapeHtml(cfg.title)}</div>
-      <div class="section-ai-output-text">${escapeHtml(cfg.lead)}</div>
+      <div class="chat-msg chat-msg-user">
+        <div class="chat-msg-meta">You</div>
+        <div class="chat-bubble">${escapeHtml(seed || 'Please help me draft this section.')}</div>
+      </div>
+      <div class="chat-msg chat-msg-ai">
+        <div class="chat-msg-meta">AI</div>
+        <div class="chat-bubble">${escapeHtml(cfg.lead)}</div>
+      </div>
       ${followUps.length ? `
-      <div class="section-ai-group">
-        <div class="section-ai-group-label">AI follow-up prompts</div>
-        <ul class="section-ai-list">
-          ${followUps.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
-        </ul>
+      <div class="chat-msg chat-msg-ai">
+        <div class="chat-msg-meta">AI</div>
+        <div class="chat-bubble">To shape a stronger draft, I would clarify:\n${followUps.map((item, i) => `${i + 1}. ${item}`).join('\n')}</div>
       </div>` : ''}
       <div class="section-ai-group">
-        <div class="section-ai-group-label">Suggested options</div>
-        <ul class="section-ai-list">
-          ${cfg.options.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
-        </ul>
+        <div class="section-ai-group-label">AI suggestions</div>
+        <div class="chat-suggestion-list">
+          ${cfg.options.map((item, idx) => `
+            <div class="chat-suggestion-card">
+              <div class="chat-suggestion-text">${escapeHtml(item)}</div>
+              <button class="section-ai-btn" type="button" onclick="previewSectionOption('${outputId}', '${sectionKey}', ${idx})">Use</button>
+            </div>`).join('')}
+        </div>
       </div>
-      <div class="section-ai-output-text" style="margin-top:8px; color:#333;">${escapeHtml(cfg.draft)}</div>
+      <div class="output-widget">
+        <div class="output-widget-head">
+          <div class="output-widget-title">Generated output</div>
+          <div class="output-widget-tools">
+            <select class="output-format" id="${outputId}-format" onchange="refreshOutputWidget('${outputId}','${sectionKey}')">
+              <option value="plain">Plain</option>
+              <option value="bullets">Bullets</option>
+              <option value="structured">Structured</option>
+            </select>
+            <button class="section-ai-btn" type="button" onclick="copySectionOutput('${outputId}')">Copy</button>
+          </div>
+        </div>
+        <div class="output-preview" id="${outputId}-preview"></div>
+        <textarea class="output-text" id="${outputId}-text"></textarea>
+      </div>
       <div class="section-ai-actions-row">
-        <button class="section-ai-btn" type="button" onclick="applySectionAssist('${outputId}')">Use</button>
+        <button class="section-ai-btn" type="button" onclick="applySectionAssist('${outputId}')">Apply to section</button>
+        <button class="section-ai-btn" type="button" onclick="insertSectionAssist('${outputId}')">Insert</button>
         <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('${outputId}','${sectionKey}','${targetId}','refine')">Refine</button>
         <button class="section-ai-btn" type="button" onclick="hideSectionAssist('${outputId}')">Close</button>
       </div>`;
+    refreshOutputWidget(outputId, sectionKey);
     panel.classList.add('show');
+  }
+
+  function previewSectionOption(outputId, sectionKey, optionIndex) {
+    const panel = document.getElementById(outputId);
+    if (!panel) return;
+    const state = sectionAiRuntime[outputId];
+    if (!state || !state.options || !state.options[optionIndex]) return;
+    panel.dataset.raw = state.options[optionIndex];
+    refreshOutputWidget(outputId, sectionKey);
   }
 
   function applySectionAssist(outputId) {
     const panel = document.getElementById(outputId);
     if (!panel) return;
     const target = document.getElementById(panel.dataset.target);
-    if (target) target.value = panel.dataset.value || '';
+    const widgetValue = document.getElementById(outputId + '-text')?.value;
+    if (target) target.value = widgetValue || panel.dataset.value || '';
     panel.classList.remove('show');
     updateSummary();
   }
@@ -1571,7 +1833,7 @@
     if (!panel) return;
     const target = document.getElementById(panel.dataset.target);
     if (target) {
-      const addition = panel.dataset.value || '';
+      const addition = document.getElementById(outputId + '-text')?.value || panel.dataset.value || '';
       target.value = target.value.trim() ? target.value.trim() + '\n' + addition : addition;
     }
     panel.classList.remove('show');
