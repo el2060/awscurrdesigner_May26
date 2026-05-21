@@ -507,7 +507,7 @@
   <div class="page-head">
     <div>
       <div class="page-title">Plan Curriculum Direction</div>
-      <div class="page-sub">Start with the module idea, then shape the outcomes, learning plan, and assessment with light support beside the work.</div>
+      <div class="page-sub">Start with the module idea, then shape the outcomes, learning flow, and assessment inside one guided curriculum workspace.</div>
     </div>
     <div class="page-head-actions">
       <button class="btn-subtle" type="button" onclick="openReviewModal()">Review</button>
@@ -526,7 +526,7 @@
         <span class="recap-val" id="meta-meta">L2 • 4 CU • Blended • CA Only</span>
       </div>
       <div class="recap-item">
-        <span class="recap-key">Quick help</span>
+        <span class="recap-key">Design prompts</span>
         <span class="recap-val" id="meta-scope">6 inline helpers</span>
       </div>
       <div class="recap-item">
@@ -603,7 +603,7 @@
             <div class="plan-hint">e.g. apply design thinking to community engagement projects</div>
             <div class="section-ai">
               <div class="section-ai-head">
-                <div class="section-ai-label">Quick help</div>
+                <div class="section-ai-label">Design prompts</div>
                 <div class="section-ai-actions">
                   <button class="section-ai-btn" type="button" onclick="showSectionAssist('purpose-ai-output','Draft from title','Lead with the applied intent of the module and the student outcome focus.','f-purpose')">Draft from title</button>
                   <button class="section-ai-btn" type="button" onclick="showSectionAssist('purpose-ai-output','Shorten','Make the module purpose more concise.','f-purpose')">Shorten</button>
@@ -632,7 +632,7 @@
           </div>
           <div class="section-ai">
             <div class="section-ai-head">
-              <div class="section-ai-label">Quick help</div>
+              <div class="section-ai-label">Design prompts</div>
               <div class="section-ai-actions">
                 <button class="section-ai-btn" type="button" onclick="showSectionAssist('outcomes-ai-output','Suggest','Add one or two stronger outcome statements.','f-outcomes')">Suggest</button>
                 <button class="section-ai-btn" type="button" onclick="showSectionAssist('outcomes-ai-output','Improve','Rewrite the outcomes with stronger verbs.','f-outcomes')">Improve</button>
@@ -649,21 +649,21 @@
       <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">D</div>
-          <div class="ps-title">Weekly Topics / Learning Plan</div>
-          <div class="ps-desc">A simple weekly flow or topic sequence</div>
+          <div class="ps-title">Learning Flow &amp; Activities</div>
+          <div class="ps-desc">Sequence, pacing, pedagogy, and applied work in one view</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
           <div class="field">
-            <label class="field-label">Weekly Plan</label>
-            <textarea class="plan-textarea" id="f-topics" placeholder="e.g. foundations, guided practice, applied task, review, reflection"></textarea>
-            <div class="plan-hint">Use a rough sequence first. Detail can come later.</div>
+            <label class="field-label">Learning Flow</label>
+            <textarea class="plan-textarea" id="f-topics" placeholder="e.g. foundations, guided practice, application, review"></textarea>
+            <div class="plan-hint">Sketch the flow first. Detail can come later.</div>
           </div>
           <div class="section-ai">
             <div class="section-ai-head">
-              <div class="section-ai-label">Quick help</div>
+              <div class="section-ai-label">Design prompts</div>
               <div class="section-ai-actions">
-                <button class="section-ai-btn" type="button" onclick="showSectionAssist('topics-ai-output','Suggest','Turn this into a clearer week-by-week flow.','f-topics')">Suggest</button>
+                <button class="section-ai-btn" type="button" onclick="showSectionAssist('topics-ai-output','Suggest','Turn this into a clearer sequence of learning flow.','f-topics')">Suggest</button>
                 <button class="section-ai-btn" type="button" onclick="showSectionAssist('topics-ai-output','Expand','Add missing topic areas or pacing cues.','f-topics')">Expand</button>
                 <button class="section-ai-btn" type="button" onclick="showSectionAssist('topics-ai-output','Align','Check the sequence against the learning outcomes.','f-topics')">Align</button>
               </div>
@@ -678,12 +678,12 @@
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">E</div>
           <div class="ps-title">Learning Experience</div>
-          <div class="ps-desc">How will students learn?</div>
+          <div class="ps-desc">How the module moves from input to practice to application</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
           <div class="field" style="margin-bottom:14px;">
-            <label class="field-label">Learning Modes <span class="opt">(select all that apply)</span></label>
+            <label class="field-label">Learning Approaches <span class="opt">(select all that apply)</span></label>
             <div class="check-group-2col" id="tl-strategy-group">
               <div class="check-item on" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Case-based</div></div>
               <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Studio / Workshop</div></div>
@@ -705,14 +705,14 @@
             </div>
           </div>
           <div class="field">
-            <label class="field-label">Additional learning activities <span class="opt">(optional)</span></label>
+            <label class="field-label">Optional activities <span class="opt">(optional)</span></label>
             <textarea class="plan-textarea" id="tl-notes" placeholder="e.g. field visit, peer critique, reflective journal"></textarea>
           </div>
           <div class="section-ai">
             <div class="section-ai-head">
-              <div class="section-ai-label">Quick help</div>
+              <div class="section-ai-label">Design prompts</div>
               <div class="section-ai-actions">
-                <button class="section-ai-btn" type="button" onclick="showSectionAssist('tl-ai-output','Suggest activities','Suggest a few natural activities for this module.','tl-notes')">Suggest activities</button>
+                <button class="section-ai-btn" type="button" onclick="showSectionAssist('tl-ai-output','Suggest activities','Suggest a few natural activities for this module.','tl-notes')">Suggest</button>
                 <button class="section-ai-btn" type="button" onclick="showSectionAssist('tl-ai-output','Broaden','Add another activity or two to widen the learning experience.','tl-notes')">Broaden</button>
                 <button class="section-ai-btn" type="button" onclick="showSectionAssist('tl-ai-output','Align','Check the activities against the outcomes.','tl-notes')">Align</button>
               </div>
@@ -726,19 +726,19 @@
       <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">F</div>
-          <div class="ps-title">Assessment Strategy</div>
-          <div class="ps-desc">Choose the assessment shape, then add a few details</div>
+          <div class="ps-title">Assessment Design</div>
+          <div class="ps-desc">Choose the assessment shape, then refine the task</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
           <div class="field" style="margin-bottom:14px;">
-            <label class="field-label">Assessment Approach</label>
+            <label class="field-label">Assessment Pattern</label>
             <div class="chip-group" id="chip-asmttype">
               <span class="chip on" onclick="selChip(this,'asmttype')">CA Only</span>
               <span class="chip" onclick="selChip(this,'asmttype')">CA + Final Exam</span>
               <span class="chip" onclick="selChip(this,'asmttype')">CA + Common Test</span>
             </div>
-            <div class="auto-map-note">Choose the overall assessment shape.</div>
+            <div class="auto-map-note">Set the overall assessment structure first.</div>
           </div>
           <div class="field" style="margin-bottom:10px;">
             <label class="field-label">Assessment Types</label>
@@ -766,7 +766,7 @@
             <div class="assessment-actions">
               <button class="tiny-action" type="button" onclick="suggestAssessmentRubric()">Suggest rubric criteria</button>
               <button class="tiny-action" type="button" onclick="alignAssessmentLO()">Check LO alignment</button>
-              <button class="tiny-action" type="button" onclick="makeAssessmentMoreAuthentic()">Create authentic scenario</button>
+              <button class="tiny-action" type="button" onclick="makeAssessmentMoreAuthentic()">Make it more authentic</button>
             </div>
           </div>
         </div>
@@ -776,12 +776,12 @@
       <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">G</div>
-          <div class="ps-title">Suggested Competencies</div>
-          <div class="ps-desc">A light prompt for competencies that fit the module</div>
+          <div class="ps-title">Priority Competencies</div>
+          <div class="ps-desc">Competencies that matter most for this module</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
-          <div class="plan-hint" style="margin-bottom:10px;">Select the competencies that best fit the module.</div>
+          <div class="plan-hint" style="margin-bottom:10px;">Select the core competencies for the module.</div>
           <div class="npgc-grid" id="npgc-grid">
             <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC1</div><div class="npgc-name">Domain &amp; Interdisciplinary</div><div class="npgc-ref">NP graduate competency</div></div></div>
             <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC2</div><div class="npgc-name">Critical Thinking</div><div class="npgc-ref">NP graduate competency</div></div></div>
@@ -815,7 +815,7 @@
           </div>
           <div class="section-ai">
             <div class="section-ai-head">
-              <div class="section-ai-label">Quick help</div>
+              <div class="section-ai-label">Design prompts</div>
               <div class="section-ai-actions">
                 <button class="section-ai-btn" type="button" onclick="showSectionAssist('resources-ai-output','Suggest Reference Types','Suggest textbooks, standards, or industry references to strengthen the draft.','f-resources')">Suggest References</button>
               </div>
@@ -829,8 +829,8 @@
       <div class="plan-section">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">I</div>
-          <div class="ps-title">Context &amp; Preferences</div>
-          <div class="ps-desc">Anything useful to keep in mind</div>
+          <div class="ps-title">Context &amp; Constraints</div>
+          <div class="ps-desc">Useful boundaries and local requirements to keep in view</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
@@ -857,16 +857,16 @@
             </div>
 
             <div class="field-block">
-              <div class="field-block-title">Institutional / School Notes</div>
+              <div class="field-block-title">Programme Notes</div>
               <textarea id="school-notes" class="plan-textarea" placeholder="e.g. programme norms, assessment rules, accreditation requirements"></textarea>
-              <div class="field-block-note">Add anything specific to the school or programme.</div>
+              <div class="field-block-note">Keep non-negotiables visible without interrupting the flow.</div>
             </div>
           </div>
 
-          <div class="plan-hint-inline">Use this if there are any school or programme constraints to keep in view.</div>
+          <div class="plan-hint-inline">Use this for school or programme constraints that need to stay embedded in the draft.</div>
 
           <div class="observations-toggle" onclick="toggleObservations()">
-            <div class="observations-title">Draft notes</div>
+            <div class="observations-title">Working notes</div>
             <div class="observations-count" id="obs-count">0</div>
           </div>
           <div class="observations-body" id="obs-body">
@@ -886,7 +886,7 @@
     <div class="review-modal-head">
       <div>
         <div class="review-modal-title" id="review-modal-title">Review &amp; Export</div>
-        <div class="review-modal-sub">A quick summary before you print, copy, or continue editing.</div>
+        <div class="review-modal-sub">A concise summary before you print, copy, or continue editing.</div>
       </div>
       <button class="review-modal-close" type="button" onclick="closeReviewModal()">Close</button>
     </div>
@@ -1079,7 +1079,7 @@
       { key: 'Delivery / Assessment', val: `${delivery} • ${assessment}` },
       { key: 'Purpose', val: purpose },
       { key: 'Outcomes', val: outcomes },
-      { key: 'Weekly plan', val: topics },
+      { key: 'Learning flow', val: topics },
       { key: 'Assessment type', val: `${assessmentType} (${assessmentWeight})` },
       { key: 'Competencies', val: competencies }
     ];
@@ -1162,10 +1162,10 @@
     const base = document.getElementById('f-purpose').value.trim() || 'the module focus';
     const npgc = Array.from(document.querySelectorAll('#npgc-grid .npgc-item.on .npgc-name')).map(el => el.textContent.trim());
     const text = [
-      'Explain and apply core concepts related to ' + base + '.',
+      'Apply core concepts related to ' + base + '.',
       'Analyse practical situations using ' + (npgc[0] || 'relevant graduate competencies') + '.',
-      'Produce a structured solution, artefact, or response aligned to the module brief.',
-      'Communicate reasoning and outcomes clearly in an academic or workplace context.'
+      'Produce a response or artefact aligned to the module brief.',
+      'Communicate reasoning clearly in an academic or workplace context.'
     ].join('\n');
     document.getElementById('f-outcomes').value = text;
     refreshReadiness();
@@ -1174,11 +1174,10 @@
   function suggestTopics() {
     const level = document.querySelector('#chip-level .chip.on')?.textContent?.trim() || 'L2';
     const text = [
-      '1. Foundations and module orientation',
-      '2. Core concepts and applied examples',
-      '3. Guided practice and milestone task',
-      '4. Integrated project, review, and reflection',
-      '5. Consolidation and assessment preparation'
+      '1. Foundations',
+      '2. Guided practice',
+      '3. Applied task',
+      '4. Review and reflection'
     ].join('\n') + '\n\nPace at ' + level + ' with a balance of input, practice, and feedback.';
     document.getElementById('f-topics').value = text;
     refreshReadiness();
