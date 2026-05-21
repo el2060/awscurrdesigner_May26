@@ -60,6 +60,36 @@
     .recap-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
     .recap-tag { font-size: 10px; color: #555; border: 1px solid #d8d8d8; padding: 1px 7px; background: #fff; }
 
+    .build-workspace {
+      border: 1px solid #e4e4e4;
+      background: #fafafa;
+      padding: 14px;
+      margin-bottom: 14px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 10px;
+    }
+    .work-card { border: 1px solid #e3e3e3; background: #fff; padding: 12px; }
+    .work-card h3 { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8e8e8e; margin-bottom: 8px; }
+    .scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .scope-item { border: 1px solid #e0e0e0; padding: 9px; cursor: pointer; }
+    .scope-item:hover { border-color: #bdbdbd; }
+    .scope-item.on { border-color: #1a1a1a; background: #f7f7f7; }
+    .scope-top { display: flex; align-items: center; gap: 7px; margin-bottom: 3px; }
+    .scope-cb { width: 14px; height: 14px; border: 1px solid #c8c8c8; display: flex; align-items: center; justify-content: center; font-size: 9px; }
+    .scope-item.on .scope-cb { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+    .scope-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
+    .scope-sub { font-size: 11px; color: #979797; line-height: 1.35; }
+    .mini-row { display: flex; gap: 7px; margin-bottom: 7px; }
+    .mini-input { width: 100%; border: 1px solid #d8d8d8; padding: 7px 9px; font-size: 12px; }
+    .mini-btn { border: 1px solid #d2d2d2; background: #fff; font-size: 11px; color: #666; padding: 7px 9px; cursor: pointer; }
+    .mini-btn:hover { border-color: #999; color: #1a1a1a; }
+    .mini-btn.primary { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .suggestion { font-size: 12px; color: #555; line-height: 1.45; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+    .suggestion:last-child { border-bottom: none; }
+    .action-row { display: flex; gap: 8px; margin-top: 10px; }
+    .hidden { display: none; }
+
     /* ── Generation panel ── */
     .gen-panel {
       border: 1px solid #e4e4e4;
@@ -236,58 +266,75 @@
     </div>
   </div>
 
+  <!-- Build workspace -->
+  <div class="build-workspace">
+    <div class="work-card">
+      <h3>Choose What To Build In This Pass</h3>
+      <div class="scope-grid" id="scope-grid">
+        <div class="scope-item on" data-label="Module Learning Outcomes" data-time="~3s" onclick="toggleScope(this)">
+          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Module Learning Outcomes</div></div>
+          <div class="scope-sub">Draft and refine outcomes with competency links.</div>
+        </div>
+        <div class="scope-item on" data-label="T&amp;L Activities / SOW" data-time="~3s" onclick="toggleScope(this)">
+          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">T&amp;L Activities / SOW</div></div>
+          <div class="scope-sub">Generate weekly activities and sequencing.</div>
+        </div>
+        <div class="scope-item on" data-label="Assessment Plan" data-time="~2s" onclick="toggleScope(this)">
+          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Assessment Plan</div></div>
+          <div class="scope-sub">Build components, weightings, and coverage.</div>
+        </div>
+        <div class="scope-item" data-label="Generate Materials" data-time="~2s" onclick="toggleScope(this)">
+          <div class="scope-top"><div class="scope-cb"></div><div class="scope-name">Generate Materials</div></div>
+          <div class="scope-sub">Draft resources, prompts, and slide outlines.</div>
+        </div>
+      </div>
+      <div class="action-row">
+        <button class="mini-btn" onclick="selectAllScopes()">Select all</button>
+        <button class="mini-btn" onclick="clearScopes()">Clear</button>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <h3>Inputs + AI Co-Designer</h3>
+      <div class="mini-row">
+        <button class="mini-btn" onclick="alert('Upload is illustrative in this mockup')">Upload artifacts</button>
+        <button class="mini-btn" onclick="alert('Paste meeting or review notes')">Paste notes</button>
+      </div>
+      <div class="mini-row">
+        <input class="mini-input" id="build-link" type="text" placeholder="Add source URL / doc link">
+        <button class="mini-btn" onclick="addBuildLink()">Add</button>
+      </div>
+      <textarea class="mini-input" placeholder="Optional: constraints, rubrics, or context for this generation pass" style="min-height:66px; resize:vertical;"></textarea>
+      <div class="suggestion">AI suggestion: start with Learning Outcomes + Assessment Plan to lock intent and evidence early.</div>
+      <div class="suggestion">AI suggestion: add one industry reference before generating activities for stronger authenticity.</div>
+      <div class="action-row">
+        <button class="mini-btn">Rewrite suggestion</button>
+        <button class="mini-btn">Generate alternatives</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-row" style="margin-bottom:14px;">
+    <button class="mini-btn primary" onclick="startSelectedDraft()">Generate Selected Draft Sections</button>
+    <button class="mini-btn" onclick="resetDraftRun()">Reset run</button>
+  </div>
+
   <!-- Generation progress -->
-  <div class="gen-panel">
+  <div class="gen-panel hidden" id="gen-panel">
     <div class="gen-header">
       <div class="gen-title">
         <div class="gen-spinner" id="overall-spinner"></div>
-        <span id="gen-title-text">Generating module document…</span>
+        <span id="gen-title-text">Generating selected draft sections…</span>
       </div>
-      <div class="gen-status" id="gen-status">0 of 7 workflow items</div>
+      <div class="gen-status" id="gen-status">0 selected</div>
     </div>
-    <ul class="gen-steps" id="gen-steps">
-      <li class="gen-step pending" data-step="0">
-        <div class="gs-icon"><div class="gs-dot"></div></div>
-        <span class="gs-label">Module Overview &amp; Metadata</span>
-        <span class="gs-sub">~1s</span>
-      </li>
-      <li class="gen-step pending" data-step="1">
-        <div class="gs-icon"><div class="gs-dot"></div></div>
-        <span class="gs-label">Synopsis &amp; Aims</span>
-        <span class="gs-sub">~2s</span>
-      </li>
-      <li class="gen-step pending" data-step="2">
-        <div class="gs-icon"><div class="gs-dot"></div></div>
-        <span class="gs-label">Learning Outcomes (mapped to GC1, GC2, GC4)</span>
-        <span class="gs-sub">~3s</span>
-      </li>
-      <li class="gen-step pending" data-step="3">
-        <div class="gs-icon"><div class="gs-dot"></div></div>
-        <span class="gs-label">Content: Topics &amp; Hours (17-week breakdown)</span>
-        <span class="gs-sub">~3s</span>
-      </li>
-      <li class="gen-step pending" data-step="4">
-        <div class="gs-icon"><div class="gs-dot"></div></div>
-        <span class="gs-label">Teaching &amp; Learning Strategies</span>
-        <span class="gs-sub">~2s</span>
-      </li>
-      <li class="gen-step pending" data-step="5">
-        <div class="gs-icon"><div class="gs-dot"></div></div>
-        <span class="gs-label">Assessment Plan (CA components &amp; weightages)</span>
-        <span class="gs-sub">~2s</span>
-      </li>
-      <li class="gen-step pending" data-step="6">
-        <div class="gs-icon"><div class="gs-dot"></div></div>
-        <span class="gs-label">Alignment check (NPGC &amp; NP Assessment Framework)</span>
-        <span class="gs-sub">~1s</span>
-      </li>
-    </ul>
+    <ul class="gen-steps" id="gen-steps"></ul>
   </div>
 
   <!-- Done card -->
   <div class="done-card" id="done-card">
-    <div class="done-title">✓ Module document ready</div>
-    <div class="done-sub">All draft items are ready. Open the editor to review, refine, and export.</div>
+    <div class="done-title">✓ Draft pass complete</div>
+    <div class="done-sub">Selected sections are drafted. Review, refine, then run another pass for remaining sections if needed.</div>
     <div class="done-actions">
       <a href="mdd-editor.html" class="btn-open">Open in Editor →</a>
       <a href="review-export.html" class="btn-skip">Skip to Review &amp; Export</a>
@@ -298,44 +345,111 @@
 
 <!-- Bottom bar -->
 <div class="bottom-bar">
-  <div class="bb-note" id="bb-note">Generating workflow items…</div>
+  <div class="bb-note" id="bb-note">Select sections, add context, then generate drafts in manageable passes</div>
   <div class="bb-actions">
     <a href="plan-direction.html" class="btn-ghost">← Back to Planning</a>
   </div>
 </div>
 
 <script>
-  const steps = document.querySelectorAll('.gen-step');
-  const total = steps.length;
-  let current = 0;
-  const stepDurations = [600, 1400, 2200, 2200, 1600, 1600, 800]; // ms per step (demo timing)
-
-  function nextStep() {
-    if (current >= total) {
-      // All done
-      document.getElementById('overall-spinner').classList.add('done');
-      document.getElementById('gen-title-text').textContent = 'Draft generation complete';
-      document.getElementById('gen-status').textContent = total + ' of ' + total + ' workflow items';
-      document.getElementById('gen-status').classList.add('done');
-      document.getElementById('done-card').classList.add('show');
-      document.getElementById('bb-note').textContent = 'Ready to refine and export';
-      return;
-    }
-    // Mark current as active
-    if (current > 0) {
-      steps[current - 1].classList.remove('active');
-      steps[current - 1].classList.add('complete');
-    }
-    steps[current].classList.remove('pending');
-    steps[current].classList.add('active');
-    document.getElementById('gen-status').textContent = current + ' of ' + total + ' workflow items';
-    const dur = stepDurations[current] || 1200;
-    current++;
-    setTimeout(nextStep, dur);
+  function toggleScope(el) {
+    el.classList.toggle('on');
+    const cb = el.querySelector('.scope-cb');
+    cb.textContent = el.classList.contains('on') ? '✓' : '';
   }
 
-  // Start after brief settle
-  setTimeout(nextStep, 500);
+  function selectedScopes() {
+    return Array.from(document.querySelectorAll('#scope-grid .scope-item.on'));
+  }
+
+  function selectAllScopes() {
+    document.querySelectorAll('#scope-grid .scope-item').forEach(el => {
+      el.classList.add('on');
+      el.querySelector('.scope-cb').textContent = '✓';
+    });
+  }
+
+  function clearScopes() {
+    document.querySelectorAll('#scope-grid .scope-item').forEach(el => {
+      el.classList.remove('on');
+      el.querySelector('.scope-cb').textContent = '';
+    });
+  }
+
+  function addBuildLink() {
+    const input = document.getElementById('build-link');
+    if (!input.value.trim()) return;
+    alert('Link added for this draft pass: ' + input.value.trim());
+    input.value = '';
+  }
+
+  let runIndex = 0;
+  let runSteps = [];
+
+  function renderRunSteps(items) {
+    const list = document.getElementById('gen-steps');
+    list.innerHTML = '';
+    items.forEach((item, i) => {
+      const li = document.createElement('li');
+      li.className = 'gen-step pending';
+      li.dataset.step = String(i);
+      li.innerHTML = '<div class="gs-icon"><div class="gs-dot"></div></div>' +
+        '<span class="gs-label">' + item.dataset.label + '</span>' +
+        '<span class="gs-sub">' + item.dataset.time + '</span>';
+      list.appendChild(li);
+    });
+    runSteps = Array.from(document.querySelectorAll('.gen-step'));
+  }
+
+  function runNext() {
+    const total = runSteps.length;
+    if (runIndex >= total) {
+      document.getElementById('overall-spinner').classList.add('done');
+      document.getElementById('gen-title-text').textContent = 'Selected draft generation complete';
+      document.getElementById('gen-status').textContent = total + ' of ' + total + ' selected sections';
+      document.getElementById('gen-status').classList.add('done');
+      document.getElementById('done-card').classList.add('show');
+      document.getElementById('bb-note').textContent = 'Review output, then run another pass if needed';
+      return;
+    }
+
+    if (runIndex > 0) {
+      runSteps[runIndex - 1].classList.remove('active');
+      runSteps[runIndex - 1].classList.add('complete');
+    }
+
+    runSteps[runIndex].classList.remove('pending');
+    runSteps[runIndex].classList.add('active');
+    document.getElementById('gen-status').textContent = runIndex + ' of ' + total + ' selected sections';
+    runIndex++;
+    setTimeout(runNext, 900);
+  }
+
+  function startSelectedDraft() {
+    const selected = selectedScopes();
+    if (!selected.length) {
+      alert('Please select at least one section to generate.');
+      return;
+    }
+
+    resetDraftRun();
+    document.getElementById('gen-panel').classList.remove('hidden');
+    document.getElementById('bb-note').textContent = 'Generating selected sections...';
+    renderRunSteps(selected);
+    runNext();
+  }
+
+  function resetDraftRun() {
+    runIndex = 0;
+    runSteps = [];
+    document.getElementById('gen-steps').innerHTML = '';
+    document.getElementById('gen-title-text').textContent = 'Generating selected draft sections…';
+    document.getElementById('gen-status').textContent = '0 selected';
+    document.getElementById('gen-status').classList.remove('done');
+    document.getElementById('overall-spinner').classList.remove('done');
+    document.getElementById('done-card').classList.remove('show');
+    document.getElementById('bb-note').textContent = 'Select sections, add context, then generate drafts in manageable passes';
+  }
 </script>
 
 </body>

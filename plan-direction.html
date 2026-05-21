@@ -39,6 +39,41 @@
     .page-title { font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 6px; }
     .page-sub { font-size: 13px; color: #888; line-height: 1.65; margin-bottom: 36px; max-width: 560px; }
 
+    .workspace-tabs {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .ws-tab {
+      font-size: 11px; color: #777; border: 1px solid #d9d9d9;
+      padding: 5px 10px; background: #fafafa;
+    }
+    .ws-tab.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+    .work-panel {
+      border: 1px solid #e4e4e4; background: #fafafa;
+      margin-bottom: 10px;
+    }
+    .work-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px; padding: 14px; }
+    .work-card { border: 1px solid #e3e3e3; background: #fff; padding: 12px; }
+    .work-title { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+    .work-row { display: flex; gap: 8px; margin-bottom: 8px; }
+    .input-mini { font-size: 12px; padding: 7px 10px; border: 1px solid #d8d8d8; width: 100%; }
+    .btn-mini { font-size: 11px; font-weight: 600; padding: 7px 10px; border: 1px solid #d0d0d0; background: #fff; color: #666; cursor: pointer; }
+    .btn-mini.primary { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .sugg-item { font-size: 12px; color: #555; line-height: 1.45; padding: 7px 0; border-bottom: 1px solid #f0f0f0; }
+    .sugg-item:last-child { border-bottom: none; }
+    .sugg-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+
+    .build-focus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .focus-item { border: 1px solid #e2e2e2; padding: 10px 11px; cursor: pointer; background: #fff; transition: all 90ms; }
+    .focus-item:hover { border-color: #bdbdbd; }
+    .focus-item.on { border-color: #1a1a1a; background: #f7f7f7; }
+    .focus-top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .focus-cb { width: 14px; height: 14px; border: 1px solid #c8c8c8; display: flex; align-items: center; justify-content: center; font-size: 9px; }
+    .focus-item.on .focus-cb { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .focus-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
+    .focus-sub { font-size: 11px; color: #989898; line-height: 1.35; }
+
     /* ── Layout ── */
     .layout { display: flex; gap: 28px; align-items: flex-start; }
     .layout-main { flex: 1; min-width: 0; }
@@ -255,6 +290,42 @@
 
   <div class="page-title">Plan Curriculum Direction</div>
   <div class="page-sub">Set your module direction first. These choices guide what AI generates next.</div>
+
+  <div class="workspace-tabs">
+    <span class="ws-tab">Context Workspace</span>
+    <span class="ws-tab active">Curriculum Planning</span>
+    <span class="ws-tab">Build &amp; Refine</span>
+    <span class="ws-tab">Review &amp; Alignment</span>
+    <span class="ws-tab">Export &amp; Materials</span>
+  </div>
+
+  <div class="work-panel">
+    <div class="work-grid">
+      <div class="work-card">
+        <div class="work-title">Your Inputs</div>
+        <div class="work-row">
+          <button class="btn-mini" onclick="alert('Upload is illustrative in this mockup')">Upload artifacts</button>
+          <button class="btn-mini" onclick="alert('Paste meeting notes / survey summaries here')">Paste notes</button>
+        </div>
+        <div class="work-row">
+          <input class="input-mini" id="link-input" type="text" placeholder="Add reference URL or doc link">
+          <button class="btn-mini" onclick="addLink()">Add link</button>
+        </div>
+        <textarea class="plan-textarea" id="context-notes" placeholder="Paste key context snippets, meeting points, or constraints" style="min-height:70px;"></textarea>
+      </div>
+      <div class="work-card">
+        <div class="work-title">AI Suggestions</div>
+        <div class="sugg-item">Prioritise outcomes that map to GC1, GC2, and GC4 first.</div>
+        <div class="sugg-item">Draft assessments early so learning activities can align to evidence needs.</div>
+        <div class="sugg-item">Use industry examples as prompts inside activities for stronger authenticity.</div>
+        <div class="sugg-actions">
+          <button class="btn-mini">Accept</button>
+          <button class="btn-mini">Refine</button>
+          <button class="btn-mini">Generate alternatives</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="layout">
 
@@ -526,6 +597,36 @@
         </div>
       </div>
 
+      <!-- Section F: Build Focus -->
+      <div class="plan-section">
+        <div class="ps-header">
+          <div class="ps-num">F</div>
+          <div class="ps-title">Choose What To Build First</div>
+          <div class="ps-desc">Select specific sections to work on in the next step</div>
+        </div>
+        <div class="ps-body">
+          <div class="build-focus-grid" id="build-focus-grid">
+            <div class="focus-item on" onclick="toggleFocus(this)">
+              <div class="focus-top"><div class="focus-cb">✓</div><div class="focus-name">Module Learning Outcomes</div></div>
+              <div class="focus-sub">Draft and refine MOs with competency mapping.</div>
+            </div>
+            <div class="focus-item on" onclick="toggleFocus(this)">
+              <div class="focus-top"><div class="focus-cb">✓</div><div class="focus-name">T&amp;L Activities / SOW</div></div>
+              <div class="focus-sub">Create weekly activities and sequencing.</div>
+            </div>
+            <div class="focus-item on" onclick="toggleFocus(this)">
+              <div class="focus-top"><div class="focus-cb">✓</div><div class="focus-name">Assessment Plan</div></div>
+              <div class="focus-sub">Design components, weightings, and coverage.</div>
+            </div>
+            <div class="focus-item" onclick="toggleFocus(this)">
+              <div class="focus-top"><div class="focus-cb"></div><div class="focus-name">Generate Materials</div></div>
+              <div class="focus-sub">Draft slides, prompts, and learner resources.</div>
+            </div>
+          </div>
+          <div class="plan-hint" style="margin-top:8px;">You can work section-by-section and come back anytime.</div>
+        </div>
+      </div>
+
     </div><!-- end layout-main -->
 
     <!-- Sidebar -->
@@ -589,6 +690,10 @@
           <span class="sum-key">Delivery</span>
           <span class="sum-val" id="sum-delivery">Blended</span>
         </div>
+        <div class="sum-row">
+          <span class="sum-key">Build Focus</span>
+          <span class="sum-val" id="sum-focus">3 selected</span>
+        </div>
       </div>
 
     </div><!-- end layout-side -->
@@ -636,6 +741,20 @@
     el.classList.toggle('on');
   }
 
+  function toggleFocus(el) {
+    el.classList.toggle('on');
+    const cb = el.querySelector('.focus-cb');
+    cb.textContent = el.classList.contains('on') ? '✓' : '';
+    updateSummary();
+  }
+
+  function addLink() {
+    const input = document.getElementById('link-input');
+    if (!input.value.trim()) return;
+    alert('Link added to planning context: ' + input.value.trim());
+    input.value = '';
+  }
+
   // ── Dynamic summary ──
   function updateSummary() {
     const title = document.getElementById('f-title').value.trim();
@@ -654,6 +773,7 @@
     document.getElementById('sum-npgc').textContent = npgcCount + ' selected';
     document.getElementById('sum-asmt').textContent = asmtChip ? asmtChip.textContent.split(' —')[0] : '—';
     document.getElementById('sum-delivery').textContent = deliveryChip ? deliveryChip.textContent : '—';
+    document.getElementById('sum-focus').textContent = document.querySelectorAll('#build-focus-grid .focus-item.on').length + ' selected';
   }
 
   function setSum(id, val) {
