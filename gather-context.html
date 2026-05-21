@@ -284,24 +284,44 @@
         <div class="upload-zone">
           <div class="uz-header">
             <div class="uz-title">Industry &amp; Employer Inputs</div>
-            <div class="uz-badge">2 files</div>
+              <div class="uz-badge">2 items</div>
           </div>
           <div class="uz-desc">Industry advisory panel feedback, employer interviews and surveys, professional body guidelines, job role analyses.</div>
-          <div class="uz-files">
-            <div class="uz-file">
-              <span class="uz-file-ext">PDF</span>
-              <span class="uz-file-name">IndustryAdvisoryPanel_Notes_May2025.pdf</span>
-              <span class="uz-file-size">860 KB</span>
-              <button class="uz-file-rm" onclick="removeFile(this)">×</button>
+            <div class="uz-files">
+              <div class="uz-file">
+                <span class="uz-file-ext">PDF</span>
+                <span class="uz-file-name">IndustryAdvisoryPanel_Notes_May2025.pdf</span>
+                <span class="uz-file-size">860 KB</span>
+                <button class="uz-file-rm" onclick="removeEvidence(this, 'file')">×</button>
+              </div>
+              <div class="uz-file">
+                <span class="uz-file-ext">XLSX</span>
+                <span class="uz-file-name">Employer_Survey_ICT_2024.xlsx</span>
+                <span class="uz-file-size">340 KB</span>
+                <button class="uz-file-rm" onclick="removeEvidence(this, 'file')">×</button>
+              </div>
+              <!-- Example link evidence -->
+              <!--
+              <div class="uz-link">
+                <span class="uz-link-icon">🔗</span>
+                <a class="uz-link-url" href="https://example.com/industry-report" target="_blank">https://example.com/industry-report</a>
+                <button class="uz-file-rm" onclick="removeEvidence(this, 'link')">×</button>
+              </div>
+              -->
+              <!-- Example note evidence -->
+              <!--
+              <div class="uz-note">
+                <span class="uz-note-icon">📝</span>
+                <span class="uz-note-text">Summary of employer roundtable: ...</span>
+                <button class="uz-file-rm" onclick="removeEvidence(this, 'note')">×</button>
+              </div>
+              -->
             </div>
-            <div class="uz-file">
-              <span class="uz-file-ext">XLSX</span>
-              <span class="uz-file-name">Employer_Survey_ICT_2024.xlsx</span>
-              <span class="uz-file-size">340 KB</span>
-              <button class="uz-file-rm" onclick="removeFile(this)">×</button>
+            <div class="uz-actions" style="display:flex; gap:8px; margin: 0 18px 12px;">
+              <div class="uz-drop" style="flex:1;" onclick="addFile(this, 'PDF')">+ Add file</div>
+              <button class="uz-drop" style="flex:1;" onclick="promptAddLink(this)">+ Add link</button>
+              <button class="uz-drop" style="flex:1;" onclick="promptAddNote(this)">+ Add note</button>
             </div>
-          </div>
-          <div class="uz-drop" onclick="addFile(this, 'PDF')">+ Add file</div>
         </div>
 
         <!-- 2. Skills Frameworks & Standards -->
@@ -536,12 +556,12 @@
     return Array.from(document.querySelectorAll('.upload-zone')).indexOf(zone);
   }
 
-  function removeFile(btn) {
-    const file = btn.closest('.uz-file');
+  function removeEvidence(btn, type) {
+    const row = btn.closest('.uz-file, .uz-link, .uz-note');
     const idx = getZoneIndex(btn);
     if (counts[idx] > 0) counts[idx]--;
-    file.style.opacity = '0.4';
-    file.style.textDecoration = 'line-through';
+    row.style.opacity = '0.4';
+    row.style.textDecoration = 'line-through';
     btn.disabled = true;
     updateTotals();
   }
@@ -558,7 +578,35 @@
     const sizes = { PDF: '480 KB', XLSX: '120 KB', DOCX: '95 KB' };
     const row = document.createElement('div');
     row.className = 'uz-file';
-    row.innerHTML = `<span class="uz-file-ext">${ext}</span><span class="uz-file-name">${names[ext]}</span><span class="uz-file-size">${sizes[ext]}</span><button class="uz-file-rm" onclick="removeFile(this)">×</button>`;
+    row.innerHTML = `<span class="uz-file-ext">${ext}</span><span class="uz-file-name">${names[ext]}</span><span class="uz-file-size">${sizes[ext]}</span><button class="uz-file-rm" onclick="removeEvidence(this, 'file')">×</button>`;
+    files.appendChild(row);
+    counts[idx]++;
+    updateTotals();
+  }
+
+  function promptAddLink(btn) {
+    const url = prompt('Paste web link (URL) to add as evidence:');
+    if (!url) return;
+    const zone = btn.closest('.upload-zone');
+    const files = zone.querySelector('.uz-files');
+    const idx = getZoneIndex(btn);
+    const row = document.createElement('div');
+    row.className = 'uz-link';
+    row.innerHTML = `<span class="uz-link-icon">🔗</span><a class="uz-link-url" href="${url}" target="_blank">${url}</a><button class="uz-file-rm" onclick="removeEvidence(this, 'link')">×</button>`;
+    files.appendChild(row);
+    counts[idx]++;
+    updateTotals();
+  }
+
+  function promptAddNote(btn) {
+    const note = prompt('Paste or type a note/summary to add as evidence:');
+    if (!note) return;
+    const zone = btn.closest('.upload-zone');
+    const files = zone.querySelector('.uz-files');
+    const idx = getZoneIndex(btn);
+    const row = document.createElement('div');
+    row.className = 'uz-note';
+    row.innerHTML = `<span class="uz-note-icon">📝</span><span class="uz-note-text">${note}</span><button class="uz-file-rm" onclick="removeEvidence(this, 'note')">×</button>`;
     files.appendChild(row);
     counts[idx]++;
     updateTotals();
