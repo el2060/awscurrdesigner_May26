@@ -8,6 +8,10 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font-sans); background: #fff; color: #1a1a1a; min-height: 100vh; padding-bottom: 72px; }
+    :root {
+      --workspace-max: 1360px;
+      --workspace-pad: 32px;
+    }
 
     /* ── Topbar ── */
     .topbar {
@@ -23,8 +27,19 @@
 
     /* ── Phase bar ── */
     .phase-bar {
-      border-bottom: 1px solid #e0e0e0; padding: 0 40px;
-      display: flex; align-items: center; background: #fafafa; height: 40px; overflow-x: auto;
+      border-bottom: 1px solid #e0e0e0;
+      background: #fafafa;
+    }
+    .phase-inner {
+      max-width: var(--workspace-max);
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 var(--workspace-pad);
+      display: flex;
+      align-items: center;
+      background: #fafafa;
+      height: 40px;
+      overflow-x: auto;
     }
     .ph-step { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #bbb; white-space: nowrap; flex-shrink: 0; }
     .ph-step.active { color: #1a1a1a; font-weight: 600; }
@@ -35,7 +50,7 @@
     .ph-connector { width: 28px; height: 1px; background: #e0e0e0; margin: 0 8px; flex-shrink: 0; }
 
     /* ── Page ── */
-    .page { max-width: 920px; margin: 0 auto; padding: 48px 40px 40px; }
+    .page { max-width: var(--workspace-max); margin: 0 auto; padding: 40px var(--workspace-pad) 40px; }
     .page-title { font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 6px; }
     .page-sub { font-size: 13px; color: #888; line-height: 1.65; margin-bottom: 36px; max-width: 560px; }
 
@@ -83,7 +98,7 @@
 
     .work-panel {
       border: 1px solid #e4e4e4; background: #fafafa;
-      margin-bottom: 10px;
+      margin-bottom: 24px;
     }
     .work-grid { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 10px; }
     .work-card { border: 1px solid #e3e3e3; background: #fff; padding: 12px; }
@@ -113,9 +128,9 @@
     .state-pill.ai { color: #4f3f00; background: #fff7d6; border-color: #ecd88f; }
 
     /* ── Layout ── */
-    .layout { display: grid; grid-template-columns: 220px 1fr; gap: 14px; align-items: flex-start; }
+    .layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: flex-start; }
     .layout-main { flex: 1; min-width: 0; }
-    .layout-side { width: 220px; flex-shrink: 0; position: sticky; top: 100px; order: -1; }
+    .layout-side { width: 300px; flex-shrink: 0; position: sticky; top: 100px; order: 1; }
 
     .section-nav {
       border: 1px solid #e4e4e4;
@@ -153,7 +168,7 @@
     /* ── Plan sections ── */
     .plan-section {
       border: 1px solid #e4e4e4;
-      margin-bottom: 6px;
+      margin-bottom: 14px;
       background: #fff;
     }
     .ps-header {
@@ -274,8 +289,28 @@
     .bottom-bar {
       position: fixed; bottom: 0; left: 0; right: 0;
       height: 60px; background: #fff; border-top: 1px solid #e0e0e0;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px; z-index: 50;
+      z-index: 50;
+    }
+    .bottom-inner {
+      max-width: var(--workspace-max);
+      height: 100%;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 var(--workspace-pad);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 1080px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .layout-side {
+        width: 100%;
+        position: static;
+        order: 2;
+      }
     }
     .bb-note { font-size: 12px; color: #bbb; }
     .bb-actions { display: flex; gap: 10px; }
@@ -366,6 +401,7 @@
 
 <!-- Phase bar: 5 steps, step 3 active -->
 <div class="phase-bar">
+  <div class="phase-inner">
   <div class="ph-step">
     <div class="ph-num">1</div>
     <span>Context Workspace (optional)</span>
@@ -389,6 +425,7 @@
   <div class="ph-step">
     <div class="ph-num">5</div>
     <span>Review &amp; Export</span>
+  </div>
   </div>
 </div>
 
@@ -794,10 +831,12 @@
 
 <!-- Bottom bar -->
 <div class="bottom-bar">
-  <div class="bb-note" id="bb-note">Complete this step, then draft your module in guided passes</div>
-  <div class="bb-actions">
-    <a href="analyse-synthesise.html" class="btn-ghost">← Back to Analysis</a>
-    <a href="design-wizard.html" class="btn-primary">Continue to Build Module →</a>
+  <div class="bottom-inner">
+    <div class="bb-note" id="bb-note">Complete this step, then draft your module in guided passes</div>
+    <div class="bb-actions">
+      <a href="analyse-synthesise.html" class="btn-ghost">← Back to Analysis</a>
+      <a href="design-wizard.html" class="btn-primary">Continue to Build Module →</a>
+    </div>
   </div>
 </div>
 

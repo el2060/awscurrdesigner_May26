@@ -8,6 +8,10 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font-sans); background: #fff; color: #1a1a1a; min-height: 100vh; padding-bottom: 72px; }
+    :root {
+      --workspace-max: 1360px;
+      --workspace-pad: 32px;
+    }
 
     /* ── Topbar ── */
     .topbar {
@@ -26,8 +30,17 @@
 
     /* ── Phase bar ── */
     .phase-bar {
-      border-bottom: 1px solid #e0e0e0; padding: 0 40px;
-      display: flex; align-items: center; background: #fafafa; height: 40px;
+      border-bottom: 1px solid #e0e0e0;
+      background: #fafafa;
+    }
+    .phase-inner {
+      max-width: var(--workspace-max);
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 var(--workspace-pad);
+      display: flex;
+      align-items: center;
+      height: 40px;
       overflow-x: auto;
     }
     .ph-step { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #bbb; white-space: nowrap; flex-shrink: 0; }
@@ -39,9 +52,9 @@
     .ph-connector { width: 28px; height: 1px; background: #e0e0e0; margin: 0 8px; flex-shrink: 0; }
 
     /* ── Layout ── */
-    .page { max-width: 960px; margin: 0 auto; padding: 48px 40px 40px; }
-    .layout { display: flex; gap: 32px; align-items: flex-start; }
-    .layout-side { width: 200px; flex-shrink: 0; position: sticky; top: 100px; }
+    .page { max-width: var(--workspace-max); margin: 0 auto; padding: 40px var(--workspace-pad) 40px; }
+    .layout { display: flex; gap: 24px; align-items: flex-start; }
+    .layout-side { width: 300px; flex-shrink: 0; position: sticky; top: 100px; }
     .layout-main { flex: 1; min-width: 0; }
 
     /* ── Page header ── */
@@ -119,8 +132,25 @@
     .bottom-bar {
       position: fixed; bottom: 0; left: 0; right: 0;
       height: 60px; background: #fff; border-top: 1px solid #e0e0e0;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px; z-index: 50;
+      z-index: 50;
+    }
+    .bottom-inner {
+      max-width: var(--workspace-max);
+      height: 100%;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 var(--workspace-pad);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 1080px) {
+      .layout { flex-direction: column; }
+      .layout-side {
+        width: 100%;
+        position: static;
+      }
     }
     .bb-note { font-size: 12px; color: #aaa; }
     .bb-actions { display: flex; gap: 10px; }
@@ -150,6 +180,7 @@
 
 <!-- Phase bar: 5 steps, step 2 active -->
 <div class="phase-bar">
+  <div class="phase-inner">
   <div class="ph-step done">
     <div class="ph-num">✓</div>
     <span>Context Workspace (optional)</span>
@@ -173,6 +204,7 @@
   <div class="ph-step">
     <div class="ph-num">5</div>
     <span>Review &amp; Export</span>
+  </div>
   </div>
 </div>
 
@@ -467,11 +499,13 @@
 
 <!-- Bottom bar -->
 <div class="bottom-bar">
-  <div class="bb-note" id="bb-note">3 of 7 recommendations selected</div>
-  <div class="bb-actions">
-    <a href="gather-context.html" class="btn-ghost">← Back</a>
-    <a href="#" class="btn-secondary" onclick="exportSummary(); return false;">Export Summary</a>
-    <a href="plan-direction.html" class="btn-primary">Plan Curriculum Direction →</a>
+  <div class="bottom-inner">
+    <div class="bb-note" id="bb-note">3 of 7 recommendations selected</div>
+    <div class="bb-actions">
+      <a href="gather-context.html" class="btn-ghost">← Back</a>
+      <a href="#" class="btn-secondary" onclick="exportSummary(); return false;">Export Summary</a>
+      <a href="plan-direction.html" class="btn-primary">Plan Curriculum Direction →</a>
+    </div>
   </div>
 </div>
 

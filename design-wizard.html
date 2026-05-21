@@ -8,6 +8,10 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font-sans); background: #fff; color: #1a1a1a; min-height: 100vh; padding-bottom: 72px; }
+    :root {
+      --workspace-max: 1360px;
+      --workspace-pad: 32px;
+    }
 
     /* ── Topbar ── */
     .topbar { height: 52px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; padding: 0 40px; background: #fff; position: sticky; top: 0; z-index: 100; }
@@ -18,7 +22,18 @@
     .topbar-link:hover { color: #1a1a1a; }
 
     /* ── Phase bar (5 steps, step 4 active) ── */
-    .phase-bar { border-bottom: 1px solid #e0e0e0; padding: 0 40px; display: flex; align-items: center; background: #fafafa; height: 40px; overflow-x: auto; }
+    .phase-bar { border-bottom: 1px solid #e0e0e0; background: #fafafa; }
+    .phase-inner {
+      max-width: var(--workspace-max);
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 var(--workspace-pad);
+      display: flex;
+      align-items: center;
+      background: #fafafa;
+      height: 40px;
+      overflow-x: auto;
+    }
     .ph-step { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #bbb; white-space: nowrap; flex-shrink: 0; }
     .ph-step.active { color: #1a1a1a; font-weight: 600; }
     .ph-step.done { color: #888; }
@@ -28,7 +43,7 @@
     .ph-connector { width: 28px; height: 1px; background: #e0e0e0; margin: 0 8px; flex-shrink: 0; }
 
     /* ── Page ── */
-    .page { max-width: 720px; margin: 0 auto; padding: 56px 40px 40px; }
+    .page { max-width: var(--workspace-max); margin: 0 auto; padding: 40px var(--workspace-pad) 40px; }
     .page-title { font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 6px; }
     .page-sub { font-size: 13px; color: #888; line-height: 1.65; margin-bottom: 32px; max-width: 560px; }
 
@@ -194,11 +209,27 @@
     .btn-skip:hover { color: #fff; border-color: #888; }
 
     /* ── Bottom bar ── */
-    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #fff; border-top: 1px solid #e0e0e0; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 50; }
+    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #fff; border-top: 1px solid #e0e0e0; z-index: 50; }
+    .bottom-inner {
+      max-width: var(--workspace-max);
+      height: 100%;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 var(--workspace-pad);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
     .bb-note { font-size: 12px; color: #bbb; }
     .bb-actions { display: flex; gap: 10px; }
     .btn-ghost { font-size: 12px; font-weight: 500; color: #888; border: 1px solid #d8d8d8; padding: 7px 16px; background: #fff; cursor: pointer; text-decoration: none; }
     .btn-ghost:hover { border-color: #999; color: #1a1a1a; }
+
+    @media (max-width: 1080px) {
+      .build-workspace {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -218,6 +249,7 @@
 
 <!-- Phase bar -->
 <div class="phase-bar">
+  <div class="phase-inner">
   <div class="ph-step"><div class="ph-num">1</div><span>Context Workspace (optional)</span></div>
   <div class="ph-connector"></div>
   <div class="ph-step"><div class="ph-num">2</div><span>Synthesis</span></div>
@@ -227,6 +259,7 @@
   <div class="ph-step active"><div class="ph-num">4</div><span>Build or Refresh</span></div>
   <div class="ph-connector"></div>
   <div class="ph-step"><div class="ph-num">5</div><span>Review &amp; Export</span></div>
+  </div>
 </div>
 
 <!-- Page -->
@@ -352,9 +385,11 @@
 
 <!-- Bottom bar -->
 <div class="bottom-bar">
-  <div class="bb-note" id="bb-note">Select sections, add context, then draft in manageable passes</div>
-  <div class="bb-actions">
-    <a href="plan-direction.html" class="btn-ghost">← Back to Planning</a>
+  <div class="bottom-inner">
+    <div class="bb-note" id="bb-note">Select sections, add context, then draft in manageable passes</div>
+    <div class="bb-actions">
+      <a href="plan-direction.html" class="btn-ghost">← Back to Planning</a>
+    </div>
   </div>
 </div>
 
