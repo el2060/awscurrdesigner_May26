@@ -245,6 +245,31 @@
     .btn-ghost:hover { border-color: #999; color: #1a1a1a; }
     .btn-primary { font-size: 12px; font-weight: 600; color: #fff; border: 1px solid #1a1a1a; padding: 7px 18px; background: #1a1a1a; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
     .btn-primary:hover { background: #333; }
+
+    /* ── Collapsible plan sections ── */
+    .ps-header { cursor: pointer; user-select: none; }
+    .ps-header:hover { background: #f9f9f9; }
+    .ps-toggle {
+      flex-shrink: 0; font-size: 11px; color: #ccc;
+      margin-left: 10px; transition: transform 130ms; line-height: 1;
+    }
+    .plan-section.collapsed .ps-toggle { transform: rotate(-90deg); }
+    .plan-section.collapsed .ps-body { display: none; }
+
+    /* ── AI vs Educator visual differentiation ── */
+    .ai-chip {
+      display: inline-block; font-size: 9px; font-weight: 700;
+      letter-spacing: 0.06em; background: #fff7d6; color: #7a5f00;
+      border: 1px solid #ecd88f; padding: 1px 5px;
+      vertical-align: middle; margin-left: 5px;
+    }
+    .side-rec {
+      border-color: #e8d990;
+      background: #fffef8;
+    }
+    .side-rec .side-label { color: #9a8030; }
+    .ai-card { background: #fffef8; border-color: #e8d990; }
+    .ai-card .work-title { color: #7a5f00; }
   </style>
 </head>
 <body>
@@ -319,7 +344,7 @@
         </div>
         <textarea class="plan-textarea" id="context-notes" placeholder="Paste key context snippets, meeting points, or constraints" style="min-height:70px;"></textarea>
       </div>
-      <div class="work-card">
+      <div class="work-card ai-card">
         <div class="work-title">AI Suggestions</div>
         <div class="sugg-item">Prioritise outcomes that map to GC1, GC2, and GC4 first.</div>
         <div class="sugg-item">Draft assessments early so learning activities can align to evidence needs.</div>
@@ -496,8 +521,8 @@
       <div class="plan-section">
         <div class="ps-header">
           <div class="ps-num">D</div>
-          <div class="ps-title">Assessment Direction</div>
-          <div class="ps-desc">Guides the assessment plan and component design</div>
+          <div class="ps-title">Assessment Strategy</div>
+          <div class="ps-desc">Guides the assessment structure, approach, and component design</div>
         </div>
         <div class="ps-body">
           <div class="field-row" style="flex-direction:column; gap:16px;">
@@ -640,14 +665,14 @@
 
       <!-- AI Recommendations from Phase 1 -->
       <div class="side-rec">
-        <span class="side-label">Optional context insights</span>
+        <span class="side-label">Insights from Uploaded Context <span class="ai-chip">AI</span></span>
 
         <span class="rec-sub">Suggested competencies</span>
         <div class="rec-item">GC1 Domain Knowledge</div>
         <div class="rec-item">GC2 Critical Thinking</div>
         <div class="rec-item">GC4 Digital Competence</div>
 
-        <span class="rec-sub">Assessment direction</span>
+        <span class="rec-sub">Assessment strategy</span>
         <div class="rec-item">Project-based CA recommended</div>
         <div class="rec-item">Include an industry-facing brief</div>
 
@@ -697,7 +722,7 @@
           <span class="sum-val" id="sum-delivery">Blended</span>
         </div>
         <div class="sum-row">
-          <span class="sum-key">Build Focus</span>
+          <span class="sum-key">Selected Sections</span>
           <span class="sum-val" id="sum-focus">3 selected</span>
         </div>
       </div>
@@ -805,6 +830,17 @@
 
   // Initialise
   updateSummary();
+
+  // ── Collapsible plan sections ──
+  document.querySelectorAll('.plan-section').forEach(section => {
+    const header = section.querySelector('.ps-header');
+    if (!header) return;
+    const toggle = document.createElement('span');
+    toggle.className = 'ps-toggle';
+    toggle.textContent = '▾';
+    header.appendChild(toggle);
+    header.addEventListener('click', () => section.classList.toggle('collapsed'));
+  });
 </script>
 
 </body>

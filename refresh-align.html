@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Review &amp; Refresh Module — AI Curriculum Review &amp; Design</title>
+  <title>Module Review &amp; Enhancement — AI Curriculum Review &amp; Design</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     body { background: #fff; }
@@ -158,26 +158,27 @@
   </style>
 </head>
 <body>
-<header class="topbar" style="position: sticky; top: 0; z-index: 90;">
-  <a href="index.html" class="topbar-logo" style="text-decoration:none;">
-    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:26px; width:auto;">
+<nav class="topbar">
+  <a href="index.html" class="topbar-brand">
+    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
+    <div class="t-div"></div>
+    <span style="font-size:13px; font-weight:500; color:#1a1a1a;">AI Curriculum Review &amp; Design</span>
+    <span style="font-size:10px; font-weight:500; color:#999; border:1px solid #d8d8d8; padding:2px 8px; letter-spacing:0.02em; margin-left:4px;">Concept Prototype</span>
   </a>
-  <div class="topbar-divider"></div>
-  <span class="topbar-module-title">AI Curriculum Review &amp; Design</span>
-  <div class="topbar-actions">
-    <a href="index.html" class="btn btn-secondary btn-sm" style="text-decoration:none;">Home</a>
-    <a href="gather-context.html" class="btn btn-secondary btn-sm" style="text-decoration:none;">Context Workspace</a>
+  <div class="topbar-right">
+    <a href="index.html" class="topbar-link">&larr; Home</a>
+    <a href="gather-context.html" class="topbar-link">Context Workspace</a>
   </div>
-</header>
+</nav>
 
 <div class="flow-shell">
   <div class="flow-wrap">
     <div class="mini-steps" id="mini-steps">
       <div class="mini-step active" data-step="1"><span class="mini-step-dot">1</span><span>Import Existing Module</span></div>
       <span class="mini-sep">›</span>
-      <div class="mini-step" data-step="2"><span class="mini-step-dot">2</span><span>Select Review Scope</span></div>
+      <div class="mini-step" data-step="2"><span class="mini-step-dot">2</span><span>Select Review Focus</span></div>
       <span class="mini-sep">›</span>
-      <div class="mini-step" data-step="3"><span class="mini-step-dot">3</span><span>Review Findings</span></div>
+      <div class="mini-step" data-step="3"><span class="mini-step-dot">3</span><span>Review Insights</span></div>
       <span class="mini-sep">›</span>
       <div class="mini-step" data-step="4"><span class="mini-step-dot">4</span><span>Apply Updates</span></div>
     </div>
@@ -185,9 +186,9 @@
     <section class="screen active" id="screen-1">
       <div class="hero-label">Step 1 of 4</div>
       <div class="hero-title">Import Existing Module</div>
-      <div class="hero-sub">Load an existing module, then review either the whole module or a specific communication-related activity against HMIS gold standards.</div>
+      <div class="hero-sub">Load an existing module, then choose the lenses you want to review it through — from competency coverage and assessment design to industry relevance and teaching approaches.</div>
 
-      <div class="callout"><strong>Use case focus:</strong> support lecturers across domains (for example, Design Communication) to design and assess foundational communication competencies with AI-assisted refinement.</div>
+      <div class="callout"><strong>Use case illustrated:</strong> supporting lecturers across domains (for example, Design Communication) to review, contextualise, and enhance communication competency design with AI assistance.</div>
 
       <div class="card">
         <div class="card-head">
@@ -213,34 +214,42 @@
 
     <section class="screen" id="screen-2">
       <div class="hero-label">Step 2 of 4</div>
-      <div class="hero-title">Select Review Scope</div>
-      <div class="hero-sub">Choose a review mode: whole module checks, or targeted activity review against HMIS communication standards.</div>
+      <div class="hero-title">Select Review Focus</div>
+      <div class="hero-sub">Choose the lenses you want to review your module through. Select as many areas as are relevant — each generates targeted insights and enhancement suggestions.</div>
 
       <div class="split">
         <div class="card">
-          <div class="card-head"><div class="card-title">Whole Module Checks</div></div>
+          <div class="card-head"><div class="card-title">Review Focus Areas</div></div>
           <div class="checks" id="checks">
-            <div class="check on" data-check="Assessment Framework" onclick="toggleCheck(this)">
+            <div class="check on" data-check="Graduate Competencies" onclick="toggleCheck(this)">
               <div class="check-cb">✓</div>
-              <div><div class="check-name">Assessment Framework</div><div class="check-sub">Weights, compliance, timing</div></div>
+              <div><div class="check-name">Graduate Competencies</div><div class="check-sub">NPGC coverage, mapping &amp; progression</div></div>
             </div>
-            <div class="check on" data-check="NPGC Coverage" onclick="toggleCheck(this)">
+            <div class="check on" data-check="Assessment Strategy" onclick="toggleCheck(this)">
               <div class="check-cb">✓</div>
-              <div><div class="check-name">NPGC Coverage</div><div class="check-sub">Coverage gaps by competency</div></div>
+              <div><div class="check-name">Assessment Strategy</div><div class="check-sub">Balance, alignment &amp; authentic design</div></div>
             </div>
-            <div class="check" data-check="Outcome Quality" onclick="toggleCheck(this)">
+            <div class="check" data-check="Teaching &amp; Learning" onclick="toggleCheck(this)">
               <div class="check-cb"></div>
-              <div><div class="check-name">Outcome Quality</div><div class="check-sub">Bloom's and wording checks</div></div>
+              <div><div class="check-name">Teaching &amp; Learning</div><div class="check-sub">Approach variety, delivery &amp; learning flow</div></div>
             </div>
-            <div class="check on" data-check="Schedule Spread" onclick="toggleCheck(this)">
+            <div class="check" data-check="Industry Relevance" onclick="toggleCheck(this)">
+              <div class="check-cb"></div>
+              <div><div class="check-name">Industry Relevance</div><div class="check-sub">Currency, workforce skills &amp; real-world application</div></div>
+            </div>
+            <div class="check on" data-check="Content &amp; Outcomes" onclick="toggleCheck(this)">
               <div class="check-cb">✓</div>
-              <div><div class="check-name">Schedule Spread</div><div class="check-sub">Assessment clustering and pacing</div></div>
+              <div><div class="check-name">Content &amp; Outcomes</div><div class="check-sub">Clarity, Bloom’s coverage &amp; scaffolding</div></div>
+            </div>
+            <div class="check on" data-check="Communication Skills" onclick="toggleCheck(this)">
+              <div class="check-cb">✓</div>
+              <div><div class="check-name">Communication Skills</div><div class="check-sub">Presentation, language &amp; professional competencies</div></div>
             </div>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-head"><div class="card-title">Specific Activity Review (Optional)</div></div>
+          <div class="card-head"><div class="card-title">Activity Focus Review <span style="font-size:11px;font-weight:400;color:#aaa;">(optional)</span></div></div>
 
           <div class="field-row">
             <div class="field">
@@ -256,10 +265,10 @@
 
           <div class="field-row">
             <div class="field">
-              <div class="label">HMIS Alignment Mode</div>
+              <div class="label">Reference Framework</div>
               <label style="display:flex; gap:8px; align-items:center; font-size:12px; color:#555;">
                 <input id="hmis-mode" type="checkbox" checked>
-                Use HMIS toolkit + rubric as gold standard
+                Use HMIS communication framework as enhancement reference
               </label>
             </div>
           </div>
@@ -276,23 +285,23 @@
       <div class="card">
         <div class="card-head"><div class="card-title">AI Prompt Studio (for Module Designers)</div></div>
         <div class="prompt-list">
-          <div class="prompt-item">1. Learn more about what communication skills are required in this module.</div>
-          <div class="prompt-item">2. Generate lesson activity ideas to practise these communication skills.</div>
-          <div class="prompt-item">3. Generate communication rubrics contextualised to this module.</div>
-          <div class="prompt-item">4. Align observed student presentation performance to rubric bands.</div>
+          <div class="prompt-item">1. Suggest communication competencies relevant to this module and discipline.</div>
+          <div class="prompt-item">2. Generate activity ideas to develop and practise these communication skills.</div>
+          <div class="prompt-item">3. Draft communication rubrics contextualised to this module’s domain.</div>
+          <div class="prompt-item">4. Map observed student performance to rubric bands to support feedback and grading.</div>
         </div>
       </div>
 
       <div class="footer-actions">
         <button class="btn" onclick="goStep(1)">Back</button>
-        <button class="btn primary" onclick="runReview()">Run Review</button>
+        <button class="btn primary" onclick="runReview()">Generate Review Insights</button>
       </div>
     </section>
 
     <section class="screen" id="screen-3">
       <div class="hero-label">Step 3 of 4</div>
-      <div class="hero-title">Review Findings</div>
-      <div class="hero-sub">Review findings by area. For activity-level comms review, AI compares your current activity criteria against HMIS gold standards and suggests refinements.</div>
+      <div class="hero-title">Review Insights &amp; Recommendations</div>
+      <div class="hero-sub">Review AI-generated insights by focus area. For activity-level review, AI identifies enhancement opportunities and suggests alignment improvements for selected criteria.</div>
 
       <div class="findings-shell">
         <nav class="findings-nav" id="findings-nav"></nav>
@@ -307,8 +316,8 @@
 
     <section class="screen" id="screen-4">
       <div class="hero-label">Step 4 of 4</div>
-      <div class="hero-title">Apply Updates</div>
-      <div class="hero-sub">Select refinements to apply now. Continue to editor for final wording and module-specific tailoring.</div>
+      <div class="hero-title">Apply &amp; Refine Updates</div>
+      <div class="hero-sub">Select the enhancements you want to carry forward. Continue to the editor for final wording and module-specific tailoring.</div>
 
       <div id="recommendations"></div>
 
@@ -325,18 +334,29 @@
 
 <script>
   const baseFindings = {
-    "Assessment Framework": [
-      { title: "Group project weight exceeds guideline", detail: "Current group component is 35%. Suggested update: rebalance to 28-30%." },
-      { title: "Mid-semester assessment is light", detail: "CA1 is below 20%. Suggested update: increase CA1 to 20%." }
+    "Graduate Competencies": [
+      { title: "Self-Development has weak or no coverage", detail: "Consider adding a reflective module outcome mapped to Self-Development to strengthen competency breadth." },
+      { title: "GC7 Communication not explicitly mapped", detail: "Adding a communication-oriented outcome would surface disciplinary communication development more intentionally." }
     ],
-    "NPGC Coverage": [
-      { title: "Self-Development has weak/no coverage", detail: "Suggested update: add one reflective MO mapped to Self-Development." }
+    "Assessment Strategy": [
+      { title: "Group project weight exceeds guideline", detail: "Current group component is 35%. Consider rebalancing to 28\u201330% for stronger individual accountability." },
+      { title: "Mid-semester assessment is light", detail: "CA1 is below 20%. A stronger mid-semester checkpoint would better support student progress monitoring." }
     ],
-    "Outcome Quality": [
-      { title: "No Evaluate/Create level outcome", detail: "Suggested update: add one Evaluate-level module outcome for stronger rigor." }
+    "Teaching & Learning": [
+      { title: "Limited active learning variety", detail: "Current activities are lecture-heavy. Consider incorporating case-based or problem-based activities for stronger student engagement." },
+      { title: "No explicit blended learning structure documented", detail: "Adding defined pre-class e-learning components could improve classroom time quality and student preparation." }
     ],
-    "Schedule Spread": [
-      { title: "Week 16 assessment cluster", detail: "A3 and A4 are due in the same week. Suggested update: move A3 to Week 15." }
+    "Industry Relevance": [
+      { title: "Assessment briefs lack industry context", detail: "Consider grounding student work in an industry-relevant scenario or brief for stronger authentic learning." },
+      { title: "No skills framework reference", detail: "Aligning selected outcomes to a SkillsFuture or industry competency framework would strengthen the module\u2019s currency and external credibility." }
+    ],
+    "Content & Outcomes": [
+      { title: "No Evaluate or Create level outcome", detail: "Consider adding one Evaluate-level module outcome to increase cognitive demand and programme-level rigor." },
+      { title: "Week 16 assessment cluster", detail: "A3 and A4 are due in the same week. Spreading these across adjacent weeks reduces student workload peaks." }
+    ],
+    "Communication Skills": [
+      { title: "Communication expectations are implicit in rubrics", detail: "Making communication criteria explicit in rubric bands improves student preparation and marking consistency." },
+      { title: "Professional communication standards not referenced", detail: "Consider linking to disciplinary communication conventions for stronger contextualisation and student guidance." }
     ]
   };
 
@@ -389,8 +409,12 @@
     useHMIS = document.getElementById('hmis-mode').checked;
 
     if (reviewActivity) {
+      // Promote Communication Skills to richer activity-level review when HMIS ref is on
+      if (useHMIS && activeAreas.includes('Communication Skills')) {
+        const idx = activeAreas.indexOf('Communication Skills');
+        activeAreas[idx] = 'Communication Skills Review';
+      }
       activeAreas.unshift('Selected Activity');
-      if (useHMIS) activeAreas.unshift('HMIS Comms Alignment');
     }
 
     if (!activeAreas.length) return;
@@ -415,13 +439,13 @@
       nav.appendChild(b);
     });
 
-    if (activeTab === 'HMIS Comms Alignment') {
+    if (activeTab === 'Communication Skills Review') {
       content.innerHTML =
         '<div class="finding">' +
-          '<div class="finding-title">HMIS Gold-Standard Alignment · ' + (reviewActivity || 'Selected Activity') + '</div>' +
-          '<div class="finding-sub">AI compares your current activity criteria with HMIS presentation competencies and suggests rubric refinements.</div>' +
+          '<div class="finding-title">Communication Skills Review \u00b7 ' + (reviewActivity || 'Selected Activity') + '</div>' +
+          '<div class="finding-sub">AI identifies enhancement opportunities for your activity\u2019s communication criteria, based on established competency frameworks.</div>' +
           '<table class="hmis-grid">' +
-            '<thead><tr><th>Criterion</th><th>Current Coverage</th><th>Status</th><th>AI Refinement</th></tr></thead>' +
+            '<thead><tr><th>Criterion</th><th>Current Coverage</th><th>Status</th><th>Enhancement Suggestion</th></tr></thead>' +
             '<tbody>' +
               '<tr><td>Verbal Skills</td><td>General "clarity" criterion only</td><td class="status-weak">Partial</td><td>Add explicit descriptors for structure, signposting, active voice, and concise wording.</td></tr>' +
               '<tr><td>Non-Verbal Skills</td><td>No explicit criterion</td><td class="status-missing">Missing</td><td>Add criterion with eye contact, posture, purposeful gestures, and facial expression bands.</td></tr>' +
@@ -430,7 +454,7 @@
             '</tbody>' +
           '</table>' +
           '<details class="rubric-ref">' +
-            '<summary>HMIS Gold Standard Reference</summary>' +
+            '<summary>Enhancement Reference \u2014 Communication Competencies</summary>' +
             '<div class="rubric-body">' +
               '<div class="rubric-block"><div class="rubric-title">Verbal Techniques</div><ul class="rubric-lines"><li>Clear main message and strong opening hook</li><li>Logical structure and signposting language</li><li>Concise wording, active voice, strong closing</li></ul></div>' +
               '<div class="rubric-block"><div class="rubric-title">Non-Verbal Techniques</div><ul class="rubric-lines"><li>Purposeful gestures and open palms</li><li>Eye contact across audience, natural expression</li><li>Upright posture and controlled movement</li></ul></div>' +
@@ -446,7 +470,7 @@
       content.innerHTML =
         '<div class="finding">' +
           '<div class="finding-title">Activity Focus · ' + reviewActivity + '</div>' +
-          '<div class="finding-sub">Targeted review is active. AI will prioritise module-specific communication performance evidence and rubric wording for this activity.' + (notes ? ' Lecturer note captured for context.' : '') + '</div>' +
+          '<div class="finding-sub">Targeted review is active. AI will focus on enhancement opportunities and competency alignment specific to this activity.' + (notes ? ' Lecturer notes captured for context.' : '') + '</div>' +
         '</div>' +
         '<div class="finding">' +
           '<div class="finding-title">Suggested refinement direction</div>' +
@@ -467,28 +491,28 @@
 
   function buildRecommendations() {
     mockRecommendations = [
-      { title: 'Reduce A3 group weight to 28%', detail: 'Brings group assessment within guideline.', on: true },
-      { title: 'Increase CA1 to 20%', detail: 'Adds stronger mid-semester checkpoint.', on: true }
+      { title: 'Rebalance group assessment component to 28\u201330%', detail: 'Brings group weighting within guideline for stronger individual accountability.', on: true },
+      { title: 'Strengthen mid-semester checkpoint (CA1 to 20%)', detail: 'Adds a more meaningful progress monitoring point mid-semester.', on: true }
     ];
 
-    if (activeAreas.includes('HMIS Comms Alignment')) {
+    if (activeAreas.includes('Communication Skills Review')) {
       mockRecommendations.push(
-        { title: 'Add HMIS Verbal descriptors to rubric bands', detail: 'Include structure, signposting, concise language, and closing quality across bands.', on: true },
-        { title: 'Add Non-Verbal criterion with band descriptors', detail: 'Eye contact, posture, gestures, and facial expression mapped A/A+ to F.', on: true },
-        { title: 'Embed Vocal technique indicators', detail: 'Pitch, tone, volume, and pace descriptors to improve feedback quality.', on: false },
-        { title: 'Contextualise examples to this module domain', detail: 'Use discipline-relevant communication scenarios for grading examples.', on: true }
+        { title: 'Add verbal delivery descriptors to rubric bands', detail: 'Include structure, signposting, concise language, and closing quality across performance bands.', on: true },
+        { title: 'Add non-verbal criterion with band descriptors', detail: 'Eye contact, posture, gestures, and facial expression mapped across performance bands.', on: true },
+        { title: 'Embed vocal technique indicators', detail: 'Pitch, tone, volume, and pace descriptors to improve feedback specificity.', on: false },
+        { title: 'Contextualise rubric examples to this module domain', detail: 'Use discipline-relevant communication scenarios as grading illustrations.', on: true }
       );
     }
 
     if (activeAreas.includes('Selected Activity')) {
       mockRecommendations.push(
-        { title: 'Create activity-specific rubric version for ' + reviewActivity, detail: 'Keeps gold standard while adapting wording to actual task context.', on: true }
+        { title: 'Create activity-specific rubric version for ' + reviewActivity, detail: 'Adapts the enhancement reference framework to the specific wording and context of this activity.', on: true }
       );
     }
 
-    if (activeAreas.includes('NPGC Coverage')) {
+    if (activeAreas.includes('Graduate Competencies')) {
       mockRecommendations.push(
-        { title: 'Add reflective MO for Self-Development', detail: 'Closes gap and strengthens communication self-improvement framing.', on: false }
+        { title: 'Add reflective outcome mapped to Self-Development', detail: 'Closes competency coverage gap and strengthens self-directed learning intent.', on: false }
       );
     }
   }

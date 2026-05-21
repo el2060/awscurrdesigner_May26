@@ -227,7 +227,7 @@
   --space-10: 40px;
   --space-12: 48px;
 
-  --topbar-height: 56px;
+  --topbar-height: 52px;
   --sidebar-width: 240px;
   --ai-sidebar-width: 320px;
   --content-max-width: 780px;
@@ -296,26 +296,15 @@ img, svg { display: block; }
   display: block;
 }
 
-/* --- Hover Effects for Buttons --- */
+/* --- Phase CTA --- */
 .phase-cta {
-  background: #f5f5f5; /* Light gray background for a clean look */
-  color: #333; /* Dark gray text for good contrast */
-  border: 2px solid #ccc; /* Subtle border for definition */
-  font-size: 1rem; /* Standard font size for readability */
-  font-weight: bold; /* Bold text for emphasis */
-  padding: 0.75rem 1.5rem; /* Comfortable padding for a prominent button */
-  border-radius: 0.5rem; /* Rounded corners for a modern look */
-  text-transform: uppercase; /* Uppercase text for emphasis */
-  letter-spacing: 0.05em; /* Slightly increased letter spacing */
-  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
-  cursor: pointer; /* Pointer cursor for better UX */
+  font-size: 12px; font-weight: 600; color: #555;
+  border: 1px solid #d0d0d0; padding: 7px 14px;
+  align-self: flex-start;
+  transition: all 100ms;
 }
 .phase-cta:hover {
-  background: #e0e0e0; /* Slightly darker gray for hover effect */
-  color: #000; /* Black text for hover */
-  border-color: #999; /* Darker border for hover */
-  transform: scale(1.05); /* Slightly enlarge button on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for hover effect */
+  background: #1a1a1a; color: #fff; border-color: #1a1a1a;
 }
 
 /* ============================================================
@@ -382,6 +371,15 @@ img, svg { display: block; }
 .topbar-module-title:hover { background: var(--color-surface); border-color: var(--color-border); }
 .topbar-module-title.editing { border-color: var(--color-accent); background: white; outline: none; }
 .topbar-actions { display: flex; align-items: center; gap: var(--space-2); margin-left: auto; }
+.topbar-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 500; color: #1a1a1a;
+  text-decoration: none;
+}
+.t-div { width: 1px; height: 16px; background: #e0e0e0; margin: 0 6px; }
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+.topbar-link { font-size: 12px; color: #888; text-decoration: none; }
+.topbar-link:hover { color: #1a1a1a; }
 .topbar-status-badge {
   font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: var(--radius-full);
   background: var(--color-surface); color: var(--color-text-secondary);
