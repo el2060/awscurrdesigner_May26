@@ -69,9 +69,38 @@
     <button class="btn btn-secondary btn-sm">Re-check alignment</button>
     <button class="btn btn-secondary btn-sm">Export PDF</button>
     <button class="btn btn-primary" id="export-xls-btn" style="background: #1a1a1a;">Export to XLS</button>
-    
+
   </div>
 </header>
+
+<!-- Phase bar: 5 steps, step 5 active -->
+<div style="border-bottom:1px solid #e0e0e0; padding:0 32px; display:flex; align-items:center; background:#fafafa; height:36px; overflow-x:auto; font-family:var(--font-sans, 'Inter', sans-serif);">
+  <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:#888;white-space:nowrap;flex-shrink:0;">
+    <div style="width:18px;height:18px;border:1px solid #555;background:#555;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:var(--font-mono, monospace);">✓</div>
+    <span>Gather Context</span>
+  </div>
+  <div style="width:24px;height:1px;background:#e0e0e0;margin:0 8px;flex-shrink:0;"></div>
+  <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:#888;white-space:nowrap;flex-shrink:0;">
+    <div style="width:18px;height:18px;border:1px solid #555;background:#555;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:var(--font-mono, monospace);">✓</div>
+    <span>Analyse &amp; Synthesise</span>
+  </div>
+  <div style="width:24px;height:1px;background:#e0e0e0;margin:0 8px;flex-shrink:0;"></div>
+  <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:#888;white-space:nowrap;flex-shrink:0;">
+    <div style="width:18px;height:18px;border:1px solid #555;background:#555;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:var(--font-mono, monospace);">✓</div>
+    <span>Plan Direction</span>
+  </div>
+  <div style="width:24px;height:1px;background:#e0e0e0;margin:0 8px;flex-shrink:0;"></div>
+  <a href="mdd-editor.html" style="display:flex;align-items:center;gap:7px;font-size:11px;color:#888;white-space:nowrap;flex-shrink:0;text-decoration:none;" onmouseover="this.style.color='#1a1a1a'" onmouseout="this.style.color='#888'">
+    <div style="width:18px;height:18px;border:1px solid #555;background:#555;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:var(--font-mono, monospace);">✓</div>
+    <span>Build Module</span>
+  </a>
+  <div style="width:24px;height:1px;background:#e0e0e0;margin:0 8px;flex-shrink:0;"></div>
+  <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:#1a1a1a;font-weight:600;white-space:nowrap;flex-shrink:0;">
+    <div style="width:18px;height:18px;border:1px solid #1a1a1a;background:#1a1a1a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:var(--font-mono, monospace);">5</div>
+    <span>Review &amp; Export</span>
+    <span style="font-size:10px;color:#aaa;font-weight:400;margin-left:4px;">· final document</span>
+  </div>
+</div>
 
 <div class="app-shell review-shell" style="grid-template-rows: unset;">
 
