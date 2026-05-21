@@ -183,15 +183,13 @@
     .topbar-link { font-size: 13px; }
     .phase-inner { min-height: 44px; }
     .ph-step { font-size: 12px; }
+    .layout { grid-template-columns: 1fr 280px; gap: 24px; }
     .page { max-width: var(--workspace-max); padding: 44px var(--workspace-pad); }
     .page-title { font-size: 34px; margin-bottom: 10px; }
-    .page-sub { font-size: 18px; line-height: 1.55; margin-bottom: 32px; max-width: 720px; }
+    .page-sub { font-size: 18px; line-height: 1.55; margin-bottom: 32px; max-width: 760px; }
     .ps-title { font-size: 15px; }
-    .ps-desc { font-size: 12px; }
-    .field-label { font-size: 11px; }
-    .plan-input, .plan-select, .plan-textarea { font-size: 14px; }
-    .chip, .check-label, .npgc-name { font-size: 13px; }
-    .btn-ghost, .btn-primary, .bb-note { font-size: 13px; }
+    .ps-desc, .field-label, .side-label { font-size: 12px; }
+    .plan-input, .plan-select, .plan-textarea, .check-label, .btn-ghost, .btn-primary, .bb-note { font-size: 14px; }
 
     @media (max-width: 1280px) {
       :root { --workspace-pad: 28px; }
@@ -223,21 +221,6 @@
     <a href="index.html" class="topbar-link">← Home</a>
   </div>
 </nav>
-
-<!-- Phase bar -->
-<div class="phase-bar">
-  <div class="phase-inner">
-    <div class="ph-step done"><div class="ph-num">✓</div><span>Context Workspace</span></div>
-    <div class="ph-connector"></div>
-    <div class="ph-step done"><div class="ph-num">✓</div><span>Synthesis</span></div>
-    <div class="ph-connector"></div>
-    <div class="ph-step active"><div class="ph-num">3</div><span>Planning</span></div>
-    <div class="ph-connector"></div>
-    <div class="ph-step"><div class="ph-num">4</div><span>Build or Refresh</span></div>
-    <div class="ph-connector"></div>
-    <div class="ph-step"><div class="ph-num">5</div><span>Review &amp; Export</span></div>
-  </div>
-</div>
 
 <!-- Page -->
 <main class="page">
@@ -452,7 +435,6 @@
   <div class="bottom-inner">
     <div class="bb-note">Set direction, then continue to drafting</div>
     <div class="bb-actions">
-      <a href="analyse-synthesise.html" class="btn-ghost">← Back to Analysis</a>
       <a href="design-wizard.html" class="btn-primary">Continue to Drafting →</a>
     </div>
   </div>

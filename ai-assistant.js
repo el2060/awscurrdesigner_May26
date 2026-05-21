@@ -576,7 +576,7 @@ function initWizard(modalId, openBtnId) {
     if (prevBtn) prevBtn.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
     if (nextBtn) {
       if (currentStep === totalSteps) {
-        nextBtn.textContent = 'Open in Editor →';
+        nextBtn.textContent = 'Open Review Summary →';
         nextBtn.className = 'btn btn-primary btn-lg';
         nextBtn.onclick = () => { window.location.href = 'mdd-editor.html'; };
       } else {

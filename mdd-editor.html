@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ICT1234 — Module Title | AI Curriculum Review &amp; Design</title>
+  <title>ICT1234 — Review Summary | AI Curriculum Review Flow</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
@@ -62,44 +62,15 @@
     ICT1234 — Module Title
   </span>
   <div class="topbar-actions">
-    <a href="review-export.html" class="btn btn-primary btn-sm">Preview MDD →</a>
+    <a href="review-export.html#review" class="btn btn-primary btn-sm">View Review Findings →</a>
   </div>
 </header>
-
-<!-- Phase bar: 5 steps, step 4 active -->
-<div style="border-bottom:1px solid #e0e0e0; padding:0 40px; display:flex; align-items:center; background:#fafafa; height:40px; overflow-x:auto; font-family:var(--font-sans, 'Inter', sans-serif);">
-  <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:#888;white-space:nowrap;flex-shrink:0;">
-    <div style="width:18px;height:18px;border:1px solid #2D7A4A;background:#2D7A4A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:var(--font-mono, monospace);">✓</div>
-    <span>Context Workspace</span>
-  </div>
-  <div style="width:24px;height:1px;background:#e0e0e0;margin:0 8px;flex-shrink:0;"></div>
-  <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:#888;white-space:nowrap;flex-shrink:0;">
-    <div style="width:18px;height:18px;border:1px solid #2D7A4A;background:#2D7A4A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:var(--font-mono, monospace);">✓</div>
-    <span>Synthesis</span>
-  </div>
-  <div style="width:24px;height:1px;background:#e0e0e0;margin:0 8px;flex-shrink:0;"></div>
-  <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:#888;white-space:nowrap;flex-shrink:0;">
-    <div style="width:18px;height:18px;border:1px solid #2D7A4A;background:#2D7A4A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:var(--font-mono, monospace);">✓</div>
-    <span>Planning</span>
-  </div>
-  <div style="width:24px;height:1px;background:#e0e0e0;margin:0 8px;flex-shrink:0;"></div>
-  <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:#004689;font-weight:600;white-space:nowrap;flex-shrink:0;">
-    <div style="width:18px;height:18px;border:1px solid #004689;background:#004689;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:var(--font-mono, monospace);">4</div>
-    <span>Build or Refresh</span>
-    
-  </div>
-  <div style="width:24px;height:1px;background:#e0e0e0;margin:0 8px;flex-shrink:0;"></div>
-  <a href="review-export.html" style="display:flex;align-items:center;gap:7px;font-size:11px;color:#bbb;white-space:nowrap;flex-shrink:0;text-decoration:none;" onmouseover="this.style.color='#666'" onmouseout="this.style.color='#bbb'">
-    <div style="width:18px;height:18px;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#999;font-family:var(--font-mono, monospace);">5</div>
-    <span>Review &amp; Export</span>
-  </a>
-</div>
 
 <div class="app-shell" style="grid-template-rows: unset;">
 
   <!-- Left Sidebar -->
   <aside class="sidebar">
-    <a href="index.html" class="sidebar-back">← Dashboard</a>
+    <a href="index.html" class="sidebar-back">← Home</a>
     <div class="sidebar-divider"></div>
     <div class="sidebar-module-info">
       <div class="sidebar-module-code">ICT1234 · ELE</div>
@@ -107,9 +78,9 @@
       <div class="sidebar-module-meta">L2 · SIDM · 4 CU · AY25/26 S1</div>
     </div>
     <div class="sidebar-divider"></div>
-    <div class="sidebar-section-label">Sections</div>
+    <div class="sidebar-section-label">Review Areas</div>
     <a href="mdd-editor.html" class="sidebar-nav-item active">
-      Module Overview
+      Review Summary
       <span class="sidebar-status-icon done">✓</span>
     </a>
     <a href="section-synopsis.html" class="sidebar-nav-item">
@@ -143,7 +114,7 @@
     <div class="sidebar-footer">
       <div>
         <div class="progress-label">
-          <span>Completion</span>
+          <span>Review Coverage</span>
           <span class="font-600">3 / 6</span>
         </div>
         <div class="progress-bar-track"><div class="progress-bar-fill" style="width:50%"></div></div>
@@ -153,36 +124,36 @@
 
   <!-- AI Check Panel -->
   <div class="ai-check-panel hidden" id="ai-check-panel">
-    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--color-ai-glow); margin-bottom:var(--space-2); padding:0 var(--space-1);">✦ AI Completion Check</div>
+    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--color-ai-glow); margin-bottom:var(--space-2); padding:0 var(--space-1);">✦ AI Review Check</div>
     <a href="mdd-editor.html" class="ai-check-item">
       <span class="ai-check-status">✓</span>
       <span class="ai-check-label">Module Metadata</span>
-      <span class="ai-check-note" style="color:var(--color-success)">Complete</span>
+      <span class="ai-check-note" style="color:var(--color-success)">Reviewed</span>
     </a>
     <a href="section-synopsis.html" class="ai-check-item">
       <span class="ai-check-status">✓</span>
       <span class="ai-check-label">Synopsis &amp; Aims</span>
-      <span class="ai-check-note" style="color:var(--color-success)">Complete</span>
+      <span class="ai-check-note" style="color:var(--color-success)">Aligned</span>
     </a>
     <a href="section-outcomes.html" class="ai-check-item">
       <span class="ai-check-status">⚠</span>
       <span class="ai-check-label">Learning Outcomes</span>
-      <span class="ai-check-note" style="color:var(--color-warning)">NPGC3 weak</span>
+      <span class="ai-check-note" style="color:var(--color-warning)">Refresh suggested</span>
     </a>
     <a href="section-schedule.html" class="ai-check-item">
       <span class="ai-check-status">○</span>
       <span class="ai-check-label">Content: Topics &amp; Hours</span>
-      <span class="ai-check-note">Not started</span>
+      <span class="ai-check-note">Needs attention</span>
     </a>
     <a href="section-tls.html" class="ai-check-item">
       <span class="ai-check-status">○</span>
       <span class="ai-check-label">T&amp;L Strategies</span>
-      <span class="ai-check-note">Not started</span>
+      <span class="ai-check-note">Potential gap</span>
     </a>
     <a href="section-assessment.html" class="ai-check-item">
       <span class="ai-check-status">✗</span>
       <span class="ai-check-label">Assessment</span>
-      <span class="ai-check-note" style="color:var(--color-danger)">Weights ≠ 100%</span>
+      <span class="ai-check-note" style="color:var(--color-danger)">Needs alignment review</span>
     </a>
     <div style="height:1px; background:var(--color-border); margin: 6px 4px;"></div>
     <a href="section-comms-alignment.html" class="ai-check-item">
@@ -200,14 +171,14 @@
         <span class="breadcrumb-sep">/</span>
         <span>ICT1234</span>
         <span class="breadcrumb-sep">/</span>
-        <span>Module Overview</span>
+        <span>Review Summary</span>
       </div>
 
       <div class="section-header">
         <div class="section-header-left">
-          <div class="section-number">Module Design Document</div>
-          <div class="section-title">Module Title</div>
-          <div class="section-description">Review module metadata and navigate to any section below.</div>
+          <div class="section-number">AI Review Summary</div>
+          <div class="section-title">Review Summary for ICT1234</div>
+          <div class="section-description">AI review completed across selected curriculum focus areas. Explore findings and suggested refresh actions below.</div>
         </div>
       </div>
 
@@ -216,7 +187,7 @@
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-5);">
           <div class="form-sub-title" style="margin:0;">
             <div class="form-sub-title-number">i</div>
-            Module Metadata
+            Review Snapshot
           </div>
         </div>
         <div class="overview-grid">
@@ -267,10 +238,10 @@
         </div>
       </div>
 
-      <!-- Sections overview -->
+      <!-- Review areas overview -->
       <div class="form-sub-title mb-4">
         <div class="form-sub-title-number">§</div>
-        All Sections
+        Review Areas
       </div>
 
       <a href="section-synopsis.html" class="section-card">
@@ -282,7 +253,7 @@
           </div>
         </div>
         <div class="section-card-right">
-          <span class="section-status-pill pill-done">Complete</span>
+          <span class="section-status-pill pill-done">Reviewed</span>
           <span style="color:var(--color-text-tertiary);">→</span>
         </div>
       </a>
@@ -296,7 +267,7 @@
           </div>
         </div>
         <div class="section-card-right">
-          <span class="section-status-pill pill-progress">In Progress</span>
+          <span class="section-status-pill pill-progress">Refresh Suggested</span>
           <span style="color:var(--color-text-tertiary);">→</span>
         </div>
       </a>
@@ -310,7 +281,7 @@
           </div>
         </div>
         <div class="section-card-right">
-          <span class="section-status-pill pill-empty">Not Started</span>
+          <span class="section-status-pill pill-empty">Needs Attention</span>
           <span style="color:var(--color-text-tertiary);">→</span>
         </div>
       </a>
@@ -324,7 +295,7 @@
           </div>
         </div>
         <div class="section-card-right">
-          <span class="section-status-pill pill-empty">Not Started</span>
+          <span class="section-status-pill pill-empty">Potential Gap</span>
           <span style="color:var(--color-text-tertiary);">→</span>
         </div>
       </a>
@@ -338,15 +309,15 @@
           </div>
         </div>
         <div class="section-card-right">
-          <span class="section-status-pill pill-warn">Needs Review</span>
+          <span class="section-status-pill pill-warn">Needs Alignment Review</span>
           <span style="color:var(--color-text-tertiary);">→</span>
         </div>
       </a>
 
-      <!-- Cross-cutting checks -->
+      <!-- Cross-cutting review areas -->
       <div class="form-sub-title mt-6 mb-3" style="font-size:13px; color:var(--color-text-tertiary); text-transform:uppercase; letter-spacing:0.06em;">
         <div class="form-sub-title-number" style="background:var(--color-npgc-6);">✦</div>
-        Cross-cutting checks
+        Cross-cutting review areas
       </div>
       <a href="section-comms-alignment.html" class="section-card" style="border-color:var(--color-border); background: var(--color-surface);">
         <div class="section-card-left">
@@ -357,7 +328,7 @@
           </div>
         </div>
         <div class="section-card-right">
-          <span class="section-status-pill pill-warn">Partial — review</span>
+          <span class="section-status-pill pill-warn">Refresh Suggested</span>
           <span style="color:var(--color-text-tertiary);">→</span>
         </div>
       </a>
@@ -381,17 +352,17 @@
           <span class="ai-suggestion-label" style="color:var(--color-ai-glow);">Next Best Step</span>
         </div>
         <div class="ai-suggestion-body">
-          Module metadata looks complete. Continue to <strong>Learning Outcomes</strong> to establish measurable outcomes before refining schedule and assessment.
+          Review indicates <strong>Learning Outcomes</strong> need refresh attention before downstream schedule and assessment alignment.
         </div>
         <div class="ai-suggestion-actions">
-          <a href="section-outcomes.html" class="btn btn-ai btn-sm">Draft Outcomes →</a>
+          <a href="section-outcomes.html" class="btn btn-ai btn-sm">Review Outcomes Findings →</a>
         </div>
       </div>
     </div>
 
     <div class="ai-sidebar-footer">
       <div class="callout" style="margin:0;">
-        Recommended order: Outcomes first, then Schedule, T&amp;L, and Assessment. This reduces rework downstream.
+        Recommended review order: Outcomes, then Schedule, T&amp;L, and Assessment to resolve gaps efficiently.
       </div>
     </div>
   </aside>

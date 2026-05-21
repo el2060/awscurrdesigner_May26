@@ -493,21 +493,6 @@
   </div>
 </nav>
 
-<!-- Phase bar -->
-<div class="phase-bar">
-  <div class="phase-inner">
-  <div class="ph-step done"><div class="ph-num">✓</div><span>Context Workspace</span></div>
-  <div class="ph-connector"></div>
-  <div class="ph-step done"><div class="ph-num">✓</div><span>Synthesis</span></div>
-  <div class="ph-connector"></div>
-  <div class="ph-step done"><div class="ph-num">✓</div><span>Planning</span></div>
-  <div class="ph-connector"></div>
-  <div class="ph-step active"><div class="ph-num">4</div><span>Build or Refresh</span></div>
-  <div class="ph-connector"></div>
-  <div class="ph-step"><div class="ph-num">5</div><span>Review &amp; Export</span></div>
-  </div>
-</div>
-
 <!-- Page -->
 <main class="page">
 
@@ -656,9 +641,9 @@
   <!-- Done card -->
   <div class="done-card" id="done-card">
     <div class="done-title">✓ Draft pass complete</div>
-    <div class="done-sub">Review the AI notes above, then open in editor to refine — or run another pass for remaining sections.</div>
+    <div class="done-sub">Review the AI notes above, then continue to review summary findings — or run another pass for remaining sections.</div>
     <div class="done-actions">
-      <a href="mdd-editor.html" class="btn-open">Open in Editor →</a>
+      <a href="mdd-editor.html" class="btn-open">Open Review Summary →</a>
       <a href="review-export.html" class="btn-skip">Skip to Review &amp; Export</a>
     </div>
   </div>
@@ -674,9 +659,7 @@
 <div class="bottom-bar">
   <div class="bottom-inner">
     <div class="bb-note" id="bb-note">Select sections, add context, then draft in manageable passes</div>
-    <div class="bb-actions">
-      <a href="plan-direction.html" class="btn-ghost">← Back to Planning</a>
-    </div>
+    <div class="bb-actions"></div>
   </div>
 </div>
 
@@ -820,7 +803,7 @@
       document.getElementById('gen-status').classList.add('done');
       document.getElementById('draft-notes').classList.add('show');
       document.getElementById('done-card').classList.add('show');
-      document.getElementById('bb-note').textContent = 'Review AI notes, then open in editor';
+      document.getElementById('bb-note').textContent = 'Review AI notes, then continue to review summary';
       return;
     }
 
