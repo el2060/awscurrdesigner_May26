@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan Curriculum Direction — AI Curriculum Review &amp; Design</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: #fff; color: #1a1a1a; min-height: 100vh; padding-bottom: 72px; }
+
+    /* ── Topbar ── */
+    .topbar {
+      height: 52px; border-bottom: 1px solid #e0e0e0;
+      display: flex; align-items: center; padding: 0 40px; background: #fff;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .t-div { width: 1px; height: 16px; background: #e0e0e0; margin: 0 6px; }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+    .topbar-link { font-size: 12px; color: #888; text-decoration: none; }
+    .topbar-link:hover { color: #1a1a1a; }
+
+    /* ── Phase bar ── */
+    .phase-bar {
+      border-bottom: 1px solid #e0e0e0; padding: 0 40px;
+      display: flex; align-items: center; background: #fafafa; height: 40px; overflow-x: auto;
+    }
+    .ph-step { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #bbb; white-space: nowrap; flex-shrink: 0; }
+    .ph-step.active { color: #1a1a1a; font-weight: 600; }
+    .ph-step.done { color: #888; }
+    .ph-num { width: 20px; height: 20px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; font-family: var(--font-mono); flex-shrink: 0; }
+    .ph-step.active .ph-num { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .ph-step.done .ph-num { background: #555; color: #fff; border-color: #555; }
+    .ph-connector { width: 28px; height: 1px; background: #e0e0e0; margin: 0 8px; flex-shrink: 0; }
+
+    /* ── Page ── */
+    .page { max-width: 920px; margin: 0 auto; padding: 48px 40px 40px; }
+    .page-title { font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .page-sub { font-size: 13px; color: #888; line-height: 1.65; margin-bottom: 36px; max-width: 560px; }
+
+    /* ── Layout ── */
+    .layout { display: flex; gap: 28px; align-items: flex-start; }
+    .layout-main { flex: 1; min-width: 0; }
+    .layout-side { width: 220px; flex-shrink: 0; position: sticky; top: 100px; }
+
+    /* ── Plan sections ── */
+    .plan-section {
+      border: 1px solid #e4e4e4;
+      margin-bottom: 8px;
+      background: #fff;
+    }
+    .ps-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 20px 12px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .ps-num {
+      width: 22px; height: 22px; flex-shrink: 0;
+      font-size: 10px; font-weight: 700; font-family: var(--font-mono);
+      background: #1a1a1a; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ps-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+    .ps-desc { font-size: 11px; color: #aaa; margin-left: auto; max-width: 280px; text-align: right; line-height: 1.4; }
+    .ps-body { padding: 16px 20px 18px; }
+
+    /* ── Form rows ── */
+    .field-row { display: flex; gap: 12px; margin-bottom: 14px; }
+    .field-row:last-child { margin-bottom: 0; }
+    .field { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+    .field-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: #aaa;
+    }
+    .field-label .opt { font-weight: 400; text-transform: none; letter-spacing: 0; color: #ccc; }
+    .plan-input {
+      font-family: var(--font-sans); font-size: 13px; color: #1a1a1a;
+      border: 1px solid #d8d8d8; padding: 8px 12px;
+      background: #fff; outline: none; width: 100%;
+      transition: border-color 100ms;
+    }
+    .plan-input:focus { border-color: #888; }
+    .plan-select {
+      font-family: var(--font-sans); font-size: 13px; color: #1a1a1a;
+      border: 1px solid #d8d8d8; padding: 8px 12px;
+      background: #fff; outline: none; width: 100%;
+      appearance: none; cursor: pointer;
+    }
+    .plan-textarea {
+      font-family: var(--font-sans); font-size: 13px; color: #1a1a1a;
+      border: 1px solid #d8d8d8; padding: 10px 12px;
+      background: #fff; outline: none; width: 100%; resize: vertical; min-height: 82px;
+      line-height: 1.7; transition: border-color 100ms;
+    }
+    .plan-textarea:focus { border-color: #888; }
+    .plan-hint { font-size: 11px; color: #bbb; line-height: 1.5; margin-top: 4px; }
+
+    /* ── Stepper ── */
+    .stepper { display: flex; align-items: center; border: 1px solid #d8d8d8; background: #fff; height: 34px; }
+    .stepper-btn { width: 32px; height: 100%; font-size: 16px; color: #888; border: none; background: #f8f8f8; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .stepper-btn:hover { background: #f0f0f0; color: #1a1a1a; }
+    .stepper-val { flex: 1; text-align: center; font-size: 13px; font-weight: 600; font-family: var(--font-mono); color: #1a1a1a; border-left: 1px solid #e8e8e8; border-right: 1px solid #e8e8e8; }
+
+    /* ── Chips ── */
+    .chip-group { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip {
+      font-size: 12px; font-weight: 500; color: #666;
+      border: 1px solid #d0d0d0; padding: 6px 14px;
+      cursor: pointer; background: #fff; user-select: none;
+      transition: all 100ms;
+    }
+    .chip:hover { border-color: #888; color: #1a1a1a; }
+    .chip.on { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .chip.on-soft { background: #f0f0f0; color: #1a1a1a; border-color: #aaa; }
+
+    /* ── NPGC grid ── */
+    .npgc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .npgc-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid #e8e8e8;
+      cursor: pointer; user-select: none;
+      transition: background 80ms;
+    }
+    .npgc-item:hover { background: #fafafa; border-color: #ccc; }
+    .npgc-item.on { background: #f5f5f5; border-color: #888; }
+    .npgc-cb { width: 15px; height: 15px; border: 1px solid #ccc; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: #fff; transition: all 80ms; }
+    .npgc-item.on .npgc-cb { background: #1a1a1a; border-color: #1a1a1a; }
+    .npgc-item.on .npgc-cb::after { content: '✓'; color: #fff; font-size: 9px; font-weight: 700; }
+    .npgc-num { font-size: 9px; font-weight: 700; font-family: var(--font-mono); color: #aaa; flex-shrink: 0; margin-top: 2px; }
+    .npgc-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
+    .npgc-sub { font-size: 10px; color: #aaa; margin-top: 1px; line-height: 1.35; }
+    .npgc-note { font-size: 11px; color: #bbb; margin-top: 10px; line-height: 1.45; }
+
+    /* ── Check group ── */
+    .check-group { display: flex; flex-direction: column; gap: 6px; }
+    .check-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 12px; border: 1px solid #e8e8e8;
+      cursor: pointer; user-select: none; transition: background 80ms;
+    }
+    .check-item:hover { background: #fafafa; border-color: #ccc; }
+    .check-item.on { background: #f5f5f5; border-color: #888; }
+    .check-box { width: 15px; height: 15px; border: 1px solid #ccc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #fff; transition: all 80ms; }
+    .check-item.on .check-box { background: #1a1a1a; border-color: #1a1a1a; }
+    .check-item.on .check-box::after { content: '✓'; color: #fff; font-size: 9px; font-weight: 700; }
+    .check-label { font-size: 12px; color: #1a1a1a; }
+    .check-sub { font-size: 11px; color: #aaa; margin-left: auto; }
+
+    .check-group-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
+    /* ── Sidebar ── */
+    .side-rec {
+      border: 1px solid #e4e4e4;
+      margin-bottom: 8px;
+      padding: 14px 16px;
+    }
+    .side-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #bbb;
+      margin-bottom: 12px; display: block;
+    }
+    .rec-item {
+      font-size: 11px; color: #666; line-height: 1.45;
+      padding: 5px 0; border-bottom: 1px solid #f4f4f4;
+      display: flex; gap: 8px; align-items: flex-start;
+    }
+    .rec-item:last-child { border-bottom: none; }
+    .rec-item::before { content: '·'; color: #bbb; flex-shrink: 0; }
+    .rec-sub {
+      font-size: 10px; color: #aaa; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 8px; margin-top: 12px; display: block;
+    }
+    .rec-sub:first-of-type { margin-top: 0; }
+    .rec-tag { display: inline-block; font-size: 10px; color: #777; border: 1px solid #ddd; padding: 2px 7px; margin: 2px 2px 0 0; background: #f9f9f9; }
+
+    /* ── Dynamic summary ── */
+    .side-summary {
+      border: 1px solid #e4e4e4;
+      padding: 14px 16px;
+    }
+    .sum-row {
+      display: flex; justify-content: space-between;
+      padding: 5px 0; border-bottom: 1px solid #f4f4f4;
+      font-size: 11px;
+    }
+    .sum-row:last-child { border-bottom: none; }
+    .sum-key { color: #aaa; }
+    .sum-val { color: #1a1a1a; font-weight: 600; font-size: 11px; text-align: right; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sum-val.empty { color: #ccc; font-weight: 400; }
+
+    /* ── Bottom bar ── */
+    .bottom-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: 60px; background: #fff; border-top: 1px solid #e0e0e0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; z-index: 50;
+    }
+    .bb-note { font-size: 12px; color: #bbb; }
+    .bb-actions { display: flex; gap: 10px; }
+    .btn-ghost { font-size: 12px; font-weight: 500; color: #888; border: 1px solid #d8d8d8; padding: 7px 16px; background: #fff; cursor: pointer; text-decoration: none; }
+    .btn-ghost:hover { border-color: #999; color: #1a1a1a; }
+    .btn-primary { font-size: 12px; font-weight: 600; color: #fff; border: 1px solid #1a1a1a; padding: 7px 18px; background: #1a1a1a; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-primary:hover { background: #333; }
+  </style>
+</head>
+<body>
+
+<!-- Topbar -->
+<nav class="topbar">
+  <a href="index.html" class="topbar-brand">
+    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
+         alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
+    <div class="t-div"></div>
+    <span style="font-size:13px; font-weight:500; color:#1a1a1a;">AI Curriculum Review &amp; Design</span>
+    <span style="font-size:10px; font-weight:500; color:#999; border:1px solid #d8d8d8; padding:2px 8px; letter-spacing:0.02em; margin-left:4px;">Concept Prototype</span>
+  </a>
+  <div class="topbar-right">
+    <a href="index.html" class="topbar-link">← Home</a>
+  </div>
+</nav>
+
+<!-- Phase bar: 5 steps, step 3 active -->
+<div class="phase-bar">
+  <div class="ph-step done">
+    <div class="ph-num">✓</div>
+    <span>Gather Context</span>
+  </div>
+  <div class="ph-connector"></div>
+  <div class="ph-step done">
+    <div class="ph-num">✓</div>
+    <span>Analyse &amp; Synthesise</span>
+  </div>
+  <div class="ph-connector"></div>
+  <div class="ph-step active">
+    <div class="ph-num">3</div>
+    <span>Plan Direction</span>
+  </div>
+  <div class="ph-connector"></div>
+  <div class="ph-step">
+    <div class="ph-num">4</div>
+    <span>Build Module</span>
+  </div>
+  <div class="ph-connector"></div>
+  <div class="ph-step">
+    <div class="ph-num">5</div>
+    <span>Review &amp; Export</span>
+  </div>
+</div>
+
+<!-- Page -->
+<main class="page">
+
+  <div class="page-title">Plan Curriculum Direction</div>
+  <div class="page-sub">Define the intent, focus, and design principles for your module before generating content. This planning step ensures the module aligns to institutional frameworks and industry expectations.</div>
+
+  <div class="layout">
+
+    <div class="layout-main">
+
+      <!-- Section A: Module Identity -->
+      <div class="plan-section">
+        <div class="ps-header">
+          <div class="ps-num">A</div>
+          <div class="ps-title">Module Identity</div>
+          <div class="ps-desc">Basic metadata that will populate the module document header</div>
+        </div>
+        <div class="ps-body">
+          <div class="field-row">
+            <div class="field" style="flex:2;">
+              <label class="field-label">Module Title</label>
+              <input class="plan-input" id="f-title" type="text" placeholder="e.g. Data Structures &amp; Algorithms" oninput="updateSummary()">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field" style="flex:2;">
+              <label class="field-label">School / Diploma</label>
+              <select class="plan-select" id="f-school" onchange="updateSummary()">
+                <option value="">Select school…</option>
+                <option>School of Health Sciences</option>
+                <option>School of Infocomm Technology &amp; Digital Media</option>
+                <option>School of Business &amp; Accountancy</option>
+                <option>School of Engineering</option>
+                <option>School of Film &amp; Media Studies</option>
+                <option>School of Life Sciences &amp; Chemical Technology</option>
+                <option>School of Humanities &amp; Social Sciences</option>
+              </select>
+            </div>
+            <div class="field" style="flex:0 0 auto;">
+              <label class="field-label">Level</label>
+              <div class="chip-group" id="chip-level" style="flex-wrap:nowrap;">
+                <span class="chip" onclick="selChip(this,'level')">L1</span>
+                <span class="chip on" onclick="selChip(this,'level')">L2</span>
+                <span class="chip" onclick="selChip(this,'level')">L3</span>
+                <span class="chip" onclick="selChip(this,'level')">L4</span>
+              </div>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field" style="flex:0 0 auto; width:120px;">
+              <label class="field-label">Credit Units</label>
+              <div class="stepper">
+                <button class="stepper-btn" onclick="step('cu',-1)">−</button>
+                <div class="stepper-val" id="cu-val">4</div>
+                <button class="stepper-btn" onclick="step('cu',1)">+</button>
+              </div>
+            </div>
+            <div class="field" style="flex:0 0 auto; width:140px;">
+              <label class="field-label">Contact Hrs/Wk</label>
+              <div class="stepper">
+                <button class="stepper-btn" onclick="step('ch',-1)">−</button>
+                <div class="stepper-val" id="ch-val">3</div>
+                <button class="stepper-btn" onclick="step('ch',1)">+</button>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label">Pre-requisite <span class="opt">(optional)</span></label>
+              <input class="plan-input" type="text" placeholder="e.g. ICT1001 Fundamentals of Programming">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section B: Curriculum Intent -->
+      <div class="plan-section">
+        <div class="ps-header">
+          <div class="ps-num">B</div>
+          <div class="ps-title">Curriculum Intent</div>
+          <div class="ps-desc">What should this module equip students to do?</div>
+        </div>
+        <div class="ps-body">
+          <div class="field-row" style="flex-direction:column; gap:14px;">
+            <div class="field">
+              <label class="field-label">Module Purpose</label>
+              <textarea class="plan-textarea" id="f-purpose" placeholder="Describe what students should be equipped to do upon completing this module. Be specific about the capabilities, real-world relevance, and professional or industry application." oninput="updateSummary()"></textarea>
+              <div class="plan-hint">This drives all AI-generated content — synopsis, outcomes, topics, and assessments. Be specific.</div>
+            </div>
+            <div class="field">
+              <label class="field-label">Industry / Professional Context <span class="opt">(optional)</span></label>
+              <input class="plan-input" type="text" placeholder="e.g. Prepares students for roles in healthcare informatics, clinical data management, and digital health">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section C: Graduate Competencies -->
+      <div class="plan-section">
+        <div class="ps-header">
+          <div class="ps-num">C</div>
+          <div class="ps-title">NP Graduate Competencies</div>
+          <div class="ps-desc">Select the competencies this module primarily develops</div>
+        </div>
+        <div class="ps-body">
+          <div class="npgc-grid" id="npgc-grid">
+            <div class="npgc-item on" onclick="toggleNPGC(this)">
+              <div class="npgc-cb"></div>
+              <div>
+                <div class="npgc-num">GC1</div>
+                <div class="npgc-name">Domain &amp; Interdisciplinary</div>
+                <div class="npgc-sub">Apply domain knowledge · interdisciplinary connections</div>
+              </div>
+            </div>
+            <div class="npgc-item on" onclick="toggleNPGC(this)">
+              <div class="npgc-cb"></div>
+              <div>
+                <div class="npgc-num">GC2</div>
+                <div class="npgc-name">Critical Thinking</div>
+                <div class="npgc-sub">Analyse · evaluate · solve complex problems</div>
+              </div>
+            </div>
+            <div class="npgc-item" onclick="toggleNPGC(this)">
+              <div class="npgc-cb"></div>
+              <div>
+                <div class="npgc-num">GC3</div>
+                <div class="npgc-name">Innovation &amp; Entrepreneurial</div>
+                <div class="npgc-sub">Generate ideas · take initiative · entrepreneurial mindset</div>
+              </div>
+            </div>
+            <div class="npgc-item on" onclick="toggleNPGC(this)">
+              <div class="npgc-cb"></div>
+              <div>
+                <div class="npgc-num">GC4</div>
+                <div class="npgc-name">Digital Competence</div>
+                <div class="npgc-sub">Leverage digital tools · technology literacy · data use</div>
+              </div>
+            </div>
+            <div class="npgc-item" onclick="toggleNPGC(this)">
+              <div class="npgc-cb"></div>
+              <div>
+                <div class="npgc-num">GC5</div>
+                <div class="npgc-name">Self-Development</div>
+                <div class="npgc-sub">Reflect · adapt · commit to lifelong learning</div>
+              </div>
+            </div>
+            <div class="npgc-item" onclick="toggleNPGC(this)">
+              <div class="npgc-cb"></div>
+              <div>
+                <div class="npgc-num">GC6</div>
+                <div class="npgc-name">Collaboration</div>
+                <div class="npgc-sub">Work in teams · build relationships · lead and follow</div>
+              </div>
+            </div>
+            <div class="npgc-item" onclick="toggleNPGC(this)">
+              <div class="npgc-cb"></div>
+              <div>
+                <div class="npgc-num">GC7</div>
+                <div class="npgc-name">Communication</div>
+                <div class="npgc-sub">Express clearly · listen actively · present persuasively</div>
+              </div>
+            </div>
+          </div>
+          <div class="npgc-note">Select 2–3 primary competencies. These will be mapped to learning outcomes and inform the module's assessment design.</div>
+        </div>
+      </div>
+
+      <!-- Section D: Assessment Direction -->
+      <div class="plan-section">
+        <div class="ps-header">
+          <div class="ps-num">D</div>
+          <div class="ps-title">Assessment Direction</div>
+          <div class="ps-desc">Guides the assessment plan and component design</div>
+        </div>
+        <div class="ps-body">
+          <div class="field-row" style="flex-direction:column; gap:16px;">
+            <div class="field">
+              <label class="field-label">Assessment Structure</label>
+              <div class="chip-group" id="chip-asmttype">
+                <span class="chip on" onclick="selChip(this,'asmttype')">CA Only — 100%</span>
+                <span class="chip" onclick="selChip(this,'asmttype')">CA + Final Exam (40–60% exam)</span>
+                <span class="chip" onclick="selChip(this,'asmttype')">CA + Common Test</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label">Primary Assessment Approach <span class="opt">(select all that apply)</span></label>
+              <div class="check-group-2col">
+                <div class="check-item on" onclick="toggleCheck(this)">
+                  <div class="check-box"></div>
+                  <div class="check-label">Project-Based</div>
+                  <div class="check-sub">Industry-relevant briefs</div>
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)">
+                  <div class="check-box"></div>
+                  <div class="check-label">Competency-Based</div>
+                  <div class="check-sub">Skills demonstrations</div>
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)">
+                  <div class="check-box"></div>
+                  <div class="check-label">Portfolio-Based</div>
+                  <div class="check-sub">Artefact collection</div>
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)">
+                  <div class="check-box"></div>
+                  <div class="check-label">Knowledge-Based</div>
+                  <div class="check-sub">Tests, quizzes, exams</div>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label">Group Component</label>
+              <div class="chip-group" id="chip-group">
+                <span class="chip on" onclick="selChip(this,'group')">Includes group work</span>
+                <span class="chip" onclick="selChip(this,'group')">Individual only</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section E: Teaching & Learning Approach -->
+      <div class="plan-section">
+        <div class="ps-header">
+          <div class="ps-num">E</div>
+          <div class="ps-title">Teaching &amp; Learning Approach</div>
+          <div class="ps-desc">Shapes the T&amp;L strategies and teaching plan</div>
+        </div>
+        <div class="ps-body">
+          <div class="field-row" style="flex-direction:column; gap:16px;">
+            <div class="field">
+              <label class="field-label">T&amp;L Strategies <span class="opt">(select all that apply)</span></label>
+              <div class="check-group-2col">
+                <div class="check-item on" onclick="toggleCheck(this)">
+                  <div class="check-box"></div>
+                  <div class="check-label">Case-Based Learning</div>
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)">
+                  <div class="check-box"></div>
+                  <div class="check-label">Problem-Based Learning</div>
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)">
+                  <div class="check-box"></div>
+                  <div class="check-label">Flipped Classroom</div>
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)">
+                  <div class="check-box"></div>
+                  <div class="check-label">Work-Integrated Learning</div>
+                </div>
+                <div class="check-item on" onclick="toggleCheck(this)">
+                  <div class="check-box"></div>
+                  <div class="check-label">E-Learning / ICT-Enabled</div>
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)">
+                  <div class="check-box"></div>
+                  <div class="check-label">Inquiry-Based Learning</div>
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)">
+                  <div class="check-box"></div>
+                  <div class="check-label">Project-Based Learning</div>
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)">
+                  <div class="check-box"></div>
+                  <div class="check-label">Peer &amp; Collaborative</div>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label">Delivery Mode</label>
+              <div class="chip-group" id="chip-delivery">
+                <span class="chip" onclick="selChip(this,'delivery')">Face-to-Face</span>
+                <span class="chip on" onclick="selChip(this,'delivery')">Blended</span>
+                <span class="chip" onclick="selChip(this,'delivery')">Fully Online</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end layout-main -->
+
+    <!-- Sidebar -->
+    <div class="layout-side">
+
+      <!-- AI Recommendations from Phase 1 -->
+      <div class="side-rec">
+        <span class="side-label">From your Phase 1 analysis</span>
+
+        <span class="rec-sub">Competency priorities</span>
+        <div class="rec-item">GC1 Domain Knowledge — strongly signalled across industry and graduate data</div>
+        <div class="rec-item">GC2 Critical Thinking — flagged in employer survey as key gap area</div>
+        <div class="rec-item">GC4 Digital Competence — high priority in benchmarking &amp; SSG framework</div>
+
+        <span class="rec-sub">Assessment direction</span>
+        <div class="rec-item">Project-based CA recommended — cited in 3 industry panel sources</div>
+        <div class="rec-item">Industry-facing brief recommended to strengthen graduate employability</div>
+
+        <span class="rec-sub">T&amp;L approaches</span>
+        <div class="rec-item">Case-Based Learning referenced in 4 sources as effective for this domain</div>
+        <div class="rec-item">E-Learning / blended delivery aligned with student feedback preferences</div>
+
+        <span class="rec-sub">Emerging skills to integrate</span>
+        <div style="margin-top:4px; line-height:1.6;">
+          <span class="rec-tag">AI / ML literacy</span>
+          <span class="rec-tag">Data interpretation</span>
+          <span class="rec-tag">Cloud fundamentals</span>
+          <span class="rec-tag">Ethical practice</span>
+          <span class="rec-tag">Industry collaboration</span>
+        </div>
+      </div>
+
+      <!-- Dynamic plan summary -->
+      <div class="side-summary">
+        <span class="side-label">Plan summary</span>
+        <div class="sum-row">
+          <span class="sum-key">Module</span>
+          <span class="sum-val empty" id="sum-title">Not set</span>
+        </div>
+        <div class="sum-row">
+          <span class="sum-key">School</span>
+          <span class="sum-val empty" id="sum-school">Not set</span>
+        </div>
+        <div class="sum-row">
+          <span class="sum-key">Level</span>
+          <span class="sum-val" id="sum-level">L2</span>
+        </div>
+        <div class="sum-row">
+          <span class="sum-key">Credit Units</span>
+          <span class="sum-val" id="sum-cu">4</span>
+        </div>
+        <div class="sum-row">
+          <span class="sum-key">NPGCs</span>
+          <span class="sum-val" id="sum-npgc">3 selected</span>
+        </div>
+        <div class="sum-row">
+          <span class="sum-key">Assessment</span>
+          <span class="sum-val" id="sum-asmt">CA Only</span>
+        </div>
+        <div class="sum-row">
+          <span class="sum-key">Delivery</span>
+          <span class="sum-val" id="sum-delivery">Blended</span>
+        </div>
+      </div>
+
+    </div><!-- end layout-side -->
+
+  </div><!-- end layout -->
+
+</main>
+
+<!-- Bottom bar -->
+<div class="bottom-bar">
+  <div class="bb-note" id="bb-note">Define your curriculum direction before generating the module document</div>
+  <div class="bb-actions">
+    <a href="analyse-synthesise.html" class="btn-ghost">← Back to Analysis</a>
+    <a href="design-wizard.html" class="btn-primary">Build Module Document →</a>
+  </div>
+</div>
+
+<script>
+  // ── Steppers ──
+  const stepperVals = { cu: 4, ch: 3 };
+  const stepperMin = { cu: 1, ch: 1 };
+  const stepperMax = { cu: 8, ch: 6 };
+
+  function step(id, delta) {
+    stepperVals[id] = Math.min(stepperMax[id], Math.max(stepperMin[id], stepperVals[id] + delta));
+    document.getElementById(id + '-val').textContent = stepperVals[id];
+    updateSummary();
+  }
+
+  // ── Single-select chips ──
+  function selChip(el, group) {
+    document.querySelectorAll(`#chip-${group} .chip`).forEach(c => c.classList.remove('on'));
+    el.classList.add('on');
+    updateSummary();
+  }
+
+  // ── NPGC toggle ──
+  function toggleNPGC(el) {
+    el.classList.toggle('on');
+    updateSummary();
+  }
+
+  // ── Checkbox toggle ──
+  function toggleCheck(el) {
+    el.classList.toggle('on');
+  }
+
+  // ── Dynamic summary ──
+  function updateSummary() {
+    const title = document.getElementById('f-title').value.trim();
+    const schoolEl = document.getElementById('f-school');
+    const school = schoolEl.options[schoolEl.selectedIndex]?.text || '';
+
+    const levelChip = document.querySelector('#chip-level .chip.on');
+    const asmtChip = document.querySelector('#chip-asmttype .chip.on');
+    const deliveryChip = document.querySelector('#chip-delivery .chip.on');
+    const npgcCount = document.querySelectorAll('#npgc-grid .npgc-item.on').length;
+
+    setSum('sum-title', title || null);
+    setSum('sum-school', (school && school !== 'Select school…') ? school.replace('School of ', '') : null);
+    document.getElementById('sum-level').textContent = levelChip ? levelChip.textContent : '—';
+    document.getElementById('sum-cu').textContent = stepperVals.cu + ' CU';
+    document.getElementById('sum-npgc').textContent = npgcCount + ' selected';
+    document.getElementById('sum-asmt').textContent = asmtChip ? asmtChip.textContent.split(' —')[0] : '—';
+    document.getElementById('sum-delivery').textContent = deliveryChip ? deliveryChip.textContent : '—';
+  }
+
+  function setSum(id, val) {
+    const el = document.getElementById(id);
+    if (val) {
+      el.textContent = val;
+      el.classList.remove('empty');
+    } else {
+      el.textContent = 'Not set';
+      el.classList.add('empty');
+    }
+  }
+
+  // Initialise
+  updateSummary();
+</script>
+
+</body>
+</html>
