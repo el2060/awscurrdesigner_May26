@@ -38,38 +38,56 @@
     .page-title { font-size: 26px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 6px; }
     .page-sub { font-size: 15px; color: #888; line-height: 1.55; max-width: 760px; }
     .page-head-actions { display: flex; gap: 8px; flex-shrink: 0; }
+    .front-matter {
+      border: 1px solid #e4e4e4;
+      background: #fafafa;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+    .front-matter-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #aaa;
+      margin-bottom: 12px; display: block;
+    }
+    .front-matter-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 16px;
+    }
+    .front-matter-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .front-matter-field.full { grid-column: 1 / -1; }
+    .front-matter-field-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #aaa;
+    }
+    .front-matter-input {
+      width: 100%;
+      border: 1px solid #d8d8d8;
+      background: #fff;
+      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 13px;
+      color: #1a1a1a;
+    }
+    .front-matter-input:focus { outline: none; border-color: #888; }
+    .front-matter-note {
+      font-size: 11px;
+      color: #888;
+      line-height: 1.45;
+      margin-top: 4px;
+    }
 
     /* ── Layout ── */
     .layout { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: flex-start; }
     .layout-main { min-width: 0; }
     .layout-side { display: none; }
-    .recap {
-      border: 1px solid #e4e4e4;
-      background: #fafafa;
-      padding: 16px 20px;
-      margin-bottom: 28px;
-    }
-    .recap-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #aaa;
-      margin-bottom: 12px; display: block;
-    }
-    .recap-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
-    }
-    .recap-item {
-      display: flex; flex-direction: column; gap: 2px;
-      padding: 6px 14px 6px 0;
-      border-right: 1px solid #ececec;
-    }
-    .recap-item:nth-child(2n) { border-right: none; padding-left: 14px; padding-right: 0; }
-    .recap-item:nth-child(-n+2) { padding-top: 0; }
-    .recap-item:nth-last-child(-n+2) { padding-bottom: 0; }
-    .recap-key { font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #aaa; }
-    .recap-val { font-size: 12px; color: #1a1a1a; font-weight: 500; }
-    .recap-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
-    .recap-tag { font-size: 10px; color: #555; border: 1px solid #d8d8d8; padding: 1px 7px; background: #fff; }
-
     @media (max-width: 1280px) {
       :root { --workspace-pad: 24px; }
       .topbar { padding: 0 24px; }
@@ -91,17 +109,8 @@
       .chip-group#chip-level { flex-wrap: wrap !important; }
       .npgc-grid,
       .check-group-2col,
-      .recap-grid,
       .assessment-bank,
       .review-modal-body { grid-template-columns: 1fr; }
-      .recap-item,
-      .recap-item:nth-child(2n) {
-        border-right: none;
-        padding-left: 0;
-        padding-right: 0;
-      }
-      .recap-item { border-bottom: 1px solid #ececec; padding: 10px 0; }
-      .recap-item:last-child { border-bottom: none; }
     }
 
     /* ── Plan sections ── */
@@ -114,7 +123,11 @@
     .ps-toggle { flex-shrink: 0; font-size: 11px; color: #ccc; margin-left: 10px; transition: transform 130ms; line-height: 1; }
     .plan-section.collapsed .ps-toggle { transform: rotate(-90deg); }
     .plan-section.collapsed .ps-body { display: none; }
-    .ps-body { padding: 14px 16px; }
+    .ps-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+    .ps-body > .section-ai {
+      order: -1;
+      margin-top: 0;
+    }
 
     /* ── Form rows ── */
     .field-row { display: flex; gap: 10px; margin-bottom: 12px; }
@@ -130,8 +143,9 @@
     .plan-hint { font-size: 11px; color: #bbb; line-height: 1.5; margin-top: 4px; }
     .section-ai {
       margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid #f0f0f0;
+      padding: 12px;
+      border: 1px solid #ece6ce;
+      background: #fffef9;
     }
     .section-ai-head {
       display: flex;
@@ -147,6 +161,25 @@
       text-transform: uppercase;
       color: #7a5f00;
     }
+    .section-ai-note {
+      margin-top: 6px;
+      font-size: 11px;
+      color: #777;
+      line-height: 1.45;
+    }
+    .section-ai-brief {
+      width: 100%;
+      min-height: 52px;
+      margin-top: 8px;
+      padding: 8px 10px;
+      border: 1px solid #d8d8d8;
+      background: #fff;
+      font: inherit;
+      font-size: 12px;
+      line-height: 1.45;
+      resize: vertical;
+    }
+    .section-ai-brief:focus { outline: none; border-color: #888; }
     .section-ai-actions { display: flex; flex-wrap: wrap; gap: 6px; }
     .section-ai-btn {
       border: 1px solid #d0d0d0;
@@ -157,6 +190,15 @@
       padding: 6px 9px;
       cursor: pointer;
       font-family: inherit;
+    }
+    .section-ai-actions .section-ai-btn:last-child {
+      border-color: #004689;
+      background: #004689;
+      color: #fff;
+    }
+    .section-ai-actions .section-ai-btn:last-child:hover {
+      border-color: #003768;
+      background: #003768;
     }
     .section-ai-btn:hover { border-color: #999; color: #1a1a1a; }
     .section-ai-output {
@@ -176,6 +218,26 @@
     .section-ai-output-text {
       font-size: 12px;
       color: #555;
+      line-height: 1.5;
+    }
+    .section-ai-group {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #f1e6b2;
+    }
+    .section-ai-group-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8c6f12;
+      margin-bottom: 4px;
+    }
+    .section-ai-list {
+      margin: 0;
+      padding-left: 16px;
+      color: #555;
+      font-size: 12px;
       line-height: 1.5;
     }
     .section-ai-actions-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
@@ -507,35 +569,47 @@
   <div class="page-head">
     <div>
       <div class="page-title">Plan Curriculum Direction</div>
-      <div class="page-sub">Start with the module idea, then shape the outcomes, learning flow, and assessment inside one guided curriculum workspace.</div>
+      <div class="page-sub">Start with the module idea, then shape the synopsis, outcomes, content, and assessment inside one guided curriculum workspace.</div>
     </div>
     <div class="page-head-actions">
       <button class="btn-subtle" type="button" onclick="openReviewModal()">Review</button>
     </div>
   </div>
 
-  <div class="recap">
-    <span class="recap-label">Module context</span>
-    <div class="recap-grid">
-      <div class="recap-item">
-        <span class="recap-key">Module</span>
-        <span class="recap-val" id="meta-title">Not set</span>
+  <div class="front-matter">
+    <span class="front-matter-label">Module Metadata</span>
+    <div class="front-matter-grid">
+      <div class="front-matter-field full">
+        <label class="front-matter-field-label" for="diploma-title">Diploma Title</label>
+        <input class="front-matter-input" id="diploma-title" type="text" placeholder="e.g. Diploma in Digital Product Design" oninput="updateSummary()">
       </div>
-      <div class="recap-item">
-        <span class="recap-key">Design snapshot</span>
-        <span class="recap-val" id="meta-meta">L2 • 4 CU • Blended • CA Only</span>
+      <div class="front-matter-field full">
+        <label class="front-matter-field-label" for="module-name">Module Name</label>
+        <input class="front-matter-input" id="module-name" type="text" placeholder="e.g. Applied AI for Design" oninput="updateSummary()">
       </div>
-      <div class="recap-item">
-        <span class="recap-key">Design prompts</span>
-        <span class="recap-val" id="meta-scope">6 inline helpers</span>
+      <div class="front-matter-field full">
+        <label class="front-matter-field-label" for="module-catalogue">Module Catalogue and ID</label>
+        <input class="front-matter-input" id="module-catalogue" type="text" placeholder="e.g. DPD3024 / 045821" oninput="updateSummary()">
       </div>
-      <div class="recap-item">
-        <span class="recap-key">Working mode</span>
-        <span class="recap-tags">
-          <span class="recap-tag">Guided</span>
-          <span class="recap-tag">Editable</span>
-          <span class="recap-tag">Curriculum-led</span>
-        </span>
+      <div class="front-matter-field full">
+        <label class="front-matter-field-label" for="pre-requisites">Pre-Requisites</label>
+        <input class="front-matter-input" id="pre-requisites" type="text" placeholder="e.g. None / prior design fundamentals" oninput="updateSummary()">
+      </div>
+      <div class="front-matter-field">
+        <label class="front-matter-field-label" for="timetabled-hours">Timetabled Hours</label>
+        <input class="front-matter-input" id="timetabled-hours" type="text" placeholder="e.g. 60 hours" oninput="updateSummary()">
+      </div>
+      <div class="front-matter-field">
+        <label class="front-matter-field-label" for="contact-hours">Contact Hours</label>
+        <input class="front-matter-input" id="contact-hours" type="text" placeholder="e.g. 60 hours" oninput="updateSummary()">
+      </div>
+      <div class="front-matter-field">
+        <label class="front-matter-field-label" for="credit-units">Credit Units</label>
+        <input class="front-matter-input" id="credit-units" type="text" placeholder="e.g. 4" oninput="updateSummary()">
+      </div>
+      <div class="front-matter-field">
+        <label class="front-matter-field-label" for="assessment-weightage">Assessment Weightage</label>
+        <input class="front-matter-input" id="assessment-weightage" type="text" placeholder="e.g. Continuous Assessment 100%" oninput="updateSummary()">
       </div>
     </div>
   </div>
@@ -544,11 +618,11 @@
 
     <div class="layout-main">
 
-      <!-- Section A: Module Information -->
+      <!-- Section A: Module Overview -->
       <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">A</div>
-          <div class="ps-title">Module Information</div>
+          <div class="ps-title">Module Overview</div>
           <div class="ps-desc">Title, level, credit units, and delivery mode</div>
           <div class="ps-toggle">▾</div>
         </div>
@@ -585,33 +659,48 @@
               </div>
             </div>
           </div>
+          <div class="section-ai">
+            <div class="section-ai-head">
+              <div>
+                <div class="section-ai-label">AI co-create</div>
+                <div class="section-ai-note">Describe your intent. AI may ask follow-up questions before drafting.</div>
+              </div>
+            </div>
+            <textarea class="section-ai-brief" id="module-brief" placeholder="Domain, learner level, and outcome focus"></textarea>
+            <div class="section-ai-actions" style="margin-top:8px;">
+              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('module-ai-output','module','f-title','draft')">Draft</button>
+            </div>
+            <div class="section-ai-output" id="module-ai-output" data-target="f-title"></div>
+          </div>
         </div>
       </div>
 
-      <!-- Section B: Module Purpose -->
+      <!-- Section B: Synopsis and Aims -->
       <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">B</div>
-          <div class="ps-title">Module Purpose</div>
+          <div class="ps-title">Synopsis and Aims</div>
           <div class="ps-desc">Summarise the intent and focus of the module</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
+          <div class="section-ai">
+            <div class="section-ai-head">
+              <div>
+                <div class="section-ai-label">AI co-create</div>
+                <div class="section-ai-note">Describe the purpose. AI may ask follow-up questions before drafting.</div>
+              </div>
+            </div>
+            <textarea class="section-ai-brief" id="purpose-brief" placeholder="Capability, context, and tone"></textarea>
+            <div class="section-ai-actions" style="margin-top:8px;">
+              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('purpose-ai-output','purpose','f-purpose','draft')">Draft</button>
+            </div>
+            <div class="section-ai-output" id="purpose-ai-output" data-target="f-purpose"></div>
+          </div>
           <div class="field">
-            <label class="field-label">Module Purpose</label>
+            <label class="field-label">Synopsis and Aims</label>
             <textarea class="plan-textarea" id="f-purpose" placeholder="What should students achieve in this module?" oninput="updateSummary()"></textarea>
             <div class="plan-hint">e.g. apply design thinking to community engagement projects</div>
-            <div class="section-ai">
-              <div class="section-ai-head">
-                <div class="section-ai-label">Design prompts</div>
-                <div class="section-ai-actions">
-                  <button class="section-ai-btn" type="button" onclick="showSectionAssist('purpose-ai-output','Draft from title','Lead with the applied intent of the module and the student outcome focus.','f-purpose')">Draft from title</button>
-                  <button class="section-ai-btn" type="button" onclick="showSectionAssist('purpose-ai-output','Shorten','Make the module purpose more concise.','f-purpose')">Shorten</button>
-                  <button class="section-ai-btn" type="button" onclick="showSectionAssist('purpose-ai-output','Add context','Add a practical or industry angle.','f-purpose')">Add context</button>
-                </div>
-              </div>
-              <div class="section-ai-output" id="purpose-ai-output" data-target="f-purpose"></div>
-            </div>
           </div>
         </div>
       </div>
@@ -632,58 +721,74 @@
           </div>
           <div class="section-ai">
             <div class="section-ai-head">
-              <div class="section-ai-label">Design prompts</div>
-              <div class="section-ai-actions">
-                <button class="section-ai-btn" type="button" onclick="showSectionAssist('outcomes-ai-output','Suggest','Add one or two stronger outcome statements.','f-outcomes')">Suggest</button>
-                <button class="section-ai-btn" type="button" onclick="showSectionAssist('outcomes-ai-output','Improve','Rewrite the outcomes with stronger verbs.','f-outcomes')">Improve</button>
-                <button class="section-ai-btn" type="button" onclick="showSectionAssist('outcomes-ai-output','Simplify','Remove overlap and keep wording lean.','f-outcomes')">Simplify</button>
-                <button class="section-ai-btn" type="button" onclick="showSectionAssist('outcomes-ai-output','Align','Check the outcomes against the module purpose.','f-outcomes')">Align</button>
+              <div>
+                <div class="section-ai-label">AI co-create</div>
+                <div class="section-ai-note">Set the outcome direction. AI may ask follow-up questions before drafting.</div>
               </div>
+            </div>
+            <textarea class="section-ai-brief" id="outcomes-brief" placeholder="Core skills, level verbs, evidence"></textarea>
+            <div class="section-ai-actions" style="margin-top:8px;">
+              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('outcomes-ai-output','outcomes','f-outcomes','draft')">Draft</button>
             </div>
             <div class="section-ai-output" id="outcomes-ai-output" data-target="f-outcomes"></div>
           </div>
         </div>
       </div>
 
-      <!-- Section D: Weekly Topics / Learning Plan -->
+      <!-- Section D: Content -->
       <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">D</div>
-          <div class="ps-title">Learning Flow &amp; Activities</div>
-          <div class="ps-desc">Sequence, pacing, pedagogy, and applied work in one view</div>
+          <div class="ps-title">Content</div>
+          <div class="ps-desc">Topics and Hours</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
-          <div class="field">
-            <label class="field-label">Learning Flow</label>
-            <textarea class="plan-textarea" id="f-topics" placeholder="e.g. foundations, guided practice, application, review"></textarea>
-            <div class="plan-hint">Sketch the flow first. Detail can come later.</div>
-          </div>
           <div class="section-ai">
             <div class="section-ai-head">
-              <div class="section-ai-label">Design prompts</div>
-              <div class="section-ai-actions">
-                <button class="section-ai-btn" type="button" onclick="showSectionAssist('topics-ai-output','Suggest','Turn this into a clearer sequence of learning flow.','f-topics')">Suggest</button>
-                <button class="section-ai-btn" type="button" onclick="showSectionAssist('topics-ai-output','Expand','Add missing topic areas or pacing cues.','f-topics')">Expand</button>
-                <button class="section-ai-btn" type="button" onclick="showSectionAssist('topics-ai-output','Align','Check the sequence against the learning outcomes.','f-topics')">Align</button>
+              <div>
+                <div class="section-ai-label">AI co-create</div>
+                <div class="section-ai-note">Describe your intended journey. AI may ask follow-up questions before drafting.</div>
               </div>
             </div>
+            <textarea class="section-ai-brief" id="topics-brief" placeholder="What should come first, and how much should be online?"></textarea>
+            <div class="chip-group" style="margin-top:8px; flex-wrap:wrap; gap:8px;">
+              <span class="chip" onclick="nudgeSectionBrief('topics-brief','Start with foundations, then guided practice, then applied task.')">Foundation-led</span>
+              <span class="chip" onclick="nudgeSectionBrief('topics-brief','Use project-led flow with short checkpoints.')">Project-led</span>
+              <span class="chip" onclick="nudgeSectionBrief('topics-brief','Shift more hours into online e-learning.')">More online</span>
+              <span class="chip" onclick="nudgeSectionBrief('topics-brief','Keep sequence short and concise.')">Keep concise</span>
+            </div>
+            <div class="section-ai-actions" style="margin-top:8px;">
+              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('topics-ai-output','topics','f-topics','draft')">Draft</button>
+            </div>
             <div class="section-ai-output" id="topics-ai-output" data-target="f-topics"></div>
+          </div>
+          <div class="field" style="margin-top:14px;">
+            <label class="field-label">Topics and Hours</label>
+            <textarea class="plan-textarea" id="f-topics" placeholder="AI will draft the sequence here, then you can edit it."></textarea>
+            <div class="plan-hint">Edit freely after generation. Keep the sequence clear and concise.</div>
+          </div>
+          <div class="field-row">
+            <div class="field" style="max-width:240px;">
+              <label class="field-label">Online e-learning hours <span class="opt">(*)</span></label>
+              <input class="plan-input" id="f-online-hours" type="text" placeholder="e.g. 20 hours" oninput="updateSummary()">
+              <div class="plan-hint">* Online e-learning hours are shown separately from contact hours.</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Section E: Learning Experience -->
+      <!-- Section E: T&L Strategies -->
       <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">E</div>
-          <div class="ps-title">Learning Experience</div>
-          <div class="ps-desc">How the module moves from input to practice to application</div>
+          <div class="ps-title">T&amp;L Strategies</div>
+          <div class="ps-desc">How the module is taught and practised</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
           <div class="field" style="margin-bottom:14px;">
-            <label class="field-label">Learning Approaches <span class="opt">(select all that apply)</span></label>
+            <label class="field-label">T&amp;L Strategies <span class="opt">(select all that apply)</span></label>
             <div class="check-group-2col" id="tl-strategy-group">
               <div class="check-item on" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Case-based</div></div>
               <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Studio / Workshop</div></div>
@@ -710,23 +815,25 @@
           </div>
           <div class="section-ai">
             <div class="section-ai-head">
-              <div class="section-ai-label">Design prompts</div>
-              <div class="section-ai-actions">
-                <button class="section-ai-btn" type="button" onclick="showSectionAssist('tl-ai-output','Suggest activities','Suggest a few natural activities for this module.','tl-notes')">Suggest</button>
-                <button class="section-ai-btn" type="button" onclick="showSectionAssist('tl-ai-output','Broaden','Add another activity or two to widen the learning experience.','tl-notes')">Broaden</button>
-                <button class="section-ai-btn" type="button" onclick="showSectionAssist('tl-ai-output','Align','Check the activities against the outcomes.','tl-notes')">Align</button>
+              <div>
+                <div class="section-ai-label">AI co-create</div>
+                <div class="section-ai-note">Prompt your preferred teaching approach. AI may ask follow-up questions before drafting.</div>
               </div>
+            </div>
+            <textarea class="section-ai-brief" id="experience-brief" placeholder="Teaching mode, activity mix, pacing"></textarea>
+            <div class="section-ai-actions" style="margin-top:8px;">
+              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('tl-ai-output','experience','tl-notes','draft')">Draft</button>
             </div>
             <div class="section-ai-output" id="tl-ai-output" data-target="tl-notes"></div>
           </div>
         </div>
       </div>
 
-      <!-- Section F: Assessment Strategy -->
+      <!-- Section F: Assessment Strategies -->
       <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">F</div>
-          <div class="ps-title">Assessment Design</div>
+          <div class="ps-title">Assessment Strategies</div>
           <div class="ps-desc">Choose the assessment shape, then refine the task</div>
           <div class="ps-toggle">▾</div>
         </div>
@@ -769,37 +876,57 @@
               <button class="tiny-action" type="button" onclick="makeAssessmentMoreAuthentic()">Make it more authentic</button>
             </div>
           </div>
+          <div class="section-ai">
+            <div class="section-ai-head">
+              <div>
+                <div class="section-ai-label">AI co-create</div>
+                <div class="section-ai-note">State assessment intent. AI may ask follow-up questions before drafting.</div>
+              </div>
+            </div>
+            <textarea class="section-ai-brief" id="assessment-brief" placeholder="Assessment type, authenticity, evidence"></textarea>
+            <div class="section-ai-actions" style="margin-top:8px;">
+              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('assessment-ai-output','assessment','assessment-context','draft')">Draft</button>
+            </div>
+            <div class="section-ai-output" id="assessment-ai-output" data-target="assessment-context"></div>
+          </div>
         </div>
       </div>
 
-      <!-- Section G: Suggested Competencies -->
+      <!-- Section G: Plagiarism Policy -->
       <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">G</div>
-          <div class="ps-title">Priority Competencies</div>
-          <div class="ps-desc">Competencies that matter most for this module</div>
+          <div class="ps-title">Plagiarism Policy</div>
+          <div class="ps-desc">Academic integrity, AI-use disclosure, and citation expectations</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
-          <div class="plan-hint" style="margin-bottom:10px;">Select the core competencies for the module.</div>
-          <div class="npgc-grid" id="npgc-grid">
-            <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC1</div><div class="npgc-name">Domain &amp; Interdisciplinary</div><div class="npgc-ref">NP graduate competency</div></div></div>
-            <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC2</div><div class="npgc-name">Critical Thinking</div><div class="npgc-ref">NP graduate competency</div></div></div>
-            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC3</div><div class="npgc-name">Innovation &amp; Entrepreneurial</div><div class="npgc-ref">NP graduate competency</div></div></div>
-            <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC4</div><div class="npgc-name">Digital Competence</div><div class="npgc-ref">NP graduate competency</div></div></div>
-            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC5</div><div class="npgc-name">Self-Development</div><div class="npgc-ref">NP graduate competency</div></div></div>
-            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC6</div><div class="npgc-name">Collaboration</div><div class="npgc-ref">NP graduate competency</div></div></div>
-            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC7</div><div class="npgc-name">Communication</div><div class="npgc-ref">NP graduate competency</div></div></div>
+          <div class="field">
+            <label class="field-label">Plagiarism Policy</label>
+            <textarea class="plan-textarea" id="plagiarism-policy" placeholder="State the policy expectations for citation, AI disclosure, and original work."></textarea>
+            <div class="plan-hint">Keep it short, clear, and aligned to the module brief.</div>
           </div>
-          <div class="npgc-note">Adjust these later if needed.</div>
+          <div class="section-ai">
+            <div class="section-ai-head">
+              <div>
+                <div class="section-ai-label">AI co-create</div>
+                <div class="section-ai-note">Define policy stance. AI may ask follow-up questions before drafting.</div>
+              </div>
+            </div>
+            <textarea class="section-ai-brief" id="plagiarism-brief" placeholder="Citation, AI disclosure, tone"></textarea>
+            <div class="section-ai-actions" style="margin-top:8px;">
+              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('plagiarism-ai-output','plagiarism','plagiarism-policy','draft')">Draft</button>
+            </div>
+            <div class="section-ai-output" id="plagiarism-ai-output" data-target="plagiarism-policy"></div>
+          </div>
         </div>
       </div>
 
-      <!-- Section H: Learning Resources & References -->
+      <!-- Section H: Recommended Texts / References / Learning Resources -->
       <div class="plan-section">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">H</div>
-          <div class="ps-title">Supporting Resources &amp; References</div>
+          <div class="ps-title">Recommended Texts / References / Learning Resources</div>
           <div class="ps-desc">Readings, tools, and references that support the module</div>
           <div class="ps-toggle">▾</div>
         </div>
@@ -815,22 +942,26 @@
           </div>
           <div class="section-ai">
             <div class="section-ai-head">
-              <div class="section-ai-label">Design prompts</div>
-              <div class="section-ai-actions">
-                <button class="section-ai-btn" type="button" onclick="showSectionAssist('resources-ai-output','Suggest Reference Types','Suggest textbooks, standards, or industry references to strengthen the draft.','f-resources')">Suggest References</button>
+              <div>
+                <div class="section-ai-label">AI co-create</div>
+                <div class="section-ai-note">Set your reference direction. AI may ask follow-up questions before drafting.</div>
               </div>
+            </div>
+            <textarea class="section-ai-brief" id="resources-brief" placeholder="Academic, industry, tools, standards"></textarea>
+            <div class="section-ai-actions" style="margin-top:8px;">
+              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('resources-ai-output','resources','f-resources','draft')">Draft</button>
             </div>
             <div class="section-ai-output" id="resources-ai-output" data-target="f-resources"></div>
           </div>
         </div>
       </div>
 
-      <!-- Section I: Drafting Guidance & Context -->
+      <!-- Section I: Additional Planning Notes -->
       <div class="plan-section">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">I</div>
-          <div class="ps-title">Context &amp; Constraints</div>
-          <div class="ps-desc">Useful boundaries and local requirements to keep in view</div>
+          <div class="ps-title">Additional Planning Notes</div>
+          <div class="ps-desc">Useful constraints and supporting notes outside the core module document</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
@@ -864,6 +995,52 @@
           </div>
 
           <div class="plan-hint-inline">Use this for school or programme constraints that need to stay embedded in the draft.</div>
+
+          <div class="section-ai">
+            <div class="section-ai-head">
+              <div>
+                <div class="section-ai-label">AI co-create</div>
+                <div class="section-ai-note">Capture non-negotiables. AI may ask follow-up questions before drafting.</div>
+              </div>
+            </div>
+            <textarea class="section-ai-brief" id="context-brief" placeholder="Policies, constraints, preferred tone"></textarea>
+            <div class="section-ai-actions" style="margin-top:8px;">
+              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('context-ai-output','context','ai-guidance','draft')">Draft</button>
+            </div>
+            <div class="section-ai-output" id="context-ai-output" data-target="ai-guidance"></div>
+          </div>
+
+          <div class="field-block" style="margin-top:14px;">
+            <div class="field-block-title">Graduate Competencies</div>
+            <div class="plan-hint" style="margin-bottom:10px;">Select the core competencies for the module.</div>
+            <div class="npgc-grid" id="npgc-grid">
+              <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC1</div><div class="npgc-name">Domain &amp; Interdisciplinary</div><div class="npgc-ref">NP graduate competency</div></div></div>
+              <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC2</div><div class="npgc-name">Critical Thinking</div><div class="npgc-ref">NP graduate competency</div></div></div>
+              <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC3</div><div class="npgc-name">Innovation &amp; Entrepreneurial</div><div class="npgc-ref">NP graduate competency</div></div></div>
+              <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC4</div><div class="npgc-name">Digital Competence</div><div class="npgc-ref">NP graduate competency</div></div></div>
+              <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC5</div><div class="npgc-name">Self-Development</div><div class="npgc-ref">NP graduate competency</div></div></div>
+              <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC6</div><div class="npgc-name">Collaboration</div><div class="npgc-ref">NP graduate competency</div></div></div>
+              <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC7</div><div class="npgc-name">Communication</div><div class="npgc-ref">NP graduate competency</div></div></div>
+            </div>
+            <div class="field" style="margin-top:12px;">
+              <label class="field-label">Competency Rationale</label>
+              <textarea class="plan-textarea" id="competency-rationale" placeholder="Why do these competencies matter most for this module?"></textarea>
+            </div>
+            <div class="npgc-note">Adjust these later if needed.</div>
+            <div class="section-ai">
+              <div class="section-ai-head">
+                <div>
+                  <div class="section-ai-label">AI co-create</div>
+                  <div class="section-ai-note">Prompt the competency rationale. AI may ask follow-up questions before drafting.</div>
+                </div>
+              </div>
+                <textarea class="section-ai-brief" id="competencies-brief" placeholder="Why these competencies matter here"></textarea>
+              <div class="section-ai-actions" style="margin-top:8px;">
+                  <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('competencies-ai-output','competencies','competency-rationale','draft')">Draft</button>
+              </div>
+              <div class="section-ai-output" id="competencies-ai-output" data-target="competency-rationale"></div>
+            </div>
+          </div>
 
           <div class="observations-toggle" onclick="toggleObservations()">
             <div class="observations-title">Working notes</div>
@@ -975,6 +1152,13 @@
     refreshReadiness();
   }
 
+  function nudgeSectionBrief(id, text) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.value = el.value.trim() ? el.value.trim() + ' ' + text : text;
+    el.focus();
+  }
+
   function toggleObservations() {
     document.getElementById('obs-body').classList.toggle('show');
   }
@@ -1009,7 +1193,7 @@
   }
 
   function alignAssessmentLO() {
-    document.getElementById('assessment-context').value = 'Aligned to the most important learning outcomes and module purpose.';
+    document.getElementById('assessment-context').value = 'Aligned to the most important learning outcomes and synopsis and aims.';
     refreshReadiness();
   }
 
@@ -1030,6 +1214,278 @@
         <button class="section-ai-btn" type="button" onclick="applySectionAssist('${outputId}')">Apply</button>
         <button class="section-ai-btn" type="button" onclick="insertSectionAssist('${outputId}')">Insert</button>
         <button class="section-ai-btn" type="button" onclick="hideSectionAssist('${outputId}')">Ignore</button>
+      </div>`;
+    panel.classList.add('show');
+  }
+
+  function escapeHtml(text) {
+    return String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function getSectionValue(targetId) {
+    const target = document.getElementById(targetId);
+    return target ? target.value.trim() : '';
+  }
+
+  const DEMO_SCRIPTED_MODE = true;
+
+  function shouldAskFollowUps(sectionKey, seed, current, mode) {
+    // Demo-only heuristic to simulate adaptive probing in a prototype.
+    if (mode === 'refine') return true;
+    const seedLen = (seed || '').trim().length;
+    const currentLen = (current || '').trim().length;
+    const hasReasonableContext = seedLen >= 36 || currentLen >= 64;
+    if (!hasReasonableContext) return true;
+
+    const ambiguousSignals = /(something|maybe|not sure|any|general|tbd|unsure|flexible)/i;
+    if (ambiguousSignals.test(seed || '')) return true;
+
+    return false;
+  }
+
+  function getFollowUpDepth(sectionKey, seed, current, mode) {
+    if (!shouldAskFollowUps(sectionKey, seed, current, mode)) return 0;
+
+    const complexSections = ['topics', 'assessment', 'context'];
+    const seedLen = (seed || '').trim().length;
+    const currentLen = (current || '').trim().length;
+    const lowContext = seedLen < 24 && currentLen < 40;
+
+    if (complexSections.includes(sectionKey) && lowContext) return 3;
+    if (lowContext) return 2;
+    return 1;
+  }
+
+  function buildAiCoCreate(sectionKey, mode, seed, current) {
+    const seedLine = seed || 'No seed entered yet';
+    const currentLine = current || 'Not drafted yet';
+    const isRefine = mode === 'refine';
+
+    switch (sectionKey) {
+      case 'module':
+        return {
+          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
+          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
+          questions: [
+            'What should the title signal first: domain, outcome, or workplace context?',
+            'Is this more foundation, applied, or capstone in feel?',
+            'Should the title read more academic, practical, or industry-facing?'
+          ],
+          options: [
+            'Title angle: problem-focused and practical',
+            'Title angle: capability-led and student-facing',
+            'Title angle: industry-aware with a clear outcome signal'
+          ],
+          draft: seed ? `Module title option: ${seedLine}` : `Module title option: concise, clear, and outcome-led.`
+        };
+      case 'purpose':
+        return {
+          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
+          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
+          questions: [
+            'What problem or capability should this module build?',
+            'What real-world context should anchor the purpose?',
+            'Should the purpose emphasise design, delivery, analysis, or reflection?'
+          ],
+          options: [
+            'Purpose angle: capability-building with a practical output',
+            'Purpose angle: applied decision-making in a real context',
+            'Purpose angle: reflective and workplace-ready learning'
+          ],
+          draft: seed
+            ? `This module develops students' ability to ${seedLine.toLowerCase()}.`
+            : 'This module develops students to apply core concepts in a practical, clearly framed context.'
+        };
+      case 'outcomes':
+        return {
+          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
+          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
+          questions: [
+            'Which verbs best match the module level?',
+            'What evidence would prove the learning happened?',
+            'How many outcomes are enough without overloading the module?'
+          ],
+          options: [
+            'Balance conceptual understanding with practical application',
+            'Make one outcome explicitly about communication or reflection',
+            'Keep the set short enough to assess confidently'
+          ],
+          draft: seed
+            ? `Suggested outcome language: ${seedLine}`
+            : 'Suggested outcome language: apply, analyse, create, and communicate in a level-appropriate way.'
+        };
+      case 'topics':
+        return {
+          title: isRefine ? 'Refined sequence' : 'Topics and Hours draft',
+          lead: current ? `Based on: ${currentLine}.` : 'Add topics, hours, and online e-learning hours.',
+          questions: [
+            'What should happen first so later topics feel easier?',
+            'Which topics need contact hours, and which can sit in online e-learning?'
+          ],
+          options: [
+            'Sequence: foundation, guided practice, applied task, review',
+            'Sequence: concept, studio, checkpoint, capstone',
+            'Sequence: orientation, build-up, project, consolidation'
+          ],
+          draft: seed
+            ? `Suggested content outline: ${seedLine}`
+            : 'Suggested content outline: foundation, guided practice, applied task, then review and reflection.'
+        };
+      case 'experience':
+        return {
+          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
+          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
+          questions: [
+            'Should the module feel more studio-like, case-based, or project-driven?',
+            'What should happen individually versus in groups?',
+            'Which parts need AI-supported guidance and which need human discussion?'
+          ],
+          options: [
+            'Model: studio-led with short critique cycles',
+            'Model: blended, case-based, and lightly scaffolded',
+            'Model: project spine with discussion checkpoints'
+          ],
+          draft: seed
+            ? `Suggested teaching approach: ${seedLine}`
+            : 'Suggested teaching approach: case-based input, guided practice, hands-on application, and structured feedback.'
+        };
+      case 'assessment':
+        return {
+          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
+          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
+          questions: [
+            'What should the assessment prove that a quiz could not?',
+            'Should the task be individual, group-based, or mixed?',
+            'Where is the clearest authentic or workplace anchor?'
+          ],
+          options: [
+            'Shape: project with one short checkpoint',
+            'Shape: presentation plus brief reflective note',
+            'Shape: practical task with transparent criteria'
+          ],
+          draft: seed
+            ? `Suggested assessment logic: ${seedLine}`
+            : 'Suggested assessment logic: an authentic, criterion-led task with clear evidence points and realistic workload.'
+        };
+      case 'plagiarism':
+        return {
+          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
+          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
+          questions: [
+            'Should the policy focus on citation, AI disclosure, or both?',
+            'What should students explicitly do when using external material?',
+            'Should the tone be formal, supportive, or firm?'
+          ],
+          options: [
+            'Frame: concise policy with clear citation and AI-use expectations',
+            'Frame: supportive reminder with explicit consequences',
+            'Frame: student-friendly integrity note with disclosure guidance'
+          ],
+          draft: seed
+            ? `Suggested policy note: ${seedLine}`
+            : 'Suggested policy note: students must cite external sources, disclose AI use where relevant, and submit original work.'
+        };
+      case 'competencies':
+        return {
+          title: isRefine ? 'Refined suggestion' : 'Suggested competency rationale',
+          lead: current ? `Based on: ${currentLine}.` : 'Use AI to explain the competency mix, not just select labels.',
+          questions: [
+            'Which 2–4 competencies are truly central?',
+            'Which competency should be visible in assessment evidence?',
+            'What should be implied by the competency mix, not overexplained?'
+          ],
+          options: [
+            'Emphasis: communication + collaboration + applied problem solving',
+            'Emphasis: digital competence + critical thinking + reflection',
+            'Emphasis: domain expertise with one clear human skill anchor'
+          ],
+          draft: seed
+            ? `Suggested competency rationale: ${seedLine}`
+            : 'Suggested competency rationale: select the smallest set that best matches the module evidence and industry intent.'
+        };
+      case 'resources':
+        return {
+          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
+          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
+          questions: [
+            'Should the resources lean academic, industry, or tool-based?',
+            'Which sources are essential rather than optional?',
+            'Do you need standards, tool docs, cases, or readings?'
+          ],
+          options: [
+            'Mix: one standard, one industry source, one practical guide',
+            'Mix: short readings, benchmark examples, and tool references',
+            'Mix: authoritative core text with current applied references'
+          ],
+          draft: seed
+            ? `Suggested reference direction: ${seedLine}`
+            : 'Suggested reference direction: authoritative, current, and closely tied to the module task.'
+        };
+      case 'context':
+        return {
+          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
+          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
+          questions: [
+            'What must the AI never ignore?',
+            'Which institutional rules shape the draft?',
+            'What should be embedded quietly rather than highlighted?'
+          ],
+          options: [
+            'Frame: keep requirements visible but low-friction',
+            'Frame: embed rules into the workflow, not separate them out',
+            'Frame: preserve flexibility while respecting programme standards'
+          ],
+          draft: seed
+            ? `Suggested context note: ${seedLine}`
+            : 'Suggested context note: embedded requirements, manageable workload, and room for educator judgment.'
+        };
+      default:
+        return {
+          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
+          lead: 'Add a few keywords, then generate.',
+          questions: ['What is the goal?', 'What is the constraint?', 'What would make this feel clearer?'],
+          options: ['Option one', 'Option two', 'Option three'],
+          draft: seed || current || 'Draft a clearer version.'
+        };
+    }
+  }
+
+  function showSectionCoCreate(outputId, sectionKey, targetId, mode) {
+    const panel = document.getElementById(outputId);
+    if (!panel) return;
+    const seed = getSectionValue(sectionKey + '-brief');
+    const current = getSectionValue(targetId);
+    const cfg = buildAiCoCreate(sectionKey, mode, seed, current);
+    const followUpDepth = DEMO_SCRIPTED_MODE ? getFollowUpDepth(sectionKey, seed, current, mode) : 0;
+    const followUps = followUpDepth > 0 ? cfg.questions.slice(0, followUpDepth) : [];
+    panel.dataset.target = targetId;
+    panel.dataset.value = cfg.draft;
+    panel.innerHTML = `
+      <div class="section-ai-output-title">${escapeHtml(cfg.title)}</div>
+      <div class="section-ai-output-text">${escapeHtml(cfg.lead)}</div>
+      ${followUps.length ? `
+      <div class="section-ai-group">
+        <div class="section-ai-group-label">AI follow-up prompts</div>
+        <ul class="section-ai-list">
+          ${followUps.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
+        </ul>
+      </div>` : ''}
+      <div class="section-ai-group">
+        <div class="section-ai-group-label">Suggested options</div>
+        <ul class="section-ai-list">
+          ${cfg.options.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
+        </ul>
+      </div>
+      <div class="section-ai-output-text" style="margin-top:8px; color:#333;">${escapeHtml(cfg.draft)}</div>
+      <div class="section-ai-actions-row">
+        <button class="section-ai-btn" type="button" onclick="applySectionAssist('${outputId}')">Use</button>
+        <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('${outputId}','${sectionKey}','${targetId}','refine')">Refine</button>
+        <button class="section-ai-btn" type="button" onclick="hideSectionAssist('${outputId}')">Close</button>
       </div>`;
     panel.classList.add('show');
   }
@@ -1061,7 +1517,15 @@
   }
 
   function buildReviewSummary() {
-    const title = document.getElementById('f-title').value.trim() || 'Not set';
+    const diplomaTitle = document.getElementById('diploma-title').value.trim() || 'Not set';
+    const moduleName = document.getElementById('module-name').value.trim() || 'Not set';
+    const moduleCatalogue = document.getElementById('module-catalogue').value.trim() || 'Not set';
+    const preRequisites = document.getElementById('pre-requisites').value.trim() || 'Not set';
+    const timetabledHours = document.getElementById('timetabled-hours').value.trim() || 'Not set';
+    const contactHours = document.getElementById('contact-hours').value.trim() || 'Not set';
+    const creditUnitsMeta = document.getElementById('credit-units').value.trim() || String(stepperVals.cu);
+    const assessmentWeightage = document.getElementById('assessment-weightage').value.trim() || 'Not set';
+    const title = document.getElementById('f-title').value.trim() || moduleName || 'Not set';
     const level = document.querySelector('#chip-level .chip.on')?.textContent?.trim() || 'L2';
     const cu = String(stepperVals.cu) + ' CU';
     const delivery = document.querySelector('#chip-delivery .chip.on')?.textContent?.trim() || 'Blended';
@@ -1069,19 +1533,31 @@
     const purpose = document.getElementById('f-purpose').value.trim() || 'Not filled in yet';
     const outcomes = document.getElementById('f-outcomes').value.trim() || 'Not filled in yet';
     const topics = document.getElementById('f-topics').value.trim() || 'Not filled in yet';
+    const onlineHours = document.getElementById('f-online-hours').value.trim() || 'Not set';
     const assessmentType = document.getElementById('assessment-detail-title')?.textContent?.trim() || 'Project';
     const assessmentWeight = document.getElementById('assessment-weight')?.value.trim() || '40%';
-    const competencies = Array.from(document.querySelectorAll('#npgc-grid .npgc-item.on .npgc-name')).map(el => el.textContent.trim()).join(', ') || 'None selected';
+    const teaching = Array.from(document.querySelectorAll('#tl-strategy-group .check-item.on .check-label')).map(el => el.textContent.trim()).join(', ') || 'None selected';
+    const plagiarism = document.getElementById('plagiarism-policy').value.trim() || 'Not filled in yet';
+    const resources = document.getElementById('f-resources').value.trim() || 'Not filled in yet';
 
     return [
-      { key: 'Module', val: title },
-      { key: 'Level / CU', val: `${level} • ${cu}` },
-      { key: 'Delivery / Assessment', val: `${delivery} • ${assessment}` },
-      { key: 'Purpose', val: purpose },
-      { key: 'Outcomes', val: outcomes },
-      { key: 'Learning flow', val: topics },
-      { key: 'Assessment type', val: `${assessmentType} (${assessmentWeight})` },
-      { key: 'Competencies', val: competencies }
+      { key: 'Diploma Title', val: diplomaTitle },
+      { key: 'Module Name', val: title },
+      { key: 'Module Catalogue and ID', val: moduleCatalogue },
+      { key: 'Pre-Requisites', val: preRequisites },
+      { key: 'Timetabled Hours', val: timetabledHours },
+      { key: 'Contact Hours', val: contactHours },
+      { key: 'Credit Units', val: creditUnitsMeta },
+      { key: 'Assessment Weightage', val: assessmentWeightage },
+      { key: 'Level / Delivery', val: `${level} • ${delivery}` },
+      { key: 'Synopsis and Aims', val: purpose },
+      { key: 'Learning Outcomes', val: outcomes },
+      { key: 'Content: Topics and Hours', val: topics },
+      { key: 'Online e-learning hours (*)', val: onlineHours },
+      { key: 'T&L Strategies', val: teaching },
+      { key: 'Assessment Strategies', val: `${assessmentType} (${assessmentWeight})` },
+      { key: 'Plagiarism Policy', val: plagiarism },
+      { key: 'Recommended Texts / References / Learning Resources', val: resources }
     ];
   }
 
@@ -1211,15 +1687,7 @@
   }
 
   function updateStickyMeta() {
-    const title = document.getElementById('f-title').value.trim() || 'Not set';
-    const level = document.querySelector('#chip-level .chip.on')?.textContent?.trim() || 'L2';
-    const cu = stepperVals.cu + ' CU';
-    const delivery = document.querySelector('#chip-delivery .chip.on')?.textContent?.trim() || 'Blended';
-    const asmt = document.querySelector('#chip-asmttype .chip.on')?.textContent?.trim() || 'CA Only';
-    const aiAssistCount = document.querySelectorAll('.section-ai').length;
-    document.getElementById('meta-title').textContent = title;
-    document.getElementById('meta-meta').textContent = `${level} • ${cu} • ${delivery} • ${asmt}`;
-    document.getElementById('meta-scope').textContent = `${aiAssistCount} inline helpers`;
+    return;
   }
 
   function refreshReadiness() {
@@ -1273,6 +1741,10 @@
 
   document.getElementById('ai-guidance').addEventListener('input', () => {
     refreshReadiness();
+  });
+
+  ['diploma-title', 'module-name', 'module-catalogue', 'pre-requisites', 'timetabled-hours', 'contact-hours', 'credit-units', 'assessment-weightage'].forEach(id => {
+    document.getElementById(id)?.addEventListener('input', updateSummary);
   });
 
   document.getElementById('f-purpose').addEventListener('input', refreshReadiness);
