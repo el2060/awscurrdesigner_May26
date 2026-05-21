@@ -197,6 +197,89 @@
     .ai-mini-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
     .ai-mini-list li { font-size: 11px; color: #777; line-height: 1.4; }
 
+    .copilot-panel {
+      border: 1px solid #e4e4e4;
+      background: #fff;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .cp-head {
+      font-size: 11px;
+      font-weight: 700;
+      color: #7a5f00;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .cp-block { margin-bottom: 10px; }
+    .cp-block:last-child { margin-bottom: 0; }
+    .cp-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 5px;
+    }
+    .cp-focus { font-size: 12px; color: #1a1a1a; }
+    .cp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .cp-list li {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.4;
+      padding-left: 10px;
+      position: relative;
+    }
+    .cp-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #bbb;
+    }
+    .cp-actions { display: grid; grid-template-columns: 1fr; gap: 6px; }
+    .cp-action {
+      border: 1px solid #d0d0d0;
+      background: #fff;
+      color: #555;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: left;
+      padding: 7px 8px;
+      cursor: pointer;
+    }
+    .cp-action:hover { border-color: #999; color: #1a1a1a; }
+    .cp-why {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.45;
+      border: 1px solid #efefef;
+      background: #fafafa;
+      padding: 7px 8px;
+    }
+    .cp-ask-row { display: flex; gap: 6px; }
+    .cp-input {
+      flex: 1;
+      border: 1px solid #d8d8d8;
+      font-size: 11px;
+      padding: 7px 8px;
+      min-width: 0;
+    }
+    .cp-ask-btn {
+      border: 1px solid #1a1a1a;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 7px 8px;
+      cursor: pointer;
+    }
+    .cp-ask-btn:hover { background: #333; border-color: #333; }
+
     /* ── Sidebar ── */
     .side-box {
       border: 1px solid #e4e4e4;
@@ -520,14 +603,31 @@
     <!-- Sidebar -->
     <div class="layout-side">
 
-      <div class="ai-mini">
-        <div class="ai-mini-title">AI extracts</div>
-        <ul class="ai-mini-list">
-          <li>Competency coverage</li>
-          <li>Curriculum gaps</li>
-          <li>Industry alignment</li>
-          <li>Assessment opportunities</li>
-        </ul>
+      <div class="copilot-panel">
+        <div class="cp-head">AI Copilot</div>
+        <div class="cp-block">
+          <div class="cp-label">Current Focus</div>
+          <div class="cp-focus" id="cp-focus">Industry and Benchmarking</div>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Insights</div>
+          <ul class="cp-list" id="cp-insights"></ul>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Suggested Actions</div>
+          <div class="cp-actions" id="cp-actions"></div>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Why Suggested</div>
+          <div class="cp-why" id="cp-why"></div>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Ask Copilot</div>
+          <div class="cp-ask-row">
+            <input class="cp-input" id="cp-input" type="text" placeholder="Ask what evidence to upload next">
+            <button class="cp-ask-btn" type="button" onclick="askCopilot()">Ask</button>
+          </div>
+        </div>
       </div>
 
       <div class="side-box">
@@ -581,6 +681,87 @@
 </div>
 
 <script>
+  const copilotGuide = {
+    industry: {
+      focus: 'Industry and Benchmarking',
+      insights: [
+        'Industry signals are usually strongest at this stage for direction setting.',
+        'Employer and benchmarking references help justify curriculum updates.',
+        'Consider adding at least one forward-looking skills report.'
+      ],
+      actions: ['Suggest Missing Industry Sources', 'Generate Benchmarking Checklist', 'Draft Evidence Summary'],
+      why: 'Based on current distribution of uploaded materials across source categories.'
+    },
+    curriculum: {
+      focus: 'Curriculum and Standards',
+      insights: [
+        'Framework documents anchor competency and standards alignment.',
+        'Coverage maps are easier when standards references are complete.',
+        'Adding accreditation constraints now reduces rework later.'
+      ],
+      actions: ['Suggest Standards Mapping Grid', 'Highlight Coverage Risks', 'Generate Alignment Notes'],
+      why: 'Based on relative share of standards materials in your workspace.'
+    },
+    student: {
+      focus: 'Student and Module Insights',
+      insights: [
+        'Student analytics and feedback ground decisions in learner reality.',
+        'Outcome and assessment gaps are often visible in this evidence set.',
+        'Trend consistency improves when insights span multiple cohorts.'
+      ],
+      actions: ['Summarize Learner Signals', 'Extract Key Pain Points', 'Propose Gap Priorities'],
+      why: 'Based on uploaded learner and module insight materials.'
+    },
+    materials: {
+      focus: 'Existing Module Materials',
+      insights: [
+        'Existing MDD and brief artifacts speed comparative analysis.',
+        'Current-state evidence helps isolate what should be retained vs changed.',
+        'Version tagging can improve review traceability later.'
+      ],
+      actions: ['Compare Current vs Target', 'Flag Outdated Components', 'Generate Refresh Backlog'],
+      why: 'Based on current-state module documentation uploaded to workspace.'
+    }
+  };
+
+  function updateContextCopilot() {
+    const max = Math.max(...counts);
+    const idx = counts.indexOf(max);
+    const keyMap = ['industry', 'curriculum', 'student', 'materials'];
+    const data = copilotGuide[keyMap[idx]] || copilotGuide.industry;
+
+    document.getElementById('cp-focus').textContent = data.focus;
+
+    const insights = document.getElementById('cp-insights');
+    insights.innerHTML = '';
+    data.insights.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      insights.appendChild(li);
+    });
+
+    const actions = document.getElementById('cp-actions');
+    actions.innerHTML = '';
+    data.actions.forEach(action => {
+      const btn = document.createElement('button');
+      btn.className = 'cp-action';
+      btn.type = 'button';
+      btn.textContent = action;
+      btn.onclick = () => alert('AI action queued: ' + action + ' (prototype behavior).');
+      actions.appendChild(btn);
+    });
+
+    document.getElementById('cp-why').textContent = data.why;
+  }
+
+  function askCopilot() {
+    const input = document.getElementById('cp-input');
+    const value = input.value.trim();
+    if (!value) return;
+    alert('Copilot received: ' + value + ' (prototype behavior).');
+    input.value = '';
+  }
+
   // Track counts per zone (4 grouped source categories)
   const counts = [4, 2, 5, 3];
   const sideIds = ['cnt-0','cnt-1','cnt-2','cnt-3'];
@@ -596,6 +777,7 @@
     document.querySelectorAll('.upload-zone').forEach((zone, i) => {
       zone.querySelector('.uz-badge').textContent = counts[i] + ' file' + (counts[i] !== 1 ? 's' : '');
     });
+    updateContextCopilot();
   }
 
   function toggleZone(btn) {

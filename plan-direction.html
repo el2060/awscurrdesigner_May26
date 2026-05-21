@@ -58,21 +58,6 @@
       display: flex; gap: 6px; flex-wrap: wrap;
       margin-bottom: 12px;
     }
-    .workspace-tools {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 12px;
-    }
-    .copilot-launch {
-      border: 1px solid #1a1a1a;
-      background: #1a1a1a;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 7px 11px;
-      cursor: pointer;
-    }
-    .copilot-launch:hover { background: #333; border-color: #333; }
     .ws-tab {
       font-size: 11px; color: #777; border: 1px solid #d9d9d9;
       padding: 5px 10px; background: #fafafa;
@@ -151,6 +136,7 @@
       border: 1px solid #e4e4e4;
       background: #fff;
       padding: 10px;
+      margin-bottom: 10px;
     }
     .nav-group-title {
       font-size: 10px;
@@ -179,6 +165,95 @@
     .completion-bar { height: 8px; border: 1px solid #d9d9d9; background: #fff; }
     .completion-fill { height: 100%; width: 50%; background: #1a1a1a; }
     .completion-label { margin-top: 5px; font-size: 11px; color: #777; }
+
+    .copilot-panel {
+      border: 1px solid #e4e4e4;
+      background: #fff;
+      padding: 10px;
+    }
+    .cp-head {
+      font-size: 11px;
+      font-weight: 700;
+      color: #7a5f00;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .cp-block { margin-bottom: 10px; }
+    .cp-block:last-child { margin-bottom: 0; }
+    .cp-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 5px;
+    }
+    .cp-focus { font-size: 12px; color: #1a1a1a; }
+    .cp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .cp-list li {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.4;
+      padding-left: 10px;
+      position: relative;
+    }
+    .cp-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #bbb;
+    }
+    .cp-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .cp-action {
+      border: 1px solid #d0d0d0;
+      background: #fff;
+      color: #555;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: left;
+      padding: 7px 8px;
+      cursor: pointer;
+    }
+    .cp-action:hover { border-color: #999; color: #1a1a1a; }
+    .cp-why {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.45;
+      border: 1px solid #efefef;
+      background: #fafafa;
+      padding: 7px 8px;
+    }
+    .cp-ask-row {
+      display: flex;
+      gap: 6px;
+    }
+    .cp-input {
+      flex: 1;
+      border: 1px solid #d8d8d8;
+      font-size: 11px;
+      padding: 7px 8px;
+      min-width: 0;
+    }
+    .cp-ask-btn {
+      border: 1px solid #1a1a1a;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 7px 8px;
+      cursor: pointer;
+    }
+    .cp-ask-btn:hover { background: #333; border-color: #333; }
 
     /* ── Plan sections ── */
     .plan-section {
@@ -359,38 +434,6 @@
     .ai-card { background: #fffef8; border-color: #e8d990; }
     .ai-card .work-title { color: #7a5f00; }
 
-    .ai-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(26, 26, 26, 0.35);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      z-index: 90;
-    }
-    .ai-modal-backdrop.open { display: flex; }
-    .ai-modal {
-      width: min(640px, 100%);
-      border: 1px solid #e4e4e4;
-      background: #fff;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-      max-height: calc(100vh - 80px);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .ai-head {
-      padding: 12px 14px;
-      border-bottom: 1px solid #efefef;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-shrink: 0;
-    }
-    .ai-head-title { font-size: 12px; font-weight: 700; color: #7a5f00; }
-    .ai-close { border: 1px solid #d9d9d9; background: #fff; color: #666; font-size: 11px; padding: 4px 7px; cursor: pointer; }
-    .ai-body { padding: 12px 14px; overflow: auto; }
   </style>
 </head>
 <body>
@@ -451,10 +494,6 @@
     <span class="ws-tab">Draft &amp; Refine</span>
     <span class="ws-tab">Review &amp; Alignment</span>
     <span class="ws-tab">Export &amp; Resources</span>
-  </div>
-
-  <div class="workspace-tools">
-    <button class="copilot-launch" type="button" onclick="toggleAIModal(true)">✦ AI Copilot</button>
   </div>
 
   <div class="review-config" id="review-config">
@@ -837,6 +876,33 @@
         </div>
       </div>
 
+      <div class="copilot-panel">
+        <div class="cp-head">AI Copilot</div>
+        <div class="cp-block">
+          <div class="cp-label">Current Focus</div>
+          <div class="cp-focus" id="cp-focus">Module Overview</div>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Insights</div>
+          <ul class="cp-list" id="cp-insights"></ul>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Suggested Actions</div>
+          <div class="cp-actions" id="cp-actions"></div>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Why Suggested</div>
+          <div class="cp-why" id="cp-why"></div>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Ask Copilot</div>
+          <div class="cp-ask-row">
+            <input class="cp-input" id="cp-input" type="text" placeholder="Ask for refinement, alternatives, or examples">
+            <button class="cp-ask-btn" type="button" onclick="askCopilot()">Ask</button>
+          </div>
+        </div>
+      </div>
+
     </div><!-- end layout-side -->
 
   </div><!-- end layout -->
@@ -850,25 +916,6 @@
     <div class="bb-actions">
       <a href="analyse-synthesise.html" class="btn-ghost">← Back to Analysis</a>
       <a href="design-wizard.html" class="btn-primary">Continue to Build Module →</a>
-    </div>
-  </div>
-</div>
-
-<div class="ai-modal-backdrop" id="ai-modal-backdrop" onclick="backdropClose(event)">
-  <div class="ai-modal" role="dialog" aria-modal="true" aria-label="AI Copilot guidance">
-    <div class="ai-head">
-      <div class="ai-head-title">AI Copilot</div>
-      <button class="ai-close" type="button" onclick="toggleAIModal(false)">Close</button>
-    </div>
-    <div class="ai-body">
-      <div class="sugg-item">Prioritise outcomes that map to GC1, GC2, and GC4 first.</div>
-      <div class="sugg-item">Draft assessments early so learning activities can align to evidence needs.</div>
-      <div class="sugg-item">Use industry examples as prompts inside activities for stronger authenticity.</div>
-      <div class="sugg-actions">
-        <button class="btn-mini">Accept</button>
-        <button class="btn-mini">Refine</button>
-        <button class="btn-mini">Suggest alternatives</button>
-      </div>
     </div>
   </div>
 </div>
@@ -961,15 +1008,116 @@
     document.getElementById('flag-assessment').textContent = assessmentFlags + ' assessment flag' + (assessmentFlags !== 1 ? 's' : '');
   }
 
-  function toggleAIModal(forceOpen) {
-    const modal = document.getElementById('ai-modal-backdrop');
-    const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !modal.classList.contains('open');
-    modal.classList.toggle('open', shouldOpen);
-    document.body.style.overflow = shouldOpen ? 'hidden' : '';
+  const copilotGuide = {
+    A: {
+      focus: 'Module Overview',
+      insights: [
+        'Module title and level should clearly signal scope and complexity.',
+        'Current CU and contact hours fit a practice-heavy L2 module.',
+        'Pre-requisite can reduce uneven learner readiness.'
+      ],
+      actions: ['Draft Module Purpose', 'Generate Title Variants', 'Check CU and Level Fit'],
+      why: 'Based on selected level, CU, and module setup fields currently provided.'
+    },
+    B: {
+      focus: 'Module Purpose and Direction',
+      insights: [
+        'Purpose statement should describe learner capability, not content coverage.',
+        'Industry context can sharpen authenticity and evidence tasks.',
+        'One clear action verb per sentence improves downstream LO drafting.'
+      ],
+      actions: ['Generate First Cut Purpose', 'Refine for Industry Context', 'Simplify Language'],
+      why: 'Based on your module purpose text, selected school context, and draft direction.'
+    },
+    C: {
+      focus: 'Priority Graduate Competencies',
+      insights: [
+        'GC2 and GC4 are currently emphasised strongly.',
+        'GC7 communication is not yet explicitly represented.',
+        'Selecting 2-3 priority competencies improves assessment coherence.'
+      ],
+      actions: ['Insert GC7 Outcome Example', 'Suggest Competency Balance', 'Show Alternative Competency Mix'],
+      why: 'Based on selected NPGCs and current competency coverage pattern.'
+    },
+    D: {
+      focus: 'Assessment Strategy',
+      insights: [
+        'Project-based mode is active but evidence criteria are not yet explicit.',
+        'Group component may need clearer individual accountability.',
+        'LO-to-assessment mapping is not fully visible yet.'
+      ],
+      actions: ['Generate CA Structure', 'Suggest Rubric Criteria', 'Draft Industry Scenario Task'],
+      why: 'Based on assessment structure, selected approaches, and group component settings.'
+    },
+    E: {
+      focus: 'Teaching and Learning Strategies',
+      insights: [
+        'Current T&L mix supports blended delivery mode.',
+        'Sequencing from guided to independent activity can strengthen progression.',
+        'Assessment checkpoints should be aligned to weekly activities.'
+      ],
+      actions: ['Propose Weekly T&L Flow', 'Suggest Activity Sequence', 'Align Activities to Assessment'],
+      why: 'Based on selected T&L strategies and delivery mode.'
+    },
+    F: {
+      focus: 'Build Focus Selection',
+      insights: [
+        'Three sections are selected for drafting in the next step.',
+        'Starting with outcomes and assessment usually improves alignment.',
+        'Teaching resources can be drafted after core structure stabilises.'
+      ],
+      actions: ['Generate First Draft Plan', 'Suggest Drafting Order', 'Estimate Effort by Section'],
+      why: 'Based on selected build-focus cards and current planning completeness.'
+    }
+  };
+
+  let activeSection = 'A';
+
+  function updateCopilotPanel(sectionKey) {
+    const key = sectionKey || activeSection;
+    const data = copilotGuide[key] || copilotGuide.A;
+    activeSection = key;
+
+    document.getElementById('cp-focus').textContent = data.focus;
+    const insights = document.getElementById('cp-insights');
+    insights.innerHTML = '';
+    data.insights.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      insights.appendChild(li);
+    });
+
+    const actions = document.getElementById('cp-actions');
+    actions.innerHTML = '';
+    data.actions.forEach(action => {
+      const btn = document.createElement('button');
+      btn.className = 'cp-action';
+      btn.type = 'button';
+      btn.textContent = action;
+      btn.onclick = () => runCopilotAction(action);
+      actions.appendChild(btn);
+    });
+
+    document.getElementById('cp-why').textContent = data.why;
   }
 
-  function backdropClose(e) {
-    if (e.target.id === 'ai-modal-backdrop') toggleAIModal(false);
+  function runCopilotAction(actionLabel) {
+    alert('AI action queued: ' + actionLabel + ' (prototype behavior).');
+  }
+
+  function askCopilot() {
+    const input = document.getElementById('cp-input');
+    const value = input.value.trim();
+    if (!value) return;
+    alert('Copilot received: ' + value + ' (prototype behavior).');
+    input.value = '';
+  }
+
+  function setActiveNav(sectionKey) {
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.classList.remove('current');
+      if (item.getAttribute('data-target') === sectionKey) item.classList.add('current');
+    });
   }
 
   // Initialise
@@ -1008,7 +1156,12 @@
     toggle.className = 'ps-toggle';
     toggle.textContent = '▾';
     header.appendChild(toggle);
-    header.addEventListener('click', () => section.classList.toggle('collapsed'));
+    header.addEventListener('click', () => {
+      section.classList.toggle('collapsed');
+      const sectionKey = section.dataset.section;
+      setActiveNav(sectionKey);
+      updateCopilotPanel(sectionKey);
+    });
     section.dataset.section = String.fromCharCode(65 + index);
     if (index > 0) section.classList.add('collapsed');
   });
@@ -1019,13 +1172,13 @@
       const section = Array.from(document.querySelectorAll('.plan-section')).find(s => s.dataset.section === sectionKey);
       if (!section) return;
       section.classList.remove('collapsed');
+      setActiveNav(sectionKey);
+      updateCopilotPanel(sectionKey);
       section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') toggleAIModal(false);
-  });
+  updateCopilotPanel('A');
 </script>
 
 </body>

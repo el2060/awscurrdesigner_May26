@@ -47,6 +47,92 @@
     .page-title { font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 6px; }
     .page-sub { font-size: 13px; color: #888; line-height: 1.65; margin-bottom: 32px; max-width: 560px; }
 
+    .layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: flex-start; }
+    .layout-main { min-width: 0; }
+    .layout-side { width: 300px; position: sticky; top: 100px; }
+
+    .copilot-panel {
+      border: 1px solid #e4e4e4;
+      background: #fff;
+      padding: 10px;
+    }
+    .cp-head {
+      font-size: 11px;
+      font-weight: 700;
+      color: #7a5f00;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .cp-block { margin-bottom: 10px; }
+    .cp-block:last-child { margin-bottom: 0; }
+    .cp-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 5px;
+    }
+    .cp-focus { font-size: 12px; color: #1a1a1a; }
+    .cp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .cp-list li {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.4;
+      padding-left: 10px;
+      position: relative;
+    }
+    .cp-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #bbb;
+    }
+    .cp-actions { display: grid; grid-template-columns: 1fr; gap: 6px; }
+    .cp-action {
+      border: 1px solid #d0d0d0;
+      background: #fff;
+      color: #555;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: left;
+      padding: 7px 8px;
+      cursor: pointer;
+    }
+    .cp-action:hover { border-color: #999; color: #1a1a1a; }
+    .cp-why {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.45;
+      border: 1px solid #efefef;
+      background: #fafafa;
+      padding: 7px 8px;
+    }
+    .cp-ask-row { display: flex; gap: 6px; }
+    .cp-input {
+      flex: 1;
+      border: 1px solid #d8d8d8;
+      font-size: 11px;
+      padding: 7px 8px;
+      min-width: 0;
+    }
+    .cp-ask-btn {
+      border: 1px solid #1a1a1a;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 7px 8px;
+      cursor: pointer;
+    }
+    .cp-ask-btn:hover { background: #333; border-color: #333; }
+
     /* ── Plan recap ── */
     .recap {
       border: 1px solid #e4e4e4;
@@ -226,6 +312,11 @@
     .btn-ghost:hover { border-color: #999; color: #1a1a1a; }
 
     @media (max-width: 1080px) {
+      .layout { grid-template-columns: 1fr; }
+      .layout-side {
+        width: 100%;
+        position: static;
+      }
       .build-workspace {
         grid-template-columns: 1fr;
       }
@@ -267,6 +358,9 @@
 
   <div class="page-title">Building your Module Document</div>
   <div class="page-sub">After planning, AI helps draft your module step-by-step. You can refine sections and proceed to review/export.</div>
+
+  <div class="layout">
+    <div class="layout-main">
 
   <!-- Plan recap (carried from plan-direction) -->
   <div class="recap">
@@ -381,6 +475,38 @@
     </div>
   </div>
 
+    </div>
+
+    <div class="layout-side">
+      <div class="copilot-panel">
+        <div class="cp-head">AI Copilot</div>
+        <div class="cp-block">
+          <div class="cp-label">Current Focus</div>
+          <div class="cp-focus" id="cp-focus">Draft Scope Selection</div>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Insights</div>
+          <ul class="cp-list" id="cp-insights"></ul>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Suggested Actions</div>
+          <div class="cp-actions" id="cp-actions"></div>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Why Suggested</div>
+          <div class="cp-why" id="cp-why"></div>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Ask Copilot</div>
+          <div class="cp-ask-row">
+            <input class="cp-input" id="cp-input" type="text" placeholder="Ask for draft refinements or alternatives">
+            <button class="cp-ask-btn" type="button" onclick="askCopilot()">Ask</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <!-- Bottom bar -->
@@ -394,6 +520,73 @@
 </div>
 
 <script>
+  const copilotGuide = {
+    scope: {
+      focus: 'Draft Scope Selection',
+      insights: [
+        'Outcomes plus assessment is a strong first-pass combination.',
+        'Fewer selected sections per pass usually improves draft quality control.',
+        'Teaching resources are best drafted after core structure stabilises.'
+      ],
+      actions: ['Suggest Draft Order', 'Estimate Effort by Section', 'Generate First Cut Plan'],
+      why: 'Based on currently selected scope cards and planning carry-over context.'
+    },
+    running: {
+      focus: 'Draft Execution Progress',
+      insights: [
+        'Drafting is running section-by-section to keep output manageable.',
+        'Completed sections can be reviewed before the next pass.',
+        'Unselected sections remain available for follow-up runs.'
+      ],
+      actions: ['Pause and Review Current Draft', 'Queue Remaining Sections', 'Open Drafted Content in Editor'],
+      why: 'Based on active draft run state and selected section pipeline.'
+    },
+    done: {
+      focus: 'Draft Pass Complete',
+      insights: [
+        'Selected sections are drafted and ready for refinement.',
+        'A second pass can target remaining sections with new context.',
+        'Review and export is available once core sections are validated.'
+      ],
+      actions: ['Open in Editor', 'Run Another Focused Pass', 'Proceed to Review and Export'],
+      why: 'Based on completed generation state and section completion markers.'
+    }
+  };
+
+  function updateCopilotPanel(mode) {
+    const data = copilotGuide[mode] || copilotGuide.scope;
+    document.getElementById('cp-focus').textContent = data.focus;
+
+    const insights = document.getElementById('cp-insights');
+    insights.innerHTML = '';
+    data.insights.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      insights.appendChild(li);
+    });
+
+    const actions = document.getElementById('cp-actions');
+    actions.innerHTML = '';
+    data.actions.forEach(action => {
+      const btn = document.createElement('button');
+      btn.className = 'cp-action';
+      btn.type = 'button';
+      btn.textContent = action;
+      btn.onclick = () => alert('AI action queued: ' + action + ' (prototype behavior).');
+      actions.appendChild(btn);
+    });
+
+    document.getElementById('cp-why').textContent = data.why;
+  }
+
+  function askCopilot() {
+    const input = document.getElementById('cp-input');
+    const value = input.value.trim();
+    if (!value) return;
+    alert('Copilot received: ' + value + ' (prototype behavior).');
+    input.value = '';
+  }
+
   function toggleScope(el) {
     el.classList.toggle('on');
     const cb = el.querySelector('.scope-cb');
@@ -408,6 +601,7 @@
         state.className = 'state-pill';
       }
     }
+    updateCopilotPanel('scope');
   }
 
   function setScopeStateByLabel(label, stateText, stateClass) {
@@ -429,6 +623,7 @@
       el.querySelector('.scope-cb').textContent = '✓';
       setScopeStateByLabel(el.dataset.label, 'AI Suggested', 'ai');
     });
+    updateCopilotPanel('scope');
   }
 
   function clearScopes() {
@@ -437,6 +632,7 @@
       el.querySelector('.scope-cb').textContent = '';
       setScopeStateByLabel(el.dataset.label, 'Not Started', '');
     });
+    updateCopilotPanel('scope');
   }
 
   function addBuildLink() {
@@ -479,6 +675,7 @@
       document.getElementById('gen-status').classList.add('done');
       document.getElementById('done-card').classList.add('show');
       document.getElementById('bb-note').textContent = 'Review output, then run another pass if needed';
+      updateCopilotPanel('done');
       return;
     }
 
@@ -492,6 +689,7 @@
     runSteps[runIndex].classList.remove('pending');
     runSteps[runIndex].classList.add('active');
     document.getElementById('gen-status').textContent = runIndex + ' of ' + total + ' selected sections';
+    updateCopilotPanel('running');
     runIndex++;
     setTimeout(runNext, 900);
   }
@@ -507,6 +705,7 @@
     document.getElementById('gen-panel').classList.remove('hidden');
     document.getElementById('bb-note').textContent = 'Drafting selected sections...';
     renderRunSteps(selected);
+    updateCopilotPanel('running');
     runNext();
   }
 
@@ -520,7 +719,10 @@
     document.getElementById('overall-spinner').classList.remove('done');
     document.getElementById('done-card').classList.remove('show');
     document.getElementById('bb-note').textContent = 'Select sections, add context, then draft in manageable passes';
+    updateCopilotPanel('scope');
   }
+
+  updateCopilotPanel('scope');
 </script>
 
 </body>

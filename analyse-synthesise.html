@@ -128,6 +128,96 @@
     .source-file:last-child { border-bottom: none; }
     .source-ext { font-size: 9px; font-weight: 700; color: #999; font-family: var(--font-mono); background: #f2f2f2; border: 1px solid #e4e4e4; padding: 1px 4px; flex-shrink: 0; }
 
+    .copilot-panel {
+      border: 1px solid #e4e4e4;
+      background: #fff;
+      padding: 10px;
+      margin-top: 12px;
+    }
+    .cp-head {
+      font-size: 11px;
+      font-weight: 700;
+      color: #7a5f00;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .cp-block { margin-bottom: 10px; }
+    .cp-block:last-child { margin-bottom: 0; }
+    .cp-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 5px;
+    }
+    .cp-focus { font-size: 12px; color: #1a1a1a; }
+    .cp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .cp-list li {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.4;
+      padding-left: 10px;
+      position: relative;
+    }
+    .cp-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #bbb;
+    }
+    .cp-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .cp-action {
+      border: 1px solid #d0d0d0;
+      background: #fff;
+      color: #555;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: left;
+      padding: 7px 8px;
+      cursor: pointer;
+    }
+    .cp-action:hover { border-color: #999; color: #1a1a1a; }
+    .cp-why {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.45;
+      border: 1px solid #efefef;
+      background: #fafafa;
+      padding: 7px 8px;
+    }
+    .cp-ask-row {
+      display: flex;
+      gap: 6px;
+    }
+    .cp-input {
+      flex: 1;
+      border: 1px solid #d8d8d8;
+      font-size: 11px;
+      padding: 7px 8px;
+      min-width: 0;
+    }
+    .cp-ask-btn {
+      border: 1px solid #1a1a1a;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 7px 8px;
+      cursor: pointer;
+    }
+    .cp-ask-btn:hover { background: #333; border-color: #333; }
+
     /* ── Bottom bar ── */
     .bottom-bar {
       position: fixed; bottom: 0; left: 0; right: 0;
@@ -491,6 +581,33 @@
         </div>
       </div>
 
+      <div class="copilot-panel">
+        <div class="cp-head">AI Copilot</div>
+        <div class="cp-block">
+          <div class="cp-label">Current Focus</div>
+          <div class="cp-focus" id="cp-focus">Key Trends</div>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Insights</div>
+          <ul class="cp-list" id="cp-insights"></ul>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Suggested Actions</div>
+          <div class="cp-actions" id="cp-actions"></div>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Why Suggested</div>
+          <div class="cp-why" id="cp-why"></div>
+        </div>
+        <div class="cp-block">
+          <div class="cp-label">Ask Copilot</div>
+          <div class="cp-ask-row">
+            <input class="cp-input" id="cp-input" type="text" placeholder="Ask for refinement, alternatives, or examples">
+            <button class="cp-ask-btn" type="button" onclick="askCopilot()">Ask</button>
+          </div>
+        </div>
+      </div>
+
     </div><!-- /layout-side -->
 
   </div><!-- /layout -->
@@ -510,17 +627,105 @@
 </div>
 
 <script>
+  const copilotGuide = {
+    'Key Trends': {
+      insights: [
+        'AI and data capability demand is a strong cross-source pattern.',
+        'Cloud and DevOps signals are rising in employer expectations.',
+        'Communication appears as an implicit but recurring capability need.'
+      ],
+      actions: ['Generate Trend Summary', 'Highlight Priority Signals', 'Draft Executive Brief'],
+      why: 'Based on cross-source frequency and consistency of trend references.'
+    },
+    'Competency Gaps': {
+      insights: [
+        'Data analytics and AI ethics have explicit alignment gaps.',
+        'Communication outcomes appear under-specified in technical modules.',
+        'Coverage variance suggests uneven implementation across module set.'
+      ],
+      actions: ['Propose Gap Closure Plan', 'Suggest Outcome Rewrites', 'Map Gaps to Modules'],
+      why: 'Based on framework comparisons and identified below-target coverage.'
+    },
+    'Emerging Skills to Consider': {
+      insights: [
+        'Prompt engineering and responsible AI are now role-relevant skills.',
+        'Agile fundamentals are repeatedly highlighted by industry sources.',
+        'Cloud-native practices should be integrated earlier in progression.'
+      ],
+      actions: ['Generate Skills Injection Plan', 'Suggest New Learning Activities', 'Prioritize by Module Level'],
+      why: 'Based on current industry references and future-readiness themes.'
+    },
+    'Alignment Opportunities': {
+      insights: [
+        'NPGC3 coverage appears inconsistent across L2 modules.',
+        'Assessment weighting risk exists in selected modules.',
+        'Comms rubric opportunities are currently underused.'
+      ],
+      actions: ['Suggest Alignment Fixes', 'Generate Compliance Checklist', 'Draft Rubric Adoption Plan'],
+      why: 'Based on standards checks against current module and rubric usage.'
+    },
+    'AI Recommendations': {
+      insights: [
+        'Selected recommendations should be sequenced by impact and effort.',
+        'Unchecked recommendations may still be staged in later phases.',
+        'Planning handoff should focus on selected actions first.'
+      ],
+      actions: ['Convert to Planning Tasks', 'Prioritize by Impact', 'Export Action Roadmap'],
+      why: 'Based on current recommendation selection and planning transition needs.'
+    }
+  };
+
+  let currentFocus = 'Key Trends';
+
+  function updateCopilotPanel(focus) {
+    currentFocus = focus || currentFocus;
+    const data = copilotGuide[currentFocus] || copilotGuide['Key Trends'];
+    document.getElementById('cp-focus').textContent = currentFocus;
+
+    const insights = document.getElementById('cp-insights');
+    insights.innerHTML = '';
+    data.insights.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      insights.appendChild(li);
+    });
+
+    const actions = document.getElementById('cp-actions');
+    actions.innerHTML = '';
+    data.actions.forEach(action => {
+      const btn = document.createElement('button');
+      btn.className = 'cp-action';
+      btn.type = 'button';
+      btn.textContent = action;
+      btn.onclick = () => alert('AI action queued: ' + action + ' (prototype behavior).');
+      actions.appendChild(btn);
+    });
+
+    document.getElementById('cp-why').textContent = data.why;
+  }
+
+  function askCopilot() {
+    const input = document.getElementById('cp-input');
+    const value = input.value.trim();
+    if (!value) return;
+    alert('Copilot received: ' + value + ' (prototype behavior).');
+    input.value = '';
+  }
+
   function toggleSection(header) {
     const body = header.nextElementSibling;
     const toggle = header.querySelector('.as-toggle');
     body.classList.toggle('hidden');
     toggle.classList.toggle('open');
+    const title = header.querySelector('.as-title')?.textContent;
+    if (title) updateCopilotPanel(title);
   }
 
   function toggleRec(cb) {
     const text = cb.closest('.rec-row').querySelector('.rec-text');
     text.classList.toggle('checked', !cb.checked);
     updateCount();
+    updateCopilotPanel('AI Recommendations');
   }
 
   function updateCount() {
@@ -535,6 +740,8 @@
     note.textContent = 'Summary exported · analysis_synthesis_report.pdf';
     setTimeout(() => { note.textContent = orig; }, 2500);
   }
+
+  updateCopilotPanel('Key Trends');
 </script>
 
 </body>
