@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review &amp; Refresh Module — AI Curriculum Review &amp; Design</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: #fff; }
+    .flow-shell { min-height: calc(100vh - var(--topbar-height)); }
+    .flow-wrap { max-width: 1040px; margin: 0 auto; padding: 28px 28px 90px; }
+
+    .mini-steps {
+      display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+      padding: 10px 0 18px; border-bottom: 1px solid var(--color-border);
+      margin-bottom: 22px;
+    }
+    .mini-step {
+      display: inline-flex; gap: 8px; align-items: center;
+      color: var(--color-text-tertiary); font-size: 12px;
+    }
+    .mini-step-dot {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 1px solid currentColor; display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 700;
+    }
+    .mini-step.active { color: var(--color-text-primary); font-weight: 700; }
+    .mini-step.active .mini-step-dot { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .mini-step.done { color: #666; }
+    .mini-step.done .mini-step-dot { background: #666; color: #fff; border-color: #666; }
+    .mini-sep { color: #d0d0d0; }
+
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    .hero-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--color-text-tertiary); margin-bottom: 8px;
+    }
+    .hero-title { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .hero-sub { color: var(--color-text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 24px; max-width: 760px; }
+
+    .callout {
+      border: 1px solid var(--color-border); background: #fafafa; padding: 12px 14px; margin-bottom: 14px;
+      font-size: 12px; color: #555; line-height: 1.5;
+    }
+    .callout strong { color: #1a1a1a; }
+
+    .card {
+      border: 1px solid var(--color-border); background: #fff; padding: 18px; margin-bottom: 14px;
+    }
+    .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .card-title { font-size: 14px; font-weight: 700; }
+    .state-pill {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+      border: 1px solid #ddd; background: #fafafa; color: #777;
+      border-radius: 999px; padding: 2px 8px;
+    }
+
+    .import-row { display: flex; gap: 8px; }
+    .input,
+    .select,
+    .textarea {
+      width: 100%; border: 1px solid #d4d4d4; padding: 10px 12px; font-size: 13px;
+      outline: none; font-family: inherit; background: #fff;
+    }
+    .input:focus,
+    .select:focus,
+    .textarea:focus { border-color: #888; }
+    .textarea { min-height: 76px; resize: vertical; }
+
+    .btn {
+      border: 1px solid #d0d0d0; background: #fff; color: #555; padding: 9px 14px;
+      font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit;
+    }
+    .btn:hover { border-color: #888; color: #1a1a1a; }
+    .btn.primary { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .btn.primary:hover { background: #333; }
+    .btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+    .loaded-list { margin-top: 10px; display: flex; flex-direction: column; gap: 7px; }
+    .loaded-item { display: flex; gap: 8px; align-items: center; color: #555; font-size: 12px; }
+    .file-chip { font-size: 10px; font-weight: 700; border: 1px solid #ddd; padding: 2px 6px; color: #777; background: #f7f7f7; }
+
+    .split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 12px; }
+
+    .checks { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .check {
+      border: 1px solid #ddd; padding: 12px; cursor: pointer; background: #fff;
+      display: flex; gap: 9px; align-items: flex-start;
+    }
+    .check:hover { border-color: #9c9c9c; }
+    .check.on { border-color: #1a1a1a; background: #f8f8f8; }
+    .check-cb {
+      width: 15px; height: 15px; border: 1px solid #c7c7c7; margin-top: 1px;
+      display: flex; align-items: center; justify-content: center; font-size: 9px;
+    }
+    .check.on .check-cb { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .check-name { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+    .check-sub { font-size: 11px; color: #888; }
+
+    .field-row { display: flex; gap: 8px; margin-bottom: 8px; }
+    .field { flex: 1; }
+    .label { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; color: #999; text-transform: uppercase; margin-bottom: 5px; }
+
+    .prompt-list { display: flex; flex-direction: column; gap: 8px; }
+    .prompt-item { border: 1px solid #e1e1e1; background: #fff; padding: 9px 10px; font-size: 12px; color: #555; line-height: 1.45; }
+
+    .findings-shell { display: grid; grid-template-columns: 220px 1fr; border: 1px solid var(--color-border); }
+    .findings-nav { border-right: 1px solid var(--color-border); background: #fafafa; }
+    .findings-nav button {
+      width: 100%; text-align: left; border: none; background: transparent; cursor: pointer;
+      padding: 10px 12px; font-size: 12px; color: #777; border-left: 2px solid transparent;
+      font-family: inherit;
+    }
+    .findings-nav button.active { color: #1a1a1a; font-weight: 700; border-left-color: #1a1a1a; background: #f0f0f0; }
+    .findings-main { padding: 14px; }
+
+    .finding { border: 1px solid #e5e5e5; padding: 12px; margin-bottom: 8px; }
+    .finding-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .finding-sub { font-size: 12px; color: #666; line-height: 1.55; }
+
+    .hmis-grid { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px; }
+    .hmis-grid th, .hmis-grid td { border: 1px solid #e3e3e3; padding: 7px 8px; vertical-align: top; }
+    .hmis-grid th { background: #fafafa; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; text-align: left; }
+    .status-weak { color: #7a5a00; font-weight: 700; }
+    .status-missing { color: #8a2d2d; font-weight: 700; }
+    .status-ok { color: #2f6f3d; font-weight: 700; }
+
+    details.rubric-ref { margin-top: 10px; border: 1px solid #e2e2e2; background: #fafafa; }
+    details.rubric-ref summary { cursor: pointer; list-style: none; padding: 8px 10px; font-size: 12px; font-weight: 700; }
+    details.rubric-ref summary::-webkit-details-marker { display: none; }
+    .rubric-body { padding: 0 10px 10px; }
+    .rubric-block { border: 1px solid #ececec; background: #fff; padding: 8px; margin-top: 8px; }
+    .rubric-title { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+    .rubric-lines { margin: 0; padding-left: 15px; color: #666; font-size: 11px; line-height: 1.45; }
+
+    .recommendation { border: 1px solid #e2e2e2; padding: 12px; margin-bottom: 8px; display: flex; gap: 9px; }
+    .recommendation.on { border-color: #1a1a1a; background: #fafafa; }
+    .rec-cb {
+      width: 16px; height: 16px; border: 1px solid #c7c7c7; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center; font-size: 9px;
+    }
+    .recommendation.on .rec-cb { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .rec-title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+    .rec-sub { font-size: 12px; color: #666; line-height: 1.5; }
+
+    .footer-actions { margin-top: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .muted { font-size: 12px; color: #888; }
+
+    @media (max-width: 920px) {
+      .split, .checks { grid-template-columns: 1fr; }
+      .findings-shell { grid-template-columns: 1fr; }
+      .findings-nav { border-right: none; border-bottom: 1px solid var(--color-border); display: flex; overflow-x: auto; }
+      .findings-nav button { white-space: nowrap; border-left: none; border-bottom: 2px solid transparent; }
+      .findings-nav button.active { border-bottom-color: #1a1a1a; }
+    }
+  </style>
+</head>
+<body>
+<header class="topbar" style="position: sticky; top: 0; z-index: 90;">
+  <a href="index.html" class="topbar-logo" style="text-decoration:none;">
+    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:26px; width:auto;">
+  </a>
+  <div class="topbar-divider"></div>
+  <span class="topbar-module-title">AI Curriculum Review &amp; Design</span>
+  <div class="topbar-actions">
+    <a href="index.html" class="btn btn-secondary btn-sm" style="text-decoration:none;">Home</a>
+    <a href="gather-context.html" class="btn btn-secondary btn-sm" style="text-decoration:none;">Context Workspace</a>
+  </div>
+</header>
+
+<div class="flow-shell">
+  <div class="flow-wrap">
+    <div class="mini-steps" id="mini-steps">
+      <div class="mini-step active" data-step="1"><span class="mini-step-dot">1</span><span>Import Existing Module</span></div>
+      <span class="mini-sep">›</span>
+      <div class="mini-step" data-step="2"><span class="mini-step-dot">2</span><span>Select Review Scope</span></div>
+      <span class="mini-sep">›</span>
+      <div class="mini-step" data-step="3"><span class="mini-step-dot">3</span><span>Review Findings</span></div>
+      <span class="mini-sep">›</span>
+      <div class="mini-step" data-step="4"><span class="mini-step-dot">4</span><span>Apply Updates</span></div>
+    </div>
+
+    <section class="screen active" id="screen-1">
+      <div class="hero-label">Step 1 of 4</div>
+      <div class="hero-title">Import Existing Module</div>
+      <div class="hero-sub">Load an existing module, then review either the whole module or a specific communication-related activity against HMIS gold standards.</div>
+
+      <div class="callout"><strong>Use case focus:</strong> support lecturers across domains (for example, Design Communication) to design and assess foundational communication competencies with AI-assisted refinement.</div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Module Source</div>
+          <span class="state-pill" id="import-state">Not Loaded</span>
+        </div>
+        <div class="import-row">
+          <input class="input" id="module-code" value="ICT1234" placeholder="Module code (e.g. ICT1234)">
+          <button class="btn primary" onclick="loadModule()">Load Sample</button>
+        </div>
+        <div class="loaded-list" id="loaded-files" style="display:none;">
+          <div class="loaded-item"><span class="file-chip">XLS</span><span>ICT1234_MDD_AY2526S1.xlsx</span></div>
+          <div class="loaded-item"><span class="file-chip">PDF</span><span>ICT1234_Assessment_Brief.pdf</span></div>
+          <div class="loaded-item"><span class="file-chip">DOCX</span><span>ICT1234_Comms_Rubric_Draft.docx</span></div>
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <span class="muted">Prototype loads sample records for walkthrough.</span>
+        <button class="btn primary" id="to-step-2" onclick="goStep(2)" disabled>Continue</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-2">
+      <div class="hero-label">Step 2 of 4</div>
+      <div class="hero-title">Select Review Scope</div>
+      <div class="hero-sub">Choose a review mode: whole module checks, or targeted activity review against HMIS communication standards.</div>
+
+      <div class="split">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Whole Module Checks</div></div>
+          <div class="checks" id="checks">
+            <div class="check on" data-check="Assessment Framework" onclick="toggleCheck(this)">
+              <div class="check-cb">✓</div>
+              <div><div class="check-name">Assessment Framework</div><div class="check-sub">Weights, compliance, timing</div></div>
+            </div>
+            <div class="check on" data-check="NPGC Coverage" onclick="toggleCheck(this)">
+              <div class="check-cb">✓</div>
+              <div><div class="check-name">NPGC Coverage</div><div class="check-sub">Coverage gaps by competency</div></div>
+            </div>
+            <div class="check" data-check="Outcome Quality" onclick="toggleCheck(this)">
+              <div class="check-cb"></div>
+              <div><div class="check-name">Outcome Quality</div><div class="check-sub">Bloom's and wording checks</div></div>
+            </div>
+            <div class="check on" data-check="Schedule Spread" onclick="toggleCheck(this)">
+              <div class="check-cb">✓</div>
+              <div><div class="check-name">Schedule Spread</div><div class="check-sub">Assessment clustering and pacing</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><div class="card-title">Specific Activity Review (Optional)</div></div>
+
+          <div class="field-row">
+            <div class="field">
+              <div class="label">Activity</div>
+              <select class="select" id="activity-select">
+                <option value="">No specific activity selected</option>
+                <option value="A4 Team Project Presentation">A4 Team Project Presentation</option>
+                <option value="CA2 Lab Demo">CA2 Lab Demo</option>
+                <option value="Design Pitch Crit">Design Pitch Crit</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <div class="label">HMIS Alignment Mode</div>
+              <label style="display:flex; gap:8px; align-items:center; font-size:12px; color:#555;">
+                <input id="hmis-mode" type="checkbox" checked>
+                Use HMIS toolkit + rubric as gold standard
+              </label>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <div class="label">Lecturer Notes (Optional)</div>
+              <textarea id="activity-notes" class="textarea" placeholder="What do students currently struggle with in this activity?"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-title">AI Prompt Studio (for Module Designers)</div></div>
+        <div class="prompt-list">
+          <div class="prompt-item">1. Learn more about what communication skills are required in this module.</div>
+          <div class="prompt-item">2. Generate lesson activity ideas to practise these communication skills.</div>
+          <div class="prompt-item">3. Generate communication rubrics contextualised to this module.</div>
+          <div class="prompt-item">4. Align observed student presentation performance to rubric bands.</div>
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <button class="btn" onclick="goStep(1)">Back</button>
+        <button class="btn primary" onclick="runReview()">Run Review</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-3">
+      <div class="hero-label">Step 3 of 4</div>
+      <div class="hero-title">Review Findings</div>
+      <div class="hero-sub">Review findings by area. For activity-level comms review, AI compares your current activity criteria against HMIS gold standards and suggests refinements.</div>
+
+      <div class="findings-shell">
+        <nav class="findings-nav" id="findings-nav"></nav>
+        <div class="findings-main" id="findings-content"></div>
+      </div>
+
+      <div class="footer-actions">
+        <button class="btn" onclick="goStep(2)">Back</button>
+        <button class="btn primary" onclick="goStep(4)">Continue</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-4">
+      <div class="hero-label">Step 4 of 4</div>
+      <div class="hero-title">Apply Updates</div>
+      <div class="hero-sub">Select refinements to apply now. Continue to editor for final wording and module-specific tailoring.</div>
+
+      <div id="recommendations"></div>
+
+      <div class="footer-actions">
+        <span class="muted"><strong id="selected-count">0</strong> updates selected</span>
+        <div>
+          <button class="btn" onclick="goStep(3)">Back</button>
+          <a href="mdd-editor.html" class="btn primary" style="text-decoration:none; display:inline-flex; align-items:center;">Apply &amp; Open Editor</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+  const baseFindings = {
+    "Assessment Framework": [
+      { title: "Group project weight exceeds guideline", detail: "Current group component is 35%. Suggested update: rebalance to 28-30%." },
+      { title: "Mid-semester assessment is light", detail: "CA1 is below 20%. Suggested update: increase CA1 to 20%." }
+    ],
+    "NPGC Coverage": [
+      { title: "Self-Development has weak/no coverage", detail: "Suggested update: add one reflective MO mapped to Self-Development." }
+    ],
+    "Outcome Quality": [
+      { title: "No Evaluate/Create level outcome", detail: "Suggested update: add one Evaluate-level module outcome for stronger rigor." }
+    ],
+    "Schedule Spread": [
+      { title: "Week 16 assessment cluster", detail: "A3 and A4 are due in the same week. Suggested update: move A3 to Week 15." }
+    ]
+  };
+
+  let activeAreas = [];
+  let activeTab = '';
+  let reviewActivity = '';
+  let useHMIS = true;
+
+  let mockRecommendations = [];
+
+  function setStepper(step) {
+    document.querySelectorAll('.mini-step').forEach(el => {
+      const n = Number(el.dataset.step);
+      el.classList.remove('active', 'done');
+      if (n < step) {
+        el.classList.add('done');
+        el.querySelector('.mini-step-dot').textContent = '✓';
+      } else {
+        el.querySelector('.mini-step-dot').textContent = String(n);
+      }
+      if (n === step) el.classList.add('active');
+    });
+  }
+
+  function goStep(step) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + step).classList.add('active');
+    setStepper(step);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function loadModule() {
+    document.getElementById('loaded-files').style.display = 'flex';
+    const st = document.getElementById('import-state');
+    st.textContent = 'Loaded';
+    st.style.borderColor = '#1a1a1a';
+    st.style.color = '#1a1a1a';
+    document.getElementById('to-step-2').disabled = false;
+  }
+
+  function toggleCheck(el) {
+    el.classList.toggle('on');
+    const cb = el.querySelector('.check-cb');
+    cb.textContent = el.classList.contains('on') ? '✓' : '';
+  }
+
+  function runReview() {
+    activeAreas = Array.from(document.querySelectorAll('.check.on')).map(el => el.dataset.check);
+    reviewActivity = document.getElementById('activity-select').value;
+    useHMIS = document.getElementById('hmis-mode').checked;
+
+    if (reviewActivity) {
+      activeAreas.unshift('Selected Activity');
+      if (useHMIS) activeAreas.unshift('HMIS Comms Alignment');
+    }
+
+    if (!activeAreas.length) return;
+
+    activeTab = activeAreas[0];
+    buildRecommendations();
+    renderFindings();
+    renderRecommendations();
+    goStep(3);
+  }
+
+  function renderFindings() {
+    const nav = document.getElementById('findings-nav');
+    const content = document.getElementById('findings-content');
+
+    nav.innerHTML = '';
+    activeAreas.forEach(area => {
+      const b = document.createElement('button');
+      b.textContent = area;
+      if (area === activeTab) b.classList.add('active');
+      b.onclick = () => { activeTab = area; renderFindings(); };
+      nav.appendChild(b);
+    });
+
+    if (activeTab === 'HMIS Comms Alignment') {
+      content.innerHTML =
+        '<div class="finding">' +
+          '<div class="finding-title">HMIS Gold-Standard Alignment · ' + (reviewActivity || 'Selected Activity') + '</div>' +
+          '<div class="finding-sub">AI compares your current activity criteria with HMIS presentation competencies and suggests rubric refinements.</div>' +
+          '<table class="hmis-grid">' +
+            '<thead><tr><th>Criterion</th><th>Current Coverage</th><th>Status</th><th>AI Refinement</th></tr></thead>' +
+            '<tbody>' +
+              '<tr><td>Verbal Skills</td><td>General "clarity" criterion only</td><td class="status-weak">Partial</td><td>Add explicit descriptors for structure, signposting, active voice, and concise wording.</td></tr>' +
+              '<tr><td>Non-Verbal Skills</td><td>No explicit criterion</td><td class="status-missing">Missing</td><td>Add criterion with eye contact, posture, purposeful gestures, and facial expression bands.</td></tr>' +
+              '<tr><td>Language &amp; Visual Aids</td><td>Slide quality mentioned broadly</td><td class="status-weak">Partial</td><td>Add band descriptors for visual design quality and APA usage.</td></tr>' +
+              '<tr><td>Vocal Techniques</td><td>No explicit pitch/tone/pace checks</td><td class="status-missing">Missing</td><td>Embed pitch, tone, volume, pace indicators under Verbal criteria.</td></tr>' +
+            '</tbody>' +
+          '</table>' +
+          '<details class="rubric-ref">' +
+            '<summary>HMIS Gold Standard Reference</summary>' +
+            '<div class="rubric-body">' +
+              '<div class="rubric-block"><div class="rubric-title">Verbal Techniques</div><ul class="rubric-lines"><li>Clear main message and strong opening hook</li><li>Logical structure and signposting language</li><li>Concise wording, active voice, strong closing</li></ul></div>' +
+              '<div class="rubric-block"><div class="rubric-title">Non-Verbal Techniques</div><ul class="rubric-lines"><li>Purposeful gestures and open palms</li><li>Eye contact across audience, natural expression</li><li>Upright posture and controlled movement</li></ul></div>' +
+              '<div class="rubric-block"><div class="rubric-title">Vocal Techniques</div><ul class="rubric-lines"><li>Pitch variation and tone matching intent</li><li>Volume control for emphasis</li><li>Pace control with strategic pauses</li></ul></div>' +
+            '</div>' +
+          '</details>' +
+        '</div>';
+      return;
+    }
+
+    if (activeTab === 'Selected Activity') {
+      const notes = document.getElementById('activity-notes').value.trim();
+      content.innerHTML =
+        '<div class="finding">' +
+          '<div class="finding-title">Activity Focus · ' + reviewActivity + '</div>' +
+          '<div class="finding-sub">Targeted review is active. AI will prioritise module-specific communication performance evidence and rubric wording for this activity.' + (notes ? ' Lecturer note captured for context.' : '') + '</div>' +
+        '</div>' +
+        '<div class="finding">' +
+          '<div class="finding-title">Suggested refinement direction</div>' +
+          '<div class="finding-sub">Define observable descriptors per band (A/A+ to F) for delivery, audience engagement, and language precision. Keep criteria compact for grading reliability.</div>' +
+        '</div>';
+      return;
+    }
+
+    content.innerHTML = '';
+    const rows = baseFindings[activeTab] || [];
+    rows.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'finding';
+      card.innerHTML = '<div class="finding-title">' + item.title + '</div><div class="finding-sub">' + item.detail + '</div>';
+      content.appendChild(card);
+    });
+  }
+
+  function buildRecommendations() {
+    mockRecommendations = [
+      { title: 'Reduce A3 group weight to 28%', detail: 'Brings group assessment within guideline.', on: true },
+      { title: 'Increase CA1 to 20%', detail: 'Adds stronger mid-semester checkpoint.', on: true }
+    ];
+
+    if (activeAreas.includes('HMIS Comms Alignment')) {
+      mockRecommendations.push(
+        { title: 'Add HMIS Verbal descriptors to rubric bands', detail: 'Include structure, signposting, concise language, and closing quality across bands.', on: true },
+        { title: 'Add Non-Verbal criterion with band descriptors', detail: 'Eye contact, posture, gestures, and facial expression mapped A/A+ to F.', on: true },
+        { title: 'Embed Vocal technique indicators', detail: 'Pitch, tone, volume, and pace descriptors to improve feedback quality.', on: false },
+        { title: 'Contextualise examples to this module domain', detail: 'Use discipline-relevant communication scenarios for grading examples.', on: true }
+      );
+    }
+
+    if (activeAreas.includes('Selected Activity')) {
+      mockRecommendations.push(
+        { title: 'Create activity-specific rubric version for ' + reviewActivity, detail: 'Keeps gold standard while adapting wording to actual task context.', on: true }
+      );
+    }
+
+    if (activeAreas.includes('NPGC Coverage')) {
+      mockRecommendations.push(
+        { title: 'Add reflective MO for Self-Development', detail: 'Closes gap and strengthens communication self-improvement framing.', on: false }
+      );
+    }
+  }
+
+  function renderRecommendations() {
+    const root = document.getElementById('recommendations');
+    root.innerHTML = '';
+
+    mockRecommendations.forEach(rec => {
+      const row = document.createElement('div');
+      row.className = 'recommendation' + (rec.on ? ' on' : '');
+      row.innerHTML =
+        '<div class="rec-cb">' + (rec.on ? '✓' : '') + '</div>' +
+        '<div><div class="rec-title">' + rec.title + '</div><div class="rec-sub">' + rec.detail + '</div></div>';
+      row.onclick = () => {
+        rec.on = !rec.on;
+        renderRecommendations();
+      };
+      root.appendChild(row);
+    });
+
+    updateSelectedCount();
+  }
+
+  function updateSelectedCount() {
+    const count = mockRecommendations.filter(r => r.on).length;
+    document.getElementById('selected-count').textContent = String(count);
+  }
+</script>
+</body>
+</html>
