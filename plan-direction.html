@@ -58,6 +58,21 @@
       display: flex; gap: 6px; flex-wrap: wrap;
       margin-bottom: 12px;
     }
+    .workspace-tools {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 12px;
+    }
+    .copilot-launch {
+      border: 1px solid #1a1a1a;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 7px 11px;
+      cursor: pointer;
+    }
+    .copilot-launch:hover { background: #333; border-color: #333; }
     .ws-tab {
       font-size: 11px; color: #777; border: 1px solid #d9d9d9;
       padding: 5px 10px; background: #fafafa;
@@ -344,43 +359,38 @@
     .ai-card { background: #fffef8; border-color: #e8d990; }
     .ai-card .work-title { color: #7a5f00; }
 
-    .copilot-fab {
+    .ai-modal-backdrop {
       position: fixed;
-      right: 24px;
-      bottom: 76px;
-      border: 1px solid #1a1a1a;
-      background: #1a1a1a;
-      color: #fff;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 8px 12px;
-      cursor: pointer;
-      z-index: 80;
+      inset: 0;
+      background: rgba(26, 26, 26, 0.35);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 90;
     }
-    .ai-drawer {
-      position: fixed;
-      right: -360px;
-      top: 92px;
-      width: 340px;
-      height: calc(100vh - 168px);
+    .ai-modal-backdrop.open { display: flex; }
+    .ai-modal {
+      width: min(640px, 100%);
       border: 1px solid #e4e4e4;
       background: #fff;
-      z-index: 75;
-      transition: right 180ms;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      max-height: calc(100vh - 80px);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
     }
-    .ai-drawer.open { right: 24px; }
     .ai-head {
-      padding: 10px 12px;
+      padding: 12px 14px;
       border-bottom: 1px solid #efefef;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-shrink: 0;
     }
     .ai-head-title { font-size: 12px; font-weight: 700; color: #7a5f00; }
     .ai-close { border: 1px solid #d9d9d9; background: #fff; color: #666; font-size: 11px; padding: 4px 7px; cursor: pointer; }
-    .ai-body { padding: 10px 12px; overflow: auto; }
+    .ai-body { padding: 12px 14px; overflow: auto; }
   </style>
 </head>
 <body>
@@ -441,6 +451,10 @@
     <span class="ws-tab">Draft &amp; Refine</span>
     <span class="ws-tab">Review &amp; Alignment</span>
     <span class="ws-tab">Export &amp; Resources</span>
+  </div>
+
+  <div class="workspace-tools">
+    <button class="copilot-launch" type="button" onclick="toggleAIModal(true)">✦ AI Copilot</button>
   </div>
 
   <div class="review-config" id="review-config">
@@ -840,23 +854,24 @@
   </div>
 </div>
 
-<button class="copilot-fab" id="copilot-fab" onclick="toggleAIDrawer()">✦ AI Copilot</button>
-<aside class="ai-drawer" id="ai-drawer">
-  <div class="ai-head">
-    <div class="ai-head-title">AI Copilot</div>
-    <button class="ai-close" onclick="toggleAIDrawer(false)">Close</button>
-  </div>
-  <div class="ai-body">
-    <div class="sugg-item">Prioritise outcomes that map to GC1, GC2, and GC4 first.</div>
-    <div class="sugg-item">Draft assessments early so learning activities can align to evidence needs.</div>
-    <div class="sugg-item">Use industry examples as prompts inside activities for stronger authenticity.</div>
-    <div class="sugg-actions">
-      <button class="btn-mini">Accept</button>
-      <button class="btn-mini">Refine</button>
-      <button class="btn-mini">Suggest alternatives</button>
+<div class="ai-modal-backdrop" id="ai-modal-backdrop" onclick="backdropClose(event)">
+  <div class="ai-modal" role="dialog" aria-modal="true" aria-label="AI Copilot guidance">
+    <div class="ai-head">
+      <div class="ai-head-title">AI Copilot</div>
+      <button class="ai-close" type="button" onclick="toggleAIModal(false)">Close</button>
+    </div>
+    <div class="ai-body">
+      <div class="sugg-item">Prioritise outcomes that map to GC1, GC2, and GC4 first.</div>
+      <div class="sugg-item">Draft assessments early so learning activities can align to evidence needs.</div>
+      <div class="sugg-item">Use industry examples as prompts inside activities for stronger authenticity.</div>
+      <div class="sugg-actions">
+        <button class="btn-mini">Accept</button>
+        <button class="btn-mini">Refine</button>
+        <button class="btn-mini">Suggest alternatives</button>
+      </div>
     </div>
   </div>
-</aside>
+</div>
 
 <script>
   // ── Steppers ──
@@ -946,10 +961,15 @@
     document.getElementById('flag-assessment').textContent = assessmentFlags + ' assessment flag' + (assessmentFlags !== 1 ? 's' : '');
   }
 
-  function toggleAIDrawer(forceOpen) {
-    const drawer = document.getElementById('ai-drawer');
-    const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !drawer.classList.contains('open');
-    drawer.classList.toggle('open', shouldOpen);
+  function toggleAIModal(forceOpen) {
+    const modal = document.getElementById('ai-modal-backdrop');
+    const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !modal.classList.contains('open');
+    modal.classList.toggle('open', shouldOpen);
+    document.body.style.overflow = shouldOpen ? 'hidden' : '';
+  }
+
+  function backdropClose(e) {
+    if (e.target.id === 'ai-modal-backdrop') toggleAIModal(false);
   }
 
   // Initialise
@@ -1001,6 +1021,10 @@
       section.classList.remove('collapsed');
       section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') toggleAIModal(false);
   });
 </script>
 
