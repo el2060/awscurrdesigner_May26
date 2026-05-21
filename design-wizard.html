@@ -473,35 +473,32 @@
   <div class="build-workspace">
     <div class="work-card">
       <h3>Select Sections to Draft</h3>
-      <div class="sequence-helper">
-        <div class="sequence-title">Recommended sequence</div>
-        <div class="sequence-text">Start with core structure before moving into supporting content.</div>
-        <ol class="sequence-list">
-          <li>Learning Outcomes</li>
-          <li>Assessment Plan</li>
-          <li>Weekly Learning Activities</li>
-          <li>Teaching Resources</li>
-        </ol>
-        <button class="mini-btn primary" type="button" onclick="applySuggestedSequence()">Apply Recommended Sequence</button>
-      </div>
-      <!-- AI Drafting Signal removed for demo clarity — keep section list as primary focus -->
+      <div class="plan-hint" style="margin-bottom:10px;">Each section maps to a part of the NP Module Document. AI drafts the selected sections using your planning inputs.</div>
 
       <div class="scope-grid" id="scope-grid">
+        <div class="scope-item on" data-label="Synopsis &amp; Aims" data-time="~2s" onclick="toggleScope(this)">
+          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Synopsis &amp; Aims</div></div>
+          <div class="scope-sub">Draft module synopsis and intent statement.</div>
+        </div>
         <div class="scope-item on" data-label="Module Learning Outcomes" data-time="~3s" onclick="toggleScope(this)">
           <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Module Learning Outcomes</div></div>
-          <div class="scope-sub">Draft and refine outcomes with competency links.</div>
+          <div class="scope-sub">Draft MOs with NPGC mapping.</div>
         </div>
-        <div class="scope-item on" data-label="Weekly Learning Activities" data-time="~3s" onclick="toggleScope(this)">
-          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Weekly Learning Activities</div></div>
-          <div class="scope-sub">Draft weekly activities and sequencing.</div>
+        <div class="scope-item on" data-label="Content: Topics &amp; Hours" data-time="~3s" onclick="toggleScope(this)">
+          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Content: Topics &amp; Hours</div></div>
+          <div class="scope-sub">Draft topic breakdown with lecture and online hours.</div>
         </div>
         <div class="scope-item on" data-label="Assessment Plan" data-time="~2s" onclick="toggleScope(this)">
           <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Assessment Plan</div></div>
-          <div class="scope-sub">Build components, weightings, and coverage.</div>
+          <div class="scope-sub">Components, weightings, and MO coverage.</div>
         </div>
-        <div class="scope-item" data-label="Draft Teaching Resources" data-time="~2s" onclick="toggleScope(this)">
-          <div class="scope-top"><div class="scope-cb"></div><div class="scope-name">Draft Teaching Resources</div><span class="state-pill">Not Started</span></div>
-          <div class="scope-sub">Draft resources, prompts, and slide outlines.</div>
+        <div class="scope-item" data-label="Teaching &amp; Learning Strategies" data-time="~2s" onclick="toggleScope(this)">
+          <div class="scope-top"><div class="scope-cb"></div><div class="scope-name">Teaching &amp; Learning Strategies</div></div>
+          <div class="scope-sub">Elaborate selected pedagogical approaches.</div>
+        </div>
+        <div class="scope-item" data-label="Learning Resources &amp; References" data-time="~2s" onclick="toggleScope(this)">
+          <div class="scope-top"><div class="scope-cb"></div><div class="scope-name">Learning Resources &amp; References</div><span class="state-pill">Optional</span></div>
+          <div class="scope-sub">Draft recommended readings and resources.</div>
         </div>
       </div>
       <div class="action-row">
