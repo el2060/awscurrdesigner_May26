@@ -73,6 +73,12 @@
     .focus-item.on .focus-cb { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
     .focus-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
     .focus-sub { font-size: 11px; color: #989898; line-height: 1.35; }
+    .state-pill {
+      margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+      padding: 2px 7px; border-radius: 999px; border: 1px solid #dcdcdc;
+      color: #777; background: #fafafa;
+    }
+    .state-pill.ai { color: #4f3f00; background: #fff7d6; border-color: #ecd88f; }
 
     /* ── Layout ── */
     .layout { display: flex; gap: 28px; align-items: flex-start; }
@@ -289,14 +295,14 @@
 <main class="page">
 
   <div class="page-title">Plan Curriculum Direction</div>
-  <div class="page-sub">Set your module direction first. These choices guide what AI generates next.</div>
+  <div class="page-sub">Set your module direction first. These choices guide what AI drafts next.</div>
 
   <div class="workspace-tabs">
     <span class="ws-tab">Context Workspace</span>
-    <span class="ws-tab active">Curriculum Planning</span>
-    <span class="ws-tab">Build &amp; Refine</span>
+    <span class="ws-tab active">Plan Curriculum</span>
+    <span class="ws-tab">Draft &amp; Refine</span>
     <span class="ws-tab">Review &amp; Alignment</span>
-    <span class="ws-tab">Export &amp; Materials</span>
+    <span class="ws-tab">Export &amp; Resources</span>
   </div>
 
   <div class="work-panel">
@@ -321,7 +327,7 @@
         <div class="sugg-actions">
           <button class="btn-mini">Accept</button>
           <button class="btn-mini">Refine</button>
-          <button class="btn-mini">Generate alternatives</button>
+          <button class="btn-mini">Suggest alternatives</button>
         </div>
       </div>
     </div>
@@ -331,12 +337,12 @@
 
     <div class="layout-main">
 
-      <!-- Section A: Module Identity -->
+      <!-- Section A: Module Overview -->
       <div class="plan-section">
         <div class="ps-header">
           <div class="ps-num">A</div>
-          <div class="ps-title">Module Identity</div>
-          <div class="ps-desc">Basic metadata that will populate the module document header</div>
+          <div class="ps-title">Module Overview</div>
+          <div class="ps-desc">Basic module information used across the module draft</div>
         </div>
         <div class="ps-body">
           <div class="field-row">
@@ -394,11 +400,11 @@
         </div>
       </div>
 
-      <!-- Section B: Curriculum Intent -->
+      <!-- Section B: Module Purpose & Direction -->
       <div class="plan-section">
         <div class="ps-header">
           <div class="ps-num">B</div>
-          <div class="ps-title">Curriculum Intent</div>
+          <div class="ps-title">Module Purpose &amp; Direction</div>
           <div class="ps-desc">What should this module equip students to do?</div>
         </div>
         <div class="ps-body">
@@ -416,12 +422,12 @@
         </div>
       </div>
 
-      <!-- Section C: Graduate Competencies -->
+      <!-- Section C: Priority Graduate Competencies -->
       <div class="plan-section">
         <div class="ps-header">
           <div class="ps-num">C</div>
-          <div class="ps-title">NP Graduate Competencies</div>
-          <div class="ps-desc">Select the competencies this module primarily develops</div>
+          <div class="ps-title">Priority Graduate Competencies</div>
+          <div class="ps-desc">Select the key competencies most emphasised in this module</div>
         </div>
         <div class="ps-body">
           <div class="npgc-grid" id="npgc-grid">
@@ -539,11 +545,11 @@
         </div>
       </div>
 
-      <!-- Section E: Teaching & Learning Approach -->
+      <!-- Section E: Teaching & Learning Strategies -->
       <div class="plan-section">
         <div class="ps-header">
           <div class="ps-num">E</div>
-          <div class="ps-title">Teaching &amp; Learning Approach</div>
+          <div class="ps-title">Teaching &amp; Learning Strategies</div>
           <div class="ps-desc">Shapes the T&amp;L strategies and teaching plan</div>
         </div>
         <div class="ps-body">
@@ -597,29 +603,29 @@
         </div>
       </div>
 
-      <!-- Section F: Build Focus -->
+      <!-- Section F: What Would You Like to Work On? -->
       <div class="plan-section">
         <div class="ps-header">
           <div class="ps-num">F</div>
-          <div class="ps-title">Choose What To Build First</div>
+          <div class="ps-title">What Would You Like to Work On?</div>
           <div class="ps-desc">Select specific sections to work on in the next step</div>
         </div>
         <div class="ps-body">
           <div class="build-focus-grid" id="build-focus-grid">
             <div class="focus-item on" onclick="toggleFocus(this)">
-              <div class="focus-top"><div class="focus-cb">✓</div><div class="focus-name">Module Learning Outcomes</div></div>
+              <div class="focus-top"><div class="focus-cb">✓</div><div class="focus-name">Module Learning Outcomes</div><span class="state-pill ai">AI Suggested</span></div>
               <div class="focus-sub">Draft and refine MOs with competency mapping.</div>
             </div>
             <div class="focus-item on" onclick="toggleFocus(this)">
-              <div class="focus-top"><div class="focus-cb">✓</div><div class="focus-name">T&amp;L Activities / SOW</div></div>
+              <div class="focus-top"><div class="focus-cb">✓</div><div class="focus-name">Weekly Learning Activities</div><span class="state-pill ai">AI Suggested</span></div>
               <div class="focus-sub">Create weekly activities and sequencing.</div>
             </div>
             <div class="focus-item on" onclick="toggleFocus(this)">
-              <div class="focus-top"><div class="focus-cb">✓</div><div class="focus-name">Assessment Plan</div></div>
+              <div class="focus-top"><div class="focus-cb">✓</div><div class="focus-name">Assessment Plan</div><span class="state-pill ai">AI Suggested</span></div>
               <div class="focus-sub">Design components, weightings, and coverage.</div>
             </div>
             <div class="focus-item" onclick="toggleFocus(this)">
-              <div class="focus-top"><div class="focus-cb"></div><div class="focus-name">Generate Materials</div></div>
+              <div class="focus-top"><div class="focus-cb"></div><div class="focus-name">Draft Teaching Resources</div><span class="state-pill">Not Started</span></div>
               <div class="focus-sub">Draft slides, prompts, and learner resources.</div>
             </div>
           </div>
@@ -704,7 +710,7 @@
 
 <!-- Bottom bar -->
 <div class="bottom-bar">
-  <div class="bb-note" id="bb-note">Complete this step, then generate your draft module</div>
+  <div class="bb-note" id="bb-note">Complete this step, then draft your module in guided passes</div>
   <div class="bb-actions">
     <a href="analyse-synthesise.html" class="btn-ghost">← Back to Analysis</a>
     <a href="design-wizard.html" class="btn-primary">Continue to Build Module →</a>
@@ -744,7 +750,17 @@
   function toggleFocus(el) {
     el.classList.toggle('on');
     const cb = el.querySelector('.focus-cb');
+    const state = el.querySelector('.state-pill');
     cb.textContent = el.classList.contains('on') ? '✓' : '';
+    if (state) {
+      if (el.classList.contains('on')) {
+        state.textContent = 'AI Suggested';
+        state.classList.add('ai');
+      } else {
+        state.textContent = 'Not Started';
+        state.classList.remove('ai');
+      }
+    }
     updateSummary();
   }
 

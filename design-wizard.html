@@ -80,6 +80,13 @@
     .scope-item.on .scope-cb { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
     .scope-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
     .scope-sub { font-size: 11px; color: #979797; line-height: 1.35; }
+    .state-pill {
+      margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+      padding: 2px 7px; border-radius: 999px; border: 1px solid #dcdcdc;
+      color: #777; background: #fafafa;
+    }
+    .state-pill.ai { color: #4f3f00; background: #fff7d6; border-color: #ecd88f; }
+    .state-pill.drafted { color: #1d6f2d; background: #e8f6eb; border-color: #b9e4c2; }
     .mini-row { display: flex; gap: 7px; margin-bottom: 7px; }
     .mini-input { width: 100%; border: 1px solid #d8d8d8; padding: 7px 9px; font-size: 12px; }
     .mini-btn { border: 1px solid #d2d2d2; background: #fff; font-size: 11px; color: #666; padding: 7px 9px; cursor: pointer; }
@@ -226,7 +233,7 @@
 <main class="page">
 
   <div class="page-title">Building your Module Document</div>
-  <div class="page-sub">After planning, AI generates your draft step-by-step. You can then refine sections and proceed to review/export.</div>
+  <div class="page-sub">After planning, AI helps draft your module step-by-step. You can refine sections and proceed to review/export.</div>
 
   <!-- Plan recap (carried from plan-direction) -->
   <div class="recap">
@@ -269,22 +276,22 @@
   <!-- Build workspace -->
   <div class="build-workspace">
     <div class="work-card">
-      <h3>Choose What To Build In This Pass</h3>
+      <h3>What Would You Like to Work On In This Pass?</h3>
       <div class="scope-grid" id="scope-grid">
         <div class="scope-item on" data-label="Module Learning Outcomes" data-time="~3s" onclick="toggleScope(this)">
-          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Module Learning Outcomes</div></div>
+          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Module Learning Outcomes</div><span class="state-pill ai">AI Suggested</span></div>
           <div class="scope-sub">Draft and refine outcomes with competency links.</div>
         </div>
-        <div class="scope-item on" data-label="T&amp;L Activities / SOW" data-time="~3s" onclick="toggleScope(this)">
-          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">T&amp;L Activities / SOW</div></div>
-          <div class="scope-sub">Generate weekly activities and sequencing.</div>
+        <div class="scope-item on" data-label="Weekly Learning Activities" data-time="~3s" onclick="toggleScope(this)">
+          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Weekly Learning Activities</div><span class="state-pill ai">AI Suggested</span></div>
+          <div class="scope-sub">Draft weekly activities and sequencing.</div>
         </div>
         <div class="scope-item on" data-label="Assessment Plan" data-time="~2s" onclick="toggleScope(this)">
-          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Assessment Plan</div></div>
+          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Assessment Plan</div><span class="state-pill ai">AI Suggested</span></div>
           <div class="scope-sub">Build components, weightings, and coverage.</div>
         </div>
-        <div class="scope-item" data-label="Generate Materials" data-time="~2s" onclick="toggleScope(this)">
-          <div class="scope-top"><div class="scope-cb"></div><div class="scope-name">Generate Materials</div></div>
+        <div class="scope-item" data-label="Draft Teaching Resources" data-time="~2s" onclick="toggleScope(this)">
+          <div class="scope-top"><div class="scope-cb"></div><div class="scope-name">Draft Teaching Resources</div><span class="state-pill">Not Started</span></div>
           <div class="scope-sub">Draft resources, prompts, and slide outlines.</div>
         </div>
       </div>
@@ -306,16 +313,16 @@
       </div>
       <textarea class="mini-input" placeholder="Optional: constraints, rubrics, or context for this generation pass" style="min-height:66px; resize:vertical;"></textarea>
       <div class="suggestion">AI suggestion: start with Learning Outcomes + Assessment Plan to lock intent and evidence early.</div>
-      <div class="suggestion">AI suggestion: add one industry reference before generating activities for stronger authenticity.</div>
+      <div class="suggestion">AI suggestion: add one industry reference before drafting activities for stronger authenticity.</div>
       <div class="action-row">
         <button class="mini-btn">Rewrite suggestion</button>
-        <button class="mini-btn">Generate alternatives</button>
+        <button class="mini-btn">Suggest alternatives</button>
       </div>
     </div>
   </div>
 
   <div class="action-row" style="margin-bottom:14px;">
-    <button class="mini-btn primary" onclick="startSelectedDraft()">Generate Selected Draft Sections</button>
+    <button class="mini-btn primary" onclick="startSelectedDraft()">Draft Selected Sections</button>
     <button class="mini-btn" onclick="resetDraftRun()">Reset run</button>
   </div>
 
@@ -324,7 +331,7 @@
     <div class="gen-header">
       <div class="gen-title">
         <div class="gen-spinner" id="overall-spinner"></div>
-        <span id="gen-title-text">Generating selected draft sections…</span>
+        <span id="gen-title-text">Drafting selected sections…</span>
       </div>
       <div class="gen-status" id="gen-status">0 selected</div>
     </div>
@@ -345,7 +352,7 @@
 
 <!-- Bottom bar -->
 <div class="bottom-bar">
-  <div class="bb-note" id="bb-note">Select sections, add context, then generate drafts in manageable passes</div>
+  <div class="bb-note" id="bb-note">Select sections, add context, then draft in manageable passes</div>
   <div class="bb-actions">
     <a href="plan-direction.html" class="btn-ghost">← Back to Planning</a>
   </div>
@@ -355,7 +362,26 @@
   function toggleScope(el) {
     el.classList.toggle('on');
     const cb = el.querySelector('.scope-cb');
+    const state = el.querySelector('.state-pill');
     cb.textContent = el.classList.contains('on') ? '✓' : '';
+    if (state) {
+      if (el.classList.contains('on')) {
+        state.textContent = 'AI Suggested';
+        state.className = 'state-pill ai';
+      } else {
+        state.textContent = 'Not Started';
+        state.className = 'state-pill';
+      }
+    }
+  }
+
+  function setScopeStateByLabel(label, stateText, stateClass) {
+    const item = Array.from(document.querySelectorAll('#scope-grid .scope-item')).find(el => el.dataset.label === label);
+    if (!item) return;
+    const state = item.querySelector('.state-pill');
+    if (!state) return;
+    state.textContent = stateText;
+    state.className = stateClass ? 'state-pill ' + stateClass : 'state-pill';
   }
 
   function selectedScopes() {
@@ -366,6 +392,7 @@
     document.querySelectorAll('#scope-grid .scope-item').forEach(el => {
       el.classList.add('on');
       el.querySelector('.scope-cb').textContent = '✓';
+      setScopeStateByLabel(el.dataset.label, 'AI Suggested', 'ai');
     });
   }
 
@@ -373,6 +400,7 @@
     document.querySelectorAll('#scope-grid .scope-item').forEach(el => {
       el.classList.remove('on');
       el.querySelector('.scope-cb').textContent = '';
+      setScopeStateByLabel(el.dataset.label, 'Not Started', '');
     });
   }
 
@@ -404,8 +432,14 @@
   function runNext() {
     const total = runSteps.length;
     if (runIndex >= total) {
+      if (total > 0) {
+        runSteps[total - 1].classList.remove('active');
+        runSteps[total - 1].classList.add('complete');
+        const finalLabel = runSteps[total - 1].querySelector('.gs-label')?.textContent;
+        if (finalLabel) setScopeStateByLabel(finalLabel, 'Drafted', 'drafted');
+      }
       document.getElementById('overall-spinner').classList.add('done');
-      document.getElementById('gen-title-text').textContent = 'Selected draft generation complete';
+      document.getElementById('gen-title-text').textContent = 'Selected section drafting complete';
       document.getElementById('gen-status').textContent = total + ' of ' + total + ' selected sections';
       document.getElementById('gen-status').classList.add('done');
       document.getElementById('done-card').classList.add('show');
@@ -416,6 +450,8 @@
     if (runIndex > 0) {
       runSteps[runIndex - 1].classList.remove('active');
       runSteps[runIndex - 1].classList.add('complete');
+      const completedLabel = runSteps[runIndex - 1].querySelector('.gs-label')?.textContent;
+      if (completedLabel) setScopeStateByLabel(completedLabel, 'Drafted', 'drafted');
     }
 
     runSteps[runIndex].classList.remove('pending');
@@ -428,13 +464,13 @@
   function startSelectedDraft() {
     const selected = selectedScopes();
     if (!selected.length) {
-      alert('Please select at least one section to generate.');
+      alert('Please select at least one section to draft.');
       return;
     }
 
     resetDraftRun();
     document.getElementById('gen-panel').classList.remove('hidden');
-    document.getElementById('bb-note').textContent = 'Generating selected sections...';
+    document.getElementById('bb-note').textContent = 'Drafting selected sections...';
     renderRunSteps(selected);
     runNext();
   }
@@ -443,12 +479,12 @@
     runIndex = 0;
     runSteps = [];
     document.getElementById('gen-steps').innerHTML = '';
-    document.getElementById('gen-title-text').textContent = 'Generating selected draft sections…';
+    document.getElementById('gen-title-text').textContent = 'Drafting selected sections…';
     document.getElementById('gen-status').textContent = '0 selected';
     document.getElementById('gen-status').classList.remove('done');
     document.getElementById('overall-spinner').classList.remove('done');
     document.getElementById('done-card').classList.remove('show');
-    document.getElementById('bb-note').textContent = 'Select sections, add context, then generate drafts in manageable passes';
+    document.getElementById('bb-note').textContent = 'Select sections, add context, then draft in manageable passes';
   }
 </script>
 

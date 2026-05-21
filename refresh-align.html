@@ -1,1163 +1,378 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Refresh &amp; Align — AI Curriculum Review &amp; Design</title>
+  <title>Review &amp; Refresh Module — AI Curriculum Review &amp; Design</title>
+  <link rel="stylesheet" href="styles.css">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', system-ui, sans-serif; background: #fff; color: #1a1a1a; min-height: 100vh; display: flex; flex-direction: column; font-size: 14px; }
+    body { background: #fff; }
+    .flow-shell { min-height: calc(100vh - var(--topbar-height)); }
+    .flow-wrap { max-width: 980px; margin: 0 auto; padding: 28px 28px 90px; }
 
-    /* ── Topbar ── */
-    .topbar { height: 52px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; padding: 0 32px; background: #fff; flex-shrink: 0; gap: 12px; }
-    .topbar-logo img { height: 26px; width: auto; }
-    .topbar-div { width: 1px; height: 16px; background: #e0e0e0; }
-    .topbar-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
-    .topbar-sub { font-size: 12px; color: #888; }
-    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-    .btn-top { font-size: 12px; font-family: inherit; padding: 6px 14px; border: 1px solid #d0d0d0; background: #fff; color: #555; cursor: pointer; transition: all 100ms; }
-    .btn-top:hover { border-color: #888; color: #1a1a1a; }
-    .btn-top.primary { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-    .topbar-avatar { width: 28px; height: 28px; background: #1a1a1a; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+    .mini-steps {
+      display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+      padding: 10px 0 18px; border-bottom: 1px solid var(--color-border);
+      margin-bottom: 22px;
+    }
+    .mini-step {
+      display: inline-flex; gap: 8px; align-items: center;
+      color: var(--color-text-tertiary); font-size: 12px;
+    }
+    .mini-step-dot {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 1px solid currentColor; display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 700;
+    }
+    .mini-step.active { color: var(--color-text-primary); font-weight: 700; }
+    .mini-step.active .mini-step-dot { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .mini-step.done { color: #666; }
+    .mini-step.done .mini-step-dot { background: #666; color: #fff; border-color: #666; }
+    .mini-sep { color: #d0d0d0; }
 
-    /* ── Step indicator ── */
-    .step-bar { border-bottom: 1px solid #e8e8e8; background: #fafafa; display: flex; align-items: center; padding: 0 32px; height: 44px; gap: 6px; font-size: 12px; flex-shrink: 0; }
-    .si { display: flex; align-items: center; gap: 6px; color: #bbb; }
-    .si.active { color: #1a1a1a; font-weight: 600; }
-    .si.done { color: #555; }
-    .si-num { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
-    .si.active .si-num { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-    .si.done .si-num { background: #555; color: #fff; border-color: #555; font-size: 10px; }
-    .si-sep { color: #ddd; margin: 0 2px; }
+    .screen { display: none; }
+    .screen.active { display: block; }
 
-    /* ── Screen container ── */
-    .screen { display: none; flex: 1; }
-    .screen.active { display: flex; flex-direction: column; }
+    .hero-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--color-text-tertiary); margin-bottom: 8px;
+    }
+    .hero-title { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .hero-sub { color: var(--color-text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 24px; max-width: 720px; }
 
-    /* ════════════════════════════════
-       SCREEN 1 — UPLOAD / IMPORT
-    ════════════════════════════════ */
-    .s1-wrap { max-width: 680px; margin: 0 auto; padding: 48px 32px 80px; width: 100%; }
-    .s1-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #999; margin-bottom: 10px; }
-    .s1-title { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 6px; }
-    .s1-sub { font-size: 13px; color: #888; margin-bottom: 32px; line-height: 1.6; }
+    .card {
+      border: 1px solid var(--color-border); background: #fff; padding: 18px; margin-bottom: 14px;
+    }
+    .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .card-title { font-size: 14px; font-weight: 700; }
+    .state-pill {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+      border: 1px solid #ddd; background: #fafafa; color: #777;
+      border-radius: 999px; padding: 2px 8px;
+    }
 
-    /* Quick load */
-    .quick-load { border: 1px solid #d0d0d0; padding: 20px 24px; margin-bottom: 28px; }
-    .quick-load-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #888; margin-bottom: 10px; }
-    .quick-load-row { display: flex; gap: 8px; align-items: center; }
-    .quick-input { flex: 1; font-family: inherit; font-size: 13px; padding: 9px 12px; border: 1px solid #d0d0d0; outline: none; color: #1a1a1a; }
-    .quick-input:focus { border-color: #888; }
-    .btn-load { font-family: inherit; font-size: 13px; font-weight: 600; padding: 9px 20px; background: #1a1a1a; color: #fff; border: none; cursor: pointer; white-space: nowrap; }
+    .import-row { display: flex; gap: 8px; }
+    .input {
+      flex: 1; border: 1px solid #d4d4d4; padding: 10px 12px; font-size: 13px;
+      outline: none; font-family: inherit;
+    }
+    .input:focus { border-color: #888; }
 
-    /* Loaded state */
-    .loaded-state { border: 1px solid #1a1a1a; background: #fafafa; padding: 16px 20px; margin-top: 12px; display: none; }
-    .loaded-state.visible { display: block; }
-    .loaded-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-    .loaded-check { width: 18px; height: 18px; background: #1a1a1a; color: #fff; font-size: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .loaded-title { font-size: 13px; font-weight: 700; color: #1a1a1a; }
-    .loaded-meta { font-size: 11px; color: #888; margin-top: 1px; }
-    .loaded-files { display: flex; flex-direction: column; gap: 6px; }
-    .loaded-file { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #555; }
-    .loaded-file-icon { width: 24px; height: 24px; background: #e8e8e8; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #555; flex-shrink: 0; }
-    .loaded-file-name { flex: 1; }
-    .loaded-file-size { color: #aaa; }
+    .btn {
+      border: 1px solid #d0d0d0; background: #fff; color: #555; padding: 9px 14px;
+      font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit;
+    }
+    .btn:hover { border-color: #888; color: #1a1a1a; }
+    .btn.primary { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .btn.primary:hover { background: #333; }
+    .btn[disabled] { opacity: 0.45; cursor: not-allowed; }
 
-    .divider-or { display: flex; align-items: center; gap: 12px; margin: 20px 0; color: #aaa; font-size: 12px; }
-    .divider-or::before, .divider-or::after { content: ''; flex: 1; height: 1px; background: #e8e8e8; }
+    .loaded-list { margin-top: 10px; display: flex; flex-direction: column; gap: 7px; }
+    .loaded-item { display: flex; gap: 8px; align-items: center; color: #555; font-size: 12px; }
+    .file-chip { font-size: 10px; font-weight: 700; border: 1px solid #ddd; padding: 2px 6px; color: #777; background: #f7f7f7; }
 
-    /* Upload zones */
-    .upload-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
-    .upload-zone { border: 1px dashed #d0d0d0; padding: 20px 16px; text-align: center; cursor: pointer; background: #fafafa; transition: all 120ms; }
-    .upload-zone:hover { border-color: #888; background: #f5f5f5; }
-    .upload-zone-icon { font-size: 20px; margin-bottom: 8px; color: #bbb; font-weight: 300; }
-    .upload-zone-title { font-size: 12px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
-    .upload-zone-sub { font-size: 11px; color: #aaa; line-height: 1.4; }
-    .upload-zone-ext { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.06em; border: 1px solid #d0d0d0; padding: 1px 5px; color: #888; margin-top: 6px; }
+    .checks { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .check {
+      border: 1px solid #ddd; padding: 12px; cursor: pointer; background: #fff;
+      display: flex; gap: 9px; align-items: flex-start;
+    }
+    .check:hover { border-color: #9c9c9c; }
+    .check.on { border-color: #1a1a1a; background: #f8f8f8; }
+    .check-cb {
+      width: 15px; height: 15px; border: 1px solid #c7c7c7; margin-top: 1px;
+      display: flex; align-items: center; justify-content: center; font-size: 9px;
+    }
+    .check.on .check-cb { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .check-name { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+    .check-sub { font-size: 11px; color: #888; }
 
-    .s1-footer { display: flex; justify-content: flex-end; padding-top: 8px; border-top: 1px solid #e8e8e8; }
-    .btn-continue { font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px 32px; background: #1a1a1a; color: #fff; border: none; cursor: pointer; }
-    .btn-continue:hover { background: #333; }
-    .btn-back-sm { font-family: inherit; font-size: 13px; padding: 11px 20px; background: #fff; color: #555; border: 1px solid #d0d0d0; cursor: pointer; margin-right: 8px; }
-    .btn-back-sm:hover { border-color: #888; color: #1a1a1a; }
+    .findings-shell { display: grid; grid-template-columns: 220px 1fr; border: 1px solid var(--color-border); }
+    .findings-nav { border-right: 1px solid var(--color-border); background: #fafafa; }
+    .findings-nav button {
+      width: 100%; text-align: left; border: none; background: transparent; cursor: pointer;
+      padding: 10px 12px; font-size: 12px; color: #777; border-left: 2px solid transparent;
+      font-family: inherit;
+    }
+    .findings-nav button.active { color: #1a1a1a; font-weight: 700; border-left-color: #1a1a1a; background: #f0f0f0; }
+    .findings-main { padding: 14px; }
 
-    /* ════════════════════════════════
-       SCREEN 2 — SELECT CHECKS
-    ════════════════════════════════ */
-    .s2-wrap { max-width: 680px; margin: 0 auto; padding: 48px 32px 80px; width: 100%; }
-    .check-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
-    .check-card { border: 1px solid #d0d0d0; padding: 16px 20px; cursor: pointer; transition: all 100ms; display: flex; align-items: flex-start; gap: 14px; user-select: none; }
-    .check-card:hover { border-color: #888; }
-    .check-card.on { border-color: #1a1a1a; background: #1a1a1a; color: #fff; }
-    .check-card.on .cc-desc { color: #ccc; }
-    .check-card.on .cc-tag { border-color: #555; color: #aaa; }
-    .check-toggle { width: 18px; height: 18px; border: 1.5px solid #d0d0d0; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; margin-top: 2px; transition: all 100ms; }
-    .check-card.on .check-toggle { background: #fff; border-color: #fff; color: #1a1a1a; font-weight: 700; }
-    .cc-body { flex: 1; }
-    .cc-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-    .cc-desc { font-size: 12px; color: #666; line-height: 1.5; }
-    .cc-tag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; border: 1px solid #d0d0d0; padding: 2px 7px; margin-top: 7px; color: #888; }
-    .s2-ctrl { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-    .s2-ctrl-link { font-size: 12px; color: #888; cursor: pointer; text-decoration: underline; }
-    .s2-ctrl-link:hover { color: #1a1a1a; }
+    .finding { border: 1px solid #e5e5e5; padding: 12px; margin-bottom: 8px; }
+    .finding-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .finding-sub { font-size: 12px; color: #666; line-height: 1.55; }
 
-    /* ════════════════════════════════
-       SCREEN 3 — REVIEW RESULTS
-    ════════════════════════════════ */
-    .s3-wrap { display: flex; flex: 1; overflow: hidden; }
+    .recommendation { border: 1px solid #e2e2e2; padding: 12px; margin-bottom: 8px; display: flex; gap: 9px; }
+    .recommendation.on { border-color: #1a1a1a; background: #fafafa; }
+    .rec-cb {
+      width: 16px; height: 16px; border: 1px solid #c7c7c7; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center; font-size: 9px;
+    }
+    .recommendation.on .rec-cb { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .rec-title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+    .rec-sub { font-size: 12px; color: #666; line-height: 1.5; }
 
-    /* Left nav */
-    .s3-nav { width: 220px; flex-shrink: 0; border-right: 1px solid #e0e0e0; background: #fafafa; padding: 20px 0; overflow-y: auto; }
-    .s3-nav-section { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #bbb; padding: 10px 20px 4px; }
-    .s3-nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; cursor: pointer; font-size: 12px; color: #888; border-left: 2px solid transparent; transition: all 100ms; }
-    .s3-nav-item:hover { color: #1a1a1a; background: #f0f0f0; }
-    .s3-nav-item.active { color: #1a1a1a; font-weight: 600; border-left-color: #1a1a1a; background: #f0f0f0; }
-    .s3-nav-status { margin-left: auto; font-size: 11px; font-weight: 700; }
-    .s3-nav-status.pass { color: #1a1a1a; }
-    .s3-nav-status.warn { color: #555; }
-    .s3-nav-status.fail { color: #1a1a1a; }
-    .s3-summary-box { margin: 12px 12px 8px; border: 1px solid #e0e0e0; padding: 12px; background: #fff; font-size: 11px; }
-    .s3-sum-row { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
-    .s3-sum-num { font-size: 20px; font-weight: 700; color: #1a1a1a; width: 28px; }
-    .s3-sum-label { color: #888; }
-    .s3-sum-row.critical .s3-sum-num { color: #1a1a1a; }
+    .footer-actions { margin-top: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .muted { font-size: 12px; color: #888; }
 
-    /* Main content */
-    .s3-main { flex: 1; overflow-y: auto; padding: 0; display: flex; flex-direction: column; }
-    .s3-tab-bar { display: flex; border-bottom: 1px solid #e0e0e0; background: #fff; flex-shrink: 0; padding: 0 28px; overflow-x: auto; }
-    .s3-tab { padding: 12px 16px; font-size: 12px; font-weight: 500; color: #888; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 100ms; flex-shrink: 0; }
-    .s3-tab:hover { color: #1a1a1a; }
-    .s3-tab.active { color: #1a1a1a; font-weight: 700; border-bottom-color: #1a1a1a; }
-    .s3-tab-badge { display: inline-block; font-size: 9px; font-weight: 700; padding: 1px 5px; margin-left: 5px; vertical-align: middle; }
-    .s3-tab-badge.warn { background: #f0f0f0; color: #555; }
-    .s3-tab-badge.fail { background: #1a1a1a; color: #fff; }
-    .s3-tab-badge.pass { background: #e8e8e8; color: #888; }
-
-    .s3-panel { display: none; padding: 28px; flex: 1; overflow-y: auto; }
-    .s3-panel.active { display: block; }
-
-    /* Finding rows */
-    .finding-group { margin-bottom: 28px; }
-    .finding-group-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e8e8e8; }
-    .finding { display: flex; gap: 12px; padding: 12px 14px; border: 1px solid #e8e8e8; margin-bottom: 6px; background: #fff; }
-    .finding + .finding { border-top: none; }
-    .finding:first-child { }
-    .finding-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-    .finding-icon.pass { background: #1a1a1a; color: #fff; }
-    .finding-icon.warn { background: #d8d8d8; color: #1a1a1a; }
-    .finding-icon.fail { background: #1a1a1a; color: #fff; }
-    .finding-body { flex: 1; }
-    .finding-title { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
-    .finding-detail { font-size: 12px; color: #666; line-height: 1.55; }
-    .finding-detail strong { color: #1a1a1a; }
-    .finding-ref { font-size: 10px; color: #aaa; margin-top: 5px; font-style: italic; }
-    .finding-action { display: flex; gap: 8px; margin-top: 10px; }
-    .btn-accept { font-family: inherit; font-size: 11px; font-weight: 600; padding: 5px 12px; background: #1a1a1a; color: #fff; border: none; cursor: pointer; }
-    .btn-accept:hover { background: #333; }
-    .btn-view { font-family: inherit; font-size: 11px; padding: 5px 12px; background: #fff; color: #555; border: 1px solid #d0d0d0; cursor: pointer; }
-    .btn-view:hover { border-color: #888; color: #1a1a1a; }
-
-    /* Assessment table */
-    .asmt-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; }
-    .asmt-table th { background: #fafafa; padding: 8px 10px; border: 1px solid #e0e0e0; text-align: left; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #888; }
-    .asmt-table td { padding: 9px 10px; border: 1px solid #e8e8e8; color: #333; vertical-align: top; }
-    .asmt-table tr.flag td { background: #fafafa; }
-    .flag-pill { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border: 1px solid #888; color: #555; }
-    .flag-pill.fail { border-color: #1a1a1a; color: #1a1a1a; background: #f0f0f0; }
-    .flag-pill.warn { border-color: #888; color: #555; }
-
-    /* Rubric preview */
-    .rubric-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 16px; }
-    .rubric-table th { background: #1a1a1a; color: #fff; padding: 8px 10px; text-align: left; font-size: 10px; font-weight: 700; }
-    .rubric-table td { padding: 8px 10px; border: 1px solid #e0e0e0; color: #444; line-height: 1.5; vertical-align: top; }
-    .rubric-table tr:nth-child(even) td { background: #fafafa; }
-    .rubric-crit { font-weight: 700; color: #1a1a1a; font-size: 12px; }
-    .rubric-status-missing { font-size: 10px; color: #888; font-style: italic; background: #f5f5f5; padding: 6px 10px; border-left: 3px solid #888; margin-top: 4px; }
-
-    /* NPGC bars */
-    .npgc-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-    .npgc-label { font-size: 11px; color: #555; width: 200px; flex-shrink: 0; }
-    .npgc-track { flex: 1; height: 8px; background: #e8e8e8; }
-    .npgc-fill { height: 100%; background: #1a1a1a; transition: width 600ms ease; }
-    .npgc-fill.weak { background: #bbb; }
-    .npgc-fill.zero { background: #e8e8e8; width: 0 !important; }
-    .npgc-count { font-size: 11px; color: #888; width: 40px; text-align: right; }
-    .npgc-warn { font-size: 10px; color: #888; margin-left: 4px; }
-
-    /* Bloom's */
-    .bloom-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 20px; }
-    .bloom-col { text-align: center; }
-    .bloom-bar-wrap { height: 80px; display: flex; align-items: flex-end; justify-content: center; }
-    .bloom-bar-vis { width: 28px; background: #1a1a1a; transition: height 600ms ease; }
-    .bloom-bar-vis.zero { background: #e8e8e8; height: 4px !important; }
-    .bloom-bar-vis.warn { background: #bbb; }
-    .bloom-level { font-size: 10px; color: #888; margin-top: 5px; }
-    .bloom-count { font-size: 13px; font-weight: 700; color: #1a1a1a; }
-    .bloom-count.zero { color: #ccc; }
-
-    /* Activity cards for comms */
-    .activity-card { border: 1px solid #e0e0e0; margin-bottom: 16px; }
-    .activity-card-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid #e8e8e8; background: #fafafa; }
-    .activity-card-title { font-size: 13px; font-weight: 700; color: #1a1a1a; flex: 1; }
-    .activity-card-meta { font-size: 11px; color: #888; margin-top: 2px; }
-    .activity-pill { font-size: 10px; font-weight: 600; padding: 3px 8px; border: 1px solid; }
-    .activity-pill.warn { border-color: #888; color: #555; }
-    .activity-pill.fail { border-color: #1a1a1a; color: #1a1a1a; background: #f0f0f0; }
-    .activity-pill.pass { border-color: #888; color: #888; }
-    .activity-card-body { padding: 14px 16px; }
-    .criteria-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 12px; color: #555; }
-    .ck { width: 16px; height: 16px; border-radius: 50%; border: 1px solid; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-    .ck.ok { border-color: #1a1a1a; color: #1a1a1a; }
-    .ck.missing { border-color: #888; color: #888; }
-
-    /* Schedule */
-    .sched-week-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid #f0f0f0; font-size: 12px; }
-    .sched-wk { width: 30px; font-weight: 700; color: #888; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
-    .sched-topic { flex: 1; color: #333; }
-    .sched-asmt-pill { font-size: 10px; font-weight: 600; padding: 2px 7px; border: 1px solid #d0d0d0; color: #555; background: #fafafa; }
-    .sched-asmt-pill.heavy { border-color: #888; color: #555; background: #f0f0f0; }
-    .sched-flag { font-size: 10px; color: #888; margin-left: auto; }
-
-    /* Right AI panel */
-    .s3-ai { width: 260px; flex-shrink: 0; border-left: 1px solid #e0e0e0; background: #fafafa; display: flex; flex-direction: column; }
-    .s3-ai-head { padding: 14px 16px 10px; border-bottom: 1px solid #e0e0e0; font-size: 12px; font-weight: 700; color: #1a1a1a; }
-    .s3-ai-body { flex: 1; overflow-y: auto; padding: 14px 16px; }
-    .ai-bubble { font-size: 12px; color: #333; line-height: 1.6; background: #fff; border: 1px solid #e0e0e0; padding: 10px 12px; margin-bottom: 10px; }
-    .ai-chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-    .ai-chip { font-size: 11px; padding: 5px 10px; border: 1px solid #d0d0d0; background: #fff; cursor: pointer; color: #555; transition: all 100ms; }
-    .ai-chip:hover { border-color: #888; color: #1a1a1a; }
-
-    /* ════════════════════════════════
-       SCREEN 4 — APPLY CHANGES
-    ════════════════════════════════ */
-    .s4-wrap { max-width: 800px; margin: 0 auto; padding: 40px 32px 80px; width: 100%; }
-    .rec-group { margin-bottom: 28px; }
-    .rec-group-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e8e8e8; display: flex; align-items: center; gap: 8px; }
-    .rec-group-count { font-size: 10px; padding: 1px 6px; background: #1a1a1a; color: #fff; font-weight: 700; }
-    .rec-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border: 1px solid #e0e0e0; margin-bottom: 6px; cursor: pointer; transition: all 100ms; }
-    .rec-item:hover { border-color: #888; }
-    .rec-item.selected { border-color: #1a1a1a; background: #fafafa; }
-    .rec-check { width: 18px; height: 18px; border: 1.5px solid #d0d0d0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
-    .rec-item.selected .rec-check { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
-    .rec-body { flex: 1; }
-    .rec-title { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
-    .rec-detail { font-size: 12px; color: #666; line-height: 1.5; }
-    .rec-detail strong { color: #1a1a1a; }
-    .rec-tag { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.05em; padding: 2px 6px; border: 1px solid; margin-top: 6px; }
-    .rec-tag.critical { border-color: #1a1a1a; color: #1a1a1a; }
-    .rec-tag.comms { border-color: #888; color: #555; }
-    .rec-tag.npgc { border-color: #888; color: #555; }
-    .rec-tag.quality { border-color: #888; color: #555; }
-    .rec-tag.sched { border-color: #aaa; color: #888; }
-
-    .s4-footer { border-top: 1px solid #e0e0e0; padding: 20px 0 0; display: flex; align-items: center; justify-content: space-between; }
-    .s4-sel-count { font-size: 12px; color: #888; }
-    .s4-sel-count strong { color: #1a1a1a; }
-    .btn-apply { font-family: inherit; font-size: 14px; font-weight: 700; padding: 13px 32px; background: #1a1a1a; color: #fff; border: none; cursor: pointer; }
-    .btn-apply:hover { background: #333; }
-
-    /* Toast */
-    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; font-size: 12px; font-weight: 500; padding: 9px 18px; opacity: 0; pointer-events: none; transition: opacity 180ms; z-index: 999; }
-    .toast.show { opacity: 1; }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .s3-ai { display: none; }
-      .s3-nav { width: 180px; }
+    @media (max-width: 860px) {
+      .checks { grid-template-columns: 1fr; }
+      .findings-shell { grid-template-columns: 1fr; }
+      .findings-nav { border-right: none; border-bottom: 1px solid var(--color-border); display: flex; overflow-x: auto; }
+      .findings-nav button { white-space: nowrap; border-left: none; border-bottom: 2px solid transparent; }
+      .findings-nav button.active { border-bottom-color: #1a1a1a; }
     }
   </style>
 </head>
 <body>
-
-<!-- ── Topbar ── -->
-<header class="topbar">
+<header class="topbar" style="position: sticky; top: 0; z-index: 90;">
   <a href="index.html" class="topbar-logo" style="text-decoration:none;">
-    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic">
+    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:26px; width:auto;">
   </a>
-  <div class="topbar-div"></div>
-  <span class="topbar-title">AI Curriculum Review &amp; Design</span>
-  <span class="topbar-sub" id="topbar-module-name" style="margin-left:8px;"></span>
-  <div class="topbar-right">
-    <a href="index.html" class="btn-top" style="text-decoration:none;">← Home</a>
-    <a href="gather-context.html" class="btn-top" style="text-decoration:none;">Optional: Context Workspace</a>
+  <div class="topbar-divider"></div>
+  <span class="topbar-module-title">AI Curriculum Review &amp; Design</span>
+  <div class="topbar-actions">
+    <a href="index.html" class="btn btn-secondary btn-sm" style="text-decoration:none;">Home</a>
+    <a href="gather-context.html" class="btn btn-secondary btn-sm" style="text-decoration:none;">Context Workspace</a>
   </div>
 </header>
 
-<!-- ── Step indicator ── -->
-<div class="step-bar">
-  <div class="si active" id="si-1"><div class="si-num">1</div><span>Import Existing Module</span></div>
-  <span class="si-sep">›</span>
-  <div class="si" id="si-2"><div class="si-num">2</div><span>Select Review Scope</span></div>
-  <span class="si-sep">›</span>
-  <div class="si" id="si-3"><div class="si-num">3</div><span>Review Findings &amp; Suggestions</span></div>
-  <span class="si-sep">›</span>
-  <div class="si" id="si-4"><div class="si-num">4</div><span>Apply Updates</span></div>
-</div>
-
-
-<!-- ══════════════════════════════════════════
-     SCREEN 2 — PROGRESSIVE REVIEW PANELS
-══════════════════════════════════════════ -->
-<div class="screen" id="screen-2">
-  <div class="s2-wrap">
-    <div class="s1-label">Step 2 of 4</div>
-    <div class="s1-title">Review your module, step by step</div>
-    <div class="s1-sub">Work through each area. Add your context, then review AI findings and suggestions. Accept, edit, or skip as you go.</div>
-
-    <div class="work-panel-list">
-      <!-- Assessment Framework Panel -->
-      <div class="work-panel" id="panel-af-work">
-        <div class="work-panel-head">
-          <span class="work-panel-step">1</span>
-          <span class="work-panel-title">Assessment Framework</span>
-        </div>
-        <div class="work-panel-body">
-          <label class="work-panel-label">Your notes/context (optional):</label>
-          <textarea class="work-panel-input" placeholder="E.g. explain any special assessment arrangements, group work rationale, etc."></textarea>
-          <button class="btn-continue" onclick="showAIFindings('af')">Review AI Findings →</button>
-        </div>
-        <div class="work-panel-ai" id="ai-af-findings" style="display:none;">
-          <div class="ai-bubble">AI found 2 critical issues and 2 warnings in your assessment plan. See details below and accept or edit suggestions.</div>
-          <ul class="ai-findings-list">
-            <li>✗ <b>Group project exceeds 30% cap</b> — Suggest: reduce to 28% or differentiate contributions.</li>
-            <li>✗ <b>Mid-semester assessment below 20%</b> — Suggest: increase CA1 to 20%.</li>
-            <li>⚠ <b>No formative feedback for A3</b> — Suggest: add milestone consultations.</li>
-            <li>⚠ <b>A3 & A4 due same week</b> — Suggest: move A3 to Week 15.</li>
-          </ul>
-          <div class="work-panel-actions">
-            <button class="btn-accept" onclick="acceptPanel('af')">Accept All</button>
-            <button class="btn-view" onclick="editPanel('af')">Edit Suggestions</button>
-            <button class="btn-skip" onclick="skipPanel('af')">Skip</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Communication Rubrics Panel -->
-      <div class="work-panel" id="panel-comms-work" style="display:none;">
-        <div class="work-panel-head">
-          <span class="work-panel-step">2</span>
-          <span class="work-panel-title">Communication Rubrics</span>
-        </div>
-        <div class="work-panel-body">
-          <label class="work-panel-label">Your notes/context (optional):</label>
-          <textarea class="work-panel-input" placeholder="E.g. describe comms activities, rubrics used, etc."></textarea>
-          <button class="btn-continue" onclick="showAIFindings('comms')">Review AI Findings →</button>
-        </div>
-        <div class="work-panel-ai" id="ai-comms-findings" style="display:none;">
-          <div class="ai-bubble">AI found 1 partial alignment and 1 missing rubric. See details below and accept or edit suggestions.</div>
-          <ul class="ai-findings-list">
-            <li>⚠ <b>A4: Only 2/3 SoH&IS criteria mapped</b> — Suggest: adopt full SoH&IS rubric.</li>
-            <li>✗ <b>CA2: No rubric defined</b> — Suggest: add marking guide for lab demo.</li>
-          </ul>
-          <div class="work-panel-actions">
-            <button class="btn-accept" onclick="acceptPanel('comms')">Accept All</button>
-            <button class="btn-view" onclick="editPanel('comms')">Edit Suggestions</button>
-            <button class="btn-skip" onclick="skipPanel('comms')">Skip</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- NPGC Panel -->
-      <div class="work-panel" id="panel-npgc-work" style="display:none;">
-        <div class="work-panel-head">
-          <span class="work-panel-step">3</span>
-          <span class="work-panel-title">NPGC Coverage</span>
-        </div>
-        <div class="work-panel-body">
-          <label class="work-panel-label">Your notes/context (optional):</label>
-          <textarea class="work-panel-input" placeholder="E.g. describe how MOs map to NPGCs, any gaps, etc."></textarea>
-          <button class="btn-continue" onclick="showAIFindings('npgc')">Review AI Findings →</button>
-        </div>
-        <div class="work-panel-ai" id="ai-npgc-findings" style="display:none;">
-          <div class="ai-bubble">AI found 2 gaps in NPGC coverage. See details below and accept or edit suggestions.</div>
-          <ul class="ai-findings-list">
-            <li>⚠ <b>Self-Development (E) not covered</b> — Suggest: add reflective MO.</li>
-            <li>⚠ <b>Communication (G) weak</b> — Suggest: add comms-focused MO.</li>
-          </ul>
-          <div class="work-panel-actions">
-            <button class="btn-accept" onclick="acceptPanel('npgc')">Accept All</button>
-            <button class="btn-view" onclick="editPanel('npgc')">Edit Suggestions</button>
-            <button class="btn-skip" onclick="skipPanel('npgc')">Skip</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bloom's Panel -->
-      <div class="work-panel" id="panel-blooms-work" style="display:none;">
-        <div class="work-panel-head">
-          <span class="work-panel-step">4</span>
-          <span class="work-panel-title">Learning Outcomes Quality</span>
-        </div>
-        <div class="work-panel-body">
-          <label class="work-panel-label">Your notes/context (optional):</label>
-          <textarea class="work-panel-input" placeholder="E.g. comment on Bloom's levels, outcome verbs, etc."></textarea>
-          <button class="btn-continue" onclick="showAIFindings('blooms')">Review AI Findings →</button>
-        </div>
-        <div class="work-panel-ai" id="ai-blooms-findings" style="display:none;">
-          <div class="ai-bubble">AI found 1 warning: no Evaluate/Create-level outcomes. See details below and accept or edit suggestions.</div>
-          <ul class="ai-findings-list">
-            <li>⚠ <b>No Evaluate/Create-level outcome</b> — Suggest: add Evaluate-level MO.</li>
-          </ul>
-          <div class="work-panel-actions">
-            <button class="btn-accept" onclick="acceptPanel('blooms')">Accept All</button>
-            <button class="btn-view" onclick="editPanel('blooms')">Edit Suggestions</button>
-            <button class="btn-skip" onclick="skipPanel('blooms')">Skip</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Schedule Panel -->
-      <div class="work-panel" id="panel-sched-work" style="display:none;">
-        <div class="work-panel-head">
-          <span class="work-panel-step">5</span>
-          <span class="work-panel-title">Schedule & Assessment Spread</span>
-        </div>
-        <div class="work-panel-body">
-          <label class="work-panel-label">Your notes/context (optional):</label>
-          <textarea class="work-panel-input" placeholder="E.g. comment on assessment timing, clustering, OAL, etc."></textarea>
-          <button class="btn-continue" onclick="showAIFindings('sched')">Review AI Findings →</button>
-        </div>
-        <div class="work-panel-ai" id="ai-sched-findings" style="display:none;">
-          <div class="ai-bubble">AI found 1 warning: A3 & A4 due same week. See details below and accept or edit suggestions.</div>
-          <ul class="ai-findings-list">
-            <li>⚠ <b>Week 16 cluster</b> — Suggest: move A3 to Week 15.</li>
-          </ul>
-          <div class="work-panel-actions">
-            <button class="btn-accept" onclick="acceptPanel('sched')">Accept All</button>
-            <button class="btn-view" onclick="editPanel('sched')">Edit Suggestions</button>
-            <button class="btn-skip" onclick="skipPanel('sched')">Skip</button>
-          </div>
-        </div>
-      </div>
+<div class="flow-shell">
+  <div class="flow-wrap">
+    <div class="mini-steps" id="mini-steps">
+      <div class="mini-step active" data-step="1"><span class="mini-step-dot">1</span><span>Import Existing Module</span></div>
+      <span class="mini-sep">›</span>
+      <div class="mini-step" data-step="2"><span class="mini-step-dot">2</span><span>Select Review Scope</span></div>
+      <span class="mini-sep">›</span>
+      <div class="mini-step" data-step="3"><span class="mini-step-dot">3</span><span>Review Findings</span></div>
+      <span class="mini-sep">›</span>
+      <div class="mini-step" data-step="4"><span class="mini-step-dot">4</span><span>Apply Updates</span></div>
     </div>
 
-    <div class="s1-footer">
-      <button class="btn-back-sm" onclick="goScreen(1)">← Back</button>
-      <button class="btn-continue" id="review-next-btn" onclick="goScreen(3)" style="display:none;">Continue to Review →</button>
-    </div>
+    <section class="screen active" id="screen-1">
+      <div class="hero-label">Step 1 of 4</div>
+      <div class="hero-title">Import Existing Module</div>
+      <div class="hero-sub">Load an existing module document, then review targeted findings and apply selected updates.</div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Module Source</div>
+          <span class="state-pill" id="import-state">Not Loaded</span>
+        </div>
+        <div class="import-row">
+          <input class="input" id="module-code" value="ICT1234" placeholder="Module code (e.g. ICT1234)">
+          <button class="btn primary" onclick="loadModule()">Load Sample</button>
+        </div>
+        <div class="loaded-list" id="loaded-files" style="display:none;">
+          <div class="loaded-item"><span class="file-chip">XLS</span><span>ICT1234_MDD_AY2526S1.xlsx</span></div>
+          <div class="loaded-item"><span class="file-chip">PDF</span><span>ICT1234_Assessment_Brief.pdf</span></div>
+          <div class="loaded-item"><span class="file-chip">DOCX</span><span>ICT1234_Comms_Rubric_Draft.docx</span></div>
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <span class="muted">Use sample data for this prototype flow.</span>
+        <button class="btn primary" id="to-step-2" onclick="goStep(2)" disabled>Continue</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-2">
+      <div class="hero-label">Step 2 of 4</div>
+      <div class="hero-title">Select Review Scope</div>
+      <div class="hero-sub">Pick what to review now. You can run another pass later.</div>
+
+      <div class="checks" id="checks">
+        <div class="check on" data-check="Assessment Framework" onclick="toggleCheck(this)">
+          <div class="check-cb">✓</div>
+          <div><div class="check-name">Assessment Framework</div><div class="check-sub">Weights, compliance, timing</div></div>
+        </div>
+        <div class="check on" data-check="Comms Rubrics" onclick="toggleCheck(this)">
+          <div class="check-cb">✓</div>
+          <div><div class="check-name">Comms Rubrics</div><div class="check-sub">SoH&amp;IS alignment</div></div>
+        </div>
+        <div class="check on" data-check="NPGC Coverage" onclick="toggleCheck(this)">
+          <div class="check-cb">✓</div>
+          <div><div class="check-name">NPGC Coverage</div><div class="check-sub">Coverage gaps by competency</div></div>
+        </div>
+        <div class="check" data-check="Outcome Quality" onclick="toggleCheck(this)">
+          <div class="check-cb"></div>
+          <div><div class="check-name">Outcome Quality</div><div class="check-sub">Bloom's and wording checks</div></div>
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <button class="btn" onclick="goStep(1)">Back</button>
+        <button class="btn primary" onclick="runReview()">Run Review</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-3">
+      <div class="hero-label">Step 3 of 4</div>
+      <div class="hero-title">Review Findings</div>
+      <div class="hero-sub">Browse findings by area and queue updates.</div>
+
+      <div class="findings-shell">
+        <nav class="findings-nav" id="findings-nav"></nav>
+        <div class="findings-main">
+          <div id="findings-content"></div>
+          <div class="footer-actions">
+            <button class="btn" onclick="goStep(2)">Back</button>
+            <button class="btn primary" onclick="goStep(4)">Continue</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-4">
+      <div class="hero-label">Step 4 of 4</div>
+      <div class="hero-title">Apply Updates</div>
+      <div class="hero-sub">Choose updates to apply now. You can refine details in the editor after this step.</div>
+
+      <div id="recommendations"></div>
+
+      <div class="footer-actions">
+        <span class="muted"><strong id="selected-count">0</strong> updates selected</span>
+        <div>
+          <button class="btn" onclick="goStep(3)">Back</button>
+          <a href="mdd-editor.html" class="btn primary" style="text-decoration:none; display:inline-flex; align-items:center;">Apply &amp; Open Editor</a>
+        </div>
+      </div>
+    </section>
   </div>
 </div>
-══════════════════════════════════════════ -->
-<div class="screen" id="screen-2">
-  <div class="s2-wrap">
-    <div class="s1-label">Step 2 of 4</div>
-    <div class="s1-title">What would you like to review?</div>
-    <div class="s1-sub">Pick review areas. AI will return findings and suggested updates.</div>
-
-    <div class="s2-ctrl">
-      <a class="s2-ctrl-link" onclick="selectAllChecks()">Select all</a>
-      <a class="s2-ctrl-link" onclick="clearAllChecks()">Clear all</a>
-    </div>
-
-    <div class="check-grid">
-      <div class="check-card on" id="chk-af" onclick="toggleCheck('chk-af')">
-        <div class="check-toggle">✓</div>
-        <div class="cc-body">
-          <div class="cc-title">Assessment Framework Check</div>
-          <div class="cc-desc">Checks weights, group cap, mode compliance, and timing.</div>
-          <div class="cc-tag">COMPLIANCE</div>
-        </div>
-      </div>
-      <div class="check-card on" id="chk-comms" onclick="toggleCheck('chk-comms')">
-        <div class="check-toggle">✓</div>
-        <div class="cc-body">
-          <div class="cc-title">Communication Rubrics</div>
-          <div class="cc-desc">Checks comms tasks against the SoH&amp;IS presentation rubric.</div>
-          <div class="cc-tag">SoH&amp;IS RUBRIC</div>
-        </div>
-      </div>
-      <div class="check-card on" id="chk-npgc" onclick="toggleCheck('chk-npgc')">
-        <div class="check-toggle">✓</div>
-        <div class="cc-body">
-          <div class="cc-title">NPGC Coverage</div>
-          <div class="cc-desc">Shows strengths and gaps across the 7 competencies.</div>
-          <div class="cc-tag">NPGC FRAMEWORK</div>
-        </div>
-      </div>
-      <div class="check-card on" id="chk-blooms" onclick="toggleCheck('chk-blooms')">
-        <div class="check-toggle">✓</div>
-        <div class="cc-body">
-          <div class="cc-title">Learning Outcomes Quality</div>
-          <div class="cc-desc">Checks Bloom's levels and flags missing higher-order outcomes.</div>
-          <div class="cc-tag">CURRICULUM QUALITY</div>
-        </div>
-      </div>
-      <div class="check-card on" id="chk-sched" onclick="toggleCheck('chk-sched')">
-        <div class="check-toggle">✓</div>
-        <div class="cc-body">
-          <div class="cc-title">Schedule &amp; Assessment Spread</div>
-          <div class="cc-desc">Checks pacing, assessment clustering, and OAL coverage.</div>
-          <div class="cc-tag">SCHEDULE REVIEW</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="s1-footer">
-      <button class="btn-back-sm" onclick="goScreen(1)">← Back</button>
-      <button class="btn-continue" onclick="runChecks()">Run Review →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════
-     SCREEN 3 — REVIEW FINDINGS
-══════════════════════════════════════════ -->
-<div class="screen" id="screen-3" style="flex-direction:row;">
-
-  <!-- Left nav -->
-  <div class="s3-nav">
-    <div style="padding:14px 16px 8px; border-bottom:1px solid #e0e0e0; margin-bottom:8px;">
-      <div style="font-size:12px; font-weight:700; color:#1a1a1a;">ICT1234 — DSA</div>
-      <div style="font-size:11px; color:#888; margin-top:2px;">AY2024/25 S2 · CA · L2</div>
-    </div>
-
-    <div class="s3-summary-box">
-      <div class="s3-sum-row critical">
-        <div class="s3-sum-num">2</div>
-        <div class="s3-sum-label">critical issues</div>
-      </div>
-      <div class="s3-sum-row">
-        <div class="s3-sum-num" style="font-size:16px;">4</div>
-        <div class="s3-sum-label">warnings</div>
-      </div>
-      <div class="s3-sum-row">
-        <div class="s3-sum-num" style="font-size:16px; color:#888;">7</div>
-        <div class="s3-sum-label">passes</div>
-      </div>
-    </div>
-
-    <div class="s3-nav-section">Review areas</div>
-    <div class="s3-nav-item active" onclick="switchTab('af')">
-      NP Assessment Framework
-      <span class="s3-nav-status fail">✗ 2</span>
-    </div>
-    <div class="s3-nav-item" onclick="switchTab('comms')">
-      Comms Rubrics
-      <span class="s3-nav-status warn">⚠ 2</span>
-    </div>
-    <div class="s3-nav-item" onclick="switchTab('npgc')">
-      NPGC Coverage
-      <span class="s3-nav-status warn">⚠ 1</span>
-    </div>
-    <div class="s3-nav-item" onclick="switchTab('blooms')">
-      Bloom's Quality
-      <span class="s3-nav-status warn">⚠ 1</span>
-    </div>
-    <div class="s3-nav-item" onclick="switchTab('sched')">
-      Schedule
-      <span class="s3-nav-status pass">✓</span>
-    </div>
-
-    <div style="padding: 16px 12px; margin-top:auto;">
-      <button onclick="goScreen(4)" style="width:100%; font-family:inherit; font-size:12px; font-weight:700; padding:10px; background:#1a1a1a; color:#fff; border:none; cursor:pointer;">Review Recommendations →</button>
-    </div>
-  </div>
-
-  <!-- Main content with tabs -->
-  <div class="s3-main">
-    <div class="s3-tab-bar">
-      <div class="s3-tab active" id="tab-af" onclick="switchTab('af')">Assessment Framework <span class="s3-tab-badge fail">2 critical</span></div>
-      <div class="s3-tab" id="tab-comms" onclick="switchTab('comms')">Comms Rubrics <span class="s3-tab-badge warn">2 warnings</span></div>
-      <div class="s3-tab" id="tab-npgc" onclick="switchTab('npgc')">NPGC <span class="s3-tab-badge warn">1 warning</span></div>
-      <div class="s3-tab" id="tab-blooms" onclick="switchTab('blooms')">Bloom's <span class="s3-tab-badge warn">1 warning</span></div>
-      <div class="s3-tab" id="tab-sched" onclick="switchTab('sched')">Schedule <span class="s3-tab-badge pass">pass</span></div>
-    </div>
-
-    <!-- ── AF Panel ── -->
-    <div class="s3-panel active" id="panel-af">
-      <div class="finding-group-title" style="margin-bottom:14px;">Current Assessment Plan — ICT1234</div>
-      <table class="asmt-table">
-        <thead><tr><th>Ref</th><th>Component</th><th>Type</th><th>Week</th><th>Weight</th><th>MOs</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td>CA1</td><td>Online Quiz</td><td>Individual</td><td>5</td><td>15%</td><td>MO1, MO2</td><td><span class="flag-pill warn">⚠ &lt;20%</span></td></tr>
-          <tr><td>CA2</td><td>In-class Lab Demo (×3)</td><td>Individual</td><td>4, 10, 14</td><td>20%</td><td>MO3, MO4</td><td style="color:#888;">—</td></tr>
-          <tr class="flag"><td>A3</td><td>Group Data Structures Project</td><td><strong>Group</strong></td><td>16</td><td><strong>35%</strong></td><td>MO1–MO5</td><td><span class="flag-pill fail">✗ &gt;30%</span></td></tr>
-          <tr><td>A4</td><td>Team Project Presentation</td><td>Group</td><td>16</td><td>30%</td><td>MO5, MO6, MO7</td><td style="color:#888;">—</td></tr>
-          <tr style="background:#fafafa; font-weight:700;"><td colspan="4" style="text-align:right; font-size:11px; color:#888;">Total</td><td>100%</td><td colspan="2"></td></tr>
-        </tbody>
-      </table>
-
-      <div class="finding-group">
-        <div class="finding-group-title">Critical Issues</div>
-
-        <div class="finding">
-          <div class="finding-icon fail">✗</div>
-          <div class="finding-body">
-            <div class="finding-title">A3 Group Project exceeds the group work cap</div>
-            <div class="finding-detail">Undifferentiated group work (A3) is weighted at <strong>35%</strong>. The NP Assessment Framework caps undifferentiated group work at <strong>30%</strong> of the total module grade. Reduce A3 to ≤30% or differentiate individual contributions within the group assessment.</div>
-            <div class="finding-ref">Ref: NP Assessment Framework Feb 2024, Section I para 7.5 — "Undifferentiated groupwork marks shall be capped to 30% of the total module marks."</div>
-            <div class="finding-action">
-              <button class="btn-accept" onclick="acceptFinding(this, 'Reduce A3 to 28%')">Accept — Reduce to 28%</button>
-              <button class="btn-view" onclick="toast('Opens A3 component editor')">Edit component</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="finding">
-          <div class="finding-icon fail">✗</div>
-          <div class="finding-body">
-            <div class="finding-title">Mid-semester assessment (CA1) is below the 20% minimum</div>
-            <div class="finding-detail">CA1 Online Quiz at Week 5 carries <strong>15%</strong>. The framework requires at least one substantive mid-semester summative assessment of <strong>at least 20%</strong> to provide meaningful progress feedback to students and staff.</div>
-            <div class="finding-ref">Ref: NP Assessment Framework Feb 2024, Section I para 7.2 — "There should be one substantive summative assessment (of at least 20%) conducted by mid-semester."</div>
-            <div class="finding-action">
-              <button class="btn-accept" onclick="acceptFinding(this, 'Increase CA1 to 20%')">Accept — Increase to 20%</button>
-              <button class="btn-view" onclick="toast('Opens CA1 component editor')">Edit component</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="finding-group">
-        <div class="finding-group-title">Warnings</div>
-
-        <div class="finding">
-          <div class="finding-icon warn">⚠</div>
-          <div class="finding-body">
-            <div class="finding-title">No formative feedback plan documented for A3</div>
-            <div class="finding-detail">A3 is an extended group project spanning 16 weeks. The framework requires a formative feedback plan for extended assessments — e.g., milestone consultations, draft reviews, or peer feedback checkpoints. None are currently documented in the module plan.</div>
-            <div class="finding-ref">Ref: NP Assessment Framework Feb 2024, Section I para 7.6 — "A formative feedback plan is included for assessment tasks that take place over an extended period."</div>
-            <div class="finding-action">
-              <button class="btn-accept" onclick="acceptFinding(this, 'Add milestone consultations for A3')">Add milestones</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="finding">
-          <div class="finding-icon warn">⚠</div>
-          <div class="finding-body">
-            <div class="finding-title">A3 and A4 both due in Week 16 — high student workload cluster</div>
-            <div class="finding-detail">Two major assessments totalling 65% are due in the same week. The framework requires assessments to be spread over the semester to ensure manageable student workload. Consider moving A3 submission to Week 15.</div>
-            <div class="finding-ref">Ref: NP Assessment Framework Feb 2024, Section I para 10.2 — "Assessments shall be spread out over the semester to ensure that the students' workload is manageable."</div>
-            <div class="finding-action">
-              <button class="btn-accept" onclick="acceptFinding(this, 'Move A3 to Week 15')">Move A3 to Week 15</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="finding-group">
-        <div class="finding-group-title">Passes</div>
-        <div class="finding"><div class="finding-icon pass">✓</div><div class="finding-body"><div class="finding-title">CA module — no final exam required</div><div class="finding-detail">Module is correctly classified as CA (non-examinable). No semestral examination is required.</div></div></div>
-        <div class="finding"><div class="finding-icon pass">✓</div><div class="finding-body"><div class="finding-title">Exactly 4 components — within the framework cap</div><div class="finding-detail">CA1, CA2, A3, A4 = 4 components. Framework maximum is 4.</div></div></div>
-        <div class="finding"><div class="finding-icon pass">✓</div><div class="finding-body"><div class="finding-title">Final summative (65%) exceeds mid-semester (35%)</div><div class="finding-detail">A3 + A4 = 65% (final) vs CA1 + CA2 = 35% (mid). Meets the requirement that final summative ≥ mid-semester combined.</div></div></div>
-        <div class="finding"><div class="finding-icon pass">✓</div><div class="finding-body"><div class="finding-title">All 7 module outcomes are assessed by at least one component</div><div class="finding-detail">MO coverage matrix shows each MO assessed by ≥1 component.</div></div></div>
-      </div>
-    </div>
-
-    <!-- ── Comms Panel ── -->
-    <div class="s3-panel" id="panel-comms">
-      <div class="finding-group-title" style="margin-bottom:14px;">Communication activities detected in this module</div>
-      <p style="font-size:12px; color:#888; margin-bottom:20px; line-height:1.6;">The AI identified 2 assessment activities with significant communication skills components. These are checked against the <strong>SoH&IS 3-criterion Presentation Rubric</strong> standard.</p>
-
-      <div class="activity-card">
-        <div class="activity-card-head">
-          <div>
-            <div class="activity-card-title">A4 — Team Project Presentation (30%)</div>
-            <div class="activity-card-meta">Week 16 · Group · MO5, MO6, MO7</div>
-          </div>
-          <div class="activity-pill warn">⚠ Partial alignment</div>
-        </div>
-        <div class="activity-card-body">
-          <p style="font-size:12px; color:#555; margin-bottom:12px; line-height:1.55;">Current rubric has <strong>2 criteria</strong> (Content Quality, Delivery). The SoH&IS Presentation Rubric requires <strong>3 criteria</strong> across 5 performance bands (A+ to F):</p>
-
-          <div class="criteria-row"><div class="ck ok">✓</div><div><strong>Language &amp; Visual Aids</strong> — covered in current rubric under "slide quality" criterion, but not at band-descriptor level</div></div>
-          <div class="criteria-row"><div class="ck missing">✗</div><div><strong>Verbal Skills</strong> — volume, tone, pitch, pace, articulation, pronunciation, engagement. <em>Not in current rubric.</em></div></div>
-          <div class="criteria-row"><div class="ck missing">✗</div><div><strong>Non-Verbal Skills</strong> — eye contact, posture, gestures, facial expressions, grooming, notes dependency. <em>Not in current rubric.</em></div></div>
-
-          <div style="margin-top:14px; margin-bottom:10px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#888;">SoH&amp;IS Presentation Rubric (standard)</div>
-          <table class="rubric-table">
-            <thead><tr><th>Criterion</th><th>A+ / A — Excellent</th><th>B+ / B — Proficient</th><th>C — Developing</th><th>D — Beginning</th><th>F — Deficient</th></tr></thead>
-            <tbody>
-              <tr>
-                <td><span class="rubric-crit">Verbal Skills</span></td>
-                <td>Appropriate volume/tone/pace; excellent articulation; highly engaging with excellent variation</td>
-                <td>Generally appropriate; good articulation; engaging with good variation</td>
-                <td>Fairly appropriate; fair articulation; somewhat engaging</td>
-                <td>Mostly inappropriate; weak articulation; not engaging</td>
-                <td>Inappropriate; poor articulation; flat &amp; monotonous</td>
-              </tr>
-              <tr>
-                <td><span class="rubric-crit">Non-Verbal Skills</span></td>
-                <td>Effective eye contact, posture, gestures, facial expression; projects confidence; minimal notes; well-groomed</td>
-                <td>Generally effective; some notes reference; generally well-groomed</td>
-                <td>Fairly effective; obvious notes reference; fairly well-groomed</td>
-                <td>Weak; over-dependence on notes; somewhat groomed</td>
-                <td>Poor; entirely reliant on notes; not groomed appropriately</td>
-              </tr>
-              <tr>
-                <td><span class="rubric-crit">Language &amp; Visual Aids</span></td>
-                <td>Clear &amp; concise language; impactful word choice; slides clear &amp; well-designed; accurate APA</td>
-                <td>Generally clear; good word choice; generally well-designed slides; mostly accurate APA</td>
-                <td>Fairly clear; appropriate word choice; slides fairly clear; some APA errors</td>
-                <td>Lacks clarity; poor word choice; unclear slides; many APA errors</td>
-                <td>Unclear &amp; confusing; inappropriate words; poorly designed slides; inaccurate APA</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="finding-action">
-            <button class="btn-accept" onclick="acceptFinding(this, 'Adopt SoH&IS rubric for A4')">Adopt SoH&IS rubric for A4</button>
-            <button class="btn-view" onclick="toast('Opens rubric merge view')">Merge with existing rubric</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="activity-card">
-        <div class="activity-card-head">
-          <div>
-            <div class="activity-card-title">CA2 — In-class Lab Demo ×3 (20%)</div>
-            <div class="activity-card-meta">Weeks 4, 10, 14 · Individual · MO3, MO4</div>
-          </div>
-          <div class="activity-pill fail">✗ No rubric defined</div>
-        </div>
-        <div class="activity-card-body">
-          <p style="font-size:12px; color:#555; margin-bottom:12px; line-height:1.55;">Lab demos require students to explain their code, walk through their solution, and respond to lecturer questions. These involve significant verbal communication skills — but no assessment rubric is defined.</p>
-          <div class="criteria-row"><div class="ck missing">⚠</div><div>Activity carries 20% of grade but has no documented rubric or assessment criteria — framework requires marking guides/rubrics for all summative components (Section II para 2.3)</div></div>
-          <div class="criteria-row"><div class="ck missing">⚠</div><div>Verbal communication elements (explanation clarity, technical vocabulary, fielding questions) are unassessed. SoH&IS Verbal Skills criteria could be lightly applied even for a formative/self-assessment version.</div></div>
-          <p style="font-size:12px; color:#888; margin-top:12px; line-height:1.55; font-style:italic;">Presentation Impact Toolkit recommendation: "Look out for clear main message, logical structure, and active voice" — applicable to technical demos.</p>
-          <div class="finding-action">
-            <button class="btn-accept" onclick="acceptFinding(this, 'Add Lab Demo marking guide')">Generate marking guide</button>
-            <button class="btn-view" onclick="toast('Opens SoH&IS Verbal criteria preview')">View SoH&IS Verbal criteria</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── NPGC Panel ── -->
-    <div class="s3-panel" id="panel-npgc">
-      <div class="finding-group-title" style="margin-bottom:6px;">NPGC Coverage — 7 Graduate Competencies</div>
-      <p style="font-size:12px; color:#888; margin-bottom:20px; line-height:1.6;">Coverage based on MO-to-NPGC mapping in the current MDD. Each competency should ideally be anchored by ≥2 MOs for strong representation.</p>
-
-      <div style="margin-bottom:24px;">
-        <div class="npgc-row"><div class="npgc-label">A. Domain &amp; Interdisciplinary</div><div class="npgc-track"><div class="npgc-fill" style="width:80%"></div></div><div class="npgc-count">4 MOs</div></div>
-        <div class="npgc-row"><div class="npgc-label">B. Critical Thinking</div><div class="npgc-track"><div class="npgc-fill" style="width:60%"></div></div><div class="npgc-count">3 MOs</div></div>
-        <div class="npgc-row"><div class="npgc-label">C. Innovation &amp; Entrepreneurship</div><div class="npgc-track"><div class="npgc-fill weak" style="width:20%"></div></div><div class="npgc-count">1 MO <span class="npgc-warn">⚠</span></div></div>
-        <div class="npgc-row"><div class="npgc-label">D. Digital Competence</div><div class="npgc-track"><div class="npgc-fill weak" style="width:20%"></div></div><div class="npgc-count">1 MO <span class="npgc-warn">⚠</span></div></div>
-        <div class="npgc-row"><div class="npgc-label">E. Self-Development</div><div class="npgc-track"><div class="npgc-fill zero" style="width:0%"></div></div><div class="npgc-count" style="color:#bbb;">0 MOs <span class="npgc-warn">⚠</span></div></div>
-        <div class="npgc-row"><div class="npgc-label">F. Collaboration</div><div class="npgc-track"><div class="npgc-fill" style="width:40%"></div></div><div class="npgc-count">2 MOs</div></div>
-        <div class="npgc-row"><div class="npgc-label">G. Communication</div><div class="npgc-track"><div class="npgc-fill weak" style="width:20%"></div></div><div class="npgc-count">1 MO <span class="npgc-warn">⚠</span></div></div>
-      </div>
-
-      <div class="finding-group">
-        <div class="finding-group-title">Warning</div>
-        <div class="finding">
-          <div class="finding-icon warn">⚠</div>
-          <div class="finding-body">
-            <div class="finding-title">Self-Development (E) has no coverage</div>
-            <div class="finding-detail">Competency E (Self-Development: self-awareness, lifelong learning, personal effectiveness) has <strong>0 module outcomes</strong> mapped to it. For a module involving group projects and presentations, there is a natural opportunity to add a reflective or personal-development outcome.</div>
-            <div class="finding-action">
-              <button class="btn-accept" onclick="acceptFinding(this, 'Add Self-Development MO')">Suggest an MO</button>
-            </div>
-          </div>
-        </div>
-        <div class="finding">
-          <div class="finding-icon warn">⚠</div>
-          <div class="finding-body">
-            <div class="finding-title">Communication (G) weak — 1 MO; strengthened by SoH&IS alignment</div>
-            <div class="finding-detail">Currently only 1 MO maps to Communication (G). Adopting the SoH&IS Presentation Rubric for A4 would naturally support adding a stronger communication-focused outcome. Consider adding: <em>"Present technical findings clearly and persuasively to a non-specialist audience."</em></div>
-            <div class="finding-action">
-              <button class="btn-accept" onclick="acceptFinding(this, 'Add Communication MO')">Add this MO</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="finding-group">
-        <div class="finding-group-title">Passes</div>
-        <div class="finding"><div class="finding-icon pass">✓</div><div class="finding-body"><div class="finding-title">Domain &amp; Interdisciplinary (A) — well covered</div><div class="finding-detail">4 MOs mapped. Strong technical domain coverage appropriate for an L2 SIDM module.</div></div></div>
-        <div class="finding"><div class="finding-icon pass">✓</div><div class="finding-body"><div class="finding-title">Critical Thinking (B) — adequate</div><div class="finding-detail">3 MOs at Analyse level (Bloom's) map to critical thinking. Adequate for L2.</div></div></div>
-        <div class="finding"><div class="finding-icon pass">✓</div><div class="finding-body"><div class="finding-title">Collaboration (F) — supported by group project</div><div class="finding-detail">2 MOs + A3 Group Project provides collaborative learning opportunity.</div></div></div>
-      </div>
-    </div>
-
-    <!-- ── Bloom's Panel ── -->
-    <div class="s3-panel" id="panel-blooms">
-      <div class="finding-group-title" style="margin-bottom:6px;">Bloom's Taxonomy Distribution — 7 Module Outcomes</div>
-      <p style="font-size:12px; color:#888; margin-bottom:24px; line-height:1.6;">Distribution of action verbs across Bloom's cognitive levels. For an L2 (Intermediate) module, at least 1 outcome at Evaluate or Create level is recommended.</p>
-
-      <div class="bloom-grid" style="margin-bottom:24px;">
-        <div class="bloom-col">
-          <div class="bloom-bar-wrap"><div class="bloom-bar-vis zero" style="height:4px;"></div></div>
-          <div class="bloom-count zero">0</div>
-          <div class="bloom-level">Remember</div>
-        </div>
-        <div class="bloom-col">
-          <div class="bloom-bar-wrap"><div class="bloom-bar-vis" style="height:20%"></div></div>
-          <div class="bloom-count">1</div>
-          <div class="bloom-level">Understand</div>
-        </div>
-        <div class="bloom-col">
-          <div class="bloom-bar-wrap"><div class="bloom-bar-vis" style="height:50%"></div></div>
-          <div class="bloom-count">3</div>
-          <div class="bloom-level">Apply</div>
-        </div>
-        <div class="bloom-col">
-          <div class="bloom-bar-wrap"><div class="bloom-bar-vis" style="height:33%"></div></div>
-          <div class="bloom-count">2</div>
-          <div class="bloom-level">Analyse</div>
-        </div>
-        <div class="bloom-col">
-          <div class="bloom-bar-wrap"><div class="bloom-bar-vis warn" style="height:4px;"></div></div>
-          <div class="bloom-count zero">0</div>
-          <div class="bloom-level">Evaluate</div>
-        </div>
-        <div class="bloom-col">
-          <div class="bloom-bar-wrap"><div class="bloom-bar-vis warn" style="height:4px;"></div></div>
-          <div class="bloom-count zero">0</div>
-          <div class="bloom-level">Create</div>
-        </div>
-      </div>
-
-      <table style="width:100%; border-collapse:collapse; font-size:12px; margin-bottom:24px;">
-        <thead><tr style="background:#fafafa;"><th style="padding:8px 10px; border:1px solid #e0e0e0; text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:#888;">MO</th><th style="padding:8px 10px; border:1px solid #e0e0e0; text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:#888;">Outcome</th><th style="padding:8px 10px; border:1px solid #e0e0e0; font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:#888;">Verb</th><th style="padding:8px 10px; border:1px solid #e0e0e0; font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:#888;">Level</th></tr></thead>
-        <tbody>
-          <tr><td style="padding:8px 10px; border:1px solid #e8e8e8; font-family:monospace; font-size:11px; font-weight:700;">MO1</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#333;">Explain and compare properties, operations and use cases of common data structures</td><td style="padding:8px 10px; border:1px solid #e8e8e8;">Compare</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#888;">Understand</td></tr>
-          <tr><td style="padding:8px 10px; border:1px solid #e8e8e8; font-family:monospace; font-size:11px; font-weight:700;">MO2</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#333;">Implement data structures and algorithms in Python, demonstrating correctness</td><td style="padding:8px 10px; border:1px solid #e8e8e8;">Implement</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#888;">Apply</td></tr>
-          <tr><td style="padding:8px 10px; border:1px solid #e8e8e8; font-family:monospace; font-size:11px; font-weight:700;">MO3</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#333;">Apply searching and sorting algorithms to structured datasets, justifying choice</td><td style="padding:8px 10px; border:1px solid #e8e8e8;">Apply</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#888;">Apply</td></tr>
-          <tr><td style="padding:8px 10px; border:1px solid #e8e8e8; font-family:monospace; font-size:11px; font-weight:700;">MO4</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#333;">Analyse time and space complexity of algorithms using Big-O notation</td><td style="padding:8px 10px; border:1px solid #e8e8e8;">Analyse</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#888;">Analyse</td></tr>
-          <tr><td style="padding:8px 10px; border:1px solid #e8e8e8; font-family:monospace; font-size:11px; font-weight:700;">MO5</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#333;">Design and implement solutions to programming problems by selecting appropriate structures</td><td style="padding:8px 10px; border:1px solid #e8e8e8;">Design</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#888;">Apply</td></tr>
-          <tr><td style="padding:8px 10px; border:1px solid #e8e8e8; font-family:monospace; font-size:11px; font-weight:700;">MO6</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#333;">Analyse a real-world problem and propose a data-structure-based solution</td><td style="padding:8px 10px; border:1px solid #e8e8e8;">Analyse</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#888;">Analyse</td></tr>
-          <tr><td style="padding:8px 10px; border:1px solid #e8e8e8; font-family:monospace; font-size:11px; font-weight:700;">MO7</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#333;">Communicate technical findings and implementation decisions to peers and stakeholders</td><td style="padding:8px 10px; border:1px solid #e8e8e8;">Communicate</td><td style="padding:8px 10px; border:1px solid #e8e8e8; color:#888;">Apply</td></tr>
-        </tbody>
-      </table>
-
-      <div class="finding-group">
-        <div class="finding-group-title">Warning</div>
-        <div class="finding">
-          <div class="finding-icon warn">⚠</div>
-          <div class="finding-body">
-            <div class="finding-title">No outcomes at Evaluate or Create level</div>
-            <div class="finding-detail">All 7 outcomes are at Understand, Apply or Analyse. For an L2 Intermediate module, at least one outcome at a higher order (Evaluate or Create) is recommended to stretch capable students. Suggested addition: <em>"Evaluate the suitability of competing data structure implementations for a given performance and memory constraint"</em> (Evaluate level).</div>
-            <div class="finding-action">
-              <button class="btn-accept" onclick="acceptFinding(this, 'Add Evaluate-level MO8')">Add suggested MO</button>
-              <button class="btn-view" onclick="toast('Opens MO editor')">Write my own</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="finding-group">
-        <div class="finding-group-title">Passes</div>
-        <div class="finding"><div class="finding-icon pass">✓</div><div class="finding-body"><div class="finding-title">Good spread across Apply and Analyse</div><div class="finding-detail">5 of 7 outcomes are at Apply or Analyse — appropriate for an L2 module with hands-on programming labs.</div></div></div>
-        <div class="finding"><div class="finding-icon pass">✓</div><div class="finding-body"><div class="finding-title">Action verbs are specific and measurable</div><div class="finding-detail">All verbs (Explain, Implement, Apply, Analyse, Design, Communicate) are observable and assessable. No vague verbs like "understand" or "appreciate" detected.</div></div></div>
-      </div>
-    </div>
-
-    <!-- ── Schedule Panel ── -->
-    <div class="s3-panel" id="panel-sched">
-      <div class="finding-group-title" style="margin-bottom:6px;">17-Week Assessment Spread</div>
-      <p style="font-size:12px; color:#888; margin-bottom:20px; line-height:1.6;">Showing assessment-relevant weeks. Green = well-spaced, amber = cluster risk.</p>
-
-      <div style="margin-bottom:24px;">
-        <div class="sched-week-row"><div class="sched-wk">W1</div><div class="sched-topic">Introduction to Data Structures — overview, Python review</div><div></div></div>
-        <div class="sched-week-row"><div class="sched-wk">W2</div><div class="sched-topic">Arrays and Linked Lists</div><div></div></div>
-        <div class="sched-week-row"><div class="sched-wk">W3</div><div class="sched-topic">Stacks and Queues</div><div></div></div>
-        <div class="sched-week-row"><div class="sched-wk">W4</div><div class="sched-topic">Lab Demo 1 — Linked Lists (formative demo)</div><div class="sched-asmt-pill">CA2 Demo 1</div></div>
-        <div class="sched-week-row" style="background:#fafafa;"><div class="sched-wk">W5</div><div class="sched-topic">Trees and Binary Search Trees — <strong>Online Quiz</strong></div><div class="sched-asmt-pill">CA1 Quiz 15%</div></div>
-        <div class="sched-week-row"><div class="sched-wk">W6–9</div><div class="sched-topic">Sorting &amp; Searching algorithms; Recursion; Graph fundamentals</div><div></div></div>
-        <div class="sched-week-row" style="background:#fafafa;"><div class="sched-wk">W10</div><div class="sched-topic">Lab Demo 2 — Sorting (group comparison exercise)</div><div class="sched-asmt-pill">CA2 Demo 2</div></div>
-        <div class="sched-week-row"><div class="sched-wk">W11</div><div class="sched-topic">Hash Tables; Introduction to OAL — AI-assisted algorithm exploration</div><div></div></div>
-        <div class="sched-week-row"><div class="sched-wk">W12–13</div><div class="sched-topic">Big-O Analysis; Dynamic Programming fundamentals</div><div></div></div>
-        <div class="sched-week-row" style="background:#fafafa;"><div class="sched-wk">W14</div><div class="sched-topic">Lab Demo 3 — Graph algorithms (final lab demo)</div><div class="sched-asmt-pill">CA2 Demo 3</div></div>
-        <div class="sched-week-row"><div class="sched-wk">W15</div><div class="sched-topic">Project clinic &amp; consultation; Presentation rehearsal</div><div class="sched-asmt-pill" style="border-color:#888;">Recommended: A3 due here</div></div>
-        <div class="sched-week-row" style="background:#fafafa; border:1px solid #d0d0d0;"><div class="sched-wk">W16</div><div class="sched-topic" style="font-weight:600;">A3 Group Project &amp; A4 Presentation — both due</div><div class="sched-asmt-pill heavy">A3 35% + A4 30%</div><div class="sched-flag">⚠ Cluster</div></div>
-        <div class="sched-week-row"><div class="sched-wk">W17</div><div class="sched-topic">Module review &amp; reflection; Feedback session</div><div></div></div>
-      </div>
-
-      <div class="finding-group">
-        <div class="finding-group-title">Warning (linked to Assessment Framework finding)</div>
-        <div class="finding">
-          <div class="finding-icon warn">⚠</div>
-          <div class="finding-body">
-            <div class="finding-title">Week 16 assessment cluster — A3 + A4 due same week (65% total)</div>
-            <div class="finding-detail">Moving A3 deadline to <strong>Week 15</strong> would spread major submission load and give students time to apply project feedback before the presentation. Week 15 is currently used for project clinic — A3 submission would fit naturally here.</div>
-            <div class="finding-action">
-              <button class="btn-accept" onclick="acceptFinding(this, 'Move A3 to Week 15')">Move A3 to Week 15</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="finding-group">
-        <div class="finding-group-title">Passes</div>
-        <div class="finding"><div class="finding-icon pass">✓</div><div class="finding-body"><div class="finding-title">Mid-semester assessment at Week 5 — good timing</div><div class="finding-detail">CA1 Quiz in Week 5 provides early feedback before the midpoint. Timing is appropriate.</div></div></div>
-        <div class="finding"><div class="finding-icon pass">✓</div><div class="finding-body"><div class="finding-title">OAL embedded in Week 11 — AI-assisted algorithm exploration</div><div class="finding-detail">Online Asynchronous Learning (OAL) hours are documented in Week 11. No gaps detected.</div></div></div>
-        <div class="finding"><div class="finding-icon pass">✓</div><div class="finding-body"><div class="finding-title">Lab demos spread across weeks 4, 10, and 14 — good distribution</div><div class="finding-detail">CA2 demoes are evenly spaced across the semester, avoiding clustering.</div></div></div>
-      </div>
-    </div>
-
-  </div><!-- end s3-main -->
-
-  <!-- Right AI panel -->
-  <div class="s3-ai">
-    <div class="s3-ai-head">✦ AI Assistant</div>
-    <div class="s3-ai-body">
-      <div class="ai-bubble">I found <strong>2 critical issues</strong> and <strong>4 warnings</strong>. The top priority is reducing group-weighted marks to the cap.</div>
-
-      <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#aaa; margin-bottom:8px;">Try a prompt</div>
-      <div class="ai-chip-row">
-        <div class="ai-chip" onclick="toast('✦ Drafting revised assessment plan...')">Draft revised assessment plan</div>
-        <div class="ai-chip" onclick="toast('✦ Generating SoH&IS rubric for A4...')">Generate SoH&IS rubric for A4</div>
-        <div class="ai-chip" onclick="toast('✦ Suggesting Evaluate-level MO...')">Suggest Evaluate MO</div>
-        <div class="ai-chip" onclick="toast('✦ Rebalancing weights to 100%...')">Rebalance weights</div>
-        <div class="ai-chip" onclick="toast('✦ Drafting A3 milestone plan...')">Draft A3 milestone plan</div>
-      </div>
-
-      <div class="ai-bubble" style="margin-top:4px;">Quick fix for weights: reduce A3 to 28%, increase CA1 to 20%, reduce A4 to 32%. Total = 100%. This resolves both critical issues in one move.</div>
-    </div>
-  </div>
-
-</div><!-- end screen-3 -->
-
-<!-- ══════════════════════════════════════════
-     SCREEN 4 — APPLY CHANGES
-══════════════════════════════════════════ -->
-<div class="screen" id="screen-4">
-  <div class="s4-wrap">
-    <div class="s1-label">Step 4 of 4</div>
-    <div class="s1-title">Apply recommended changes</div>
-    <div class="s1-sub">Choose the updates to apply, then continue to the editor for confirmation.</div>
-
-    <!-- Critical -->
-    <div class="rec-group">
-      <div class="rec-group-title"><span class="rec-group-count">2</span> Critical — Framework compliance</div>
-
-      <div class="rec-item selected" onclick="toggleRec(this)">
-        <div class="rec-check">✓</div>
-        <div class="rec-body">
-          <div class="rec-title">Reduce A3 Group Project from 35% → 28%</div>
-          <div class="rec-detail">Brings undifferentiated group work within the <strong>30% cap</strong> (NP AF para 7.5). Adjust A4 from 30% → 32% to maintain 100% total.</div>
-          <div><span class="rec-tag critical">CRITICAL</span></div>
-        </div>
-      </div>
-
-      <div class="rec-item selected" onclick="toggleRec(this)">
-        <div class="rec-check">✓</div>
-        <div class="rec-body">
-          <div class="rec-title">Increase CA1 Online Quiz from 15% → 20%</div>
-          <div class="rec-detail">Meets the <strong>mid-semester minimum of 20%</strong> required by NP AF para 7.2. Offset by reducing A4 by 1% (to 31%).</div>
-          <div><span class="rec-tag critical">CRITICAL</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Comms -->
-    <div class="rec-group">
-      <div class="rec-group-title"><span class="rec-group-count">2</span> Communication Rubric — SoH&amp;IS alignment</div>
-
-      <div class="rec-item selected" onclick="toggleRec(this)">
-        <div class="rec-check">✓</div>
-        <div class="rec-body">
-          <div class="rec-title">Adopt SoH&amp;IS 3-criterion Presentation Rubric for A4</div>
-          <div class="rec-detail">Replace current 2-criterion rubric with the SoH&IS standard: <strong>Verbal Skills · Non-Verbal Skills · Language &amp; Visual Aids</strong>, each with 5 performance bands (A+ to F). Ensures consistent expectations with other NP modules.</div>
-          <div><span class="rec-tag comms">SoH&amp;IS RUBRIC</span></div>
-        </div>
-      </div>
-
-      <div class="rec-item" onclick="toggleRec(this)">
-        <div class="rec-check"></div>
-        <div class="rec-body">
-          <div class="rec-title">Add a marking guide for CA2 Lab Demo using SoH&amp;IS Verbal criteria</div>
-          <div class="rec-detail">CA2 has no documented rubric. A light marking guide based on the SoH&IS <strong>Verbal Skills</strong> criterion (volume, tone, pace, articulation, technical clarity) would satisfy AF para 2.3 and develop students' technical communication skills formatively.</div>
-          <div><span class="rec-tag comms">SoH&amp;IS RUBRIC</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- NPGC -->
-    <div class="rec-group">
-      <div class="rec-group-title"><span class="rec-group-count">2</span> NPGC Coverage</div>
-
-      <div class="rec-item" onclick="toggleRec(this)">
-        <div class="rec-check"></div>
-        <div class="rec-body">
-          <div class="rec-title">Add a Communication (G) outcome aligned to A4</div>
-          <div class="rec-detail">Suggested MO: <em>"Present technical design decisions and implementation results clearly to a non-specialist audience, using appropriate visual and verbal communication."</em> Maps to NPGC G and strengthens the comms rubric alignment.</div>
-          <div><span class="rec-tag npgc">NPGC G</span></div>
-        </div>
-      </div>
-
-      <div class="rec-item" onclick="toggleRec(this)">
-        <div class="rec-check"></div>
-        <div class="rec-body">
-          <div class="rec-title">Add a Self-Development (E) reflective outcome</div>
-          <div class="rec-detail">Suggested MO: <em>"Reflect on personal learning progress and identify areas for further development in algorithmic problem-solving."</em> Addresses the gap in NPGC E coverage.</div>
-          <div><span class="rec-tag npgc">NPGC E</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bloom's -->
-    <div class="rec-group">
-      <div class="rec-group-title"><span class="rec-group-count">1</span> Learning Outcomes Quality</div>
-
-      <div class="rec-item" onclick="toggleRec(this)">
-        <div class="rec-check"></div>
-        <div class="rec-body">
-          <div class="rec-title">Add an Evaluate-level outcome (MO8)</div>
-          <div class="rec-detail">Suggested: <em>"Evaluate the suitability of competing data structure implementations for a given problem context, justifying trade-offs in time complexity, space complexity, and readability."</em> Lifts the module to include higher-order thinking appropriate for L2.</div>
-          <div><span class="rec-tag quality">BLOOM'S — EVALUATE</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Schedule -->
-    <div class="rec-group">
-      <div class="rec-group-title"><span class="rec-group-count">2</span> Schedule</div>
-
-      <div class="rec-item selected" onclick="toggleRec(this)">
-        <div class="rec-check">✓</div>
-        <div class="rec-body">
-          <div class="rec-title">Move A3 submission deadline from Week 16 → Week 15</div>
-          <div class="rec-detail">Reduces assessment clustering. Week 15 (currently project clinic) is a natural submission point. Students can then focus on A4 presentation in Week 16 without parallel submission stress.</div>
-          <div><span class="rec-tag sched">SCHEDULE</span></div>
-        </div>
-      </div>
-
-      <div class="rec-item" onclick="toggleRec(this)">
-        <div class="rec-check"></div>
-        <div class="rec-body">
-          <div class="rec-title">Add a formative milestone checkpoint for A3 at Week 10</div>
-          <div class="rec-detail">Satisfies NP AF para 7.6 (formative feedback plan for extended projects). Students submit a project outline or draft at Week 10 for lecturer feedback — ungraded.</div>
-          <div><span class="rec-tag sched">SCHEDULE · AF para 7.6</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="s4-footer">
-      <div class="s4-sel-count">
-        <strong id="sel-count">4</strong> changes selected
-      </div>
-      <div>
-        <button class="btn-back-sm" onclick="goScreen(3)">← Back to Review</button>
-        <button class="btn-apply" onclick="applyChanges()">Apply &amp; Open in Editor →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Toast -->
-<div class="toast" id="toast"></div>
 
 <script>
-  // ── Screen navigation ──
-  function goScreen(n) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('screen-' + n).classList.add('active');
-    document.querySelectorAll('.si').forEach((s, i) => {
-      s.classList.remove('active', 'done');
-      if (i + 1 < n) s.classList.add('done'), (s.querySelector('.si-num').textContent = '✓');
-      else if (i + 1 === n) s.classList.add('active');
+  const mockFindings = {
+    "Assessment Framework": [
+      {
+        title: "Group project weight exceeds guideline",
+        detail: "Current group component is 35%. Suggested update: rebalance to 28-30%."
+      },
+      {
+        title: "Mid-semester assessment is light",
+        detail: "CA1 is below 20%. Suggested update: increase CA1 to 20%."
+      }
+    ],
+    "Comms Rubrics": [
+      {
+        title: "A4 is partially aligned to SoH&IS",
+        detail: "Only 2 criteria currently used. Suggested update: adopt full 3-criterion rubric."
+      }
+    ],
+    "NPGC Coverage": [
+      {
+        title: "Self-Development has weak/no coverage",
+        detail: "Suggested update: add one reflective MO mapped to Self-Development."
+      }
+    ],
+    "Outcome Quality": [
+      {
+        title: "No Evaluate/Create level outcome",
+        detail: "Suggested update: add one Evaluate-level module outcome for stronger rigor."
+      }
+    ]
+  };
+
+  const mockRecommendations = [
+    { title: "Reduce A3 group weight to 28%", detail: "Brings group assessment within guideline.", on: true },
+    { title: "Increase CA1 to 20%", detail: "Adds stronger mid-semester checkpoint.", on: true },
+    { title: "Adopt SoH&IS 3-criterion rubric for A4", detail: "Improves comms assessment alignment.", on: true },
+    { title: "Add reflective MO for Self-Development", detail: "Closes identified NPGC gap.", on: false }
+  ];
+
+  let activeAreas = ["Assessment Framework", "Comms Rubrics", "NPGC Coverage"];
+  let activeTab = "Assessment Framework";
+
+  function setStepper(step) {
+    document.querySelectorAll('.mini-step').forEach(el => {
+      const n = Number(el.dataset.step);
+      el.classList.remove('active', 'done');
+      if (n < step) {
+        el.classList.add('done');
+        el.querySelector('.mini-step-dot').textContent = '✓';
+      } else {
+        el.querySelector('.mini-step-dot').textContent = String(n);
+      }
+      if (n === step) el.classList.add('active');
     });
-    window.scrollTo(0, 0);
   }
 
-  // ── Module load ──
+  function goStep(step) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + step).classList.add('active');
+    setStepper(step);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   function loadModule() {
-    const code = document.getElementById('module-code-input').value.trim();
-    if (!code) return toast('Enter a module code first');
-    const btn = document.querySelector('.btn-load');
-    btn.textContent = 'Loading…';
-    setTimeout(() => {
-      btn.textContent = 'Loaded ✓';
-      document.getElementById('loaded-state').classList.add('visible');
-      const cont = document.getElementById('s1-continue');
-      cont.disabled = false; cont.style.opacity = '1'; cont.style.cursor = 'pointer';
-      document.getElementById('topbar-module-name').textContent = '— ' + code + ' Data Structures & Algorithms';
-      toast('ICT1234 loaded — 3 files found');
-    }, 900);
+    document.getElementById('loaded-files').style.display = 'flex';
+    document.getElementById('import-state').textContent = 'Loaded';
+    document.getElementById('import-state').style.borderColor = '#1a1a1a';
+    document.getElementById('import-state').style.color = '#1a1a1a';
+    document.getElementById('to-step-2').disabled = false;
   }
 
-
-  // ── Progressive work panel logic ──
-  const panelOrder = ['af', 'comms', 'npgc', 'blooms', 'sched'];
-  let currentPanel = 0;
-
-  function showAIFindings(panel) {
-    document.querySelector(`#panel-${panel}-work .work-panel-body`).style.display = 'none';
-    document.getElementById(`ai-${panel}-findings`).style.display = 'block';
+  function toggleCheck(el) {
+    el.classList.toggle('on');
+    const cb = el.querySelector('.check-cb');
+    cb.textContent = el.classList.contains('on') ? '✓' : '';
   }
 
-  function acceptPanel(panel) {
-    // Hide current panel, show next
-    const idx = panelOrder.indexOf(panel);
-    document.getElementById(`panel-${panel}-work`).style.display = 'none';
-    if (idx + 1 < panelOrder.length) {
-      document.getElementById(`panel-${panelOrder[idx+1]}-work`).style.display = 'block';
-    } else {
-      document.getElementById('review-next-btn').style.display = 'inline-block';
-    }
-    toast('Accepted all suggestions for ' + panel.charAt(0).toUpperCase() + panel.slice(1));
+  function runReview() {
+    activeAreas = Array.from(document.querySelectorAll('.check.on')).map(el => el.dataset.check);
+    if (!activeAreas.length) return;
+    activeTab = activeAreas[0];
+    renderFindings();
+    renderRecommendations();
+    goStep(3);
   }
 
-  function editPanel(panel) {
-    toast('Edit suggestions for ' + panel.charAt(0).toUpperCase() + panel.slice(1));
+  function renderFindings() {
+    const nav = document.getElementById('findings-nav');
+    const content = document.getElementById('findings-content');
+
+    nav.innerHTML = '';
+    activeAreas.forEach(area => {
+      const b = document.createElement('button');
+      b.textContent = area;
+      if (area === activeTab) b.classList.add('active');
+      b.onclick = () => {
+        activeTab = area;
+        renderFindings();
+      };
+      nav.appendChild(b);
+    });
+
+    content.innerHTML = '';
+    const rows = mockFindings[activeTab] || [];
+    rows.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'finding';
+      card.innerHTML = '<div class="finding-title">' + item.title + '</div><div class="finding-sub">' + item.detail + '</div>';
+      content.appendChild(card);
+    });
   }
 
-  function skipPanel(panel) {
-    // Hide current panel, show next
-    const idx = panelOrder.indexOf(panel);
-    document.getElementById(`panel-${panel}-work`).style.display = 'none';
-    if (idx + 1 < panelOrder.length) {
-      document.getElementById(`panel-${panelOrder[idx+1]}-work`).style.display = 'block';
-    } else {
-      document.getElementById('review-next-btn').style.display = 'inline-block';
-    }
-    toast('Skipped ' + panel.charAt(0).toUpperCase() + panel.slice(1));
+  function renderRecommendations() {
+    const root = document.getElementById('recommendations');
+    root.innerHTML = '';
+    mockRecommendations.forEach((rec, idx) => {
+      const row = document.createElement('div');
+      row.className = 'recommendation' + (rec.on ? ' on' : '');
+      row.innerHTML =
+        '<div class="rec-cb">' + (rec.on ? '✓' : '') + '</div>' +
+        '<div><div class="rec-title">' + rec.title + '</div><div class="rec-sub">' + rec.detail + '</div></div>';
+      row.onclick = () => {
+        rec.on = !rec.on;
+        renderRecommendations();
+      };
+      root.appendChild(row);
+    });
+    updateSelectedCount();
   }
 
-  // ── Tab switching in screen 3 ──
-  function switchTab(name) {
-    document.querySelectorAll('.s3-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.s3-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.s3-nav-item').forEach(n => n.classList.remove('active'));
-    document.getElementById('tab-' + name).classList.add('active');
-    document.getElementById('panel-' + name).classList.add('active');
-    // sync left nav
-    const navItems = document.querySelectorAll('.s3-nav-item');
-    const tabMap = { af: 0, comms: 1, npgc: 2, blooms: 3, sched: 4 };
-    navItems[tabMap[name]].classList.add('active');
+  function updateSelectedCount() {
+    const count = mockRecommendations.filter(r => r.on).length;
+    document.getElementById('selected-count').textContent = String(count);
   }
-
-  // ── Accept finding ──
-  function acceptFinding(btn, label) {
-    btn.textContent = '✓ Accepted';
-    btn.disabled = true;
-    btn.style.background = '#555';
-    toast('Queued: ' + label);
-  }
-
-  // ── Rec item toggles ──
-  function toggleRec(item) {
-    item.classList.toggle('selected');
-    item.querySelector('.rec-check').textContent = item.classList.contains('selected') ? '✓' : '';
-    const count = document.querySelectorAll('.rec-item.selected').length;
-    document.getElementById('sel-count').textContent = count;
-  }
-
-  // ── Apply changes ──
-  function applyChanges() {
-    const count = document.querySelectorAll('.rec-item.selected').length;
-    if (count === 0) { toast('Select at least one change first'); return; }
-    const btn = document.querySelector('.btn-apply');
-    btn.textContent = 'Applying…';
-    setTimeout(() => { window.location.href = 'mdd-editor.html'; }, 1000);
-  }
-
-  // ── Toast ──
-  function toast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg; t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2800);
-  }
-
-  // Auto-load on page ready for demo (pre-fill module code)
-  window.addEventListener('load', () => {
-    // slight delay then simulate load
-    setTimeout(() => {
-      const cont = document.getElementById('s1-continue');
-      cont.disabled = false; cont.style.opacity = '1'; cont.style.cursor = 'pointer';
-    }, 200);
-  });
 </script>
 </body>
 </html>
