@@ -35,66 +35,82 @@
     .page-title { font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 6px; }
     .page-sub { font-size: 13px; color: #888; line-height: 1.65; margin-bottom: 28px; max-width: 600px; }
 
-    /* ── Inner sub-stepper ── */
-    .substeps { display: flex; align-items: center; gap: 6px; margin-bottom: 24px; font-size: 11px; }
-    .substep { display: inline-flex; gap: 7px; align-items: center; color: #bbb; }
-    .substep-num { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; font-family: var(--font-mono); }
-    .substep.active { color: #1a1a1a; font-weight: 600; }
-    .substep.active .substep-num { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-    .substep.done { color: #888; }
-    .substep.done .substep-num { background: #555; color: #fff; border-color: #555; }
-    .substep-sep { color: #ddd; }
+    /* ── Layout grid (matches plan-direction.html) ── */
+    .layout { display: grid; grid-template-columns: 1fr 280px; gap: 24px; align-items: flex-start; }
+    .layout-main { min-width: 0; }
+    .layout-side { position: sticky; top: 76px; }
 
-    /* ── Screens ── */
-    .screen { display: none; }
-    .screen.active { display: block; }
+    @media (max-width: 1080px) {
+      .layout { grid-template-columns: 1fr; }
+      .layout-side { position: static; }
+    }
 
-    /* ── Cards ── */
-    .card { border: 1px solid #e4e4e4; background: #fff; margin-bottom: 12px; }
-    .card-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid #f0f0f0; }
-    .card-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
-    .card-body { padding: 16px 18px; }
+    /* ── Plan sections (same pattern as plan-direction.html) ── */
+    .plan-section { border: 1px solid #e4e4e4; margin-bottom: 10px; background: #fff; }
+    .ps-header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; user-select: none; }
+    .ps-header:hover { background: #fafafa; }
+    .ps-num { width: 22px; height: 22px; flex-shrink: 0; font-size: 10px; font-weight: 700; font-family: var(--font-mono); background: #1a1a1a; color: #fff; display: flex; align-items: center; justify-content: center; }
+    .ps-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+    .ps-desc { font-size: 11px; color: #aaa; margin-left: auto; max-width: 320px; text-align: right; line-height: 1.4; }
+    .ps-toggle { flex-shrink: 0; font-size: 11px; color: #ccc; margin-left: 10px; transition: transform 130ms; line-height: 1; }
+    .plan-section.collapsed .ps-toggle { transform: rotate(-90deg); }
+    .plan-section.collapsed .ps-body { display: none; }
+    .ps-body { padding: 14px 16px; }
 
-    .state-pill { font-size: 10px; font-weight: 600; letter-spacing: 0.04em; border: 1px solid #ddd; background: #fafafa; color: #888; padding: 3px 9px; font-family: var(--font-mono); }
-    .state-pill.loaded { border-color: #1a1a1a; color: #1a1a1a; background: #fff; }
-
-    /* ── Inputs ── */
-    .field-row { display: flex; gap: 10px; align-items: flex-end; }
+    /* ── Form ── */
+    .field-row { display: flex; gap: 10px; align-items: flex-end; margin-bottom: 12px; }
+    .field-row:last-child { margin-bottom: 0; }
     .field { display: flex; flex-direction: column; gap: 5px; flex: 1; }
     .field-label { font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #aaa; }
     .field-label .opt { font-weight: 400; text-transform: none; letter-spacing: 0; color: #ccc; }
-    .plan-input, .plan-textarea { font-family: var(--font-sans); font-size: 13px; color: #1a1a1a; border: 1px solid #d8d8d8; padding: 9px 12px; background: #fff; outline: none; width: 100%; transition: border-color 100ms; }
+    .plan-input, .plan-textarea { font-family: var(--font-sans); font-size: 13px; color: #1a1a1a; border: 1px solid #d8d8d8; padding: 8px 12px; background: #fff; outline: none; width: 100%; transition: border-color 100ms; }
     .plan-input:focus, .plan-textarea:focus { border-color: #888; }
     .plan-textarea { resize: vertical; min-height: 72px; line-height: 1.6; padding: 10px 12px; }
 
+    .btn-action { font-size: 12px; font-weight: 600; color: #fff; border: 1px solid #1a1a1a; padding: 8px 16px; background: #1a1a1a; cursor: pointer; font-family: inherit; flex-shrink: 0; }
+    .btn-action:hover { background: #333; }
+
+    /* ── State pill ── */
+    .state-pill { font-size: 10px; font-weight: 600; letter-spacing: 0.04em; border: 1px solid #ddd; background: #fafafa; color: #888; padding: 3px 9px; font-family: var(--font-mono); }
+    .state-pill.loaded { border-color: #1a1a1a; color: #1a1a1a; background: #fff; }
+
     /* ── Loaded files ── */
-    .loaded-list { display: flex; flex-direction: column; gap: 0; margin-top: 12px; border-top: 1px solid #f0f0f0; }
+    .loaded-list { display: flex; flex-direction: column; gap: 0; margin-top: 14px; border-top: 1px solid #f0f0f0; padding-top: 10px; }
     .loaded-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f4f4f4; font-size: 12px; color: #555; }
     .loaded-item:last-child { border-bottom: none; }
     .file-chip { font-size: 9px; font-weight: 700; font-family: var(--font-mono); color: #999; border: 1px solid #e4e4e4; padding: 1px 5px; background: #f8f8f8; flex-shrink: 0; }
 
-    /* ── Layout grid ── */
-    .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    @media (max-width: 1080px) { .layout { grid-template-columns: 1fr; } }
-
-    /* ── Check items ── */
-    .checks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .check { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border: 1px solid #e8e8e8; cursor: pointer; user-select: none; transition: background 80ms; }
-    .check:hover { background: #fafafa; border-color: #ccc; }
-    .check.on { background: #f5f5f5; border-color: #888; }
-    .check-cb { width: 15px; height: 15px; border: 1px solid #ccc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #fff; font-size: 9px; font-weight: 700; color: transparent; margin-top: 1px; }
-    .check.on .check-cb { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
-    .check-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
+    /* ── Check items (matches plan-direction.html) ── */
+    .check-group-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border: 1px solid #e8e8e8; cursor: pointer; user-select: none; transition: background 80ms; }
+    .check-item:hover { background: #fafafa; border-color: #ccc; }
+    .check-item.on { background: #f5f5f5; border-color: #888; }
+    .check-box { width: 15px; height: 15px; border: 1px solid #ccc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #fff; transition: all 80ms; margin-top: 1px; }
+    .check-item.on .check-box { background: #1a1a1a; border-color: #1a1a1a; }
+    .check-item.on .check-box::after { content: '✓'; color: #fff; font-size: 9px; font-weight: 700; }
+    .check-label { font-size: 12px; color: #1a1a1a; font-weight: 600; }
     .check-sub { font-size: 10px; color: #aaa; margin-top: 2px; line-height: 1.4; }
 
-    /* ── Reference checkbox group ── */
-    .ref-group { display: flex; flex-direction: column; gap: 5px; }
-    .ref-row { display: flex; gap: 8px; align-items: center; font-size: 12px; color: #555; padding: 4px 0; }
+    /* ── Reference list ── */
+    .ref-group { display: flex; flex-direction: column; gap: 4px; }
+    .ref-row { display: flex; gap: 9px; align-items: center; font-size: 12px; color: #555; padding: 5px 0; cursor: pointer; user-select: none; }
     .ref-row input { accent-color: #1a1a1a; }
+    .ref-row:hover { color: #1a1a1a; }
 
-    /* ── AI hint ── */
-    .ai-hint { display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; background: #fffef8; border: 1px solid #ecd88f; margin-bottom: 12px; font-size: 12px; color: #555; line-height: 1.5; }
-    .ai-hint::before { content: '✦'; color: #7a5f00; font-weight: 700; flex-shrink: 0; }
+    /* ── AI sidebar (matches plan-direction.html) ── */
+    .side-card { border: 1px solid #e4e4e4; margin-bottom: 10px; }
+    .side-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; padding: 12px 14px 8px; display: block; }
+    .side-card-body { padding: 0 14px 12px; }
+    .side-rec-item { font-size: 11px; color: #666; line-height: 1.5; padding: 6px 0; border-bottom: 1px solid #f4f4f4; display: flex; gap: 7px; align-items: flex-start; }
+    .side-rec-item:last-child { border-bottom: none; }
+    .side-rec-item::before { content: '·'; color: #ccc; flex-shrink: 0; }
+    .sum-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #f4f4f4; font-size: 11px; }
+    .sum-row:last-child { border-bottom: none; }
+    .sum-key { color: #aaa; }
+    .sum-val { color: #1a1a1a; font-weight: 600; text-align: right; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sum-val.empty { color: #bbb; font-weight: 400; }
+    .side-card.ai-side { background: #fffef8; border-color: #ecd88f; }
+    .side-card.ai-side .side-label { color: #7a5f00; }
 
     /* ── Bottom bar ── */
     .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #fff; border-top: 1px solid #e0e0e0; z-index: 50; }
@@ -105,7 +121,6 @@
     .btn-ghost:hover { border-color: #999; color: #1a1a1a; }
     .btn-primary { font-size: 12px; font-weight: 600; color: #fff; border: 1px solid #1a1a1a; padding: 7px 18px; background: #1a1a1a; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-family: inherit; }
     .btn-primary:hover { background: #333; }
-    .btn-primary[disabled] { opacity: 0.4; cursor: not-allowed; }
   </style>
 </head>
 <body>
@@ -123,7 +138,7 @@
   </div>
 </nav>
 
-<!-- Phase bar: review path enters at Step 4 -->
+<!-- Phase bar -->
 <div class="phase-bar">
   <div class="phase-inner">
     <div class="ph-step"><div class="ph-num">1</div><span>Context Workspace (optional)</span></div>
@@ -141,101 +156,94 @@
 <!-- Page -->
 <main class="page">
 
-  <!-- Inner sub-stepper -->
-  <div class="substeps" id="substeps">
-    <div class="substep active" data-step="1"><span class="substep-num">1</span><span>Import Module</span></div>
-    <span class="substep-sep">›</span>
-    <div class="substep" data-step="2"><span class="substep-num">2</span><span>Configure Review</span></div>
-    <span class="substep-sep">›</span>
-    <div class="substep" data-step="3"><span class="substep-num">3</span><span>Open Editor</span></div>
-  </div>
+  <div class="page-title">Module Review &amp; Refresh</div>
+  <div class="page-sub">Import an existing module, choose what to review, and open it in the editor for AI-assisted refinement.</div>
 
-  <!-- ═══ SCREEN 1: Import Module ═══ -->
-  <section class="screen active" id="screen-1">
+  <div class="layout">
 
-    <div class="page-title">Import Existing Module</div>
-    <div class="page-sub">Bring in an existing module to review. AI will analyse the inputs using your selected review lenses.</div>
+    <div class="layout-main">
 
-    <div class="card">
-      <div class="card-head">
-        <div class="card-title">Module Materials &amp; Inputs</div>
-        <span class="state-pill" id="import-state">Not loaded</span>
-      </div>
-      <div class="card-body">
-        <div class="field-row">
-          <div class="field">
-            <label class="field-label">Module Code</label>
-            <input class="plan-input" id="module-code" type="text" value="ICT1234" placeholder="e.g. ICT1234">
+      <!-- Section A: Module Materials -->
+      <div class="plan-section">
+        <div class="ps-header" onclick="toggleSection(this)">
+          <div class="ps-num">A</div>
+          <div class="ps-title">Module Materials &amp; Inputs</div>
+          <div class="ps-desc">Load the module to review</div>
+          <div class="ps-toggle">▾</div>
+        </div>
+        <div class="ps-body">
+          <div class="field-row">
+            <div class="field">
+              <label class="field-label">Module Code</label>
+              <input class="plan-input" id="module-code" type="text" value="ICT1234" placeholder="e.g. ICT1234">
+            </div>
+            <button class="btn-action" onclick="loadModule()">Load Example Module</button>
+            <span class="state-pill" id="import-state" style="margin-bottom:7px;">Not loaded</span>
           </div>
-          <button class="btn-primary" onclick="loadModule()">Load Example Module</button>
-        </div>
-        <div class="loaded-list" id="loaded-files" style="display:none;">
-          <div class="loaded-item"><span class="file-chip">XLSX</span><span>ICT1234_MDD_AY2526S1.xlsx</span></div>
-          <div class="loaded-item"><span class="file-chip">PDF</span><span>ICT1234_Assessment_Brief.pdf</span></div>
-          <div class="loaded-item"><span class="file-chip">DOCX</span><span>ICT1234_Comms_Rubric_Draft.docx</span></div>
+          <div class="loaded-list" id="loaded-files" style="display:none;">
+            <div class="loaded-item"><span class="file-chip">XLSX</span><span>ICT1234_MDD_AY2526S1.xlsx</span></div>
+            <div class="loaded-item"><span class="file-chip">PDF</span><span>ICT1234_Assessment_Brief.pdf</span></div>
+            <div class="loaded-item"><span class="file-chip">DOCX</span><span>ICT1234_Comms_Rubric_Draft.docx</span></div>
+          </div>
         </div>
       </div>
-    </div>
 
-  </section>
-
-  <!-- ═══ SCREEN 2: Configure Review ═══ -->
-  <section class="screen" id="screen-2">
-
-    <div class="page-title">Configure Review Focus</div>
-    <div class="page-sub">Select focus areas and optional reference frameworks to guide AI-supported review.</div>
-
-    <div class="ai-hint">AI uses your focus areas and reference frameworks to surface alignment gaps, recommend refinements, and prepare the editor.</div>
-
-    <div class="layout">
-
-      <!-- Focus areas -->
-      <div class="card">
-        <div class="card-head">
-          <div class="card-title">Review Focus Areas</div>
+      <!-- Section B: Review Focus Areas -->
+      <div class="plan-section">
+        <div class="ps-header" onclick="toggleSection(this)">
+          <div class="ps-num">B</div>
+          <div class="ps-title">Review Focus Areas</div>
+          <div class="ps-desc">Select the lenses AI will use to review the module</div>
+          <div class="ps-toggle">▾</div>
         </div>
-        <div class="card-body">
-          <div class="checks" id="checks">
-            <div class="check on" data-check="Graduate Competencies" onclick="toggleCheck(this)">
-              <div class="check-cb">✓</div>
-              <div><div class="check-name">Graduate Competencies</div><div class="check-sub">NPGC coverage &amp; progression</div></div>
+        <div class="ps-body">
+          <div class="check-group-2col" id="checks">
+            <div class="check-item on" data-check="Graduate Competencies" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div class="check-label">Graduate Competencies</div><div class="check-sub">NPGC coverage &amp; progression</div></div>
             </div>
-            <div class="check on" data-check="Assessment Strategy" onclick="toggleCheck(this)">
-              <div class="check-cb">✓</div>
-              <div><div class="check-name">Assessment Strategy</div><div class="check-sub">Balance &amp; alignment</div></div>
+            <div class="check-item on" data-check="Assessment Strategy" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div class="check-label">Assessment Strategy</div><div class="check-sub">Balance &amp; alignment</div></div>
             </div>
-            <div class="check" data-check="Teaching &amp; Learning" onclick="toggleCheck(this)">
-              <div class="check-cb">✓</div>
-              <div><div class="check-name">Teaching &amp; Learning</div><div class="check-sub">Approach &amp; delivery</div></div>
+            <div class="check-item" data-check="Teaching &amp; Learning" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div class="check-label">Teaching &amp; Learning</div><div class="check-sub">Approach &amp; delivery</div></div>
             </div>
-            <div class="check" data-check="Industry Relevance" onclick="toggleCheck(this)">
-              <div class="check-cb">✓</div>
-              <div><div class="check-name">Industry Relevance</div><div class="check-sub">Workforce currency</div></div>
+            <div class="check-item" data-check="Industry Relevance" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div class="check-label">Industry Relevance</div><div class="check-sub">Workforce currency</div></div>
             </div>
-            <div class="check on" data-check="Content &amp; Outcomes" onclick="toggleCheck(this)">
-              <div class="check-cb">✓</div>
-              <div><div class="check-name">Content &amp; Outcomes</div><div class="check-sub">Bloom's coverage</div></div>
+            <div class="check-item on" data-check="Content &amp; Outcomes" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div class="check-label">Content &amp; Outcomes</div><div class="check-sub">Bloom's coverage</div></div>
             </div>
-            <div class="check on" data-check="Communication Skills" onclick="toggleCheck(this)">
-              <div class="check-cb">✓</div>
-              <div><div class="check-name">Communication Skills</div><div class="check-sub">Presentation &amp; language</div></div>
+            <div class="check-item on" data-check="Communication Skills" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div class="check-label">Communication Skills</div><div class="check-sub">Presentation &amp; language</div></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Reference frameworks + Notes -->
-      <div class="card">
-        <div class="card-head">
-          <div class="card-title">Reference Frameworks <span style="font-size:11px;font-weight:400;color:#aaa;">(optional)</span></div>
+      <!-- Section C: Reference Frameworks & Notes -->
+      <div class="plan-section">
+        <div class="ps-header" onclick="toggleSection(this)">
+          <div class="ps-num">C</div>
+          <div class="ps-title">Reference Frameworks &amp; Notes</div>
+          <div class="ps-desc">Optional — informs AI's review against established frameworks</div>
+          <div class="ps-toggle">▾</div>
         </div>
-        <div class="card-body">
-          <div class="ref-group" style="margin-bottom:16px;">
-            <label class="ref-row"><input type="checkbox" class="ref-check" value="NP Assessment Framework">NP Assessment Framework</label>
-            <label class="ref-row"><input type="checkbox" class="ref-check" value="NPGC Framework">NPGC Framework</label>
-            <label class="ref-row"><input type="checkbox" class="ref-check" value="Industry Skills Frameworks">Industry Skills Frameworks</label>
-            <label class="ref-row"><input type="checkbox" class="ref-check" value="Communication &amp; Presentation Rubrics">Communication &amp; Presentation Rubrics</label>
-            <label class="ref-row"><input type="checkbox" class="ref-check" value="Accreditation Standards">Accreditation Standards</label>
+        <div class="ps-body">
+          <div class="field" style="margin-bottom:14px;">
+            <label class="field-label">Reference Frameworks <span class="opt">(optional)</span></label>
+            <div class="ref-group">
+              <label class="ref-row"><input type="checkbox" class="ref-check" value="NP Assessment Framework">NP Assessment Framework</label>
+              <label class="ref-row"><input type="checkbox" class="ref-check" value="NPGC Framework">NPGC Framework</label>
+              <label class="ref-row"><input type="checkbox" class="ref-check" value="Industry Skills Frameworks">Industry Skills Frameworks</label>
+              <label class="ref-row"><input type="checkbox" class="ref-check" value="Communication &amp; Presentation Rubrics">Communication &amp; Presentation Rubrics</label>
+              <label class="ref-row"><input type="checkbox" class="ref-check" value="Accreditation Standards">Accreditation Standards</label>
+            </div>
           </div>
           <div class="field">
             <label class="field-label">Lecturer Notes <span class="opt">(optional)</span></label>
@@ -244,89 +252,84 @@
         </div>
       </div>
 
+    </div><!-- end layout-main -->
+
+    <!-- Sidebar (consistent with plan-direction.html) -->
+    <div class="layout-side">
+
+      <div class="side-card ai-side">
+        <span class="side-label">✦ What AI will do</span>
+        <div class="side-card-body">
+          <div class="side-rec-item">Analyse module against your selected review lenses</div>
+          <div class="side-rec-item">Surface alignment gaps and outdated content</div>
+          <div class="side-rec-item">Recommend section-by-section refinements</div>
+          <div class="side-rec-item">Map to reference frameworks if selected</div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <span class="side-label">Review Summary</span>
+        <div class="side-card-body">
+          <div class="sum-row"><span class="sum-key">Module</span><span class="sum-val empty" id="sum-module">Not loaded</span></div>
+          <div class="sum-row"><span class="sum-key">Focus areas</span><span class="sum-val" id="sum-focus">4 selected</span></div>
+          <div class="sum-row"><span class="sum-key">References</span><span class="sum-val empty" id="sum-refs">None</span></div>
+          <div class="sum-row"><span class="sum-key">Notes</span><span class="sum-val empty" id="sum-notes">None</span></div>
+        </div>
+      </div>
+
     </div>
 
-  </section>
+  </div>
 
 </main>
 
 <!-- Bottom bar -->
 <div class="bottom-bar">
   <div class="bottom-inner">
-    <div class="bb-note" id="bb-note">Load a module to begin the review</div>
+    <div class="bb-note" id="bb-note">Load a module, then open it in the editor</div>
     <div class="bb-actions">
-      <a href="index.html" class="btn-ghost" id="back-btn">← Home</a>
-      <a href="#" class="btn-primary" id="primary-btn" onclick="primaryAction(event)" style="opacity:0.4; pointer-events:none;">Continue →</a>
+      <a href="index.html" class="btn-ghost">← Home</a>
+      <a href="mdd-editor.html?mode=review" class="btn-primary">Open in Editor →</a>
     </div>
   </div>
 </div>
 
 <script>
-  let currentStep = 1;
-  let moduleLoaded = false;
+  function toggleSection(headerEl) { headerEl.parentElement.classList.toggle('collapsed'); }
 
-  function setStep(step) {
-    currentStep = step;
-    // Substeps
-    document.querySelectorAll('.substep').forEach(el => {
-      const n = Number(el.dataset.step);
-      el.classList.remove('active', 'done');
-      const numEl = el.querySelector('.substep-num');
-      if (n < step) { el.classList.add('done'); numEl.textContent = '✓'; }
-      else if (n === step) { el.classList.add('active'); numEl.textContent = String(n); }
-      else { numEl.textContent = String(n); }
-    });
-    // Screens
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('screen-' + step).classList.add('active');
-    // Bottom bar
-    const primary = document.getElementById('primary-btn');
-    const back = document.getElementById('back-btn');
-    const note = document.getElementById('bb-note');
-    if (step === 1) {
-      back.textContent = '← Home';
-      back.href = 'index.html';
-      primary.textContent = 'Continue →';
-      note.textContent = moduleLoaded ? 'Module loaded · proceed to configure review' : 'Load a module to begin the review';
-      primary.style.opacity = moduleLoaded ? '1' : '0.4';
-      primary.style.pointerEvents = moduleLoaded ? 'auto' : 'none';
-    } else if (step === 2) {
-      back.textContent = '← Back to Import';
-      back.href = '#';
-      back.onclick = (e) => { e.preventDefault(); setStep(1); };
-      primary.textContent = 'Open in Editor →';
-      note.textContent = 'AI will analyse against your selected lenses';
-      primary.style.opacity = '1';
-      primary.style.pointerEvents = 'auto';
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function primaryAction(e) {
-    e.preventDefault();
-    if (currentStep === 1) setStep(2);
-    else if (currentStep === 2) {
-      const areas = Array.from(document.querySelectorAll('.check.on')).map(el => el.dataset.check);
-      if (!areas.length) { alert('Select at least one review focus area.'); return; }
-      window.location.href = 'mdd-editor.html?mode=review';
-    }
+  function toggleCheck(el) {
+    el.classList.toggle('on');
+    updateSummary();
   }
 
   function loadModule() {
-    moduleLoaded = true;
     document.getElementById('loaded-files').style.display = 'flex';
     const st = document.getElementById('import-state');
     st.textContent = 'Loaded';
     st.classList.add('loaded');
-    setStep(1); // refresh state
+    document.getElementById('sum-module').textContent = 'ICT1234';
+    document.getElementById('sum-module').classList.remove('empty');
+    document.getElementById('bb-note').textContent = 'Module loaded · ready to open in editor';
   }
 
-  function toggleCheck(el) {
-    el.classList.toggle('on');
-    el.querySelector('.check-cb').textContent = el.classList.contains('on') ? '✓' : '';
+  function updateSummary() {
+    const focus = document.querySelectorAll('.check-item.on').length;
+    document.getElementById('sum-focus').textContent = focus + ' selected';
   }
 
-  setStep(1);
+  document.querySelectorAll('.ref-check').forEach(cb => cb.addEventListener('change', () => {
+    const refs = document.querySelectorAll('.ref-check:checked').length;
+    const el = document.getElementById('sum-refs');
+    if (refs > 0) { el.textContent = refs + ' selected'; el.classList.remove('empty'); }
+    else { el.textContent = 'None'; el.classList.add('empty'); }
+  }));
+
+  document.getElementById('activity-notes').addEventListener('input', (e) => {
+    const el = document.getElementById('sum-notes');
+    if (e.target.value.trim()) { el.textContent = 'Added'; el.classList.remove('empty'); }
+    else { el.textContent = 'None'; el.classList.add('empty'); }
+  });
 </script>
+
 </body>
 </html>
