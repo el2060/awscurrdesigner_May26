@@ -137,18 +137,18 @@
 /* --- Google Fonts --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-/* --- Design Tokens (Monochrome Wireframe) --- */
+/* --- Design Tokens (Wireframe with NP color accents) --- */
 :root {
-  /* Brand (logo only — not applied to UI chrome) */
-  --np-blue: #1a1a1a;
-  --np-blue-hover: #000000;
-  --np-blue-dark: #000000;
-  --np-blue-light: #f0f0f0;
-  --np-blue-mid: #d0d0d0;
-  --np-gold: #e0e0e0;
-  --np-gold-hover: #cccccc;
-  --np-gold-light: #f5f5f5;
-  --np-gold-mid: #e8e8e8;
+  /* Brand — NP Blue for primary actions, NP Gold for AI moments */
+  --np-blue: #004689;
+  --np-blue-hover: #003366;
+  --np-blue-dark: #002a52;
+  --np-blue-light: #f0f6fc;
+  --np-blue-mid: #b8d0e6;
+  --np-gold: #FCB040;
+  --np-gold-hover: #e89a2a;
+  --np-gold-light: #fffef8;
+  --np-gold-mid: #ecd88f;
   --np-dark: #1a1a1a;
 
   /* Surfaces */
@@ -165,30 +165,30 @@
   --color-text-tertiary: #9B9B9E;
   --color-text-placeholder: #C4C4C0;
 
-  /* Accent → black */
-  --color-accent: #1a1a1a;
-  --color-accent-hover: #000000;
-  --color-accent-light: #f0f0f0;
-  --color-accent-mid: #d0d0d0;
+  /* Accent → NP Blue */
+  --color-accent: #004689;
+  --color-accent-hover: #003366;
+  --color-accent-light: #f0f6fc;
+  --color-accent-mid: #b8d0e6;
 
-  /* Success → dark gray */
-  --color-success: #1a1a1a;
-  --color-success-light: #f0f0f0;
-  --color-success-mid: #d0d0d0;
+  /* Success → muted green */
+  --color-success: #2D7A4A;
+  --color-success-light: #f0f8f4;
+  --color-success-mid: #b8d4c2;
 
-  /* Warning → medium gray */
-  --color-warning: #555555;
-  --color-warning-light: #f5f5f5;
-  --color-warning-mid: #e0e0e0;
+  /* Warning → amber */
+  --color-warning: #C58A00;
+  --color-warning-light: #fffaeb;
+  --color-warning-mid: #f3deb3;
 
-  /* Danger → dark gray */
-  --color-danger: #1a1a1a;
-  --color-danger-light: #f5f5f5;
-  --color-danger-mid: #e0e0e0;
+  /* Danger → muted red */
+  --color-danger: #B73B3B;
+  --color-danger-light: #fdf1f1;
+  --color-danger-mid: #ecc4c4;
 
-  /* AI → dark gray */
-  --color-ai-glow: #1a1a1a;
-  --color-ai-light: #f0f0f0;
+  /* AI → NP Gold accent */
+  --color-ai-glow: #FCB040;
+  --color-ai-light: #fffef8;
 
   /* NPGC — grayscale only */
   --color-npgc-1: #1a1a1a;
