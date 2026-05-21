@@ -147,6 +147,39 @@ img, svg { display: block; }
   text-transform: uppercase; color: var(--color-text-secondary);
 }
 
+/* --- Introductory Paragraph --- */
+.intro {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* --- Path Labels --- */
+.path-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 16px;
+  display: block;
+}
+
+/* --- Hover Effects for Buttons --- */
+.phase-cta {
+  background: #000; /* Ensure high contrast background */
+  color: #fff; /* Ensure text is clearly visible */
+  border: 1px solid #000; /* Add border for better visibility */
+  font-size: var(--text-sm);
+  font-weight: var(--font-600);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+.phase-cta:hover {
+  background: #333; /* Slightly lighter hover effect */
+  color: #fff; /* Maintain text visibility */
+}
+
 /* ============================================================
    APP SHELL LAYOUT
    ============================================================ */
