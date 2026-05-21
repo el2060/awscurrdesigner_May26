@@ -294,69 +294,149 @@
   <div class="si" id="si-4"><div class="si-num">4</div><span>Apply Updates</span></div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     SCREEN 1 — IMPORT MODULE
-══════════════════════════════════════════ -->
-<div class="screen active" id="screen-1">
-  <div class="s1-wrap">
-    <div class="s1-label">Step 1 of 4</div>
-    <div class="s1-title">Import your existing module</div>
-    <div class="s1-sub">Load by module code or upload files, then choose what to review.</div>
 
-    <div class="quick-load">
-      <div class="quick-load-label">Load by module code</div>
-      <div class="quick-load-row">
-        <input class="quick-input" type="text" id="module-code-input" placeholder="e.g. ICT1234" value="ICT1234">
-        <button class="btn-load" onclick="loadModule()">Load from records</button>
-      </div>
-      <!-- Loaded state (shown after clicking Load) -->
-      <div class="loaded-state" id="loaded-state">
-        <div class="loaded-header">
-          <div class="loaded-check">✓</div>
-          <div>
-            <div class="loaded-title">ICT1234 — Data Structures &amp; Algorithms</div>
-            <div class="loaded-meta">L2 · SIDM · 4 CU · AY2024/25 S2 · CA module · Module Leader: Lim Mei Ling</div>
+<!-- ══════════════════════════════════════════
+     SCREEN 2 — PROGRESSIVE REVIEW PANELS
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-2">
+  <div class="s2-wrap">
+    <div class="s1-label">Step 2 of 4</div>
+    <div class="s1-title">Review your module, step by step</div>
+    <div class="s1-sub">Work through each area. Add your context, then review AI findings and suggestions. Accept, edit, or skip as you go.</div>
+
+    <div class="work-panel-list">
+      <!-- Assessment Framework Panel -->
+      <div class="work-panel" id="panel-af-work">
+        <div class="work-panel-head">
+          <span class="work-panel-step">1</span>
+          <span class="work-panel-title">Assessment Framework</span>
+        </div>
+        <div class="work-panel-body">
+          <label class="work-panel-label">Your notes/context (optional):</label>
+          <textarea class="work-panel-input" placeholder="E.g. explain any special assessment arrangements, group work rationale, etc."></textarea>
+          <button class="btn-continue" onclick="showAIFindings('af')">Review AI Findings →</button>
+        </div>
+        <div class="work-panel-ai" id="ai-af-findings" style="display:none;">
+          <div class="ai-bubble">AI found 2 critical issues and 2 warnings in your assessment plan. See details below and accept or edit suggestions.</div>
+          <ul class="ai-findings-list">
+            <li>✗ <b>Group project exceeds 30% cap</b> — Suggest: reduce to 28% or differentiate contributions.</li>
+            <li>✗ <b>Mid-semester assessment below 20%</b> — Suggest: increase CA1 to 20%.</li>
+            <li>⚠ <b>No formative feedback for A3</b> — Suggest: add milestone consultations.</li>
+            <li>⚠ <b>A3 & A4 due same week</b> — Suggest: move A3 to Week 15.</li>
+          </ul>
+          <div class="work-panel-actions">
+            <button class="btn-accept" onclick="acceptPanel('af')">Accept All</button>
+            <button class="btn-view" onclick="editPanel('af')">Edit Suggestions</button>
+            <button class="btn-skip" onclick="skipPanel('af')">Skip</button>
           </div>
         </div>
-        <div class="loaded-files">
-          <div class="loaded-file"><div class="loaded-file-icon">XLS</div><div class="loaded-file-name">ICT1234_DSA_MDD_v2.xlsx — Module Design Document</div><div class="loaded-file-size">148 KB</div></div>
-          <div class="loaded-file"><div class="loaded-file-icon">DOC</div><div class="loaded-file-name">ICT1234_A4_Presentation_Rubric.docx — Assessment rubric (A4)</div><div class="loaded-file-size">42 KB</div></div>
-          <div class="loaded-file"><div class="loaded-file-icon">DOC</div><div class="loaded-file-name">ICT1234_Synopsis_AY2425.docx — Module synopsis</div><div class="loaded-file-size">18 KB</div></div>
+      </div>
+
+      <!-- Communication Rubrics Panel -->
+      <div class="work-panel" id="panel-comms-work" style="display:none;">
+        <div class="work-panel-head">
+          <span class="work-panel-step">2</span>
+          <span class="work-panel-title">Communication Rubrics</span>
+        </div>
+        <div class="work-panel-body">
+          <label class="work-panel-label">Your notes/context (optional):</label>
+          <textarea class="work-panel-input" placeholder="E.g. describe comms activities, rubrics used, etc."></textarea>
+          <button class="btn-continue" onclick="showAIFindings('comms')">Review AI Findings →</button>
+        </div>
+        <div class="work-panel-ai" id="ai-comms-findings" style="display:none;">
+          <div class="ai-bubble">AI found 1 partial alignment and 1 missing rubric. See details below and accept or edit suggestions.</div>
+          <ul class="ai-findings-list">
+            <li>⚠ <b>A4: Only 2/3 SoH&IS criteria mapped</b> — Suggest: adopt full SoH&IS rubric.</li>
+            <li>✗ <b>CA2: No rubric defined</b> — Suggest: add marking guide for lab demo.</li>
+          </ul>
+          <div class="work-panel-actions">
+            <button class="btn-accept" onclick="acceptPanel('comms')">Accept All</button>
+            <button class="btn-view" onclick="editPanel('comms')">Edit Suggestions</button>
+            <button class="btn-skip" onclick="skipPanel('comms')">Skip</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="divider-or">or upload files directly</div>
+      <!-- NPGC Panel -->
+      <div class="work-panel" id="panel-npgc-work" style="display:none;">
+        <div class="work-panel-head">
+          <span class="work-panel-step">3</span>
+          <span class="work-panel-title">NPGC Coverage</span>
+        </div>
+        <div class="work-panel-body">
+          <label class="work-panel-label">Your notes/context (optional):</label>
+          <textarea class="work-panel-input" placeholder="E.g. describe how MOs map to NPGCs, any gaps, etc."></textarea>
+          <button class="btn-continue" onclick="showAIFindings('npgc')">Review AI Findings →</button>
+        </div>
+        <div class="work-panel-ai" id="ai-npgc-findings" style="display:none;">
+          <div class="ai-bubble">AI found 2 gaps in NPGC coverage. See details below and accept or edit suggestions.</div>
+          <ul class="ai-findings-list">
+            <li>⚠ <b>Self-Development (E) not covered</b> — Suggest: add reflective MO.</li>
+            <li>⚠ <b>Communication (G) weak</b> — Suggest: add comms-focused MO.</li>
+          </ul>
+          <div class="work-panel-actions">
+            <button class="btn-accept" onclick="acceptPanel('npgc')">Accept All</button>
+            <button class="btn-view" onclick="editPanel('npgc')">Edit Suggestions</button>
+            <button class="btn-skip" onclick="skipPanel('npgc')">Skip</button>
+          </div>
+        </div>
+      </div>
 
-    <div class="upload-grid">
-      <div class="upload-zone" onclick="toast('File upload — not functional in this demo')">
-        <div class="upload-zone-icon">↑</div>
-        <div class="upload-zone-title">Module Design Document</div>
-        <div class="upload-zone-sub">Your completed or partial MDD</div>
-        <div class="upload-zone-ext">XLSX · DOCX</div>
+      <!-- Bloom's Panel -->
+      <div class="work-panel" id="panel-blooms-work" style="display:none;">
+        <div class="work-panel-head">
+          <span class="work-panel-step">4</span>
+          <span class="work-panel-title">Learning Outcomes Quality</span>
+        </div>
+        <div class="work-panel-body">
+          <label class="work-panel-label">Your notes/context (optional):</label>
+          <textarea class="work-panel-input" placeholder="E.g. comment on Bloom's levels, outcome verbs, etc."></textarea>
+          <button class="btn-continue" onclick="showAIFindings('blooms')">Review AI Findings →</button>
+        </div>
+        <div class="work-panel-ai" id="ai-blooms-findings" style="display:none;">
+          <div class="ai-bubble">AI found 1 warning: no Evaluate/Create-level outcomes. See details below and accept or edit suggestions.</div>
+          <ul class="ai-findings-list">
+            <li>⚠ <b>No Evaluate/Create-level outcome</b> — Suggest: add Evaluate-level MO.</li>
+          </ul>
+          <div class="work-panel-actions">
+            <button class="btn-accept" onclick="acceptPanel('blooms')">Accept All</button>
+            <button class="btn-view" onclick="editPanel('blooms')">Edit Suggestions</button>
+            <button class="btn-skip" onclick="skipPanel('blooms')">Skip</button>
+          </div>
+        </div>
       </div>
-      <div class="upload-zone" onclick="toast('File upload — not functional in this demo')">
-        <div class="upload-zone-icon">↑</div>
-        <div class="upload-zone-title">Assessment Rubrics</div>
-        <div class="upload-zone-sub">Rubrics for any assessed component</div>
-        <div class="upload-zone-ext">DOCX · PDF</div>
-      </div>
-      <div class="upload-zone" onclick="toast('File upload — not functional in this demo')">
-        <div class="upload-zone-icon">↑</div>
-        <div class="upload-zone-title">Previous Module Review</div>
-        <div class="upload-zone-sub">Prior MRR or external examiner feedback</div>
-        <div class="upload-zone-ext">DOCX · PDF</div>
+
+      <!-- Schedule Panel -->
+      <div class="work-panel" id="panel-sched-work" style="display:none;">
+        <div class="work-panel-head">
+          <span class="work-panel-step">5</span>
+          <span class="work-panel-title">Schedule & Assessment Spread</span>
+        </div>
+        <div class="work-panel-body">
+          <label class="work-panel-label">Your notes/context (optional):</label>
+          <textarea class="work-panel-input" placeholder="E.g. comment on assessment timing, clustering, OAL, etc."></textarea>
+          <button class="btn-continue" onclick="showAIFindings('sched')">Review AI Findings →</button>
+        </div>
+        <div class="work-panel-ai" id="ai-sched-findings" style="display:none;">
+          <div class="ai-bubble">AI found 1 warning: A3 & A4 due same week. See details below and accept or edit suggestions.</div>
+          <ul class="ai-findings-list">
+            <li>⚠ <b>Week 16 cluster</b> — Suggest: move A3 to Week 15.</li>
+          </ul>
+          <div class="work-panel-actions">
+            <button class="btn-accept" onclick="acceptPanel('sched')">Accept All</button>
+            <button class="btn-view" onclick="editPanel('sched')">Edit Suggestions</button>
+            <button class="btn-skip" onclick="skipPanel('sched')">Skip</button>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="s1-footer">
-      <button class="btn-continue" id="s1-continue" onclick="goScreen(2)" disabled style="opacity:0.4;cursor:default;">Select Review Areas →</button>
+      <button class="btn-back-sm" onclick="goScreen(1)">← Back</button>
+      <button class="btn-continue" id="review-next-btn" onclick="goScreen(3)" style="display:none;">Continue to Review →</button>
     </div>
   </div>
 </div>
-
-<!-- ══════════════════════════════════════════
-     SCREEN 2 — SELECT CHECKS
 ══════════════════════════════════════════ -->
 <div class="screen" id="screen-2">
   <div class="s2-wrap">
@@ -987,28 +1067,42 @@
     }, 900);
   }
 
-  // ── Check toggles ──
-  function toggleCheck(id) {
-    const card = document.getElementById(id);
-    card.classList.toggle('on');
-    card.querySelector('.check-toggle').textContent = card.classList.contains('on') ? '✓' : '';
-  }
-  function selectAllChecks() {
-    document.querySelectorAll('.check-card').forEach(c => {
-      c.classList.add('on'); c.querySelector('.check-toggle').textContent = '✓';
-    });
-  }
-  function clearAllChecks() {
-    document.querySelectorAll('.check-card').forEach(c => {
-      c.classList.remove('on'); c.querySelector('.check-toggle').textContent = '';
-    });
+
+  // ── Progressive work panel logic ──
+  const panelOrder = ['af', 'comms', 'npgc', 'blooms', 'sched'];
+  let currentPanel = 0;
+
+  function showAIFindings(panel) {
+    document.querySelector(`#panel-${panel}-work .work-panel-body`).style.display = 'none';
+    document.getElementById(`ai-${panel}-findings`).style.display = 'block';
   }
 
-  // ── Run checks (animate then go to screen 3) ──
-  function runChecks() {
-    const btn = document.querySelector('#screen-2 .btn-continue');
-    btn.textContent = 'Analysing…';
-    setTimeout(() => { btn.textContent = 'Run Review →'; goScreen(3); }, 1200);
+  function acceptPanel(panel) {
+    // Hide current panel, show next
+    const idx = panelOrder.indexOf(panel);
+    document.getElementById(`panel-${panel}-work`).style.display = 'none';
+    if (idx + 1 < panelOrder.length) {
+      document.getElementById(`panel-${panelOrder[idx+1]}-work`).style.display = 'block';
+    } else {
+      document.getElementById('review-next-btn').style.display = 'inline-block';
+    }
+    toast('Accepted all suggestions for ' + panel.charAt(0).toUpperCase() + panel.slice(1));
+  }
+
+  function editPanel(panel) {
+    toast('Edit suggestions for ' + panel.charAt(0).toUpperCase() + panel.slice(1));
+  }
+
+  function skipPanel(panel) {
+    // Hide current panel, show next
+    const idx = panelOrder.indexOf(panel);
+    document.getElementById(`panel-${panel}-work`).style.display = 'none';
+    if (idx + 1 < panelOrder.length) {
+      document.getElementById(`panel-${panelOrder[idx+1]}-work`).style.display = 'block';
+    } else {
+      document.getElementById('review-next-btn').style.display = 'inline-block';
+    }
+    toast('Skipped ' + panel.charAt(0).toUpperCase() + panel.slice(1));
   }
 
   // ── Tab switching in screen 3 ──

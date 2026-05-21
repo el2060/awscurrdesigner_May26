@@ -1,3 +1,135 @@
+/* --- Working Panel (Progressive Disclosure) --- */
+.work-panel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.work-panel {
+  border: 2px solid #1a1a1a;
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 0 0 24px 0;
+  box-shadow: 0 2px 0 #1a1a1a;
+  margin-bottom: 0;
+}
+.work-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 24px 0 24px;
+}
+.work-panel-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  margin-right: 8px;
+}
+.work-panel-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.01em;
+}
+.work-panel-body {
+  padding: 18px 24px 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.work-panel-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  margin-bottom: 4px;
+}
+.work-panel-input {
+  width: 100%;
+  min-height: 48px;
+  font-size: 13px;
+  padding: 10px 12px;
+  border: 1.5px solid #d0d0d0;
+  border-radius: 4px;
+  background: #fff;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  resize: vertical;
+}
+.work-panel-input:focus {
+  border-color: #1a1a1a;
+}
+.work-panel-ai {
+  padding: 18px 24px 0 24px;
+  background: #fff;
+  border-top: 1.5px solid #e0e0e0;
+  margin-top: 18px;
+}
+.ai-bubble {
+  font-size: 13px;
+  color: #333;
+  background: #fafafa;
+  border: 1.5px solid #e0e0e0;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+.ai-findings-list {
+  font-size: 13px;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+  padding-left: 18px;
+}
+.ai-findings-list li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.work-panel-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+.btn-accept, .btn-view, .btn-skip {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 18px;
+  border-radius: 4px;
+  border: 1.5px solid #1a1a1a;
+  background: #fff;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: all 120ms;
+}
+.btn-accept {
+  background: #1a1a1a;
+  color: #fff;
+}
+.btn-accept:hover {
+  background: #333;
+  border-color: #333;
+}
+.btn-view {
+  border-color: #888;
+  color: #555;
+}
+.btn-view:hover {
+  border-color: #1a1a1a;
+  color: #1a1a1a;
+}
+.btn-skip {
+  border-color: #d0d0d0;
+  color: #888;
+}
+.btn-skip:hover {
+  border-color: #888;
+  color: #1a1a1a;
+}
 /* ============================================================
    NP AI Curriculum Designer — Design System
    ============================================================ */

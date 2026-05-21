@@ -567,64 +567,106 @@
 
   </main>
 
-  <!-- Right rail: AI refinement -->
+  <!-- Right rail: Modular Review & Accept Panel -->
   <aside class="refine-rail">
-    <div style="display:flex; align-items:center; justify-content:space-between;">
-      <div style="font-size:13px; font-weight:600; color:var(--color-text-primary); display:flex; align-items:center; gap:6px;">
-        <span class="ai-icon">✦</span> Refine with AI
-      </div>
-      <span class="export-status-pill info">v3 draft</span>
+    <div style="font-size:13px; font-weight:600; color:var(--color-text-primary); margin-bottom:12px; display:flex; align-items:center; gap:6px;">
+      <span class="ai-icon">✦</span> Final Review & Accept
     </div>
-    <div style="font-size:12px; color:var(--color-text-secondary); line-height:1.5;">
-      Use AI to tighten any section. Review and accept only what you want to keep.
+    <div style="font-size:12px; color:var(--color-text-secondary); line-height:1.5; margin-bottom:18px;">
+      Review each section below. Accept, edit, or skip AI suggestions before export. Only accepted changes will be included in the final document.
     </div>
 
-    <!-- Quick refinement chips -->
-    <div class="prompt-chip-strip">
-      <div class="prompt-chip-strip-label">✦ Try one of these</div>
-      <button class="prompt-chip">Shorten synopsis</button>
-      <button class="prompt-chip">Make synopsis more industry-focused</button>
-      <button class="prompt-chip">Strengthen NPGC 6 &amp; 7</button>
-      <button class="prompt-chip">Rebalance assessment weights</button>
-      <button class="prompt-chip">Adopt SoH&amp;IS rubric for A4</button>
-      <button class="prompt-chip">Embed Impact Toolkit in Week 14</button>
-      <button class="prompt-chip">Simplify weeks 11-13</button>
-    </div>
-
-    <!-- A recent refinement (so the rail looks alive) -->
-    <div class="refine-panel-card">
-      <div class="refine-panel-title">✦ Suggestion · just now</div>
-      <div class="refine-panel-body">
-        Group-work weight (35%) exceeds the framework cap of 30%. Want me to rebalance — e.g. drop A4 to 30% and lift A3 to 30%?
+    <div class="work-panel-list">
+      <!-- Info Panel -->
+      <div class="work-panel" id="panel-info">
+        <div class="work-panel-head"><span class="work-panel-step">1</span><span class="work-panel-title">Module Info</span></div>
+        <div class="work-panel-ai">
+          <div class="ai-bubble">AI suggests clarifying module prerequisites and leader contact details for clarity in the exported document.</div>
+          <div class="work-panel-actions">
+            <button class="btn-accept" onclick="acceptSection('info')">Accept</button>
+            <button class="btn-view" onclick="editSection('info')">Edit</button>
+            <button class="btn-skip" onclick="skipSection('info')">Skip</button>
+          </div>
+        </div>
       </div>
-      <div style="display:flex; gap:6px;">
-        <button class="btn btn-primary btn-sm">Apply fix</button>
-        <button class="btn btn-ghost btn-sm">Dismiss</button>
+      <!-- Synopsis Panel -->
+      <div class="work-panel" id="panel-synopsis">
+        <div class="work-panel-head"><span class="work-panel-step">2</span><span class="work-panel-title">Synopsis</span></div>
+        <div class="work-panel-ai">
+          <div class="ai-bubble">AI suggests tightening the synopsis and adding a mention of real-world software development.</div>
+          <div class="work-panel-actions">
+            <button class="btn-accept" onclick="acceptSection('synopsis')">Accept</button>
+            <button class="btn-view" onclick="editSection('synopsis')">Edit</button>
+            <button class="btn-skip" onclick="skipSection('synopsis')">Skip</button>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="refine-panel-card" style="border-left-color: var(--color-success); border-color: var(--color-success-mid);">
-      <div class="refine-panel-title" style="color:var(--color-success);">✓ Refinement applied · 2 min ago</div>
-      <div class="refine-panel-body">
-        Tightened module synopsis from 168 → 124 words and added an explicit mention of "real-world software development".
+      <!-- Assessment Panel -->
+      <div class="work-panel" id="panel-assessment">
+        <div class="work-panel-head"><span class="work-panel-step">3</span><span class="work-panel-title">Assessment Plan</span></div>
+        <div class="work-panel-ai">
+          <div class="ai-bubble">AI found group work exceeds 30% cap. Suggest: rebalance A3/A4 weights. Also, ensure all MOs are covered by at least one component.</div>
+          <div class="work-panel-actions">
+            <button class="btn-accept" onclick="acceptSection('assessment')">Accept</button>
+            <button class="btn-view" onclick="editSection('assessment')">Edit</button>
+            <button class="btn-skip" onclick="skipSection('assessment')">Skip</button>
+          </div>
+        </div>
       </div>
-      <div style="display:flex; gap:6px;">
-        <button class="btn btn-secondary btn-sm">View diff</button>
-        <button class="btn btn-ghost btn-sm">Undo</button>
+      <!-- NPGC Panel -->
+      <div class="work-panel" id="panel-npgc">
+        <div class="work-panel-head"><span class="work-panel-step">4</span><span class="work-panel-title">NPGC Coverage</span></div>
+        <div class="work-panel-ai">
+          <div class="ai-bubble">AI suggests strengthening Communication (NPGC7) and Collaboration (NPGC6) by requiring a written design rationale in MO5.</div>
+          <div class="work-panel-actions">
+            <button class="btn-accept" onclick="acceptSection('npgc')">Accept</button>
+            <button class="btn-view" onclick="editSection('npgc')">Edit</button>
+            <button class="btn-skip" onclick="skipSection('npgc')">Skip</button>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div style="margin-top:auto; padding-top:var(--space-4); border-top:1px solid var(--color-border);">
-      <div class="chat-composer" style="border-radius:10px;">
-        <textarea class="chat-composer-input" placeholder="Or ask anything… e.g. 'rewrite MO4 to start with Analyse'" rows="1"></textarea>
-        <div class="chat-composer-row">
-          <span class="chat-composer-hint">Refining v3</span>
-          <button class="chat-composer-send">↑</button>
+      <!-- Comms Panel -->
+      <div class="work-panel" id="panel-comms">
+        <div class="work-panel-head"><span class="work-panel-step">5</span><span class="work-panel-title">Comms Alignment</span></div>
+        <div class="work-panel-ai">
+          <div class="ai-bubble">AI recommends adopting the SoH&IS rubric for A4 and embedding the Presentation Impact Toolkit in Week 14 as a pre-class OAL resource.</div>
+          <div class="work-panel-actions">
+            <button class="btn-accept" onclick="acceptSection('comms')">Accept</button>
+            <button class="btn-view" onclick="editSection('comms')">Edit</button>
+            <button class="btn-skip" onclick="skipSection('comms')">Skip</button>
+          </div>
         </div>
       </div>
     </div>
 
+    <div class="s1-footer" style="margin-top:24px;">
+      <button class="btn-continue" onclick="finaliseExport()">Export Accepted Changes →</button>
+    </div>
   </aside>
+<script>
+// Modular review/accept logic for export
+const sectionOrder = ['info', 'synopsis', 'assessment', 'npgc', 'comms'];
+let acceptedSections = {};
+function acceptSection(section) {
+  acceptedSections[section] = true;
+  document.getElementById('panel-' + section).style.opacity = 0.5;
+  document.getElementById('panel-' + section).querySelectorAll('button').forEach(b => b.disabled = true);
+  showToast('Accepted: ' + section.charAt(0).toUpperCase() + section.slice(1));
+}
+function editSection(section) {
+  showToast('Edit suggestion for ' + section.charAt(0).toUpperCase() + section.slice(1));
+}
+function skipSection(section) {
+  acceptedSections[section] = false;
+  document.getElementById('panel-' + section).style.opacity = 0.5;
+  document.getElementById('panel-' + section).querySelectorAll('button').forEach(b => b.disabled = true);
+  showToast('Skipped: ' + section.charAt(0).toUpperCase() + section.slice(1));
+}
+function finaliseExport() {
+  showToast('Exporting only accepted changes...');
+  setTimeout(() => document.getElementById('export-xls-btn').click(), 900);
+}
+</script>
 
 </div>
 
