@@ -8,17 +8,10 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font-sans); background: #fff; color: #1a1a1a; min-height: 100vh; padding-bottom: 72px; }
-    :root {
-      --workspace-max: 1360px;
-      --workspace-pad: 32px;
-    }
+    :root { --workspace-max: 1360px; --workspace-pad: 32px; }
 
     /* ── Topbar ── */
-    .topbar {
-      height: 52px; border-bottom: 1px solid #e0e0e0;
-      display: flex; align-items: center; padding: 0 40px; background: #fff;
-      position: sticky; top: 0; z-index: 100;
-    }
+    .topbar { height: 52px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; padding: 0 40px; background: #fff; position: sticky; top: 0; z-index: 100; }
     .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .t-div { width: 1px; height: 16px; background: #e0e0e0; margin: 0 6px; }
     .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
@@ -26,21 +19,8 @@
     .topbar-link:hover { color: #1a1a1a; }
 
     /* ── Phase bar ── */
-    .phase-bar {
-      border-bottom: 1px solid #e0e0e0;
-      background: #fafafa;
-    }
-    .phase-inner {
-      max-width: var(--workspace-max);
-      margin: 0 auto;
-      width: 100%;
-      padding: 0 var(--workspace-pad);
-      display: flex;
-      align-items: center;
-      background: #fafafa;
-      height: 40px;
-      overflow-x: auto;
-    }
+    .phase-bar { border-bottom: 1px solid #e0e0e0; background: #fafafa; }
+    .phase-inner { max-width: var(--workspace-max); margin: 0 auto; padding: 0 var(--workspace-pad); display: flex; align-items: center; height: 40px; overflow-x: auto; }
     .ph-step { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #bbb; white-space: nowrap; flex-shrink: 0; }
     .ph-step.active { color: #1a1a1a; font-weight: 600; }
     .ph-step.done { color: #888; }
@@ -50,344 +30,110 @@
     .ph-connector { width: 28px; height: 1px; background: #e0e0e0; margin: 0 8px; flex-shrink: 0; }
 
     /* ── Page ── */
-    .page { max-width: var(--workspace-max); margin: 0 auto; padding: 40px var(--workspace-pad) 40px; }
+    .page { max-width: var(--workspace-max); margin: 0 auto; padding: 40px var(--workspace-pad); }
     .page-title { font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 6px; }
-    .page-sub { font-size: 13px; color: #888; line-height: 1.65; margin-bottom: 36px; max-width: 560px; }
-
-    .workspace-tabs {
-      display: flex; gap: 6px; flex-wrap: wrap;
-      margin-bottom: 12px;
-    }
-    .ws-tab {
-      font-size: 11px; color: #777; border: 1px solid #d9d9d9;
-      padding: 5px 10px; background: #fafafa;
-    }
-    .ws-tab.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-
-    .review-config {
-      display: none;
-      border: 1px solid #e4e4e4;
-      background: #fffef8;
-      margin-bottom: 12px;
-      padding: 12px 14px;
-    }
-    .review-config.on { display: block; }
-    .review-title {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #7a5f00; margin-bottom: 7px;
-    }
-    .review-line { font-size: 12px; color: #555; line-height: 1.5; margin-bottom: 5px; }
-    .review-line:last-child { margin-bottom: 0; }
-
-    .context-strip {
-      border: 1px solid #e4e4e4;
-      background: #fafafa;
-      padding: 8px 10px;
-      margin-bottom: 10px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .ctx-chip {
-      font-size: 11px;
-      color: #666;
-      border: 1px solid #e1e1e1;
-      background: #fff;
-      padding: 3px 8px;
-    }
-
-    .ai-loop {
-      border: 1px solid #e8d990;
-      background: #fffef8;
-      padding: 10px 12px;
-      margin-bottom: 10px;
-    }
-    .ai-loop-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-    .ai-loop-title {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #8b7424;
-    }
-    .ai-loop-badge {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #7a5f00;
-      background: #fff4c5;
-      border: 1px solid #ecd88f;
-      padding: 2px 6px;
-    }
-    .ai-loop-text {
-      font-size: 12px;
-      line-height: 1.5;
-      color: #555;
-    }
-    .ai-loop-list {
-      margin: 8px 0 0 18px;
-      color: #4f4f4f;
-      font-size: 12px;
-      line-height: 1.5;
-    }
-    .ai-loop-list li { margin-bottom: 4px; }
-
-    .work-panel {
-      border: 1px solid #e4e4e4; background: #fafafa;
-      margin-bottom: 24px;
-    }
-    .work-grid { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 10px; }
-    .work-card { border: 1px solid #e3e3e3; background: #fff; padding: 12px; }
-    .work-title { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
-    .work-row { display: flex; gap: 8px; margin-bottom: 8px; }
-    .input-mini { font-size: 12px; padding: 7px 10px; border: 1px solid #d8d8d8; width: 100%; }
-    .btn-mini { font-size: 11px; font-weight: 600; padding: 7px 10px; border: 1px solid #d0d0d0; background: #fff; color: #666; cursor: pointer; }
-    .btn-mini.primary { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-    .sugg-item { font-size: 12px; color: #555; line-height: 1.45; padding: 7px 0; border-bottom: 1px solid #f0f0f0; }
-    .sugg-item:last-child { border-bottom: none; }
-    .sugg-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-
-    .build-focus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
-    .focus-item { border: 1px solid #e2e2e2; padding: 10px 11px; cursor: pointer; background: #fff; transition: all 90ms; }
-    .focus-item:hover { border-color: #bdbdbd; }
-    .focus-item.on { border-color: #1a1a1a; background: #f7f7f7; }
-    .focus-top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-    .focus-cb { width: 14px; height: 14px; border: 1px solid #c8c8c8; display: flex; align-items: center; justify-content: center; font-size: 9px; }
-    .focus-item.on .focus-cb { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-    .focus-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
-    .focus-sub { font-size: 11px; color: #989898; line-height: 1.35; }
-    .state-pill {
-      margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
-      padding: 2px 7px; border-radius: 999px; border: 1px solid #dcdcdc;
-      color: #777; background: #fafafa;
-    }
-    .state-pill.ai { color: #4f3f00; background: #fff7d6; border-color: #ecd88f; }
+    .page-sub { font-size: 13px; color: #888; line-height: 1.65; margin-bottom: 28px; max-width: 560px; }
 
     /* ── Layout ── */
-    .layout { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: flex-start; }
-    .layout-main { flex: 1; min-width: 0; }
-    .layout-side { display: none; }
+    .layout { display: grid; grid-template-columns: 1fr 280px; gap: 24px; align-items: flex-start; }
+    .layout-main { min-width: 0; }
+    .layout-side { position: sticky; top: 76px; }
 
-    .section-nav {
-      border: 1px solid #e4e4e4;
-      background: #fff;
-      padding: 10px;
-      margin-bottom: 10px;
+    @media (max-width: 1080px) {
+      .layout { grid-template-columns: 1fr; }
+      .layout-side { position: static; }
     }
-    .nav-group-title {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #999;
-      margin-bottom: 7px;
-    }
-    .nav-module { font-size: 12px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
-    .nav-meta { font-size: 11px; color: #777; margin-bottom: 10px; }
-    .nav-list { display: flex; flex-direction: column; gap: 3px; margin-bottom: 10px; }
-    .nav-item {
-      display: flex; align-items: center; gap: 7px;
-      font-size: 12px; color: #666;
-      padding: 4px 6px; cursor: pointer;
-      border: 1px solid transparent;
-    }
-    .nav-item:hover { border-color: #e2e2e2; background: #fafafa; }
-    .nav-dot { width: 7px; height: 7px; border: 1px solid #bbb; border-radius: 50%; flex-shrink: 0; }
-    .nav-item.done .nav-dot { background: #1a1a1a; border-color: #1a1a1a; }
-    .nav-item.current .nav-dot { background: #777; border-color: #777; }
-    .nav-item.warn .nav-dot { background: #fff7d6; border-color: #d7be62; }
-    .review-flag { font-size: 11px; color: #666; padding: 2px 0; }
-    .completion-wrap { margin-top: 8px; }
-    .completion-bar { height: 8px; border: 1px solid #d9d9d9; background: #fff; }
-    .completion-fill { height: 100%; width: 50%; background: #1a1a1a; }
-    .completion-label { margin-top: 5px; font-size: 11px; color: #777; }
 
     /* ── Plan sections ── */
-    .plan-section {
-      border: 1px solid #e4e4e4;
-      margin-bottom: 14px;
-      background: #fff;
-    }
-    .ps-header {
-      display: flex; align-items: center; gap: 12px;
-      padding: 10px 14px;
-      border-bottom: 1px solid #f0f0f0;
-    }
-    .ps-num {
-      width: 22px; height: 22px; flex-shrink: 0;
-      font-size: 10px; font-weight: 700; font-family: var(--font-mono);
-      background: #1a1a1a; color: #fff;
-      display: flex; align-items: center; justify-content: center;
-    }
+    .plan-section { border: 1px solid #e4e4e4; margin-bottom: 10px; background: #fff; }
+    .ps-header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; user-select: none; }
+    .ps-header:hover { background: #fafafa; }
+    .ps-num { width: 22px; height: 22px; flex-shrink: 0; font-size: 10px; font-weight: 700; font-family: var(--font-mono); background: #1a1a1a; color: #fff; display: flex; align-items: center; justify-content: center; }
     .ps-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
-    .ps-desc { font-size: 11px; color: #aaa; margin-left: auto; max-width: 280px; text-align: right; line-height: 1.4; }
-    .ps-body { padding: 12px 14px; }
+    .ps-desc { font-size: 11px; color: #aaa; margin-left: auto; max-width: 320px; text-align: right; line-height: 1.4; }
+    .ps-toggle { flex-shrink: 0; font-size: 11px; color: #ccc; margin-left: 10px; transition: transform 130ms; line-height: 1; }
+    .plan-section.collapsed .ps-toggle { transform: rotate(-90deg); }
+    .plan-section.collapsed .ps-body { display: none; }
+    .ps-body { padding: 14px 16px; }
 
     /* ── Form rows ── */
-    .field-row { display: flex; gap: 10px; margin-bottom: 10px; }
+    .field-row { display: flex; gap: 10px; margin-bottom: 12px; }
     .field-row:last-child { margin-bottom: 0; }
     .field { display: flex; flex-direction: column; gap: 5px; flex: 1; }
-    .field-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.09em;
-      text-transform: uppercase; color: #aaa;
-    }
+    .field-label { font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #aaa; }
     .field-label .opt { font-weight: 400; text-transform: none; letter-spacing: 0; color: #ccc; }
-    .plan-input {
-      font-family: var(--font-sans); font-size: 13px; color: #1a1a1a;
-      border: 1px solid #d8d8d8; padding: 8px 12px;
-      background: #fff; outline: none; width: 100%;
-      transition: border-color 100ms;
-    }
-    .plan-input:focus { border-color: #888; }
-    .plan-select {
-      font-family: var(--font-sans); font-size: 13px; color: #1a1a1a;
-      border: 1px solid #d8d8d8; padding: 8px 12px;
-      background: #fff; outline: none; width: 100%;
-      appearance: none; cursor: pointer;
-    }
-    .plan-textarea {
-      font-family: var(--font-sans); font-size: 13px; color: #1a1a1a;
-      border: 1px solid #d8d8d8; padding: 8px 10px;
-      background: #fff; outline: none; width: 100%; resize: vertical; min-height: 64px;
-      line-height: 1.7; transition: border-color 100ms;
-    }
+    .plan-input, .plan-select { font-family: var(--font-sans); font-size: 13px; color: #1a1a1a; border: 1px solid #d8d8d8; padding: 8px 12px; background: #fff; outline: none; width: 100%; transition: border-color 100ms; }
+    .plan-select { appearance: none; cursor: pointer; }
+    .plan-input:focus, .plan-select:focus { border-color: #888; }
+    .plan-textarea { font-family: var(--font-sans); font-size: 13px; color: #1a1a1a; border: 1px solid #d8d8d8; padding: 10px 12px; background: #fff; outline: none; width: 100%; resize: vertical; min-height: 72px; line-height: 1.6; transition: border-color 100ms; }
     .plan-textarea:focus { border-color: #888; }
     .plan-hint { font-size: 11px; color: #bbb; line-height: 1.5; margin-top: 4px; }
 
     /* ── Stepper ── */
     .stepper { display: flex; align-items: center; border: 1px solid #d8d8d8; background: #fff; height: 34px; }
-    .stepper-btn { width: 32px; height: 100%; font-size: 16px; color: #888; border: none; background: #f8f8f8; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .stepper-btn { width: 30px; height: 100%; font-size: 14px; color: #888; border: none; background: #f8f8f8; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .stepper-btn:hover { background: #f0f0f0; color: #1a1a1a; }
     .stepper-val { flex: 1; text-align: center; font-size: 13px; font-weight: 600; font-family: var(--font-mono); color: #1a1a1a; border-left: 1px solid #e8e8e8; border-right: 1px solid #e8e8e8; }
 
     /* ── Chips ── */
     .chip-group { display: flex; gap: 6px; flex-wrap: wrap; }
-    .chip {
-      font-size: 12px; font-weight: 500; color: #666;
-      border: 1px solid #d0d0d0; padding: 6px 14px;
-      cursor: pointer; background: #fff; user-select: none;
-      transition: all 100ms;
-    }
+    .chip { font-size: 12px; font-weight: 500; color: #666; border: 1px solid #d0d0d0; padding: 6px 14px; cursor: pointer; background: #fff; user-select: none; transition: all 100ms; }
     .chip:hover { border-color: #888; color: #1a1a1a; }
     .chip.on { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-    .chip.on-soft { background: #f0f0f0; color: #1a1a1a; border-color: #aaa; }
 
     /* ── NPGC grid ── */
     .npgc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .npgc-item {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 10px 12px;
-      border: 1px solid #e8e8e8;
-      cursor: pointer; user-select: none;
-      transition: background 80ms;
-    }
+    .npgc-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: 1px solid #e8e8e8; cursor: pointer; user-select: none; transition: background 80ms; }
     .npgc-item:hover { background: #fafafa; border-color: #ccc; }
     .npgc-item.on { background: #f5f5f5; border-color: #888; }
-    .npgc-cb { width: 15px; height: 15px; border: 1px solid #ccc; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: #fff; transition: all 80ms; }
+    .npgc-cb { width: 15px; height: 15px; border: 1px solid #ccc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #fff; transition: all 80ms; }
     .npgc-item.on .npgc-cb { background: #1a1a1a; border-color: #1a1a1a; }
     .npgc-item.on .npgc-cb::after { content: '✓'; color: #fff; font-size: 9px; font-weight: 700; }
-    .npgc-num { font-size: 9px; font-weight: 700; font-family: var(--font-mono); color: #aaa; flex-shrink: 0; margin-top: 2px; }
+    .npgc-num { font-size: 9px; font-weight: 700; font-family: var(--font-mono); color: #aaa; flex-shrink: 0; }
     .npgc-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
-    .npgc-sub { font-size: 10px; color: #aaa; margin-top: 1px; line-height: 1.35; display: none; }
     .npgc-note { font-size: 11px; color: #bbb; margin-top: 10px; line-height: 1.45; }
 
     /* ── Check group ── */
-    .check-group { display: flex; flex-direction: column; gap: 6px; }
-    .check-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 12px; border: 1px solid #e8e8e8;
-      cursor: pointer; user-select: none; transition: background 80ms;
-    }
+    .check-group-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .check-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid #e8e8e8; cursor: pointer; user-select: none; transition: background 80ms; }
     .check-item:hover { background: #fafafa; border-color: #ccc; }
     .check-item.on { background: #f5f5f5; border-color: #888; }
     .check-box { width: 15px; height: 15px; border: 1px solid #ccc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #fff; transition: all 80ms; }
     .check-item.on .check-box { background: #1a1a1a; border-color: #1a1a1a; }
     .check-item.on .check-box::after { content: '✓'; color: #fff; font-size: 9px; font-weight: 700; }
     .check-label { font-size: 12px; color: #1a1a1a; }
-    .check-sub { font-size: 11px; color: #aaa; margin-left: auto; }
+    .check-sub { font-size: 10px; color: #aaa; margin-left: auto; }
 
-    .check-group-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    /* ── AI insight (subtle, inline) ── */
+    .ai-hint { display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; background: #fffef8; border: 1px solid #ecd88f; margin-top: 10px; }
+    .ai-hint-icon { font-size: 11px; font-weight: 700; color: #7a5f00; letter-spacing: 0.06em; flex-shrink: 0; padding-top: 1px; }
+    .ai-hint-text { font-size: 12px; color: #555; line-height: 1.45; }
 
-    .sum-val.empty { color: #bbb; }
+    /* ── Sidebar ── */
+    .side-card { border: 1px solid #e4e4e4; margin-bottom: 10px; }
+    .side-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; padding: 12px 14px 8px; display: block; }
+    .side-card-body { padding: 0 14px 12px; }
+    .side-rec-item { font-size: 11px; color: #666; line-height: 1.5; padding: 6px 0; border-bottom: 1px solid #f4f4f4; display: flex; gap: 7px; align-items: flex-start; }
+    .side-rec-item:last-child { border-bottom: none; }
+    .side-rec-item::before { content: '·'; color: #ccc; flex-shrink: 0; }
+    .sum-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #f4f4f4; font-size: 11px; }
+    .sum-row:last-child { border-bottom: none; }
+    .sum-key { color: #aaa; }
+    .sum-val { color: #1a1a1a; font-weight: 600; text-align: right; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sum-val.empty { color: #bbb; font-weight: 400; }
 
-    .inline-insight {
-      display: none;
-      margin-top: 10px;
-      border: 1px solid #e8d990;
-      background: #fffef8;
-      padding: 10px 11px;
-    }
-    .inline-insight.on { display: block; }
-    .ii-title { font-size: 11px; font-weight: 700; color: #7a5f00; margin-bottom: 4px; }
-    .ii-text { font-size: 12px; color: #555; line-height: 1.45; }
-    .ii-actions { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+    .side-card.ai-side { background: #fffef8; border-color: #ecd88f; }
+    .side-card.ai-side .side-label { color: #7a5f00; }
 
     /* ── Bottom bar ── */
-    .bottom-bar {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      height: 60px; background: #fff; border-top: 1px solid #e0e0e0;
-      z-index: 50;
-    }
-    .bottom-inner {
-      max-width: var(--workspace-max);
-      height: 100%;
-      margin: 0 auto;
-      width: 100%;
-      padding: 0 var(--workspace-pad);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    @media (max-width: 1080px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-      .layout-side {
-        width: 100%;
-        position: static;
-        order: 2;
-      }
-    }
+    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #fff; border-top: 1px solid #e0e0e0; z-index: 50; }
+    .bottom-inner { max-width: var(--workspace-max); height: 100%; margin: 0 auto; padding: 0 var(--workspace-pad); display: flex; align-items: center; justify-content: space-between; }
     .bb-note { font-size: 12px; color: #bbb; }
     .bb-actions { display: flex; gap: 10px; }
     .btn-ghost { font-size: 12px; font-weight: 500; color: #888; border: 1px solid #d8d8d8; padding: 7px 16px; background: #fff; cursor: pointer; text-decoration: none; }
     .btn-ghost:hover { border-color: #999; color: #1a1a1a; }
     .btn-primary { font-size: 12px; font-weight: 600; color: #fff; border: 1px solid #1a1a1a; padding: 7px 18px; background: #1a1a1a; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
     .btn-primary:hover { background: #333; }
-
-    /* ── Collapsible plan sections ── */
-    .ps-header { cursor: pointer; user-select: none; }
-    .ps-header:hover { background: #f9f9f9; }
-    .ps-toggle {
-      flex-shrink: 0; font-size: 11px; color: #ccc;
-      margin-left: 10px; transition: transform 130ms; line-height: 1;
-    }
-    .plan-section.collapsed .ps-toggle { transform: rotate(-90deg); }
-    .plan-section.collapsed .ps-body { display: none; }
-
-    /* ── AI vs Educator visual differentiation ── */
-    .ai-chip {
-      display: inline-block; font-size: 9px; font-weight: 700;
-      letter-spacing: 0.06em; background: #fff7d6; color: #7a5f00;
-      border: 1px solid #ecd88f; padding: 1px 5px;
-      vertical-align: middle; margin-left: 5px;
-    }
-    .side-rec {
-      border-color: #e8d990;
-      background: #fffef8;
-    }
-    .side-rec .side-label { color: #9a8030; }
-    .ai-card { background: #fffef8; border-color: #e8d990; }
-    .ai-card .work-title { color: #7a5f00; }
-
   </style>
 </head>
 <body>
@@ -395,8 +141,7 @@
 <!-- Topbar -->
 <nav class="topbar">
   <a href="index.html" class="topbar-brand">
-    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
-         alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
+    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
     <div class="t-div"></div>
     <span style="font-size:13px; font-weight:500; color:#1a1a1a;">AI Curriculum Review &amp; Design</span>
     <span style="font-size:10px; font-weight:500; color:#999; border:1px solid #d8d8d8; padding:2px 8px; letter-spacing:0.02em; margin-left:4px;">Concept Prototype</span>
@@ -406,33 +151,18 @@
   </div>
 </nav>
 
-<!-- Phase bar: 5 steps, step 3 active -->
+<!-- Phase bar -->
 <div class="phase-bar">
   <div class="phase-inner">
-  <div class="ph-step">
-    <div class="ph-num">1</div>
-    <span>Context Workspace (optional)</span>
-  </div>
-              </div>
-  <div class="ph-step">
-    <div class="ph-num">2</div>
-    <span>Synthesis</span>
-  </div>
-              </div>
-  <div class="ph-step active">
-    <div class="ph-num">3</div>
-    <span>Planning</span>
-  </div>
-              </div>
-  <div class="ph-step">
-    <div class="ph-num">4</div>
-    <span>Build or Refresh</span>
-  </div>
-  <div class="ph-connector"></div>
-  <div class="ph-step">
-    <div class="ph-num">5</div>
-    <span>Review &amp; Export</span>
-  </div>
+    <div class="ph-step done"><div class="ph-num">✓</div><span>Context Workspace (optional)</span></div>
+    <div class="ph-connector"></div>
+    <div class="ph-step done"><div class="ph-num">✓</div><span>Synthesis</span></div>
+    <div class="ph-connector"></div>
+    <div class="ph-step active"><div class="ph-num">3</div><span>Planning</span></div>
+    <div class="ph-connector"></div>
+    <div class="ph-step"><div class="ph-num">4</div><span>Build or Refresh</span></div>
+    <div class="ph-connector"></div>
+    <div class="ph-step"><div class="ph-num">5</div><span>Review &amp; Export</span></div>
   </div>
 </div>
 
@@ -440,62 +170,7 @@
 <main class="page">
 
   <div class="page-title">Plan Curriculum Direction</div>
-  <div class="page-sub">Set your module direction first. These choices guide what AI drafts next.</div>
-
-  <div class="workspace-tabs">
-    <span class="ws-tab">Context</span>
-    <span class="ws-tab active">Planning</span>
-    <span class="ws-tab">Draft &amp; Refine</span>
-    <span class="ws-tab">Review &amp; Alignment</span>
-    <span class="ws-tab">Export &amp; Resources</span>
-  </div>
-
-  <div class="review-config" id="review-config">
-    <div class="review-title">Review Configuration</div>
-    <div class="review-line" id="review-areas">Review lenses: None selected</div>
-    <div class="review-line" id="review-refs">Reference frameworks: None selected</div>
-    <div class="review-line" id="review-notes">Lecturer notes: None provided</div>
-  </div>
-
-  <div class="context-strip" id="context-strip">
-    <span class="ctx-chip" id="ctx-module">Module: Not set</span>
-    <span class="ctx-chip" id="ctx-level">Level: L2</span>
-    <span class="ctx-chip" id="ctx-cu">4 CU</span>
-    <span class="ctx-chip" id="ctx-asmt">Assessment: CA Only</span>
-    <span class="ctx-chip" id="ctx-delivery">Delivery: Blended</span>
-    <span class="ctx-chip" id="ctx-npgc">NPGCs: 3 selected</span>
-  </div>
-
-  <div class="ai-loop" id="ai-loop">
-    <div class="ai-loop-head">
-      <div class="ai-loop-title">AI Collaboration Loop</div>
-      <div class="ai-loop-badge">Live</div>
-    </div>
-    <div class="ai-loop-text" id="ai-loop-text">Add context, choose pedagogy, and AI will surface alignment cues as you plan.</div>
-    <ul class="ai-loop-list" id="ai-loop-list">
-      <li>AI will react to your planning choices before drafting starts.</li>
-      <li>Assessment and competencies shape later drafting suggestions.</li>
-      <li>Section selections control where AI helps next.</li>
-    </ul>
-  </div>
-
-  <div class="work-panel">
-    <div class="work-grid">
-      <div class="work-card">
-        <div class="work-title">Context &amp; Reference Inputs</div>
-        <div class="plan-hint" style="margin-bottom:8px; margin-top:-2px;">Optional but recommended. AI uses these materials together with your planning choices to shape more contextual drafts.</div>
-        <div class="work-row">
-          <button class="btn-mini" onclick="alert('Upload is illustrative in this mockup')">Add existing materials</button>
-          <button class="btn-mini" onclick="alert('Paste meeting notes / survey summaries here')">Paste context notes</button>
-        </div>
-        <div class="work-row">
-          <input class="input-mini" id="link-input" type="text" placeholder="Add references, source URLs, or example links">
-          <button class="btn-mini" onclick="addLink()">Add reference</button>
-        </div>
-        <textarea class="plan-textarea" id="context-notes" placeholder="Paste module notes, meeting points, constraints, or discipline-specific references" style="min-height:70px;"></textarea>
-      </div>
-    </div>
-  </div>
+  <div class="page-sub">Set your module direction. These choices guide what AI drafts next.</div>
 
   <div class="layout">
 
@@ -503,16 +178,17 @@
 
       <!-- Section A: Module Overview -->
       <div class="plan-section">
-        <div class="ps-header">
+        <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">A</div>
           <div class="ps-title">Module Overview</div>
-          <div class="ps-desc">Basic module information used across the module draft</div>
+          <div class="ps-desc">Basic information used across the module document</div>
+          <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
           <div class="field-row">
-            <div class="field" style="flex:2;">
+            <div class="field">
               <label class="field-label">Module Title</label>
-              <input class="plan-input" id="f-title" type="text" placeholder="e.g. Module Title" oninput="updateSummary()">
+              <input class="plan-input" id="f-title" type="text" placeholder="e.g. Data Structures &amp; Algorithms" oninput="updateSummary()">
             </div>
           </div>
           <div class="field-row">
@@ -523,7 +199,6 @@
                 <option>School of Health Sciences</option>
                 <option>School of Infocomm Technology &amp; Digital Media</option>
                 <option>School of Business &amp; Accountancy</option>
-                <option>School of Design &amp; Environment</option>
                 <option>School of Engineering</option>
                 <option>School of Film &amp; Media Studies</option>
                 <option>School of Life Sciences &amp; Chemical Technology</option>
@@ -558,7 +233,7 @@
             </div>
             <div class="field">
               <label class="field-label">Pre-requisite <span class="opt">(optional)</span></label>
-              <input class="plan-input" type="text" placeholder="e.g. ICT1001 Fundamentals of Programming">
+              <input class="plan-input" type="text" placeholder="e.g. ICT1001 Programming Fundamentals">
             </div>
           </div>
         </div>
@@ -566,257 +241,105 @@
 
       <!-- Section B: Module Purpose & Direction -->
       <div class="plan-section">
-        <div class="ps-header">
+        <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">B</div>
           <div class="ps-title">Module Purpose &amp; Direction</div>
-          <div class="ps-desc">Define the module outcome in 1-2 lines.</div>
+          <div class="ps-desc">Define the module's intent in 1–2 lines</div>
+          <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
-          <div class="field-row" style="flex-direction:column; gap:14px;">
-            <div class="field">
-              <label class="field-label">Module Purpose</label>
-              <textarea class="plan-textarea" id="f-purpose" placeholder="What should students achieve?" oninput="updateSummary()"></textarea>
-              <div class="plan-hint">Keep this to 1-2 clear sentences.</div>
-            </div>
-            <div class="field">
-              <label class="field-label">Industry / Professional Context <span class="opt">(optional)</span></label>
-              <input class="plan-input" type="text" placeholder="e.g. Relevant industry context">
-            </div>
+          <div class="field">
+            <label class="field-label">Module Purpose</label>
+            <textarea class="plan-textarea" id="f-purpose" placeholder="What should students achieve in this module?" oninput="updateSummary()"></textarea>
+            <div class="plan-hint">Keep this to 1–2 clear sentences. This drives the AI's drafting context.</div>
           </div>
         </div>
       </div>
 
-      <!-- Section C: Priority Graduate Competencies -->
+      <!-- Section C: Key Graduate Competencies -->
       <div class="plan-section">
-          <div class="ps-header">
+        <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">C</div>
-            <div class="ps-title">Key Graduate Competencies</div>
-          <div class="ps-desc">Select the key competencies most emphasised in this module</div>
+          <div class="ps-title">Key Graduate Competencies</div>
+          <div class="ps-desc">Select the competencies this module primarily develops</div>
+          <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
           <div class="npgc-grid" id="npgc-grid">
-            <div class="npgc-item on" onclick="toggleNPGC(this)">
-              <div class="npgc-cb"></div>
-              <div>
-                <div class="npgc-num">GC1</div>
-                <div class="npgc-name">Domain &amp; Interdisciplinary</div>
-                <div class="npgc-sub">Apply domain knowledge · interdisciplinary connections</div>
-              </div>
-            </div>
-            <div class="npgc-item on" onclick="toggleNPGC(this)">
-              <div class="npgc-cb"></div>
-              <div>
-                <div class="npgc-num">GC2</div>
-                <div class="npgc-name">Critical Thinking</div>
-                <div class="npgc-sub">Analyse · evaluate · solve complex problems</div>
-              </div>
-            </div>
-            <div class="npgc-item" onclick="toggleNPGC(this)">
-              <div class="npgc-cb"></div>
-              <div>
-                <div class="npgc-num">GC3</div>
-                <div class="npgc-name">Innovation &amp; Entrepreneurial</div>
-                <div class="npgc-sub">Generate ideas · take initiative · entrepreneurial mindset</div>
-              </div>
-            </div>
-            <div class="npgc-item on" onclick="toggleNPGC(this)">
-              <div class="npgc-cb"></div>
-              <div>
-                <div class="npgc-num">GC4</div>
-                <div class="npgc-name">Digital Competence</div>
-                <div class="npgc-sub">Leverage digital tools · technology literacy · data use</div>
-              </div>
-            </div>
-            <div class="npgc-item" onclick="toggleNPGC(this)">
-              <div class="npgc-cb"></div>
-              <div>
-                <div class="npgc-num">GC5</div>
-                <div class="npgc-name">Self-Development</div>
-                <div class="npgc-sub">Reflect · adapt · commit to lifelong learning</div>
-              </div>
-            </div>
-            <div class="npgc-item" onclick="toggleNPGC(this)">
-              <div class="npgc-cb"></div>
-              <div>
-                <div class="npgc-num">GC6</div>
-                <div class="npgc-name">Collaboration</div>
-                <div class="npgc-sub">Work in teams · build relationships · lead and follow</div>
-              </div>
-            </div>
-            <div class="npgc-item" onclick="toggleNPGC(this)">
-              <div class="npgc-cb"></div>
-              <div>
-                <div class="npgc-num">GC7</div>
-                <div class="npgc-name">Communication</div>
-                <div class="npgc-sub">Express clearly · listen actively · present persuasively</div>
-              </div>
-            </div>
+            <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC1</div><div class="npgc-name">Domain &amp; Interdisciplinary</div></div></div>
+            <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC2</div><div class="npgc-name">Critical Thinking</div></div></div>
+            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC3</div><div class="npgc-name">Innovation &amp; Entrepreneurial</div></div></div>
+            <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC4</div><div class="npgc-name">Digital Competence</div></div></div>
+            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC5</div><div class="npgc-name">Self-Development</div></div></div>
+            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC6</div><div class="npgc-name">Collaboration</div></div></div>
+            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC7</div><div class="npgc-name">Communication</div></div></div>
           </div>
-          <div class="npgc-note">Tip: choose 2-3 priorities for a clear focus.</div>
-          <div class="inline-insight" data-area="Graduate Competencies">
-            <div class="ii-title">AI Insight · Graduate Competencies</div>
-            <div class="ii-text">GC7 Communication is not explicitly surfaced. Suggested enhancement: Present technical findings clearly to diverse stakeholders.</div>
-            <div class="ii-actions">
-              <button class="btn-mini primary">Insert Outcome</button>
-              <button class="btn-mini">Refine</button>
-              <button class="btn-mini">Ignore</button>
-            </div>
-          </div>
+          <div class="npgc-note">Choose 2–3 priorities for a clear module focus.</div>
         </div>
       </div>
 
-      <!-- Section D: Assessment Direction -->
+      <!-- Section D: Assessment Strategy -->
       <div class="plan-section">
-        <div class="ps-header">
+        <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">D</div>
           <div class="ps-title">Assessment Strategy</div>
-          <div class="ps-desc">Guides the assessment structure, approach, and component design</div>
+          <div class="ps-desc">Guides assessment structure and component design</div>
+          <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
-          <div class="field-row" style="flex-direction:column; gap:16px;">
-            <div class="field">
-              <label class="field-label">Assessment Structure</label>
-              <div class="chip-group" id="chip-asmttype">
-                <span class="chip on" onclick="selChip(this,'asmttype')">CA Only — 100%</span>
-                <span class="chip" onclick="selChip(this,'asmttype')">CA + Final Exam (40–60% exam)</span>
-                <span class="chip" onclick="selChip(this,'asmttype')">CA + Common Test</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="field-label">Primary Assessment Approach <span class="opt">(select all that apply)</span></label>
-              <div class="check-group-2col">
-                <div class="check-item on" onclick="toggleCheck(this)">
-                  <div class="check-box"></div>
-                  <div class="check-label">Project-Based</div>
-                  <div class="check-sub">Industry-relevant briefs</div>
-                </div>
-                <div class="check-item" onclick="toggleCheck(this)">
-                  <div class="check-box"></div>
-                  <div class="check-label">Competency-Based</div>
-                  <div class="check-sub">Skills demonstrations</div>
-                </div>
-                <div class="check-item" onclick="toggleCheck(this)">
-                  <div class="check-box"></div>
-                  <div class="check-label">Portfolio-Based</div>
-                  <div class="check-sub">Artefact collection</div>
-                </div>
-                <div class="check-item" onclick="toggleCheck(this)">
-                  <div class="check-box"></div>
-                  <div class="check-label">Knowledge-Based</div>
-                  <div class="check-sub">Tests, quizzes, exams</div>
-                </div>
-              </div>
-            </div>
-            <div class="field">
-              <label class="field-label">Group Component</label>
-              <div class="chip-group" id="chip-group">
-                <span class="chip on" onclick="selChip(this,'group')">Includes group work</span>
-                <span class="chip" onclick="selChip(this,'group')">Individual only</span>
-              </div>
+          <div class="field" style="margin-bottom:14px;">
+            <label class="field-label">Assessment Structure</label>
+            <div class="chip-group" id="chip-asmttype">
+              <span class="chip on" onclick="selChip(this,'asmttype')">CA Only</span>
+              <span class="chip" onclick="selChip(this,'asmttype')">CA + Final Exam</span>
+              <span class="chip" onclick="selChip(this,'asmttype')">CA + Common Test</span>
             </div>
           </div>
-          <div class="inline-insight" data-area="Assessment Strategy">
-            <div class="ii-title">AI Insight · Assessment Strategy</div>
-            <div class="ii-text">Group weighting exceeds recommended range. Suggested adjustment: rebalance to 25–30% for stronger individual accountability.</div>
-            <div class="ii-actions">
-              <button class="btn-mini primary">Apply Suggestion</button>
-              <button class="btn-mini">Refine</button>
-              <button class="btn-mini">Ignore</button>
+          <div class="field" style="margin-bottom:14px;">
+            <label class="field-label">Primary Approach <span class="opt">(select all that apply)</span></label>
+            <div class="check-group-2col">
+              <div class="check-item on" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Project-Based</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Competency-Based</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Portfolio-Based</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Knowledge-Based</div></div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label">Group Component</label>
+            <div class="chip-group" id="chip-group">
+              <span class="chip on" onclick="selChip(this,'group')">Includes group work</span>
+              <span class="chip" onclick="selChip(this,'group')">Individual only</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Section E: Teaching & Learning Strategies -->
+      <!-- Section E: Teaching & Learning -->
       <div class="plan-section">
-        <div class="ps-header">
+        <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">E</div>
-          <div class="ps-title">Teaching &amp; Learning Strategies</div>
+          <div class="ps-title">Teaching &amp; Learning Approach</div>
           <div class="ps-desc">Shapes the T&amp;L strategies and teaching plan</div>
+          <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
-          <div class="field-row" style="flex-direction:column; gap:16px;">
-            <div class="field">
-              <label class="field-label">T&amp;L Strategies <span class="opt">(select all that apply)</span></label>
-              <div class="check-group-2col">
-                <div class="check-item on" onclick="toggleCheck(this)">
-                  <div class="check-box"></div>
-                  <div class="check-label">Case-Based Learning</div>
-                </div>
-                <div class="check-item" onclick="toggleCheck(this)">
-                  <div class="check-box"></div>
-                  <div class="check-label">Problem-Based Learning</div>
-                </div>
-                <div class="check-item" onclick="toggleCheck(this)">
-                  <div class="check-box"></div>
-                  <div class="check-label">Flipped Classroom</div>
-                </div>
-                <div class="check-item" onclick="toggleCheck(this)">
-                  <div class="check-box"></div>
-                  <div class="check-label">Work-Integrated Learning</div>
-                </div>
-                <div class="check-item on" onclick="toggleCheck(this)">
-                  <div class="check-box"></div>
-                  <div class="check-label">E-Learning / ICT-Enabled</div>
-                </div>
-                <div class="check-item" onclick="toggleCheck(this)">
-                  <div class="check-box"></div>
-                  <div class="check-label">Inquiry-Based Learning</div>
-                </div>
-                <div class="check-item" onclick="toggleCheck(this)">
-                  <div class="check-box"></div>
-                  <div class="check-label">Project-Based Learning</div>
-                </div>
-                <div class="check-item" onclick="toggleCheck(this)">
-                  <div class="check-box"></div>
-                  <div class="check-label">Peer &amp; Collaborative</div>
-                </div>
-              </div>
-            </div>
-            <div class="field">
-              <label class="field-label">Delivery Mode</label>
-              <div class="chip-group" id="chip-delivery">
-                <span class="chip" onclick="selChip(this,'delivery')">Face-to-Face</span>
-                <span class="chip on" onclick="selChip(this,'delivery')">Blended</span>
-                <span class="chip" onclick="selChip(this,'delivery')">Fully Online</span>
-              </div>
+          <div class="field" style="margin-bottom:14px;">
+            <label class="field-label">T&amp;L Strategies <span class="opt">(select all that apply)</span></label>
+            <div class="check-group-2col">
+              <div class="check-item on" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Case-Based Learning</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Problem-Based Learning</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Flipped Classroom</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Work-Integrated Learning</div></div>
+              <div class="check-item on" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">E-Learning / ICT-Enabled</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Project-Based Learning</div></div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- Section F: What Would You Like to Work On? -->
-      <div class="plan-section">
-        <div class="ps-header">
-          <div class="ps-num">F</div>
-          <div class="ps-title">Select Sections to Draft</div>
-          <div class="ps-desc">Select sections for this drafting pass</div>
-        </div>
-        <div class="ps-body">
-          <div class="build-focus-grid" id="build-focus-grid">
-            <div class="focus-item on" onclick="toggleFocus(this)">
-              <div class="focus-top"><div class="focus-cb">✓</div><div class="focus-name">Module Learning Outcomes</div></div>
-              <div class="focus-sub">Draft and refine MOs with competency mapping.</div>
-            </div>
-            <div class="focus-item on" onclick="toggleFocus(this)">
-              <div class="focus-top"><div class="focus-cb">✓</div><div class="focus-name">Weekly Learning Activities</div></div>
-              <div class="focus-sub">Create weekly activities and sequencing.</div>
-            </div>
-            <div class="focus-item on" onclick="toggleFocus(this)">
-              <div class="focus-top"><div class="focus-cb">✓</div><div class="focus-name">Assessment Plan</div></div>
-              <div class="focus-sub">Design components, weightings, and coverage.</div>
-            </div>
-            <div class="focus-item" onclick="toggleFocus(this)">
-              <div class="focus-top"><div class="focus-cb"></div><div class="focus-name">Draft Teaching Resources</div><span class="state-pill">Not Started</span></div>
-              <div class="focus-sub">Draft slides, prompts, and learner resources.</div>
-            </div>
-          </div>
-          <div class="plan-hint" style="margin-top:8px;">You can work section-by-section and come back anytime.</div>
-          <div class="inline-insight on" style="margin-top:10px; display:block;">
-            <div class="ii-title">Recommended sequence</div>
-            <div class="ii-text">Start with Learning Outcomes and Assessment Plan. These establish alignment before drafting activities, resources, and weekly plans.</div>
-            <div class="ii-actions">
-              <button class="btn-mini primary" type="button" onclick="useRecommendedSequence()">Apply Recommended Sequence</button>
+          <div class="field">
+            <label class="field-label">Delivery Mode</label>
+            <div class="chip-group" id="chip-delivery">
+              <span class="chip" onclick="selChip(this,'delivery')">Face-to-Face</span>
+              <span class="chip on" onclick="selChip(this,'delivery')">Blended</span>
+              <span class="chip" onclick="selChip(this,'delivery')">Fully Online</span>
             </div>
           </div>
         </div>
@@ -824,30 +347,29 @@
 
     </div><!-- end layout-main -->
 
-    <!-- Left navigator -->
+    <!-- Sidebar -->
     <div class="layout-side">
-      <div class="section-nav">
-        <div class="nav-group-title">Module</div>
-        <div class="nav-module" id="nav-module">Module Title</div>
-        <div class="nav-meta" id="nav-meta">L2 • 4 CU</div>
 
-        <div class="nav-group-title">Sections</div>
-        <div class="nav-list">
-          <div class="nav-item done" data-target="A"><span class="nav-dot"></span>Overview</div>
-          <div class="nav-item done" data-target="B"><span class="nav-dot"></span>Synopsis &amp; Skills</div>
-          <div class="nav-item current" data-target="C"><span class="nav-dot"></span>Learning Outcomes</div>
-          <div class="nav-item" data-target="D"><span class="nav-dot"></span>Assessment</div>
-          <div class="nav-item" data-target="E"><span class="nav-dot"></span>T&amp;L Strategies</div>
-          <div class="nav-item warn" data-target="F"><span class="nav-dot"></span>Build Focus</div>
+      <!-- AI suggestions (subtle) -->
+      <div class="side-card ai-side">
+        <span class="side-label">✦ AI Suggestions</span>
+        <div class="side-card-body">
+          <div class="side-rec-item">Critical Thinking flagged as employer gap area</div>
+          <div class="side-rec-item">Project-based CA matches industry expectations</div>
+          <div class="side-rec-item">Case-Based Learning suits this domain</div>
         </div>
+      </div>
 
-        <div class="nav-group-title">Review Flags</div>
-        <div class="review-flag" id="flag-competency">2 competency flags</div>
-        <div class="review-flag" id="flag-assessment">1 assessment flag</div>
-
-        <div class="completion-wrap">
-          <div class="completion-bar"><div class="completion-fill" id="completion-fill"></div></div>
-          <div class="completion-label" id="completion-label">60% complete</div>
+      <!-- Plan summary -->
+      <div class="side-card">
+        <span class="side-label">Plan Summary</span>
+        <div class="side-card-body">
+          <div class="sum-row"><span class="sum-key">Module</span><span class="sum-val empty" id="sum-title">Not set</span></div>
+          <div class="sum-row"><span class="sum-key">Level</span><span class="sum-val" id="sum-level">L2</span></div>
+          <div class="sum-row"><span class="sum-key">Credit Units</span><span class="sum-val" id="sum-cu">4 CU</span></div>
+          <div class="sum-row"><span class="sum-key">NPGCs</span><span class="sum-val" id="sum-npgc">3 selected</span></div>
+          <div class="sum-row"><span class="sum-key">Assessment</span><span class="sum-val" id="sum-asmt">CA Only</span></div>
+          <div class="sum-row"><span class="sum-key">Delivery</span><span class="sum-val" id="sum-delivery">Blended</span></div>
         </div>
       </div>
 
@@ -860,7 +382,7 @@
 <!-- Bottom bar -->
 <div class="bottom-bar">
   <div class="bottom-inner">
-    <div class="bb-note" id="bb-note">Complete this step, then draft your module in guided passes</div>
+    <div class="bb-note">Set direction, then continue to drafting</div>
     <div class="bb-actions">
       <a href="analyse-synthesise.html" class="btn-ghost">← Back to Analysis</a>
       <a href="design-wizard.html" class="btn-primary">Continue to Drafting →</a>
@@ -869,7 +391,6 @@
 </div>
 
 <script>
-  // ── Steppers ──
   const stepperVals = { cu: 4, ch: 3 };
   const stepperMin = { cu: 1, ch: 1 };
   const stepperMax = { cu: 8, ch: 6 };
@@ -880,201 +401,40 @@
     updateSummary();
   }
 
-  // ── Single-select chips ──
   function selChip(el, group) {
     document.querySelectorAll(`#chip-${group} .chip`).forEach(c => c.classList.remove('on'));
     el.classList.add('on');
     updateSummary();
   }
 
-  // ── NPGC toggle ──
-  function toggleNPGC(el) {
-    el.classList.toggle('on');
-    updateSummary();
-  }
+  function toggleNPGC(el) { el.classList.toggle('on'); updateSummary(); }
+  function toggleCheck(el) { el.classList.toggle('on'); }
+  function toggleSection(headerEl) { headerEl.parentElement.classList.toggle('collapsed'); }
 
-  // ── Checkbox toggle ──
-  function toggleCheck(el) {
-    el.classList.toggle('on');
-  }
-
-  function toggleFocus(el) {
-    el.classList.toggle('on');
-    const cb = el.querySelector('.focus-cb');
-    const state = el.querySelector('.state-pill');
-    cb.textContent = el.classList.contains('on') ? '✓' : '';
-    if (state) {
-      if (el.classList.contains('on')) {
-        state.style.display = 'none';
-      } else {
-        state.textContent = 'Not Started';
-        state.style.display = '';
-      }
-    }
-    updateSummary();
-  }
-
-  function useRecommendedSequence() {
-    const wanted = new Set(['Module Learning Outcomes', 'Assessment Plan']);
-    document.querySelectorAll('#build-focus-grid .focus-item').forEach(el => {
-      const isOn = wanted.has(el.querySelector('.focus-name')?.textContent.trim());
-      el.classList.toggle('on', isOn);
-      const cb = el.querySelector('.focus-cb');
-      const state = el.querySelector('.state-pill');
-      if (cb) cb.textContent = isOn ? '✓' : '';
-      if (state) {
-        state.textContent = 'Not Started';
-        state.style.display = isOn ? 'none' : '';
-      }
-    });
-    updateSummary();
-  }
-
-  function addLink() {
-    const input = document.getElementById('link-input');
-    if (!input.value.trim()) return;
-    alert('Link added to planning context: ' + input.value.trim());
-    input.value = '';
-    updateSummary();
-  }
-
-  // ── Dynamic summary ──
   function updateSummary() {
     const title = document.getElementById('f-title').value.trim();
     const schoolEl = document.getElementById('f-school');
     const school = schoolEl.options[schoolEl.selectedIndex]?.text || '';
-
     const levelChip = document.querySelector('#chip-level .chip.on');
     const asmtChip = document.querySelector('#chip-asmttype .chip.on');
     const deliveryChip = document.querySelector('#chip-delivery .chip.on');
     const npgcCount = document.querySelectorAll('#npgc-grid .npgc-item.on').length;
 
-    const selectedFocus = document.querySelectorAll('#build-focus-grid .focus-item.on').length;
-    const activeSections = [title ? 1 : 0, school && school !== 'Select school…' ? 1 : 0, npgcCount > 0 ? 1 : 0, selectedFocus > 0 ? 1 : 0].reduce((a, b) => a + b, 0);
-    const completion = Math.round((activeSections / 6) * 100);
-
-    document.getElementById('ctx-module').textContent = 'Module: ' + (title || 'Not set');
-    document.getElementById('ctx-level').textContent = 'Level: ' + (levelChip ? levelChip.textContent : '—');
-    document.getElementById('ctx-cu').textContent = stepperVals.cu + ' CU';
-    document.getElementById('ctx-npgc').textContent = 'NPGCs: ' + npgcCount + ' selected';
-    document.getElementById('ctx-asmt').textContent = 'Assessment: ' + (asmtChip ? asmtChip.textContent.split(' —')[0] : '—');
-    document.getElementById('ctx-delivery').textContent = 'Delivery: ' + (deliveryChip ? deliveryChip.textContent : '—');
-
-    document.getElementById('nav-module').textContent = title || 'Untitled Module';
-    document.getElementById('nav-meta').textContent = (levelChip ? levelChip.textContent : '—') + ' • ' + stepperVals.cu + ' CU';
-    document.getElementById('completion-fill').style.width = completion + '%';
-    document.getElementById('completion-label').textContent = completion + '% complete';
-
-    updateAILoop({
-      title,
-      asmt: asmtChip ? asmtChip.textContent : '—',
-      delivery: deliveryChip ? deliveryChip.textContent : '—',
-      npgcCount
-    });
-
-    const competencySignals = document.querySelectorAll('.inline-insight[data-area="Graduate Competencies"].on').length + npgcCount;
-    const competencyFlags = competencySignals < 3 ? 1 : 2;
-    const assessmentFlags = document.querySelectorAll('.inline-insight[data-area="Assessment Strategy"].on').length ? 1 : 0;
-    document.getElementById('flag-competency').textContent = competencyFlags + ' competency flag' + (competencyFlags > 1 ? 's' : '');
-    document.getElementById('flag-assessment').textContent = assessmentFlags + ' assessment flag' + (assessmentFlags !== 1 ? 's' : '');
+    setSum('sum-title', title || null);
+    document.getElementById('sum-level').textContent = levelChip ? levelChip.textContent : '—';
+    document.getElementById('sum-cu').textContent = stepperVals.cu + ' CU';
+    document.getElementById('sum-npgc').textContent = npgcCount + ' selected';
+    document.getElementById('sum-asmt').textContent = asmtChip ? asmtChip.textContent : '—';
+    document.getElementById('sum-delivery').textContent = deliveryChip ? deliveryChip.textContent : '—';
   }
 
-  function updateAILoop(context) {
-    const loopText = document.getElementById('ai-loop-text');
-    const loopList = document.getElementById('ai-loop-list');
-    if (!loopText || !loopList) return;
-
-    const hasTitle = !!context.title;
-    const isProject = /Project-Based/.test(context.asmt);
-    const hasGroup = /group/i.test(context.asmt);
-    const isBlended = /Blended/.test(context.delivery);
-    const moreNpgc = context.npgcCount >= 3;
-
-    const bullets = [];
-    loopText.textContent = hasTitle
-      ? 'AI is reacting to your planning choices and will carry these cues into the drafting pass.'
-      : 'Set a module title to unlock more specific drafting guidance.';
-
-    if (isProject) {
-      bullets.push('Project-based assessment pairs well with milestone checks and authentic briefs.');
-    } else {
-      bullets.push('Assessment mode should be reflected in the kinds of evidence the AI drafts next.');
-    }
-
-    if (hasGroup) bullets.push('Group work usually benefits from clearer accountability and peer review prompts.');
-    if (isBlended) bullets.push('Blended delivery can support a mix of guided, asynchronous, and in-class activities.');
-    bullets.push(moreNpgc ? 'Your competency mix is broad enough for AI to suggest multiple drafting angles.' : 'Adding one or two more competencies could sharpen the draft focus.');
-
-    loopList.innerHTML = '';
-    bullets.forEach(text => {
-      const li = document.createElement('li');
-      li.textContent = text;
-      loopList.appendChild(li);
-    });
+  function setSum(id, val) {
+    const el = document.getElementById(id);
+    if (val) { el.textContent = val; el.classList.remove('empty'); }
+    else { el.textContent = 'Not set'; el.classList.add('empty'); }
   }
 
-  function setActiveNav(sectionKey) {
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.classList.remove('current');
-      if (item.getAttribute('data-target') === sectionKey) item.classList.add('current');
-    });
-  }
-
-  // Initialise
   updateSummary();
-
-  // ── Review mode support (shared workspace entry from Review Existing Module) ──
-  const q = new URLSearchParams(window.location.search);
-  const mode = q.get('mode');
-  const reviewAreas = (q.get('areas') || '').split('|').filter(Boolean);
-  const reviewRefs = (q.get('refs') || '').split('|').filter(Boolean);
-  const reviewNotes = q.get('notes') || '';
-
-  if (mode === 'review') {
-    const cfg = document.getElementById('review-config');
-    cfg.classList.add('on');
-    document.querySelector('.page-title').textContent = 'Review Workspace';
-    document.querySelector('.page-sub').textContent = 'Review and refine this module inline. AI recommendations appear in context within each selected section.';
-    document.getElementById('review-areas').textContent = 'Review lenses: ' + (reviewAreas.length ? reviewAreas.join(', ') : 'None selected');
-    document.getElementById('review-refs').textContent = 'Reference frameworks: ' + (reviewRefs.length ? reviewRefs.join(', ') : 'None selected');
-    document.getElementById('review-notes').textContent = 'Lecturer notes: ' + (reviewNotes || 'None provided');
-
-    document.querySelectorAll('.inline-insight').forEach(card => {
-      const area = card.getAttribute('data-area');
-      if (reviewAreas.includes(area)) card.classList.add('on');
-    });
-
-    const bb = document.querySelector('.btn-primary');
-    bb.textContent = 'Continue to Draft & Refine →';
-  }
-
-  // ── Collapsible plan sections ──
-  document.querySelectorAll('.plan-section').forEach((section, index) => {
-    const header = section.querySelector('.ps-header');
-    if (!header) return;
-    const toggle = document.createElement('span');
-    toggle.className = 'ps-toggle';
-    toggle.textContent = '▾';
-    header.appendChild(toggle);
-    header.addEventListener('click', () => {
-      section.classList.toggle('collapsed');
-      const sectionKey = section.dataset.section;
-      setActiveNav(sectionKey);
-    });
-    section.dataset.section = String.fromCharCode(65 + index);
-    if (index > 0) section.classList.add('collapsed');
-  });
-
-  document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const sectionKey = item.getAttribute('data-target');
-      const section = Array.from(document.querySelectorAll('.plan-section')).find(s => s.dataset.section === sectionKey);
-      if (!section) return;
-      section.classList.remove('collapsed');
-      setActiveNav(sectionKey);
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
 </script>
 
 </body>

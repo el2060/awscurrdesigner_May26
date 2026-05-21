@@ -410,9 +410,9 @@
 <!-- Phase bar -->
 <div class="phase-bar">
   <div class="phase-inner">
-  <div class="ph-step"><div class="ph-num">1</div><span>Context Workspace (optional)</span></div>
+  <div class="ph-step done"><div class="ph-num">✓</div><span>Context Workspace (optional)</span></div>
   <div class="ph-connector"></div>
-  <div class="ph-step"><div class="ph-num">2</div><span>Synthesis</span></div>
+  <div class="ph-step done"><div class="ph-num">✓</div><span>Synthesis</span></div>
   <div class="ph-connector"></div>
   <div class="ph-step done"><div class="ph-num">✓</div><span>Planning</span></div>
   <div class="ph-connector"></div>
@@ -484,18 +484,8 @@
         </ol>
         <button class="mini-btn primary" type="button" onclick="applySuggestedSequence()">Apply Recommended Sequence</button>
       </div>
-      <div class="ai-loop" id="build-ai-loop">
-        <div class="ai-loop-head">
-          <div class="ai-loop-title">AI Drafting Signal</div>
-          <div class="ai-loop-badge">Live</div>
-        </div>
-        <div class="ai-loop-text" id="build-ai-loop-text">Select sections and AI will surface the next best drafting focus.</div>
-        <ul class="ai-loop-list" id="build-ai-loop-list">
-          <li>AI will react to the sections you choose for this pass.</li>
-          <li>Context inputs will shape tone, constraints, and examples.</li>
-          <li>You can keep refining scope before generating.</li>
-        </ul>
-      </div>
+      <!-- AI Drafting Signal removed for demo clarity — keep section list as primary focus -->
+
       <div class="scope-grid" id="scope-grid">
         <div class="scope-item on" data-label="Module Learning Outcomes" data-time="~3s" onclick="toggleScope(this)">
           <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Module Learning Outcomes</div></div>
@@ -532,9 +522,7 @@
         <button class="mini-btn" onclick="addBuildLink()">Add reference</button>
       </div>
       <textarea class="mini-input" id="build-notes" placeholder="Paste module notes, constraints, rubrics, or discipline-specific references" style="min-height:66px; resize:vertical;" oninput="updateBuildLoop()"></textarea>
-      <div class="suggestion">AI uses these materials with your planning selections to keep drafts grounded in your discipline, teaching intent, and assessment constraints.</div>
-      <div class="suggestion">For a tighter first pass, start with Learning Outcomes and Assessment Plan.</div>
-      <div class="suggestion">You can continue adding references throughout drafting, not just at the start.</div>
+      <div class="suggestion">AI uses these together with your planning selections to ground the draft.</div>
     </div>
   </div>
 
