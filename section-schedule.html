@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -54,7 +54,7 @@
 <header class="topbar">
   <a href="index.html" class="topbar-logo" style="text-decoration:none;"><img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:26px; width:auto;"></a>
   <div class="topbar-divider"></div>
-  <span class="topbar-module-title">ICT1234 — Data Structures &amp; Algorithms</span>
+  <span class="topbar-module-title">ICT1234 — Module Title</span>
   <div class="topbar-actions">
     <span class="topbar-status-badge">Draft</span>
     <button class="btn btn-secondary btn-sm" id="save-draft-btn">Save Draft</button>
@@ -69,7 +69,7 @@
     <div class="sidebar-divider"></div>
     <div class="sidebar-module-info">
       <div class="sidebar-module-code">ICT1234 · ELE</div>
-      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-name">Module Title</div>
       <div class="sidebar-module-meta">L2 · SIDM · 4 CU</div>
     </div>
     <div class="sidebar-divider"></div>
@@ -106,7 +106,7 @@
         <div class="section-header-left">
           <div class="section-number">Sections 6 – 7</div>
           <div class="section-title">Topics &amp; Weekly Schedule</div>
-          <div class="section-description">Plan the 17-week teaching schedule. Break weeks and exam week are pre-set. Click any cell to edit inline.</div>
+          <div class="section-description">Plan weekly topics and key milestones.</div>
         </div>
         <div class="section-header-actions">
           <button class="btn-draft-ai" id="generate-schedule-btn"><span class="sparkle">✦</span> Generate with AI</button>
@@ -276,52 +276,30 @@
 
   <aside class="ai-sidebar" id="ai-sidebar">
     <div class="ai-sidebar-header">
-      <div class="ai-sidebar-title"><span class="ai-icon">✦</span> AI Assistant</div>
+      <div class="ai-sidebar-title"><span class="ai-icon">✦</span> AI Copilot</div>
       <button class="btn btn-ghost btn-sm btn-icon" id="ai-sidebar-close">×</button>
     </div>
     <div class="ai-sidebar-body">
       <div class="ai-suggestion-card">
-        <div class="ai-suggestion-header"><span class="sparkle">✦</span><span class="ai-suggestion-label">Schedule Tip</span></div>
-        <div class="ai-suggestion-body">Your assessment week is in Week 8, but <strong>Week 7</strong> currently has no consultation or revision time. Consider replacing Week 7's topic with a revision/lab session before the test.</div>
+        <div class="ai-suggestion-header"><span class="sparkle">✦</span><span class="ai-suggestion-label">Pacing Tip</span></div>
+        <div class="ai-suggestion-body">Add a Week 7 revision buffer before CT.</div>
         <div class="ai-suggestion-actions">
           <button class="btn btn-primary btn-sm" id="update-w7-btn">Update Week 7</button>
-          <span class="ai-suggestion-dismiss" onclick="this.closest('.ai-suggestion-card').remove()">Dismiss ×</span>
         </div>
-      </div>
-      <div id="ai-messages" class="ai-chat-messages">
-        <div class="ai-chat-bubble assistant">I can help structure your 17 weeks. Try: <em>"How should I pace a Data Structures module?"</em> or <em>"What topics should go in week 12?"</em></div>
       </div>
     </div>
     <div class="ai-sidebar-footer">
-      <div class="prompt-chip-strip">
-        <div class="prompt-chip-strip-label">✦ Try a prompt</div>
-        <button class="prompt-chip">Generate a 17-week breakdown</button>
-        <button class="prompt-chip">Add a project sprint mid-sem</button>
-        <button class="prompt-chip">Balance theory vs practical</button>
-        <button class="prompt-chip">Align topics to MOs</button>
-      </div>
-      <div class="ai-chat-input-row">
-        <textarea class="ai-chat-input" id="ai-input" placeholder="Ask about the schedule…" rows="1"></textarea>
-        <button class="ai-chat-send" id="ai-send">↑</button>
+      <div class="callout" style="margin:0;">
+        Spread major milestones across weeks.
       </div>
     </div>
   </aside>
 </div>
 
-<button class="ai-fab" id="ai-fab">✦</button>
-
 <script type="module">
-  import { MOCK_DATA, showSuggestion, initAIChat, initSaveDraft, showToast } from './ai-assistant.js';
-  initAIChat();
+  import { MOCK_DATA, showSuggestion, initSaveDraft, showToast } from './ai-assistant.js';
   initSaveDraft('save-draft-btn');
   initSaveDraft('save-footer');
-
-  document.querySelectorAll('.prompt-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const input = document.getElementById('ai-input');
-      if (input) { input.value = chip.textContent.trim(); input.focus(); }
-    });
-  });
 
   // Generate schedule with AI
   document.getElementById('generate-schedule-btn').addEventListener('click', () => {
@@ -329,7 +307,7 @@
     area.innerHTML = '';
     showSuggestion(area, {
       label: '✦ AI Generated Schedule',
-      body: 'I\'ve prepared a 17-week topic plan for <strong>Data Structures & Algorithms</strong> based on your learning outcomes, with common test in Week 8, recess in Weeks 9–10, and final exam in Week 17. The schedule progressively builds from linear to non-linear structures.',
+      body: 'I\'ve prepared a 17-week topic plan for <strong>Module Title</strong> based on your learning outcomes, with common test in Week 8, recess in Weeks 9–10, and final exam in Week 17. The schedule progressively builds from linear to non-linear structures.',
       variant: 'blue',
       onAccept: () => {
         // Animate re-filling the editable rows

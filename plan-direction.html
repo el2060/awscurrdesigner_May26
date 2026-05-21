@@ -544,7 +544,7 @@
           <div class="field-row">
             <div class="field" style="flex:2;">
               <label class="field-label">Module Title</label>
-              <input class="plan-input" id="f-title" type="text" placeholder="e.g. Data Structures &amp; Algorithms" oninput="updateSummary()">
+              <input class="plan-input" id="f-title" type="text" placeholder="e.g. Module Title" oninput="updateSummary()">
             </div>
           </div>
           <div class="field-row">
@@ -555,6 +555,7 @@
                 <option>School of Health Sciences</option>
                 <option>School of Infocomm Technology &amp; Digital Media</option>
                 <option>School of Business &amp; Accountancy</option>
+                <option>School of Design &amp; Environment</option>
                 <option>School of Engineering</option>
                 <option>School of Film &amp; Media Studies</option>
                 <option>School of Life Sciences &amp; Chemical Technology</option>
@@ -567,7 +568,6 @@
                 <span class="chip" onclick="selChip(this,'level')">L1</span>
                 <span class="chip on" onclick="selChip(this,'level')">L2</span>
                 <span class="chip" onclick="selChip(this,'level')">L3</span>
-                <span class="chip" onclick="selChip(this,'level')">L4</span>
               </div>
             </div>
           </div>
@@ -601,18 +601,18 @@
         <div class="ps-header">
           <div class="ps-num">B</div>
           <div class="ps-title">Module Purpose &amp; Direction</div>
-          <div class="ps-desc">What should this module equip students to do?</div>
+          <div class="ps-desc">Define the module outcome in 1-2 lines.</div>
         </div>
         <div class="ps-body">
           <div class="field-row" style="flex-direction:column; gap:14px;">
             <div class="field">
               <label class="field-label">Module Purpose</label>
-              <textarea class="plan-textarea" id="f-purpose" placeholder="What should students be able to do by the end of this module?" oninput="updateSummary()"></textarea>
+              <textarea class="plan-textarea" id="f-purpose" placeholder="What should students achieve?" oninput="updateSummary()"></textarea>
               <div class="plan-hint">Keep this to 1-2 clear sentences.</div>
             </div>
             <div class="field">
               <label class="field-label">Industry / Professional Context <span class="opt">(optional)</span></label>
-              <input class="plan-input" type="text" placeholder="e.g. Prepares students for roles in healthcare informatics, clinical data management, and digital health">
+              <input class="plan-input" type="text" placeholder="e.g. Relevant industry context">
             </div>
           </div>
         </div>
@@ -853,7 +853,7 @@
     <div class="layout-side">
       <div class="section-nav">
         <div class="nav-group-title">Module</div>
-        <div class="nav-module" id="nav-module">Data Structures &amp; Algorithms</div>
+        <div class="nav-module" id="nav-module">Module Title</div>
         <div class="nav-meta" id="nav-meta">L2 • 4 CU</div>
 
         <div class="nav-group-title">Sections</div>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -61,7 +61,7 @@
 <header class="topbar">
   <a href="index.html" class="topbar-logo" style="text-decoration:none;"><img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:26px; width:auto;"></a>
   <div class="topbar-divider"></div>
-  <span class="topbar-module-title">ICT1234 — Data Structures &amp; Algorithms</span>
+  <span class="topbar-module-title">ICT1234 — Module Title</span>
   <div class="topbar-actions">
     <span class="topbar-status-badge">Draft</span>
     <button class="btn btn-secondary btn-sm" id="save-draft-btn">Save Draft</button>
@@ -76,7 +76,7 @@
     <div class="sidebar-divider"></div>
     <div class="sidebar-module-info">
       <div class="sidebar-module-code">ICT1234 · ELE</div>
-      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-name">Module Title</div>
       <div class="sidebar-module-meta">L2 · SIDM · 4 CU</div>
     </div>
     <div class="sidebar-divider"></div>
@@ -113,7 +113,7 @@
         <div class="section-header-left">
           <div class="section-number">Sections 3 – 5</div>
           <div class="section-title">Learning Outcomes</div>
-          <div class="section-description">Define Module Outcomes (MOs), map them to Course Outcomes (COs), and align to the 5 National Polytechnic Graduate Competencies (NPGCs).</div>
+          <div class="section-description">Define outcomes and map them clearly.</div>
         </div>
         <div class="section-header-actions">
           <button class="btn-draft-ai" id="generate-mos-btn"><span class="sparkle">✦</span> Suggest MOs from Synopsis</button>
@@ -201,7 +201,7 @@
         </div>
 
         <div class="callout mb-4">
-          Write outcomes using <strong>Bloom's Taxonomy</strong> action verbs (e.g., <em>explain, implement, analyse, design, evaluate</em>). Aim for 5–8 MOs. Check at least one NPGC per outcome row.
+          Use measurable verbs. Keep outcomes concise.
         </div>
 
         <div class="table-wrapper">
@@ -333,7 +333,7 @@
           Course Outcomes (COs)
         </div>
         <div class="callout mb-4">
-          Course Outcomes describe broader programme-level competencies. MOs above should map to at least one CO. These are typically set at the programme level — confirm with your Course Chair.
+          Map each MO to at least one CO.
         </div>
         <div class="table-wrapper">
           <table class="co-table">
@@ -378,59 +378,35 @@
 
   <aside class="ai-sidebar" id="ai-sidebar">
     <div class="ai-sidebar-header">
-      <div class="ai-sidebar-title"><span class="ai-icon">✦</span> AI Assistant</div>
+      <div class="ai-sidebar-title"><span class="ai-icon">✦</span> AI Copilot</div>
       <button class="btn btn-ghost btn-sm btn-icon" id="ai-sidebar-close">×</button>
     </div>
     <div class="ai-sidebar-body">
       <div class="ai-suggestion-card ai-purple">
         <div class="ai-suggestion-header">
           <span class="sparkle">✦</span>
-          <span class="ai-suggestion-label" style="color:var(--color-ai-glow);">Coverage Notice</span>
+          <span class="ai-suggestion-label" style="color:var(--color-ai-glow);">Coverage Check</span>
         </div>
         <div class="ai-suggestion-body">
-          <strong>NPGC3 (Communication)</strong> only has 1 MO mapped. Consider adding an outcome about presenting or reporting technical work — this is a common requirement across all NP programmes.
+          <strong>NPGC3 (Communication)</strong> currently has light coverage. Add one MO on communicating technical rationale or presenting implementation trade-offs.
         </div>
         <div class="ai-suggestion-actions">
           <button class="btn btn-ai btn-sm" id="add-comm-mo">+ Add Communication MO</button>
-          <span class="ai-suggestion-dismiss" onclick="this.closest('.ai-suggestion-card').remove()">Dismiss ×</span>
-        </div>
-      </div>
-      <div id="ai-messages" class="ai-chat-messages">
-        <div class="ai-chat-bubble assistant">
-          I can help you write strong learning outcomes. Try: <em>"Suggest an MO about code documentation"</em> or <em>"How many MOs should a 4 CU module have?"</em>
         </div>
       </div>
     </div>
     <div class="ai-sidebar-footer">
-      <div class="prompt-chip-strip">
-        <div class="prompt-chip-strip-label">✦ Try a prompt</div>
-        <button class="prompt-chip">Suggest 6 outcomes from my synopsis</button>
-        <button class="prompt-chip">Map outcomes to NPGC</button>
-        <button class="prompt-chip">Rewrite at L2 difficulty</button>
-        <button class="prompt-chip">Add an Apply-level outcome</button>
-      </div>
-      <div class="ai-chat-input-row">
-        <textarea class="ai-chat-input" id="ai-input" placeholder="Ask about learning outcomes…" rows="1"></textarea>
-        <button class="ai-chat-send" id="ai-send">↑</button>
+      <div class="callout" style="margin:0;">
+        Keep each outcome measurable with one clear action verb and explicit evidence through assessment.
       </div>
     </div>
   </aside>
 </div>
 
-<button class="ai-fab" id="ai-fab">✦</button>
-
 <script type="module">
-  import { MOCK_DATA, showSuggestion, initAIChat, initSaveDraft, showToast } from './ai-assistant.js';
-  initAIChat();
+  import { MOCK_DATA, showSuggestion, initSaveDraft, showToast } from './ai-assistant.js';
   initSaveDraft('save-draft-btn');
   initSaveDraft('save-footer');
-
-  document.querySelectorAll('.prompt-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const input = document.getElementById('ai-input');
-      if (input) { input.value = chip.textContent.trim(); input.focus(); }
-    });
-  });
 
   document.getElementById('ai-rebalance-btn')?.addEventListener('click', () => {
     showToast('✦ AI: drafting rebalanced MO list to lift NPGC 6 & 7…');
@@ -503,7 +479,7 @@
       area.innerHTML = '';
       showSuggestion(area, {
         label: '✦ AI Suggestion',
-        body: `I've drafted 7 module outcomes based on your Data Structures & Algorithms synopsis. Click <strong>Accept</strong> to replace your current outcomes, or <strong>Edit first</strong> to review before applying.`,
+        body: `I've drafted 7 module outcomes based on your Module Title synopsis. Click <strong>Accept</strong> to replace your current outcomes, or <strong>Edit first</strong> to review before applying.`,
         variant: 'blue',
         onAccept: () => {
           tbody.innerHTML = '';

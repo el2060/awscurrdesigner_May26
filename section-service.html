@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,7 @@
   </a>
   <div class="topbar-divider"></div>
   <span class="topbar-module-title" style="cursor:default;">
-    ICT1234 — Data Structures &amp; Algorithms
+    ICT1234 — Module Title
   </span>
   <div class="topbar-actions">
     <span class="topbar-status-badge">Draft</span>
@@ -32,7 +32,7 @@
     <div class="sidebar-divider"></div>
     <div class="sidebar-module-info">
       <div class="sidebar-module-code">ICT1234 · ELE</div>
-      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-name">Module Title</div>
       <div class="sidebar-module-meta">L2 · SIDM · 4 CU · AY25/26 S1</div>
     </div>
     <div class="sidebar-divider"></div>
@@ -101,7 +101,7 @@
         <div class="section-header-left">
           <div class="section-number">SECTION 10 · OPTIONAL</div>
           <div class="section-title">Service-Learning</div>
-          <div class="section-description">Add a service-learning component that links module outcomes to community service. Optional — leave off if not applicable.</div>
+          <div class="section-description">Optional: add service-learning if relevant.</div>
         </div>
         <div class="section-header-actions">
           <div class="toggle-group">
@@ -120,7 +120,7 @@
         <div style="font-size:40px; opacity:0.3; margin-bottom:var(--space-3);">🤝</div>
         <div class="text-md font-600 mb-2">Service-Learning is off for this module</div>
         <div class="text-base text-secondary" style="max-width:420px; margin: 0 auto var(--space-4);">
-          Toggle on above to add pre-service preparation, the service activity, and post-service reflection — each phase will appear here for editing.
+          Toggle on to add 3 editable phases.
         </div>
         <button class="btn btn-ai btn-sm">
           ✦ AI: Suggest if SL fits this module
@@ -168,7 +168,7 @@
   <aside class="ai-sidebar" id="ai-sidebar">
     <div class="ai-sidebar-header">
       <div class="ai-sidebar-title">
-        <span class="ai-icon">✦</span> AI Assistant
+        <span class="ai-icon">✦</span> AI Copilot
       </div>
       <button class="btn btn-ghost btn-sm btn-icon" id="ai-sidebar-close" title="Close">×</button>
     </div>
@@ -180,44 +180,21 @@
           <span class="ai-suggestion-label" style="color:var(--color-ai-glow);">Hint</span>
         </div>
         <div class="ai-suggestion-body">
-          Service-Learning is most impactful when MOs already touch <strong>Collaboration (NPGC6)</strong> and <strong>Self-Development (NPGC5)</strong>. This module's outcomes don't strongly emphasise either — SL may be a stretch fit.
-        </div>
-      </div>
-      <div id="ai-messages" class="ai-chat-messages">
-        <div class="ai-chat-bubble assistant">
-          Want help deciding if Service-Learning fits, or designing a 3-phase plan? I can draft sample reflection prompts or suggest community partners.
+          SL is stronger when collaboration and reflection are explicit.
         </div>
       </div>
     </div>
 
     <div class="ai-sidebar-footer">
-      <div class="prompt-chip-strip">
-        <div class="prompt-chip-strip-label">✦ Try one</div>
-        <button class="prompt-chip">Does SL fit this module?</button>
-        <button class="prompt-chip">Draft a 3-phase SL plan</button>
-        <button class="prompt-chip">Sample reflection prompts</button>
-      </div>
-      <div class="ai-chat-input-row">
-        <textarea class="ai-chat-input" id="ai-input" placeholder="Ask about service-learning…" rows="1"></textarea>
-        <button class="ai-chat-send" id="ai-send">↑</button>
+      <div class="callout" style="margin:0;">
+        Use SL only with clear outcomes and evidence.
       </div>
     </div>
   </aside>
 </div>
 
-<button class="ai-fab" id="ai-fab" title="Open AI Assistant">✦</button>
-
 <script type="module">
-  import { initAIChat, showToast } from './ai-assistant.js';
-  initAIChat();
-
-  document.querySelectorAll('.prompt-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const input = document.getElementById('ai-input');
-      if (input) input.value = chip.textContent.trim();
-      input?.focus();
-    });
-  });
+  import { showToast } from './ai-assistant.js';
 </script>
 </body>
 </html>

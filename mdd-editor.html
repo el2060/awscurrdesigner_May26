@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ICT1234 — Data Structures & Algorithms | AI Curriculum Review &amp; Design</title>
+  <title>ICT1234 — Module Title | AI Curriculum Review &amp; Design</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
@@ -59,7 +59,7 @@
   </a>
   <div class="topbar-divider"></div>
   <span id="module-title-edit" class="topbar-module-title" title="Click to edit">
-    ICT1234 — Data Structures &amp; Algorithms
+    ICT1234 — Module Title
   </span>
   <div class="topbar-actions">
     <span class="topbar-status-badge">Draft</span>
@@ -106,7 +106,7 @@
     <div class="sidebar-divider"></div>
     <div class="sidebar-module-info">
       <div class="sidebar-module-code">ICT1234 · ELE</div>
-      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-name">Module Title</div>
       <div class="sidebar-module-meta">L2 · SIDM · 4 CU · AY25/26 S1</div>
     </div>
     <div class="sidebar-divider"></div>
@@ -217,7 +217,7 @@
       <div class="section-header">
         <div class="section-header-left">
           <div class="section-number">Module Design Document</div>
-          <div class="section-title">Data Structures &amp; Algorithms</div>
+          <div class="section-title">Module Title</div>
           <div class="section-description">Review module metadata and navigate to any section below.</div>
         </div>
       </div>
@@ -387,67 +387,41 @@
   <aside class="ai-sidebar" id="ai-sidebar">
     <div class="ai-sidebar-header">
       <div class="ai-sidebar-title">
-        <span class="ai-icon">✦</span> AI Assistant
+        <span class="ai-icon">✦</span> AI Copilot
       </div>
       <button class="btn btn-ghost btn-sm btn-icon" id="ai-sidebar-close" title="Close">×</button>
     </div>
 
     <div class="ai-sidebar-body">
-      <!-- Context suggestion -->
       <div class="ai-suggestion-card ai-purple">
         <div class="ai-suggestion-header">
           <span class="sparkle">✦</span>
-          <span class="ai-suggestion-label" style="color:var(--color-ai-glow);">Quick Start</span>
+          <span class="ai-suggestion-label" style="color:var(--color-ai-glow);">Next Best Step</span>
         </div>
         <div class="ai-suggestion-body">
-          Your module metadata looks complete. I'd recommend tackling <strong>Learning Outcomes</strong> next — I can generate a full set of outcomes based on your synopsis.
+          Module metadata looks complete. Continue to <strong>Learning Outcomes</strong> to establish measurable outcomes before refining schedule and assessment.
         </div>
         <div class="ai-suggestion-actions">
           <a href="section-outcomes.html" class="btn btn-ai btn-sm">Draft Outcomes →</a>
         </div>
       </div>
-
-      <div id="ai-messages" class="ai-chat-messages">
-        <div class="ai-chat-bubble assistant">
-          Hi! I'm your AI Curriculum Review &amp; Design. Ask me anything about writing module outcomes, assessment strategies, pedagogy, or NPGC alignment — I'm here to help.
-        </div>
-      </div>
     </div>
 
     <div class="ai-sidebar-footer">
-      <div class="prompt-chip-strip">
-        <div class="prompt-chip-strip-label">✦ Try a prompt</div>
-        <button class="prompt-chip">What's missing from my MDD?</button>
-        <button class="prompt-chip">Check NPGC alignment</button>
-        <button class="prompt-chip">Suggest next section to tackle</button>
-        <button class="prompt-chip">Validate against NP Assessment Framework</button>
-      </div>
-      <div class="ai-chat-input-row">
-        <textarea class="ai-chat-input" id="ai-input" placeholder="Ask anything about this module…" rows="1"></textarea>
-        <button class="ai-chat-send" id="ai-send" title="Send">↑</button>
+      <div class="callout" style="margin:0;">
+        Recommended order: Outcomes first, then Schedule, T&amp;L, and Assessment. This reduces rework downstream.
       </div>
     </div>
   </aside>
 </div>
 
-<button class="ai-fab" id="ai-fab" title="Open AI Assistant">✦</button>
-
 <script type="module">
-  import { initAIChat, initAICheckPanel, initSaveDraft, initInlineTitleEdit } from './ai-assistant.js';
-  initAIChat();
+  import { initAICheckPanel, initSaveDraft, initInlineTitleEdit } from './ai-assistant.js';
   initAICheckPanel('ai-check-btn', 'ai-check-panel');
   initSaveDraft('save-draft-btn');
   initSaveDraft('save-draft-btn-2');
   initSaveDraft('save-btn-footer');
   initInlineTitleEdit();
-
-  // Prompt chips — pre-fill the chat input
-  document.querySelectorAll('.prompt-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const input = document.getElementById('ai-input');
-      if (input) { input.value = chip.textContent.trim(); input.focus(); }
-    });
-  });
 
   // Editable meta fields
   document.querySelectorAll('.meta-val.editable').forEach(el => {

@@ -241,19 +241,7 @@
       left: 0;
       color: #bbb;
     }
-    .cp-actions { display: grid; grid-template-columns: 1fr; gap: 6px; }
-    .cp-action {
-      border: 1px solid #d0d0d0;
-      background: #fff;
-      color: #555;
-      font-size: 11px;
-      font-weight: 600;
-      text-align: left;
-      padding: 7px 8px;
-      cursor: pointer;
-    }
-    .cp-action:hover { border-color: #999; color: #1a1a1a; }
-    .cp-why {
+    .cp-note {
       font-size: 11px;
       color: #666;
       line-height: 1.45;
@@ -261,24 +249,6 @@
       background: #fafafa;
       padding: 7px 8px;
     }
-    .cp-ask-row { display: flex; gap: 6px; }
-    .cp-input {
-      flex: 1;
-      border: 1px solid #d8d8d8;
-      font-size: 11px;
-      padding: 7px 8px;
-      min-width: 0;
-    }
-    .cp-ask-btn {
-      border: 1px solid #1a1a1a;
-      background: #1a1a1a;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 7px 8px;
-      cursor: pointer;
-    }
-    .cp-ask-btn:hover { background: #333; border-color: #333; }
 
     /* ── Sidebar ── */
     .side-box {
@@ -420,7 +390,7 @@
 <main class="page">
 
   <div class="page-title">Gather &amp; Synthesise Context</div>
-  <div class="page-sub">Optional but recommended: upload context once and reuse it across both Design and Review paths. AI will organise these inputs into actionable curriculum guidance.</div>
+  <div class="page-sub">Upload once and reuse across steps.</div>
 
   <div class="layout">
 
@@ -604,29 +574,17 @@
     <div class="layout-side">
 
       <div class="copilot-panel">
-        <div class="cp-head">AI Guidance</div>
+        <div class="cp-head">Analysis Readiness</div>
         <div class="cp-block">
-          <div class="cp-label">Current Readiness</div>
-          <div class="cp-focus" id="cp-focus">Submission readiness (pre-analysis)</div>
+          <div class="cp-label">Current Coverage</div>
+          <ul class="cp-list" id="cp-coverage"></ul>
         </div>
         <div class="cp-block">
-          <div class="cp-label">Observations</div>
+          <div class="cp-label">Suggested Additions</div>
           <ul class="cp-list" id="cp-insights"></ul>
         </div>
         <div class="cp-block">
-          <div class="cp-label">Suggested Next Steps</div>
-          <div class="cp-actions" id="cp-actions"></div>
-        </div>
-        <div class="cp-block">
-          <div class="cp-label">Why This Matters</div>
-          <div class="cp-why" id="cp-why"></div>
-        </div>
-        <div class="cp-block">
-          <div class="cp-label">Ask AI</div>
-          <div class="cp-ask-row">
-            <input class="cp-input" id="cp-input" type="text" placeholder="Ask AI about recommended inputs before analysis">
-            <button class="cp-ask-btn" type="button" onclick="askCopilot()">Ask</button>
-          </div>
+          <div class="cp-note" id="cp-ready">Ready for synthesis and gap analysis.</div>
         </div>
       </div>
 
@@ -672,94 +630,46 @@
 <!-- Bottom bar -->
 <div class="bottom-bar">
   <div class="bottom-inner">
-    <div class="bb-note" id="bb-note">14 files across 4 categories · Ready to analyse</div>
+    <div class="bb-note" id="bb-note">14 files across 4 categories · Ready for context analysis</div>
     <div class="bb-actions">
       <a href="index.html" class="btn-ghost">← Back</a>
-      <a href="analyse-synthesise.html" class="btn-primary">Run Analysis →</a>
+      <a href="analyse-synthesise.html" class="btn-primary">Analyse Context →</a>
     </div>
   </div>
 </div>
 
 <script>
-  const copilotGuide = {
-    industry: {
-      focus: 'Evidence completeness: Industry and Benchmarking',
-      insights: [
-        'Industry references are ready to be analysed once you run synthesis.',
-        'Employer and benchmarking sources improve evidence quality for downstream planning.',
-        'Add one forward-looking skills report for stronger coverage before analysis.'
-      ],
-      actions: ['Suggest Missing Industry Sources', 'Show Benchmarking Checklist', 'Check Submission Balance'],
-      why: 'Guidance is based on uploaded file categories and counts only. No content analysis is run on this screen.'
-    },
-    curriculum: {
-      focus: 'Evidence completeness: Curriculum and Standards',
-      insights: [
-        'Standards documents are present and ready for analysis after submission.',
-        'Complete frameworks improve mapping quality in the next step.',
-        'Adding accreditation constraints now reduces rework after synthesis.'
-      ],
-      actions: ['Suggest Standards Checklist', 'Highlight Potential Coverage Risks', 'Prepare Alignment Notes Template'],
-      why: 'Guidance is based on uploaded file categories and counts only. No content analysis is run on this screen.'
-    },
-    student: {
-      focus: 'Evidence completeness: Student and Module Insights',
-      insights: [
-        'Learner evidence is available for analysis in the next step.',
-        'Multi-cohort feedback will improve synthesis confidence.',
-        'Consider adding one recent module-review note for context completeness.'
-      ],
-      actions: ['Check Learner Evidence Coverage', 'Suggest Additional Inputs', 'Prepare Review Prompts'],
-      why: 'Guidance is based on uploaded file categories and counts only. No content analysis is run on this screen.'
-    },
-    materials: {
-      focus: 'Evidence completeness: Existing Module Materials',
-      insights: [
-        'Current module artifacts are ready for comparative analysis after synthesis starts.',
-        'Including latest version labels helps traceability later.',
-        'Add at least one recent assessment brief if available.'
-      ],
-      actions: ['Check Current-State Coverage', 'Suggest Missing Artifacts', 'Prepare Refresh Checklist'],
-      why: 'Guidance is based on uploaded file categories and counts only. No content analysis is run on this screen.'
-    }
-  };
-
-  function updateContextCopilot() {
-    const max = Math.max(...counts);
-    const idx = counts.indexOf(max);
-    const keyMap = ['industry', 'curriculum', 'student', 'materials'];
-    const data = copilotGuide[keyMap[idx]] || copilotGuide.industry;
-
-    document.getElementById('cp-focus').textContent = data.focus;
-
-    const insights = document.getElementById('cp-insights');
-    insights.innerHTML = '';
-    data.insights.forEach(item => {
+  function updateReadinessPanel() {
+    const labels = [
+      'Industry and benchmarking',
+      'Curriculum and standards',
+      'Student and module insights',
+      'Existing module materials'
+    ];
+    const coverage = document.getElementById('cp-coverage');
+    coverage.innerHTML = '';
+    counts.forEach((count, i) => {
       const li = document.createElement('li');
-      li.textContent = item;
-      insights.appendChild(li);
+      li.textContent = labels[i] + (count > 0 ? ' (' + count + ')' : ' (missing)');
+      coverage.appendChild(li);
     });
 
-    const actions = document.getElementById('cp-actions');
-    actions.innerHTML = '';
-    data.actions.forEach(action => {
-      const btn = document.createElement('button');
-      btn.className = 'cp-action';
-      btn.type = 'button';
-      btn.textContent = action;
-      btn.onclick = () => alert('AI action queued: ' + action + ' (prototype behavior).');
-      actions.appendChild(btn);
+    const addHints = document.getElementById('cp-insights');
+    addHints.innerHTML = '';
+    const hints = [
+      'Add recent module-review notes.',
+      'Include multi-cohort learner feedback if available.'
+    ];
+    hints.forEach(text => {
+      const li = document.createElement('li');
+      li.textContent = text;
+      addHints.appendChild(li);
     });
 
-    document.getElementById('cp-why').textContent = data.why;
-  }
-
-  function askCopilot() {
-    const input = document.getElementById('cp-input');
-    const value = input.value.trim();
-    if (!value) return;
-    alert('Copilot received: ' + value + ' (prototype behavior).');
-    input.value = '';
+    const ready = counts.every(c => c > 0);
+    document.getElementById('cp-ready').textContent = ready
+      ? 'Ready for synthesis and gap analysis.'
+      : 'Add at least one source in each category to improve analysis readiness.';
   }
 
   // Track counts per zone (4 grouped source categories)
@@ -773,11 +683,11 @@
     });
     document.getElementById('cnt-total').textContent = total + ' files';
     const cats = counts.filter(c => c > 0).length;
-    document.getElementById('bb-note').textContent = total + ' file' + (total !== 1 ? 's' : '') + ' across ' + cats + ' categor' + (cats !== 1 ? 'ies' : 'y') + ' · Ready to analyse';
+    document.getElementById('bb-note').textContent = total + ' file' + (total !== 1 ? 's' : '') + ' across ' + cats + ' categor' + (cats !== 1 ? 'ies' : 'y') + ' · Ready for context analysis';
     document.querySelectorAll('.upload-zone').forEach((zone, i) => {
       zone.querySelector('.uz-badge').textContent = counts[i] + ' file' + (counts[i] !== 1 ? 's' : '');
     });
-    updateContextCopilot();
+    updateReadinessPanel();
   }
 
   function toggleZone(btn) {

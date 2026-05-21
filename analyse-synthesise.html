@@ -172,23 +172,7 @@
       left: 0;
       color: #bbb;
     }
-    .cp-actions {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 6px;
-    }
-    .cp-action {
-      border: 1px solid #d0d0d0;
-      background: #fff;
-      color: #555;
-      font-size: 11px;
-      font-weight: 600;
-      text-align: left;
-      padding: 7px 8px;
-      cursor: pointer;
-    }
-    .cp-action:hover { border-color: #999; color: #1a1a1a; }
-    .cp-why {
+    .cp-note {
       font-size: 11px;
       color: #666;
       line-height: 1.45;
@@ -196,27 +180,6 @@
       background: #fafafa;
       padding: 7px 8px;
     }
-    .cp-ask-row {
-      display: flex;
-      gap: 6px;
-    }
-    .cp-input {
-      flex: 1;
-      border: 1px solid #d8d8d8;
-      font-size: 11px;
-      padding: 7px 8px;
-      min-width: 0;
-    }
-    .cp-ask-btn {
-      border: 1px solid #1a1a1a;
-      background: #1a1a1a;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 7px 8px;
-      cursor: pointer;
-    }
-    .cp-ask-btn:hover { background: #333; border-color: #333; }
 
     /* ── Bottom bar ── */
     .bottom-bar {
@@ -582,29 +545,18 @@
       </div>
 
       <div class="copilot-panel">
-        <div class="cp-head">AI Insights</div>
+        <div class="cp-head">Analysis Summary</div>
         <div class="cp-block">
-          <div class="cp-label">Current Insight Area</div>
+          <div class="cp-label">Current Focus</div>
           <div class="cp-focus" id="cp-focus">Key Trends</div>
         </div>
         <div class="cp-block">
-          <div class="cp-label">Key Insights</div>
+          <div class="cp-label">Key Takeaways</div>
           <ul class="cp-list" id="cp-insights"></ul>
         </div>
         <div class="cp-block">
-          <div class="cp-label">Recommended Actions</div>
-          <div class="cp-actions" id="cp-actions"></div>
-        </div>
-        <div class="cp-block">
-          <div class="cp-label">Why It Matters</div>
-          <div class="cp-why" id="cp-why"></div>
-        </div>
-        <div class="cp-block">
-          <div class="cp-label">Ask AI</div>
-          <div class="cp-ask-row">
-            <input class="cp-input" id="cp-input" type="text" placeholder="Ask AI about insights, priorities, or handoff to planning">
-            <button class="cp-ask-btn" type="button" onclick="askCopilot()">Ask</button>
-          </div>
+          <div class="cp-label">Next Step</div>
+          <div class="cp-note">Use these findings to guide curriculum planning, competency mapping, and assessment review.</div>
         </div>
       </div>
 
@@ -627,89 +579,48 @@
 </div>
 
 <script>
-  const copilotGuide = {
-    'Key Trends': {
-      insights: [
-        'AI and data capability demand is a strong cross-source pattern.',
-        'Cloud and DevOps signals are rising in employer expectations.',
-        'Communication appears as an implicit but recurring capability need.'
-      ],
-      actions: ['Generate Trend Summary', 'Highlight Priority Signals', 'Draft Executive Brief'],
-      why: 'Based on cross-source frequency and consistency of trend references.'
-    },
-    'Competency Gaps': {
-      insights: [
-        'Data analytics and AI ethics have explicit alignment gaps.',
-        'Communication outcomes appear under-specified in technical modules.',
-        'Coverage variance suggests uneven implementation across module set.'
-      ],
-      actions: ['Propose Gap Closure Plan', 'Suggest Outcome Rewrites', 'Map Gaps to Modules'],
-      why: 'Based on framework comparisons and identified below-target coverage.'
-    },
-    'Emerging Skills to Consider': {
-      insights: [
-        'Prompt engineering and responsible AI are now role-relevant skills.',
-        'Agile fundamentals are repeatedly highlighted by industry sources.',
-        'Cloud-native practices should be integrated earlier in progression.'
-      ],
-      actions: ['Generate Skills Injection Plan', 'Suggest New Learning Activities', 'Prioritize by Module Level'],
-      why: 'Based on current industry references and future-readiness themes.'
-    },
-    'Alignment Opportunities': {
-      insights: [
-        'NPGC3 coverage appears inconsistent across L2 modules.',
-        'Assessment weighting risk exists in selected modules.',
-        'Comms rubric opportunities are currently underused.'
-      ],
-      actions: ['Suggest Alignment Fixes', 'Generate Compliance Checklist', 'Draft Rubric Adoption Plan'],
-      why: 'Based on standards checks against current module and rubric usage.'
-    },
-    'AI Recommendations': {
-      insights: [
-        'Selected recommendations should be sequenced by impact and effort.',
-        'Unchecked recommendations may still be staged in later phases.',
-        'Planning handoff should focus on selected actions first.'
-      ],
-      actions: ['Convert to Planning Tasks', 'Prioritize by Impact', 'Export Action Roadmap'],
-      why: 'Based on current recommendation selection and planning transition needs.'
-    }
+  const summaryGuide = {
+    'Key Trends': [
+      'AI and data capability demand appears across multiple sources.',
+      'Cloud and DevOps expectations are increasing.',
+      'Communication skills are inconsistently assessed.'
+    ],
+    'Competency Gaps': [
+      'Data analytics and AI ethics show explicit alignment gaps.',
+      'Communication outcomes are underrepresented in technical modules.',
+      'Coverage consistency varies across modules.'
+    ],
+    'Emerging Skills to Consider': [
+      'Prompt engineering and responsible AI appear as near-term skills.',
+      'Agile fundamentals are repeatedly cited by industry feedback.',
+      'Cloud-native practices need stronger curriculum integration.'
+    ],
+    'Alignment Opportunities': [
+      'NPGC3 coverage can be strengthened in L2 modules.',
+      'Assessment weighting needs review in selected modules.',
+      'Comms rubric adoption is a clear opportunity.'
+    ],
+    'AI Recommendations': [
+      'Prioritize selected recommendations for planning handoff.',
+      'Sequence actions by impact and implementation effort.',
+      'Keep remaining recommendations for phased follow-up.'
+    ]
   };
 
   let currentFocus = 'Key Trends';
 
-  function updateCopilotPanel(focus) {
+  function updateSummaryPanel(focus) {
     currentFocus = focus || currentFocus;
-    const data = copilotGuide[currentFocus] || copilotGuide['Key Trends'];
+    const insightsData = summaryGuide[currentFocus] || summaryGuide['Key Trends'];
     document.getElementById('cp-focus').textContent = currentFocus;
 
     const insights = document.getElementById('cp-insights');
     insights.innerHTML = '';
-    data.insights.forEach(item => {
+    insightsData.forEach(item => {
       const li = document.createElement('li');
       li.textContent = item;
       insights.appendChild(li);
     });
-
-    const actions = document.getElementById('cp-actions');
-    actions.innerHTML = '';
-    data.actions.forEach(action => {
-      const btn = document.createElement('button');
-      btn.className = 'cp-action';
-      btn.type = 'button';
-      btn.textContent = action;
-      btn.onclick = () => alert('AI action queued: ' + action + ' (prototype behavior).');
-      actions.appendChild(btn);
-    });
-
-    document.getElementById('cp-why').textContent = data.why;
-  }
-
-  function askCopilot() {
-    const input = document.getElementById('cp-input');
-    const value = input.value.trim();
-    if (!value) return;
-    alert('Copilot received: ' + value + ' (prototype behavior).');
-    input.value = '';
   }
 
   function toggleSection(header) {
@@ -718,14 +629,14 @@
     body.classList.toggle('hidden');
     toggle.classList.toggle('open');
     const title = header.querySelector('.as-title')?.textContent;
-    if (title) updateCopilotPanel(title);
+    if (title) updateSummaryPanel(title);
   }
 
   function toggleRec(cb) {
     const text = cb.closest('.rec-row').querySelector('.rec-text');
     text.classList.toggle('checked', !cb.checked);
     updateCount();
-    updateCopilotPanel('AI Recommendations');
+    updateSummaryPanel('AI Recommendations');
   }
 
   function updateCount() {
@@ -741,7 +652,7 @@
     setTimeout(() => { note.textContent = orig; }, 2500);
   }
 
-  updateCopilotPanel('Key Trends');
+  updateSummaryPanel('Key Trends');
 </script>
 
 </body>

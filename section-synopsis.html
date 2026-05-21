@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -57,7 +57,7 @@
     <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:26px; width:auto;">
   </a>
   <div class="topbar-divider"></div>
-  <span class="topbar-module-title">ICT1234 — Data Structures &amp; Algorithms</span>
+  <span class="topbar-module-title">ICT1234 — Module Title</span>
   <div class="topbar-actions">
     <span class="topbar-status-badge">Draft</span>
     <button class="btn btn-secondary btn-sm" id="save-draft-btn">Save Draft</button>
@@ -73,7 +73,7 @@
     <div class="sidebar-divider"></div>
     <div class="sidebar-module-info">
       <div class="sidebar-module-code">ICT1234 · ELE</div>
-      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-name">Module Title</div>
       <div class="sidebar-module-meta">L2 · SIDM · 4 CU</div>
     </div>
     <div class="sidebar-divider"></div>
@@ -110,7 +110,7 @@
         <div class="section-header-left">
           <div class="section-number">Sections 1 – 2</div>
           <div class="section-title">Synopsis &amp; Skills Framework</div>
-          <div class="section-description">Describe what this module is about and align it to the national Skills Framework sectors.</div>
+          <div class="section-description">Summarise module focus and sector fit.</div>
         </div>
         <div class="section-header-actions">
           <button class="btn-draft-ai" id="draft-synopsis-btn">
@@ -137,17 +137,17 @@
               <button class="toolbar-btn">¶</button>
               <button class="toolbar-btn">• List</button>
             </div>
-            <textarea class="synopsis-field" id="synopsis-field" placeholder="Describe the module: target learners, topics covered, learning approach, and professional outcomes...">This module is designed for Year 2 Diploma in Information Technology students who have completed foundational programming modules. Students will explore fundamental data structures including arrays, linked lists, stacks, queues, trees, and graphs, and implement classical algorithms for searching, sorting, and graph traversal. Through hands-on lab sessions and project work, students will develop the ability to select and apply appropriate data structures to solve computational problems efficiently, analysing the time and space complexity of their solutions. The module also introduces students to the application of data structures in real-world software development contexts.</textarea>
+            <textarea class="synopsis-field" id="synopsis-field" placeholder="Describe module focus and learner outcomes...">Lorem ipsum dolor sit amet, consectetur adipiscing elit. This module introduces core concepts through short lectures, guided labs, and practical tasks. Students apply what they learn in realistic scenarios and present outcomes clearly.</textarea>
             <div class="synopsis-wordcount">
-              <span id="word-count">Word count: 97</span>
-              <span>Recommended: 100–150 words</span>
+              <span id="word-count">Word count: 39</span>
+              <span>Recommended: concise and clear</span>
             </div>
           </div>
           <div id="synopsis-suggestion-area"></div>
         </div>
 
         <div class="callout">
-          A good synopsis describes: <strong>(1)</strong> who the module is for, <strong>(2)</strong> what topics are covered, <strong>(3)</strong> how students learn (labs, projects, lectures), and <strong>(4)</strong> what students can do professionally after completing the module.
+          Keep it short: audience, scope, learning mode, outcome.
         </div>
       </div>
 
@@ -161,7 +161,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Industry / Sector Alignment</label>
-          <p class="form-hint">Select the Skills Framework sector(s) this module aligns to. Use the search field to find your sector.</p>
+          <p class="form-hint">Select relevant sector(s).</p>
         </div>
 
         <div style="border:1px solid var(--color-border); border-radius:var(--radius-md); overflow:hidden;">
@@ -220,7 +220,7 @@
         </div>
 
         <div class="callout mt-3">
-          Skills Framework data is sourced from <strong>SkillsFuture Singapore</strong>. Aligning your module helps demonstrate its relevance to industry needs. This field is optional but strongly recommended.
+          Optional. Add if relevant.
         </div>
       </div>
 
@@ -237,60 +237,35 @@
 
   <aside class="ai-sidebar" id="ai-sidebar">
     <div class="ai-sidebar-header">
-      <div class="ai-sidebar-title"><span class="ai-icon">✦</span> AI Assistant</div>
+      <div class="ai-sidebar-title"><span class="ai-icon">✦</span> AI Copilot</div>
       <button class="btn btn-ghost btn-sm btn-icon" id="ai-sidebar-close">×</button>
     </div>
     <div class="ai-sidebar-body">
-      <!-- Proactive suggestion: after synopsis is present -->
       <div class="ai-suggestion-card ai-purple" id="mo-suggestion-card">
         <div class="ai-suggestion-header">
           <span class="sparkle">✦</span>
-          <span class="ai-suggestion-label" style="color:var(--color-ai-glow);">What's Next</span>
+          <span class="ai-suggestion-label" style="color:var(--color-ai-glow);">Next Best Step</span>
         </div>
         <div class="ai-suggestion-body">
-          Your synopsis is looking great! Ready to generate <strong>Learning Outcomes</strong> based on it? I can suggest 6–8 MOs aligned to your module level and NPGC framework.
+          Your synopsis already covers audience, scope, and applied learning well. Proceed to <strong>Learning Outcomes</strong> and draft 6 to 8 measurable MOs aligned to COs and NPGC.
         </div>
         <div class="ai-suggestion-actions">
           <a href="section-outcomes.html" class="btn btn-ai btn-sm">Draft MOs →</a>
-          <span class="ai-suggestion-dismiss" onclick="this.closest('.ai-suggestion-card').remove()">Dismiss ×</span>
-        </div>
-      </div>
-      <div id="ai-messages" class="ai-chat-messages">
-        <div class="ai-chat-bubble assistant">
-          I can help you write your synopsis. Try asking: <em>"Write a synopsis for a Level 2 Data Structures module"</em> or <em>"How long should a synopsis be?"</em>
         </div>
       </div>
     </div>
     <div class="ai-sidebar-footer">
-      <div class="prompt-chip-strip">
-        <div class="prompt-chip-strip-label">✦ Try a prompt</div>
-        <button class="prompt-chip">Draft a synopsis from scratch</button>
-        <button class="prompt-chip">Make it more industry-focused</button>
-        <button class="prompt-chip">Add an AI / data angle</button>
-        <button class="prompt-chip">Shorten to 80 words</button>
-      </div>
-      <div class="ai-chat-input-row">
-        <textarea class="ai-chat-input" id="ai-input" placeholder="Ask about the synopsis…" rows="1"></textarea>
-        <button class="ai-chat-send" id="ai-send">↑</button>
+      <div class="callout" style="margin:0;">
+        Keep this concise: target learners, key topics, learning approach, and graduate-ready outcome statement.
       </div>
     </div>
   </aside>
 </div>
 
-<button class="ai-fab" id="ai-fab">✦</button>
-
 <script type="module">
-  import { MOCK_DATA, showSuggestion, simulateAIGenerate, initAIChat, initSaveDraft, showToast } from './ai-assistant.js';
-  initAIChat();
+  import { MOCK_DATA, showSuggestion, simulateAIGenerate, initSaveDraft, showToast } from './ai-assistant.js';
   initSaveDraft('save-draft-btn');
   initSaveDraft('save-footer');
-
-  document.querySelectorAll('.prompt-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const input = document.getElementById('ai-input');
-      if (input) { input.value = chip.textContent.trim(); input.focus(); }
-    });
-  });
 
   // Word count live update
   const synopsisField = document.getElementById('synopsis-field');

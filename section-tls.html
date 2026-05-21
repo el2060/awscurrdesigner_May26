@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -40,7 +40,7 @@
 <header class="topbar">
   <a href="index.html" class="topbar-logo" style="text-decoration:none;"><img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:26px; width:auto;"></a>
   <div class="topbar-divider"></div>
-  <span class="topbar-module-title">ICT1234 — Data Structures &amp; Algorithms</span>
+  <span class="topbar-module-title">ICT1234 — Module Title</span>
   <div class="topbar-actions">
     <span class="topbar-status-badge">Draft</span>
     <button class="btn btn-secondary btn-sm" id="save-draft-btn">Save Draft</button>
@@ -55,7 +55,7 @@
     <div class="sidebar-divider"></div>
     <div class="sidebar-module-info">
       <div class="sidebar-module-code">ICT1234 · ELE</div>
-      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-name">Module Title</div>
       <div class="sidebar-module-meta">L2 · SIDM · 4 CU</div>
     </div>
     <div class="sidebar-divider"></div>
@@ -92,7 +92,7 @@
         <div class="section-header-left">
           <div class="section-number">Section 8</div>
           <div class="section-title">Teaching &amp; Learning Strategies</div>
-          <div class="section-description">Choose the pedagogical approaches that will guide how this module is taught and how students engage with content.</div>
+          <div class="section-description">Select key teaching approaches.</div>
         </div>
         <div class="section-header-actions">
           <button class="btn-draft-ai" id="suggest-ped-btn"><span class="sparkle">✦</span> Suggest Strategies</button>
@@ -105,7 +105,7 @@
         <div class="comms-alert-body">
           <div class="comms-alert-title">Comms activities detected — align with NP standards?</div>
           <div class="comms-alert-desc">
-            Your <strong>Lab-based Learning</strong> strategy includes in-class demos, and your assessment plan has a <strong>Team Project Presentation</strong>. These are comms-rich activities — align them with the <span class="source-badge">SoH&amp;IS</span> Presentation Rubric &amp; Impact Toolkit so students get consistent expectations across NP modules.
+            Comms-rich activities detected. Consider aligning to <span class="source-badge">SoH&amp;IS</span>.
           </div>
           <div class="comms-alert-meta">2 activities detected · 1 partial · 1 missing rubric</div>
         </div>
@@ -182,7 +182,7 @@
           <div class="settings-row">
             <div class="settings-row-left">
               <div class="settings-row-title">Industry in Curriculum</div>
-              <div class="settings-row-desc">This module incorporates real-world industry cases, guest speakers, or live project briefs from industry partners.</div>
+              <div class="settings-row-desc">Uses industry-linked activities.</div>
             </div>
             <label class="toggle-switch" style="margin-left:var(--space-5);">
               <input type="checkbox" id="industry-toggle">
@@ -195,7 +195,7 @@
           <div class="settings-row">
             <div class="settings-row-left">
               <div class="settings-row-title">Common Test (CT)</div>
-              <div class="settings-row-desc">A school-wide or programme-wide common test is administered for this module.</div>
+              <div class="settings-row-desc">Common test applies to this module.</div>
             </div>
             <label class="toggle-switch" style="margin-left:var(--space-5);">
               <input type="checkbox" id="ct-toggle" checked>
@@ -214,7 +214,7 @@
           <div class="form-sub-title-number">B</div>
           Key Teaching Pedagogies
         </div>
-        <p class="text-base text-secondary mb-4">Select all approaches used in this module. Selected pedagogies will appear in the MDD summary.</p>
+        <p class="text-base text-secondary mb-4">Select applicable pedagogies.</p>
 
         <div class="ped-grid" id="ped-grid">
           <div class="ped-card selected" data-ped="DI">
@@ -258,7 +258,7 @@
         <div id="ped-suggestion-area" class="mt-4"></div>
 
         <div class="callout mt-4">
-          Most technical modules use <strong>DI + LL + PBL</strong>. Selecting more than 5 pedagogies without clear implementation plans may appear unfocused. The AI can suggest an appropriate mix based on your module outcomes.
+          Keep pedagogy mix focused.
         </div>
       </div>
 
@@ -275,55 +275,33 @@
 
   <aside class="ai-sidebar" id="ai-sidebar">
     <div class="ai-sidebar-header">
-      <div class="ai-sidebar-title"><span class="ai-icon">✦</span> AI Assistant</div>
+      <div class="ai-sidebar-title"><span class="ai-icon">✦</span> AI Copilot</div>
       <button class="btn btn-ghost btn-sm btn-icon" id="ai-sidebar-close">×</button>
     </div>
     <div class="ai-sidebar-body">
       <div class="ai-suggestion-card ai-purple">
         <div class="ai-suggestion-header"><span class="sparkle">✦</span><span class="ai-suggestion-label" style="color:var(--color-ai-glow);">Recommendation</span></div>
         <div class="ai-suggestion-body">
-          For a <strong>L2 technical module</strong> with lab components and a group project, I recommend: <strong>DI + LL + PBL</strong>. These three complement your outcomes on implementation (MO2), design (MO5), and collaboration (MO6).
+          Suggested mix: <strong>DI + LL + PBL</strong>.
         </div>
         <div class="ai-suggestion-actions">
           <button class="btn btn-ai btn-sm" id="apply-ped-rec">Apply DI + LL + PBL</button>
-          <span class="ai-suggestion-dismiss" onclick="this.closest('.ai-suggestion-card').remove()">Dismiss ×</span>
         </div>
-      </div>
-      <div id="ai-messages" class="ai-chat-messages">
-        <div class="ai-chat-bubble assistant">Ask me about pedagogy: <em>"What is PBL?"</em> or <em>"When should I use flipped learning?"</em></div>
       </div>
     </div>
     <div class="ai-sidebar-footer">
-      <div class="prompt-chip-strip">
-        <div class="prompt-chip-strip-label">✦ Try a prompt</div>
-        <button class="prompt-chip">Suggest a flipped-learning approach</button>
-        <button class="prompt-chip">Add an OAL component</button>
-        <button class="prompt-chip">Recommend authentic activities</button>
-        <button class="prompt-chip">Align comms activities with SoH&amp;IS</button>
-      </div>
-      <div class="ai-chat-input-row">
-        <textarea class="ai-chat-input" id="ai-input" placeholder="Ask about teaching strategies…" rows="1"></textarea>
-        <button class="ai-chat-send" id="ai-send">↑</button>
+      <div class="callout" style="margin:0;">
+        Map each strategy to at least one outcome.
       </div>
     </div>
   </aside>
 </div>
 
-<button class="ai-fab" id="ai-fab">✦</button>
-
 <script type="module">
-  import { initAIChat, initSaveDraft, initSteppers, showToast, showSuggestion } from './ai-assistant.js';
-  initAIChat();
+  import { initSaveDraft, initSteppers, showToast, showSuggestion } from './ai-assistant.js';
   initSaveDraft('save-draft-btn');
   initSaveDraft('save-footer');
   initSteppers();
-
-  document.querySelectorAll('.prompt-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const input = document.getElementById('ai-input');
-      if (input) { input.value = chip.textContent.trim(); input.focus(); }
-    });
-  });
 
   // Flipped toggle reveal
   const flippedToggle = document.getElementById('flipped-toggle');

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -61,7 +61,7 @@
 <header class="topbar">
   <a href="index.html" class="topbar-logo" style="text-decoration:none;"><img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:26px; width:auto;"></a>
   <div class="topbar-divider"></div>
-  <span class="topbar-module-title">ICT1234 — Data Structures &amp; Algorithms</span>
+  <span class="topbar-module-title">ICT1234 — Module Title</span>
   <div class="topbar-actions">
     <span class="topbar-status-badge">Draft</span>
     <button class="btn btn-secondary btn-sm" id="save-draft-btn">Save Draft</button>
@@ -76,7 +76,7 @@
     <div class="sidebar-divider"></div>
     <div class="sidebar-module-info">
       <div class="sidebar-module-code">ICT1234 · ELE</div>
-      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-name">Module Title</div>
       <div class="sidebar-module-meta">L2 · SIDM · 4 CU</div>
     </div>
     <div class="sidebar-divider"></div>
@@ -113,7 +113,7 @@
         <div class="section-header-left">
           <div class="section-number">Section 9</div>
           <div class="section-title">Assessment Strategy</div>
-          <div class="section-description">Define assessment components, weightings, and map each component to Module Outcomes (MOs). Total weighting must equal 100%.</div>
+          <div class="section-description">Set components, map MOs, total 100%.</div>
         </div>
         <div class="section-header-actions">
           <button class="btn-draft-ai" id="check-coverage-btn"><span class="sparkle">✦</span> Check MO Coverage</button>
@@ -146,7 +146,7 @@
         </div>
         <div class="framework-guardrail-row" style="border-top:1px dashed var(--color-border); padding-top:var(--space-3); justify-content:space-between;">
           <span style="font-size:11px; color:var(--color-text-secondary);">
-            Bloom's thinking-level mix · <strong>Remember 15%</strong> · <strong>Apply 55%</strong> · <strong>Analyse/Evaluate 30%</strong> — balanced for an L2 module
+            Bloom mix check: <strong>15%</strong> remember · <strong>55%</strong> apply · <strong>30%</strong> analyse/evaluate
           </span>
           <button class="btn btn-ai btn-sm" id="auto-balance-btn"><span class="sparkle">✦</span> AI: Balance to 100%</button>
         </div>
@@ -158,7 +158,7 @@
         <div class="comms-alert-body">
           <div class="comms-alert-title">Presentation rubric — align with NP standard?</div>
           <div class="comms-alert-desc">
-            Your <strong>Team Project Presentation (A4, 35%)</strong> uses a custom 2-criterion rubric. The <span class=.source-badge.>SoH&amp;IS</span> Presentation Rubric is the NP standard (3 criteria × 5 bands: Verbal · Non-Verbal · Language &amp; Visuals). Aligning gives students consistent expectations across modules.
+            A4 uses custom rubric; align to SoH&amp;IS standard if needed.
           </div>
           <div class="comms-alert-meta">A4 partial alignment · 1 of 3 SoH&amp;IS criteria covered</div>
         </div>
@@ -173,7 +173,7 @@
         <span class="alert-icon">⚠</span>
         <div class="alert-content">
           <div class="alert-title">Assessment weights do not sum to 100%</div>
-          <div class="alert-desc">Current total: <strong id="weight-alert-val">85%</strong>. Adjust component weightings below until the total reaches exactly 100%.</div>
+          <div class="alert-desc">Current total: <strong id="weight-alert-val">85%</strong>. Adjust to 100%.</div>
         </div>
       </div>
 
@@ -247,7 +247,7 @@
         </div>
 
         <div class="callout mb-4">
-          Each MO should be assessed by at least one component. Click a cell in the <strong>MO columns</strong> to toggle coverage (Y / blank). The weight total must equal <strong>100%</strong>.
+          Ensure each MO is assessed and total weight is 100%.
         </div>
 
         <div class="table-wrapper">
@@ -383,53 +383,30 @@
 
   <aside class="ai-sidebar" id="ai-sidebar">
     <div class="ai-sidebar-header">
-      <div class="ai-sidebar-title"><span class="ai-icon">✦</span> AI Assistant</div>
+      <div class="ai-sidebar-title"><span class="ai-icon">✦</span> AI Copilot</div>
       <button class="btn btn-ghost btn-sm btn-icon" id="ai-sidebar-close">×</button>
     </div>
     <div class="ai-sidebar-body">
       <div class="ai-suggestion-card" id="weight-fix-card">
         <div class="ai-suggestion-header"><span class="sparkle">✦</span><span class="ai-suggestion-label">Fix Weights</span></div>
-        <div class="ai-suggestion-body">Your weights currently sum to <strong>85%</strong>. I suggest adding a <strong>CA3 — Peer Review (15%)</strong> component to cover MO7 (evaluate and critique code). This would bring the total to 100% and ensure MO7 is assessed.</div>
+        <div class="ai-suggestion-body">Weights are 85%. Add one component to reach 100%.</div>
         <div class="ai-suggestion-actions">
           <button class="btn btn-primary btn-sm" id="add-peer-review-btn">Add CA3 Peer Review</button>
-          <span class="ai-suggestion-dismiss" onclick="this.closest('.ai-suggestion-card').remove()">Dismiss ×</span>
         </div>
-      </div>
-      <div id="ai-messages" class="ai-chat-messages">
-        <div class="ai-chat-bubble assistant">I can help with assessment design. Try: <em>"How should I balance CA and exam weights?"</em> or <em>"What's a good assessment for MO5?"</em></div>
       </div>
     </div>
     <div class="ai-sidebar-footer">
-      <div class="prompt-chip-strip">
-        <div class="prompt-chip-strip-label">✦ Try a prompt</div>
-        <button class="prompt-chip">Balance my weights to 100%</button>
-        <button class="prompt-chip">Suggest a CA-only plan</button>
-        <button class="prompt-chip">Adopt SoH&amp;IS rubric for A4</button>
-        <button class="prompt-chip">Validate against NP Framework</button>
-      </div>
-      <div class="ai-chat-input-row">
-        <textarea class="ai-chat-input" id="ai-input" placeholder="Ask about assessment…" rows="1"></textarea>
-        <button class="ai-chat-send" id="ai-send">↑</button>
+      <div class="callout" style="margin:0;">
+        Ensure total weight is 100%, every MO is assessed at least once, and component intent matches module level.
       </div>
     </div>
   </aside>
 </div>
 
-<button class="ai-fab" id="ai-fab">✦</button>
-
 <script type="module">
-  import { initAIChat, initSaveDraft, showSuggestion, showToast } from './ai-assistant.js';
-  initAIChat();
+  import { initSaveDraft, showSuggestion, showToast } from './ai-assistant.js';
   initSaveDraft('save-draft-btn');
   initSaveDraft('save-footer');
-
-  // Prompt chips → pre-fill chat
-  document.querySelectorAll('.prompt-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const input = document.getElementById('ai-input');
-      if (input) { input.value = chip.textContent.trim(); input.focus(); }
-    });
-  });
 
   // Framework toggle (CA only / Examinable / CT only)
   document.querySelectorAll('.framework-toggle-opt').forEach(opt => {
