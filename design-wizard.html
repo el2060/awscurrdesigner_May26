@@ -47,9 +47,9 @@
     .page-title { font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 6px; }
     .page-sub { font-size: 13px; color: #888; line-height: 1.65; margin-bottom: 32px; max-width: 560px; }
 
-    .layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: flex-start; }
+    .layout { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: flex-start; }
     .layout-main { min-width: 0; }
-    .layout-side { width: 300px; position: sticky; top: 100px; }
+    .layout-side { display: none; }
 
     .copilot-panel {
       border: 1px solid #e4e4e4;
@@ -181,6 +181,33 @@
     .scope-item.on .scope-cb { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
     .scope-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
     .scope-sub { font-size: 11px; color: #979797; line-height: 1.35; }
+    .sequence-helper {
+      border: 1px solid #e6e0bf;
+      background: #fffef5;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+    .sequence-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8b7424;
+      margin-bottom: 5px;
+    }
+    .sequence-text {
+      font-size: 12px;
+      color: #4e4e4e;
+      line-height: 1.45;
+      margin-bottom: 8px;
+    }
+    .sequence-list {
+      font-size: 12px;
+      color: #444;
+      line-height: 1.55;
+      margin-left: 18px;
+      margin-bottom: 8px;
+    }
     .state-pill {
       margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
       padding: 2px 7px; border-radius: 999px; border: 1px solid #dcdcdc;
@@ -403,18 +430,29 @@
   <!-- Build workspace -->
   <div class="build-workspace">
     <div class="work-card">
-      <h3>What Would You Like to Work On In This Pass?</h3>
+      <h3>Select Sections to Draft</h3>
+      <div class="sequence-helper">
+        <div class="sequence-title">Suggested drafting sequence based on your planning setup</div>
+        <div class="sequence-text">Focus the first pass on core structure before moving into supporting content.</div>
+        <ol class="sequence-list">
+          <li>Learning Outcomes</li>
+          <li>Assessment Plan</li>
+          <li>Weekly Learning Activities</li>
+          <li>Teaching Resources</li>
+        </ol>
+        <button class="mini-btn primary" type="button" onclick="applySuggestedSequence()">Apply Suggested Sequence</button>
+      </div>
       <div class="scope-grid" id="scope-grid">
         <div class="scope-item on" data-label="Module Learning Outcomes" data-time="~3s" onclick="toggleScope(this)">
-          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Module Learning Outcomes</div><span class="state-pill ai">AI Suggested</span></div>
+          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Module Learning Outcomes</div></div>
           <div class="scope-sub">Draft and refine outcomes with competency links.</div>
         </div>
         <div class="scope-item on" data-label="Weekly Learning Activities" data-time="~3s" onclick="toggleScope(this)">
-          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Weekly Learning Activities</div><span class="state-pill ai">AI Suggested</span></div>
+          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Weekly Learning Activities</div></div>
           <div class="scope-sub">Draft weekly activities and sequencing.</div>
         </div>
         <div class="scope-item on" data-label="Assessment Plan" data-time="~2s" onclick="toggleScope(this)">
-          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Assessment Plan</div><span class="state-pill ai">AI Suggested</span></div>
+          <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Assessment Plan</div></div>
           <div class="scope-sub">Build components, weightings, and coverage.</div>
         </div>
         <div class="scope-item" data-label="Draft Teaching Resources" data-time="~2s" onclick="toggleScope(this)">
@@ -429,7 +467,7 @@
     </div>
 
     <div class="work-card">
-      <h3>Inputs + AI Co-Designer</h3>
+      <h3>Additional Inputs &amp; Guidance</h3>
       <div class="mini-row">
         <button class="mini-btn" onclick="alert('Upload is illustrative in this mockup')">Upload artifacts</button>
         <button class="mini-btn" onclick="alert('Paste meeting or review notes')">Paste notes</button>
@@ -439,17 +477,14 @@
         <button class="mini-btn" onclick="addBuildLink()">Add</button>
       </div>
       <textarea class="mini-input" placeholder="Optional: constraints, rubrics, or context for this generation pass" style="min-height:66px; resize:vertical;"></textarea>
-      <div class="suggestion">AI suggestion: start with Learning Outcomes + Assessment Plan to lock intent and evidence early.</div>
-      <div class="suggestion">AI suggestion: add one industry reference before drafting activities for stronger authenticity.</div>
-      <div class="action-row">
-        <button class="mini-btn">Rewrite suggestion</button>
-        <button class="mini-btn">Suggest alternatives</button>
-      </div>
+      <div class="suggestion">Start with Learning Outcomes + Assessment Plan to lock intent and evidence early.</div>
+      <div class="suggestion">Add one industry reference before drafting activities for stronger authenticity.</div>
+      <div class="suggestion">You can run this pass with just 1-2 sections selected if you want a tighter draft.</div>
     </div>
   </div>
 
   <div class="action-row" style="margin-bottom:14px;">
-    <button class="mini-btn primary" onclick="startSelectedDraft()">Draft Selected Sections</button>
+    <button class="mini-btn primary" onclick="startSelectedDraft()">Generate Draft</button>
     <button class="mini-btn" onclick="resetDraftRun()">Reset run</button>
   </div>
 
@@ -477,34 +512,7 @@
 
     </div>
 
-    <div class="layout-side">
-      <div class="copilot-panel">
-        <div class="cp-head">AI Copilot</div>
-        <div class="cp-block">
-          <div class="cp-label">Current Focus</div>
-          <div class="cp-focus" id="cp-focus">Draft Scope Selection</div>
-        </div>
-        <div class="cp-block">
-          <div class="cp-label">Insights</div>
-          <ul class="cp-list" id="cp-insights"></ul>
-        </div>
-        <div class="cp-block">
-          <div class="cp-label">Suggested Actions</div>
-          <div class="cp-actions" id="cp-actions"></div>
-        </div>
-        <div class="cp-block">
-          <div class="cp-label">Why Suggested</div>
-          <div class="cp-why" id="cp-why"></div>
-        </div>
-        <div class="cp-block">
-          <div class="cp-label">Ask Copilot</div>
-          <div class="cp-ask-row">
-            <input class="cp-input" id="cp-input" type="text" placeholder="Ask for draft refinements or alternatives">
-            <button class="cp-ask-btn" type="button" onclick="askCopilot()">Ask</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="layout-side"></div>
   </div>
 
 </main>
@@ -520,88 +528,23 @@
 </div>
 
 <script>
-  const copilotGuide = {
-    scope: {
-      focus: 'Draft Scope Selection',
-      insights: [
-        'Outcomes plus assessment is a strong first-pass combination.',
-        'Fewer selected sections per pass usually improves draft quality control.',
-        'Teaching resources are best drafted after core structure stabilises.'
-      ],
-      actions: ['Suggest Draft Order', 'Estimate Effort by Section', 'Generate First Cut Plan'],
-      why: 'Based on currently selected scope cards and planning carry-over context.'
-    },
-    running: {
-      focus: 'Draft Execution Progress',
-      insights: [
-        'Drafting is running section-by-section to keep output manageable.',
-        'Completed sections can be reviewed before the next pass.',
-        'Unselected sections remain available for follow-up runs.'
-      ],
-      actions: ['Pause and Review Current Draft', 'Queue Remaining Sections', 'Open Drafted Content in Editor'],
-      why: 'Based on active draft run state and selected section pipeline.'
-    },
-    done: {
-      focus: 'Draft Pass Complete',
-      insights: [
-        'Selected sections are drafted and ready for refinement.',
-        'A second pass can target remaining sections with new context.',
-        'Review and export is available once core sections are validated.'
-      ],
-      actions: ['Open in Editor', 'Run Another Focused Pass', 'Proceed to Review and Export'],
-      why: 'Based on completed generation state and section completion markers.'
+  function updateCopilotPanel() {}
+
+  function askCopilot() {}
+
+  function setScopeSelected(el, selected) {
+    el.classList.toggle('on', selected);
+    const cb = el.querySelector('.scope-cb');
+    const state = el.querySelector('.state-pill');
+    if (cb) cb.textContent = selected ? '✓' : '';
+    if (state) {
+      state.textContent = selected ? 'Selected' : 'Not Started';
+      state.className = 'state-pill';
     }
-  };
-
-  function updateCopilotPanel(mode) {
-    const data = copilotGuide[mode] || copilotGuide.scope;
-    document.getElementById('cp-focus').textContent = data.focus;
-
-    const insights = document.getElementById('cp-insights');
-    insights.innerHTML = '';
-    data.insights.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = item;
-      insights.appendChild(li);
-    });
-
-    const actions = document.getElementById('cp-actions');
-    actions.innerHTML = '';
-    data.actions.forEach(action => {
-      const btn = document.createElement('button');
-      btn.className = 'cp-action';
-      btn.type = 'button';
-      btn.textContent = action;
-      btn.onclick = () => alert('AI action queued: ' + action + ' (prototype behavior).');
-      actions.appendChild(btn);
-    });
-
-    document.getElementById('cp-why').textContent = data.why;
-  }
-
-  function askCopilot() {
-    const input = document.getElementById('cp-input');
-    const value = input.value.trim();
-    if (!value) return;
-    alert('Copilot received: ' + value + ' (prototype behavior).');
-    input.value = '';
   }
 
   function toggleScope(el) {
-    el.classList.toggle('on');
-    const cb = el.querySelector('.scope-cb');
-    const state = el.querySelector('.state-pill');
-    cb.textContent = el.classList.contains('on') ? '✓' : '';
-    if (state) {
-      if (el.classList.contains('on')) {
-        state.textContent = 'AI Suggested';
-        state.className = 'state-pill ai';
-      } else {
-        state.textContent = 'Not Started';
-        state.className = 'state-pill';
-      }
-    }
-    updateCopilotPanel('scope');
+    setScopeSelected(el, !el.classList.contains('on'));
   }
 
   function setScopeStateByLabel(label, stateText, stateClass) {
@@ -619,20 +562,26 @@
 
   function selectAllScopes() {
     document.querySelectorAll('#scope-grid .scope-item').forEach(el => {
-      el.classList.add('on');
-      el.querySelector('.scope-cb').textContent = '✓';
-      setScopeStateByLabel(el.dataset.label, 'AI Suggested', 'ai');
+      setScopeSelected(el, true);
     });
-    updateCopilotPanel('scope');
   }
 
   function clearScopes() {
     document.querySelectorAll('#scope-grid .scope-item').forEach(el => {
-      el.classList.remove('on');
-      el.querySelector('.scope-cb').textContent = '';
-      setScopeStateByLabel(el.dataset.label, 'Not Started', '');
+      setScopeSelected(el, false);
     });
-    updateCopilotPanel('scope');
+  }
+
+  function applySuggestedSequence() {
+    const recommended = new Set([
+      'Module Learning Outcomes',
+      'Assessment Plan',
+      'Weekly Learning Activities'
+    ]);
+
+    document.querySelectorAll('#scope-grid .scope-item').forEach(el => {
+      setScopeSelected(el, recommended.has(el.dataset.label));
+    });
   }
 
   function addBuildLink() {
@@ -675,7 +624,6 @@
       document.getElementById('gen-status').classList.add('done');
       document.getElementById('done-card').classList.add('show');
       document.getElementById('bb-note').textContent = 'Review output, then run another pass if needed';
-      updateCopilotPanel('done');
       return;
     }
 
@@ -689,7 +637,6 @@
     runSteps[runIndex].classList.remove('pending');
     runSteps[runIndex].classList.add('active');
     document.getElementById('gen-status').textContent = runIndex + ' of ' + total + ' selected sections';
-    updateCopilotPanel('running');
     runIndex++;
     setTimeout(runNext, 900);
   }
@@ -705,7 +652,6 @@
     document.getElementById('gen-panel').classList.remove('hidden');
     document.getElementById('bb-note').textContent = 'Drafting selected sections...';
     renderRunSteps(selected);
-    updateCopilotPanel('running');
     runNext();
   }
 
@@ -719,10 +665,7 @@
     document.getElementById('overall-spinner').classList.remove('done');
     document.getElementById('done-card').classList.remove('show');
     document.getElementById('bb-note').textContent = 'Select sections, add context, then draft in manageable passes';
-    updateCopilotPanel('scope');
   }
-
-  updateCopilotPanel('scope');
 </script>
 
 </body>

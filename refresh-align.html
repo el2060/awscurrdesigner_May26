@@ -131,26 +131,26 @@
 <div class="flow-shell">
   <div class="flow-wrap">
     <div class="mini-steps" id="mini-steps">
-      <div class="mini-step active" data-step="1"><span class="mini-step-dot">1</span><span>Import Existing Module</span></div>
+      <div class="mini-step active" data-step="1"><span class="mini-step-dot">1</span><span>Review Existing Module</span></div>
       <span class="mini-sep">›</span>
       <div class="mini-step" data-step="2"><span class="mini-step-dot">2</span><span>Configure Review</span></div>
     </div>
 
     <section class="screen active" id="screen-1">
       <div class="hero-label">Step 1 of 2</div>
-      <div class="hero-title">Import Existing Module</div>
-      <div class="hero-sub">Load an existing module as your starting point, then configure review lenses before entering the shared curriculum workspace.</div>
+      <div class="hero-title">Review Existing Module</div>
+      <div class="hero-sub">Bring in existing module materials, review plans, or curriculum artefacts as your starting point. AI will help analyse and contextualise these inputs using selected review lenses and reference frameworks.</div>
 
-      <div class="callout"><strong>Use case illustrated:</strong> supporting lecturers across domains (for example, Design Communication) to review, contextualise, and enhance communication competency design with AI assistance.</div>
+      <div class="callout">Supports review and refinement of learning outcomes, assessment design, teaching &amp; learning approaches, graduate competencies, communication skills, and industry alignment.</div>
 
       <div class="card">
         <div class="card-head">
-          <div class="card-title">Module Source</div>
+          <div class="card-title">Module Materials &amp; Inputs</div>
           <span class="state-pill" id="import-state">Not Loaded</span>
         </div>
         <div class="import-row">
           <input class="input" id="module-code" value="ICT1234" placeholder="Module code (e.g. ICT1234)">
-          <button class="btn primary" onclick="loadModule()">Load Sample</button>
+          <button class="btn primary" onclick="loadModule()">Load Example Module</button>
         </div>
         <div class="loaded-list" id="loaded-files" style="display:none;">
           <div class="loaded-item"><span class="file-chip">XLS</span><span>ICT1234_MDD_AY2526S1.xlsx</span></div>
@@ -160,7 +160,7 @@
       </div>
 
       <div class="footer-actions">
-        <span class="muted">Prototype loads sample records for walkthrough.</span>
+        <span class="muted">Prototype uses example records for walkthrough purposes.</span>
         <button class="btn primary" id="to-step-2" onclick="goStep(2)" disabled>Continue</button>
       </div>
     </section>
@@ -168,7 +168,7 @@
     <section class="screen" id="screen-2">
       <div class="hero-label">Step 2 of 2</div>
       <div class="hero-title">Configure Review</div>
-      <div class="hero-sub">Choose review lenses and optional reference frameworks. Insights will appear inline inside the same module workspace used for design and refinement.</div>
+      <div class="hero-sub">Select focus areas and optional reference frameworks to guide AI-supported review and analysis.</div>
 
       <div class="split">
         <div class="card">
@@ -233,7 +233,7 @@
           <div class="field-row">
             <div class="field">
               <div class="label">Lecturer Notes (optional)</div>
-              <textarea id="activity-notes" class="textarea" placeholder="What do students currently struggle with in this activity?"></textarea>
+              <textarea id="activity-notes" class="textarea" placeholder="Share any teaching concerns, curriculum priorities, observed learner gaps, or review goals."></textarea>
             </div>
           </div>
         </div>

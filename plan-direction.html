@@ -128,9 +128,9 @@
     .state-pill.ai { color: #4f3f00; background: #fff7d6; border-color: #ecd88f; }
 
     /* ── Layout ── */
-    .layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: flex-start; }
+    .layout { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: flex-start; }
     .layout-main { flex: 1; min-width: 0; }
-    .layout-side { width: 300px; flex-shrink: 0; position: sticky; top: 100px; order: 1; }
+    .layout-side { display: none; }
 
     .section-nav {
       border: 1px solid #e4e4e4;
@@ -165,95 +165,6 @@
     .completion-bar { height: 8px; border: 1px solid #d9d9d9; background: #fff; }
     .completion-fill { height: 100%; width: 50%; background: #1a1a1a; }
     .completion-label { margin-top: 5px; font-size: 11px; color: #777; }
-
-    .copilot-panel {
-      border: 1px solid #e4e4e4;
-      background: #fff;
-      padding: 10px;
-    }
-    .cp-head {
-      font-size: 11px;
-      font-weight: 700;
-      color: #7a5f00;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .cp-block { margin-bottom: 10px; }
-    .cp-block:last-child { margin-bottom: 0; }
-    .cp-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #999;
-      margin-bottom: 5px;
-    }
-    .cp-focus { font-size: 12px; color: #1a1a1a; }
-    .cp-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .cp-list li {
-      font-size: 11px;
-      color: #666;
-      line-height: 1.4;
-      padding-left: 10px;
-      position: relative;
-    }
-    .cp-list li::before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: #bbb;
-    }
-    .cp-actions {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 6px;
-    }
-    .cp-action {
-      border: 1px solid #d0d0d0;
-      background: #fff;
-      color: #555;
-      font-size: 11px;
-      font-weight: 600;
-      text-align: left;
-      padding: 7px 8px;
-      cursor: pointer;
-    }
-    .cp-action:hover { border-color: #999; color: #1a1a1a; }
-    .cp-why {
-      font-size: 11px;
-      color: #666;
-      line-height: 1.45;
-      border: 1px solid #efefef;
-      background: #fafafa;
-      padding: 7px 8px;
-    }
-    .cp-ask-row {
-      display: flex;
-      gap: 6px;
-    }
-    .cp-input {
-      flex: 1;
-      border: 1px solid #d8d8d8;
-      font-size: 11px;
-      padding: 7px 8px;
-      min-width: 0;
-    }
-    .cp-ask-btn {
-      border: 1px solid #1a1a1a;
-      background: #1a1a1a;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 7px 8px;
-      cursor: pointer;
-    }
-    .cp-ask-btn:hover { background: #333; border-color: #333; }
 
     /* ── Plan sections ── */
     .plan-section {
@@ -821,7 +732,7 @@
       <div class="plan-section">
         <div class="ps-header">
           <div class="ps-num">F</div>
-          <div class="ps-title">What Would You Like to Work On?</div>
+          <div class="ps-title">Select Sections to Draft</div>
           <div class="ps-desc">Select specific sections to work on in the next step</div>
         </div>
         <div class="ps-body">
@@ -844,6 +755,13 @@
             </div>
           </div>
           <div class="plan-hint" style="margin-top:8px;">You can work section-by-section and come back anytime.</div>
+          <div class="inline-insight on" style="margin-top:10px; display:block;">
+            <div class="ii-title">Recommended starting point</div>
+            <div class="ii-text">Draft Learning Outcomes + Assessment Plan first to establish alignment before generating activities and resources.</div>
+            <div class="ii-actions">
+              <button class="btn-mini primary" type="button" onclick="useRecommendedSequence()">Use Recommended Sequence</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -873,33 +791,6 @@
         <div class="completion-wrap">
           <div class="completion-bar"><div class="completion-fill" id="completion-fill"></div></div>
           <div class="completion-label" id="completion-label">60% complete</div>
-        </div>
-      </div>
-
-      <div class="copilot-panel">
-        <div class="cp-head">AI Copilot</div>
-        <div class="cp-block">
-          <div class="cp-label">Current Focus</div>
-          <div class="cp-focus" id="cp-focus">Module Overview</div>
-        </div>
-        <div class="cp-block">
-          <div class="cp-label">Insights</div>
-          <ul class="cp-list" id="cp-insights"></ul>
-        </div>
-        <div class="cp-block">
-          <div class="cp-label">Suggested Actions</div>
-          <div class="cp-actions" id="cp-actions"></div>
-        </div>
-        <div class="cp-block">
-          <div class="cp-label">Why Suggested</div>
-          <div class="cp-why" id="cp-why"></div>
-        </div>
-        <div class="cp-block">
-          <div class="cp-label">Ask Copilot</div>
-          <div class="cp-ask-row">
-            <input class="cp-input" id="cp-input" type="text" placeholder="Ask for refinement, alternatives, or examples">
-            <button class="cp-ask-btn" type="button" onclick="askCopilot()">Ask</button>
-          </div>
         </div>
       </div>
 
@@ -967,6 +858,22 @@
     updateSummary();
   }
 
+  function useRecommendedSequence() {
+    const wanted = new Set(['Module Learning Outcomes', 'Assessment Plan']);
+    document.querySelectorAll('#build-focus-grid .focus-item').forEach(el => {
+      const isOn = wanted.has(el.querySelector('.focus-name')?.textContent.trim());
+      el.classList.toggle('on', isOn);
+      const cb = el.querySelector('.focus-cb');
+      const state = el.querySelector('.state-pill');
+      if (cb) cb.textContent = isOn ? '✓' : '';
+      if (state) {
+        state.textContent = isOn ? 'AI Suggested' : 'Not Started';
+        state.classList.toggle('ai', isOn);
+      }
+    });
+    updateSummary();
+  }
+
   function addLink() {
     const input = document.getElementById('link-input');
     if (!input.value.trim()) return;
@@ -1006,111 +913,6 @@
     const assessmentFlags = document.querySelectorAll('.inline-insight[data-area="Assessment Strategy"].on').length ? 1 : 0;
     document.getElementById('flag-competency').textContent = competencyFlags + ' competency flag' + (competencyFlags > 1 ? 's' : '');
     document.getElementById('flag-assessment').textContent = assessmentFlags + ' assessment flag' + (assessmentFlags !== 1 ? 's' : '');
-  }
-
-  const copilotGuide = {
-    A: {
-      focus: 'Module Overview',
-      insights: [
-        'Module title and level should clearly signal scope and complexity.',
-        'Current CU and contact hours fit a practice-heavy L2 module.',
-        'Pre-requisite can reduce uneven learner readiness.'
-      ],
-      actions: ['Draft Module Purpose', 'Generate Title Variants', 'Check CU and Level Fit'],
-      why: 'Based on selected level, CU, and module setup fields currently provided.'
-    },
-    B: {
-      focus: 'Module Purpose and Direction',
-      insights: [
-        'Purpose statement should describe learner capability, not content coverage.',
-        'Industry context can sharpen authenticity and evidence tasks.',
-        'One clear action verb per sentence improves downstream LO drafting.'
-      ],
-      actions: ['Generate First Cut Purpose', 'Refine for Industry Context', 'Simplify Language'],
-      why: 'Based on your module purpose text, selected school context, and draft direction.'
-    },
-    C: {
-      focus: 'Priority Graduate Competencies',
-      insights: [
-        'GC2 and GC4 are currently emphasised strongly.',
-        'GC7 communication is not yet explicitly represented.',
-        'Selecting 2-3 priority competencies improves assessment coherence.'
-      ],
-      actions: ['Insert GC7 Outcome Example', 'Suggest Competency Balance', 'Show Alternative Competency Mix'],
-      why: 'Based on selected NPGCs and current competency coverage pattern.'
-    },
-    D: {
-      focus: 'Assessment Strategy',
-      insights: [
-        'Project-based mode is active but evidence criteria are not yet explicit.',
-        'Group component may need clearer individual accountability.',
-        'LO-to-assessment mapping is not fully visible yet.'
-      ],
-      actions: ['Generate CA Structure', 'Suggest Rubric Criteria', 'Draft Industry Scenario Task'],
-      why: 'Based on assessment structure, selected approaches, and group component settings.'
-    },
-    E: {
-      focus: 'Teaching and Learning Strategies',
-      insights: [
-        'Current T&L mix supports blended delivery mode.',
-        'Sequencing from guided to independent activity can strengthen progression.',
-        'Assessment checkpoints should be aligned to weekly activities.'
-      ],
-      actions: ['Propose Weekly T&L Flow', 'Suggest Activity Sequence', 'Align Activities to Assessment'],
-      why: 'Based on selected T&L strategies and delivery mode.'
-    },
-    F: {
-      focus: 'Build Focus Selection',
-      insights: [
-        'Three sections are selected for drafting in the next step.',
-        'Starting with outcomes and assessment usually improves alignment.',
-        'Teaching resources can be drafted after core structure stabilises.'
-      ],
-      actions: ['Generate First Draft Plan', 'Suggest Drafting Order', 'Estimate Effort by Section'],
-      why: 'Based on selected build-focus cards and current planning completeness.'
-    }
-  };
-
-  let activeSection = 'A';
-
-  function updateCopilotPanel(sectionKey) {
-    const key = sectionKey || activeSection;
-    const data = copilotGuide[key] || copilotGuide.A;
-    activeSection = key;
-
-    document.getElementById('cp-focus').textContent = data.focus;
-    const insights = document.getElementById('cp-insights');
-    insights.innerHTML = '';
-    data.insights.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = item;
-      insights.appendChild(li);
-    });
-
-    const actions = document.getElementById('cp-actions');
-    actions.innerHTML = '';
-    data.actions.forEach(action => {
-      const btn = document.createElement('button');
-      btn.className = 'cp-action';
-      btn.type = 'button';
-      btn.textContent = action;
-      btn.onclick = () => runCopilotAction(action);
-      actions.appendChild(btn);
-    });
-
-    document.getElementById('cp-why').textContent = data.why;
-  }
-
-  function runCopilotAction(actionLabel) {
-    alert('AI action queued: ' + actionLabel + ' (prototype behavior).');
-  }
-
-  function askCopilot() {
-    const input = document.getElementById('cp-input');
-    const value = input.value.trim();
-    if (!value) return;
-    alert('Copilot received: ' + value + ' (prototype behavior).');
-    input.value = '';
   }
 
   function setActiveNav(sectionKey) {
@@ -1160,7 +962,6 @@
       section.classList.toggle('collapsed');
       const sectionKey = section.dataset.section;
       setActiveNav(sectionKey);
-      updateCopilotPanel(sectionKey);
     });
     section.dataset.section = String.fromCharCode(65 + index);
     if (index > 0) section.classList.add('collapsed');
@@ -1173,12 +974,9 @@
       if (!section) return;
       section.classList.remove('collapsed');
       setActiveNav(sectionKey);
-      updateCopilotPanel(sectionKey);
       section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
-
-  updateCopilotPanel('A');
 </script>
 
 </body>
