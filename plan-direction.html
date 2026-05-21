@@ -164,6 +164,85 @@
       font-size: 10px; margin-top: 1px; font-weight: 700;
     }
 
+    /* ── AI Draft workspace additions ── */
+    .scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .scope-item {
+      border: 1px solid #e4e4e4;
+      padding: 10px 12px;
+      cursor: pointer;
+      background: #fff;
+      transition: all 100ms;
+    }
+    .scope-item:hover { border-color: #004689; background: #fafcff; }
+    .scope-item.on { border-color: #004689; background: #f0f6fc; }
+    .scope-top { display: flex; align-items: center; gap: 8px; }
+    .scope-cb { width: 14px; text-align: center; color: #004689; font-weight: 700; }
+    .scope-name { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+    .scope-sub { font-size: 11px; color: #777; margin-top: 4px; line-height: 1.45; }
+    .scope-ref { font-size: 10px; color: #2d5f92; margin-top: 4px; font-weight: 600; }
+    .scope-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+    .mini-btn {
+      border: 1px solid #d0d0d0;
+      background: #fff;
+      color: #555;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .mini-btn:hover { border-color: #999; color: #1a1a1a; }
+
+    .link-row { display: flex; gap: 8px; align-items: stretch; margin-top: 8px; }
+    .link-row .plan-input { flex: 1; }
+
+    .observations-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #e4e4e4;
+      padding: 10px 12px;
+      cursor: pointer;
+      background: #fff;
+      margin-top: 8px;
+    }
+    .observations-title { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6b5a1d; }
+    .observations-count { font-size: 11px; color: #8d7a2a; border: 1px solid #ecd88f; background: #fffef8; padding: 2px 8px; }
+    .observations-body {
+      border: 1px solid #e4e4e4;
+      border-top: none;
+      padding: 10px 12px;
+      background: #fff;
+      display: none;
+    }
+    .observations-body.show { display: block; }
+    .observations-list { margin: 0; padding-left: 16px; font-size: 12px; color: #555; line-height: 1.5; }
+
+    .draft-output {
+      border: 1px solid #e4e4e4;
+      background: #fff;
+      margin-top: 12px;
+      display: none;
+    }
+    .draft-output.show { display: block; }
+    .draft-head {
+      padding: 12px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      background: #fafafa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .draft-title { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #1a1a1a; }
+    .draft-sub { font-size: 12px; color: #666; line-height: 1.45; margin-top: 3px; }
+    .draft-actions { display: flex; gap: 8px; }
+    .draft-cards { padding: 12px 14px; display: grid; gap: 10px; }
+    .draft-card { border: 1px solid #e8e8e8; padding: 10px 12px; }
+    .draft-card h4 { font-size: 13px; color: #1a1a1a; margin-bottom: 6px; }
+    .draft-card p { font-size: 12px; color: #555; line-height: 1.5; }
+
     /* ── Bottom bar ── */
     .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #fff; border-top: 1px solid #e0e0e0; z-index: 50; }
     .bottom-inner { max-width: var(--workspace-max); height: 100%; margin: 0 auto; padding: 0 var(--workspace-pad); display: flex; align-items: center; justify-content: space-between; }
@@ -190,6 +269,8 @@
     .ps-title { font-size: 15px; }
     .ps-desc, .field-label, .side-label { font-size: 12px; }
     .plan-input, .plan-select, .plan-textarea, .check-label, .btn-ghost, .btn-primary, .bb-note { font-size: 14px; }
+    .scope-name { font-size: 14px; }
+    .scope-sub, .observations-list, .draft-card p { font-size: 12px; }
 
     @media (max-width: 1280px) {
       :root { --workspace-pad: 28px; }
@@ -204,6 +285,8 @@
       .page { padding: 30px var(--workspace-pad); }
       .page-title { font-size: 26px; }
       .page-sub { font-size: 15px; margin-bottom: 24px; }
+      .scope-grid { grid-template-columns: 1fr; }
+      .link-row { flex-direction: column; }
     }
   </style>
 </head>
@@ -331,14 +414,79 @@
             <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC7</div><div class="npgc-name">Communication</div><div class="npgc-ref">Uses NPGC Framework</div></div></div>
           </div>
           <div class="npgc-note">Choose 2–3 priorities for a clear module focus.</div>
-          <div class="ai-inline">Critical Thinking is frequently prioritised in employer feedback for this discipline.</div>
         </div>
       </div>
 
-      <!-- Section D: Assessment Strategy -->
+      <!-- Section D: Learning Outcomes -->
       <div class="plan-section collapsed">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">D</div>
+          <div class="ps-title">Learning Outcomes</div>
+          <div class="ps-desc">Define what students should know and do by the end of the module</div>
+          <div class="ps-toggle">▾</div>
+        </div>
+        <div class="ps-body">
+          <div class="field">
+            <label class="field-label">Draft Learning Outcomes</label>
+            <textarea class="plan-textarea" id="f-outcomes" placeholder="Enter 4–6 learning outcomes that reflect the module's scope, level, and competencies."></textarea>
+            <div class="plan-hint">These outcomes should align to the competencies selected above and lead into content, assessment, and delivery decisions.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section E: Content & Topics -->
+      <div class="plan-section collapsed">
+        <div class="ps-header" onclick="toggleSection(this)">
+          <div class="ps-num">E</div>
+          <div class="ps-title">Content &amp; Topics</div>
+          <div class="ps-desc">Outline the key content areas, topics, and pacing for the module</div>
+          <div class="ps-toggle">▾</div>
+        </div>
+        <div class="ps-body">
+          <div class="field">
+            <label class="field-label">Topic Outline</label>
+            <textarea class="plan-textarea" id="f-topics" placeholder="Add the major topic blocks, weekly focus areas, or a rough pacing plan for the module."></textarea>
+            <div class="plan-hint">Keep the sequence practical and aligned to the learning outcomes and delivery mode.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section F: Teaching & Learning Approach -->
+      <div class="plan-section collapsed">
+        <div class="ps-header" onclick="toggleSection(this)">
+          <div class="ps-num">F</div>
+          <div class="ps-title">Teaching &amp; Learning Approach</div>
+          <div class="ps-desc">Shape the pedagogy, delivery mode, and lesson style</div>
+          <div class="ps-toggle">▾</div>
+        </div>
+        <div class="ps-body">
+          <div class="field" style="margin-bottom:14px;">
+            <label class="field-label">T&amp;L Strategies <span class="opt">(select all that apply)</span></label>
+            <div class="check-group-2col" id="tl-strategy-group">
+              <div class="check-item on" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Case-Based Learning</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Problem-Based Learning</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Flipped Classroom</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Work-Integrated Learning</div></div>
+              <div class="check-item on" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">E-Learning / ICT-Enabled</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Project-Based Learning</div></div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label">Delivery Mode</label>
+            <div class="chip-group" id="chip-delivery">
+              <span class="chip" onclick="selChip(this,'delivery')">Face-to-Face</span>
+              <span class="chip on" onclick="selChip(this,'delivery')">Blended</span>
+              <span class="chip" onclick="selChip(this,'delivery')">Fully Online</span>
+            </div>
+            <div class="auto-map-note">Uses Communication &amp; Presentation Rubrics for communication-related outcomes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section G: Assessment Strategy -->
+      <div class="plan-section collapsed">
+        <div class="ps-header" onclick="toggleSection(this)">
+          <div class="ps-num">G</div>
           <div class="ps-title">Assessment Strategy</div>
           <div class="ps-desc">Guides assessment structure and component design</div>
           <div class="ps-toggle">▾</div>
@@ -369,41 +517,91 @@
               <span class="chip" onclick="selChip(this,'group')">Individual only</span>
             </div>
           </div>
-          <div class="ai-inline">Project-Based assessment is often used for applied industry competencies. Consider balancing workload across CA components.</div>
         </div>
       </div>
 
-      <!-- Section E: Teaching & Learning -->
-      <div class="plan-section collapsed">
+      <!-- Section H: Learning Resources & References -->
+      <div class="plan-section">
         <div class="ps-header" onclick="toggleSection(this)">
-          <div class="ps-num">E</div>
-          <div class="ps-title">Teaching &amp; Learning Approach</div>
-          <div class="ps-desc">Shapes the T&amp;L strategies and teaching plan</div>
+          <div class="ps-num">H</div>
+          <div class="ps-title">Learning Resources &amp; References</div>
+          <div class="ps-desc">Capture texts, tools, and source materials that should influence the draft</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
           <div class="field" style="margin-bottom:14px;">
-            <label class="field-label">T&amp;L Strategies <span class="opt">(select all that apply)</span></label>
-            <div class="check-group-2col">
-              <div class="check-item on" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Case-Based Learning</div></div>
-              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Problem-Based Learning</div></div>
-              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Flipped Classroom</div></div>
-              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Work-Integrated Learning</div></div>
-              <div class="check-item on" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">E-Learning / ICT-Enabled</div></div>
-              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Project-Based Learning</div></div>
-            </div>
+            <label class="field-label">Core References</label>
+            <textarea class="plan-textarea" id="f-resources" placeholder="List key textbooks, articles, software tools, websites, or standards that should inform the module."></textarea>
+            <div class="plan-hint">These references help AI recommend relevant readings, tools, and supporting materials.</div>
           </div>
-          <div class="field">
-            <label class="field-label">Delivery Mode</label>
-            <div class="chip-group" id="chip-delivery">
-              <span class="chip" onclick="selChip(this,'delivery')">Face-to-Face</span>
-              <span class="chip on" onclick="selChip(this,'delivery')">Blended</span>
-              <span class="chip" onclick="selChip(this,'delivery')">Fully Online</span>
-            </div>
-            <div class="auto-map-note">Uses Communication &amp; Presentation Rubrics for communication-related outcomes</div>
+          <div class="link-row">
+            <input id="guidance-link" class="plan-input" type="text" placeholder="Add reference links or benchmarks (optional)">
+            <button class="mini-btn" onclick="addGuidanceLink()">Add link</button>
           </div>
-          <div class="ai-inline">Case-Based Learning with blended delivery suits applied modules in this discipline.</div>
         </div>
+      </div>
+
+      <!-- Section I: Additional AI Guidance -->
+      <div class="plan-section">
+        <div class="ps-header" onclick="toggleSection(this)">
+          <div class="ps-num">I</div>
+          <div class="ps-title">Additional AI Guidance</div>
+          <div class="ps-desc">Add constraints, preferences, and instructions for the draft pass</div>
+          <div class="ps-toggle">▾</div>
+        </div>
+        <div class="ps-body">
+          <div class="field">
+            <label class="field-label">AI Guidance Notes <span class="opt">(optional)</span></label>
+            <textarea id="ai-guidance" class="plan-textarea" placeholder="Describe desired output style, constraints, formatting preferences, or specific questions for AI drafting."></textarea>
+          </div>
+          <div class="plan-hint">AI uses this context to produce more specific, institution-aligned drafting suggestions.</div>
+
+          <div class="observations-toggle" onclick="toggleObservations()">
+            <div class="observations-title">AI Observations</div>
+            <div class="observations-count" id="obs-count">0</div>
+          </div>
+          <div class="observations-body" id="obs-body">
+            <ul class="observations-list" id="obs-list"></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generate Draft Sections -->
+      <div class="plan-section">
+        <div class="ps-header" onclick="toggleSection(this)">
+          <div class="ps-num">J</div>
+          <div class="ps-title">Generate Draft Sections</div>
+          <div class="ps-desc">Generate the selected draft sections with AI</div>
+          <div class="ps-toggle">▾</div>
+        </div>
+        <div class="ps-body">
+          <div class="scope-grid" id="scope-grid">
+            <div class="scope-item on" data-label="Synopsis &amp; Aims" onclick="toggleScope(this)"><div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Synopsis &amp; Aims</div></div><div class="scope-sub">Draft module synopsis and intent statement.</div><div class="scope-ref">Uses module purpose and context</div></div>
+            <div class="scope-item on" data-label="Module Learning Outcomes" onclick="toggleScope(this)"><div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Module Learning Outcomes</div></div><div class="scope-sub">Draft learning outcomes with competency mapping.</div><div class="scope-ref">Uses NPGC Framework</div></div>
+            <div class="scope-item on" data-label="Content &amp; Topics" onclick="toggleScope(this)"><div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Content &amp; Topics</div></div><div class="scope-sub">Draft topic breakdown and pacing.</div><div class="scope-ref">Uses outcomes-to-content checks</div></div>
+            <div class="scope-item on" data-label="Teaching &amp; Learning Approach" onclick="toggleScope(this)"><div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Teaching &amp; Learning Approach</div></div><div class="scope-sub">Elaborate selected pedagogy.</div><div class="scope-ref">Uses delivery and T&amp;L selections</div></div>
+            <div class="scope-item on" data-label="Assessment Strategy" onclick="toggleScope(this)"><div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Assessment Strategy</div></div><div class="scope-sub">Draft components and weightings.</div><div class="scope-ref">Uses NP Assessment Framework</div></div>
+            <div class="scope-item" data-label="Learning Resources &amp; References" onclick="toggleScope(this)"><div class="scope-top"><div class="scope-cb"></div><div class="scope-name">Learning Resources &amp; References</div></div><div class="scope-sub">Suggest readings and supporting resources.</div><div class="scope-ref">Uses references and guidance notes</div></div>
+          </div>
+          <div class="scope-actions">
+            <button class="mini-btn" onclick="selectAllScopes()">Select all</button>
+            <button class="mini-btn" onclick="clearScopes()">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="draft-output" id="draft-output">
+        <div class="draft-head">
+          <div>
+            <div class="draft-title">AI Draft Output</div>
+            <div class="draft-sub">Generated from your module inputs, scope selection, and guidance context.</div>
+          </div>
+          <div class="draft-actions">
+            <button class="mini-btn" onclick="generateDraftInline()">Regenerate</button>
+            <a href="review-export.html" class="btn-primary">Review &amp; Export →</a>
+          </div>
+        </div>
+        <div class="draft-cards" id="draft-cards"></div>
       </div>
 
     </div><!-- end layout-main -->
@@ -421,6 +619,8 @@
           <div class="sum-row"><span class="sum-key">NPGCs</span><span class="sum-val" id="sum-npgc">3 selected</span></div>
           <div class="sum-row"><span class="sum-key">Assessment</span><span class="sum-val" id="sum-asmt">CA Only</span></div>
           <div class="sum-row"><span class="sum-key">Delivery</span><span class="sum-val" id="sum-delivery">Blended</span></div>
+          <div class="sum-row"><span class="sum-key">Draft Scope</span><span class="sum-val" id="sum-scope">4 selected</span></div>
+          <div class="sum-row"><span class="sum-key">Observations</span><span class="sum-val" id="sum-obs">0</span></div>
         </div>
       </div>
 
@@ -433,9 +633,9 @@
 <!-- Bottom bar -->
 <div class="bottom-bar">
   <div class="bottom-inner">
-    <div class="bb-note">Set direction, then continue to drafting</div>
+    <div class="bb-note" id="bb-note">Set direction, confirm draft scope, then generate with AI inline</div>
     <div class="bb-actions">
-      <a href="design-wizard.html" class="btn-primary">Continue to Drafting →</a>
+      <button class="btn-primary" onclick="generateDraftInline()">Generate with AI →</button>
     </div>
   </div>
 </div>
@@ -455,11 +655,108 @@
     document.querySelectorAll(`#chip-${group} .chip`).forEach(c => c.classList.remove('on'));
     el.classList.add('on');
     updateSummary();
+    refreshObservations();
   }
 
-  function toggleNPGC(el) { el.classList.toggle('on'); updateSummary(); }
-  function toggleCheck(el) { el.classList.toggle('on'); }
+  function toggleNPGC(el) { el.classList.toggle('on'); updateSummary(); refreshObservations(); }
+  function toggleCheck(el) { el.classList.toggle('on'); refreshObservations(); }
   function toggleSection(headerEl) { headerEl.parentElement.classList.toggle('collapsed'); }
+
+  function toggleScope(el) {
+    el.classList.toggle('on');
+    const cb = el.querySelector('.scope-cb');
+    if (cb) cb.textContent = el.classList.contains('on') ? '✓' : '';
+    updateSummary();
+  }
+
+  function selectAllScopes() {
+    document.querySelectorAll('#scope-grid .scope-item').forEach(el => {
+      el.classList.add('on');
+      const cb = el.querySelector('.scope-cb');
+      if (cb) cb.textContent = '✓';
+    });
+    updateSummary();
+  }
+
+  function clearScopes() {
+    document.querySelectorAll('#scope-grid .scope-item').forEach(el => {
+      el.classList.remove('on');
+      const cb = el.querySelector('.scope-cb');
+      if (cb) cb.textContent = '';
+    });
+    updateSummary();
+  }
+
+  function addGuidanceLink() {
+    const el = document.getElementById('guidance-link');
+    if (!el.value.trim()) return;
+    document.getElementById('ai-guidance').value += (document.getElementById('ai-guidance').value.trim() ? '\n' : '') + 'Reference: ' + el.value.trim();
+    el.value = '';
+  }
+
+  function toggleObservations() {
+    document.getElementById('obs-body').classList.toggle('show');
+  }
+
+  function refreshObservations() {
+    const observations = [];
+    const level = document.querySelector('#chip-level .chip.on')?.textContent?.trim() || 'L2';
+    const asmtType = document.querySelector('#chip-asmttype .chip.on')?.textContent?.trim() || '';
+    const groupMode = document.querySelector('#chip-group .chip.on')?.textContent?.trim() || '';
+    const delivery = document.querySelector('#chip-delivery .chip.on')?.textContent?.trim() || '';
+    const selectedNpgc = Array.from(document.querySelectorAll('#npgc-grid .npgc-item.on .npgc-name')).map(el => el.textContent.trim());
+    const tlLabels = Array.from(document.querySelectorAll('#tl-strategy-group .check-item.on .check-label')).map(el => el.textContent.trim());
+
+    if (level === 'L3' && asmtType === 'CA Only') {
+      observations.push('L3 scope with CA Only selected. Consider adding a higher-order capstone or stronger synthesis checkpoint.');
+    }
+    if (!selectedNpgc.some(x => x.includes('Communication')) && groupMode.includes('group')) {
+      observations.push('Group component selected but Communication competency is not prioritised. Consider mapping one communication evidence point.');
+    }
+    if (delivery === 'Blended' && !tlLabels.includes('E-Learning / ICT-Enabled')) {
+      observations.push('Blended delivery is selected but no explicit e-learning strategy is checked. Add one to strengthen delivery coherence.');
+    }
+    if (tlLabels.includes('Project-Based Learning') && asmtType === 'CA + Final Exam') {
+      observations.push('Project-based learning plus final exam may create end-loaded workload. Review milestone pacing across semester weeks.');
+    }
+
+    const list = document.getElementById('obs-list');
+    list.innerHTML = '';
+    observations.forEach(text => {
+      const li = document.createElement('li');
+      li.textContent = text;
+      list.appendChild(li);
+    });
+
+    document.getElementById('obs-count').textContent = String(observations.length);
+    document.getElementById('sum-obs').textContent = String(observations.length);
+  }
+
+  function generateDraftInline() {
+    const selectedScopes = Array.from(document.querySelectorAll('#scope-grid .scope-item.on')).map(el => el.dataset.label);
+    if (!selectedScopes.length) {
+      alert('Select at least one draft scope before generating.');
+      return;
+    }
+
+    const cards = document.getElementById('draft-cards');
+    cards.innerHTML = '';
+
+    const guidance = document.getElementById('ai-guidance').value.trim();
+    selectedScopes.forEach(label => {
+      const card = document.createElement('div');
+      card.className = 'draft-card';
+      card.innerHTML = '<h4>' + label + '</h4><p>' +
+        'AI draft generated for ' + label + '. This version reflects your selected competencies, assessment approach, and delivery mode.' +
+        (guidance ? ' Additional guidance has been applied to tone and constraints.' : '') +
+        '</p>';
+      cards.appendChild(card);
+    });
+
+    document.getElementById('draft-output').classList.add('show');
+    document.getElementById('draft-output').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('bb-note').textContent = 'AI draft generated inline. Refine scope/guidance and regenerate anytime.';
+  }
 
   function updateSummary() {
     const title = document.getElementById('f-title').value.trim();
@@ -476,6 +773,9 @@
     document.getElementById('sum-npgc').textContent = npgcCount + ' selected';
     document.getElementById('sum-asmt').textContent = asmtChip ? asmtChip.textContent : '—';
     document.getElementById('sum-delivery').textContent = deliveryChip ? deliveryChip.textContent : '—';
+    const scopeCount = document.querySelectorAll('#scope-grid .scope-item.on').length;
+    const scopeEl = document.getElementById('sum-scope');
+    if (scopeEl) scopeEl.textContent = scopeCount + ' selected';
   }
 
   function setSum(id, val) {
@@ -484,7 +784,12 @@
     else { el.textContent = 'Not set'; el.classList.add('empty'); }
   }
 
+  document.getElementById('ai-guidance').addEventListener('input', () => {
+    document.getElementById('bb-note').textContent = 'Guidance updated. Generate again to refresh AI draft.';
+  });
+
   updateSummary();
+  refreshObservations();
 </script>
 
 </body>
