@@ -181,9 +181,9 @@
 
 <!-- Phase bar -->
 <div class="phase-bar">
-  <div class="ph-step done"><div class="ph-num">✓</div><span>Context Workspace (optional)</span></div>
+  <div class="ph-step"><div class="ph-num">1</div><span>Context Workspace (optional)</span></div>
   <div class="ph-connector"></div>
-  <div class="ph-step done"><div class="ph-num">✓</div><span>Synthesis</span></div>
+  <div class="ph-step"><div class="ph-num">2</div><span>Synthesis</span></div>
   <div class="ph-connector"></div>
   <div class="ph-step done"><div class="ph-num">✓</div><span>Planning</span></div>
   <div class="ph-connector"></div>
@@ -196,7 +196,7 @@
 <main class="page">
 
   <div class="page-title">Building your Module Document</div>
-  <div class="page-sub">AI is generating section drafts from your planning decisions. You can refine each section in the editor, then complete shared review and export.</div>
+  <div class="page-sub">After planning, AI generates your draft step-by-step. You can then refine sections and proceed to review/export.</div>
 
   <!-- Plan recap (carried from plan-direction) -->
   <div class="recap">
@@ -243,7 +243,7 @@
         <div class="gen-spinner" id="overall-spinner"></div>
         <span id="gen-title-text">Generating module document…</span>
       </div>
-      <div class="gen-status" id="gen-status">0 of 7 sections</div>
+      <div class="gen-status" id="gen-status">0 of 7 workflow items</div>
     </div>
     <ul class="gen-steps" id="gen-steps">
       <li class="gen-step pending" data-step="0">
@@ -278,7 +278,7 @@
       </li>
       <li class="gen-step pending" data-step="6">
         <div class="gs-icon"><div class="gs-dot"></div></div>
-        <span class="gs-label">Aligning to NPGC &amp; NP Assessment Framework</span>
+        <span class="gs-label">Alignment check (NPGC &amp; NP Assessment Framework)</span>
         <span class="gs-sub">~1s</span>
       </li>
     </ul>
@@ -287,7 +287,7 @@
   <!-- Done card -->
   <div class="done-card" id="done-card">
     <div class="done-title">✓ Module document ready</div>
-    <div class="done-sub">All 7 sections generated. Open the editor to review, refine, and export. Each section can be regenerated or hand-edited.</div>
+    <div class="done-sub">All draft items are ready. Open the editor to review, refine, and export.</div>
     <div class="done-actions">
       <a href="mdd-editor.html" class="btn-open">Open in Editor →</a>
       <a href="review-export.html" class="btn-skip">Skip to Review &amp; Export</a>
@@ -298,7 +298,7 @@
 
 <!-- Bottom bar -->
 <div class="bottom-bar">
-  <div class="bb-note" id="bb-note">Generating sections sequentially…</div>
+  <div class="bb-note" id="bb-note">Generating workflow items…</div>
   <div class="bb-actions">
     <a href="plan-direction.html" class="btn-ghost">← Back to Planning</a>
   </div>
@@ -314,8 +314,8 @@
     if (current >= total) {
       // All done
       document.getElementById('overall-spinner').classList.add('done');
-      document.getElementById('gen-title-text').textContent = 'All sections generated';
-      document.getElementById('gen-status').textContent = total + ' of ' + total + ' sections';
+      document.getElementById('gen-title-text').textContent = 'Draft generation complete';
+      document.getElementById('gen-status').textContent = total + ' of ' + total + ' workflow items';
       document.getElementById('gen-status').classList.add('done');
       document.getElementById('done-card').classList.add('show');
       document.getElementById('bb-note').textContent = 'Ready to refine and export';
@@ -328,7 +328,7 @@
     }
     steps[current].classList.remove('pending');
     steps[current].classList.add('active');
-    document.getElementById('gen-status').textContent = current + ' of ' + total + ' sections';
+    document.getElementById('gen-status').textContent = current + ' of ' + total + ' workflow items';
     const dur = stepDurations[current] || 1200;
     current++;
     setTimeout(nextStep, dur);

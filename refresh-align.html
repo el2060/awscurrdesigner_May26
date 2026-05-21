@@ -301,7 +301,7 @@
   <div class="s1-wrap">
     <div class="s1-label">Step 1 of 4</div>
     <div class="s1-title">Import your existing module</div>
-    <div class="s1-sub">Enter a module code to load from records, or upload your MDD and supporting documents directly. You can optionally enrich this review with Context Workspace inputs.</div>
+    <div class="s1-sub">Load by module code or upload files, then choose what to review.</div>
 
     <div class="quick-load">
       <div class="quick-load-label">Load by module code</div>
@@ -362,7 +362,7 @@
   <div class="s2-wrap">
     <div class="s1-label">Step 2 of 4</div>
     <div class="s1-title">What would you like to review?</div>
-    <div class="s1-sub">Select one or more review areas. The AI will analyse your module against each and surface recommendations.</div>
+    <div class="s1-sub">Pick review areas. AI will return findings and suggested updates.</div>
 
     <div class="s2-ctrl">
       <a class="s2-ctrl-link" onclick="selectAllChecks()">Select all</a>
@@ -373,40 +373,40 @@
       <div class="check-card on" id="chk-af" onclick="toggleCheck('chk-af')">
         <div class="check-toggle">✓</div>
         <div class="cc-body">
-          <div class="cc-title">NP Assessment Framework (Feb 2024)</div>
-          <div class="cc-desc">Validate assessment components, weightages, group work cap (≤30%), CA/EX mode compliance, mid-semester minimum, and formative feedback planning.</div>
+          <div class="cc-title">Assessment Framework Check</div>
+          <div class="cc-desc">Checks weights, group cap, mode compliance, and timing.</div>
           <div class="cc-tag">COMPLIANCE</div>
         </div>
       </div>
       <div class="check-card on" id="chk-comms" onclick="toggleCheck('chk-comms')">
         <div class="check-toggle">✓</div>
         <div class="cc-body">
-          <div class="cc-title">Communication Rubrics — SoH&amp;IS Standard</div>
-          <div class="cc-desc">Detect communication-based assessments and check alignment with the SoH&IS 3-criterion Presentation Rubric (Verbal, Non-Verbal, Language &amp; Visual Aids).</div>
+          <div class="cc-title">Communication Rubrics</div>
+          <div class="cc-desc">Checks comms tasks against the SoH&amp;IS presentation rubric.</div>
           <div class="cc-tag">SoH&amp;IS RUBRIC</div>
         </div>
       </div>
       <div class="check-card on" id="chk-npgc" onclick="toggleCheck('chk-npgc')">
         <div class="check-toggle">✓</div>
         <div class="cc-body">
-          <div class="cc-title">NPGC Graduate Competency Coverage</div>
-          <div class="cc-desc">Check how well module outcomes cover the 7 NP Graduate Competencies and identify under-represented domains.</div>
+          <div class="cc-title">NPGC Coverage</div>
+          <div class="cc-desc">Shows strengths and gaps across the 7 competencies.</div>
           <div class="cc-tag">NPGC FRAMEWORK</div>
         </div>
       </div>
       <div class="check-card on" id="chk-blooms" onclick="toggleCheck('chk-blooms')">
         <div class="check-toggle">✓</div>
         <div class="cc-body">
-          <div class="cc-title">Learning Outcomes Quality — Bloom's Taxonomy</div>
-          <div class="cc-desc">Review action verb levels across all module outcomes and flag missing higher-order thinking levels for the module's NPEC level.</div>
+          <div class="cc-title">Learning Outcomes Quality</div>
+          <div class="cc-desc">Checks Bloom's levels and flags missing higher-order outcomes.</div>
           <div class="cc-tag">CURRICULUM QUALITY</div>
         </div>
       </div>
       <div class="check-card on" id="chk-sched" onclick="toggleCheck('chk-sched')">
         <div class="check-toggle">✓</div>
         <div class="cc-body">
-          <div class="cc-title">Weekly Schedule &amp; Assessment Spread</div>
-          <div class="cc-desc">Review pacing across 17 weeks, check for assessment clustering, and verify OAL hours are embedded in the plan.</div>
+          <div class="cc-title">Schedule &amp; Assessment Spread</div>
+          <div class="cc-desc">Checks pacing, assessment clustering, and OAL coverage.</div>
           <div class="cc-tag">SCHEDULE REVIEW</div>
         </div>
       </div>
@@ -811,7 +811,7 @@
   <div class="s3-ai">
     <div class="s3-ai-head">✦ AI Assistant</div>
     <div class="s3-ai-body">
-      <div class="ai-bubble">I found <strong>2 critical issues</strong> and <strong>4 warnings</strong>. The most urgent fix is the group work cap — A3 at 35% needs to come down to ≤30% before this MDD can be approved.</div>
+      <div class="ai-bubble">I found <strong>2 critical issues</strong> and <strong>4 warnings</strong>. The top priority is reducing group-weighted marks to the cap.</div>
 
       <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#aaa; margin-bottom:8px;">Try a prompt</div>
       <div class="ai-chip-row">
@@ -835,7 +835,7 @@
   <div class="s4-wrap">
     <div class="s1-label">Step 4 of 4</div>
     <div class="s1-title">Apply recommended changes</div>
-    <div class="s1-sub">Select the changes you want to apply. These will be loaded into the module editor for you to review and confirm.</div>
+    <div class="s1-sub">Choose the updates to apply, then continue to the editor for confirmation.</div>
 
     <!-- Critical -->
     <div class="rec-group">

@@ -224,13 +224,13 @@
 
 <!-- Phase bar: 5 steps, step 3 active -->
 <div class="phase-bar">
-  <div class="ph-step done">
-    <div class="ph-num">✓</div>
+  <div class="ph-step">
+    <div class="ph-num">1</div>
     <span>Context Workspace (optional)</span>
   </div>
   <div class="ph-connector"></div>
-  <div class="ph-step done">
-    <div class="ph-num">✓</div>
+  <div class="ph-step">
+    <div class="ph-num">2</div>
     <span>Synthesis</span>
   </div>
   <div class="ph-connector"></div>
@@ -254,7 +254,7 @@
 <main class="page">
 
   <div class="page-title">Plan Curriculum Direction</div>
-  <div class="page-sub">Translate your selected inputs and synthesis into module intent, competency focus, and design direction before section generation and editing.</div>
+  <div class="page-sub">Set your module direction first. These choices guide what AI generates next.</div>
 
   <div class="layout">
 
@@ -334,8 +334,8 @@
           <div class="field-row" style="flex-direction:column; gap:14px;">
             <div class="field">
               <label class="field-label">Module Purpose</label>
-              <textarea class="plan-textarea" id="f-purpose" placeholder="Describe what students should be equipped to do upon completing this module. Be specific about the capabilities, real-world relevance, and professional or industry application." oninput="updateSummary()"></textarea>
-              <div class="plan-hint">This drives all AI-generated content — synopsis, outcomes, topics, and assessments. Be specific.</div>
+              <textarea class="plan-textarea" id="f-purpose" placeholder="What should students be able to do by the end of this module?" oninput="updateSummary()"></textarea>
+              <div class="plan-hint">Keep this to 1-2 clear sentences.</div>
             </div>
             <div class="field">
               <label class="field-label">Industry / Professional Context <span class="opt">(optional)</span></label>
@@ -411,7 +411,7 @@
               </div>
             </div>
           </div>
-          <div class="npgc-note">Select 2–3 primary competencies. These will be mapped to learning outcomes and inform the module's assessment design.</div>
+          <div class="npgc-note">Tip: choose 2-3 priorities for a clear focus.</div>
         </div>
       </div>
 
@@ -533,22 +533,22 @@
 
       <!-- AI Recommendations from Phase 1 -->
       <div class="side-rec">
-        <span class="side-label">From Context Workspace synthesis</span>
+        <span class="side-label">Optional context insights</span>
 
-        <span class="rec-sub">Competency priorities</span>
-        <div class="rec-item">GC1 Domain Knowledge — strongly signalled across industry and graduate data</div>
-        <div class="rec-item">GC2 Critical Thinking — flagged in employer survey as key gap area</div>
-        <div class="rec-item">GC4 Digital Competence — high priority in benchmarking &amp; SSG framework</div>
+        <span class="rec-sub">Suggested competencies</span>
+        <div class="rec-item">GC1 Domain Knowledge</div>
+        <div class="rec-item">GC2 Critical Thinking</div>
+        <div class="rec-item">GC4 Digital Competence</div>
 
         <span class="rec-sub">Assessment direction</span>
-        <div class="rec-item">Project-based CA recommended — cited in 3 industry panel sources</div>
-        <div class="rec-item">Industry-facing brief recommended to strengthen graduate employability</div>
+        <div class="rec-item">Project-based CA recommended</div>
+        <div class="rec-item">Include an industry-facing brief</div>
 
         <span class="rec-sub">T&amp;L approaches</span>
-        <div class="rec-item">Case-Based Learning referenced in 4 sources as effective for this domain</div>
-        <div class="rec-item">E-Learning / blended delivery aligned with student feedback preferences</div>
+        <div class="rec-item">Case-based learning</div>
+        <div class="rec-item">Blended / e-learning delivery</div>
 
-        <span class="rec-sub">Emerging skills to integrate</span>
+        <span class="rec-sub">Skills to consider</span>
         <div style="margin-top:4px; line-height:1.6;">
           <span class="rec-tag">AI / ML literacy</span>
           <span class="rec-tag">Data interpretation</span>
@@ -599,7 +599,7 @@
 
 <!-- Bottom bar -->
 <div class="bottom-bar">
-  <div class="bb-note" id="bb-note">Define your curriculum direction before generating the module document</div>
+  <div class="bb-note" id="bb-note">Complete this step, then generate your draft module</div>
   <div class="bb-actions">
     <a href="analyse-synthesise.html" class="btn-ghost">← Back to Analysis</a>
     <a href="design-wizard.html" class="btn-primary">Continue to Build Module →</a>
