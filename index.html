@@ -24,132 +24,146 @@
       text-decoration: none; color: inherit;
     }
     .t-div { width: 1px; height: 16px; background: #e0e0e0; margin: 0 6px; }
-    .brand-name {
-      font-size: 13px; font-weight: 500; color: #1a1a1a; letter-spacing: -0.01em;
-    }
+    .brand-name { font-size: 13px; font-weight: 500; color: #1a1a1a; letter-spacing: -0.01em; }
     .brand-tag {
       font-size: 10px; font-weight: 500; color: #999;
       border: 1px solid #d8d8d8; padding: 2px 8px;
       letter-spacing: 0.02em; margin-left: 4px;
     }
-    .topbar-right {
-      margin-left: auto; display: flex; align-items: center; gap: 12px;
-    }
-    .topbar-user {
-      font-size: 12px; color: #888;
-    }
-    .topbar-avatar {
-      width: 28px; height: 28px; border: 1px solid #e0e0e0;
-      font-size: 11px; font-weight: 600; color: #555;
-      display: flex; align-items: center; justify-content: center;
-    }
 
     /* ── Page ── */
     .page {
-      max-width: 720px;
+      max-width: 680px;
       margin: 0 auto;
-      padding: 72px 40px 100px;
-    }
-
-    .page-eyebrow {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: #bbb; margin-bottom: 12px;
+      padding: 64px 40px 100px;
     }
     .page-title {
       font-family: var(--font-heading);
-      font-size: 26px; font-weight: 700; color: #1a1a1a;
-      letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 6px;
-    }
-    .page-sub {
-      font-size: 13px; color: #999; margin-bottom: 44px;
+      font-size: 24px; font-weight: 700; color: #1a1a1a;
+      letter-spacing: -0.02em; margin-bottom: 44px;
     }
 
-    /* ── 2-card grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 36px;
-    }
-    @media (max-width: 540px) {
-      .card-grid { grid-template-columns: 1fr; }
+    /* ── Path blocks ── */
+    .path-block { margin-bottom: 0; }
+
+    .path-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #aaa;
+      margin-bottom: 12px; display: block;
     }
 
-    .flow-card {
-      border: 1px solid #e0e0e0;
-      padding: 28px 24px 22px;
+    /* ── Phase cards ── */
+    .phase-card {
       display: flex; flex-direction: column;
+      border: 1px solid #e0e0e0;
       text-decoration: none; color: inherit;
       background: #fff;
       transition: border-color 100ms;
       cursor: pointer;
     }
-    .flow-card:hover { border-color: #888; }
+    .phase-card:hover { border-color: #888; }
 
-    .fc-num {
-      font-size: 11px; font-weight: 700; color: #d0d0d0;
-      font-family: var(--font-mono); margin-bottom: 14px;
+    /* Phase 1 — lighter, preparatory */
+    .phase-prep {
+      background: #fafafa;
+      padding: 20px 24px 18px;
     }
-    .fc-title {
-      font-size: 16px; font-weight: 700; color: #1a1a1a;
-      letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.25;
+    .phase-prep:hover { background: #f5f5f5; }
+
+    /* Phase 2 — main action */
+    .phase-main {
+      background: #fff;
+      padding: 22px 24px 20px;
     }
-    .fc-desc {
-      font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 20px;
+
+    .phase-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: #999;
+      margin-bottom: 8px;
+    }
+    .phase-title {
+      font-size: 15px; font-weight: 700; color: #1a1a1a;
+      letter-spacing: -0.01em; margin-bottom: 6px;
+    }
+    .phase-desc {
+      font-size: 13px; color: #888; line-height: 1.6;
+      margin-bottom: 14px;
     }
 
     /* Step list */
-    .fc-steps {
+    .phase-steps {
       list-style: none;
       counter-reset: step;
-      display: flex; flex-direction: column; gap: 8px;
-      flex: 1;
-      margin-bottom: 24px;
+      display: flex; flex-direction: column; gap: 6px;
+      margin-bottom: 18px;
     }
-    .fc-steps li {
+    .phase-steps li {
       counter-increment: step;
-      display: flex; align-items: flex-start; gap: 10px;
+      display: flex; align-items: flex-start; gap: 9px;
       font-size: 12px; color: #666; line-height: 1.45;
     }
-    .fc-steps li::before {
+    .phase-steps li::before {
       content: counter(step);
-      width: 18px; height: 18px; flex-shrink: 0;
+      width: 17px; height: 17px; flex-shrink: 0;
       font-size: 9px; font-weight: 700; font-family: var(--font-mono);
-      background: #f2f2f2; color: #999;
+      background: #efefef; color: #999;
       display: flex; align-items: center; justify-content: center;
       margin-top: 1px;
     }
+    .phase-main .phase-steps li::before { background: #f0f0f0; }
+
+    /* Input source tags (Phase 1) */
+    .source-tags {
+      display: flex; flex-wrap: wrap; gap: 5px;
+      margin-bottom: 16px;
+    }
+    .source-tag {
+      font-size: 11px; color: #777;
+      border: 1px solid #e4e4e4; padding: 2px 8px;
+      background: #fff;
+    }
 
     /* CTA */
-    .fc-cta {
+    .phase-cta {
       font-size: 12px; font-weight: 600; color: #555;
-      border: 1px solid #d0d0d0; padding: 8px 14px;
+      border: 1px solid #d0d0d0; padding: 7px 14px;
       align-self: flex-start;
       transition: all 100ms;
     }
-    .flow-card:hover .fc-cta {
+    .phase-card:hover .phase-cta {
       background: #1a1a1a; color: #fff; border-color: #1a1a1a;
     }
 
-    /* ── Secondary evidence path ── */
-    .evidence-path {
-      padding: 22px 0 0;
-      border-top: 1px solid #ebebeb;
-      display: flex; align-items: baseline; gap: 10px;
-      flex-wrap: wrap;
+    /* ── Phase connector ── */
+    .phase-connector {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 0 10px 24px;
     }
-    .ep-label {
-      font-size: 12px; color: #aaa;
+    .pc-line {
+      width: 1px; height: 28px; background: #d8d8d8;
+      flex-shrink: 0;
     }
-    .ep-link {
-      font-size: 12px; font-weight: 500; color: #666;
-      text-decoration: none;
+    .pc-text {
+      font-size: 11px; color: #bbb; white-space: nowrap;
     }
-    .ep-link:hover { color: #1a1a1a; text-decoration: underline; }
+
+    /* ── Path separator ── */
+    .path-sep {
+      display: flex; align-items: center; gap: 16px;
+      margin: 32px 0;
+    }
+    .path-sep::before,
+    .path-sep::after {
+      content: ''; flex: 1; height: 1px; background: #ebebeb;
+    }
+    .path-sep-text {
+      font-size: 11px; color: #ccc; letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
 
     /* ── Footer ── */
     .page-footer {
-      margin-top: 52px; padding-top: 20px;
+      margin-top: 44px; padding-top: 20px;
       border-top: 1px solid #ebebeb;
       font-size: 11px; color: #ccc;
     }
@@ -173,43 +187,70 @@
 
   <div class="page-title">Where would you like to start?</div>
 
-  <!-- 2 primary task cards -->
-  <div class="card-grid">
+  <!-- ═══ PATH A: New Module Design ═══ -->
+  <div class="path-block">
+    <span class="path-label">Designing a new module</span>
 
-    <a class="flow-card" href="design-wizard.html">
-      <div class="fc-num">01</div>
-      <div class="fc-title">Design New Module</div>
-      <div class="fc-desc">Build a module design document from scratch.</div>
-      <ol class="fc-steps">
+    <!-- Phase 1: Discovery & Context -->
+    <a class="phase-card phase-prep" href="gather-context.html">
+      <div class="phase-tag">Phase 1 — Discovery &amp; Context</div>
+      <div class="phase-title">Gather &amp; Synthesise Context</div>
+      <div class="phase-desc">Consolidate background inputs to inform your curriculum design. AI synthesises themes, gaps, and recommendations from your uploaded materials.</div>
+      <div class="source-tags">
+        <span class="source-tag">Industry feedback</span>
+        <span class="source-tag">Skills frameworks</span>
+        <span class="source-tag">Student surveys</span>
+        <span class="source-tag">Graduate data</span>
+        <span class="source-tag">Module evaluations</span>
+        <span class="source-tag">Benchmarking</span>
+        <span class="source-tag">Existing modules</span>
+      </div>
+      <div class="phase-cta">Begin Discovery →</div>
+    </a>
+
+    <!-- Connector -->
+    <div class="phase-connector">
+      <div class="pc-line"></div>
+      <div class="pc-text">then proceed to</div>
+    </div>
+
+    <!-- Phase 2: Design & Generate -->
+    <a class="phase-card phase-main" href="design-wizard.html">
+      <div class="phase-tag">Phase 2 — Design &amp; Generate</div>
+      <div class="phase-title">Design New Module</div>
+      <div class="phase-desc">Build a module design document from scratch.</div>
+      <ol class="phase-steps">
         <li>Define module intent &amp; context</li>
         <li>Set outcomes &amp; graduate competencies</li>
         <li>Generate module design document</li>
         <li>Generate teaching &amp; learning materials</li>
         <li>Review, align &amp; export</li>
       </ol>
-      <div class="fc-cta">Start Designing →</div>
+      <div class="phase-cta">Start Designing →</div>
     </a>
+  </div>
 
-    <a class="flow-card" href="refresh-align.html">
-      <div class="fc-num">02</div>
-      <div class="fc-title">Review &amp; Refresh Module</div>
-      <div class="fc-desc">Review an existing module to refresh curriculum content, strengthen alignment, and support evolving industry needs.</div>
-      <ol class="fc-steps">
+  <!-- ═══ Separator ═══ -->
+  <div class="path-sep">
+    <span class="path-sep-text">or</span>
+  </div>
+
+  <!-- ═══ PATH B: Review Existing ═══ -->
+  <div class="path-block">
+    <span class="path-label">Reviewing an existing module</span>
+
+    <a class="phase-card phase-main" href="refresh-align.html">
+      <div class="phase-title">Review &amp; Refresh Module</div>
+      <div class="phase-desc">Review an existing module to refresh curriculum content, strengthen alignment, and support evolving industry needs.</div>
+      <ol class="phase-steps">
         <li>Import or input existing module content</li>
         <li>Select review &amp; refresh areas</li>
         <li>Review analysis &amp; recommendations</li>
         <li>Refine and update module design</li>
         <li>Export updated module document</li>
       </ol>
-      <div class="fc-cta">Start Review →</div>
+      <div class="phase-cta">Start Review →</div>
     </a>
-
-  </div>
-
-  <!-- Secondary: evidence-based entry -->
-  <div class="evidence-path">
-    <span class="ep-label">Starting from a curriculum review, survey data, or benchmarking evidence?</span>
-    <a class="ep-link" href="gather-context.html">Gather &amp; analyse context first →</a>
   </div>
 
   <div class="page-footer">

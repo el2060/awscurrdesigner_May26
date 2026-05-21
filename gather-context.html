@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gather Context — NP AI Curriculum Platform</title>
+  <title>Gather Context — AI Curriculum Review &amp; Design</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,6 +39,7 @@
       flex-shrink: 0;
     }
     .ph-step.active { color: #1a1a1a; font-weight: 600; }
+    .ph-step.done { color: #888; }
     .ph-num {
       width: 20px; height: 20px;
       border: 1px solid #ccc;
@@ -50,15 +51,23 @@
     .ph-connector { width: 28px; height: 1px; background: #e0e0e0; margin: 0 8px; flex-shrink: 0; }
 
     /* ── Page ── */
-    .page { max-width: 760px; margin: 0 auto; padding: 52px 40px 40px; }
+    .page { max-width: 900px; margin: 0 auto; padding: 48px 40px 40px; }
     .page-title {
       font-size: 22px; font-weight: 700; color: #1a1a1a;
       letter-spacing: -0.02em; margin-bottom: 6px;
     }
-    .page-sub { font-size: 13px; color: #888; line-height: 1.65; margin-bottom: 40px; max-width: 520px; }
+    .page-sub { font-size: 13px; color: #888; line-height: 1.65; margin-bottom: 36px; max-width: 580px; }
+
+    /* ── Layout ── */
+    .layout { display: flex; gap: 28px; align-items: flex-start; }
+    .layout-main { flex: 1; min-width: 0; }
+    .layout-side {
+      width: 210px; flex-shrink: 0;
+      position: sticky; top: 100px;
+    }
 
     /* ── Upload zones ── */
-    .upload-zone-stack { display: flex; flex-direction: column; gap: 10px; }
+    .upload-zone-stack { display: flex; flex-direction: column; gap: 8px; }
 
     .upload-zone {
       border: 1px solid #e4e4e4;
@@ -66,23 +75,23 @@
     }
     .uz-header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 20px 0;
+      padding: 14px 18px 0;
     }
     .uz-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
     .uz-badge {
       font-size: 10px; font-weight: 600; color: #888;
       font-family: var(--font-mono);
       background: #f2f2f2; border: 1px solid #e4e4e4;
-      padding: 2px 7px;
+      padding: 2px 7px; flex-shrink: 0;
     }
-    .uz-desc { font-size: 12px; color: #aaa; padding: 4px 20px 12px; line-height: 1.5; }
+    .uz-desc { font-size: 11px; color: #aaa; padding: 3px 18px 10px; line-height: 1.5; }
     .uz-files {
       display: flex; flex-direction: column; gap: 0;
       border-top: 1px solid #f0f0f0;
     }
     .uz-file {
       display: flex; align-items: center; gap: 10px;
-      padding: 9px 20px;
+      padding: 8px 18px;
       border-bottom: 1px solid #f4f4f4;
       transition: background 80ms;
     }
@@ -103,32 +112,58 @@
       flex-shrink: 0; line-height: 1;
     }
     .uz-file-rm:hover { color: #888; }
-
     .uz-drop {
-      margin: 0 20px 16px;
+      margin: 0 18px 12px;
       border: 1px dashed #d8d8d8;
-      padding: 11px 16px;
-      font-size: 12px; color: #bbb;
+      padding: 9px 14px;
+      font-size: 11px; color: #bbb;
       text-align: center; cursor: pointer;
       transition: background 80ms;
       background: #fafafa;
     }
     .uz-drop:hover { background: #f2f2f2; color: #999; }
 
-    /* ── Summary sidebar ── */
-    .layout { display: flex; gap: 28px; align-items: flex-start; }
-    .layout-main { flex: 1; min-width: 0; }
-    .layout-side {
-      width: 200px; flex-shrink: 0;
+    /* ── AI Synthesis panel ── */
+    .ai-panel {
+      margin-top: 16px;
+      border: 1px solid #e4e4e4;
+      background: #fafafa;
+      padding: 18px 20px;
+    }
+    .ai-panel-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #aaa;
+      margin-bottom: 14px; display: block;
+    }
+    .ai-fn-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 7px;
+    }
+    .ai-fn-list li {
+      font-size: 12px; color: #666; line-height: 1.45;
+      display: flex; gap: 9px; align-items: flex-start;
+    }
+    .ai-fn-list li::before {
+      content: '→';
+      color: #bbb; flex-shrink: 0;
+      font-size: 11px; margin-top: 1px;
+    }
+
+    /* ── Sidebar ── */
+    .side-box {
       border: 1px solid #e4e4e4;
       padding: 16px;
-      position: sticky; top: 100px;
+      margin-bottom: 10px;
     }
-    .side-title { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #bbb; margin-bottom: 14px; }
+    .side-title {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #bbb;
+      margin-bottom: 14px; display: block;
+    }
     .side-row {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 6px 0; border-bottom: 1px solid #f0f0f0;
-      font-size: 12px; color: #666;
+      padding: 5px 0; border-bottom: 1px solid #f0f0f0;
+      font-size: 11px; color: #666;
     }
     .side-row:last-child { border-bottom: none; }
     .side-count {
@@ -136,12 +171,32 @@
       font-family: var(--font-mono);
     }
     .side-total {
-      margin-top: 14px; padding-top: 10px;
+      margin-top: 12px; padding-top: 10px;
       border-top: 1px solid #e4e4e4;
       display: flex; justify-content: space-between;
       font-size: 12px; color: #888;
     }
     .side-total-num { font-weight: 700; color: #1a1a1a; }
+    .side-next {
+      border: 1px solid #e4e4e4;
+      padding: 14px 16px;
+      background: #fff;
+    }
+    .side-next-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #bbb;
+      margin-bottom: 10px; display: block;
+    }
+    .side-next-item {
+      font-size: 11px; color: #888; line-height: 1.5;
+      padding: 4px 0; border-bottom: 1px solid #f4f4f4;
+      display: flex; gap: 7px; align-items: flex-start;
+    }
+    .side-next-item:last-child { border-bottom: none; }
+    .side-next-item::before {
+      content: '·';
+      color: #ccc; flex-shrink: 0;
+    }
 
     /* ── Bottom bar ── */
     .bottom-bar {
@@ -206,8 +261,8 @@
 <!-- Page -->
 <main class="page">
 
-  <div class="page-title">Gather Context</div>
-  <div class="page-sub">Upload and consolidate the materials that inform your curriculum decisions. AI will extract key themes, gaps, and recommendations in the next step.</div>
+  <div class="page-title">Gather &amp; Synthesise Context</div>
+  <div class="page-sub">Upload the background materials that will inform your module design. Consolidate inputs across industry, student, and institutional sources — AI will analyse and synthesise key themes, gaps, and recommendations in the next step.</div>
 
   <div class="layout">
 
@@ -215,13 +270,91 @@
     <div class="layout-main">
       <div class="upload-zone-stack">
 
-        <!-- 1. Review reports -->
+        <!-- 1. Industry & Employer Inputs -->
         <div class="upload-zone">
           <div class="uz-header">
-            <div class="uz-title">Curriculum Review &amp; Evaluation Reports</div>
+            <div class="uz-title">Industry &amp; Employer Inputs</div>
             <div class="uz-badge">2 files</div>
           </div>
-          <div class="uz-desc">Annual module reviews, course evaluation summaries, external review feedback.</div>
+          <div class="uz-desc">Industry advisory panel feedback, employer interviews and surveys, professional body guidelines, job role analyses.</div>
+          <div class="uz-files">
+            <div class="uz-file">
+              <span class="uz-file-ext">PDF</span>
+              <span class="uz-file-name">IndustryAdvisoryPanel_Notes_May2025.pdf</span>
+              <span class="uz-file-size">860 KB</span>
+              <button class="uz-file-rm" onclick="removeFile(this)">×</button>
+            </div>
+            <div class="uz-file">
+              <span class="uz-file-ext">XLSX</span>
+              <span class="uz-file-name">Employer_Survey_ICT_2024.xlsx</span>
+              <span class="uz-file-size">340 KB</span>
+              <button class="uz-file-rm" onclick="removeFile(this)">×</button>
+            </div>
+          </div>
+          <div class="uz-drop" onclick="addFile(this, 'PDF')">+ Add file</div>
+        </div>
+
+        <!-- 2. Skills Frameworks & Standards -->
+        <div class="upload-zone">
+          <div class="uz-header">
+            <div class="uz-title">Skills Frameworks &amp; Standards</div>
+            <div class="uz-badge">2 files</div>
+          </div>
+          <div class="uz-desc">SSG/SkillsFuture framework updates, NPGC competency maps, accreditation and professional body requirements.</div>
+          <div class="uz-files">
+            <div class="uz-file">
+              <span class="uz-file-ext">PDF</span>
+              <span class="uz-file-name">SSG_ICT_Skills_Framework_2024.pdf</span>
+              <span class="uz-file-size">3.4 MB</span>
+              <button class="uz-file-rm" onclick="removeFile(this)">×</button>
+            </div>
+            <div class="uz-file">
+              <span class="uz-file-ext">PDF</span>
+              <span class="uz-file-name">NP_NPGC_Competency_Framework.pdf</span>
+              <span class="uz-file-size">1.1 MB</span>
+              <button class="uz-file-rm" onclick="removeFile(this)">×</button>
+            </div>
+          </div>
+          <div class="uz-drop" onclick="addFile(this, 'PDF')">+ Add file</div>
+        </div>
+
+        <!-- 3. Graduate & Student Data -->
+        <div class="upload-zone">
+          <div class="uz-header">
+            <div class="uz-title">Graduate &amp; Student Data</div>
+            <div class="uz-badge">3 files</div>
+          </div>
+          <div class="uz-desc">Graduate employment and tracer study data, student satisfaction surveys, learning analytics and student performance data.</div>
+          <div class="uz-files">
+            <div class="uz-file">
+              <span class="uz-file-ext">XLSX</span>
+              <span class="uz-file-name">Graduate_Employment_Survey_2024.xlsx</span>
+              <span class="uz-file-size">510 KB</span>
+              <button class="uz-file-rm" onclick="removeFile(this)">×</button>
+            </div>
+            <div class="uz-file">
+              <span class="uz-file-ext">XLSX</span>
+              <span class="uz-file-name">Student_Feedback_Sem2_AY2425.xlsx</span>
+              <span class="uz-file-size">320 KB</span>
+              <button class="uz-file-rm" onclick="removeFile(this)">×</button>
+            </div>
+            <div class="uz-file">
+              <span class="uz-file-ext">XLSX</span>
+              <span class="uz-file-name">LearningAnalytics_ICT2001_AY2425.xlsx</span>
+              <span class="uz-file-size">240 KB</span>
+              <button class="uz-file-rm" onclick="removeFile(this)">×</button>
+            </div>
+          </div>
+          <div class="uz-drop" onclick="addFile(this, 'XLSX')">+ Add file</div>
+        </div>
+
+        <!-- 4. Module Evaluation & Review Reports -->
+        <div class="upload-zone">
+          <div class="uz-header">
+            <div class="uz-title">Module Evaluation &amp; Review Reports</div>
+            <div class="uz-badge">2 files</div>
+          </div>
+          <div class="uz-desc">Annual module review reports, module evaluation feedback, end-of-module surveys, lecturer reflections and teaching notes.</div>
           <div class="uz-files">
             <div class="uz-file">
               <span class="uz-file-ext">PDF</span>
@@ -231,7 +364,7 @@
             </div>
             <div class="uz-file">
               <span class="uz-file-ext">DOCX</span>
-              <span class="uz-file-name">SIDM_Curriculum_Evaluation_2024.docx</span>
+              <span class="uz-file-name">ModuleEvaluation_ICT2001_Sem2_2425.docx</span>
               <span class="uz-file-size">640 KB</span>
               <button class="uz-file-rm" onclick="removeFile(this)">×</button>
             </div>
@@ -239,31 +372,13 @@
           <div class="uz-drop" onclick="addFile(this, 'PDF')">+ Add file</div>
         </div>
 
-        <!-- 2. Student feedback -->
+        <!-- 5. Curriculum Benchmarking & Market Trends -->
         <div class="upload-zone">
           <div class="uz-header">
-            <div class="uz-title">Student Feedback &amp; Survey Data</div>
-            <div class="uz-badge">1 file</div>
+            <div class="uz-title">Curriculum Benchmarking &amp; Market Trends</div>
+            <div class="uz-badge">2 files</div>
           </div>
-          <div class="uz-desc">Student satisfaction surveys, focus group notes, end-of-module feedback.</div>
-          <div class="uz-files">
-            <div class="uz-file">
-              <span class="uz-file-ext">XLSX</span>
-              <span class="uz-file-name">Student_Feedback_Sem2_AY2425.xlsx</span>
-              <span class="uz-file-size">320 KB</span>
-              <button class="uz-file-rm" onclick="removeFile(this)">×</button>
-            </div>
-          </div>
-          <div class="uz-drop" onclick="addFile(this, 'XLSX')">+ Add file</div>
-        </div>
-
-        <!-- 3. Industry benchmarking -->
-        <div class="upload-zone">
-          <div class="uz-header">
-            <div class="uz-title">Industry &amp; Employer Benchmarking</div>
-            <div class="uz-badge">1 file</div>
-          </div>
-          <div class="uz-desc">Employer surveys, industry reports, job role analyses, skills demand data.</div>
+          <div class="uz-desc">Local and global benchmarking studies, comparable programme curricula, emerging technology reports, AI and future skills trends.</div>
           <div class="uz-files">
             <div class="uz-file">
               <span class="uz-file-ext">PDF</span>
@@ -271,17 +386,23 @@
               <span class="uz-file-size">2.1 MB</span>
               <button class="uz-file-rm" onclick="removeFile(this)">×</button>
             </div>
+            <div class="uz-file">
+              <span class="uz-file-ext">PDF</span>
+              <span class="uz-file-name">GlobalCurriculum_Benchmarking_CS_2025.pdf</span>
+              <span class="uz-file-size">1.8 MB</span>
+              <button class="uz-file-rm" onclick="removeFile(this)">×</button>
+            </div>
           </div>
           <div class="uz-drop" onclick="addFile(this, 'PDF')">+ Add file</div>
         </div>
 
-        <!-- 4. Existing modules -->
+        <!-- 6. Existing Module Documents -->
         <div class="upload-zone">
           <div class="uz-header">
             <div class="uz-title">Existing Module Documents</div>
             <div class="uz-badge">3 files</div>
           </div>
-          <div class="uz-desc">Current module design documents, syllabi, assessment briefs, lesson plans.</div>
+          <div class="uz-desc">Current module design documents (MDDs), syllabi, assessment briefs, and assessment sample exemplars.</div>
           <div class="uz-files">
             <div class="uz-file">
               <span class="uz-file-ext">XLSX</span>
@@ -305,60 +426,68 @@
           <div class="uz-drop" onclick="addFile(this, 'XLSX')">+ Add file</div>
         </div>
 
-        <!-- 5. Skills frameworks -->
-        <div class="upload-zone">
-          <div class="uz-header">
-            <div class="uz-title">Skills Frameworks &amp; Standards</div>
-            <div class="uz-badge">2 files</div>
-          </div>
-          <div class="uz-desc">SSG/SkillsFuture frameworks, NPGC competency maps, industry standards references.</div>
-          <div class="uz-files">
-            <div class="uz-file">
-              <span class="uz-file-ext">PDF</span>
-              <span class="uz-file-name">SSG_ICT_Skills_Framework_2024.pdf</span>
-              <span class="uz-file-size">3.4 MB</span>
-              <button class="uz-file-rm" onclick="removeFile(this)">×</button>
-            </div>
-            <div class="uz-file">
-              <span class="uz-file-ext">PDF</span>
-              <span class="uz-file-name">NP_NPGC_Competency_Framework.pdf</span>
-              <span class="uz-file-size">1.1 MB</span>
-              <button class="uz-file-rm" onclick="removeFile(this)">×</button>
-            </div>
-          </div>
-          <div class="uz-drop" onclick="addFile(this, 'PDF')">+ Add file</div>
-        </div>
-
       </div>
+
+      <!-- AI Synthesis panel -->
+      <div class="ai-panel">
+        <span class="ai-panel-label">AI will synthesise these inputs to</span>
+        <ul class="ai-fn-list">
+          <li>Identify key themes and recurring patterns across all uploaded sources</li>
+          <li>Surface skill gaps relative to current industry expectations and job market demands</li>
+          <li>Map competency requirements to the NP Graduate Competencies (NPGC) framework</li>
+          <li>Highlight curriculum misalignments, outdated content, and coverage gaps</li>
+          <li>Benchmark the module against comparable local and global programmes</li>
+          <li>Flag emerging skills, technologies, and evolving industry requirements</li>
+          <li>Generate a structured Context Brief with prioritised recommendations for module design</li>
+        </ul>
+      </div>
+
     </div>
 
-    <!-- Summary sidebar -->
+    <!-- Sidebar -->
     <div class="layout-side">
-      <div class="side-title">Materials gathered</div>
-      <div class="side-row">
-        <span>Review reports</span>
-        <span class="side-count" id="cnt-0">2</span>
+
+      <div class="side-box">
+        <span class="side-title">Materials gathered</span>
+        <div class="side-row">
+          <span>Industry &amp; employer</span>
+          <span class="side-count" id="cnt-0">2</span>
+        </div>
+        <div class="side-row">
+          <span>Skills frameworks</span>
+          <span class="side-count" id="cnt-1">2</span>
+        </div>
+        <div class="side-row">
+          <span>Graduate &amp; student</span>
+          <span class="side-count" id="cnt-2">3</span>
+        </div>
+        <div class="side-row">
+          <span>Module evaluations</span>
+          <span class="side-count" id="cnt-3">2</span>
+        </div>
+        <div class="side-row">
+          <span>Benchmarking</span>
+          <span class="side-count" id="cnt-4">2</span>
+        </div>
+        <div class="side-row">
+          <span>Module documents</span>
+          <span class="side-count" id="cnt-5">3</span>
+        </div>
+        <div class="side-total">
+          <span>Total</span>
+          <span class="side-total-num" id="cnt-total">14 files</span>
+        </div>
       </div>
-      <div class="side-row">
-        <span>Student feedback</span>
-        <span class="side-count" id="cnt-1">1</span>
+
+      <div class="side-next">
+        <span class="side-next-label">Next step</span>
+        <div class="side-next-item">AI extracts themes &amp; patterns</div>
+        <div class="side-next-item">Skill gaps identified</div>
+        <div class="side-next-item">NPGC competency mapping</div>
+        <div class="side-next-item">Recommendations generated</div>
+        <div class="side-next-item">Context Brief produced</div>
       </div>
-      <div class="side-row">
-        <span>Industry benchmarks</span>
-        <span class="side-count" id="cnt-2">1</span>
-      </div>
-      <div class="side-row">
-        <span>Module docs</span>
-        <span class="side-count" id="cnt-3">3</span>
-      </div>
-      <div class="side-row">
-        <span>Skills frameworks</span>
-        <span class="side-count" id="cnt-4">2</span>
-      </div>
-      <div class="side-total">
-        <span>Total</span>
-        <span class="side-total-num" id="cnt-total">9 files</span>
-      </div>
+
     </div>
 
   </div>
@@ -367,7 +496,7 @@
 
 <!-- Bottom bar -->
 <div class="bottom-bar">
-  <div class="bb-note" id="bb-note">9 files across 5 categories · Ready to analyse</div>
+  <div class="bb-note" id="bb-note">14 files across 6 categories · Ready to analyse</div>
   <div class="bb-actions">
     <a href="index.html" class="btn-ghost">← Back</a>
     <a href="analyse-synthesise.html" class="btn-primary">Run Analysis →</a>
@@ -375,18 +504,18 @@
 </div>
 
 <script>
-  // Track counts per zone
-  const counts = [2, 1, 1, 3, 2];
-  const sideLabels = ['cnt-0','cnt-1','cnt-2','cnt-3','cnt-4'];
+  // Track counts per zone (6 zones)
+  const counts = [2, 2, 3, 2, 2, 3];
+  const sideIds = ['cnt-0','cnt-1','cnt-2','cnt-3','cnt-4','cnt-5'];
 
   function updateTotals() {
     let total = counts.reduce((a, b) => a + b, 0);
-    sideLabels.forEach((id, i) => {
+    sideIds.forEach((id, i) => {
       document.getElementById(id).textContent = counts[i];
     });
     document.getElementById('cnt-total').textContent = total + ' files';
-    document.getElementById('bb-note').textContent = total + ' files across 5 categories · Ready to analyse';
-    // Update zone badges
+    const cats = counts.filter(c => c > 0).length;
+    document.getElementById('bb-note').textContent = total + ' file' + (total !== 1 ? 's' : '') + ' across ' + cats + ' categor' + (cats !== 1 ? 'ies' : 'y') + ' · Ready to analyse';
     document.querySelectorAll('.upload-zone').forEach((zone, i) => {
       zone.querySelector('.uz-badge').textContent = counts[i] + ' file' + (counts[i] !== 1 ? 's' : '');
     });
@@ -412,9 +541,9 @@
     const files = zone.querySelector('.uz-files');
     const idx = getZoneIndex(dropZone);
     const names = {
-      PDF: 'New_Document_' + (counts[idx]+1) + '.pdf',
-      XLSX: 'New_Spreadsheet_' + (counts[idx]+1) + '.xlsx',
-      DOCX: 'New_Document_' + (counts[idx]+1) + '.docx',
+      PDF: 'New_Document_' + (counts[idx] + 1) + '.pdf',
+      XLSX: 'New_Spreadsheet_' + (counts[idx] + 1) + '.xlsx',
+      DOCX: 'New_Document_' + (counts[idx] + 1) + '.docx',
     };
     const sizes = { PDF: '480 KB', XLSX: '120 KB', DOCX: '95 KB' };
     const row = document.createElement('div');
