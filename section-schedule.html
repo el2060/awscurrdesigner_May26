@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Topics & Schedule — ICT1234 | NP AI Curriculum Designer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .sched-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .sched-table th {
+      padding: 10px 12px; font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--color-text-secondary); background: var(--color-surface);
+      border: 1px solid var(--color-border); white-space: nowrap;
+    }
+    .sched-table td { padding: 6px 8px; border: 1px solid var(--color-border); vertical-align: top; }
+    .sched-table tr.break-row td { background: var(--color-surface); }
+    .week-num {
+      width: 44px; text-align: center; font-family: var(--font-mono); font-size: 12px;
+      font-weight: 600; color: var(--color-text-secondary); padding-top: 10px !important;
+    }
+    .break-label {
+      font-style: italic; color: var(--color-text-tertiary); font-size: 13px;
+      padding: 10px 12px !important; text-align: center;
+    }
+    .sched-input {
+      width: 100%; border: none; background: transparent; font-family: inherit;
+      font-size: 13px; color: var(--color-text-primary); padding: 4px 6px;
+      border-radius: var(--radius-sm); resize: none; line-height: 1.5;
+      transition: background var(--transition-fast), border var(--transition-fast);
+      min-height: 32px;
+    }
+    .sched-input:hover { background: var(--color-surface); }
+    .sched-input:focus { outline: none; background: white; box-shadow: none; border: 1px solid #888; }
+    .week-badge {
+      display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 6px;
+      border-radius: var(--radius-full); margin-left: 6px; vertical-align: middle;
+    }
+    .week-badge.ct { background: var(--color-warning-light); color: var(--color-warning); }
+    .week-badge.recess { background: var(--color-surface); color: var(--color-text-tertiary); border: 1px solid var(--color-border); }
+    .week-badge.exam { background: var(--color-danger-light); color: var(--color-danger); }
+    .week-badge.asst { background: var(--color-accent-light); color: var(--color-accent); }
+    .sched-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--space-4); gap: var(--space-3);
+    }
+    .sched-stats { display: flex; gap: var(--space-5); }
+    .sched-stat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .sched-stat-num { font-size: 20px; font-weight: 700; color: var(--color-text-primary); }
+    .sched-stat-label { font-size: 11px; color: var(--color-text-secondary); }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar-logo" style="text-decoration:none;"><img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:26px; width:auto;"></a>
+  <div class="topbar-divider"></div>
+  <span class="topbar-module-title">ICT1234 — Data Structures &amp; Algorithms</span>
+  <div class="topbar-actions">
+    <span class="topbar-status-badge">Draft</span>
+    <button class="btn btn-secondary btn-sm" id="save-draft-btn">Save Draft</button>
+    <a href="review-export.html" class="btn btn-primary btn-sm" style="text-decoration:none;">Preview MDD →</a>
+    <div class="topbar-avatar">ML</div>
+  </div>
+</header>
+
+<div class="app-shell" style="grid-template-rows:unset;">
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-back">← Dashboard</a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-module-info">
+      <div class="sidebar-module-code">ICT1234 · ELE</div>
+      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-meta">L2 · SIDM · 4 CU</div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Sections</div>
+    <a href="mdd-editor.html" class="sidebar-nav-item">Module Overview<span class="sidebar-status-icon done">✓</span></a>
+    <a href="section-synopsis.html" class="sidebar-nav-item">Synopsis &amp; Skills<span class="sidebar-status-icon done">✓</span></a>
+    <a href="section-outcomes.html" class="sidebar-nav-item">Learning Outcomes<span class="sidebar-status-icon active">◉</span></a>
+    <a href="section-schedule.html" class="sidebar-nav-item active">Topics &amp; Schedule<span class="sidebar-status-icon active">◉</span></a>
+    <a href="section-tls.html" class="sidebar-nav-item">T&amp;L Strategies<span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span></a>
+    <a href="section-assessment.html" class="sidebar-nav-item">Assessment<span class="sidebar-status-icon warn">⚠</span></a>
+    <a href="section-service.html" class="sidebar-nav-item">Service-Learning<span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span></a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Cross-cutting checks</div>
+    <a href="section-comms-alignment.html" class="sidebar-nav-item">Comms Alignment<span class="sidebar-status-icon warn">⚠</span></a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-footer">
+      <div>
+        <div class="progress-label"><span>Completion</span><span class="font-600" style="color:var(--color-accent)">3 / 7</span></div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:43%"></div></div>
+      </div>
+      <button class="btn btn-secondary btn-sm w-full" style="justify-content:center;">AI Check</button>
+      <a href="review-export.html" class="btn btn-secondary btn-sm w-full" style="justify-content:center;text-decoration:none;text-align:center;">Preview &amp; Export</a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="content-inner">
+      <div class="breadcrumb">
+        <a href="index.html">Dashboard</a><span class="breadcrumb-sep">/</span>
+        <a href="mdd-editor.html">ICT1234</a><span class="breadcrumb-sep">/</span>
+        <span>Topics &amp; Schedule</span>
+      </div>
+
+      <div class="section-header">
+        <div class="section-header-left">
+          <div class="section-number">Sections 6 – 7</div>
+          <div class="section-title">Topics &amp; Weekly Schedule</div>
+          <div class="section-description">Plan the 17-week teaching schedule. Break weeks and exam week are pre-set. Click any cell to edit inline.</div>
+        </div>
+        <div class="section-header-actions">
+          <button class="btn-draft-ai" id="generate-schedule-btn"><span class="sparkle">✦</span> Generate with AI</button>
+        </div>
+      </div>
+
+      <!-- Stats bar -->
+      <div class="card mb-6" style="padding:var(--space-4) var(--space-5);">
+        <div class="sched-toolbar">
+          <div class="sched-stats">
+            <div class="sched-stat">
+              <div class="sched-stat-num" id="filled-count">14</div>
+              <div class="sched-stat-label">Weeks filled</div>
+            </div>
+            <div class="sched-stat">
+              <div class="sched-stat-num">3</div>
+              <div class="sched-stat-label">Break / exam weeks</div>
+            </div>
+            <div class="sched-stat">
+              <div class="sched-stat-num">51</div>
+              <div class="sched-stat-label">Total contact hrs</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:var(--space-2); align-items:center;">
+            <span style="font-size:12px; color:var(--color-text-tertiary);">Legend:</span>
+            <span class="week-badge ct">CT</span>
+            <span class="week-badge recess">Recess</span>
+            <span class="week-badge exam">Exam</span>
+            <span class="week-badge asst">Assessment</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Schedule table -->
+      <div class="table-wrapper" id="schedule-container">
+        <table class="sched-table" id="schedule-table">
+          <thead>
+            <tr>
+              <th style="width:50px;">Week</th>
+              <th style="width:35%;">Topic</th>
+              <th>Sub-topics / Activities</th>
+              <th style="width:70px; text-align:center;">Hrs</th>
+            </tr>
+          </thead>
+          <tbody id="schedule-body">
+            <tr>
+              <td class="week-num">1</td>
+              <td><textarea class="sched-input" rows="2">Module Introduction &amp; Python Review</textarea></td>
+              <td><textarea class="sched-input" rows="2">Module overview, assessment briefing, revision of Python basics, IDE setup, GitHub orientation</textarea></td>
+              <td><input type="number" class="sched-input" style="text-align:center;width:100%;" value="3" min="0" max="10"></td>
+            </tr>
+            <tr>
+              <td class="week-num">2</td>
+              <td><textarea class="sched-input" rows="2">Arrays &amp; Dynamic Arrays</textarea></td>
+              <td><textarea class="sched-input" rows="2">Array operations, time complexity, Python lists, amortised analysis, lab: array manipulation</textarea></td>
+              <td><input type="number" class="sched-input" style="text-align:center;width:100%;" value="3" min="0" max="10"></td>
+            </tr>
+            <tr>
+              <td class="week-num">3</td>
+              <td><textarea class="sched-input" rows="2">Linked Lists</textarea></td>
+              <td><textarea class="sched-input" rows="2">Singly &amp; doubly linked lists, insertion, deletion, traversal; comparison with arrays; lab exercise</textarea></td>
+              <td><input type="number" class="sched-input" style="text-align:center;width:100%;" value="3" min="0" max="10"></td>
+            </tr>
+            <tr>
+              <td class="week-num">4</td>
+              <td><textarea class="sched-input" rows="2">Stacks &amp; Queues</textarea></td>
+              <td><textarea class="sched-input" rows="2">Stack/queue ADTs, implementations, real-world applications (expression parsing, task scheduling)</textarea></td>
+              <td><input type="number" class="sched-input" style="text-align:center;width:100%;" value="3" min="0" max="10"></td>
+            </tr>
+            <tr>
+              <td class="week-num">5</td>
+              <td><textarea class="sched-input" rows="2">Recursion &amp; Recursive Algorithms</textarea></td>
+              <td><textarea class="sched-input" rows="2">Recursion principles, base cases, recursive vs iterative solutions, call stack visualisation</textarea></td>
+              <td><input type="number" class="sched-input" style="text-align:center;width:100%;" value="3" min="0" max="10"></td>
+            </tr>
+            <tr>
+              <td class="week-num">6</td>
+              <td><textarea class="sched-input" rows="2">Sorting Algorithms I</textarea></td>
+              <td><textarea class="sched-input" rows="2">Bubble, selection, insertion sort — implementation, trace through, Big-O analysis; Assignment 1 briefing</textarea></td>
+              <td><input type="number" class="sched-input" style="text-align:center;width:100%;" value="3" min="0" max="10"></td>
+            </tr>
+            <tr>
+              <td class="week-num">7</td>
+              <td>
+                <textarea class="sched-input" rows="2">Sorting Algorithms II</textarea>
+                <span class="week-badge asst">Assignment 1 Due</span>
+              </td>
+              <td><textarea class="sched-input" rows="2">Merge sort, quicksort; algorithm comparison; Assignment 1 submission and peer review setup</textarea></td>
+              <td><input type="number" class="sched-input" style="text-align:center;width:100%;" value="3" min="0" max="10"></td>
+            </tr>
+            <tr class="break-row">
+              <td class="week-num" style="color:var(--color-warning);">8</td>
+              <td colspan="2" class="break-label"><span class="week-badge ct">Common Test Week</span> — In-class test covering Weeks 1–7</td>
+              <td style="text-align:center; color:var(--color-text-tertiary); font-size:12px; padding-top:10px !important;">—</td>
+            </tr>
+            <tr class="break-row">
+              <td class="week-num" style="color:var(--color-text-tertiary);">9</td>
+              <td colspan="2" class="break-label"><span class="week-badge recess">Recess Week</span></td>
+              <td style="text-align:center; color:var(--color-text-tertiary); font-size:12px; padding-top:10px !important;">—</td>
+            </tr>
+            <tr class="break-row">
+              <td class="week-num" style="color:var(--color-text-tertiary);">10</td>
+              <td colspan="2" class="break-label"><span class="week-badge recess">Recess Week</span></td>
+              <td style="text-align:center; color:var(--color-text-tertiary); font-size:12px; padding-top:10px !important;">—</td>
+            </tr>
+            <tr>
+              <td class="week-num">11</td>
+              <td><textarea class="sched-input" rows="2">Binary Trees &amp; BST</textarea></td>
+              <td><textarea class="sched-input" rows="2">Tree terminology, binary tree traversals (in/pre/post-order), BST insert/search/delete operations</textarea></td>
+              <td><input type="number" class="sched-input" style="text-align:center;width:100%;" value="3" min="0" max="10"></td>
+            </tr>
+            <tr>
+              <td class="week-num">12</td>
+              <td><textarea class="sched-input" rows="2">Balanced Trees &amp; Heaps</textarea></td>
+              <td><textarea class="sched-input" rows="2">AVL trees overview, heaps, priority queues, heap sort; Assignment 2 briefing</textarea></td>
+              <td><input type="number" class="sched-input" style="text-align:center;width:100%;" value="3" min="0" max="10"></td>
+            </tr>
+            <tr>
+              <td class="week-num">13</td>
+              <td><textarea class="sched-input" rows="2">Hash Tables</textarea></td>
+              <td><textarea class="sched-input" rows="2">Hashing concepts, collision resolution (chaining, open addressing), Python dict internals, lab</textarea></td>
+              <td><input type="number" class="sched-input" style="text-align:center;width:100%;" value="3" min="0" max="10"></td>
+            </tr>
+            <tr>
+              <td class="week-num">14</td>
+              <td><textarea class="sched-input" rows="2">Graphs: Representations &amp; Traversals</textarea></td>
+              <td><textarea class="sched-input" rows="2">Adjacency matrix/list, BFS, DFS; applications in social networks, routing; lab exercise</textarea></td>
+              <td><input type="number" class="sched-input" style="text-align:center;width:100%;" value="3" min="0" max="10"></td>
+            </tr>
+            <tr>
+              <td class="week-num">15</td>
+              <td>
+                <textarea class="sched-input" rows="2">Shortest Path Algorithms</textarea>
+                <span class="week-badge asst">Assignment 2 Due</span>
+              </td>
+              <td><textarea class="sched-input" rows="2">Dijkstra's algorithm, Bellman-Ford overview, practical applications; Assignment 2 submission</textarea></td>
+              <td><input type="number" class="sched-input" style="text-align:center;width:100%;" value="3" min="0" max="10"></td>
+            </tr>
+            <tr>
+              <td class="week-num">16</td>
+              <td><textarea class="sched-input" rows="2">Project Presentations &amp; Module Revision</textarea></td>
+              <td><textarea class="sched-input" rows="2">Assignment 2 presentations, module recap, exam preparation Q&amp;A, feedback session</textarea></td>
+              <td><input type="number" class="sched-input" style="text-align:center;width:100%;" value="3" min="0" max="10"></td>
+            </tr>
+            <tr class="break-row">
+              <td class="week-num" style="color:var(--color-danger);">17</td>
+              <td colspan="2" class="break-label"><span class="week-badge exam">Exam Week</span> — Final examination</td>
+              <td style="text-align:center; color:var(--color-text-tertiary); font-size:12px; padding-top:10px !important;">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- AI suggestion area -->
+      <div id="ai-schedule-suggestion" class="mt-4"></div>
+
+      <!-- Nav footer -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding-top:var(--space-6); border-top:1px solid var(--color-border); margin-top:var(--space-6);">
+        <a href="section-outcomes.html" class="btn btn-secondary" style="text-decoration:none;">← Learning Outcomes</a>
+        <div style="display:flex; gap:var(--space-3);">
+          <button class="btn btn-secondary" id="save-footer">Save</button>
+          <a href="section-tls.html" class="btn btn-primary" style="text-decoration:none;">Next: T&amp;L Strategies →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="ai-sidebar" id="ai-sidebar">
+    <div class="ai-sidebar-header">
+      <div class="ai-sidebar-title"><span class="ai-icon">✦</span> AI Assistant</div>
+      <button class="btn btn-ghost btn-sm btn-icon" id="ai-sidebar-close">×</button>
+    </div>
+    <div class="ai-sidebar-body">
+      <div class="ai-suggestion-card">
+        <div class="ai-suggestion-header"><span class="sparkle">✦</span><span class="ai-suggestion-label">Schedule Tip</span></div>
+        <div class="ai-suggestion-body">Your assessment week is in Week 8, but <strong>Week 7</strong> currently has no consultation or revision time. Consider replacing Week 7's topic with a revision/lab session before the test.</div>
+        <div class="ai-suggestion-actions">
+          <button class="btn btn-primary btn-sm" id="update-w7-btn">Update Week 7</button>
+          <span class="ai-suggestion-dismiss" onclick="this.closest('.ai-suggestion-card').remove()">Dismiss ×</span>
+        </div>
+      </div>
+      <div id="ai-messages" class="ai-chat-messages">
+        <div class="ai-chat-bubble assistant">I can help structure your 17 weeks. Try: <em>"How should I pace a Data Structures module?"</em> or <em>"What topics should go in week 12?"</em></div>
+      </div>
+    </div>
+    <div class="ai-sidebar-footer">
+      <div class="prompt-chip-strip">
+        <div class="prompt-chip-strip-label">✦ Try a prompt</div>
+        <button class="prompt-chip">Generate a 17-week breakdown</button>
+        <button class="prompt-chip">Add a project sprint mid-sem</button>
+        <button class="prompt-chip">Balance theory vs practical</button>
+        <button class="prompt-chip">Align topics to MOs</button>
+      </div>
+      <div class="ai-chat-input-row">
+        <textarea class="ai-chat-input" id="ai-input" placeholder="Ask about the schedule…" rows="1"></textarea>
+        <button class="ai-chat-send" id="ai-send">↑</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<button class="ai-fab" id="ai-fab">✦</button>
+
+<script type="module">
+  import { MOCK_DATA, showSuggestion, initAIChat, initSaveDraft, showToast } from './ai-assistant.js';
+  initAIChat();
+  initSaveDraft('save-draft-btn');
+  initSaveDraft('save-footer');
+
+  document.querySelectorAll('.prompt-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const input = document.getElementById('ai-input');
+      if (input) { input.value = chip.textContent.trim(); input.focus(); }
+    });
+  });
+
+  // Generate schedule with AI
+  document.getElementById('generate-schedule-btn').addEventListener('click', () => {
+    const area = document.getElementById('ai-schedule-suggestion');
+    area.innerHTML = '';
+    showSuggestion(area, {
+      label: '✦ AI Generated Schedule',
+      body: 'I\'ve prepared a 17-week topic plan for <strong>Data Structures & Algorithms</strong> based on your learning outcomes, with common test in Week 8, recess in Weeks 9–10, and final exam in Week 17. The schedule progressively builds from linear to non-linear structures.',
+      variant: 'blue',
+      onAccept: () => {
+        // Animate re-filling the editable rows
+        const editableRows = document.querySelectorAll('#schedule-body tr:not(.break-row)');
+        const schedData = MOCK_DATA.schedule.filter(w => !w.isBreak);
+        editableRows.forEach((row, i) => {
+          const data = schedData[i];
+          if (!data) return;
+          setTimeout(() => {
+            const inputs = row.querySelectorAll('textarea');
+            if (inputs[0]) { inputs[0].value = ''; setTimeout(() => { inputs[0].value = data.topic; }, 50); }
+            if (inputs[1]) { inputs[1].value = ''; setTimeout(() => { inputs[1].value = data.subtopics; }, 100); }
+            row.style.animation = 'none';
+            row.offsetHeight;
+            row.style.animation = 'row-appear 250ms ease';
+          }, i * 80);
+        });
+        area.innerHTML = '';
+        showToast('✓ Schedule generated — edit any cell to customise');
+      },
+      onEdit: true
+    });
+  });
+
+  // Update Week 7 suggestion
+  document.getElementById('update-w7-btn')?.addEventListener('click', () => {
+    const rows = document.querySelectorAll('#schedule-body tr:not(.break-row)');
+    if (rows[6]) {
+      const inputs = rows[6].querySelectorAll('textarea');
+      if (inputs[0]) inputs[0].value = 'Revision &amp; Consultation Session';
+      if (inputs[1]) inputs[1].value = 'Review of Weeks 1–6 content; Q&A for Common Test; lab practice on sorting algorithms';
+    }
+    document.querySelector('.ai-suggestion-card')?.remove();
+    showToast('✓ Week 7 updated');
+  });
+</script>
+</body>
+</html>

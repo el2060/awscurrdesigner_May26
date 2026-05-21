@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NP AI Curriculum Designer — Ngee Ann Polytechnic</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background: #fff;
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+
+    /* ── Topbar ── */
+    .topbar {
+      height: 52px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex; align-items: center;
+      padding: 0 40px;
+      background: #fff;
+    }
+    .topbar-brand {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 600; color: #1a1a1a;
+      letter-spacing: -0.01em; text-decoration: none;
+    }
+    .topbar-brand-mark {
+      width: 24px; height: 24px;
+      background: #1a1a1a; color: #fff;
+      font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      letter-spacing: 0;
+    }
+    .topbar-divider {
+      width: 1px; height: 16px; background: #e0e0e0; margin: 0 4px;
+    }
+    .topbar-sub {
+      font-size: 12px; font-weight: 400; color: #999;
+    }
+    .topbar-right {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .topbar-link {
+      font-size: 12px; color: #888; cursor: pointer;
+      text-decoration: none;
+    }
+    .topbar-link:hover { color: #1a1a1a; }
+    .topbar-avatar {
+      width: 28px; height: 28px;
+      border: 1px solid #e0e0e0;
+      font-size: 11px; font-weight: 600; color: #555;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+
+    /* ── Page ── */
+    .page {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 80px 40px 120px;
+    }
+
+    /* ── Header ── */
+    .page-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #999; margin-bottom: 12px;
+    }
+    .page-title {
+      font-family: var(--font-heading);
+      font-size: 28px; font-weight: 700;
+      color: #1a1a1a; line-height: 1.2;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .page-sub {
+      font-size: 14px; color: #888; line-height: 1.5;
+      margin-bottom: 48px;
+    }
+
+    /* ── Cards ── */
+    .card-stack {
+      display: flex; flex-direction: column; gap: 0;
+      border: 1px solid #e0e0e0;
+    }
+    .use-card {
+      padding: 28px 32px;
+      display: flex; align-items: flex-start; gap: 20px;
+      background: #fff;
+      cursor: pointer;
+      text-decoration: none !important;
+      color: inherit;
+      transition: background 120ms;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .use-card:last-child { border-bottom: none; }
+    .use-card:hover { background: #fafafa; }
+
+    .card-num {
+      font-size: 12px; font-weight: 500; color: #bbb;
+      width: 20px; flex-shrink: 0; padding-top: 3px;
+      font-family: var(--font-mono);
+    }
+    .card-body { flex: 1; }
+    .card-title {
+      font-size: 15px; font-weight: 600;
+      color: #1a1a1a; margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .card-desc {
+      font-size: 13px; color: #888; line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .card-cta {
+      font-size: 12px; font-weight: 600;
+      color: #1a1a1a;
+      display: inline-flex; align-items: center; gap: 6px;
+      border: 1px solid #d0d0d0;
+      padding: 6px 14px;
+      transition: border-color 120ms, background 120ms;
+    }
+    .use-card:hover .card-cta {
+      border-color: #1a1a1a;
+      background: #1a1a1a;
+      color: #fff;
+    }
+    .card-arrow {
+      font-size: 11px; flex-shrink: 0;
+      color: #ccc; padding-top: 3px;
+      align-self: center;
+    }
+
+    /* ── Footer note ── */
+    .page-footer-note {
+      margin-top: 40px;
+      font-size: 12px; color: #bbb;
+      border-top: 1px solid #e8e8e8;
+      padding-top: 20px;
+    }
+
+    /* ── Wizard modal (keep functional) ── */
+    .wizard-preview-box {
+      background: #fafafa; border: 1px solid #e0e0e0;
+      padding: var(--space-4);
+    }
+    .wizard-preview-row {
+      display: flex; justify-content: space-between;
+      padding: 6px 0; border-bottom: 1px solid #e8e8e8; font-size: 13px;
+    }
+    .wizard-preview-row:last-child { border-bottom: none; }
+    .wizard-preview-row .key { color: #888; }
+    .wizard-preview-row .val { font-weight: 500; font-family: var(--font-mono); font-size: 12px; }
+  </style>
+</head>
+<body>
+
+<!-- Topbar -->
+<nav class="topbar">
+  <a href="index.html" class="topbar-brand">
+    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
+         alt="Ngee Ann Polytechnic" style="height:28px; width:auto; display:block;">
+    <div class="topbar-divider"></div>
+    <span style="font-size:13px; font-weight:500; color:#1a1a1a; letter-spacing:-0.01em;">NP AI Curriculum Designer</span>
+  </a>
+</nav>
+
+<!-- Page -->
+<main class="page">
+
+  <div class="page-title">Where would you<br>like to start?</div>
+  <div class="page-sub">Select a workflow to begin.</div>
+
+  <div class="card-stack">
+
+    <a class="use-card" href="design-wizard.html" style="color:inherit;">
+      <div class="card-num">01</div>
+      <div class="card-body">
+        <div class="card-title">Design New Module</div>
+        <div class="card-desc">Build a curriculum-aligned module from scratch.</div>
+        <div class="card-cta">Start Designing</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="use-card" href="mdd-editor.html">
+      <div class="card-num">02</div>
+      <div class="card-body">
+        <div class="card-title">Refresh &amp; Align Module</div>
+        <div class="card-desc">Review and align an existing module design.</div>
+        <div class="card-cta">Start Review</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+  </div>
+
+
+</main>
+
+<!-- New MDD Wizard Modal -->
+<div class="modal-overlay hidden" id="new-mdd-modal">
+  <div class="modal">
+    <div class="modal-header" style="display:flex; align-items:start; justify-content:space-between;">
+      <div>
+        <div class="modal-title">Start a New Module Design Document</div>
+        <div class="modal-subtitle">Fill in the basics and let AI help you draft the rest.</div>
+      </div>
+      <button class="btn btn-ghost btn-sm modal-close" style="font-size:18px; padding:4px 8px;">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="wizard-steps">
+        <div class="wizard-step active"><div class="wizard-step-dot">1</div><div class="wizard-step-label">Module Info</div></div>
+        <div class="wizard-connector"></div>
+        <div class="wizard-step"><div class="wizard-step-dot">2</div><div class="wizard-step-label">Programme</div></div>
+        <div class="wizard-connector"></div>
+        <div class="wizard-step"><div class="wizard-step-dot">3</div><div class="wizard-step-label">AI Kick-off</div></div>
+        <div class="wizard-connector"></div>
+        <div class="wizard-step"><div class="wizard-step-dot">4</div><div class="wizard-step-label">Confirm</div></div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="wizard-pane active" id="step-1">
+        <div style="display:flex; flex-direction:column; gap:var(--space-5);">
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label class="form-label">Module Title <span class="required">*</span></label>
+              <input class="input" type="text" placeholder="e.g. Data Structures & Algorithms">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Catalogue Number <span class="required">*</span></label>
+              <input class="input" type="text" placeholder="e.g. ICT1234">
+            </div>
+          </div>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label class="form-label">Module Level</label>
+              <select class="select">
+                <option>L1 — Foundation</option>
+                <option selected>L2 — Intermediate</option>
+                <option>L3 — Advanced</option>
+                <option>L4 — Specialist</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Credit Units (CU)</label>
+              <div class="number-stepper">
+                <button class="stepper-btn">−</button>
+                <input class="stepper-input" value="4" type="number" min="1" max="8">
+                <button class="stepper-btn">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label class="form-label">Contact Hours / Week</label>
+              <div class="number-stepper">
+                <button class="stepper-btn">−</button>
+                <input class="stepper-input" value="3" type="number" min="1" max="10">
+                <button class="stepper-btn">+</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Cohort Size (est.)</label>
+              <div class="number-stepper">
+                <button class="stepper-btn">−</button>
+                <input class="stepper-input" value="30" type="number" min="5">
+                <button class="stepper-btn">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Prerequisites (leave blank if none)</label>
+            <input class="input" type="text" placeholder="e.g. ICT1101 Programming Fundamentals">
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="wizard-pane" id="step-2">
+        <div style="display:flex; flex-direction:column; gap:var(--space-5);">
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label class="form-label">School <span class="required">*</span></label>
+              <select class="select">
+                <option>School of Design &amp; Environment (SDE)</option>
+                <option>School of Business &amp; Accountancy (SBA)</option>
+                <option>School of Engineering (SE)</option>
+                <option>School of Film &amp; Media Studies (SFMS)</option>
+                <option>School of Health Sciences (SHS)</option>
+                <option>School of Humanities &amp; Social Sciences (SHSS)</option>
+                <option selected>School of Infocomm Technology (SIDM)</option>
+                <option>School of Life Sciences &amp; Chemical Technology (LSCT)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Module Leader Name</label>
+              <input class="input" type="text" placeholder="e.g. Lim Mei Ling">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Diploma / Programme</label>
+            <input class="input" type="text" placeholder="e.g. Diploma in Information Technology">
+          </div>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label class="form-label">Academic Year &amp; Semester</label>
+              <select class="select">
+                <option selected>AY2025/2026 Semester 1</option>
+                <option>AY2025/2026 Semester 2</option>
+                <option>AY2026/2027 Semester 1</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Exam Status</label>
+              <select class="select">
+                <option selected>Non-examination (CA only)</option>
+                <option>With final examination</option>
+                <option>With common test only</option>
+              </select>
+            </div>
+          </div>
+          <div class="callout">
+            <strong>Tip:</strong> Module ID will be assigned once your module is saved.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="wizard-pane" id="step-3">
+        <div style="margin-bottom:var(--space-4);">
+          <div class="text-md font-600 mb-2">Let AI give you a head start ✦</div>
+          <div class="text-base text-secondary">Choose which sections you'd like AI to draft. You can edit or regenerate any section later.</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:var(--space-3);">
+          <label style="display:flex; align-items:center; gap:var(--space-3); padding:var(--space-3) var(--space-4); background:var(--color-ai-light); border-radius:var(--radius-md); cursor:pointer; border:1px solid var(--color-border);">
+            <input type="checkbox" checked style="width:16px; height:16px; accent-color:var(--color-accent);">
+            <div><div class="text-base font-600">Module Synopsis</div><div class="text-sm text-secondary">AI drafts a synopsis from your module title and level.</div></div>
+          </label>
+          <label style="display:flex; align-items:center; gap:var(--space-3); padding:var(--space-3) var(--space-4); background:var(--color-ai-light); border-radius:var(--radius-md); cursor:pointer; border:1px solid var(--color-border);">
+            <input type="checkbox" checked style="width:16px; height:16px; accent-color:var(--color-accent);">
+            <div><div class="text-base font-600">Learning Outcomes (MOs)</div><div class="text-sm text-secondary">AI suggests 6–8 outcomes aligned to your synopsis.</div></div>
+          </label>
+          <label style="display:flex; align-items:center; gap:var(--space-3); padding:var(--space-3) var(--space-4); background:var(--color-surface); border-radius:var(--radius-md); cursor:pointer; border:1px solid var(--color-border);">
+            <input type="checkbox" style="width:16px; height:16px; accent-color:var(--color-accent);">
+            <div><div class="text-base font-600">Weekly Topic Schedule</div><div class="text-sm text-secondary">AI generates a 17-week breakdown from your outcomes.</div></div>
+          </label>
+          <label style="display:flex; align-items:center; gap:var(--space-3); padding:var(--space-3) var(--space-4); background:var(--color-surface); border-radius:var(--radius-md); cursor:pointer; border:1px solid var(--color-border);">
+            <input type="checkbox" style="width:16px; height:16px; accent-color:var(--color-accent);">
+            <div><div class="text-base font-600">Teaching &amp; Learning Strategy</div><div class="text-sm text-secondary">AI suggests pedagogical approaches for your module type.</div></div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="wizard-pane" id="step-4">
+        <div class="text-md font-600 mb-4">Review your module details</div>
+        <div class="wizard-preview-box">
+          <div class="wizard-preview-row"><span class="key">Module Title</span><span class="val">—</span></div>
+          <div class="wizard-preview-row"><span class="key">Catalogue No.</span><span class="val">—</span></div>
+          <div class="wizard-preview-row"><span class="key">Level</span><span class="val">L2 — Intermediate</span></div>
+          <div class="wizard-preview-row"><span class="key">Credit Units</span><span class="val">4 CU</span></div>
+          <div class="wizard-preview-row"><span class="key">Contact Hours</span><span class="val">3 hrs / week</span></div>
+          <div class="wizard-preview-row"><span class="key">School</span><span class="val">SIDM</span></div>
+          <div class="wizard-preview-row"><span class="key">Term</span><span class="val">AY2025/2026 Sem 1</span></div>
+          <div class="wizard-preview-row"><span class="key">AI to draft</span><span class="val" style="color:var(--color-ai-glow); font-family:inherit; font-size:13px;">Synopsis, Learning Outcomes</span></div>
+        </div>
+        <div class="alert-card info mt-4">
+          <span class="alert-icon">✦</span>
+          <div class="alert-content">
+            <div class="alert-title">AI drafting begins when you open the editor</div>
+            <div class="alert-desc">Your selected sections will be AI-generated as a starting point. Review and edit before finalising.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost wizard-prev" style="visibility:hidden;">← Back</button>
+      <button class="btn btn-primary wizard-next">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initWizard, initSteppers } from './ai-assistant.js';
+  initWizard('new-mdd-modal', '_unused');
+  initSteppers();
+
+  document.getElementById('open-wizard-card')?.addEventListener('click', () => {
+    document.getElementById('new-mdd-modal').classList.remove('hidden');
+  });
+  document.querySelector('.modal-close')?.addEventListener('click', () => {
+    document.getElementById('new-mdd-modal').classList.add('hidden');
+  });
+</script>
+</body>
+</html>

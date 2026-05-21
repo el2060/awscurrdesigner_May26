@@ -1,0 +1,485 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comms Alignment — ICT1234 | NP AI Curriculum Designer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar-logo" style="text-decoration:none;">
+    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:26px; width:auto;">
+  </a>
+  <div class="topbar-divider"></div>
+  <span class="topbar-module-title" style="cursor:default;">
+    ICT1234 — Data Structures &amp; Algorithms
+  </span>
+  <div class="topbar-actions">
+    <span class="topbar-status-badge">Draft</span>
+    <button class="btn btn-secondary btn-sm" id="save-draft-btn">Save Draft</button>
+    <a href="review-export.html" class="btn btn-primary btn-sm">Preview MDD →</a>
+    <div class="topbar-avatar" title="Lim Mei Ling">ML</div>
+  </div>
+</header>
+
+<div class="app-shell" style="grid-template-rows:unset;">
+
+  <!-- Left Sidebar -->
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-back">← Dashboard</a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-module-info">
+      <div class="sidebar-module-code">ICT1234 · ELE</div>
+      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-meta">L2 · SIDM · 4 CU · AY25/26 S1</div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Sections</div>
+    <a href="mdd-editor.html" class="sidebar-nav-item">
+       Module Overview
+      <span class="sidebar-status-icon done">✓</span>
+    </a>
+    <a href="section-synopsis.html" class="sidebar-nav-item">
+       Synopsis &amp; Skills
+      <span class="sidebar-status-icon done">✓</span>
+    </a>
+    <a href="section-outcomes.html" class="sidebar-nav-item">
+       Learning Outcomes
+      <span class="sidebar-status-icon active">◉</span>
+    </a>
+    <a href="section-schedule.html" class="sidebar-nav-item">
+       Topics &amp; Schedule
+      <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span>
+    </a>
+    <a href="section-tls.html" class="sidebar-nav-item">
+       T&amp;L Strategies
+      <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span>
+    </a>
+    <a href="section-assessment.html" class="sidebar-nav-item">
+       Assessment
+      <span class="sidebar-status-icon warn">⚠</span>
+    </a>
+    <a href="section-service.html" class="sidebar-nav-item">
+       Service-Learning
+      <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span>
+    </a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Cross-cutting checks</div>
+    <a href="section-comms-alignment.html" class="sidebar-nav-item active">
+       Comms Alignment
+      <span class="sidebar-status-icon warn">⚠</span>
+    </a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-footer">
+      <div>
+        <div class="progress-label">
+          <span>Completion</span>
+          <span class="font-600" style="color:var(--color-accent)">5 / 7</span>
+        </div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:71%"></div></div>
+      </div>
+      <a href="review-export.html" class="btn btn-secondary btn-sm w-full" style="justify-content:center; text-decoration:none; text-align:center;">
+        Preview &amp; Export
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div class="content-inner" style="max-width: 880px;">
+
+      <div class="breadcrumb">
+        <a href="index.html">Dashboard</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="mdd-editor.html">ICT1234</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Comms Alignment</span>
+      </div>
+
+      <div class="section-header">
+        <div class="section-header-left">
+          <div class="section-number" style="color:var(--color-npgc-6)">CROSS-CUTTING CHECK</div>
+          <div class="section-title">Communication Skills Alignment</div>
+          <div class="section-description">
+            Align this module's communication-based activities and rubrics with NP's School of Humanities &amp; Interdisciplinary Studies (SoH&amp;IS) standard. Helps ensure consistent comms skill development across the polytechnic.
+          </div>
+        </div>
+        <div class="section-header-actions">
+          <span class="source-badge">SoH&amp;IS Standard</span>
+        </div>
+      </div>
+
+      <!-- Summary alert -->
+      <div class="alert-card warning mb-6">
+        <span class="alert-icon">⚠</span>
+        <div class="alert-content">
+          <div class="alert-title">2 communication activities detected — partially aligned</div>
+          <div class="alert-desc">
+            Your <strong>Team Project Presentation</strong> and <strong>Lab Demo</strong> involve comms skills, but only the project presentation has a rubric defined — and it doesn't cover all 3 SoH&amp;IS criteria. AI can help you adopt or adapt the standard.
+          </div>
+        </div>
+      </div>
+
+      <!-- Why align? callout -->
+      <div class="callout mb-6" style="background:var(--color-surface); border:1px solid var(--color-border); color:var(--color-text-primary); padding: var(--space-4) var(--space-5);">
+        <div style="display:flex; gap:var(--space-3); align-items:flex-start;">
+          <div style=.font-size:22px; color:var(--color-text-tertiary);.>✱</div>
+          <div>
+            <div style="font-weight:600; margin-bottom:4px;">Why align with the SoH&amp;IS standard?</div>
+            <div style="color:var(--color-text-secondary); font-size:13px; line-height:1.6;">
+              Comms-rich activities exist across <strong>every NP school</strong> — engineering pitches, design crits, lab demos, business case presentations. When each module designs its own rubric, students get inconsistent signals. SoH&amp;IS maintains the <em>Presentation Rubric</em> and <em>Presentation Impact Toolkit</em> as the polytechnic-wide reference, so adopting them gives your students consistent expectations across modules and a single growth path.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detected Activities -->
+      <div class="form-sub-title mb-3">
+        <div class="form-sub-title-number">1</div>
+        Detected communication activities in this module
+      </div>
+      <div style="font-size:12px; color:var(--color-text-tertiary); margin-bottom:var(--space-3);">
+        ✦ AI auto-detected these from your MOs, T&amp;L Strategies, and Assessment Plan. <a href="#" style=.color:var(--color-text-secondary).">+ Add manually</a>
+      </div>
+
+      <!-- Activity 1: Project Presentation -->
+      <div class="activity-card">
+        <div class="activity-card-left status-partial"></div>
+        <div class="activity-card-body">
+          <div class="activity-card-header">
+            <div>
+              <div class="activity-card-title">Team Project Presentation</div>
+              <div class="activity-card-source">From: Assessment · <span class="mono">A4 (35%)</span> · Week 16 · MO5, MO6, MO7</div>
+            </div>
+            <span class="activity-card-status-pill partial">⚠ Partial alignment</span>
+          </div>
+          <div class="activity-criteria-list">
+            <div><span class="ck ok">✓</span> <strong>Language &amp; Visual Aids</strong> — covered by your existing rubric criterion "slide quality"</div>
+            <div><span class="ck missing">⚠</span> <strong>Verbal Skills</strong> — your rubric doesn't separately assess volume, tone, pitch, pace, articulation</div>
+            <div><span class="ck missing">⚠</span> <strong>Non-Verbal Skills</strong> — eye contact, posture, gestures, grooming not evaluated</div>
+          </div>
+          <div class="activity-card-actions">
+            <button class="btn btn-ai btn-sm">✦ Adopt SoH&amp;IS standard rubric</button>
+            <button class="btn btn-secondary btn-sm">Map my rubric to SoH&amp;IS criteria</button>
+            <button class="btn btn-ghost btn-sm">View my current rubric →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity 2: Lab Demo -->
+      <div class="activity-card">
+        <div class="activity-card-left status-missing"></div>
+        <div class="activity-card-body">
+          <div class="activity-card-header">
+            <div>
+              <div class="activity-card-title">In-class Lab Demo (×3)</div>
+              <div class="activity-card-source">From: T&amp;L Strategy · Lab-based Learning · Weeks 4, 10, 14 · MO2</div>
+            </div>
+            <span class="activity-card-status-pill missing">✗ No rubric defined</span>
+          </div>
+          <div class="activity-criteria-list">
+            <div><span class="ck missing">⚠</span> Activity has comms elements (explaining code, fielding peer questions) but is ungraded — currently formative only</div>
+            <div><span class="ck missing">⚠</span> No SoH&amp;IS criteria mapped — consider light-touch rubric for verbal clarity even if formative</div>
+          </div>
+          <div class="activity-card-actions">
+            <button class="btn btn-ai btn-sm">✦ Generate formative checklist (SoH&amp;IS lite)</button>
+            <button class="btn btn-secondary btn-sm">Ignore — comms not the focus</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity 3: Written Report -->
+      <div class="activity-card">
+        <div class="activity-card-left status-ok"></div>
+        <div class="activity-card-body">
+          <div class="activity-card-header">
+            <div>
+              <div class="activity-card-title">Project Written Report</div>
+              <div class="activity-card-source">From: Assessment · <span class="mono">A4 sub-component</span> · Week 16 · MO6, MO7</div>
+            </div>
+            <span class="activity-card-status-pill ok">✓ Written-comms (out of scope for SoH&amp;IS Presentation Rubric)</span>
+          </div>
+          <div class="activity-criteria-list">
+            <div><span class="ck ok">✓</span> Written comms uses a separate report rubric — not covered by the SoH&amp;IS Presentation standard</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- Side-by-side comparison -->
+      <div class="form-sub-title mb-3">
+        <div class="form-sub-title-number">2</div>
+        Side-by-side · Project Presentation rubric
+      </div>
+      <div style="font-size:12px; color:var(--color-text-tertiary); margin-bottom:var(--space-3);">
+        Compare your current rubric against the SoH&amp;IS standard to see what's missing.
+      </div>
+
+      <div class="rubric-compare">
+        <div class="rubric-compare-col yours">
+          <div class="rubric-compare-col-title">Your current rubric</div>
+          <div class="meta">2 criteria · 4-band scale · custom-built · v1 by ML</div>
+          <div class="rubric-compact">
+            <div class="rubric-compact-row">
+              <div class="rubric-compact-label">Content clarity</div>
+              <div class="rubric-compact-text">Slides communicate technical content clearly. (4-band: Excellent/Good/Adequate/Poor)</div>
+            </div>
+            <div class="rubric-compact-row">
+              <div class="rubric-compact-label">Slide quality</div>
+              <div class="rubric-compact-text">Slide design is clean and supports the talk. APA-style references where applicable.</div>
+            </div>
+          </div>
+          <div class="rubric-compare-diff">
+            ⚠ Missing: Verbal Skills criterion, Non-Verbal Skills criterion, 5-band gradient
+          </div>
+        </div>
+        <div class="rubric-compare-col standard">
+          <div class="rubric-compare-col-title">SoH&amp;IS Presentation Rubric</div>
+          <div class="meta">3 criteria · 5-band scale (A+ to F) · NP standard</div>
+          <div class="rubric-compact">
+            <div class="rubric-compact-row">
+              <div class="rubric-compact-label">Verbal Skills</div>
+              <div class="rubric-compact-text">Volume, tone, pitch, pace, articulation, pronunciation, engagement &amp; variation.</div>
+            </div>
+            <div class="rubric-compact-row">
+              <div class="rubric-compact-label">Non-Verbal</div>
+              <div class="rubric-compact-text">Eye contact, posture, gestures, facial expressions, confidence, grooming, attire.</div>
+            </div>
+            <div class="rubric-compact-row">
+              <div class="rubric-compact-label">Language &amp; Visuals</div>
+              <div class="rubric-compact-text">Clear/concise language, slide design, visuals, APA style application.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:var(--space-2); margin-bottom:var(--space-6); flex-wrap:wrap;">
+        <button class="btn btn-ai" id="adopt-btn"><span class="sparkle">✦</span> Adopt SoH&amp;IS rubric for A4</button>
+        <button class="btn btn-secondary">✎ Merge — keep my criteria + add SoH&amp;IS gaps</button>
+        <button class="btn btn-ghost">Keep my rubric (don't align)</button>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- The full SoH&IS rubric (reference table) -->
+      <div class="form-sub-title mb-3">
+        <div class="form-sub-title-number">3</div>
+        Reference · Full SoH&amp;IS Presentation Rubric
+      </div>
+
+      <div class="rubric-block">
+        <div class="rubric-block-header">
+          <div class="rubric-block-title">
+            <span class=.ai-icon.>✦</span> NP SoH&amp;IS Presentation Rubric
+          </div>
+          <div class="rubric-block-meta">5-band scale × 3 criteria · target band: <strong style=.color:var(--color-text-secondary).">B+ &amp; B — Proficient</strong></div>
+        </div>
+        <div class="rubric-grid">
+          <!-- Header row -->
+          <div class="rubric-criterion" style="background:var(--color-surface);">Criterion</div>
+          <div class="rubric-band-head"><div class="band-grade">A+ / A</div>Excellent</div>
+          <div class="rubric-band-head"><div class="band-grade">B+ / B</div>Proficient</div>
+          <div class="rubric-band-head"><div class="band-grade">C+ / C</div>Developing</div>
+          <div class="rubric-band-head"><div class="band-grade">D+ / D</div>Beginning</div>
+          <div class="rubric-band-head"><div class="band-grade">F</div>Deficient</div>
+
+          <!-- Verbal -->
+          <div class="rubric-criterion"> Verbal Skills</div>
+          <div class="rubric-cell">Appropriate volume, tone, pitch &amp; pace, with excellent articulation. Highly engaging with excellent variation.</div>
+          <div class="rubric-cell target">Generally appropriate volume/tone/pitch/pace, good articulation with minor errors. Engaging with good variation.</div>
+          <div class="rubric-cell">Fairly appropriate; fair articulation, some errors. Somewhat engaging with some variation.</div>
+          <div class="rubric-cell">Mostly inappropriate; weak articulation, many errors. Insufficient variation, not engaging.</div>
+          <div class="rubric-cell">Inappropriate volume/tone/pitch/pace; poor articulation, major errors. Flat &amp; monotonous.</div>
+
+          <!-- Non-Verbal -->
+          <div class="rubric-criterion"> Non-Verbal Skills</div>
+          <div class="rubric-cell">Effective eye contact, posture, gestures, facial expressions; confident, minimal notes reliance. Well-groomed, attire suits context.</div>
+          <div class="rubric-cell target">Generally effective; confident with some reference to notes. Generally well-groomed, attire suits context.</div>
+          <div class="rubric-cell">Fairly effective; some confidence, obvious reference to notes. Fairly well-groomed.</div>
+          <div class="rubric-cell">Weak; lacks confidence, over-relies on notes. Only somewhat groomed, attire unsuitable.</div>
+          <div class="rubric-cell">Poor; no confidence, entirely reliant on notes. Not appropriately groomed, attire unsuitable.</div>
+
+          <!-- Language & Visuals -->
+          <div class="rubric-criterion"> Language &amp; Visual Aids</div>
+          <div class="rubric-cell">Clear &amp; concise language; impactful word choice. Slides clear and well-designed; appropriate visuals; accurate APA style.</div>
+          <div class="rubric-cell target">Generally clear and concise; good word choice. Slides generally clear, mostly accurate APA.</div>
+          <div class="rubric-cell">Fairly clear; some wordy slides; some APA errors.</div>
+          <div class="rubric-cell">Lacks clarity; slides poorly designed; many APA errors.</div>
+          <div class="rubric-cell">Unclear &amp; confusing; visuals poor; APA inaccurate.</div>
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- Presentation Impact Toolkit -->
+      <div class="form-sub-title mb-3">
+        <div class="form-sub-title-number">4</div>
+        Embed the Presentation Impact Toolkit as a learning resource
+      </div>
+      <div style="font-size:13px; color:var(--color-text-secondary); margin-bottom:var(--space-4); line-height:1.6;">
+        The SoH&amp;IS Presentation Impact Toolkit is a student-facing reference for the techniques the rubric assesses. Embed it directly into your module — it appears in Week 14 (project briefing) and as a downloadable pre-class resource.
+      </div>
+
+      <div class="toolkit-grid">
+        <div class="toolkit-card">
+          <div class="toolkit-card-header">
+            
+            <div>
+              <div class="toolkit-card-title">Verbal Techniques</div>
+              <div class="toolkit-card-sub">What students say</div>
+            </div>
+          </div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Clear main message in one sentence</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Strong opening hook (question, statistic, scenario)</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Logical structure (problem → solution → impact)</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Signposting ("Three key points…", "Let's move on")</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Avoid fillers (um, like, basically)</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Active voice, examples &amp; short stories</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Strong closing — takeaway or call to action</div>
+          <div class="toolkit-card-footer">
+            <span class="export-status-pill info">Maps to: Verbal Skills</span>
+          </div>
+        </div>
+
+        <div class="toolkit-card">
+          <div class="toolkit-card-header">
+            
+            <div>
+              <div class="toolkit-card-title">Non-Verbal Techniques</div>
+              <div class="toolkit-card-sub">How students show up</div>
+            </div>
+          </div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Purposeful gestures matching content</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Open palms — signals confidence &amp; openness</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Avoid fidgeting, pacing, playing with pen</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Facial expression matches message</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Natural smile when appropriate</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Eye contact across the room (not just slides)</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Upright posture, controlled movement, face audience</div>
+          <div class="toolkit-card-footer">
+            <span class="export-status-pill info">Maps to: Non-Verbal Skills</span>
+          </div>
+        </div>
+
+        <div class="toolkit-card">
+          <div class="toolkit-card-header">
+            
+            <div>
+              <div class="toolkit-card-title">Vocal Techniques</div>
+              <div class="toolkit-card-sub">How students sound</div>
+            </div>
+          </div>
+          <div class="toolkit-bullet"><span class="dot">•</span> <strong>Pitch</strong> — vary to avoid monotone; high for excitement, low for authority</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> <strong>Tone</strong> — match the message (persuasive, reflective, urgent)</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> <strong>Volume</strong> — louder for key points, softer to draw in</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> <strong>Pace</strong> — don't rush; slow for important ideas</div>
+          <div class="toolkit-bullet"><span class="dot">•</span> Strategic pauses before/after key statements</div>
+          <div class="toolkit-card-footer">
+            <span class="export-status-pill info">Maps to: Verbal + Non-Verbal</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert-card info mt-6">
+        <span class="alert-icon">✦</span>
+        <div class="alert-content">
+          <div class="alert-title">Embed this toolkit in your module?</div>
+          <div class="alert-desc">The AI can add a pre-class OAL slot in Week 14 with this toolkit as the resource, and link it from the project briefing in your schedule. Students get a unified comms reference they'll see across all NP modules.</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:var(--space-2); margin-bottom:var(--space-6); flex-wrap:wrap;">
+        <button class="btn btn-ai">✦ Embed in Week 14 OAL</button>
+        <button class="btn btn-secondary">Link as optional resource</button>
+        <button class="btn btn-ghost">Not now</button>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- Action footer -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding-top:var(--space-4); margin-top:var(--space-6); flex-wrap:wrap; gap:var(--space-3);">
+        <div style="font-size:12px; color:var(--color-text-secondary);">
+          Standards source: <strong>NP SoH&amp;IS Presentation Rubric &amp; Impact Toolkit</strong> · <a href="#" style=.color:var(--color-text-secondary).">View source documents ↗</a>
+        </div>
+        <div style="display:flex; gap:var(--space-3);">
+          <a href="section-assessment.html" class="btn btn-secondary" style="text-decoration:none;">← Back to Assessment</a>
+          <button class="btn btn-primary" id="apply-all-btn">✓ Apply all suggested changes</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- AI Sidebar -->
+  <aside class="ai-sidebar" id="ai-sidebar">
+    <div class="ai-sidebar-header">
+      <div class="ai-sidebar-title">
+        <span class="ai-icon">✦</span> AI Assistant
+      </div>
+      <button class="btn btn-ghost btn-sm btn-icon" id="ai-sidebar-close" title="Close">×</button>
+    </div>
+
+    <div class="ai-sidebar-body">
+      <div class="ai-suggestion-card ai-purple">
+        <div class="ai-suggestion-header">
+          <span class="sparkle">✦</span>
+          <span class="ai-suggestion-label" style=.color:var(--color-text-secondary).">Quick Action</span>
+        </div>
+        <div class="ai-suggestion-body">
+          The fastest path to alignment: <strong>adopt the SoH&amp;IS rubric for your Team Project Presentation (A4)</strong>. It maps cleanly onto your existing component — I'll preserve the 35% weight and re-target the 5-band scale.
+        </div>
+        <div class="ai-suggestion-actions">
+          <button class="btn btn-ai btn-sm" id="quick-adopt">Adopt rubric</button>
+          <span class="ai-suggestion-dismiss">Dismiss ×</span>
+        </div>
+      </div>
+
+      <div class="ai-suggestion-card">
+        <div class="ai-suggestion-header">
+          <span class=.sparkle.>✦</span>
+          <span class="ai-suggestion-label">Why this matters</span>
+        </div>
+        <div class="ai-suggestion-body">
+          Across SIDM, 14 modules have presentation components — but only 4 currently use the SoH&amp;IS rubric. Adopting it nudges your school's consistency rate up.
+        </div>
+      </div>
+
+      <div id="ai-messages" class="ai-chat-messages">
+        <div class="ai-chat-bubble assistant">
+          I can help align your comms activities and rubrics with the NP SoH&amp;IS standard, draft a formative checklist for your lab demos, or embed the Presentation Impact Toolkit. What would you like to do?
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-sidebar-footer">
+      <div class="prompt-chip-strip">
+        <div class="prompt-chip-strip-label">✦ Try a prompt</div>
+        <button class="prompt-chip">Adopt SoH&amp;IS rubric for A4</button>
+        <button class="prompt-chip">Draft a formative demo checklist</button>
+        <button class="prompt-chip">Embed Impact Toolkit in Wk 14</button>
+        <button class="prompt-chip">Show NP-wide adoption rates</button>
+      </div>
+      <div class="ai-chat-input-row">
+        <textarea class="ai-chat-input" id="ai-input" placeholder="Ask about comms alignment…" rows="1"></textarea>
+        <button class="ai-chat-send" id="ai-send">↑</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<button class="ai-fab" id="ai-fab" title="Open AI Assistant">✦</button>
+
+<script type="module">
+  import { initAIChat, initSaveDraft, initPromptChips, showToast } from './ai-assistant.js';
+  initAIChat();
+  initSaveDraft('save-draft-btn');
+  initPromptChips();
+
+  document.getElementById('adopt-btn')?.addEventListener('click', () => showToast('✦ Adopting SoH&IS rubric for A4 — applied'));
+  document.getElementById('quick-adopt')?.addEventListener('click', () => showToast('✦ SoH&IS rubric applied to A4 (35%)'));
+  document.getElementById('apply-all-btn')?.addEventListener('click', () => showToast('✓ All suggested comms alignments applied'));
+</script>
+</body>
+</html>

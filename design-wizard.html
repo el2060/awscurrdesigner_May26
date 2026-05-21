@@ -1,0 +1,1165 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design New Module — NP AI Curriculum Designer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: #fff; color: #1a1a1a; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* ── Topbar ── */
+    .topbar { height: 52px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; padding: 0 40px; background: #fff; flex-shrink: 0; position: sticky; top: 0; z-index: 100; }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .t-div { width: 1px; height: 16px; background: #ddd; margin: 0 16px; flex-shrink: 0; }
+    .topbar-title { font-size: 13px; font-weight: 500; color: #1a1a1a; }
+    .home-link { font-size: 12px; color: #888; text-decoration: none; }
+    .home-link:hover { color: #1a1a1a; }
+
+    /* ── Step indicator ── */
+    .step-indicator { border-bottom: 1px solid #e0e0e0; background: #fafafa; display: flex; align-items: center; padding: 0 40px; height: 40px; gap: 6px; font-size: 12px; color: #bbb; flex-shrink: 0; }
+    .si-step { display: flex; align-items: center; gap: 6px; }
+    .si-num { width: 20px; height: 20px; border-radius: 50%; border: 1px solid #ccc; font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+    .si-step.active .si-num { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .si-step.active { color: #1a1a1a; font-weight: 600; }
+    .si-step.done .si-num { background: #555; color: #fff; border-color: #555; }
+    .si-step.done { color: #555; }
+    .si-sep { color: #ddd; font-size: 10px; }
+
+    /* ── Screen system ── */
+    .screen { display: none; flex: 1; }
+    .screen.active { display: flex; }
+
+    /* ══════════════════════════════
+       SCREEN 1 — Sub-question flow
+    ══════════════════════════════ */
+    #s-context { flex-direction: column; align-items: center; }
+
+    .sq-progress-bar { width: 100%; max-width: 580px; margin: 32px auto 0; display: flex; gap: 3px; }
+    .sq-prog-step { flex: 1; height: 3px; background: #e8e8e8; transition: background 300ms; }
+    .sq-prog-step.done { background: #1a1a1a; }
+    .sq-prog-step.active { background: #888; }
+    .sq-prog-label { font-size: 11px; color: #aaa; width: 100%; max-width: 580px; margin: 6px auto 0; text-align: right; }
+
+    .sq-summary { width: 100%; max-width: 580px; margin: 14px auto 0; display: flex; flex-direction: column; gap: 4px; }
+    .sq-summary-row { display: flex; align-items: center; gap: 8px; font-size: 12px; padding: 6px 10px; border: 1px solid #ebebeb; background: #fafafa; }
+    .sq-summary-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #bbb; width: 90px; flex-shrink: 0; }
+    .sq-summary-val { color: #1a1a1a; font-size: 12px; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sq-summary-edit { font-size: 11px; color: #aaa; cursor: pointer; text-decoration: underline; }
+    .sq-summary-edit:hover { color: #1a1a1a; }
+
+    .sq-block { display: none; flex-direction: column; width: 100%; max-width: 580px; margin: 24px auto 0; }
+    .sq-block.active { display: flex; }
+    .sq-question { font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 8px; }
+    .sq-hint { font-size: 12px; color: #aaa; margin-bottom: 20px; line-height: 1.6; }
+
+    input.sq-in, select.sq-in, textarea.sq-in { width: 100%; font-family: var(--font-sans); font-size: 14px; padding: 10px 14px; border: 1px solid #d0d0d0; background: #fff; color: #1a1a1a; outline: none; appearance: none; transition: border-color 120ms; }
+    input.sq-in:focus, select.sq-in:focus, textarea.sq-in:focus { border-color: #1a1a1a; }
+    textarea.sq-in { resize: vertical; min-height: 100px; line-height: 1.7; }
+
+    .sq-chips { display: flex; gap: 7px; flex-wrap: wrap; }
+    .sq-chip { font-size: 13px; font-weight: 500; padding: 8px 18px; border: 1px solid #d0d0d0; cursor: pointer; background: #fff; color: #555; transition: all 100ms; user-select: none; }
+    .sq-chip:hover { border-color: #888; color: #1a1a1a; }
+    .sq-chip.on { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+    .choice-cards { display: flex; flex-direction: column; gap: 8px; }
+    .choice-card { border: 1px solid #d8d8d8; padding: 14px 18px; cursor: pointer; display: flex; align-items: center; gap: 14px; transition: all 100ms; }
+    .choice-card:hover { border-color: #888; background: #fafafa; }
+    .choice-card.on { border-color: #1a1a1a; background: #1a1a1a; color: #fff; }
+    .choice-radio { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #ccc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .choice-card.on .choice-radio { border-color: #fff; background: #fff; }
+    .choice-card.on .choice-radio::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #1a1a1a; display: block; }
+    .choice-name { font-size: 14px; font-weight: 600; }
+    .choice-desc { font-size: 12px; opacity: 0.6; margin-top: 2px; }
+
+    .sq-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    .sq-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 5px; display: block; }
+    .sq-label .opt { font-weight: 400; color: #bbb; text-transform: none; letter-spacing: 0; }
+
+    .upload-zone { border: 1px dashed #d0d0d0; padding: 18px; text-align: center; background: #fafafa; cursor: pointer; margin-top: 4px; }
+    .upload-zone-title { font-size: 13px; color: #aaa; margin-bottom: 2px; }
+    .upload-zone-sub { font-size: 11px; color: #bbb; }
+
+    .sq-footer { display: flex; gap: 10px; margin-top: 24px; align-items: center; }
+    .btn-continue { flex: 1; padding: 13px; background: #1a1a1a; color: #fff; border: none; font-family: var(--font-sans); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 100ms; }
+    .btn-continue:hover { background: #333; }
+    .btn-back-sm { font-size: 12px; color: #888; border: 1px solid #e0e0e0; background: #fff; padding: 10px 16px; cursor: pointer; font-family: var(--font-sans); }
+    .btn-back-sm:hover { color: #1a1a1a; border-color: #888; }
+    .sq-skip { font-size: 11px; color: #bbb; cursor: pointer; text-decoration: underline; margin-left: 4px; }
+    .sq-skip:hover { color: #888; }
+
+    /* ══════════════════════════════
+       SCREEN 2 — Journey map (5 areas)
+    ══════════════════════════════ */
+    #s-select { flex-direction: column; align-items: center; }
+    .journey-wrap { width: 100%; max-width: 640px; margin: 0 auto; padding: 36px 0 100px; flex: 1; }
+    .journey-h { font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .journey-sub { font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 28px; }
+
+    /* Area cards */
+    .area-card { border: 1px solid #e0e0e0; margin-bottom: 8px; }
+    .area-head { display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px; cursor: default; }
+    .area-num { font-size: 11px; font-weight: 700; color: #bbb; width: 20px; flex-shrink: 0; padding-top: 2px; }
+    .area-info { flex: 1; }
+    .area-name { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+    .area-preview { font-size: 11px; color: #999; line-height: 1.5; }
+    .area-preview span { display: inline-block; margin-right: 2px; }
+    .area-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 3px 8px; flex-shrink: 0; white-space: nowrap; margin-top: 1px; }
+    .ab-auto { background: #1a1a1a; color: #fff; }
+    .ab-included { background: #f0f0f0; color: #444; }
+    .ab-demand { background: #fff; color: #bbb; border: 1px solid #e0e0e0; }
+
+    /* Expandable extras within area card */
+    .area-extras-toggle { display: flex; align-items: center; gap: 6px; padding: 0 18px 10px 52px; cursor: pointer; font-size: 11px; color: #aaa; user-select: none; }
+    .area-extras-toggle:hover { color: #555; }
+    .area-extras-list { display: none; padding: 0 18px 14px 52px; border-top: 1px solid #f0f0f0; margin-top: 4px; }
+    .area-extras-list.open { display: block; }
+    .ae-item { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid #f8f8f8; font-size: 12px; color: #888; cursor: pointer; }
+    .ae-item:last-child { border-bottom: none; }
+    .ae-check { width: 15px; height: 15px; border: 1px solid #ccc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+    .ae-item.on .ae-check { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+    .ae-item.on { color: #1a1a1a; }
+    .ae-label { flex: 1; }
+    .ae-note { font-size: 10px; color: #bbb; }
+
+    /* Generate CTA */
+    .gen-cta-wrap { margin-top: 20px; }
+    .btn-gen-main { width: 100%; padding: 14px; background: #1a1a1a; color: #fff; border: none; font-family: var(--font-sans); font-size: 15px; font-weight: 700; cursor: pointer; transition: background 100ms; }
+    .btn-gen-main:hover { background: #333; }
+    .gen-footnote { font-size: 11px; color: #aaa; text-align: center; margin-top: 8px; }
+    .btn-text-sm { font-size: 12px; color: #888; background: none; border: none; cursor: pointer; font-family: var(--font-sans); text-decoration: underline; margin-top: 10px; display: inline-block; padding: 0; }
+    .btn-text-sm:hover { color: #1a1a1a; }
+
+    /* ══════════════════════════════
+       SCREEN 3 — Generating
+    ══════════════════════════════ */
+    #s-gen { align-items: center; justify-content: center; flex-direction: column; padding: 60px 24px; }
+    .gen-box { width: 100%; max-width: 500px; }
+    .gen-h { font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; letter-spacing: -0.02em; }
+    .gen-sub { font-size: 13px; color: #888; margin-bottom: 32px; }
+    .gen-list { border: 1px solid #e8e8e8; }
+    .gen-row { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-bottom: 1px solid #f0f0f0; font-size: 13px; color: #bbb; transition: color 200ms; }
+    .gen-row:last-child { border-bottom: none; }
+    .gen-row.done { color: #1a1a1a; }
+    .gen-row.running { color: #555; }
+    .gen-icon { width: 18px; text-align: center; flex-shrink: 0; }
+    .spin { display: inline-block; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .gen-row-label { flex: 1; }
+    .gen-row-tag { font-size: 10px; color: #bbb; border: 1px solid #e8e8e8; padding: 1px 6px; }
+    .gen-area-sep { padding: 6px 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #ccc; background: #fafafa; border-bottom: 1px solid #f0f0f0; }
+
+    /* ══════════════════════════════
+       SCREEN 4 — Review (one at a time)
+    ══════════════════════════════ */
+    #s-review { flex-direction: row; }
+
+    .rv-nav { width: 190px; flex-shrink: 0; border-right: 1px solid #e0e0e0; padding: 20px 0; background: #fafafa; position: sticky; top: 92px; height: calc(100vh - 92px); overflow-y: auto; }
+    .rv-nav-area { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #bbb; padding: 12px 18px 4px; }
+    .rv-nav-area:first-child { padding-top: 4px; }
+    .rv-nav-item { display: flex; align-items: center; gap: 9px; font-size: 12px; padding: 6px 18px 6px 14px; margin-left: 4px; color: #bbb; border-left: 2px solid transparent; cursor: pointer; }
+    .rv-nav-item.active { color: #1a1a1a; border-left-color: #888; }
+    .rv-nav-item.done { color: #1a1a1a; border-left-color: #1a1a1a; }
+    .rv-dot { width: 6px; height: 6px; border-radius: 50%; border: 1px solid #d0d0d0; flex-shrink: 0; }
+    .rv-dot.done { background: #1a1a1a; border-color: #1a1a1a; }
+    .rv-dot.active { background: #888; border-color: #888; }
+
+    /* Main review column */
+    .rv-main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+    .rv-section-header { padding: 22px 44px 14px; border-bottom: 1px solid #ebebeb; display: flex; align-items: flex-start; justify-content: space-between; flex-shrink: 0; }
+    .rv-section-counter { font-size: 11px; color: #bbb; margin-bottom: 3px; }
+    .rv-section-name { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+    .rv-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; flex-shrink: 0; margin-top: 4px; }
+    .rb-ai { background: #f0f0f0; color: #666; }
+    .rb-ok { background: #1a1a1a; color: #fff; }
+    .rb-auto { background: #e8e8e8; color: #888; }
+
+    .rv-section-body { flex: 1; padding: 22px 44px; overflow-y: auto; }
+    .rv-text { font-size: 13px; color: #333; line-height: 1.8; border: 1px solid #f0f0f0; padding: 14px; min-height: 80px; background: #fefefe; width: 100%; }
+    .rv-text:focus { border-color: #d0d0d0; outline: none; }
+
+    /* NPGC mapping */
+    .npgc-map { border: 1px solid #ebebeb; margin-top: 16px; padding: 14px 16px; background: #fafafa; }
+    .npgc-map-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #bbb; margin-bottom: 10px; }
+    .npgc-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .npgc-chip { font-size: 11px; font-weight: 500; padding: 4px 10px; border: 1px solid #d0d0d0; background: #fff; color: #555; cursor: pointer; transition: all 100ms; }
+    .npgc-chip.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .npgc-chip:hover:not(.active) { border-color: #888; }
+    .npgc-coverage { margin-top: 12px; }
+    .npgc-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+    .npgc-bar-label { font-size: 10px; color: #888; width: 160px; flex-shrink: 0; }
+    .npgc-bar-track { flex: 1; height: 4px; background: #e8e8e8; }
+    .npgc-bar-fill { height: 100%; background: #1a1a1a; }
+
+    /* SF upload */
+    .sf-upload { border: 1px dashed #d0d0d0; padding: 12px 16px; margin-top: 12px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+    .sf-upload:hover { background: #fafafa; }
+    .sf-upload-text strong { display: block; font-size: 12px; color: #1a1a1a; margin-bottom: 1px; }
+    .sf-upload-text span { font-size: 11px; color: #999; }
+
+    /* Assessment guardrails */
+    .asm-guardrails { border: 1px solid #ebebeb; margin-top: 16px; padding: 14px 16px; background: #fafafa; }
+    .asm-gl-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #bbb; margin-bottom: 10px; }
+    .asm-gl-row { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; padding: 6px 0; border-bottom: 1px solid #f4f4f4; }
+    .asm-gl-row:last-child { border-bottom: none; }
+    .asm-gl-icon { flex-shrink: 0; width: 16px; margin-top: 1px; }
+    .asm-gl-text.ok { color: #1a1a1a; }
+    .asm-gl-text.warn { color: #555; }
+
+    /* SOW table */
+    .sow-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .sow-table th { background: #fafafa; font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #888; padding: 8px 10px; border: 1px solid #e0e0e0; text-align: left; }
+    .sow-table td { padding: 8px 10px; border: 1px solid #ebebeb; vertical-align: top; color: #333; line-height: 1.5; }
+    .sow-table td:first-child { width: 36px; text-align: center; font-weight: 600; color: #888; font-family: var(--font-mono); font-size: 11px; }
+
+    /* T&L strategy list */
+    .tl-strategy { border: 1px solid #ebebeb; margin-bottom: 10px; }
+    .tl-strategy-head { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #fafafa; border-bottom: 1px solid #f0f0f0; }
+    .tl-strategy-name { font-size: 12px; font-weight: 700; color: #1a1a1a; flex: 1; }
+    .tl-strategy-tag { font-size: 9px; font-weight: 600; padding: 2px 6px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .tl-tag-new { background: #1a1a1a; color: #fff; }
+    .tl-tag-rec { background: #f0f0f0; color: #555; }
+    .tl-strategy-body { font-size: 12px; color: #555; line-height: 1.65; padding: 10px 14px; }
+
+    /* Teaching materials grid */
+    .mat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .mat-card { border: 1px solid #e0e0e0; padding: 14px; display: flex; flex-direction: column; gap: 5px; }
+    .mat-card-icon { font-size: 16px; color: #bbb; }
+    .mat-card-name { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+    .mat-card-desc { font-size: 11px; color: #999; line-height: 1.5; flex: 1; }
+    .mat-card-action { font-size: 11px; font-weight: 600; color: #1a1a1a; cursor: pointer; text-decoration: underline; margin-top: 4px; }
+
+    /* ── Area 5: Review & Alignment ── */
+    .align-section { margin-bottom: 20px; }
+    .align-section-title { font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #888; padding-bottom: 8px; border-bottom: 1px solid #e8e8e8; margin-bottom: 12px; }
+    .align-check-row { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; padding: 6px 0; border-bottom: 1px solid #f5f5f5; }
+    .align-check-row:last-child { border-bottom: none; }
+    .align-icon { width: 16px; flex-shrink: 0; margin-top: 1px; }
+    .align-text.ok { color: #1a1a1a; }
+    .align-text.warn { color: #555; }
+    .align-text.info { color: #555; }
+    .align-text.muted { color: #aaa; }
+
+    .bloom-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-top: 8px; }
+    .bloom-col { text-align: center; }
+    .bloom-bar-wrap { height: 50px; display: flex; align-items: flex-end; justify-content: center; }
+    .bloom-bar { width: 22px; background: #1a1a1a; min-height: 3px; transition: height 300ms; }
+    .bloom-bar.zero { background: #e8e8e8; }
+    .bloom-bar.warn { background: #888; }
+    .bloom-label { font-size: 9px; color: #888; margin-top: 4px; line-height: 1.3; }
+    .bloom-count { font-size: 11px; font-weight: 700; color: #1a1a1a; margin-top: 3px; }
+    .bloom-count.zero { color: #ccc; }
+
+    .align-tip { font-size: 11px; color: #888; background: #fafafa; border: 1px solid #e8e8e8; padding: 10px 12px; margin-top: 10px; line-height: 1.6; }
+    .align-tip strong { color: #1a1a1a; }
+
+    .align-upload-prompt { border: 1px dashed #d8d8d8; padding: 12px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; margin-top: 8px; }
+    .align-upload-prompt:hover { background: #fafafa; }
+
+    .align-score { display: flex; align-items: center; gap: 16px; padding: 14px; border: 1px solid #e0e0e0; margin-bottom: 20px; }
+    .align-score-num { font-family: var(--font-heading); font-size: 32px; font-weight: 700; color: #1a1a1a; line-height: 1; }
+    .align-score-label { font-size: 12px; color: #888; line-height: 1.5; }
+    .align-score-label strong { color: #1a1a1a; display: block; }
+
+    /* Refine bar */
+    .rv-refine { display: flex; align-items: center; gap: 8px; padding: 12px 44px; border-top: 1px solid #f0f0f0; flex-shrink: 0; background: #fff; }
+    .refine-in { flex: 1; font-size: 12px; font-family: var(--font-sans); border: 1px solid #d8d8d8; padding: 8px 12px; color: #555; outline: none; }
+    .refine-in::placeholder { color: #bbb; }
+    .refine-in:focus { border-color: #888; }
+    .btn-regen { font-size: 12px; font-weight: 500; padding: 8px 14px; background: #fff; color: #555; border: 1px solid #d0d0d0; cursor: pointer; font-family: var(--font-sans); }
+    .btn-regen:hover { border-color: #888; color: #1a1a1a; }
+
+    /* Section footer nav */
+    .rv-footer { display: flex; align-items: center; justify-content: space-between; padding: 14px 44px; border-top: 1px solid #e0e0e0; background: #fff; flex-shrink: 0; }
+    .btn-prev-sec { font-size: 12px; color: #888; background: #fff; border: 1px solid #e0e0e0; padding: 10px 18px; cursor: pointer; font-family: var(--font-sans); }
+    .btn-prev-sec:hover { border-color: #888; color: #1a1a1a; }
+    .btn-accept-next { font-size: 13px; font-weight: 700; padding: 10px 24px; background: #1a1a1a; color: #fff; border: none; cursor: pointer; font-family: var(--font-sans); }
+    .btn-accept-next:hover { background: #333; }
+    .btn-accept-next.accepted { background: #f0f0f0; color: #888; font-weight: 500; cursor: default; }
+    .btn-view-doc { font-size: 13px; font-weight: 700; padding: 11px 28px; background: #1a1a1a; color: #fff; border: none; cursor: pointer; font-family: var(--font-sans); text-decoration: none; display: inline-block; }
+
+    /* Toast */
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; font-size: 12px; font-weight: 500; padding: 9px 18px; opacity: 0; pointer-events: none; transition: opacity 180ms; z-index: 999; }
+    .toast.show { opacity: 1; }
+
+    @media (max-width: 760px) {
+      .rv-nav { display: none; }
+      .rv-refine, .rv-section-header, .rv-section-body, .rv-footer { padding-left: 20px; padding-right: 20px; }
+      .sq-progress-bar, .sq-summary, .sq-block, .journey-wrap { padding-left: 20px; padding-right: 20px; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="index.html" class="topbar-brand">
+    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:26px; width:auto;">
+  </a>
+  <div class="t-div"></div>
+  <span class="topbar-title">NP AI Curriculum Designer</span>
+  <div class="t-div"></div>
+  <a href="index.html" class="home-link">← Home</a>
+</nav>
+
+<div class="step-indicator" id="step-indicator">
+  <div class="si-step active" id="si-1"><div class="si-num">1</div> Module Info</div>
+  <div class="si-sep">›</div>
+  <div class="si-step" id="si-2"><div class="si-num">2</div> Your Plan</div>
+  <div class="si-sep">›</div>
+  <div class="si-step" id="si-3"><div class="si-num">3</div> Generate</div>
+  <div class="si-sep">›</div>
+  <div class="si-step" id="si-4"><div class="si-num">4</div> Review &amp; Align</div>
+</div>
+
+
+<!-- ════════════════════════════════
+     SCREEN 1 — Module Info (sub-stepped)
+════════════════════════════════ -->
+<div class="screen active" id="s-context">
+  <div class="sq-progress-bar" id="sq-progress-bar">
+    <div class="sq-prog-step active" id="sqp-1"></div>
+    <div class="sq-prog-step" id="sqp-2"></div>
+    <div class="sq-prog-step" id="sqp-3"></div>
+    <div class="sq-prog-step" id="sqp-4"></div>
+    <div class="sq-prog-step" id="sqp-5"></div>
+  </div>
+  <div class="sq-prog-label" id="sq-prog-label">Question 1 of 5</div>
+  <div class="sq-summary" id="sq-summary"></div>
+
+  <!-- Q1: Module name -->
+  <div class="sq-block active" id="sq1">
+    <div class="sq-question">What's the module called?</div>
+    <div class="sq-hint">Enter the module name as it will appear in the MDD.</div>
+    <input class="sq-in" id="q1-name" type="text" placeholder="e.g. Data Structures &amp; Algorithms" autofocus>
+    <div class="sq-footer">
+      <button class="btn-continue" onclick="nextSubQ(1)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- Q2: School + Level -->
+  <div class="sq-block" id="sq2">
+    <div class="sq-question">Which school and diploma?</div>
+    <div class="sq-hint">Select the offering school and the module level.</div>
+    <label class="sq-label" style="margin-bottom:5px;">School / Diploma</label>
+    <select class="sq-in" id="q2-school" style="margin-bottom:16px;">
+      <option value="">Select school…</option>
+      <option>School of Health Sciences</option>
+      <option>School of Infocomm Technology &amp; Digital Media</option>
+      <option>School of Business &amp; Accountancy</option>
+      <option>School of Engineering</option>
+      <option>School of Film &amp; Media Studies</option>
+      <option>School of Life Sciences &amp; Chemical Technology</option>
+    </select>
+    <label class="sq-label">Module Level</label>
+    <div class="sq-chips">
+      <span class="sq-chip" onclick="selChip(this,'level')">L1</span>
+      <span class="sq-chip on" onclick="selChip(this,'level')">L2</span>
+      <span class="sq-chip" onclick="selChip(this,'level')">L3</span>
+    </div>
+    <div class="sq-footer">
+      <button class="btn-back-sm" onclick="jumpToQ(1)">← Back</button>
+      <button class="btn-continue" onclick="nextSubQ(2)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- Q3: Module intent -->
+  <div class="sq-block" id="sq3">
+    <div class="sq-question">What should students be able to do by the end?</div>
+    <div class="sq-hint">2–4 sentences. This is the AI's main seed — it drives all generated content. Be specific about capabilities and real-world application.</div>
+    <textarea class="sq-in" id="q3-intent" placeholder="e.g. Students should be able to design and implement efficient algorithms and data structures, analyse computational complexity, and apply these skills to real-world software engineering problems."></textarea>
+    <div class="sq-footer">
+      <button class="btn-back-sm" onclick="jumpToQ(2)">← Back</button>
+      <button class="btn-continue" onclick="nextSubQ(3)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- Q4: Assessment shape -->
+  <div class="sq-block" id="sq4">
+    <div class="sq-question">How will this module be assessed?</div>
+    <div class="sq-hint">Guides the AI in designing assessment components and weightages.</div>
+    <div class="choice-cards">
+      <div class="choice-card on" onclick="selChoice(this,'asmt')">
+        <div class="choice-radio"></div>
+        <div>
+          <div class="choice-name">CA only</div>
+          <div class="choice-desc">100% continuous assessment — coursework, tests, projects</div>
+        </div>
+      </div>
+      <div class="choice-card" onclick="selChoice(this,'asmt')">
+        <div class="choice-radio"></div>
+        <div>
+          <div class="choice-name">CA + Final Exam</div>
+          <div class="choice-desc">Exam typically 40–60%, remainder CA components</div>
+        </div>
+      </div>
+      <div class="choice-card" onclick="selChoice(this,'asmt')">
+        <div class="choice-radio"></div>
+        <div>
+          <div class="choice-name">CA + Common Test</div>
+          <div class="choice-desc">Centrally scheduled common test, plus CA components</div>
+        </div>
+      </div>
+    </div>
+    <div class="sq-footer">
+      <button class="btn-back-sm" onclick="jumpToQ(3)">← Back</button>
+      <button class="btn-continue" onclick="nextSubQ(4)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- Q5: Quick details -->
+  <div class="sq-block" id="sq5">
+    <div class="sq-question">A few quick details.</div>
+    <div class="sq-hint">These help calibrate scope and workload. All optional — skip if you're not sure yet.</div>
+    <div class="sq-row2">
+      <div>
+        <label class="sq-label">Credit Units <span class="opt">(optional)</span></label>
+        <input class="sq-in" id="q5-cu" type="number" placeholder="e.g. 4">
+      </div>
+      <div>
+        <label class="sq-label">Contact Hours / Week <span class="opt">(optional)</span></label>
+        <input class="sq-in" id="q5-hrs" type="number" placeholder="e.g. 3">
+      </div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <label class="sq-label">Pre-requisites <span class="opt">(optional)</span></label>
+      <input class="sq-in" id="q5-prereq" type="text" placeholder="e.g. ICT1101 Programming Fundamentals">
+    </div>
+    <div style="margin-bottom:14px;">
+      <label class="sq-label">Any other constraints? <span class="opt">(optional)</span></label>
+      <input class="sq-in" id="q5-ctx" type="text" placeholder="e.g. cohort of 35, industry partner involved">
+    </div>
+    <div>
+      <label class="sq-label">Upload existing module document <span class="opt">(optional)</span></label>
+      <div class="upload-zone">
+        <div class="upload-zone-title">Drag &amp; drop PDF or Word</div>
+        <div class="upload-zone-sub">AI extracts context from an existing MDD to improve its draft</div>
+      </div>
+    </div>
+    <div class="sq-footer">
+      <button class="btn-back-sm" onclick="jumpToQ(4)">← Back</button>
+      <button class="btn-continue" onclick="goScreen(2)">See my plan →</button>
+      <span class="sq-skip" onclick="goScreen(2)">Skip</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════
+     SCREEN 2 — Your Plan (5 areas)
+════════════════════════════════ -->
+<div class="screen" id="s-select">
+  <div class="journey-wrap">
+    <div class="journey-h">Your curriculum plan.</div>
+    <div class="journey-sub">Here's what I'll build with you — area by area. You review and refine each section before moving on.</div>
+
+    <!-- Area 1: Module Foundations -->
+    <div class="area-card">
+      <div class="area-head">
+        <span class="area-num">1</span>
+        <div class="area-info">
+          <div class="area-name">Module Foundations</div>
+          <div class="area-preview">Synopsis &amp; Aims · Learning Outcomes · NPGC alignment · Skills Framework competencies · Domain frameworks</div>
+        </div>
+        <span class="area-badge ab-auto">Always included</span>
+      </div>
+    </div>
+
+    <!-- Area 2: T&L Design -->
+    <div class="area-card">
+      <div class="area-head">
+        <span class="area-num">2</span>
+        <div class="area-info">
+          <div class="area-name">Teaching &amp; Learning Design</div>
+          <div class="area-preview">Scheme of Work · T&amp;L Strategies (incl. AI-enabled) · Learning Activities · Learning Resources</div>
+        </div>
+        <span class="area-badge ab-included">Included</span>
+      </div>
+      <div class="area-extras-toggle" onclick="toggleAreaExtras('tl-extras')">
+        <span id="tl-caret">›</span> Add optional components
+      </div>
+      <div class="area-extras-list" id="tl-extras">
+        <div class="ae-item" onclick="this.classList.toggle('on'); toggleAeCheck(this)">
+          <div class="ae-check"></div>
+          <span class="ae-label">Session Teaching Plans <span class="ae-note">— lesson-level objectives, activities &amp; timing</span></span>
+        </div>
+        <div class="ae-item" onclick="this.classList.toggle('on'); toggleAeCheck(this)">
+          <div class="ae-check"></div>
+          <span class="ae-label">Tutorial &amp; Practical Activities <span class="ae-note">— guided lab / workshop tasks</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Area 3: Assessment Design -->
+    <div class="area-card">
+      <div class="area-head">
+        <span class="area-num">3</span>
+        <div class="area-info">
+          <div class="area-name">Assessment Design</div>
+          <div class="area-preview">Assessment Plan · Components &amp; Weightages · Outcome Alignment · NP Assessment Framework guardrails</div>
+        </div>
+        <span class="area-badge ab-included">Included</span>
+      </div>
+      <div class="area-extras-toggle" onclick="toggleAreaExtras('asmt-extras')">
+        <span id="asmt-caret">›</span> Add optional components
+      </div>
+      <div class="area-extras-list" id="asmt-extras">
+        <div class="ae-item" onclick="this.classList.toggle('on'); toggleAeCheck(this)">
+          <div class="ae-check"></div>
+          <span class="ae-label">Rubrics &amp; Evaluation Criteria <span class="ae-note">— per assessment component</span></span>
+        </div>
+        <div class="ae-item" onclick="this.classList.toggle('on'); toggleAeCheck(this)">
+          <div class="ae-check"></div>
+          <span class="ae-label">Assessment Requirements &amp; Schedule <span class="ae-note">— submission dates, formats</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Area 4: Teaching Materials -->
+    <div class="area-card">
+      <div class="area-head">
+        <span class="area-num">4</span>
+        <div class="area-info">
+          <div class="area-name">Teaching Materials &amp; Resources</div>
+          <div class="area-preview">Slide Outlines · Activity Sheets · Discussion Prompts · Quiz Questions · Reading Lists · AI-assisted resources</div>
+        </div>
+        <span class="area-badge ab-demand">Generate on demand</span>
+      </div>
+    </div>
+
+    <!-- Area 5: Review & Alignment -->
+    <div class="area-card">
+      <div class="area-head">
+        <span class="area-num">5</span>
+        <div class="area-info">
+          <div class="area-name">Review &amp; Alignment</div>
+          <div class="area-preview">NP Assessment Framework · NPGC coverage · Bloom's distribution · Skills Framework · AI-readiness · Curriculum requirements</div>
+        </div>
+        <span class="area-badge ab-auto">Auto-generated</span>
+      </div>
+    </div>
+
+    <div class="gen-cta-wrap">
+      <button class="btn-gen-main" onclick="startGeneration()">✦ &nbsp;Generate</button>
+      <div class="gen-footnote">You'll review and refine each section before exporting.</div>
+    </div>
+    <button class="btn-text-sm" onclick="goScreen(1)">← Change my inputs</button>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════
+     SCREEN 3 — Generating
+════════════════════════════════ -->
+<div class="screen" id="s-gen">
+  <div class="gen-box">
+    <div class="gen-h">Building your curriculum…</div>
+    <div class="gen-sub">Working through each area.</div>
+    <div class="gen-list" id="gen-list"></div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════
+     SCREEN 4 — Review & Align
+════════════════════════════════ -->
+<div class="screen" id="s-review">
+
+  <!-- Left nav (grouped by area) -->
+  <nav class="rv-nav">
+    <div class="rv-nav-area">Area 1 — Foundations</div>
+    <div class="rv-nav-item active" id="nav-synopsis" onclick="showSection(0)"><span class="rv-dot active" id="nd-synopsis"></span>Synopsis &amp; Aims</div>
+    <div class="rv-nav-item" id="nav-outcomes" onclick="showSection(1)"><span class="rv-dot" id="nd-outcomes"></span>Learning Outcomes</div>
+
+    <div class="rv-nav-area">Area 2 — T&amp;L Design</div>
+    <div class="rv-nav-item" id="nav-sow" onclick="showSection(2)"><span class="rv-dot" id="nd-sow"></span>Scheme of Work</div>
+    <div class="rv-nav-item" id="nav-tls" onclick="showSection(3)"><span class="rv-dot" id="nd-tls"></span>T&amp;L Strategies</div>
+
+    <div class="rv-nav-area">Area 3 — Assessment</div>
+    <div class="rv-nav-item" id="nav-asmt" onclick="showSection(4)"><span class="rv-dot" id="nd-asmt"></span>Assessment Plan</div>
+
+    <div class="rv-nav-area">Area 4 — Materials</div>
+    <div class="rv-nav-item" id="nav-mat" onclick="showSection(5)"><span class="rv-dot" id="nd-mat"></span>Teaching Materials</div>
+
+    <div class="rv-nav-area">Area 5 — Alignment</div>
+    <div class="rv-nav-item" id="nav-align" onclick="showSection(6)"><span class="rv-dot" id="nd-align"></span>Review &amp; Alignment</div>
+  </nav>
+
+  <div class="rv-main">
+
+    <!-- ── 0: Synopsis & Aims ── -->
+    <div class="rv-section" id="rv-0">
+      <div class="rv-section-header">
+        <div><div class="rv-section-counter">Area 1 — Section 1 of 2</div><div class="rv-section-name">Synopsis &amp; Aims</div></div>
+        <span class="rv-badge rb-ai" id="b-synopsis">AI Draft</span>
+      </div>
+      <div class="rv-section-body">
+        <div class="rv-text" contenteditable="true">This module provides students with a rigorous foundation in data structures and algorithm design — the core building blocks of efficient software systems. Students examine fundamental structures including arrays, linked lists, stacks, queues, trees, heaps, hash tables, and graphs, alongside classical algorithms for sorting, searching, and traversal. Emphasis is placed on analysing algorithmic complexity using Big-O notation, evaluating performance trade-offs, and selecting appropriate structures for real-world problems. On completion, students will be equipped to reason analytically about computational efficiency and apply these skills across subsequent software engineering modules.</div>
+      </div>
+      <div class="rv-refine">
+        <input class="refine-in" type="text" placeholder="Refine — e.g. make more industry-focused, shorten to 80 words…">
+        <button class="btn-regen" onclick="toast('Regenerating synopsis…')">↺ Regenerate</button>
+      </div>
+      <div class="rv-footer">
+        <div></div>
+        <button class="btn-accept-next" id="acc-synopsis" onclick="acceptAndNext(0,'synopsis')">✓ Accept &amp; Continue →</button>
+      </div>
+    </div>
+
+    <!-- ── 1: Learning Outcomes ── -->
+    <div class="rv-section" id="rv-1" style="display:none;">
+      <div class="rv-section-header">
+        <div><div class="rv-section-counter">Area 1 — Section 2 of 2</div><div class="rv-section-name">Learning Outcomes</div></div>
+        <span class="rv-badge rb-ai" id="b-outcomes">AI Draft</span>
+      </div>
+      <div class="rv-section-body">
+        <div class="rv-text" contenteditable="true">On completion of the module, students should be able to:
+
+2.1  explain the properties and use cases of arrays, linked lists, stacks, and queues  [B, D]
+2.2  analyse time and space complexity using Big-O, Big-Ω, and Big-Θ notation  [B]
+2.3  implement and compare sorting algorithms across different data sets  [A, B]
+2.4  apply binary search trees, AVL trees, and heaps to organise data efficiently  [A, C]
+2.5  apply graph representations and traversal algorithms to network problems  [A, B]
+2.6  design and justify appropriate data structure choices for software engineering scenarios  [A, B, C]</div>
+
+        <div class="npgc-map">
+          <div class="npgc-map-label">NPGC Alignment — click to adjust</div>
+          <div class="npgc-chips">
+            <span class="npgc-chip active" title="Domain & Interdisciplinary Knowledge">A. Domain</span>
+            <span class="npgc-chip active" title="Critical Thinking & Problem Solving">B. Critical Thinking</span>
+            <span class="npgc-chip active" title="Innovation & Entrepreneurial Mindset">C. Innovation</span>
+            <span class="npgc-chip" title="Digital Competence">D. Digital</span>
+            <span class="npgc-chip" title="Self-Development">E. Self-Dev</span>
+            <span class="npgc-chip" title="Collaboration & Cross-cultural Sensitivity">F. Collaboration</span>
+            <span class="npgc-chip" title="Communication">G. Communication</span>
+          </div>
+          <div class="npgc-coverage" style="margin-top:12px;">
+            <div class="npgc-bar-row"><span class="npgc-bar-label">A. Domain &amp; Interdisciplinary</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:85%"></div></div></div>
+            <div class="npgc-bar-row"><span class="npgc-bar-label">B. Critical Thinking</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:90%"></div></div></div>
+            <div class="npgc-bar-row"><span class="npgc-bar-label">C. Innovation</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:45%"></div></div></div>
+            <div class="npgc-bar-row"><span class="npgc-bar-label">D. Digital Competence</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:20%"></div></div></div>
+            <div class="npgc-bar-row"><span class="npgc-bar-label">E. Self-Development</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:10%"></div></div></div>
+            <div class="npgc-bar-row"><span class="npgc-bar-label">F. Collaboration</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:30%"></div></div></div>
+            <div class="npgc-bar-row"><span class="npgc-bar-label">G. Communication</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:25%"></div></div></div>
+          </div>
+          <div class="sf-upload" onclick="toast('Upload your sector SF document to map outcomes to TSC/CCS competencies')">
+            <span style="font-size:16px;color:#ccc;">↑</span>
+            <div class="sf-upload-text"><strong>Map to Skills Framework</strong><span>Upload sector SF document — AI tags each outcome to TSC/CCS competencies</span></div>
+          </div>
+          <div class="sf-upload" style="margin-top:8px;" onclick="toast('Specify domain or professional body framework')">
+            <span style="font-size:16px;color:#ccc;">+</span>
+            <div class="sf-upload-text"><strong>Add Domain / Professional Framework</strong><span>e.g. MOE LifeSkills, ISCA framework, IEEE competencies</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="rv-refine">
+        <input class="refine-in" type="text" placeholder="e.g. add an AI literacy outcome, rewrite at L3 difficulty…">
+        <button class="btn-regen" onclick="toast('Regenerating outcomes…')">↺ Regenerate</button>
+      </div>
+      <div class="rv-footer">
+        <button class="btn-prev-sec" onclick="showSection(0)">← Previous</button>
+        <button class="btn-accept-next" id="acc-outcomes" onclick="acceptAndNext(1,'outcomes')">✓ Accept &amp; Continue →</button>
+      </div>
+    </div>
+
+    <!-- ── 2: Scheme of Work ── -->
+    <div class="rv-section" id="rv-2" style="display:none;">
+      <div class="rv-section-header">
+        <div><div class="rv-section-counter">Area 2 — Section 1 of 2</div><div class="rv-section-name">Scheme of Work</div></div>
+        <span class="rv-badge rb-ai" id="b-sow">AI Draft</span>
+      </div>
+      <div class="rv-section-body" style="overflow-x:auto;">
+        <table class="sow-table">
+          <thead><tr><th>Wk</th><th>Topic</th><th>Outcomes</th><th>T&amp;L Mode</th><th>Resources</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Module intro &amp; Arrays</td><td>2.1</td><td>Lecture + Lab</td><td>Slides, VisuAlgo</td></tr>
+            <tr><td>2</td><td>Complexity Analysis</td><td>2.2</td><td>Lecture + Problem set</td><td>Slides, worksheet</td></tr>
+            <tr><td>3</td><td>Linked Lists</td><td>2.1</td><td>Lab (implement)</td><td>Lab sheet</td></tr>
+            <tr><td>4</td><td>Stacks &amp; Queues</td><td>2.1</td><td>Case-based PBL</td><td>Case, lab sheet</td></tr>
+            <tr><td>5</td><td>Sorting I (bubble, insertion)</td><td>2.3</td><td>Lecture + Lab</td><td>Slides, lab sheet</td></tr>
+            <tr><td>6</td><td>Sorting II (merge, quicksort)</td><td>2.3</td><td>Lab + Benchmarking</td><td>Lab sheet</td></tr>
+            <tr><td>7</td><td>Binary Trees &amp; BST</td><td>2.4</td><td>Lecture + Lab</td><td>Slides, VisuAlgo</td></tr>
+            <tr><td>8</td><td style="color:#aaa;font-style:italic;" colspan="4">Mid-semester review / common test</td></tr>
+            <tr><td>9</td><td>AVL Trees</td><td>2.4</td><td>Flipped + Lab</td><td>Pre-class video, lab sheet</td></tr>
+            <tr><td>10</td><td>Heaps &amp; Priority Queues</td><td>2.4</td><td>Lab + PBL</td><td>Lab sheet, case</td></tr>
+            <tr><td>11</td><td>Hash Tables</td><td>2.1, 2.6</td><td>AI-assisted exploration</td><td>AI tutor, lab sheet</td></tr>
+            <tr><td>12</td><td>Graph representations</td><td>2.5</td><td>Lecture + Simulation</td><td>Slides, VisuAlgo</td></tr>
+            <tr><td>13</td><td>Graph traversal (BFS, DFS)</td><td>2.5</td><td>Collaborative PBL</td><td>Lab sheet, case</td></tr>
+            <tr><td>14</td><td>Dijkstra's algorithm</td><td>2.5</td><td>Lab</td><td>Lab sheet</td></tr>
+            <tr><td>15</td><td>Applied project work</td><td>2.6</td><td>Project studio</td><td>Project brief</td></tr>
+            <tr><td>16</td><td>Project presentations</td><td>2.6</td><td>Presentation + Reflection</td><td>Rubric</td></tr>
+            <tr><td>17</td><td style="color:#aaa;font-style:italic;" colspan="4">Revision / buffer</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="rv-refine">
+        <input class="refine-in" type="text" placeholder="e.g. add more AI-assisted weeks, include an industry project sprint…">
+        <button class="btn-regen" onclick="toast('Regenerating scheme of work…')">↺ Regenerate</button>
+      </div>
+      <div class="rv-footer">
+        <button class="btn-prev-sec" onclick="showSection(1)">← Previous</button>
+        <button class="btn-accept-next" id="acc-sow" onclick="acceptAndNext(2,'sow')">✓ Accept &amp; Continue →</button>
+      </div>
+    </div>
+
+    <!-- ── 3: T&L Strategies ── -->
+    <div class="rv-section" id="rv-3" style="display:none;">
+      <div class="rv-section-header">
+        <div><div class="rv-section-counter">Area 2 — Section 2 of 2</div><div class="rv-section-name">Teaching &amp; Learning Strategies</div></div>
+        <span class="rv-badge rb-ai" id="b-tls">AI Draft</span>
+      </div>
+      <div class="rv-section-body">
+
+        <div class="tl-strategy">
+          <div class="tl-strategy-head"><span class="tl-strategy-name">Case-based &amp; Problem-based Learning</span><span class="tl-strategy-tag tl-tag-rec">Recommended</span></div>
+          <div class="tl-strategy-body">Students engage with realistic computational problems drawn from industry — applying data structure knowledge to design, implement, and evaluate solutions. Develops analytical reasoning and the ability to justify design decisions using complexity evidence.</div>
+        </div>
+
+        <div class="tl-strategy">
+          <div class="tl-strategy-head"><span class="tl-strategy-name">Technology-enabled &amp; Blended Learning</span><span class="tl-strategy-tag tl-tag-rec">Recommended</span></div>
+          <div class="tl-strategy-body">Recorded micro-lectures, interactive algorithm visualisation tools (VisuAlgo), auto-graded online exercises, and LMS discussion boards support flexible, self-paced learning. Pre-class preparation shifts in-class time toward problem-solving and discussion.</div>
+        </div>
+
+        <div class="tl-strategy">
+          <div class="tl-strategy-head"><span class="tl-strategy-name">Collaborative Learning Activities</span><span class="tl-strategy-tag tl-tag-rec">Recommended</span></div>
+          <div class="tl-strategy-body">Group lab sessions and case-study workshops where students collaboratively analyse datasets, compare algorithm performance, and present findings — developing communication and cross-functional teamwork skills alongside technical competence.</div>
+        </div>
+
+        <div class="tl-strategy">
+          <div class="tl-strategy-head"><span class="tl-strategy-name">Simulation &amp; Lab Practicals</span><span class="tl-strategy-tag tl-tag-rec">Recommended</span></div>
+          <div class="tl-strategy-body">Guided lab sessions where students implement each major data structure from scratch in Python, benchmark performance, and reflect on observed vs. theoretical complexity — building deep experiential understanding.</div>
+        </div>
+
+        <div class="tl-strategy">
+          <div class="tl-strategy-head"><span class="tl-strategy-name">Discussion &amp; Reflective Activities</span><span class="tl-strategy-tag tl-tag-rec">Recommended</span></div>
+          <div class="tl-strategy-body">Weekly discussion prompts on the LMS forum invite students to reflect on design trade-offs, real-world algorithm use cases, and current industry practices — reinforcing metacognition and communication competencies.</div>
+        </div>
+
+        <div class="tl-strategy">
+          <div class="tl-strategy-head"><span class="tl-strategy-name">AI-enabled Learning Experiences</span><span class="tl-strategy-tag tl-tag-new">New</span></div>
+          <div class="tl-strategy-body">Students use AI tools (e.g., GitHub Copilot, ChatGPT) under structured guidance to explore alternative implementations, debug code, and generate test cases — developing AI-literacy and critical evaluation of AI-generated output. Week 11 includes a dedicated AI-assisted exploration session.</div>
+        </div>
+
+      </div>
+      <div class="rv-refine">
+        <input class="refine-in" type="text" placeholder="e.g. add a flipped classroom component, add more OAL activities…">
+        <button class="btn-regen" onclick="toast('Regenerating T&L strategies…')">↺ Regenerate</button>
+      </div>
+      <div class="rv-footer">
+        <button class="btn-prev-sec" onclick="showSection(2)">← Previous</button>
+        <button class="btn-accept-next" id="acc-tls" onclick="acceptAndNext(3,'tls')">✓ Accept &amp; Continue →</button>
+      </div>
+    </div>
+
+    <!-- ── 4: Assessment Plan ── -->
+    <div class="rv-section" id="rv-4" style="display:none;">
+      <div class="rv-section-header">
+        <div><div class="rv-section-counter">Area 3 — Assessment Design</div><div class="rv-section-name">Assessment Plan</div></div>
+        <span class="rv-badge rb-ai" id="b-asmt">AI Draft</span>
+      </div>
+      <div class="rv-section-body">
+        <div class="rv-text" contenteditable="true">Continuous Assessment (100%):
+
+Lab Assignments ×4 — 40%
+Four graded exercises covering arrays, sorting, trees, and graphs. Individual submission with code and written complexity justification. Mapped to outcomes 2.1–2.5.
+
+Class Test — 30%
+Written test on data structures theory and algorithm analysis. Closed-book, 1.5 hours. Mapped to outcomes 2.1–2.4.
+
+Applied Project — 30%
+Small-group project: design and implement a data structure-backed system. Includes a 10-minute technical presentation and written design report. Mapped to outcome 2.6.</div>
+
+        <div class="asm-guardrails">
+          <div class="asm-gl-label">NP Assessment Framework — Guardrails</div>
+          <div class="asm-gl-row"><span class="asm-gl-icon">✓</span><span class="asm-gl-text ok">Module type: CA only — no final exam required</span></div>
+          <div class="asm-gl-row"><span class="asm-gl-icon">✓</span><span class="asm-gl-text ok">3 components — within 4-component limit</span></div>
+          <div class="asm-gl-row"><span class="asm-gl-icon">✓</span><span class="asm-gl-text ok">Group work (Applied Project) = 30% — at framework limit</span></div>
+          <div class="asm-gl-row"><span class="asm-gl-icon">✓</span><span class="asm-gl-text ok">Individual components = 70% — meets individual assessment requirement</span></div>
+          <div class="asm-gl-row"><span class="asm-gl-icon">⚠</span><span class="asm-gl-text warn">No formative low-stakes component — consider adding a short quiz or exit ticket</span></div>
+          <div class="asm-gl-row"><span class="asm-gl-icon">✓</span><span class="asm-gl-text ok">All components mapped to learning outcomes</span></div>
+        </div>
+      </div>
+      <div class="rv-refine">
+        <input class="refine-in" type="text" placeholder="e.g. split class test into two quizzes, add a peer-review component…">
+        <button class="btn-regen" onclick="toast('Regenerating assessment plan…')">↺ Regenerate</button>
+      </div>
+      <div class="rv-footer">
+        <button class="btn-prev-sec" onclick="showSection(3)">← Previous</button>
+        <button class="btn-accept-next" id="acc-asmt" onclick="acceptAndNext(4,'asmt')">✓ Accept &amp; Continue →</button>
+      </div>
+    </div>
+
+    <!-- ── 5: Teaching Materials (on demand) ── -->
+    <div class="rv-section" id="rv-5" style="display:none;">
+      <div class="rv-section-header">
+        <div><div class="rv-section-counter">Area 4 — Optional</div><div class="rv-section-name">Teaching Materials &amp; Resources</div></div>
+        <span class="rv-badge rb-auto">Generate on demand</span>
+      </div>
+      <div class="rv-section-body">
+        <p style="font-size:13px;color:#888;margin-bottom:20px;line-height:1.6;">These are generated individually, tailored to your accepted outcomes and scheme of work. Generate now or return later.</p>
+        <div class="mat-grid">
+          <div class="mat-card">
+            <div class=.mat-card-icon.>—</div>
+            <div class="mat-card-name">Lesson Slide Outlines</div>
+            <div class="mat-card-desc">Slide-by-slide outlines for each topic — headers, key points, suggested visuals and activities.</div>
+            <div class="mat-card-action" onclick="toast('Generating slide outlines…')">✦ Generate</div>
+          </div>
+          <div class="mat-card">
+            <div class=.mat-card-icon.>—</div>
+            <div class="mat-card-name">Activity Sheets</div>
+            <div class="mat-card-desc">Guided worksheets for in-class or lab activities, scaffolded to your outcomes.</div>
+            <div class="mat-card-action" onclick="toast('Generating activity sheets…')">✦ Generate</div>
+          </div>
+          <div class="mat-card">
+            <div class=.mat-card-icon.>—</div>
+            <div class="mat-card-name">Discussion Prompts</div>
+            <div class="mat-card-desc">Structured prompts for class discussions, online forums, and reflective journals.</div>
+            <div class="mat-card-action" onclick="toast('Generating prompts…')">✦ Generate</div>
+          </div>
+          <div class="mat-card">
+            <div class=.mat-card-icon.>—</div>
+            <div class="mat-card-name">Quiz Questions</div>
+            <div class="mat-card-desc">MCQ and short-answer questions per topic, mapped to your learning outcomes.</div>
+            <div class="mat-card-action" onclick="toast('Generating quiz questions…')">✦ Generate</div>
+          </div>
+          <div class="mat-card">
+            <div class=.mat-card-icon.>—</div>
+            <div class="mat-card-name">Reading List &amp; Resources</div>
+            <div class="mat-card-desc">Curated textbooks, journals, online resources, and NLB eResources.</div>
+            <div class="mat-card-action" onclick="toast('Generating reading list…')">✦ Generate</div>
+          </div>
+          <div class="mat-card">
+            <div class=.mat-card-icon.>—</div>
+            <div class="mat-card-name">AI-assisted Resources</div>
+            <div class="mat-card-desc">Structured AI prompts and activity guides for students to use AI tools in learning.</div>
+            <div class="mat-card-action" onclick="toast('Generating AI learning resources…')">✦ Generate</div>
+          </div>
+        </div>
+      </div>
+      <div class="rv-footer">
+        <button class="btn-prev-sec" onclick="showSection(4)">← Previous</button>
+        <button class="btn-accept-next" onclick="showSection(6)">Next: Review &amp; Alignment →</button>
+      </div>
+    </div>
+
+    <!-- ── 6: Review & Alignment (Area 5) ── -->
+    <div class="rv-section" id="rv-6" style="display:none;">
+      <div class="rv-section-header">
+        <div><div class="rv-section-counter">Area 5 — Final Step</div><div class="rv-section-name">Review &amp; Alignment</div></div>
+        <span class="rv-badge rb-auto">Auto-generated</span>
+      </div>
+      <div class="rv-section-body">
+
+        <!-- NP Assessment Framework -->
+        <div class="align-section">
+          <div class="align-section-title">NP Assessment Framework</div>
+          <div class="align-check-row"><span class="align-icon">✓</span><span class="align-text ok">CA only module — no exam required</span></div>
+          <div class="align-check-row"><span class="align-icon">✓</span><span class="align-text ok">3 components — within 4-component limit</span></div>
+          <div class="align-check-row"><span class="align-icon">✓</span><span class="align-text ok">Group work = 30% — at framework limit</span></div>
+          <div class="align-check-row"><span class="align-icon">✓</span><span class="align-text ok">All components mapped to outcomes</span></div>
+          <div class="align-check-row"><span class="align-icon">⚠</span><span class="align-text warn">No formative component — consider adding a low-stakes check-in</span></div>
+        </div>
+
+        <!-- NPGC Coverage -->
+        <div class="align-section">
+          <div class="align-section-title">NPGC Coverage Summary</div>
+          <div class="npgc-bar-row"><span class="npgc-bar-label">A. Domain &amp; Interdisciplinary</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:85%"></div></div><span style="font-size:11px;color:#888;margin-left:6px;">85%</span></div>
+          <div class="npgc-bar-row"><span class="npgc-bar-label">B. Critical Thinking</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:90%"></div></div><span style="font-size:11px;color:#888;margin-left:6px;">90%</span></div>
+          <div class="npgc-bar-row"><span class="npgc-bar-label">C. Innovation</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:45%"></div></div><span style="font-size:11px;color:#888;margin-left:6px;">45%</span></div>
+          <div class="npgc-bar-row"><span class="npgc-bar-label">D. Digital Competence</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:20%"></div></div><span style="font-size:11px;color:#888;margin-left:6px;">20%</span></div>
+          <div class="npgc-bar-row"><span class="npgc-bar-label">E. Self-Development</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:10%"></div></div><span style="font-size:11px;color:#888;margin-left:6px;">10%</span></div>
+          <div class="npgc-bar-row"><span class="npgc-bar-label">F. Collaboration</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:30%"></div></div><span style="font-size:11px;color:#888;margin-left:6px;">30%</span></div>
+          <div class="npgc-bar-row"><span class="npgc-bar-label">G. Communication</span><div class="npgc-bar-track"><div class="npgc-bar-fill" style="width:25%"></div></div><span style="font-size:11px;color:#888;margin-left:6px;">25%</span></div>
+          <div class="align-tip"><strong>Suggestion:</strong> Strengthen E (Self-Development) and G (Communication). Consider adding a reflective portfolio component or a presentation outcome.</div>
+        </div>
+
+        <!-- Bloom's Taxonomy -->
+        <div class="align-section">
+          <div class="align-section-title">Bloom's Taxonomy Distribution</div>
+          <div class="bloom-grid">
+            <div class="bloom-col">
+              <div class="bloom-bar-wrap"><div class="bloom-bar zero" style="height:4px;"></div></div>
+              <div class="bloom-count zero">0</div>
+              <div class="bloom-label">Remember</div>
+            </div>
+            <div class="bloom-col">
+              <div class="bloom-bar-wrap"><div class="bloom-bar" style="height:14px;"></div></div>
+              <div class="bloom-count">1</div>
+              <div class="bloom-label">Understand</div>
+            </div>
+            <div class="bloom-col">
+              <div class="bloom-bar-wrap"><div class="bloom-bar" style="height:34px;"></div></div>
+              <div class="bloom-count">3</div>
+              <div class="bloom-label">Apply</div>
+            </div>
+            <div class="bloom-col">
+              <div class="bloom-bar-wrap"><div class="bloom-bar" style="height:24px;"></div></div>
+              <div class="bloom-count">2</div>
+              <div class="bloom-label">Analyse</div>
+            </div>
+            <div class="bloom-col">
+              <div class="bloom-bar-wrap"><div class="bloom-bar zero" style="height:4px;"></div></div>
+              <div class="bloom-count zero">0</div>
+              <div class="bloom-label">Evaluate</div>
+            </div>
+            <div class="bloom-col">
+              <div class="bloom-bar-wrap"><div class="bloom-bar zero" style="height:4px;"></div></div>
+              <div class="bloom-count zero">0</div>
+              <div class="bloom-label">Create</div>
+            </div>
+          </div>
+          <div class="align-tip" style="margin-top:12px;"><strong>⚠ Note:</strong> No outcomes at Evaluate or Create level. For an L2 module, consider adding one outcome at a higher order — e.g. "evaluate the suitability of data structures for a given problem context."</div>
+        </div>
+
+        <!-- Skills Framework -->
+        <div class="align-section">
+          <div class="align-section-title">Skills Framework Alignment</div>
+          <div class="align-check-row"><span class="align-icon" style="color:#ccc;">○</span><span class="align-text muted">No Skills Framework document uploaded — upload to generate TSC/CCS competency mapping</span></div>
+          <div class="align-upload-prompt" onclick="toast('Upload your sector Skills Framework document')">
+            <span style="font-size:16px;color:#ccc;">↑</span>
+            <div>
+              <div style="font-size:12px;font-weight:600;color:#1a1a1a;margin-bottom:2px;">Upload Skills Framework</div>
+              <div style="font-size:11px;color:#999;">AI will map each outcome to TSC/CCS competencies from your sector SF</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI-Readiness -->
+        <div class="align-section">
+          <div class="align-section-title">AI-Readiness &amp; Future Skills</div>
+          <div class="align-check-row"><span class="align-icon">✓</span><span class="align-text ok">AI-enabled learning experience included in T&amp;L strategies (Week 11)</span></div>
+          <div class="align-check-row"><span class="align-icon">✓</span><span class="align-text ok">Digital competence addressed in outcomes (D)</span></div>
+          <div class="align-check-row"><span class="align-icon">⚠</span><span class="align-text warn">No explicit AI literacy outcome — consider adding: "critically evaluate AI-generated code and outputs"</span></div>
+          <div class="align-check-row"><span class="align-icon" style="color:#ccc;">○</span><span class="align-text muted">AI-assisted student resources not yet generated (Area 4)</span></div>
+        </div>
+
+        <!-- Internal Requirements -->
+        <div class="align-section">
+          <div class="align-section-title">NP Curriculum Requirements</div>
+          <div class="align-check-row"><span class="align-icon">✓</span><span class="align-text ok">Module outcomes linked to diploma-level course outcomes</span></div>
+          <div class="align-check-row"><span class="align-icon">✓</span><span class="align-text ok">Assessment weightages sum to 100%</span></div>
+          <div class="align-check-row"><span class="align-icon">✓</span><span class="align-text ok">Learning hours proportional to credit units (60 hours for 4 CU)</span></div>
+          <div class="align-check-row"><span class="align-icon">⚠</span><span class="align-text warn">Service-learning component not included — confirm if required for this diploma</span></div>
+        </div>
+
+      </div>
+      <div class="rv-footer">
+        <button class="btn-prev-sec" onclick="showSection(5)">← Previous</button>
+        <a href="design-output.html" class="btn-view-doc">View Full Document →</a>
+      </div>
+    </div>
+
+  </div><!-- /rv-main -->
+</div><!-- /s-review -->
+
+<div class="toast" id="toast-el"></div>
+
+<script>
+  // ── Outer screen navigation ──
+  const screens = ['s-context','s-select','s-gen','s-review'];
+  const steps   = ['si-1','si-2','si-3','si-4'];
+  let curScreen = 1;
+
+  function goScreen(n) {
+    document.getElementById(screens[curScreen-1]).classList.remove('active');
+    document.getElementById(steps[curScreen-1]).classList.remove('active');
+    document.getElementById(steps[curScreen-1]).classList.add('done');
+    curScreen = n;
+    document.getElementById(screens[n-1]).classList.add('active');
+    document.getElementById(steps[n-1]).classList.remove('done');
+    document.getElementById(steps[n-1]).classList.add('active');
+    window.scrollTo(0,0);
+  }
+
+  // ── Sub-question navigation ──
+  let curSubQ = 1;
+  const subQSummaries = {};
+
+  function nextSubQ(from) {
+    saveSummary(from);
+    document.getElementById('sq' + from).classList.remove('active');
+    const next = from + 1;
+    if (next > 5) { goScreen(2); return; }
+    document.getElementById('sq' + next).classList.add('active');
+    curSubQ = next;
+    for (let i = 1; i <= 5; i++) {
+      const s = document.getElementById('sqp-' + i);
+      s.className = 'sq-prog-step' + (i < next ? ' done' : i === next ? ' active' : '');
+    }
+    document.getElementById('sq-prog-label').textContent = 'Question ' + next + ' of 5';
+    window.scrollTo(0,0);
+  }
+
+  function saveSummary(qNum) {
+    const labels = {1:'Module', 2:'School / Level', 3:'Intent', 4:'Assessment'};
+    let val = '';
+    if (qNum === 1) val = document.getElementById('q1-name').value || 'Not entered';
+    else if (qNum === 2) {
+      const school = document.getElementById('q2-school').value || 'School not selected';
+      const level = (document.querySelector('.sq-chip.on') || {}).textContent || 'L2';
+      val = school.replace('School of ', '') + ' · ' + level;
+    } else if (qNum === 3) {
+      const v = document.getElementById('q3-intent').value;
+      val = v ? (v.length > 70 ? v.slice(0,70)+'…' : v) : 'Not entered';
+    } else if (qNum === 4) {
+      const chosen = document.querySelector('.choice-card.on');
+      val = chosen ? chosen.querySelector('.choice-name').textContent : 'CA only';
+    } else return;
+    subQSummaries[qNum] = { label: labels[qNum], val };
+    renderSummary();
+  }
+
+  function renderSummary() {
+    const strip = document.getElementById('sq-summary');
+    strip.innerHTML = '';
+    Object.entries(subQSummaries).forEach(([q, data]) => {
+      const row = document.createElement('div');
+      row.className = 'sq-summary-row';
+      row.innerHTML = `<span class="sq-summary-label">${data.label}</span><span class="sq-summary-val">${data.val}</span><span class="sq-summary-edit" onclick="jumpToQ(${q})">Edit</span>`;
+      strip.appendChild(row);
+    });
+  }
+
+  function jumpToQ(n) {
+    document.getElementById('sq' + curSubQ).classList.remove('active');
+    document.getElementById('sq' + n).classList.add('active');
+    curSubQ = n;
+    for (let i = 1; i <= 5; i++) {
+      document.getElementById('sqp-' + i).className = 'sq-prog-step' + (i < n ? ' done' : i === n ? ' active' : '');
+    }
+    document.getElementById('sq-prog-label').textContent = 'Question ' + n + ' of 5';
+  }
+
+  function selChip(el, group) {
+    el.closest('.sq-chips').querySelectorAll('.sq-chip').forEach(c => c.classList.remove('on'));
+    el.classList.add('on');
+  }
+  function selChoice(el, group) {
+    el.closest('.choice-cards').querySelectorAll('.choice-card').forEach(c => c.classList.remove('on'));
+    el.classList.add('on');
+  }
+
+  // ── Area extras toggles (Screen 2) ──
+  function toggleAreaExtras(id) {
+    const list = document.getElementById(id);
+    list.classList.toggle('open');
+    const caretId = id === 'tl-extras' ? 'tl-caret' : 'asmt-caret';
+    const caret = document.getElementById(caretId);
+    caret.textContent = list.classList.contains('open') ? '↓' : '›';
+  }
+  function toggleAeCheck(el) {
+    el.querySelector('.ae-check').textContent = el.classList.contains('on') ? '✓' : '';
+  }
+
+  // ── Generation animation ──
+  const genItems = [
+    { area: 'AREA 1 — MODULE FOUNDATIONS', items: [
+      { label: 'Drafting synopsis & aims', tag: '' },
+      { label: 'Writing learning outcomes', tag: 'NPGC A–G' },
+      { label: 'Mapping NPGC competencies', tag: '' },
+    ]},
+    { area: 'AREA 2 — T&L DESIGN', items: [
+      { label: 'Building scheme of work', tag: '' },
+      { label: 'Selecting T&L strategies', tag: '' },
+    ]},
+    { area: 'AREA 3 — ASSESSMENT', items: [
+      { label: 'Proposing assessment plan', tag: 'NP Assessment Framework' },
+      { label: 'Checking framework guardrails', tag: '' },
+    ]},
+    { area: 'AREA 5 — ALIGNMENT', items: [
+      { label: 'Running alignment checks', tag: '' },
+      { label: 'Checking Bloom\'s distribution', tag: '' },
+      { label: 'Checking AI-readiness', tag: '' },
+    ]},
+  ];
+
+  function startGeneration() {
+    goScreen(3);
+    const list = document.getElementById('gen-list');
+    list.innerHTML = '';
+    const allRows = [];
+    genItems.forEach(group => {
+      const sep = document.createElement('div');
+      sep.className = 'gen-area-sep';
+      sep.textContent = group.area;
+      list.appendChild(sep);
+      group.items.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'gen-row';
+        row.innerHTML = `<span class="gen-icon">◌</span><span class="gen-row-label">${item.label}</span>${item.tag ? `<span class="gen-row-tag">${item.tag}</span>` : ''}`;
+        list.appendChild(row);
+        allRows.push(row);
+      });
+    });
+
+    let delay = 300;
+    allRows.forEach((row, i) => {
+      setTimeout(() => {
+        row.classList.add('running');
+        row.querySelector('.gen-icon').innerHTML = '<span class="spin">↻</span>';
+      }, delay);
+      delay += 800;
+      setTimeout(() => {
+        row.classList.remove('running');
+        row.classList.add('done');
+        row.querySelector('.gen-icon').textContent = '✓';
+        if (i === allRows.length - 1) setTimeout(() => goScreen(4), 600);
+      }, delay);
+      delay += 100;
+    });
+  }
+
+  // ── Section navigation (Screen 4) ──
+  const sectionIds = ['synopsis','outcomes','sow','tls','asmt','mat','align'];
+  let curSection = 0;
+  const acceptedSections = new Set();
+
+  function showSection(n) {
+    document.querySelectorAll('.rv-section').forEach(s => s.style.display = 'none');
+    const sec = document.getElementById('rv-' + n);
+    if (sec) { sec.style.display = 'flex'; sec.style.flexDirection = 'column'; }
+    curSection = n;
+    document.querySelectorAll('.rv-nav-item').forEach(item => item.classList.remove('active'));
+    const navEl = document.getElementById('nav-' + sectionIds[n]);
+    if (navEl) navEl.classList.add('active');
+    sectionIds.forEach((id, i) => {
+      const dot = document.getElementById('nd-' + id);
+      if (!dot) return;
+      dot.className = 'rv-dot' + (acceptedSections.has(i) ? ' done' : i === n ? ' active' : '');
+    });
+    window.scrollTo(0,0);
+  }
+
+  function acceptAndNext(idx, key) {
+    if (!acceptedSections.has(idx)) {
+      acceptedSections.add(idx);
+      const badge = document.getElementById('b-' + key);
+      if (badge) { badge.textContent = 'Accepted'; badge.className = 'rv-badge rb-ok'; }
+      const dot = document.getElementById('nd-' + key);
+      if (dot) dot.className = 'rv-dot done';
+      const navEl = document.getElementById('nav-' + key);
+      if (navEl) navEl.classList.add('done');
+      const btn = document.getElementById('acc-' + key);
+      if (btn) { btn.textContent = '✓ Accepted'; btn.classList.add('accepted'); }
+      toast('Section accepted');
+    }
+    // Advance: core sections 0-4 go in order; after asmt (4) → materials (5)
+    const next = idx + 1;
+    setTimeout(() => showSection(next < 5 ? next : 5), 300);
+  }
+
+  // ── NPGC chip toggle ──
+  document.querySelectorAll('.npgc-chip').forEach(chip => {
+    chip.addEventListener('click', () => chip.classList.toggle('active'));
+  });
+
+  // ── Toast ──
+  function toast(msg) {
+    const t = document.getElementById('toast-el');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+</script>
+</body>
+</html>

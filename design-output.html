@@ -1,0 +1,633 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generated Module Document — NP AI Curriculum Designer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: #f5f5f5; color: #1a1a1a; min-height: 100vh; }
+
+    /* ── Topbar ── */
+    .topbar {
+      height: 52px; border-bottom: 1px solid #e0e0e0;
+      display: flex; align-items: center; padding: 0 40px; gap: 16px;
+      background: #fff; position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .topbar-divider { width: 1px; height: 16px; background: #e0e0e0; }
+    .topbar-title { font-size: 13px; font-weight: 500; color: #1a1a1a; }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .tb-btn {
+      font-size: 12px; font-weight: 500; padding: 7px 16px;
+      border: 1px solid #d0d0d0; background: #fff; cursor: pointer;
+      font-family: var(--font-sans); color: #555; transition: all 120ms;
+    }
+    .tb-btn:hover { border-color: #888; color: #1a1a1a; }
+    .tb-btn-primary {
+      background: #1a1a1a; color: #fff; border-color: #1a1a1a;
+    }
+    .tb-btn-primary:hover { background: #333; }
+    .tb-back { font-size: 12px; color: #888; text-decoration: none; margin-right: 8px; }
+    .tb-back:hover { color: #1a1a1a; }
+
+    /* ── Layout ── */
+    .page-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr 200px;
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      align-items: start;
+    }
+
+    /* ── Document nav (left) ── */
+    .doc-nav {
+      position: sticky; top: 72px;
+      padding-right: 20px;
+    }
+    .doc-nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #bbb; margin-bottom: 12px; }
+    .doc-nav-item {
+      display: block; font-size: 12px; color: #888; padding: 5px 0;
+      text-decoration: none; cursor: pointer; transition: color 100ms;
+      border-left: 2px solid transparent; padding-left: 10px; margin-left: -10px;
+    }
+    .doc-nav-item:hover { color: #1a1a1a; }
+    .doc-nav-item.active { color: #1a1a1a; font-weight: 600; border-left-color: #1a1a1a; }
+
+    /* ── Document ── */
+    .document {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      padding: 56px 64px;
+      max-width: 720px;
+    }
+
+    /* Document header */
+    .doc-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 32px; padding-bottom: 24px;
+      border-bottom: 2px solid #1a1a1a;
+    }
+    .doc-header-logo { height: 40px; width: auto; }
+    .doc-header-stamp {
+      font-size: 10px; text-align: right; color: #888; line-height: 1.6;
+    }
+    .doc-header-stamp strong { color: #1a1a1a; display: block; }
+
+    /* Diploma banner */
+    .doc-diploma {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase; text-align: center;
+      padding: 10px; border: 1px solid #1a1a1a;
+      margin-bottom: 0;
+    }
+
+    /* Info table */
+    .doc-info-table {
+      width: 100%; border-collapse: collapse;
+      margin-bottom: 40px;
+    }
+    .doc-info-table td {
+      border: 1px solid #d0d0d0; padding: 8px 12px;
+      font-size: 13px; vertical-align: top;
+    }
+    .doc-info-table td:first-child {
+      font-weight: 600; width: 42%; background: #fafafa; color: #555;
+      font-size: 12px;
+    }
+
+    /* Section blocks */
+    .doc-section { margin-bottom: 40px; }
+    .doc-section-hd {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .doc-section-title {
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      color: #1a1a1a;
+    }
+    .doc-section-num {
+      font-size: 13px; font-weight: 700; margin-right: 8px; color: #1a1a1a;
+    }
+    .copy-btn {
+      font-size: 10px; font-weight: 500; color: #aaa;
+      border: 1px solid #e0e0e0; padding: 3px 10px; cursor: pointer;
+      background: #fff; font-family: var(--font-sans);
+      transition: all 100ms; flex-shrink: 0;
+    }
+    .copy-btn:hover { color: #1a1a1a; border-color: #aaa; }
+
+    /* Synopsis */
+    .doc-synopsis {
+      font-size: 13px; line-height: 1.8; color: #333;
+      font-style: italic; padding: 0 4px;
+    }
+
+    /* Outcomes */
+    .doc-outcomes { display: flex; flex-direction: column; gap: 0; }
+    .doc-outcome-intro { font-size: 13px; color: #333; margin-bottom: 12px; line-height: 1.6; }
+    .doc-outcome-item {
+      display: grid; grid-template-columns: 40px 1fr;
+      font-size: 13px; line-height: 1.7; color: #333;
+      padding: 6px 0; border-top: 1px solid #f0f0f0;
+    }
+    .doc-outcome-item:first-of-type { border-top: none; }
+    .doc-outcome-num { font-weight: 600; color: #1a1a1a; font-size: 12px; padding-top: 1px; }
+    .doc-outcome-sub { margin-top: 4px; padding-left: 16px; }
+    .doc-outcome-sub li { font-size: 12px; color: #555; list-style: none; padding: 1px 0; }
+    .doc-outcome-sub li::before { content: "–  "; color: #aaa; }
+    .doc-outcome-note { font-size: 11px; color: #888; margin-top: 12px; font-style: italic; padding: 8px 10px; border-left: 2px solid #e0e0e0; }
+
+    /* Topics table */
+    .doc-topics-table {
+      width: 100%; border-collapse: collapse; font-size: 13px;
+    }
+    .doc-topics-table th {
+      background: #fafafa; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 8px 10px; border: 1px solid #d8d8d8; text-align: left; color: #555;
+    }
+    .doc-topics-table td {
+      padding: 9px 10px; border: 1px solid #e8e8e8;
+      vertical-align: top; line-height: 1.5; color: #333;
+    }
+    .doc-topics-table td:first-child { text-align: center; width: 40px; font-weight: 600; color: #1a1a1a; }
+    .doc-topics-table td:last-child { text-align: center; width: 80px; font-weight: 600; }
+    .doc-topics-table tr:nth-child(even) td { background: #fdfdfb; }
+    .doc-topics-tfoot td { font-weight: 700; background: #fafafa; text-align: right; }
+    .doc-topics-tfoot td:last-child { text-align: center; }
+    .topic-name { font-weight: 600; color: #1a1a1a; }
+    .topic-sub { list-style: none; margin-top: 3px; }
+    .topic-sub li { font-size: 12px; color: #666; padding: 1px 0; }
+    .topic-sub li::before { content: "–  "; color: #bbb; }
+
+    /* T&L */
+    .doc-tl-item { margin-bottom: 20px; }
+    .doc-tl-name { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+    .doc-tl-body { font-size: 13px; color: #333; line-height: 1.7; }
+
+    /* Assessment */
+    .doc-asmt-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 14px; }
+    .doc-asmt-table th { background: #fafafa; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; border: 1px solid #d8d8d8; color: #555; }
+    .doc-asmt-table td { padding: 10px 12px; border: 1px solid #e8e8e8; color: #333; line-height: 1.5; vertical-align: top; }
+    .doc-asmt-table td:last-child { text-align: center; font-weight: 700; width: 80px; }
+    .doc-asmt-total { font-size: 12px; text-align: right; font-weight: 600; color: #555; }
+    .doc-asmt-note { font-size: 13px; color: #333; line-height: 1.7; margin-top: 14px; }
+
+    /* References */
+    .doc-ref-list { display: flex; flex-direction: column; gap: 10px; }
+    .doc-ref-item { display: grid; grid-template-columns: 24px 1fr; font-size: 13px; color: #333; line-height: 1.6; }
+    .doc-ref-num { color: #888; font-weight: 600; }
+
+    /* ── Tools panel (right) ── */
+    .tools-panel { position: sticky; top: 72px; padding-left: 20px; }
+    .tools-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #bbb; margin-bottom: 12px; }
+    .tool-btn {
+      display: block; width: 100%; text-align: left;
+      font-size: 12px; font-weight: 500; color: #555;
+      padding: 8px 12px; border: 1px solid #e0e0e0;
+      background: #fff; margin-bottom: 6px; cursor: pointer;
+      font-family: var(--font-sans); transition: all 100ms;
+    }
+    .tool-btn:hover { border-color: #888; color: #1a1a1a; }
+    .tool-divider { border: none; border-top: 1px solid #e8e8e8; margin: 12px 0; }
+    .tool-note { font-size: 11px; color: #bbb; line-height: 1.5; }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+      background: #1a1a1a; color: #fff; font-size: 12px; font-weight: 500;
+      padding: 10px 20px; opacity: 0; pointer-events: none;
+      transition: opacity 200ms;
+    }
+    .toast.show { opacity: 1; }
+
+    @media (max-width: 900px) {
+      .page-layout { grid-template-columns: 1fr; }
+      .doc-nav, .tools-panel { display: none; }
+      .document { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Topbar -->
+<nav class="topbar">
+  <a href="design-wizard.html" class="topbar-brand">
+    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
+         alt="Ngee Ann Polytechnic" style="height:26px; width:auto;">
+    <div class="topbar-divider"></div>
+    <span class="topbar-title">NP AI Curriculum Designer</span>
+  </a>
+  <div class="topbar-divider" style="margin-left:16px;"></div>
+  <a href="index.html" style="font-size:12px; color:#888; text-decoration:none; display:flex; align-items:center; gap:5px;">
+    <span style="font-size:14px; line-height:1;">←</span> Home
+  </a>
+  <div class="topbar-right">
+    <a href="design-wizard.html" class="tb-back">← Edit inputs</a>
+    <button class="tb-btn" onclick="showToast('Copied to clipboard')">Copy all</button>
+    <button class="tb-btn" onclick="showToast('Downloading PDF…')">Export PDF</button>
+    <button class="tb-btn tb-btn-primary" onclick="showToast('Downloading Word document…')">↓ Export Word</button>
+  </div>
+</nav>
+
+<div class="page-layout">
+
+  <!-- Left nav -->
+  <nav class="doc-nav">
+    <div class="doc-nav-label">Sections</div>
+    <a class="doc-nav-item active" href="#s0">Module Details</a>
+    <a class="doc-nav-item" href="#s1">1. Synopsis &amp; Aims</a>
+    <a class="doc-nav-item" href="#s2">2. Learning Outcomes</a>
+    <a class="doc-nav-item" href="#s3">3. Content &amp; Topics</a>
+    <a class="doc-nav-item" href="#s4">4. T&amp;L Strategies</a>
+    <a class="doc-nav-item" href="#s5">5. Assessment</a>
+    <a class="doc-nav-item" href="#s6">6. Plagiarism Policy</a>
+    <a class="doc-nav-item" href="#s7">7. References</a>
+  </nav>
+
+  <!-- Document -->
+  <article class="document" id="document">
+
+    <!-- Document header -->
+    <div class="doc-header" id="s0">
+      <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
+           alt="Ngee Ann Polytechnic" class="doc-header-logo">
+      <div class="doc-header-stamp">
+        <strong>CONTROLLED COPY</strong>
+        Do Not Circulate<br>For Internal Use Only
+      </div>
+    </div>
+
+    <div class="doc-diploma">
+      Diploma in Infocomm Technology — Specialty Module
+    </div>
+
+    <table class="doc-info-table">
+      <tr><td>Module name:</td><td><strong>Data Structures &amp; Algorithms</strong></td></tr>
+      <tr><td>Module Catalogue and ID:</td><td>ICT2234 / 045821</td></tr>
+      <tr><td>Pre-Requisite:</td><td>ICT1101 Programming Fundamentals</td></tr>
+      <tr><td>Timetabled Hours:</td><td>60 hours</td></tr>
+      <tr><td>Contact Hours:</td><td>60 hours</td></tr>
+      <tr><td>Credit Units:</td><td>4</td></tr>
+      <tr><td>Assessment Weightage:</td><td>Continuous Assessment 100%</td></tr>
+    </table>
+
+    <!-- Section 1: Synopsis -->
+    <div class="doc-section" id="s1">
+      <div class="doc-section-hd">
+        <div><span class="doc-section-num">1.</span><span class="doc-section-title">Synopsis and Aims</span></div>
+        <button class="copy-btn" onclick="copySection('s1', this)">Copy</button>
+      </div>
+      <p class="doc-synopsis">
+        This module aims to provide students with a thorough understanding of fundamental data structures and algorithm design principles that underpin modern software systems. Core topics include arrays, linked lists, stacks, queues, trees, heaps, hash tables, and graphs, together with the analysis of time and space complexity using Big-O notation. Students will examine classical algorithms for searching, sorting, and graph traversal, and apply systematic problem-solving techniques to design efficient computational solutions. Emphasis is placed on selecting appropriate data structures for given problem contexts, evaluating trade-offs between competing approaches, and implementing solutions in a modern programming language. On completion, students will be equipped to reason analytically about algorithmic efficiency and to apply these skills in subsequent software engineering and systems modules.
+      </p>
+    </div>
+
+    <!-- Section 2: Learning Outcomes -->
+    <div class="doc-section" id="s2">
+      <div class="doc-section-hd">
+        <div><span class="doc-section-num">2.</span><span class="doc-section-title">Learning Outcomes</span></div>
+        <button class="copy-btn" onclick="copySection('s2', this)">Copy</button>
+      </div>
+      <div class="doc-outcomes">
+        <p class="doc-outcome-intro">On completion of the module, the students should be able to:</p>
+
+        <div class="doc-outcome-item">
+          <span class="doc-outcome-num">2.1</span>
+          <div>
+            explain the properties and use cases of fundamental data structures:
+            <ul class="doc-outcome-sub">
+              <li>arrays and dynamic arrays</li>
+              <li>linked lists (singly, doubly, circular)</li>
+              <li>stacks and queues</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="doc-outcome-item">
+          <span class="doc-outcome-num">2.2</span>
+          <div>
+            analyse the time and space complexity of algorithms using Big-O, Big-Ω, and Big-Θ notation
+          </div>
+        </div>
+
+        <div class="doc-outcome-item">
+          <span class="doc-outcome-num">2.3</span>
+          <div>
+            implement and evaluate sorting and searching algorithms:
+            <ul class="doc-outcome-sub">
+              <li>bubble sort, insertion sort, merge sort, quicksort</li>
+              <li>linear search, binary search</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="doc-outcome-item">
+          <span class="doc-outcome-num">2.4</span>
+          <div>
+            apply tree and heap structures to organise and retrieve data efficiently:
+            <ul class="doc-outcome-sub">
+              <li>binary trees and binary search trees</li>
+              <li>AVL trees and balancing principles</li>
+              <li>min-heap and max-heap</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="doc-outcome-item">
+          <span class="doc-outcome-num">2.5</span>
+          <div>
+            apply graph representations and traversal algorithms to solve network problems:
+            <ul class="doc-outcome-sub">
+              <li>breadth-first search (BFS) and depth-first search (DFS)</li>
+              <li>Dijkstra's shortest-path algorithm</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="doc-outcome-item">
+          <span class="doc-outcome-num">2.6</span>
+          <div>
+            design and justify appropriate data structure choices for given software engineering scenarios
+          </div>
+        </div>
+
+        <div class="doc-outcome-note">
+          [Note — where applicable, implementation exercises require working code in Python or Java, with written justification of design decisions and complexity analysis.]
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Content & Topics -->
+    <div class="doc-section" id="s3">
+      <div class="doc-section-hd">
+        <div><span class="doc-section-num">3.</span><span class="doc-section-title">Content</span></div>
+        <button class="copy-btn" onclick="copySection('s3', this)">Copy</button>
+      </div>
+
+      <p style="font-size:13px; font-weight:600; margin-bottom:8px; color:#555;">Topics and Hours</p>
+      <p style="font-size:12px; color:#888; margin-bottom:14px;">Online e-learning hours*: 20 hours</p>
+
+      <table class="doc-topics-table">
+        <thead>
+          <tr><th>No</th><th>Topic</th><th>Hrs</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>
+              <span class="topic-name">Arrays &amp; Complexity Analysis</span>
+              <ul class="topic-sub">
+                <li>Static and dynamic arrays</li>
+                <li>Big-O, Big-Ω, Big-Θ notation</li>
+                <li>Space vs. time trade-offs</li>
+              </ul>
+            </td>
+            <td>6<br><span style="font-size:11px;color:#aaa;">6*</span></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>
+              <span class="topic-name">Linked Lists, Stacks &amp; Queues</span>
+              <ul class="topic-sub">
+                <li>Singly and doubly linked lists</li>
+                <li>Stack and queue implementations</li>
+                <li>Applications: expression parsing, BFS</li>
+              </ul>
+            </td>
+            <td>6<br><span style="font-size:11px;color:#aaa;">6*</span></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>
+              <span class="topic-name">Sorting Algorithms</span>
+              <ul class="topic-sub">
+                <li>Bubble sort, insertion sort, selection sort</li>
+                <li>Merge sort, quicksort</li>
+                <li>Comparative analysis and stability</li>
+              </ul>
+            </td>
+            <td>6<br><span style="font-size:11px;color:#aaa;">6*</span></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>
+              <span class="topic-name">Trees &amp; Binary Search Trees</span>
+              <ul class="topic-sub">
+                <li>Tree terminology and traversals</li>
+                <li>Binary search tree operations</li>
+                <li>AVL trees and rotations</li>
+              </ul>
+            </td>
+            <td>8<br><span style="font-size:11px;color:#aaa;">8*</span></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>
+              <span class="topic-name">Heaps &amp; Priority Queues</span>
+              <ul class="topic-sub">
+                <li>Min-heap and max-heap</li>
+                <li>Heap sort</li>
+                <li>Priority queue applications</li>
+              </ul>
+            </td>
+            <td>6<br><span style="font-size:11px;color:#aaa;">6*</span></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>
+              <span class="topic-name">Hash Tables</span>
+              <ul class="topic-sub">
+                <li>Hash functions and collision resolution</li>
+                <li>Open addressing vs. chaining</li>
+                <li>Load factor and rehashing</li>
+              </ul>
+            </td>
+            <td>6<br><span style="font-size:11px;color:#aaa;">6*</span></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>
+              <span class="topic-name">Graphs &amp; Traversal Algorithms</span>
+              <ul class="topic-sub">
+                <li>Graph representations (adjacency matrix, list)</li>
+                <li>BFS and DFS</li>
+                <li>Dijkstra's algorithm</li>
+              </ul>
+            </td>
+            <td>8<br><span style="font-size:11px;color:#aaa;">8*</span></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>
+              <span class="topic-name">Algorithm Design &amp; Applied Project</span>
+              <ul class="topic-sub">
+                <li>Greedy algorithms and dynamic programming (intro)</li>
+                <li>Case study: real-world system design</li>
+                <li>Project presentations</li>
+              </ul>
+            </td>
+            <td>14<br><span style="font-size:11px;color:#aaa;">14*</span></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="doc-topics-tfoot">
+            <td colspan="2">Overall total</td>
+            <td>60</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Section 4: T&L -->
+    <div class="doc-section" id="s4">
+      <div class="doc-section-hd">
+        <div><span class="doc-section-num">4.</span><span class="doc-section-title">Teaching Methodology / Teaching &amp; Learning Strategies</span></div>
+        <button class="copy-btn" onclick="copySection('s4', this)">Copy</button>
+      </div>
+
+      <div class="doc-tl-item">
+        <div class="doc-tl-name">Problem-Based Learning</div>
+        <div class="doc-tl-body">Students are presented with realistic computational problems drawn from industry contexts — scheduling systems, navigation engines, and search platforms. Working individually and in pairs, they apply data structure and algorithm knowledge to design, implement, and evaluate solutions. This approach develops analytical reasoning, code quality awareness, and the ability to justify design decisions with complexity evidence.</div>
+      </div>
+
+      <div class="doc-tl-item">
+        <div class="doc-tl-name">ICT-Enabled Learning</div>
+        <div class="doc-tl-body">The module uses a blend of synchronous and asynchronous digital tools to support student learning. Resources include recorded micro-lectures, interactive visualisation tools for algorithm tracing, online auto-graded exercises, and discussion forums on the learning management system. Students are expected to complete pre-class preparation activities to maximise in-class problem-solving time.</div>
+      </div>
+
+      <div class="doc-tl-item">
+        <div class="doc-tl-name">Lab &amp; Implementation Practicals</div>
+        <div class="doc-tl-body">Hands-on lab sessions reinforce conceptual understanding through guided coding exercises in Python. Students implement each major data structure and algorithm from scratch, benchmark performance, and reflect on observed vs. theoretical complexity. Lab worksheets provide scaffolded tasks escalating from guided to independent implementation.</div>
+      </div>
+    </div>
+
+    <!-- Section 5: Assessment -->
+    <div class="doc-section" id="s5">
+      <div class="doc-section-hd">
+        <div><span class="doc-section-num">5.</span><span class="doc-section-title">Assessment Strategies</span></div>
+        <button class="copy-btn" onclick="copySection('s5', this)">Copy</button>
+      </div>
+
+      <p class="doc-asmt-note" style="margin-bottom:16px;">This is a continuous assessment module. The weightages for the assessments are as follows.</p>
+
+      <table class="doc-asmt-table">
+        <thead>
+          <tr><th>Assessment Component</th><th>Description</th><th>Weight</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Lab Assignments (×4)</strong></td>
+            <td>Four graded lab exercises covering arrays, sorting, trees, and graphs. Individual submission with code and written complexity justification.</td>
+            <td>40%</td>
+          </tr>
+          <tr>
+            <td><strong>Class Test</strong></td>
+            <td>Written test assessing theoretical knowledge of data structures and algorithm analysis. Closed-book, 1.5 hours.</td>
+            <td>30%</td>
+          </tr>
+          <tr>
+            <td><strong>Applied Project</strong></td>
+            <td>Small-group project designing and implementing a data structure-backed system. Includes a 10-minute technical presentation and a written design report.</td>
+            <td>30%</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="doc-asmt-total">Total: 100%</div>
+
+      <p class="doc-asmt-note">Students will be notified of test topics in advance and are expected to revise all module content to be prepared. The applied project brief will be released at Week 5.</p>
+    </div>
+
+    <!-- Section 6: Plagiarism -->
+    <div class="doc-section" id="s6">
+      <div class="doc-section-hd">
+        <div><span class="doc-section-num">6.</span><span class="doc-section-title">Plagiarism Policy</span></div>
+        <button class="copy-btn" onclick="copySection('s6', this)">Copy</button>
+      </div>
+      <p style="font-size:13px; color:#333; line-height:1.8; font-style:italic; margin-bottom:10px;">
+        The Ngee Ann Polytechnic Plagiarism policy mandates that students must acknowledge the original author when they submit work. Failing to do so will constitute plagiarism.
+      </p>
+      <p style="font-size:13px; color:#333; line-height:1.8; font-style:italic;">
+        All code submissions must be the student's own work. Use of AI-generated code without attribution and disclosure is not permitted. Students are expected to cite all external sources using the APA format and assume full responsibility for the academic integrity of their submitted work.
+      </p>
+    </div>
+
+    <!-- Section 7: References -->
+    <div class="doc-section" id="s7">
+      <div class="doc-section-hd">
+        <div><span class="doc-section-num">7.</span><span class="doc-section-title">Recommended Texts / References / Learning Resources</span></div>
+        <button class="copy-btn" onclick="copySection('s7', this)">Copy</button>
+      </div>
+
+      <p style="font-size:12px; font-weight:600; color:#555; margin-bottom:10px;">Recommended Texts</p>
+      <div class="doc-ref-list" style="margin-bottom:24px;">
+        <div class="doc-ref-item"><span class="doc-ref-num">1.</span><span>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C. (2022). <em>Introduction to Algorithms</em> (4th ed.). MIT Press.</span></div>
+        <div class="doc-ref-item"><span class="doc-ref-num">2.</span><span>Goodrich, M. T., Tamassia, R., &amp; Goldwasser, M. H. (2013). <em>Data Structures and Algorithms in Python</em>. Wiley.</span></div>
+        <div class="doc-ref-item"><span class="doc-ref-num">3.</span><span>Sedgewick, R., &amp; Wayne, K. (2011). <em>Algorithms</em> (4th ed.). Addison-Wesley.</span></div>
+      </div>
+
+      <p style="font-size:12px; font-weight:600; color:#555; margin-bottom:10px;">Online Resources &amp; Databases</p>
+      <div class="doc-ref-list">
+        <div class="doc-ref-item"><span class="doc-ref-num">1.</span><span>VisuAlgo — Algorithm Visualisation Platform: <em>https://visualgo.net</em></span></div>
+        <div class="doc-ref-item"><span class="doc-ref-num">2.</span><span>NLB eResources — ACM Digital Library (accessible via NP Library portal)</span></div>
+        <div class="doc-ref-item"><span class="doc-ref-num">3.</span><span>Module LMS page — lecture recordings, lab sheets, and discussion boards (POLITE)</span></div>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- Right tools -->
+  <div class="tools-panel">
+    <div class="tools-label">Actions</div>
+    <button class="tool-btn" onclick="showToast('Copied — paste into Word or email')">Copy all text</button>
+    <button class="tool-btn" onclick="showToast('Downloading Word document…')">↓ Export Word</button>
+    <button class="tool-btn" onclick="showToast('Downloading PDF…')">↓ Export PDF</button>
+    <hr class="tool-divider">
+    <div class="tools-label">Edit</div>
+    <button class="tool-btn" onclick="window.location.href='design-wizard.html'">← Back to inputs</button>
+    <hr class="tool-divider">
+    <div class="tool-note">Generated by NP AI Curriculum Designer. Review all content before submission.</div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function copySection(id, btn) {
+    const el = document.getElementById(id);
+    const text = el ? el.innerText.replace(/^Copy$/m, '').trim() : '';
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 1800);
+    }).catch(() => showToast('Select text manually to copy'));
+  }
+
+  // Highlight nav on scroll
+  const sections = ['s0','s1','s2','s3','s4','s5','s6','s7'];
+  const navItems = document.querySelectorAll('.doc-nav-item');
+  window.addEventListener('scroll', () => {
+    let current = 's0';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top < 100) current = id;
+    });
+    navItems.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+</body>
+</html>

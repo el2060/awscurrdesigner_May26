@@ -1,0 +1,738 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review &amp; Export — ICT1234 | NP AI Curriculum Designer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Two-column layout: long-form doc + right refinement rail */
+    .review-shell { grid-template-columns: var(--sidebar-width) 1fr 360px; }
+    .refine-rail {
+      grid-column: 3; grid-row: 2;
+      background: var(--color-sidebar);
+      border-left: 1px solid var(--color-border);
+      padding: var(--space-5) var(--space-4);
+      overflow-y: auto;
+      position: sticky; top: var(--topbar-height);
+      height: calc(100vh - var(--topbar-height));
+      display: flex; flex-direction: column; gap: var(--space-3);
+    }
+    .review-main { padding: var(--space-6) var(--space-6) var(--space-10); background: var(--color-surface); }
+    .review-toolbar {
+      max-width: 880px; margin: 0 auto var(--space-4);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+    .review-toolbar-left { display: flex; align-items: center; gap: var(--space-2); font-size: 12px; color: var(--color-text-secondary); }
+    .review-toolbar-right { display: flex; align-items: center; gap: var(--space-2); }
+
+    /* Tab table-of-contents inside doc (mirrors xls tabs) */
+    .toc-strip {
+      max-width: 880px; margin: 0 auto var(--space-4);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-3) var(--space-4);
+      display: flex; align-items: center; gap: var(--space-2);
+      flex-wrap: wrap;
+      font-size: 11px;
+    }
+    .toc-strip-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin-right: var(--space-2); }
+    .toc-tab {
+      padding: 3px 9px; border-radius: var(--radius-full);
+      background: var(--color-surface); color: var(--color-text-secondary);
+      font-family: var(--font-mono); font-size: 11px;
+      text-decoration: none; transition: all var(--transition-fast);
+      border: 1px solid transparent;
+    }
+    .toc-tab:hover { background: var(--color-surface-hover); color: var(--color-text-primary); border-color: var(--color-border-hover); }
+    .toc-tab.active { background: #1a1a1a; color: white; }
+  </style>
+</head>
+<body>
+
+<!-- Topbar -->
+<header class="topbar">
+  <a href="index.html" class="topbar-logo" style="text-decoration:none;">
+    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:26px; width:auto;">
+  </a>
+  <div class="topbar-divider"></div>
+  <span class="topbar-module-title" style="cursor:default;">
+    ICT1234 — Data Structures &amp; Algorithms &nbsp;<span style="color:var(--color-text-tertiary); font-weight:400;">/ Review &amp; Export</span>
+  </span>
+  <div class="topbar-actions">
+    <a href="mdd-editor.html" class="btn btn-ghost btn-sm">← Back to Editor</a>
+    <button class="btn btn-secondary btn-sm">Re-check alignment</button>
+    <button class="btn btn-secondary btn-sm">Export PDF</button>
+    <button class="btn btn-primary" id="export-xls-btn" style="background: #1a1a1a;">Export to XLS</button>
+    <div class="topbar-avatar" title="Lim Mei Ling">ML</div>
+  </div>
+</header>
+
+<div class="app-shell review-shell" style="grid-template-rows: unset;">
+
+  <!-- Left sidebar -->
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-back">← Dashboard</a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-module-info">
+      <div class="sidebar-module-code">ICT1234 · ELE</div>
+      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-meta">L2 · SIDM · 4 CU · AY25/26 S1</div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Sections</div>
+    <a href="mdd-editor.html" class="sidebar-nav-item">
+       Module Overview
+      <span class="sidebar-status-icon done">✓</span>
+    </a>
+    <a href="section-synopsis.html" class="sidebar-nav-item">
+       Synopsis &amp; Skills
+      <span class="sidebar-status-icon done">✓</span>
+    </a>
+    <a href="section-outcomes.html" class="sidebar-nav-item">
+       Learning Outcomes
+      <span class="sidebar-status-icon done">✓</span>
+    </a>
+    <a href="section-schedule.html" class="sidebar-nav-item">
+       Topics &amp; Schedule
+      <span class="sidebar-status-icon done">✓</span>
+    </a>
+    <a href="section-tls.html" class="sidebar-nav-item">
+       T&amp;L Strategies
+      <span class="sidebar-status-icon done">✓</span>
+    </a>
+    <a href="section-assessment.html" class="sidebar-nav-item">
+       Assessment
+      <span class="sidebar-status-icon warn">⚠</span>
+    </a>
+    <a href="section-service.html" class="sidebar-nav-item">
+       Service-Learning
+      <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span>
+    </a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Cross-cutting checks</div>
+    <a href="section-comms-alignment.html" class="sidebar-nav-item">
+       Comms Alignment
+      <span class="sidebar-status-icon warn">⚠</span>
+    </a>
+    <div class="sidebar-divider"></div>
+    <a href="review-export.html" class="sidebar-nav-item active" style="color: var(--color-ai-glow);">
+      Review &amp; Export
+      <span class="sidebar-status-icon" style="color:var(--color-ai-glow)">●</span>
+    </a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-footer">
+      <div>
+        <div class="progress-label">
+          <span>Completion</span>
+          <span class="font-600" style="color:var(--color-success)">7 / 7</span>
+        </div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:100%; background:var(--color-success)"></div></div>
+      </div>
+      <button class="btn btn-secondary btn-sm w-full" style="justify-content:center;">Save Version</button>
+      <button class="btn btn-secondary btn-sm w-full" style="justify-content:center;">Submit for Review</button>
+    </div>
+  </aside>
+
+  <!-- Main: long-form rendered MDD -->
+  <main class="main-content review-main" style="grid-column: 2; max-width: unset;">
+
+    <!-- Toolbar -->
+    <div class="review-toolbar">
+      <div class="review-toolbar-left">
+        <span class="badge badge-draft">Draft v3</span>
+        <span>Last saved 2 hours ago · Auto-saved</span>
+      </div>
+      <div class="review-toolbar-right">
+        <span class="export-status-pill ok">✓ All 7 sections complete</span>
+        <span class="export-status-pill warn">⚠ 1 framework warning</span>
+        <span class="export-status-pill warn">Comms: partial SoH&amp;IS</span>
+      </div>
+    </div>
+
+    <!-- Tab strip mirroring xls template tabs -->
+    <div class="toc-strip">
+      <span class="toc-strip-label">MDD XLS Tabs →</span>
+      <a class="toc-tab active" href="#sec-1">1. Info</a>
+      <a class="toc-tab" href="#sec-2">2. Synopsis</a>
+      <a class="toc-tab" href="#sec-3">3. Skills</a>
+      <a class="toc-tab" href="#sec-4">4. MOs</a>
+      <a class="toc-tab" href="#sec-5">5. CO Align</a>
+      <a class="toc-tab" href="#sec-6">6. Schedule</a>
+      <a class="toc-tab" href="#sec-7">7. T&amp;L</a>
+      <a class="toc-tab" href="#sec-8">8. Assessment</a>
+      <a class="toc-tab" href="#sec-9">9. NPGC</a>
+      <a class="toc-tab" href="#sec-10">10. SL</a>
+      <a class="toc-tab" href="#sec-11" style="background:var(--color-surface); color:var(--color-text-primary);">11. Comms ✦</a>
+    </div>
+
+    <!-- The long-form rendered doc -->
+    <div class="export-doc">
+
+      <div class="export-doc-header">
+        <div class="export-doc-tag">Module Design Document · AY2025/26 Sem 1</div>
+        <div class="export-doc-title">Data Structures &amp; Algorithms</div>
+        <div class="export-doc-meta">ICT1234 · L2 · 4 CU · SIDM · Diploma in Information Technology</div>
+      </div>
+
+      <!-- 1. Module Information -->
+      <section class="export-doc-section" id="sec-1">
+        <div class="export-doc-section-header">
+          <div class="export-doc-section-title"><span class="num">1.</span> Module Information</div>
+          <div class="export-doc-section-actions">
+            <a href="mdd-editor.html" class="doc-action">✎ Edit</a>
+            <span class="doc-action ai">✦ Refine</span>
+          </div>
+        </div>
+        <table class="export-kv-table">
+          <tr><th>Module ID</th><td class="mono">12418</td></tr>
+          <tr><th>Catalogue Number</th><td class="mono">ICT1234</td></tr>
+          <tr><th>Module Title</th><td>Data Structures &amp; Algorithms</td></tr>
+          <tr><th>School / Diploma</th><td>SIDM — Diploma in Information Technology</td></tr>
+          <tr><th>Module Level</th><td><span class="badge badge-level">L2 — Intermediate</span></td></tr>
+          <tr><th>Credit Units</th><td>4 CU</td></tr>
+          <tr><th>Contact Hours</th><td>3 hrs / week × 17 weeks = 51 hrs</td></tr>
+          <tr><th>Module Type</th><td>Elective</td></tr>
+          <tr><th>Exam Status</th><td>Non-examination (CA only)</td></tr>
+          <tr><th>Prerequisites</th><td>ICT1101 Programming Fundamentals</td></tr>
+          <tr><th>Module Leader</th><td>Lim Mei Ling (limeelon@np.edu.sg)</td></tr>
+          <tr><th>Term</th><td>AY2025/2026 Semester 1</td></tr>
+        </table>
+      </section>
+
+      <!-- 2. Synopsis -->
+      <section class="export-doc-section" id="sec-2">
+        <div class="export-doc-section-header">
+          <div class="export-doc-section-title"><span class="num">2.</span> Module Synopsis</div>
+          <div class="export-doc-section-actions">
+            <a href="section-synopsis.html" class="doc-action">✎ Edit</a>
+            <span class="doc-action ai">✦ Refine</span>
+          </div>
+        </div>
+        <p class="export-prose">
+          This module is designed for Year 2 Diploma in Information Technology students who have completed foundational programming modules. Students will explore fundamental data structures including arrays, linked lists, stacks, queues, trees, and graphs, and implement classical algorithms for searching, sorting, and graph traversal. Through hands-on lab sessions and project work, students will develop the ability to select and apply appropriate data structures to solve computational problems efficiently, analysing the time and space complexity of their solutions. The module also introduces students to the application of data structures in real-world software development contexts.
+        </p>
+      </section>
+
+      <!-- 3. Skills Framework Mapping -->
+      <section class="export-doc-section" id="sec-3">
+        <div class="export-doc-section-header">
+          <div class="export-doc-section-title"><span class="num">3.</span> Skills Framework Mapping</div>
+          <div class="export-doc-section-actions">
+            <a href="section-synopsis.html" class="doc-action">✎ Edit</a>
+            <span class="doc-action ai">✦ Refine</span>
+          </div>
+        </div>
+        <table class="export-table">
+          <thead>
+            <tr><th>Framework</th><th>Item</th><th>Level</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>SkillsFuture SF (Infocomm Technology)</td><td>Software Design — Data Structures &amp; Algorithms</td><td>Level 3</td></tr>
+            <tr><td>SkillsFuture SF (Infocomm Technology)</td><td>Programming &amp; Coding</td><td>Level 3</td></tr>
+            <tr><td>SkillsFuture SF (Infocomm Technology)</td><td>Problem Solving</td><td>Level 3</td></tr>
+            <tr><td>NP CCA Capability — Critical Core Skills</td><td>Problem Solving · Communication · Self Management</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 4. Module Outcomes -->
+      <section class="export-doc-section" id="sec-4">
+        <div class="export-doc-section-header">
+          <div class="export-doc-section-title"><span class="num">4.</span> Module Outcomes (MOs)</div>
+          <div class="export-doc-section-actions">
+            <a href="section-outcomes.html" class="doc-action">✎ Edit</a>
+            <span class="doc-action ai">✦ Refine</span>
+          </div>
+        </div>
+        <div class="export-mo-list">
+          <div class="export-mo-row">
+            <div class="export-mo-id">MO1</div>
+            <div class="export-mo-text">Explain and compare the properties, operations, and use cases of fundamental data structures including arrays, linked lists, stacks, queues, trees, and graphs.</div>
+            <div class="export-mo-chips">
+              <span class="npgc-pill n1">N1</span>
+              <span class="npgc-pill n2">N2</span>
+            </div>
+          </div>
+          <div class="export-mo-row">
+            <div class="export-mo-id">MO2</div>
+            <div class="export-mo-text">Implement data structures and algorithms using Python, demonstrating correct logic, code organisation, and adherence to coding standards.</div>
+            <div class="export-mo-chips">
+              <span class="npgc-pill n1">N1</span>
+              <span class="npgc-pill n4">N4</span>
+            </div>
+          </div>
+          <div class="export-mo-row">
+            <div class="export-mo-id">MO3</div>
+            <div class="export-mo-text">Apply searching and sorting algorithms to structured datasets, justifying the choice of algorithm based on efficiency and context.</div>
+            <div class="export-mo-chips">
+              <span class="npgc-pill n1">N1</span>
+              <span class="npgc-pill n2">N2</span>
+            </div>
+          </div>
+          <div class="export-mo-row">
+            <div class="export-mo-id">MO4</div>
+            <div class="export-mo-text">Analyse the time and space complexity of algorithms using Big-O notation and evaluate algorithmic trade-offs.</div>
+            <div class="export-mo-chips">
+              <span class="npgc-pill n2">N2</span>
+            </div>
+          </div>
+          <div class="export-mo-row">
+            <div class="export-mo-id">MO5</div>
+            <div class="export-mo-text">Design and implement solutions to computational problems by selecting and applying appropriate data structures and algorithms.</div>
+            <div class="export-mo-chips">
+              <span class="npgc-pill n1">N1</span>
+              <span class="npgc-pill n2">N2</span>
+              <span class="npgc-pill n3">N3</span>
+            </div>
+          </div>
+          <div class="export-mo-row">
+            <div class="export-mo-id">MO6</div>
+            <div class="export-mo-text">Demonstrate effective collaboration and communication skills by working in teams to design, implement, and present software solutions.</div>
+            <div class="export-mo-chips">
+              <span class="npgc-pill n6">N6</span>
+              <span class="npgc-pill n7">N7</span>
+            </div>
+          </div>
+          <div class="export-mo-row">
+            <div class="export-mo-id">MO7</div>
+            <div class="export-mo-text">Evaluate and critique code implementations for correctness, efficiency, and maintainability, applying peer review practices.</div>
+            <div class="export-mo-chips">
+              <span class="npgc-pill n2">N2</span>
+              <span class="npgc-pill n5">N5</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Course Outcomes Alignment -->
+      <section class="export-doc-section" id="sec-5">
+        <div class="export-doc-section-header">
+          <div class="export-doc-section-title"><span class="num">5.</span> Course Outcomes Alignment</div>
+          <div class="export-doc-section-actions">
+            <a href="section-outcomes.html" class="doc-action">✎ Edit</a>
+          </div>
+        </div>
+        <table class="export-table">
+          <thead>
+            <tr><th>Course Outcome (CO)</th><th>Aligned MOs</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>CO1</strong> — Demonstrate proficient programming skills across the full SDLC.</td><td>MO1, MO2</td></tr>
+            <tr><td><strong>CO2</strong> — Apply analytical and problem-solving techniques to design efficient software systems.</td><td>MO2, MO3, MO4</td></tr>
+            <tr><td><strong>CO3</strong> — Work collaboratively as part of an IT project team to deliver software solutions.</td><td>MO5, MO6, MO7</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 6. Schedule -->
+      <section class="export-doc-section" id="sec-6">
+        <div class="export-doc-section-header">
+          <div class="export-doc-section-title"><span class="num">6.</span> Topics &amp; Weekly Schedule</div>
+          <div class="export-doc-section-actions">
+            <a href="section-schedule.html" class="doc-action">✎ Edit</a>
+            <span class="doc-action ai">✦ Refine</span>
+          </div>
+        </div>
+        <table class="export-table">
+          <thead>
+            <tr><th class="week-col">Wk</th><th>Topic</th><th>Sub-topics</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="week-col">1</td><td>Module Intro &amp; Python Review</td><td>Module overview, assessment briefing, IDE setup, Python basics revision</td></tr>
+            <tr><td class="week-col">2</td><td>Arrays &amp; Dynamic Arrays</td><td>Array ops, time complexity, Python lists, amortised analysis</td></tr>
+            <tr><td class="week-col">3</td><td>Linked Lists</td><td>Singly &amp; doubly linked lists, insertion/deletion, traversal</td></tr>
+            <tr><td class="week-col">4</td><td>Stacks &amp; Queues</td><td>ADTs, expression parsing, BFS applications</td></tr>
+            <tr><td class="week-col">5</td><td>Recursion</td><td>Base cases, recursive vs iterative, call stack</td></tr>
+            <tr><td class="week-col">6</td><td>Sorting I</td><td>Bubble, selection, insertion sort</td></tr>
+            <tr><td class="week-col">7</td><td>Sorting II + A1 Submission</td><td>Merge sort, quicksort, Assignment 1 due</td></tr>
+            <tr style="background:var(--color-surface); font-style:italic;"><td class="week-col">8</td><td colspan="2">Common Test Week — In-class test (Weeks 1–7)</td></tr>
+            <tr style="background:var(--color-surface); font-style:italic;"><td class="week-col">9–10</td><td colspan="2">Recess Week</td></tr>
+            <tr><td class="week-col">11</td><td>Binary Trees &amp; BST</td><td>Traversals, BST operations</td></tr>
+            <tr><td class="week-col">12</td><td>Balanced Trees &amp; Heaps</td><td>AVL, heaps, priority queues, heap sort</td></tr>
+            <tr><td class="week-col">13</td><td>Hash Tables</td><td>Hashing, collisions, Python dict internals</td></tr>
+            <tr><td class="week-col">14</td><td>Graphs</td><td>Adjacency matrix/list, BFS, DFS</td></tr>
+            <tr><td class="week-col">15</td><td>Shortest Paths</td><td>Dijkstra, Bellman-Ford, applications</td></tr>
+            <tr><td class="week-col">16</td><td>Project Presentations + Revision</td><td>A2 presentations, recap, exam Q&amp;A</td></tr>
+            <tr style="background:var(--color-surface); font-style:italic;"><td class="week-col">17</td><td colspan="2">Exam Week</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 7. T&L -->
+      <section class="export-doc-section" id="sec-7">
+        <div class="export-doc-section-header">
+          <div class="export-doc-section-title"><span class="num">7.</span> Teaching &amp; Learning Strategy</div>
+          <div class="export-doc-section-actions">
+            <a href="section-tls.html" class="doc-action">✎ Edit</a>
+            <span class="doc-action ai">✦ Refine</span>
+          </div>
+        </div>
+        <p class="export-prose">
+          The module adopts a <strong>flipped-classroom</strong> approach combined with <strong>lab-based learning</strong>. Each week, students complete pre-class video tutorials and reading (OAL hours) covering theory and code walkthroughs. In-class sessions (IPL hours) are devoted to live problem-solving, code reviews, and pair-programming labs. Two summative projects build on weekly skills, with one mid-semester individual assignment and one team-based capstone in the final weeks.
+        </p>
+        <table class="export-table">
+          <thead><tr><th>Strategy</th><th>Hrs/week</th><th>Mode</th></tr></thead>
+          <tbody>
+            <tr><td>Direct Instruction (concept primer)</td><td>0.5</td><td>OAL — pre-class video</td></tr>
+            <tr><td>Lab-based Learning (hands-on coding)</td><td>2.0</td><td>IPL — in-class</td></tr>
+            <tr><td>Problem-based Learning (project)</td><td>0.5</td><td>IPL — facilitated</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 8. Assessment -->
+      <section class="export-doc-section" id="sec-8">
+        <div class="export-doc-section-header">
+          <div class="export-doc-section-title"><span class="num">8.</span> Assessment Plan</div>
+          <div class="export-doc-section-actions">
+            <a href="section-assessment.html" class="doc-action">✎ Edit</a>
+            <span class="doc-action ai">✦ Refine</span>
+          </div>
+        </div>
+        <table class="export-table">
+          <thead>
+            <tr><th>#</th><th>Component</th><th>Type</th><th class="narrow">Period</th><th class="narrow">Weight</th><th>MO coverage</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>A1</td><td>Lab Quizzes (×5)</td><td>Class Participation</td><td>Wk 2–7</td><td><strong>15%</strong></td><td>MO1, MO2, MO3</td></tr>
+            <tr><td>A2</td><td>Common Test</td><td>Written Test</td><td>Wk 8</td><td><strong>25%</strong></td><td>MO1, MO3, MO4</td></tr>
+            <tr><td>A3</td><td>Individual Assignment</td><td>Assignment</td><td>Wk 7</td><td><strong>25%</strong></td><td>MO2, MO5, MO7</td></tr>
+            <tr><td>A4</td><td>Team Project + Presentation</td><td>Project (Group)</td><td>Wk 14–16</td><td><strong>35%</strong></td><td>MO5, MO6, MO7</td></tr>
+          </tbody>
+        </table>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top: var(--space-3);">
+          <span class="export-status-pill ok">✓ Weights total 100%</span>
+          <span class="export-status-pill ok">✓ 4 components (NP cap met)</span>
+          <span class="export-status-pill warn">⚠ Group work 35% — exceeds 30% guideline</span>
+          <span class="export-status-pill ok">✓ All MOs assessed by ≥ 1 component</span>
+        </div>
+      </section>
+
+      <!-- 9. NPGC Coverage Summary -->
+      <section class="export-doc-section" id="sec-9">
+        <div class="export-doc-section-header">
+          <div class="export-doc-section-title"><span class="num">9.</span> NPGC Coverage Summary</div>
+          <div class="export-doc-section-actions">
+            <a href="section-outcomes.html" class="doc-action">✎ Edit</a>
+          </div>
+        </div>
+        <p class="export-prose" style="font-size:13px; color:var(--color-text-secondary); margin-bottom:var(--space-4);">
+          How this module's outcomes distribute across the 7 NP Graduate Competencies (count of MOs per competency).
+        </p>
+        <div class="npgc-summary-grid">
+          <div class="npgc-summary-row">
+            <div class="npgc-summary-num" style="background:var(--color-npgc-1)">1</div>
+            <div class="npgc-summary-name">Domain &amp; Interdisciplinary Knowledge</div>
+            <div class="npgc-summary-bar-track"><div class="npgc-summary-bar-fill" style="width:80%; background:var(--color-npgc-1)"></div></div>
+            <div class="npgc-summary-count">4 / 7</div>
+          </div>
+          <div class="npgc-summary-row">
+            <div class="npgc-summary-num" style="background:var(--color-npgc-2)">2</div>
+            <div class="npgc-summary-name">Critical Thinking &amp; Problem Solving</div>
+            <div class="npgc-summary-bar-track"><div class="npgc-summary-bar-fill" style="width:80%; background:var(--color-npgc-2)"></div></div>
+            <div class="npgc-summary-count">4 / 7</div>
+          </div>
+          <div class="npgc-summary-row">
+            <div class="npgc-summary-num" style="background:var(--color-npgc-3)">3</div>
+            <div class="npgc-summary-name">Innovation &amp; Entrepreneurial Mindset</div>
+            <div class="npgc-summary-bar-track"><div class="npgc-summary-bar-fill" style="width:20%; background:var(--color-npgc-3)"></div></div>
+            <div class="npgc-summary-count">1 / 7</div>
+          </div>
+          <div class="npgc-summary-row">
+            <div class="npgc-summary-num" style="background:var(--color-npgc-4)">4</div>
+            <div class="npgc-summary-name">Digital Competence</div>
+            <div class="npgc-summary-bar-track"><div class="npgc-summary-bar-fill" style="width:20%; background:var(--color-npgc-4)"></div></div>
+            <div class="npgc-summary-count">1 / 7</div>
+          </div>
+          <div class="npgc-summary-row">
+            <div class="npgc-summary-num" style="background:var(--color-npgc-5)">5</div>
+            <div class="npgc-summary-name">Self-Development</div>
+            <div class="npgc-summary-bar-track"><div class="npgc-summary-bar-fill" style="width:20%; background:var(--color-npgc-5)"></div></div>
+            <div class="npgc-summary-count">1 / 7</div>
+          </div>
+          <div class="npgc-summary-row">
+            <div class="npgc-summary-num" style="background:var(--color-npgc-6)">6</div>
+            <div class="npgc-summary-name">Collaboration &amp; Cross-Cultural Sensitivity</div>
+            <div class="npgc-summary-bar-track"><div class="npgc-summary-bar-fill" style="width:20%; background:var(--color-npgc-6)"></div></div>
+            <div class="npgc-summary-count">1 / 7</div>
+          </div>
+          <div class="npgc-summary-row">
+            <div class="npgc-summary-num" style="background:var(--color-npgc-7)">7</div>
+            <div class="npgc-summary-name">Communication</div>
+            <div class="npgc-summary-bar-track"><div class="npgc-summary-bar-fill" style="width:20%; background:var(--color-npgc-7)"></div></div>
+            <div class="npgc-summary-count">1 / 7</div>
+          </div>
+        </div>
+        <div class="alert-card info mt-4">
+          <span class="alert-icon">✦</span>
+          <div class="alert-content">
+            <div class="alert-title">Coverage looks balanced toward technical NPGCs (1 &amp; 2)</div>
+            <div class="alert-desc">Consider strengthening Communication (NPGC7) and Collaboration (NPGC6) — e.g. require a written design rationale in MO5.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. Service-Learning -->
+      <section class="export-doc-section" id="sec-10">
+        <div class="export-doc-section-header">
+          <div class="export-doc-section-title"><span class="num">10.</span> Service-Learning</div>
+          <div class="export-doc-section-actions">
+            <a href="section-service.html" class="doc-action">✎ Edit</a>
+          </div>
+        </div>
+        <p class="export-prose" style="color:var(--color-text-tertiary); font-style:italic;">
+          Not applicable — this module does not include a service-learning component.
+        </p>
+      </section>
+
+      <!-- 11. Communication Skills Alignment (cross-cutting) -->
+      <section class="export-doc-section" id="sec-11">
+        <div class="export-doc-section-header">
+          <div class="export-doc-section-title">
+            <span class="num">11.</span> Communication Skills Alignment
+            <span class="source-badge" style="margin-left:6px; font-size:10px;">SoH&amp;IS</span>
+          </div>
+          <div class="export-doc-section-actions">
+            <a href="section-comms-alignment.html" class="doc-action">✎ Review</a>
+            <span class="doc-action ai">✦ Align</span>
+          </div>
+        </div>
+        <p class="export-prose" style="font-size:13px; color:var(--color-text-secondary); margin-bottom:var(--space-4);">
+          This module's comms-rich activities, checked against the NP School of Humanities &amp; Interdisciplinary Studies (SoH&amp;IS) Presentation Rubric &amp; Impact Toolkit — the polytechnic-wide standard for communication skill development.
+        </p>
+
+        <table class="export-table">
+          <thead>
+            <tr><th>Activity</th><th>Source</th><th class="narrow">Status</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Team Project Presentation</td>
+              <td><span class="mono">A4 · 35%</span></td>
+              <td><span class="export-status-pill warn">⚠ Partial</span></td>
+              <td>Custom 2-criterion rubric covers Language &amp; Visuals. Missing Verbal &amp; Non-Verbal criteria from SoH&amp;IS standard.</td>
+            </tr>
+            <tr>
+              <td>In-class Lab Demo (×3)</td>
+              <td><span class="mono">T&amp;L · Wk 4, 10, 14</span></td>
+              <td><span class="export-status-pill warn">✗ No rubric</span></td>
+              <td>Comms elements present (explain code, peer Q&amp;A) but ungraded; consider lite formative checklist.</td>
+            </tr>
+            <tr>
+              <td>Project Written Report</td>
+              <td><span class="mono">A4 sub-component</span></td>
+              <td><span class="export-status-pill info">— Out of scope</span></td>
+              <td>Written comms not covered by the SoH&amp;IS Presentation Rubric.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:var(--space-3);">
+          <span class="export-status-pill warn">⚠ A4 rubric: 1 / 3 SoH&amp;IS criteria mapped</span>
+          <span class="export-status-pill info">Presentation Impact Toolkit: not yet embedded</span>
+          <span class="export-status-pill info">ℹ SIDM-wide adoption: 4 of 14 modules</span>
+        </div>
+
+        <div class="alert-card info mt-4">
+          <span class="alert-icon">✦</span>
+          <div class="alert-content">
+            <div class="alert-title">AI recommendation</div>
+            <div class="alert-desc">Adopt the SoH&amp;IS rubric for A4 (preserves 35% weight, expands to 3 criteria × 5 bands) and embed the Presentation Impact Toolkit in Week 14 as a pre-class OAL resource.</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div style="max-width:880px; margin: 0 auto; padding: var(--space-4); text-align:center; font-size:11px; color: var(--color-text-tertiary);">
+      Generated by NP AI Curriculum Designer · Aligned to NP MDD Template (Feb 2024) · ICT1234 · v3 · 2026-05-21
+    </div>
+
+  </main>
+
+  <!-- Right rail: AI refinement -->
+  <aside class="refine-rail">
+    <div style="display:flex; align-items:center; justify-content:space-between;">
+      <div style="font-size:13px; font-weight:600; color:var(--color-text-primary); display:flex; align-items:center; gap:6px;">
+        <span class="ai-icon">✦</span> Refine with AI
+      </div>
+      <span class="export-status-pill info">v3 draft</span>
+    </div>
+    <div style="font-size:12px; color:var(--color-text-secondary); line-height:1.5;">
+      Ask the AI to tighten any section. Each refinement updates the document above — review the diff before accepting.
+    </div>
+
+    <!-- Quick refinement chips -->
+    <div class="prompt-chip-strip">
+      <div class="prompt-chip-strip-label">✦ Try one of these</div>
+      <button class="prompt-chip">Tighten synopsis to 100 words</button>
+      <button class="prompt-chip">Make synopsis more industry-focused</button>
+      <button class="prompt-chip">Balance NPGC 6 &amp; 7 coverage</button>
+      <button class="prompt-chip">Rebalance assessment weights</button>
+      <button class="prompt-chip">Adopt SoH&amp;IS rubric for A4</button>
+      <button class="prompt-chip">Embed Impact Toolkit in Wk 14</button>
+      <button class="prompt-chip">Simplify week 11–13 sub-topics</button>
+    </div>
+
+    <!-- A recent refinement (so the rail looks alive) -->
+    <div class="refine-panel-card">
+      <div class="refine-panel-title">✦ Suggestion · just now</div>
+      <div class="refine-panel-body">
+        Group-work weight (35%) exceeds the framework cap of 30%. Want me to rebalance — e.g. drop A4 to 30% and lift A3 to 30%?
+      </div>
+      <div style="display:flex; gap:6px;">
+        <button class="btn btn-primary btn-sm">Apply fix</button>
+        <button class="btn btn-ghost btn-sm">Dismiss</button>
+      </div>
+    </div>
+
+    <div class="refine-panel-card" style="border-left-color: var(--color-success); border-color: var(--color-success-mid);">
+      <div class="refine-panel-title" style="color:var(--color-success);">✓ Refinement applied · 2 min ago</div>
+      <div class="refine-panel-body">
+        Tightened module synopsis from 168 → 124 words and added an explicit mention of "real-world software development".
+      </div>
+      <div style="display:flex; gap:6px;">
+        <button class="btn btn-secondary btn-sm">View diff</button>
+        <button class="btn btn-ghost btn-sm">Undo</button>
+      </div>
+    </div>
+
+    <div style="margin-top:auto; padding-top:var(--space-4); border-top:1px solid var(--color-border);">
+      <div class="chat-composer" style="border-radius:10px;">
+        <textarea class="chat-composer-input" placeholder="Or ask anything… e.g. 'rewrite MO4 to start with Analyse'" rows="1"></textarea>
+        <div class="chat-composer-row">
+          <span class="chat-composer-hint">Refining v3</span>
+          <button class="chat-composer-send">↑</button>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- Export to XLS modal -->
+<div class="modal-overlay hidden" id="export-modal">
+  <div class="modal" style="width: 540px;">
+    <div class="modal-header" style="display:flex; align-items:flex-start; justify-content:space-between;">
+      <div>
+        <div class="modal-title">Export to XLS</div>
+        <div class="modal-subtitle">Generate the NP MDD spreadsheet from this module's data.</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="modal-close" style="font-size:18px; padding:4px 8px;">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="export-modal-content">
+
+        <div class="export-template-toggle">
+          <div class="left">
+            <div class="name">NP MDD Template (Feb 2024)</div>
+            <div class="desc">Official format used by Academic Quality. Includes Module Info, Synopsis, Outcomes, Schedule, T&amp;L, Assessment, NPGC tabs.</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" checked>
+            <span class="toggle-track"></span>
+            <span class="toggle-thumb"></span>
+          </label>
+        </div>
+
+        <div>
+          <div class="form-label mb-2">Sheets to include</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label class="export-tab-row">
+              <input type="checkbox" checked>
+              <span class="tab-name">Module Information</span>
+              <span class="tab-id">Tab 1</span>
+            </label>
+            <label class="export-tab-row">
+              <input type="checkbox" checked>
+              <span class="tab-name">Synopsis &amp; Skills</span>
+              <span class="tab-id">Tab 2–3</span>
+            </label>
+            <label class="export-tab-row">
+              <input type="checkbox" checked>
+              <span class="tab-name">Module Outcomes + CO Alignment</span>
+              <span class="tab-id">Tab 4–5</span>
+            </label>
+            <label class="export-tab-row">
+              <input type="checkbox" checked>
+              <span class="tab-name">Topics &amp; Schedule</span>
+              <span class="tab-id">Tab 6</span>
+            </label>
+            <label class="export-tab-row">
+              <input type="checkbox" checked>
+              <span class="tab-name">T&amp;L Strategy</span>
+              <span class="tab-id">Tab 7</span>
+            </label>
+            <label class="export-tab-row">
+              <input type="checkbox" checked>
+              <span class="tab-name">Assessment Plan + MO Matrix</span>
+              <span class="tab-id">Tab 8</span>
+            </label>
+            <label class="export-tab-row">
+              <input type="checkbox" checked>
+              <span class="tab-name">NPGC Coverage Summary</span>
+              <span class="tab-id">Tab 9</span>
+            </label>
+            <label class="export-tab-row">
+              <input type="checkbox">
+              <span class="tab-name">Service-Learning</span>
+              <span class="tab-id">Tab 10 · skipped</span>
+            </label>
+            <label class="export-tab-row" style="border-color:var(--color-border); background:var(--color-surface);">
+              <input type="checkbox" checked>
+              <span class="tab-name">Comms Alignment (SoH&amp;IS) ✦</span>
+              <span class="tab-id">Tab 11 · new</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>Filename:</strong> <span class="mono">ICT1234_DSA_MDD_v3_AY2526S1.xlsx</span>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
+      <button class="btn btn-primary export-btn" style="background: #1a1a1a;">
+        <span class="btn-text">⬇ Download .xlsx</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initExportButtons, showToast } from './ai-assistant.js';
+  initExportButtons();
+
+  const modal = document.getElementById('export-modal');
+  document.getElementById('export-xls-btn')?.addEventListener('click', () => modal.classList.remove('hidden'));
+  document.getElementById('modal-close')?.addEventListener('click', () => modal.classList.add('hidden'));
+  document.getElementById('modal-cancel')?.addEventListener('click', () => modal.classList.add('hidden'));
+  modal?.addEventListener('click', e => { if (e.target === modal) modal.classList.add('hidden'); });
+
+  // Prompt chips → mock toast
+  document.querySelectorAll('.prompt-chip').forEach(chip => {
+    chip.addEventListener('click', () => showToast('✦ AI: ' + chip.textContent.trim().slice(0, 40) + '…'));
+  });
+
+  // Smooth scroll for TOC tabs
+  document.querySelectorAll('.toc-tab').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.toc-tab').forEach(t => t.classList.remove('active'));
+      a.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

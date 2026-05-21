@@ -1,0 +1,463 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICT1234 — Data Structures & Algorithms | NP AI Curriculum Designer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+    .meta-field { display: flex; flex-direction: column; gap: 3px; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+    .meta-field:last-child { border-bottom: none; }
+    .meta-key { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); }
+    .meta-val { font-size: 14px; color: var(--color-text-primary); font-weight: 500; }
+    .meta-val.editable {
+      padding: 3px 6px; margin: 0 -6px;
+      border-radius: var(--radius-sm); border: 1px solid transparent;
+      transition: all var(--transition-fast); cursor: text;
+    }
+    .meta-val.editable:hover { background: var(--color-surface); border-color: var(--color-border); }
+    .meta-val.editable:focus { outline: none; background: white; border-color: #888; box-shadow: none; }
+    .system-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 2px 6px; border-radius: var(--radius-full);
+      background: var(--color-warning-light); color: var(--color-warning);
+    }
+    .section-card {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md);
+      margin-bottom: var(--space-3); background: var(--color-bg);
+      transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+      text-decoration: none; cursor: pointer;
+    }
+    .section-card:hover { box-shadow: var(--shadow-card); border-color: var(--color-border-hover); }
+    .section-card-left { display: flex; align-items: center; gap: var(--space-4); }
+    .section-card-num { width: 32px; height: 32px; border-radius: 50%; background: var(--color-surface); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--color-text-secondary); flex-shrink: 0; }
+    .section-card-num.done { background: var(--color-success-light); color: var(--color-success); }
+    .section-card-num.active { background: var(--color-accent-light); color: var(--color-accent); }
+    .section-card-info { display: flex; flex-direction: column; gap: 2px; }
+    .section-card-title { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
+    .section-card-desc { font-size: 12px; color: var(--color-text-secondary); }
+    .section-card-right { display: flex; align-items: center; gap: var(--space-3); }
+    .section-status-pill { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: var(--radius-full); }
+    .pill-done { background: var(--color-success-light); color: var(--color-success); }
+    .pill-progress { background: var(--color-accent-light); color: var(--color-accent); }
+    .pill-warn { background: var(--color-warning-light); color: var(--color-warning); }
+    .pill-empty { background: var(--color-surface); color: var(--color-text-tertiary); }
+  </style>
+</head>
+<body>
+
+<!-- Topbar -->
+<header class="topbar">
+  <a href="index.html" class="topbar-logo" style="text-decoration:none;">
+    <img src="assets/np-logo-horizontal.png" alt="Ngee Ann Polytechnic" class="topbar-logo-img">
+    <div class="topbar-logo-wordmark">
+      <span class="product">NP AI Curriculum Designer</span>
+    </div>
+  </a>
+  <div class="topbar-divider"></div>
+  <span id="module-title-edit" class="topbar-module-title" title="Click to edit">
+    ICT1234 — Data Structures &amp; Algorithms
+  </span>
+  <div class="topbar-actions">
+    <span class="topbar-status-badge">Draft</span>
+    <button class="btn btn-secondary btn-sm" id="save-draft-btn">Save Draft</button>
+    <a href="review-export.html" class="btn btn-primary btn-sm">Preview MDD →</a>
+    <div class="topbar-avatar" title="Lim Mei Ling">ML</div>
+  </div>
+</header>
+
+<div class="app-shell" style="grid-template-rows: unset;">
+
+  <!-- Left Sidebar -->
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-back">← Dashboard</a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-module-info">
+      <div class="sidebar-module-code">ICT1234 · ELE</div>
+      <div class="sidebar-module-name">Data Structures &amp; Algorithms</div>
+      <div class="sidebar-module-meta">L2 · SIDM · 4 CU · AY25/26 S1</div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Sections</div>
+    <a href="mdd-editor.html" class="sidebar-nav-item active">
+      Module Overview
+      <span class="sidebar-status-icon done">✓</span>
+    </a>
+    <a href="section-synopsis.html" class="sidebar-nav-item">
+      Synopsis &amp; Skills
+      <span class="sidebar-status-icon done">✓</span>
+    </a>
+    <a href="section-outcomes.html" class="sidebar-nav-item">
+      Learning Outcomes
+      <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">◉</span>
+    </a>
+    <a href="section-schedule.html" class="sidebar-nav-item">
+      Topics &amp; Schedule
+      <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span>
+    </a>
+    <a href="section-tls.html" class="sidebar-nav-item">
+      T&amp;L Strategies
+      <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span>
+    </a>
+    <a href="section-assessment.html" class="sidebar-nav-item">
+      Assessment
+      <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">⚠</span>
+    </a>
+    <a href="section-service.html" class="sidebar-nav-item">
+      Service-Learning
+      <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">○</span>
+    </a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Cross-cutting checks</div>
+    <a href="section-comms-alignment.html" class="sidebar-nav-item">
+      Comms Alignment
+      <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">⚠</span>
+    </a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-footer">
+      <div>
+        <div class="progress-label">
+          <span>Completion</span>
+          <span class="font-600">3 / 7</span>
+        </div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:43%"></div></div>
+      </div>
+      <button class="btn btn-secondary btn-sm w-full" id="ai-check-btn" style="justify-content:center; position:relative;">
+        AI Check
+      </button>
+      <button class="btn btn-ghost btn-sm w-full" id="save-draft-btn-2" style="justify-content:center;">
+        Save Draft
+      </button>
+      <a href="review-export.html" class="btn btn-secondary btn-sm w-full" style="justify-content:center; text-decoration:none; text-align:center;">
+        Preview &amp; Export
+      </a>
+    </div>
+  </aside>
+
+  <!-- AI Check Panel -->
+  <div class="ai-check-panel hidden" id="ai-check-panel">
+    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--color-ai-glow); margin-bottom:var(--space-2); padding:0 var(--space-1);">✦ AI Completion Check</div>
+    <a href="mdd-editor.html" class="ai-check-item">
+      <span class="ai-check-status">✓</span>
+      <span class="ai-check-label">Module Metadata</span>
+      <span class="ai-check-note" style="color:var(--color-success)">Complete</span>
+    </a>
+    <a href="section-synopsis.html" class="ai-check-item">
+      <span class="ai-check-status">✓</span>
+      <span class="ai-check-label">Synopsis &amp; Skills</span>
+      <span class="ai-check-note" style="color:var(--color-success)">Complete</span>
+    </a>
+    <a href="section-outcomes.html" class="ai-check-item">
+      <span class="ai-check-status">⚠</span>
+      <span class="ai-check-label">Learning Outcomes</span>
+      <span class="ai-check-note" style="color:var(--color-warning)">NPGC3 weak</span>
+    </a>
+    <a href="section-schedule.html" class="ai-check-item">
+      <span class="ai-check-status">○</span>
+      <span class="ai-check-label">Topics &amp; Schedule</span>
+      <span class="ai-check-note">Not started</span>
+    </a>
+    <a href="section-tls.html" class="ai-check-item">
+      <span class="ai-check-status">○</span>
+      <span class="ai-check-label">T&amp;L Strategies</span>
+      <span class="ai-check-note">Not started</span>
+    </a>
+    <a href="section-assessment.html" class="ai-check-item">
+      <span class="ai-check-status">✗</span>
+      <span class="ai-check-label">Assessment</span>
+      <span class="ai-check-note" style="color:var(--color-danger)">Weights ≠ 100%</span>
+    </a>
+    <a href="section-service.html" class="ai-check-item">
+      <span class="ai-check-status">–</span>
+      <span class="ai-check-label">Service-Learning</span>
+      <span class="ai-check-note">Optional / Off</span>
+    </a>
+    <div style="height:1px; background:var(--color-border); margin: 6px 4px;"></div>
+    <a href="section-comms-alignment.html" class="ai-check-item">
+      <span class="ai-check-status">⚠</span>
+      <span class="ai-check-label">Comms Alignment</span>
+      <span class="ai-check-note" style="color:var(--color-warning)">Partial · SoH&amp;IS</span>
+    </a>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="content-inner">
+      <div class="breadcrumb">
+        <a href="index.html">Dashboard</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>ICT1234</span>
+        <span class="breadcrumb-sep">/</span>
+        <span>Module Overview</span>
+      </div>
+
+      <div class="section-header">
+        <div class="section-header-left">
+          <div class="section-number">Module Design Document</div>
+          <div class="section-title">Data Structures &amp; Algorithms</div>
+          <div class="section-description">Review module metadata and navigate to any section below.</div>
+        </div>
+      </div>
+
+      <!-- Module Metadata Grid -->
+      <div class="card mb-6">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-5);">
+          <div class="form-sub-title" style="margin:0;">
+            <div class="form-sub-title-number">i</div>
+            Module Metadata
+          </div>
+        </div>
+        <div class="overview-grid">
+          <div>
+            <div class="meta-field">
+              <div class="meta-key">Module ID</div>
+              <div class="meta-val mono">12418</div>
+            </div>
+            <div class="meta-field">
+              <div class="meta-key">Catalogue Number</div>
+              <div class="meta-val mono">ICT1234</div>
+            </div>
+            <div class="meta-field">
+              <div class="meta-key">Module Level</div>
+              <div class="meta-val"><span class="badge badge-level">L2 — Intermediate</span></div>
+            </div>
+            <div class="meta-field">
+              <div class="meta-key">Credit Units</div>
+              <div class="meta-val">4 CU</div>
+            </div>
+            <div class="meta-field">
+              <div class="meta-key">Contact Hours / Week</div>
+              <div class="meta-val">3 hrs</div>
+            </div>
+          </div>
+          <div>
+            <div class="meta-field">
+              <div class="meta-key">School</div>
+              <div class="meta-val">School of Infocomm Technology (SIDM)</div>
+            </div>
+            <div class="meta-field">
+              <div class="meta-key">Programme</div>
+              <div class="meta-val">Diploma in Information Technology</div>
+            </div>
+            <div class="meta-field">
+              <div class="meta-key">Module Leader</div>
+              <div class="meta-val editable" contenteditable="false" tabindex="0">Lim Mei Ling</div>
+            </div>
+            <div class="meta-field">
+              <div class="meta-key">Term</div>
+              <div class="meta-val">AY2025/2026 Semester 1</div>
+            </div>
+            <div class="meta-field">
+              <div class="meta-key">Prerequisites</div>
+              <div class="meta-val editable" contenteditable="false" tabindex="0">ICT1101 Programming Fundamentals</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sections overview -->
+      <div class="form-sub-title mb-4">
+        <div class="form-sub-title-number">§</div>
+        All Sections
+      </div>
+
+      <a href="section-synopsis.html" class="section-card">
+        <div class="section-card-left">
+          <div class="section-card-num done">✓</div>
+          <div class="section-card-info">
+            <div class="section-card-title">Sections 1–2: Synopsis &amp; Skills Framework</div>
+            <div class="section-card-desc">Module overview, target audience, and industry skills alignment</div>
+          </div>
+        </div>
+        <div class="section-card-right">
+          <span class="section-status-pill pill-done">Complete</span>
+          <span style="color:var(--color-text-tertiary);">→</span>
+        </div>
+      </a>
+
+      <a href="section-outcomes.html" class="section-card" style="border-color:var(--color-accent-mid);">
+        <div class="section-card-left">
+          <div class="section-card-num active">◉</div>
+          <div class="section-card-info">
+            <div class="section-card-title">Sections 3–5: Learning Outcomes</div>
+            <div class="section-card-desc">Module outcomes (MOs), course outcomes, and NPGC alignment</div>
+          </div>
+        </div>
+        <div class="section-card-right">
+          <span class="section-status-pill pill-progress">In Progress</span>
+          <span style="color:var(--color-text-tertiary);">→</span>
+        </div>
+      </a>
+
+      <a href="section-schedule.html" class="section-card">
+        <div class="section-card-left">
+          <div class="section-card-num">3</div>
+          <div class="section-card-info">
+            <div class="section-card-title">Sections 6–7: Topics &amp; Weekly Schedule</div>
+            <div class="section-card-desc">17-week topic breakdown, sub-topics, and pacing plan</div>
+          </div>
+        </div>
+        <div class="section-card-right">
+          <span class="section-status-pill pill-empty">Not Started</span>
+          <span style="color:var(--color-text-tertiary);">→</span>
+        </div>
+      </a>
+
+      <a href="section-tls.html" class="section-card">
+        <div class="section-card-left">
+          <div class="section-card-num">4</div>
+          <div class="section-card-info">
+            <div class="section-card-title">Section 8: Teaching &amp; Learning Strategies</div>
+            <div class="section-card-desc">Pedagogical approaches, flipped learning, IPL/OAL hours</div>
+          </div>
+        </div>
+        <div class="section-card-right">
+          <span class="section-status-pill pill-empty">Not Started</span>
+          <span style="color:var(--color-text-tertiary);">→</span>
+        </div>
+      </a>
+
+      <a href="section-assessment.html" class="section-card" style="border-color:var(--color-warning-mid);">
+        <div class="section-card-left">
+          <div class="section-card-num" style="background:var(--color-warning-light); color:var(--color-warning);">⚠</div>
+          <div class="section-card-info">
+            <div class="section-card-title">Section 9: Assessment Strategy</div>
+            <div class="section-card-desc">Assessment components, weightings, MO coverage matrix</div>
+          </div>
+        </div>
+        <div class="section-card-right">
+          <span class="section-status-pill pill-warn">Needs Review</span>
+          <span style="color:var(--color-text-tertiary);">→</span>
+        </div>
+      </a>
+
+      <a href="section-service.html" class="section-card">
+        <div class="section-card-left">
+          <div class="section-card-num">6</div>
+          <div class="section-card-info">
+            <div class="section-card-title">Section 10: Service-Learning (Optional)</div>
+            <div class="section-card-desc">Pre-service, service, and post-service phases with reflection</div>
+          </div>
+        </div>
+        <div class="section-card-right">
+          <span class="section-status-pill pill-empty" style="background:var(--color-surface); color:var(--color-text-tertiary);">Optional</span>
+          <span style="color:var(--color-text-tertiary);">→</span>
+        </div>
+      </a>
+
+      <!-- Cross-cutting checks -->
+      <div class="form-sub-title mt-6 mb-3" style="font-size:13px; color:var(--color-text-tertiary); text-transform:uppercase; letter-spacing:0.06em;">
+        <div class="form-sub-title-number" style="background:var(--color-npgc-6);">✦</div>
+        Cross-cutting checks
+      </div>
+      <a href="section-comms-alignment.html" class="section-card" style="border-color:var(--color-border); background: var(--color-surface);">
+        <div class="section-card-left">
+          <div class="section-card-num" style="background:var(--color-surface); color:var(--color-text-secondary);"></div>
+          <div class="section-card-info">
+            <div class="section-card-title">Communication Skills Alignment <span class="source-badge" style="font-size:10px; margin-left:6px;">SoH&amp;IS</span></div>
+            <div class="section-card-desc">Align this module's comms activities &amp; rubrics with NP's SoH&amp;IS Presentation Rubric and Impact Toolkit</div>
+          </div>
+        </div>
+        <div class="section-card-right">
+          <span class="section-status-pill pill-warn">Partial — review</span>
+          <span style="color:var(--color-text-tertiary);">→</span>
+        </div>
+      </a>
+
+      <div style="margin-top:var(--space-6); padding-top:var(--space-6); border-top:1px solid var(--color-border); display:flex; align-items:center; justify-content:space-between;">
+        <div style="font-size:13px; color:var(--color-text-secondary);">Last saved: today at 2:47 PM</div>
+        <div style="display:flex; gap:var(--space-3);">
+          <button class="btn btn-secondary" id="save-btn-footer">Save Draft</button>
+          <a href="review-export.html" class="btn btn-primary" style="text-decoration:none;">Preview &amp; Export →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- AI Sidebar -->
+  <aside class="ai-sidebar" id="ai-sidebar">
+    <div class="ai-sidebar-header">
+      <div class="ai-sidebar-title">
+        <span class="ai-icon">✦</span> AI Assistant
+      </div>
+      <button class="btn btn-ghost btn-sm btn-icon" id="ai-sidebar-close" title="Close">×</button>
+    </div>
+
+    <div class="ai-sidebar-body">
+      <!-- Context suggestion -->
+      <div class="ai-suggestion-card ai-purple">
+        <div class="ai-suggestion-header">
+          <span class="sparkle">✦</span>
+          <span class="ai-suggestion-label" style="color:var(--color-ai-glow);">Quick Start</span>
+        </div>
+        <div class="ai-suggestion-body">
+          Your module metadata looks complete. I'd recommend tackling <strong>Learning Outcomes</strong> next — I can generate a full set of outcomes based on your synopsis.
+        </div>
+        <div class="ai-suggestion-actions">
+          <a href="section-outcomes.html" class="btn btn-ai btn-sm">Draft Outcomes →</a>
+        </div>
+      </div>
+
+      <div id="ai-messages" class="ai-chat-messages">
+        <div class="ai-chat-bubble assistant">
+          Hi! I'm your NP AI Curriculum Designer. Ask me anything about writing module outcomes, assessment strategies, pedagogy, or NPGC alignment — I'm here to help.
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-sidebar-footer">
+      <div class="prompt-chip-strip">
+        <div class="prompt-chip-strip-label">✦ Try a prompt</div>
+        <button class="prompt-chip">What's missing from my MDD?</button>
+        <button class="prompt-chip">Check NPGC alignment</button>
+        <button class="prompt-chip">Suggest next section to tackle</button>
+        <button class="prompt-chip">Validate against NP Assessment Framework</button>
+      </div>
+      <div class="ai-chat-input-row">
+        <textarea class="ai-chat-input" id="ai-input" placeholder="Ask anything about this module…" rows="1"></textarea>
+        <button class="ai-chat-send" id="ai-send" title="Send">↑</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<button class="ai-fab" id="ai-fab" title="Open AI Assistant">✦</button>
+
+<script type="module">
+  import { initAIChat, initAICheckPanel, initSaveDraft, initInlineTitleEdit } from './ai-assistant.js';
+  initAIChat();
+  initAICheckPanel('ai-check-btn', 'ai-check-panel');
+  initSaveDraft('save-draft-btn');
+  initSaveDraft('save-draft-btn-2');
+  initSaveDraft('save-btn-footer');
+  initInlineTitleEdit();
+
+  // Prompt chips — pre-fill the chat input
+  document.querySelectorAll('.prompt-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const input = document.getElementById('ai-input');
+      if (input) { input.value = chip.textContent.trim(); input.focus(); }
+    });
+  });
+
+  // Editable meta fields
+  document.querySelectorAll('.meta-val.editable').forEach(el => {
+    el.addEventListener('click', () => {
+      el.contentEditable = 'true';
+      el.style.background = 'white';
+      el.style.borderColor = 'var(--color-accent)';
+      el.focus();
+    });
+    el.addEventListener('blur', () => {
+      el.contentEditable = 'false';
+      el.style.background = '';
+      el.style.borderColor = '';
+    });
+    el.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); el.blur(); } });
+  });
+</script>
+</body>
+</html>
