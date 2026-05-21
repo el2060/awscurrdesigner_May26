@@ -76,9 +76,7 @@
   </span>
   <div class="topbar-actions">
     <a href="mdd-editor.html" class="btn btn-ghost btn-sm">← Back to Editor</a>
-    <button class="btn btn-secondary btn-sm">Re-check alignment</button>
-    <button class="btn btn-secondary btn-sm">Export PDF</button>
-    <button class="btn btn-primary" id="export-xls-btn" style="background: #1a1a1a;">Export to XLS</button>
+    <button class="btn btn-primary" id="export-xls-btn">Export Word doc →</button>
 
   </div>
 </header>
@@ -87,7 +85,7 @@
 <div style="border-bottom:1px solid #e0e0e0; padding:0 40px; display:flex; align-items:center; background:#fafafa; height:40px; overflow-x:auto; font-family:var(--font-sans, 'Inter', sans-serif);">
   <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:#888;white-space:nowrap;flex-shrink:0;">
     <div style="width:18px;height:18px;border:1px solid #2D7A4A;background:#2D7A4A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:var(--font-mono, monospace);">✓</div>
-    <span>Context Workspace (optional)</span>
+    <span>Context Workspace</span>
   </div>
   <div style="width:24px;height:1px;background:#e0e0e0;margin:0 8px;flex-shrink:0;"></div>
   <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:#888;white-space:nowrap;flex-shrink:0;">
@@ -108,7 +106,7 @@
   <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:#004689;font-weight:600;white-space:nowrap;flex-shrink:0;">
     <div style="width:18px;height:18px;border:1px solid #004689;background:#004689;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:var(--font-mono, monospace);">5</div>
     <span>Review &amp; Export</span>
-    <span style="font-size:10px;color:#aaa;font-weight:400;margin-left:4px;">· final document</span>
+    
   </div>
 </div>
 
@@ -181,13 +179,7 @@
     <!-- Toolbar -->
     <div class="review-toolbar">
       <div class="review-toolbar-left">
-        <span class="badge badge-draft">Draft v3</span>
-        <span>Auto-saved · ready for final review</span>
-      </div>
-      <div class="review-toolbar-right">
-        <span class="export-status-pill ok">✓ 6 of 6 sections complete</span>
-        <span class="export-status-pill warn">⚠ 1 framework warning</span>
-        <span class="export-status-pill warn">Comms: partial SoH&amp;IS</span>
+        <span class="export-status-pill ok">✓ Ready for export</span>
       </div>
     </div>
 
@@ -686,13 +678,13 @@ function finaliseExport() {
 
 </div>
 
-<!-- Export to XLS modal -->
+<!-- Export to Word modal -->
 <div class="modal-overlay hidden" id="export-modal">
   <div class="modal" style="width: 540px;">
     <div class="modal-header" style="display:flex; align-items:flex-start; justify-content:space-between;">
       <div>
-        <div class="modal-title">Export to XLS</div>
-        <div class="modal-subtitle">Prepare the NP MDD spreadsheet from this module's data.</div>
+        <div class="modal-title">Export to Word</div>
+        <div class="modal-subtitle">Generate the NP Module Document from this module's data.</div>
       </div>
       <button class="btn btn-ghost btn-sm" id="modal-close" style="font-size:18px; padding:4px 8px;">×</button>
     </div>
@@ -701,8 +693,8 @@ function finaliseExport() {
 
         <div class="export-template-toggle">
           <div class="left">
-            <div class="name">NP MDD Template (Feb 2024)</div>
-            <div class="desc">Official format used by Academic Quality. Includes Module Info, Synopsis, Outcomes, Schedule, T&amp;L, Assessment, NPGC tabs.</div>
+            <div class="name">NP Module Document Template</div>
+            <div class="desc">Official institutional format. Includes Overview, Synopsis &amp; Aims, Outcomes, Content, T&amp;L, Assessment, Resources.</div>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" checked>

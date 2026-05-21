@@ -361,7 +361,7 @@
   <div class="phase-inner">
   <div class="ph-step active">
     <div class="ph-num">1</div>
-    <span>Context Workspace (optional)</span>
+    <span>Context Workspace</span>
   </div>
   <div class="ph-connector"></div>
   <div class="ph-step">
@@ -572,22 +572,6 @@
 
     <!-- Sidebar -->
     <div class="layout-side">
-
-      <div class="copilot-panel">
-        <div class="cp-head">Analysis Readiness</div>
-        <div class="cp-block">
-          <div class="cp-label">Current Coverage</div>
-          <ul class="cp-list" id="cp-coverage"></ul>
-        </div>
-        <div class="cp-block">
-          <div class="cp-label">Suggested Additions</div>
-          <ul class="cp-list" id="cp-insights"></ul>
-        </div>
-        <div class="cp-block">
-          <div class="cp-note" id="cp-ready">Ready for synthesis and gap analysis.</div>
-        </div>
-      </div>
-
       <div class="side-box">
         <span class="side-title">Materials gathered</span>
         <div class="side-row">
@@ -611,16 +595,6 @@
           <span class="side-total-num" id="cnt-total">14 files</span>
         </div>
       </div>
-
-      <div class="side-next">
-        <span class="side-next-label">Next step</span>
-        <div class="side-next-item">AI extracts themes &amp; patterns</div>
-        <div class="side-next-item">Skill gaps identified</div>
-        <div class="side-next-item">NPGC competency mapping</div>
-        <div class="side-next-item">Recommendations prepared</div>
-        <div class="side-next-item">Context Brief produced</div>
-      </div>
-
     </div>
 
   </div>
@@ -630,7 +604,7 @@
 <!-- Bottom bar -->
 <div class="bottom-bar">
   <div class="bottom-inner">
-    <div class="bb-note" id="bb-note">14 files across 4 categories · Ready for context analysis</div>
+    <div class="bb-note" id="bb-note">Ready for context analysis</div>
     <div class="bb-actions">
       <a href="index.html" class="btn-ghost">← Back</a>
       <a href="analyse-synthesise.html" class="btn-primary">Analyse Context →</a>
@@ -683,7 +657,7 @@
     });
     document.getElementById('cnt-total').textContent = total + ' files';
     const cats = counts.filter(c => c > 0).length;
-    document.getElementById('bb-note').textContent = total + ' file' + (total !== 1 ? 's' : '') + ' across ' + cats + ' categor' + (cats !== 1 ? 'ies' : 'y') + ' · Ready for context analysis';
+    document.getElementById('bb-note').textContent = 'Ready for context analysis';
     document.querySelectorAll('.upload-zone').forEach((zone, i) => {
       zone.querySelector('.uz-badge').textContent = counts[i] + ' file' + (counts[i] !== 1 ? 's' : '');
     });
