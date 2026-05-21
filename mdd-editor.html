@@ -135,10 +135,11 @@
       Assessment
       <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">⚠</span>
     </a>
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-section-label">Cross-cutting checks</div>
-    <a href="section-comms-alignment.html" class="sidebar-nav-item">
-      Comms Alignment
+    <!-- Cross-cutting checks: only shown in Review mode (entered via refresh-align) -->
+    <div class="sidebar-divider" id="xcheck-divider" style="display:none;"></div>
+    <div class="sidebar-section-label" id="xcheck-label" style="display:none;">Review lenses</div>
+    <a href="section-comms-alignment.html" class="sidebar-nav-item" id="xcheck-comms" style="display:none;">
+      Communication Skills
       <span class="sidebar-status-icon" style="color:var(--color-text-tertiary)">⚠</span>
     </a>
     <div class="sidebar-divider"></div>
@@ -438,6 +439,28 @@
     });
     el.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); el.blur(); } });
   });
+</script>
+
+<script>
+  // Show review-only sidebar items if entered from refresh-align (#review or ?mode=review)
+  // Also preserve review mode on any onward navigation to review-export
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const isReview = params.get('mode') === 'review' || window.location.hash === '#review';
+    if (isReview) {
+      // Force display for review-only items (use explicit display values matching the surrounding sidebar)
+      const divider = document.getElementById('xcheck-divider');
+      const label = document.getElementById('xcheck-label');
+      const comms = document.getElementById('xcheck-comms');
+      if (divider) divider.style.display = 'block';
+      if (label) label.style.display = 'block';
+      if (comms) comms.style.display = 'flex';
+      // Pass review mode onward to review-export
+      document.querySelectorAll('a[href="review-export.html"]').forEach(a => {
+        a.href = 'review-export.html#review';
+      });
+    }
+  })();
 </script>
 </body>
 </html>

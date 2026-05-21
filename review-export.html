@@ -149,10 +149,11 @@
        Assessment
       <span class="sidebar-status-icon warn">⚠</span>
     </a>
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-section-label">Cross-cutting checks</div>
-    <a href="section-comms-alignment.html" class="sidebar-nav-item">
-       Comms Alignment
+    <!-- Review-mode-only lenses: shown when entered from refresh-align (?mode=review) -->
+    <div class="sidebar-divider" id="xcheck-divider" style="display:none;"></div>
+    <div class="sidebar-section-label" id="xcheck-label" style="display:none;">Review lenses</div>
+    <a href="section-comms-alignment.html" class="sidebar-nav-item" id="xcheck-comms" style="display:none;">
+       Communication Skills
       <span class="sidebar-status-icon warn">⚠</span>
     </a>
     <div class="sidebar-divider"></div>
@@ -796,6 +797,20 @@ function finaliseExport() {
       a.classList.add('active');
     });
   });
+
+  // Show review-only sidebar items if entered via refresh-align (#review or ?mode=review)
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const isReview = params.get('mode') === 'review' || window.location.hash === '#review';
+    if (isReview) {
+      const divider = document.getElementById('xcheck-divider');
+      const label = document.getElementById('xcheck-label');
+      const comms = document.getElementById('xcheck-comms');
+      if (divider) divider.style.display = 'block';
+      if (label) label.style.display = 'block';
+      if (comms) comms.style.display = 'flex';
+    }
+  })();
 </script>
 </body>
 </html>
