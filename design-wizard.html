@@ -181,6 +181,8 @@
     .scope-item.on .scope-cb { background: #004689; border-color: #004689; color: #fff; }
     .scope-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
     .scope-sub { font-size: 11px; color: #979797; line-height: 1.35; }
+    .scope-ref { display: none; font-size: 10px; color: #2d5f92; margin-top: 4px; font-weight: 600; line-height: 1.35; }
+    .scope-item.on .scope-ref { display: block; }
     .sequence-helper {
       border: 1px solid #e6e0bf;
       background: #fffef5;
@@ -563,26 +565,32 @@
         <div class="scope-item on" data-label="Synopsis &amp; Aims" data-time="~2s" onclick="toggleScope(this)">
           <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Synopsis &amp; Aims</div></div>
           <div class="scope-sub">Draft module synopsis and intent statement.</div>
+          <div class="scope-ref">Uses module context and imported materials</div>
         </div>
         <div class="scope-item on" data-label="Module Learning Outcomes" data-time="~3s" onclick="toggleScope(this)">
           <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Module Learning Outcomes</div></div>
           <div class="scope-sub">Draft MOs with NPGC mapping.</div>
+          <div class="scope-ref">Uses NPGC Framework</div>
         </div>
         <div class="scope-item on" data-label="Content: Topics &amp; Hours" data-time="~3s" onclick="toggleScope(this)">
           <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Content: Topics &amp; Hours</div></div>
           <div class="scope-sub">Draft topic breakdown with lecture and online hours.</div>
+          <div class="scope-ref">Uses outcomes-to-content alignment checks</div>
         </div>
         <div class="scope-item on" data-label="Assessment Plan" data-time="~2s" onclick="toggleScope(this)">
           <div class="scope-top"><div class="scope-cb">✓</div><div class="scope-name">Assessment Plan</div></div>
           <div class="scope-sub">Components, weightings, and MO coverage.</div>
+          <div class="scope-ref">Uses NP Assessment Framework</div>
         </div>
         <div class="scope-item" data-label="Teaching &amp; Learning Strategies" data-time="~2s" onclick="toggleScope(this)">
           <div class="scope-top"><div class="scope-cb"></div><div class="scope-name">Teaching &amp; Learning Strategies</div></div>
           <div class="scope-sub">Elaborate selected pedagogical approaches.</div>
+          <div class="scope-ref">Uses pedagogical alignment checks</div>
         </div>
         <div class="scope-item" data-label="Learning Resources &amp; References" data-time="~2s" onclick="toggleScope(this)">
           <div class="scope-top"><div class="scope-cb"></div><div class="scope-name">Learning Resources &amp; References</div><span class="state-pill">Optional</span></div>
           <div class="scope-sub">Draft recommended readings and resources.</div>
+          <div class="scope-ref">Uses additional references and context notes</div>
         </div>
       </div>
       <div class="action-row">

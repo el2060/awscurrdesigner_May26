@@ -264,29 +264,29 @@
 
     <div class="layout-main">
 
-      <!-- Section A: Module materials import -->
+      <!-- Section A: Module documentation import -->
       <div class="plan-section">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">A</div>
-          <div class="ps-title">Import Module Materials</div>
-          <div class="ps-desc">Bring in module sources for curriculum review</div>
+          <div class="ps-title">Import Module Documentation</div>
+          <div class="ps-desc">Provide module documentation for AI-assisted review</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
-          <p class="import-note">Upload or paste existing module materials for AI-assisted review and refinement.</p>
+          <p class="import-note">Upload or paste module documentation, assessment plans, rubrics, or curriculum notes for review and refinement.</p>
           <div class="import-actions">
-            <button class="btn-action" onclick="loadModule()">Import Materials</button>
-            <button class="btn-subtle" onclick="focusPasteArea()">Paste Existing Module Text</button>
+            <button class="btn-action" onclick="loadModule()">Upload Documents</button>
+            <button class="btn-subtle" onclick="focusPasteArea()">Paste Module Documentation</button>
             <span class="state-pill" id="import-state">Not imported</span>
           </div>
 
           <div class="import-drop">
-            Drag and drop MDDs, rubrics, assessment briefs, schedules, or supporting documents
+            Drag and drop MDDs, assessment briefs, rubrics, schedules, or related curriculum documents
           </div>
 
           <div class="field">
-            <label class="field-label">Paste module materials <span class="opt">(optional)</span></label>
-            <textarea id="module-paste" class="plan-textarea" placeholder="Paste module overview, learning outcomes, assessment details, or review notes."></textarea>
+            <label class="field-label">Paste module documentation <span class="opt">(optional)</span></label>
+            <textarea id="module-paste" class="plan-textarea" placeholder="Paste module overview, learning outcomes, assessment plans, curriculum notes, or review context."></textarea>
           </div>
 
           <div class="context-detected" id="detected-context">
@@ -398,7 +398,7 @@
       <div class="side-card ai-side">
         <span class="side-label">✦ What AI will do</span>
         <div class="side-card-body">
-          <div class="side-rec-item">Review curriculum materials against selected focus areas</div>
+          <div class="side-rec-item">Review curriculum documentation against selected focus areas</div>
           <div class="side-rec-item">Highlight curriculum gaps, imbalances, and areas for refresh</div>
           <div class="side-rec-item">Suggest targeted refinements across module sections</div>
           <div class="side-rec-item">Reference selected institutional or industry frameworks</div>
@@ -424,7 +424,7 @@
 <!-- Bottom bar -->
 <div class="bottom-bar">
   <div class="bottom-inner">
-    <div class="bb-note" id="bb-note">Import module materials, then open in editor for review</div>
+    <div class="bb-note" id="bb-note">Import module documentation, then open in editor for review</div>
     <div class="bb-actions">
       <a href="index.html" class="btn-ghost">← Home</a>
       <a href="mdd-editor.html#review" class="btn-primary">Open in Editor →</a>
@@ -452,7 +452,7 @@
     st.classList.add('loaded');
     document.getElementById('sum-module').textContent = 'ICT1234 · Data Structures & Algorithms';
     document.getElementById('sum-module').classList.remove('empty');
-    document.getElementById('bb-note').textContent = 'Module materials imported · ready to open in editor';
+    document.getElementById('bb-note').textContent = 'Module documentation imported · ready to open in editor';
   }
 
   function updateSummary() {

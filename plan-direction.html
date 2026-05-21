@@ -115,7 +115,10 @@
     .npgc-item.on .npgc-cb::after { content: '✓'; color: #fff; font-size: 9px; font-weight: 700; }
     .npgc-num { font-size: 9px; font-weight: 700; font-family: var(--font-mono); color: #aaa; flex-shrink: 0; }
     .npgc-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
+    .npgc-ref { display: none; font-size: 10px; color: #2d5f92; margin-top: 2px; font-weight: 600; line-height: 1.35; }
+    .npgc-item.on .npgc-ref { display: block; }
     .npgc-note { font-size: 11px; color: #bbb; margin-top: 10px; line-height: 1.45; }
+    .auto-map-note { font-size: 11px; color: #2d5f92; margin-top: 8px; line-height: 1.45; }
 
     /* ── Check group ── */
     .check-group-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
@@ -336,13 +339,13 @@
         </div>
         <div class="ps-body">
           <div class="npgc-grid" id="npgc-grid">
-            <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC1</div><div class="npgc-name">Domain &amp; Interdisciplinary</div></div></div>
-            <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC2</div><div class="npgc-name">Critical Thinking</div></div></div>
-            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC3</div><div class="npgc-name">Innovation &amp; Entrepreneurial</div></div></div>
-            <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC4</div><div class="npgc-name">Digital Competence</div></div></div>
-            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC5</div><div class="npgc-name">Self-Development</div></div></div>
-            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC6</div><div class="npgc-name">Collaboration</div></div></div>
-            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC7</div><div class="npgc-name">Communication</div></div></div>
+            <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC1</div><div class="npgc-name">Domain &amp; Interdisciplinary</div><div class="npgc-ref">Uses NPGC Framework</div></div></div>
+            <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC2</div><div class="npgc-name">Critical Thinking</div><div class="npgc-ref">Uses NPGC Framework</div></div></div>
+            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC3</div><div class="npgc-name">Innovation &amp; Entrepreneurial</div><div class="npgc-ref">Uses NPGC Framework</div></div></div>
+            <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC4</div><div class="npgc-name">Digital Competence</div><div class="npgc-ref">Uses NPGC Framework</div></div></div>
+            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC5</div><div class="npgc-name">Self-Development</div><div class="npgc-ref">Uses NPGC Framework</div></div></div>
+            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC6</div><div class="npgc-name">Collaboration</div><div class="npgc-ref">Uses NPGC Framework</div></div></div>
+            <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC7</div><div class="npgc-name">Communication</div><div class="npgc-ref">Uses NPGC Framework</div></div></div>
           </div>
           <div class="npgc-note">Choose 2–3 priorities for a clear module focus.</div>
           <div class="ai-inline">Critical Thinking is frequently prioritised in employer feedback for this discipline.</div>
@@ -365,6 +368,7 @@
               <span class="chip" onclick="selChip(this,'asmttype')">CA + Final Exam</span>
               <span class="chip" onclick="selChip(this,'asmttype')">CA + Common Test</span>
             </div>
+            <div class="auto-map-note">Uses NP Assessment Framework</div>
           </div>
           <div class="field" style="margin-bottom:14px;">
             <label class="field-label">Primary Approach <span class="opt">(select all that apply)</span></label>
@@ -413,6 +417,7 @@
               <span class="chip on" onclick="selChip(this,'delivery')">Blended</span>
               <span class="chip" onclick="selChip(this,'delivery')">Fully Online</span>
             </div>
+            <div class="auto-map-note">Uses Communication &amp; Presentation Rubrics for communication-related outcomes</div>
           </div>
           <div class="ai-inline">Case-Based Learning with blended delivery suits applied modules in this discipline.</div>
         </div>
