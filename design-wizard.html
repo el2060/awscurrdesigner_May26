@@ -208,6 +208,48 @@
       margin-left: 18px;
       margin-bottom: 8px;
     }
+    .ai-loop {
+      border: 1px solid #e8d990;
+      background: #fffef8;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+    .ai-loop-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .ai-loop-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8b7424;
+    }
+    .ai-loop-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7a5f00;
+      background: #fff4c5;
+      border: 1px solid #ecd88f;
+      padding: 2px 6px;
+    }
+    .ai-loop-text {
+      font-size: 12px;
+      line-height: 1.5;
+      color: #555;
+    }
+    .ai-loop-list {
+      margin: 8px 0 0 18px;
+      color: #4f4f4f;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .ai-loop-list li { margin-bottom: 4px; }
     .state-pill {
       margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
       padding: 2px 7px; border-radius: 999px; border: 1px solid #dcdcdc;
@@ -432,15 +474,27 @@
     <div class="work-card">
       <h3>Select Sections to Draft</h3>
       <div class="sequence-helper">
-        <div class="sequence-title">Suggested drafting sequence based on your planning setup</div>
-        <div class="sequence-text">Focus the first pass on core structure before moving into supporting content.</div>
+        <div class="sequence-title">Recommended sequence</div>
+        <div class="sequence-text">Start with core structure before moving into supporting content.</div>
         <ol class="sequence-list">
           <li>Learning Outcomes</li>
           <li>Assessment Plan</li>
           <li>Weekly Learning Activities</li>
           <li>Teaching Resources</li>
         </ol>
-        <button class="mini-btn primary" type="button" onclick="applySuggestedSequence()">Apply Suggested Sequence</button>
+        <button class="mini-btn primary" type="button" onclick="applySuggestedSequence()">Apply Recommended Sequence</button>
+      </div>
+      <div class="ai-loop" id="build-ai-loop">
+        <div class="ai-loop-head">
+          <div class="ai-loop-title">AI Drafting Signal</div>
+          <div class="ai-loop-badge">Live</div>
+        </div>
+        <div class="ai-loop-text" id="build-ai-loop-text">Select sections and AI will surface the next best drafting focus.</div>
+        <ul class="ai-loop-list" id="build-ai-loop-list">
+          <li>AI will react to the sections you choose for this pass.</li>
+          <li>Context inputs will shape tone, constraints, and examples.</li>
+          <li>You can keep refining scope before generating.</li>
+        </ul>
       </div>
       <div class="scope-grid" id="scope-grid">
         <div class="scope-item on" data-label="Module Learning Outcomes" data-time="~3s" onclick="toggleScope(this)">
@@ -468,23 +522,24 @@
 
     <div class="work-card">
       <h3>Additional Inputs &amp; Guidance</h3>
+      <div class="plan-hint" style="margin-bottom:8px; margin-top:-2px;">Optional but recommended. These materials help shape the draft so it stays aligned to your module context.</div>
       <div class="mini-row">
-        <button class="mini-btn" onclick="alert('Upload is illustrative in this mockup')">Upload artifacts</button>
-        <button class="mini-btn" onclick="alert('Paste meeting or review notes')">Paste notes</button>
+        <button class="mini-btn" onclick="alert('Upload is illustrative in this mockup')">Add existing materials</button>
+        <button class="mini-btn" onclick="alert('Paste meeting or review notes')">Paste context notes</button>
       </div>
       <div class="mini-row">
-        <input class="mini-input" id="build-link" type="text" placeholder="Add source URL / doc link">
-        <button class="mini-btn" onclick="addBuildLink()">Add</button>
+        <input class="mini-input" id="build-link" type="text" placeholder="Add references, source URLs, or example links">
+        <button class="mini-btn" onclick="addBuildLink()">Add reference</button>
       </div>
-      <textarea class="mini-input" placeholder="Optional: constraints, rubrics, or context for this generation pass" style="min-height:66px; resize:vertical;"></textarea>
-      <div class="suggestion">Start with Learning Outcomes + Assessment Plan to lock intent and evidence early.</div>
-      <div class="suggestion">Add one industry reference before drafting activities for stronger authenticity.</div>
-      <div class="suggestion">You can run this pass with just 1-2 sections selected if you want a tighter draft.</div>
+      <textarea class="mini-input" id="build-notes" placeholder="Paste module notes, constraints, rubrics, or discipline-specific references" style="min-height:66px; resize:vertical;" oninput="updateBuildLoop()"></textarea>
+      <div class="suggestion">AI uses these materials with your planning selections to keep drafts grounded in your discipline, teaching intent, and assessment constraints.</div>
+      <div class="suggestion">For a tighter first pass, start with Learning Outcomes and Assessment Plan.</div>
+      <div class="suggestion">You can continue adding references throughout drafting, not just at the start.</div>
     </div>
   </div>
 
   <div class="action-row" style="margin-bottom:14px;">
-    <button class="mini-btn primary" onclick="startSelectedDraft()">Generate Draft</button>
+    <button class="mini-btn primary" onclick="startSelectedDraft()">Draft with AI</button>
     <button class="mini-btn" onclick="resetDraftRun()">Reset run</button>
   </div>
 
@@ -541,6 +596,7 @@
       state.textContent = selected ? 'Selected' : 'Not Started';
       state.className = 'state-pill';
     }
+    updateBuildLoop();
   }
 
   function toggleScope(el) {
@@ -589,6 +645,48 @@
     if (!input.value.trim()) return;
     alert('Link added for this draft pass: ' + input.value.trim());
     input.value = '';
+    updateBuildLoop();
+  }
+
+  function updateBuildLoop() {
+    const selected = selectedScopes().map(el => el.dataset.label);
+    const notes = document.getElementById('build-notes')?.value.trim() || '';
+    const link = document.getElementById('build-link')?.value.trim() || '';
+    const loopText = document.getElementById('build-ai-loop-text');
+    const loopList = document.getElementById('build-ai-loop-list');
+    if (!loopText || !loopList) return;
+
+    const items = [];
+    if (selected.length === 0) {
+      loopText.textContent = 'Choose sections and AI will show what to draft first.';
+      items.push('Start by selecting at least one section for this pass.');
+    } else if (selected.length <= 2) {
+      loopText.textContent = 'A focused pass is a good fit here. AI can stay tightly aligned to the sections you picked.';
+      items.push('A narrower pass usually produces cleaner first drafts.');
+    } else {
+      loopText.textContent = 'AI can balance structure and supporting content across the sections you selected.';
+      items.push('You have enough scope for AI to suggest sequencing and coverage balance.');
+    }
+
+    if (selected.includes('Module Learning Outcomes') && selected.includes('Assessment Plan')) {
+      items.push('Outcomes and assessment are selected, so AI should prioritise alignment before examples.');
+    }
+    if (selected.includes('Weekly Learning Activities')) {
+      items.push('Weekly activities can now be drafted to reinforce the planned assessment rhythm.');
+    }
+    if (notes || link) {
+      items.push('Your added context will help AI stay grounded in module-specific references and constraints.');
+    }
+    if (!notes && !link) {
+      items.push('Adding a note or reference link will make the next draft more specific.');
+    }
+
+    loopList.innerHTML = '';
+    items.forEach(text => {
+      const li = document.createElement('li');
+      li.textContent = text;
+      loopList.appendChild(li);
+    });
   }
 
   let runIndex = 0;
@@ -665,7 +763,10 @@
     document.getElementById('overall-spinner').classList.remove('done');
     document.getElementById('done-card').classList.remove('show');
     document.getElementById('bb-note').textContent = 'Select sections, add context, then draft in manageable passes';
+    updateBuildLoop();
   }
+
+  updateBuildLoop();
 </script>
 
 </body>
