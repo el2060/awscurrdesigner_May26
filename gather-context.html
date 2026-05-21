@@ -604,27 +604,27 @@
     <div class="layout-side">
 
       <div class="copilot-panel">
-        <div class="cp-head">AI Copilot</div>
+        <div class="cp-head">AI Guidance</div>
         <div class="cp-block">
-          <div class="cp-label">Current Focus</div>
-          <div class="cp-focus" id="cp-focus">Industry and Benchmarking</div>
+          <div class="cp-label">Current Readiness</div>
+          <div class="cp-focus" id="cp-focus">Submission readiness (pre-analysis)</div>
         </div>
         <div class="cp-block">
-          <div class="cp-label">Insights</div>
+          <div class="cp-label">Observations</div>
           <ul class="cp-list" id="cp-insights"></ul>
         </div>
         <div class="cp-block">
-          <div class="cp-label">Suggested Actions</div>
+          <div class="cp-label">Suggested Next Steps</div>
           <div class="cp-actions" id="cp-actions"></div>
         </div>
         <div class="cp-block">
-          <div class="cp-label">Why Suggested</div>
+          <div class="cp-label">Why This Matters</div>
           <div class="cp-why" id="cp-why"></div>
         </div>
         <div class="cp-block">
-          <div class="cp-label">Ask Copilot</div>
+          <div class="cp-label">Ask AI</div>
           <div class="cp-ask-row">
-            <input class="cp-input" id="cp-input" type="text" placeholder="Ask what evidence to upload next">
+            <input class="cp-input" id="cp-input" type="text" placeholder="Ask AI about recommended inputs before analysis">
             <button class="cp-ask-btn" type="button" onclick="askCopilot()">Ask</button>
           </div>
         </div>
@@ -683,44 +683,44 @@
 <script>
   const copilotGuide = {
     industry: {
-      focus: 'Industry and Benchmarking',
+      focus: 'Evidence completeness: Industry and Benchmarking',
       insights: [
-        'Industry signals are usually strongest at this stage for direction setting.',
-        'Employer and benchmarking references help justify curriculum updates.',
-        'Consider adding at least one forward-looking skills report.'
+        'Industry references are ready to be analysed once you run synthesis.',
+        'Employer and benchmarking sources improve evidence quality for downstream planning.',
+        'Add one forward-looking skills report for stronger coverage before analysis.'
       ],
-      actions: ['Suggest Missing Industry Sources', 'Generate Benchmarking Checklist', 'Draft Evidence Summary'],
-      why: 'Based on current distribution of uploaded materials across source categories.'
+      actions: ['Suggest Missing Industry Sources', 'Show Benchmarking Checklist', 'Check Submission Balance'],
+      why: 'Guidance is based on uploaded file categories and counts only. No content analysis is run on this screen.'
     },
     curriculum: {
-      focus: 'Curriculum and Standards',
+      focus: 'Evidence completeness: Curriculum and Standards',
       insights: [
-        'Framework documents anchor competency and standards alignment.',
-        'Coverage maps are easier when standards references are complete.',
-        'Adding accreditation constraints now reduces rework later.'
+        'Standards documents are present and ready for analysis after submission.',
+        'Complete frameworks improve mapping quality in the next step.',
+        'Adding accreditation constraints now reduces rework after synthesis.'
       ],
-      actions: ['Suggest Standards Mapping Grid', 'Highlight Coverage Risks', 'Generate Alignment Notes'],
-      why: 'Based on relative share of standards materials in your workspace.'
+      actions: ['Suggest Standards Checklist', 'Highlight Potential Coverage Risks', 'Prepare Alignment Notes Template'],
+      why: 'Guidance is based on uploaded file categories and counts only. No content analysis is run on this screen.'
     },
     student: {
-      focus: 'Student and Module Insights',
+      focus: 'Evidence completeness: Student and Module Insights',
       insights: [
-        'Student analytics and feedback ground decisions in learner reality.',
-        'Outcome and assessment gaps are often visible in this evidence set.',
-        'Trend consistency improves when insights span multiple cohorts.'
+        'Learner evidence is available for analysis in the next step.',
+        'Multi-cohort feedback will improve synthesis confidence.',
+        'Consider adding one recent module-review note for context completeness.'
       ],
-      actions: ['Summarize Learner Signals', 'Extract Key Pain Points', 'Propose Gap Priorities'],
-      why: 'Based on uploaded learner and module insight materials.'
+      actions: ['Check Learner Evidence Coverage', 'Suggest Additional Inputs', 'Prepare Review Prompts'],
+      why: 'Guidance is based on uploaded file categories and counts only. No content analysis is run on this screen.'
     },
     materials: {
-      focus: 'Existing Module Materials',
+      focus: 'Evidence completeness: Existing Module Materials',
       insights: [
-        'Existing MDD and brief artifacts speed comparative analysis.',
-        'Current-state evidence helps isolate what should be retained vs changed.',
-        'Version tagging can improve review traceability later.'
+        'Current module artifacts are ready for comparative analysis after synthesis starts.',
+        'Including latest version labels helps traceability later.',
+        'Add at least one recent assessment brief if available.'
       ],
-      actions: ['Compare Current vs Target', 'Flag Outdated Components', 'Generate Refresh Backlog'],
-      why: 'Based on current-state module documentation uploaded to workspace.'
+      actions: ['Check Current-State Coverage', 'Suggest Missing Artifacts', 'Prepare Refresh Checklist'],
+      why: 'Guidance is based on uploaded file categories and counts only. No content analysis is run on this screen.'
     }
   };
 
