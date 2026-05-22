@@ -1055,7 +1055,7 @@
 
   <div class="page-eyebrow">Path B · Module Review &amp; Refresh</div>
   <div class="page-title">Module Review &amp; Refresh</div>
-  <div class="page-sub">Review existing module materials and generate suggestions for curriculum refresh, alignment, and improvement.</div>
+  <div class="page-sub">Review module materials and get improvement suggestions.</div>
 
   <div class="layout">
 
@@ -1066,11 +1066,11 @@
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">A</div>
           <div class="ps-title">Add Module Materials</div>
-          <div class="ps-desc">Add module materials, supporting notes, or references for review</div>
+          <div class="ps-desc">Add materials</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
-          <p class="import-note">Upload, paste, or provide module outlines, lesson activities, assessment briefs, rubrics, or related teaching materials for review.</p>
+          <p class="import-note">Upload, paste, or add module materials for review.</p>
           <div class="import-actions">
             <button class="btn-action" onclick="loadModule()">Upload Files</button>
             <button class="btn-subtle" onclick="focusPasteArea()">Paste Content</button>
@@ -1083,13 +1083,13 @@
 
           <div class="field">
             <label class="field-label">Paste Additional Materials or Notes <span class="opt">(optional)</span></label>
-            <textarea id="module-paste" class="plan-textarea" placeholder="Paste module outlines, lesson activities, assessment details, review notes, or AI-enabled learning activities for review."></textarea>
+            <textarea id="module-paste" class="plan-textarea" placeholder="Paste outlines, activities, assessment details, or review notes."></textarea>
           </div>
 
           <div class="context-detected" id="detected-context">
-            <div class="context-label">Detected Module Information</div>
+            <div class="context-label">Module Detected</div>
             <div class="context-main" id="detected-main">ICT1234 · Data Structures &amp; Algorithms · AY25/26 S1</div>
-            <div class="context-sub" id="detected-sub">3 supporting documents identified</div>
+            <div class="context-sub" id="detected-sub">3 files identified</div>
           </div>
 
           <div class="loaded-list" id="loaded-files" style="display:none;">
@@ -1105,7 +1105,7 @@
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">B</div>
           <div class="ps-title">Review Focus Areas</div>
-          <div class="ps-desc">Select areas for curriculum review and refresh</div>
+          <div class="ps-desc">Choose review areas</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
@@ -1154,7 +1154,7 @@
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">C</div>
           <div class="ps-title">Additional Review Notes <span class="opt">(optional)</span></div>
-          <div class="ps-desc">Add any review priorities, curriculum concerns, or areas you would like to focus on</div>
+          <div class="ps-desc">Optional priorities or questions</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
@@ -1163,11 +1163,8 @@
             <textarea id="activity-notes" class="plan-textarea" placeholder="Examples:
 • Reduce content overload
 • Improve assessment alignment
-• Refresh industry relevance
-• Strengthen communication expectations
-• Identify opportunities for PAIR-guided activities
-• Review opportunities across Anchor, Augment, and Advance"></textarea>
-            <div class="field-prompt">Optional: Add benchmarking references, accreditation considerations, curriculum constraints, or specific review questions.</div>
+• Refresh industry relevance"></textarea>
+            <div class="field-prompt">Optional: Add references, constraints, or key questions.</div>
           </div>
         </div>
       </div>
@@ -1180,7 +1177,7 @@
             </div>
             <div>
               <div class="review-title">AI Curriculum Review Findings</div>
-              <div class="review-sub">Suggested observations, potential improvement areas, and refresh recommendations based on your selected review areas.</div>
+              <div class="review-sub">Concise findings from selected areas.</div>
               <div class="review-head-actions">
                 <button class="btn-subtle" id="rerun-review-btn" style="display:none;" onclick="runInlineReview()">Update Suggestions</button>
               </div>
@@ -1194,11 +1191,11 @@
           <div class="metric"><div class="metric-k">Potential Gaps</div><div class="metric-v" id="metric-gaps">0</div></div>
         </div>
         <div class="review-actions" id="review-actions" style="display:none;">
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('assessment')">Focus on Assessment</button>
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('industry')">Focus on Industry Relevance</button>
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('recommendations')">Suggest Alternative Approaches</button>
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('expand')">Expand Suggestions</button>
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('followup')">Ask Follow-up Question</button>
+          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('assessment')">Focus Assessment</button>
+          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('industry')">Focus Industry</button>
+          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('recommendations')">Suggest Alternatives</button>
+          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('expand')">Expand</button>
+          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('followup')">Follow-up</button>
         </div>
         <div class="review-panels" id="review-panels"></div>
       </div>
@@ -1211,19 +1208,19 @@
       <div class="side-card ai-side">
         <span class="side-label">AI Review Support</span>
         <div class="side-card-body">
-          <div class="side-rec-item">Review module structure and alignment</div>
-          <div class="side-rec-item">Highlight potential gaps or overload</div>
-          <div class="side-rec-item">Suggest refresh opportunities</div>
-          <div class="side-rec-item">Identify curriculum refresh opportunities</div>
+          <div class="side-rec-item">Review module alignment</div>
+          <div class="side-rec-item">Spot gaps or overload</div>
+          <div class="side-rec-item">Suggest refresh options</div>
+          <div class="side-rec-item">Highlight practical improvements</div>
         </div>
       </div>
 
       <div class="side-card">
         <span class="side-label">Current Review Setup</span>
         <div class="side-card-body">
-          <div class="sum-row"><span class="sum-key">Module detected</span><span class="sum-val empty" id="sum-module">No materials added</span></div>
-          <div class="sum-row"><span class="sum-key">Review areas selected</span><span class="sum-val" id="sum-focus">4 selected</span></div>
-          <div class="sum-row"><span class="sum-key">Additional notes added</span><span class="sum-val empty" id="sum-notes">None</span></div>
+          <div class="sum-row"><span class="sum-key">Module</span><span class="sum-val empty" id="sum-module">No materials</span></div>
+          <div class="sum-row"><span class="sum-key">Areas</span><span class="sum-val" id="sum-focus">4 selected</span></div>
+          <div class="sum-row"><span class="sum-key">Notes</span><span class="sum-val empty" id="sum-notes">None</span></div>
         </div>
       </div>
 
@@ -1237,8 +1234,8 @@
 <div class="bottom-bar">
   <div class="bottom-inner">
     <div class="bb-left">
-      <div class="bb-note" id="bb-note">Add module materials and select review areas to run AI curriculum review.</div>
-      <div class="bb-helper">Suggested observations can be refreshed any time after updating review areas or notes.</div>
+      <div class="bb-note" id="bb-note">Add materials and select areas to run review.</div>
+      <div class="bb-helper">Update areas or notes to refresh results.</div>
     </div>
     <div class="bb-actions">
       <button class="btn-primary" id="run-review-btn" onclick="runInlineReview()">Run AI Curriculum Review →</button>
@@ -1264,117 +1261,110 @@
     'Learning Outcomes & Content': {
       status: 'warn',
       findings: [
-        'Learning outcomes are mostly aligned with covered topics, but progression can be clearer across the semester.',
-        'A few outcomes appear broad and could be mapped more explicitly to teaching and assessment evidence.'
+        'Outcome alignment is solid, but progression can be clearer.'
       ],
       actions: [
-        'Refine outcome statements to make expected progression and depth more visible.',
-        'Tighten mapping between weekly content and specific outcome evidence points.'
+        'Tighten outcome wording and evidence mapping.'
       ],
       gaps: 1
     },
     'Assessment & Workload': {
       status: 'warn',
       findings: [
-        'Assessment intent is generally clear, but workload balance across key weeks may be uneven.',
-        'Formative feedback opportunities before major graded tasks appear limited.'
+        'Workload balance and formative checkpoints need attention.'
       ],
       actions: [
-        'Introduce an earlier low-stakes checkpoint to reduce late-stage assessment risk.',
-        'Review clustering of deadlines to improve workload pacing and student readiness.'
+        'Add an early checkpoint and rebalance deadline clusters.'
       ],
       gaps: 1
     },
     'Teaching & Learning': {
       status: 'ok',
       findings: [
-        'Learning activities support applied teaching intent and student engagement.',
-        'Delivery approach appears workable, with room to increase active learning moments.'
+        'Teaching flow works, with room for more active learning.'
       ],
       actions: [
-        'Add one structured reflection or feedback loop to reinforce learning transfer.'
+        'Add one reflection or feedback loop.'
       ],
       gaps: 0
     },
     'Industry Relevance': {
       status: 'warn',
       findings: [
-        'Industry relevance is present, but links to current workplace practice can be more explicit.',
-        'Examples and contexts may benefit from a more current set of sector references.'
+        'Industry links can be more current and explicit.'
       ],
       actions: [
-        'Refresh selected examples and tasks with current industry scenarios or expectations.'
+        'Refresh examples with current workplace scenarios.'
       ],
       gaps: 1
     },
     'Communication & Presentation': {
       status: 'ok',
       findings: [
-        'Communication expectations are visible, though criteria can be clearer for presentation quality.',
-        'Opportunities exist to strengthen consistency in communication standards across tasks.'
+        'Communication criteria are present but can be sharper.'
       ],
       actions: [
-        'Clarify communication and presentation criteria with concrete quality indicators.'
+        'Define clearer communication quality indicators.'
       ],
       gaps: 0
     },
     'Anchor Opportunities': {
       status: 'ok',
       findings: [
-        'Foundational AI-supported opportunities are available in current learning activities.'
+        'Anchor opportunities are available in current activities.'
       ],
       actions: [
-        'Identify low-risk tasks where AI can support comprehension, drafting, or idea generation.'
+        'Identify low-risk tasks for AI-supported practice.'
       ],
       gaps: 0
     },
     'Augment Opportunities': {
       status: 'warn',
       findings: [
-        'Augment-level opportunities are possible but not yet consistently designed into activity flow.'
+        'Augment opportunities are not yet used consistently.'
       ],
       actions: [
-        'Add one activity where students use AI to compare options and justify decisions.'
+        'Add one compare-and-justify AI activity.'
       ],
       gaps: 1
     },
     'Advance Opportunities': {
       status: 'warn',
       findings: [
-        'Advanced AI-enabled performance tasks are limited in current implementation.'
+        'Advance-level AI tasks are limited.'
       ],
       actions: [
-        'Design one capstone-style task requiring judgment, validation, and responsible AI use.'
+        'Design one capstone task with judgment and validation.'
       ],
       gaps: 1
     },
     '3As Scaffolding': {
       status: 'ok',
       findings: [
-        'The module can support staged 3As scaffolding, but stage transitions are not yet clearly documented.'
+        '3As progression exists but stage transitions are unclear.'
       ],
       actions: [
-        'Define stage-level outcomes for Anchor, Augment, and Advance across the semester timeline.'
+        'Define stage outcomes for Anchor, Augment, and Advance.'
       ],
       gaps: 0
     },
     'PAIR-Guided Activities': {
       status: 'ok',
       findings: [
-        'PAIR-style activity design can strengthen active learning and structured participation.'
+        'PAIR can strengthen active participation.'
       ],
       actions: [
-        'Add one PAIR-guided classroom activity with explicit prompts, roles, and reflection output.'
+        'Add one PAIR activity with clear prompts and roles.'
       ],
       gaps: 0
     },
     'AI-Enabled Assessment': {
       status: 'warn',
       findings: [
-        'AI-enabled assessment opportunities exist, but current rubrics and evidence types remain traditional.'
+        'Assessment design can better use AI-enabled evidence.'
       ],
       actions: [
-        'Introduce one AI-enabled assessment component emphasizing judgment, process evidence, and reflection.'
+        'Add one AI-enabled assessment component.'
       ],
       gaps: 1
     }
@@ -1389,12 +1379,12 @@
 
     if (selected.length === 0) {
       panel.classList.add('show');
-      panels.innerHTML = '<div class="review-card"><div class="review-card-title">No review area selected</div><div class="review-block-label">Next step</div><ul class="review-list"><li>Select at least one review area, then generate suggestions again.</li></ul></div>';
+      panels.innerHTML = '<div class="review-card"><div class="review-card-title">No review area selected</div><div class="review-block-label">Next</div><ul class="review-list"><li>Select at least one area, then run review.</li></ul></div>';
       document.getElementById('metric-focus').textContent = '0';
       document.getElementById('metric-actions').textContent = '0';
       document.getElementById('metric-gaps').textContent = '0';
       document.getElementById('review-actions').style.display = 'none';
-      stamp.textContent = 'Awaiting selected review areas';
+      stamp.textContent = 'Awaiting area selection';
       document.getElementById('run-review-btn').disabled = false;
       document.getElementById('run-review-btn').textContent = 'Run AI Curriculum Review →';
       document.getElementById('rerun-review-btn').style.display = 'none';
@@ -1414,7 +1404,7 @@
       const actionItems = data.actions.map(x => '<li>' + x + '</li>').join('');
       const contextItems = [];
       if (notes) contextItems.push('Notes: ' + notes);
-      contextItems.push('Scope: Module review suggestions');
+      contextItems.push('Scope: Module review');
       const contextMarkup = contextItems.map(item => '<li>' + item + '</li>').join('');
 
       const card = document.createElement('div');
@@ -1424,11 +1414,11 @@
           '<div class="review-card-title">' + lens + '</div>' +
           '<span class="review-badge ' + (data.status === 'warn' ? 'warn' : 'ok') + '">' + (data.status === 'warn' ? 'Refresh Suggested' : 'Aligned') + '</span>' +
         '</div>' +
-        '<div class="review-block-label">AI Findings</div>' +
+        '<div class="review-block-label">Findings</div>' +
         '<ul class="review-list">' + findingItems + '</ul>' +
-        '<div class="review-block-label">Suggested Refresh Actions</div>' +
+        '<div class="review-block-label">Actions</div>' +
         '<ul class="review-list">' + actionItems + '</ul>' +
-        '<div class="review-block-label">Context Applied</div>' +
+        '<div class="review-block-label">Context</div>' +
         '<ul class="review-list">' + contextMarkup + '</ul>';
       panels.appendChild(card);
     });
@@ -1437,11 +1427,11 @@
     document.getElementById('metric-actions').textContent = String(actionCount);
     document.getElementById('metric-gaps').textContent = String(gapCount);
     document.getElementById('review-actions').style.display = 'flex';
-    stamp.textContent = 'Generated from selected review areas';
+    stamp.textContent = 'Generated from selected areas';
 
     panel.classList.add('show');
     panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    document.getElementById('bb-note').textContent = 'Review suggestions generated. Update review areas or notes to regenerate.';
+    document.getElementById('bb-note').textContent = 'Review completed. Update areas or notes to rerun.';
     document.getElementById('run-review-btn').disabled = true;
     document.getElementById('run-review-btn').textContent = 'Review Completed';
     document.getElementById('rerun-review-btn').style.display = 'inline-flex';
@@ -1452,7 +1442,7 @@
     if (!panelVisible) return;
     document.getElementById('run-review-btn').disabled = false;
     document.getElementById('run-review-btn').textContent = 'Update AI Curriculum Review →';
-    document.getElementById('bb-note').textContent = 'Review setup changed. Update suggestions to refresh findings.';
+    document.getElementById('bb-note').textContent = 'Review setup changed. Update to refresh.';
   }
 
   function applyQuickRefine(mode) {
@@ -1462,21 +1452,21 @@
         const keep = el.dataset.check === 'Assessment & Workload' || el.dataset.check === 'Learning Outcomes & Content';
         el.classList.toggle('on', keep);
       });
-      notesEl.value = 'Prioritize assessment alignment, workload balance, and clearer links between outcomes and assessments.';
+      notesEl.value = 'Prioritize assessment alignment and workload balance.';
     }
     if (mode === 'industry') {
       const industryCheck = Array.from(document.querySelectorAll('.check-item')).find(el => el.dataset.check === 'Industry Relevance');
       if (industryCheck) industryCheck.classList.add('on');
-      notesEl.value = (notesEl.value ? notesEl.value + '\n' : '') + 'Compare recommendations against current industry trends and workplace expectations.';
+      notesEl.value = (notesEl.value ? notesEl.value + '\n' : '') + 'Compare recommendations against current industry trends.';
     }
     if (mode === 'recommendations') {
-      notesEl.value = 'Suggest alternative improvement pathways, including practical trade-offs and implementation effort.';
+      notesEl.value = 'Suggest alternative improvement options.';
     }
     if (mode === 'followup') {
-      notesEl.value = (notesEl.value ? notesEl.value + '\n' : '') + 'Follow-up: Which recommendations should be prioritized for next semester and why?';
+      notesEl.value = (notesEl.value ? notesEl.value + '\n' : '') + 'Follow-up: Which recommendations should be prioritized first?';
     }
     if (mode === 'expand') {
-      notesEl.value = 'Expand suggestions with concrete classroom examples, sequencing, and implementation steps.';
+      notesEl.value = 'Expand suggestions with practical classroom examples.';
     }
     updateSummary();
     markReviewStale();
@@ -1491,7 +1481,7 @@
     st.classList.add('loaded');
     document.getElementById('sum-module').textContent = 'ICT1234 · Data Structures & Algorithms';
     document.getElementById('sum-module').classList.remove('empty');
-    document.getElementById('bb-note').textContent = 'Materials added. Select review areas to generate suggestions.';
+    document.getElementById('bb-note').textContent = 'Materials added. Select areas to run review.';
     document.getElementById('run-review-btn').disabled = false;
     document.getElementById('run-review-btn').textContent = 'Run AI Curriculum Review →';
   }
