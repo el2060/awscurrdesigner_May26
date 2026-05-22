@@ -789,10 +789,12 @@
     }
 
     .active-decision {
-      border: 1px solid #dbe6f2;
-      border-radius: 10px;
-      background: #fbfdff;
-      padding: 9px;
+      border: 0;
+      border-top: 1px solid #e6edf5;
+      border-bottom: 1px solid #e6edf5;
+      border-radius: 0;
+      background: transparent;
+      padding: 8px 0;
       display: grid;
       gap: 6px;
     }
@@ -811,7 +813,7 @@
 
     .thread-link-row {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
@@ -825,6 +827,43 @@
       cursor: pointer;
       text-decoration: underline;
       text-underline-offset: 2px;
+    }
+
+    .collapsed-history {
+      border-top: 1px dashed #dfe8f2;
+      padding-top: 8px;
+      font-size: 11px;
+      color: #677f94;
+      line-height: 1.45;
+    }
+
+    .continuation-inline {
+      border-top: 1px solid #e8eef6;
+      padding-top: 8px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .continuation-title {
+      font-size: 11px;
+      color: #61788d;
+      font-weight: 700;
+    }
+
+    .continuation-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .continuation-chip {
+      border: 1px solid #dce6f1;
+      background: #fff;
+      color: #5f7488;
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 10px;
+      font-weight: 700;
     }
 
     .thread-status {
@@ -1092,108 +1131,6 @@
       font-size: 11px;
       color: #5f7489;
       font-weight: 700;
-    }
-
-    .cowork-composer {
-      position: static;
-      margin-top: 14px;
-      border: 1px solid #e5ecf5;
-      border-radius: 12px;
-      background: #fbfdff;
-      box-shadow: none;
-      padding: 10px;
-      display: grid;
-      gap: 8px;
-      z-index: auto;
-    }
-
-    .composer-primary-actions {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 6px;
-      flex-wrap: wrap;
-      border-top: 1px solid #e9eef5;
-      padding-top: 7px;
-    }
-
-    .working-memory {
-      border: 1px solid #e7edf6;
-      border-radius: 8px;
-      background: #fbfdff;
-      padding: 7px 8px;
-      display: grid;
-      gap: 5px;
-    }
-
-    .working-memory-title {
-      font-size: 10px;
-      font-weight: 700;
-      color: #688099;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .working-memory-list {
-      margin: 0;
-      padding-left: 14px;
-      display: grid;
-      gap: 2px;
-      font-size: 11px;
-      color: #5f758a;
-      line-height: 1.35;
-    }
-
-    .composer-shell {
-      border: 1px solid #e2e9f3;
-      border-radius: 10px;
-      background: #fff;
-      padding: 7px;
-      display: grid;
-      gap: 7px;
-    }
-
-    .cowork-input {
-      width: 100%;
-      border: 0;
-      outline: none;
-      font-size: 12.5px;
-      color: #31465b;
-      background: transparent;
-      padding: 5px 3px;
-    }
-
-    .composer-tools {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .attach-pills,
-    .action-pills {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .tool-pill,
-    .action-pill {
-      border: 1px solid #dde7f2;
-      background: #fff;
-      color: #607486;
-      border-radius: 999px;
-      padding: 4px 9px;
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .action-pill.primary {
-      border-color: #213043;
-      background: #213043;
-      color: #fff;
     }
 
     .choice {
@@ -2090,16 +2027,6 @@
       padding: 10px 10px 14px !important;
       gap: 10px !important;
     }
-    .cowork-composer {
-      position: static !important;
-      margin-top: 14px !important;
-      background: #fbfdff !important;
-      border: 1px solid #e5ecf5 !important;
-      box-shadow: none !important;
-      backdrop-filter: none !important;
-      border-radius: 12px !important;
-      z-index: auto !important;
-    }
     .entry,
     .flow-section {
       border-color: #e1eaf4 !important;
@@ -2283,14 +2210,15 @@
               </div>
               <div>
                 <div class="agent-title">AI Curriculum Co-Designer</div>
-                <div class="agent-sub">Editing <span data-active-section>Learning Outcomes</span> · using 3 linked inputs</div>
+                <div class="agent-sub">Editing: <span data-active-section>Learning Outcomes</span></div>
+                <div class="agent-sub">Using 3 curriculum inputs</div>
               </div>
             </div>
             <div class="thread-modes" role="tablist" aria-label="Conversation presets">
-              <button class="thread-mode active" type="button" data-thread-target="outcomes">Learning Outcomes</button>
-              <button class="thread-mode" type="button" data-thread-target="content">Content Plan</button>
-              <button class="thread-mode" type="button" data-thread-target="assessment">Assessment Strategy</button>
-              <button class="thread-mode" type="button" data-thread-target="resources">Resource Suggestions</button>
+              <button class="thread-mode active" type="button" data-thread-target="outcomes">Outcomes</button>
+              <button class="thread-mode" type="button" data-thread-target="content">Content</button>
+              <button class="thread-mode" type="button" data-thread-target="assessment">Assessment</button>
+              <button class="thread-mode" type="button" data-thread-target="resources">Resources</button>
             </div>
           </div>
         </div>
@@ -2319,7 +2247,8 @@ Draft prepared.</div>
 
               <div class="thread-link-row">
                 <button class="thread-link" type="button">Preview changes</button>
-                <button class="thread-link" type="button">Explain rationale</button>
+                <button class="thread-link apply-link" type="button">Apply</button>
+                <button class="thread-link" type="button">Try another direction</button>
               </div>
 
               <div class="active-decision">
@@ -2329,6 +2258,18 @@ Draft prepared.</div>
                   <span class="choice active">Case analysis</span>
                   <span class="choice">Simulation</span>
                   <span class="choice">Oral defence</span>
+                </div>
+              </div>
+
+              <div class="collapsed-history">&#10003; Learning outcomes revised · Focused on clinical reasoning + escalation</div>
+
+              <div class="continuation-inline">
+                <div class="continuation-title">Continue refining...</div>
+                <div class="continuation-chips">
+                  <span class="continuation-chip">strengthen communication</span>
+                  <span class="continuation-chip">simplify wording</span>
+                  <span class="continuation-chip">align assessment</span>
+                  <span class="continuation-chip">suggest alternatives</span>
                 </div>
               </div>
             </div>
@@ -2355,7 +2296,17 @@ We can rebalance this without expanding total contact time.</div>
 Draft sequence prepared.</div>
               <div class="thread-link-row">
                 <button class="thread-link" type="button">Preview changes</button>
-                <button class="thread-link" type="button">Generate another version</button>
+                <button class="thread-link apply-link" type="button">Apply</button>
+                <button class="thread-link" type="button">Try another direction</button>
+              </div>
+
+              <div class="continuation-inline">
+                <div class="continuation-title">Continue refining...</div>
+                <div class="continuation-chips">
+                  <span class="continuation-chip">rebalance workload</span>
+                  <span class="continuation-chip">increase simulation</span>
+                  <span class="continuation-chip">reduce overlap</span>
+                </div>
               </div>
             </div>
           </div>
@@ -2383,6 +2334,21 @@ Should this be evidenced in simulation, coursework, or both?</div>
                 <button class="thread-link" type="button">Coursework first</button>
                 <button class="thread-link" type="button">Use both</button>
               </div>
+
+              <div class="thread-link-row">
+                <button class="thread-link" type="button">Preview changes</button>
+                <button class="thread-link apply-link" type="button">Apply</button>
+                <button class="thread-link" type="button">Try another direction</button>
+              </div>
+
+              <div class="continuation-inline">
+                <div class="continuation-title">Continue refining...</div>
+                <div class="continuation-chips">
+                  <span class="continuation-chip">workload balance</span>
+                  <span class="continuation-chip">clinical readiness</span>
+                  <span class="continuation-chip">accreditation alignment</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -2399,6 +2365,14 @@ I can make practice opportunities more explicit without adding complexity.</div>
                   <span class="choice">Debrief structure</span>
                 </div>
               </div>
+
+              <div class="continuation-inline">
+                <div class="continuation-title">Continue refining...</div>
+                <div class="continuation-chips">
+                  <span class="continuation-chip">add facilitation prompts</span>
+                  <span class="continuation-chip">map activity flow</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -2413,6 +2387,14 @@ I can keep standards firm while making expectations easier for students to follo
                   <span class="choice active">Preventive</span>
                   <span class="choice">Compliance-led</span>
                   <span class="choice">Example-based</span>
+                </div>
+              </div>
+
+              <div class="continuation-inline">
+                <div class="continuation-title">Continue refining...</div>
+                <div class="continuation-chips">
+                  <span class="continuation-chip">add examples</span>
+                  <span class="continuation-chip">tighten policy tone</span>
                 </div>
               </div>
             </div>
@@ -2436,35 +2418,18 @@ I can suggest resources that match your current outcomes and assessment directio
               <div class="thread-line ai">I will start with case libraries and then map each resource to a specific learning outcome.</div>
               <div class="thread-link-row">
                 <button class="thread-link" type="button">Preview shortlist</button>
-                <button class="thread-link" type="button">Explain matching logic</button>
+                <button class="thread-link apply-link" type="button">Apply</button>
+                <button class="thread-link" type="button">Try another direction</button>
               </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="cowork-composer" aria-label="Continue co-design">
-          <div class="working-memory">
-            <div class="working-memory-title">Using</div>
-            <ul class="working-memory-list" data-working-memory-list>
-              <li data-memory-item>Clinical reasoning focus</li>
-              <li data-memory-item>Case analysis mode</li>
-              <li data-memory-item>ICU escalation scenarios</li>
-            </ul>
-          </div>
-
-          <div class="composer-shell">
-            <input class="cowork-input" data-cowork-input type="text" placeholder="Refine outcome wording or ask for alternatives..." aria-label="Ask AI co-designer">
-            <div class="composer-tools">
-              <div class="attach-pills">
-                <button class="tool-pill" type="button">Add benchmark PDF</button>
-                <button class="tool-pill" type="button">Add industry notes</button>
-                <button class="tool-pill" type="button">Add rubric</button>
+              <div class="continuation-inline">
+                <div class="continuation-title">Continue refining...</div>
+                <div class="continuation-chips">
+                  <span class="continuation-chip">journal resources</span>
+                  <span class="continuation-chip">case repositories</span>
+                  <span class="continuation-chip">simulation formats</span>
+                </div>
               </div>
-            </div>
-            <div class="composer-primary-actions">
-              <button class="action-pill" type="button">Compare</button>
-              <button class="action-pill" type="button">Refine</button>
-              <button class="action-pill primary btn-accept" type="button">Apply</button>
             </div>
           </div>
         </div>
@@ -2478,11 +2443,10 @@ I can suggest resources that match your current outcomes and assessment directio
           <div class="doc-top-main">
             <div class="surface-kicker">Live Module Artifact</div>
             <div class="doc-title">Advanced Critical Care Nursing Science II</div>
-            <div class="doc-meta">Working draft saved 2 minutes ago</div>
+            <div class="doc-meta">Working draft</div>
           </div>
           <div class="doc-top-side">
-            <div class="doc-status">Updated</div>
-            <div class="surface-note">Active section synced with the co-design thread.</div>
+            <div class="surface-note">Synced with current co-design thread</div>
           </div>
         </div>
 
@@ -2537,14 +2501,7 @@ I can suggest resources that match your current outcomes and assessment directio
               <div class="preview-focus-head">
                 <div>
                   <div class="preview-focus-title">Editing: <span data-active-section>Learning Outcomes</span></div>
-                  <div class="preview-focus-text">Focus: Clinical reasoning</div>
-                </div>
-                <span class="preview-badge">Live</span>
-              </div>
-              <div class="preview-diff">
-                <div class="preview-diff-row">
-                  <div class="preview-diff-label">State:</div>
-                  <div class="preview-diff-copy">Draft preview synced</div>
+                  <div class="preview-focus-text">Draft update ready</div>
                 </div>
               </div>
             </div>
@@ -2553,22 +2510,9 @@ I can suggest resources that match your current outcomes and assessment directio
                 <div class="doc-block-title">2. Learning Outcomes</div>
                 <div class="doc-block-meta">Live Preview</div>
               </div>
-              <div class="doc-text">2.1 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-2.2 Nunc pharetra justo sit amet leo facilisis, vitae iaculis augue luctus.
-2.3 Integer suscipit neque non sem varius, sed fermentum risus tincidunt.
-2.4 Donec a turpis non lorem aliquet pellentesque.</div>
-              <div class="doc-footnote">Sample text only for interaction demo.</div>
-            </div>
-            <div class="previous-preview">
-              <button class="previous-toggle" type="button">View Previous Draft</button>
-              <div class="doc-footnote">Previous draft hidden in this static mock.</div>
-            </div>
-
-            <div class="alignment-notes">
-              <div class="doc-block-title">Alignment Notes</div>
-              <div class="doc-line">&#10003; Placeholder check item</div>
-              <div class="doc-line">&#10003; Placeholder check item</div>
-              <div class="doc-line">&#10003; Placeholder check item</div>
+              <div class="doc-text">LO2. Clinical reasoning in acute-care scenarios
+LO3. Diagnostic interpretation for escalation
+LO4. Interdisciplinary communication</div>
             </div>
             <div class="doc-continuation" aria-hidden="true">
               <div class="doc-continuation-line"></div>
@@ -2583,23 +2527,10 @@ I can suggest resources that match your current outcomes and assessment directio
                 <div class="doc-block-title">3. Content: Topics and Hours</div>
                 <div class="doc-block-meta">Live Preview</div>
               </div>
-              <div class="doc-line"><strong>Online e-learning hours:</strong> [xx hours]</div>
-              <table class="hours-table">
-                <thead>
-                  <tr>
-                    <th style="width:14%;">No</th>
-                    <th>Topic</th>
-                    <th style="width:26%;">Hours</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>1</td><td>Lorem ipsum topic</td><td>3</td></tr>
-                  <tr><td>2</td><td>Dolor sit amet topic</td><td>3</td></tr>
-                  <tr><td>3</td><td>Consectetur topic</td><td>3</td></tr>
-                  <tr><td>4</td><td>Adipiscing topic</td><td>3</td></tr>
-                </tbody>
-              </table>
-              <div class="doc-footnote">Wireframe table to show structure and updates only.</div>
+              <div class="doc-text">Week 1 - Foundations
+Week 2 - Escalation Response
+Week 3 - Integrated Simulation
+Week 4 - Case Review</div>
             </div>
           </div>
 
@@ -2620,13 +2551,10 @@ I can suggest resources that match your current outcomes and assessment directio
                 <div class="doc-block-title">5. Assessment Strategies</div>
                 <div class="doc-block-meta">Live Preview</div>
               </div>
-              <ul class="assessment-list">
-                <li><strong>Assessment Component A:</strong> [xx%]</li>
-                <li><strong>Assessment Component B:</strong> [xx%]</li>
-                <li><strong>Assessment Component C:</strong> [xx%]</li>
-              </ul>
-              <div class="doc-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-              <div class="doc-footnote">Placeholder matrix for UI demo.</div>
+              <div class="doc-text">30% Applied Case Analysis
+20% Simulation Response
+20% Group Discussion
+30% Clinical Reasoning Quiz</div>
             </div>
           </div>
 
@@ -2664,61 +2592,8 @@ Lorem ipsum resource line 3.</div>
     const panes = document.querySelectorAll('[data-pane]');
     const activeSectionLabels = document.querySelectorAll('[data-active-section]');
     const docBody = document.querySelector('.doc-body');
-    const applyButtons = document.querySelectorAll('.btn-accept');
+    const applyLinks = document.querySelectorAll('.apply-link');
     const threadModes = document.querySelectorAll('.thread-mode[data-thread-target]');
-    const coworkInput = document.querySelector('[data-cowork-input]');
-    const memoryItems = document.querySelectorAll('[data-memory-item]');
-
-    const coworkState = {
-      overview: {
-        placeholder: 'Ask to update module metadata, fields, or formatting...',
-        memory: ['Template integrity', 'Module metadata', 'Document formatting']
-      },
-      synopsis: {
-        placeholder: 'Refine synopsis tone, scope, or intent...',
-        memory: ['Learning intent', 'Audience clarity', 'Scope framing']
-      },
-      outcomes: {
-        placeholder: 'Refine outcome wording or ask for alternatives...',
-        memory: ['Clinical reasoning focus', 'Case analysis mode', 'ICU escalation scenarios']
-      },
-      content: {
-        placeholder: 'Ask to rebalance topics, hours, or sequencing...',
-        memory: ['Topic sequencing', 'Hour distribution', 'Skill progression']
-      },
-      teaching: {
-        placeholder: 'Explore facilitation methods and learning activities...',
-        memory: ['Facilitation strategy', 'Applied practice', 'Delivery cadence']
-      },
-      assessment: {
-        placeholder: 'Ask to redesign assessment or explore AI-safe options...',
-        memory: ['Assessment validity', 'Evidence of performance', 'Academic integrity']
-      },
-      plagiarism: {
-        placeholder: 'Refine policy language and prevention guidance...',
-        memory: ['Policy clarity', 'Attribution expectations', 'Risk controls']
-      },
-      resources: {
-        placeholder: 'Add references, toolkits, or benchmark resources...',
-        memory: ['Evidence sources', 'Clinical references', 'Learning supports']
-      }
-    };
-
-    function updateCoworkState(target) {
-      const state = coworkState[target];
-
-      if (!state) {
-        return;
-      }
-
-      if (coworkInput) {
-        coworkInput.placeholder = state.placeholder;
-      }
-
-      memoryItems.forEach((item, index) => {
-        item.textContent = state.memory[index] || '';
-      });
-    }
 
     function setThreadModeActive(target) {
       threadModes.forEach((button) => {
@@ -2744,7 +2619,6 @@ Lorem ipsum resource line 3.</div>
       }
 
       setThreadModeActive(target);
-      updateCoworkState(target);
     }
 
     tabs.forEach((tab) => {
@@ -2768,13 +2642,7 @@ Lorem ipsum resource line 3.</div>
       });
     });
 
-    const activeTab = document.querySelector('.tab.active');
-
-    if (activeTab) {
-      updateCoworkState(activeTab.getAttribute('data-tab'));
-    }
-
-    applyButtons.forEach((button) => {
+    applyLinks.forEach((button) => {
       button.addEventListener('click', () => {
         const activeDocPane = document.querySelector('.doc-pane.active');
 
