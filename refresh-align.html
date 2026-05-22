@@ -11,7 +11,8 @@
     :root { --workspace-max: 1360px; --workspace-pad: 32px; }
 
     /* ── Topbar ── */
-    .topbar { height: 52px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; padding: 0 40px; background: #fff; position: sticky; top: 0; z-index: 100; }
+    .topbar { height: 52px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; justify-content: center; padding: 0 16px; background: #fff; position: sticky; top: 0; z-index: 100; }
+    .topbar-inner { width: 100%; max-width: var(--workspace-max); margin: 0 auto; display: flex; align-items: center; }
     .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .t-div { width: 1px; height: 16px; background: #e0e0e0; margin: 0 6px; }
     .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
@@ -380,7 +381,7 @@
       --workspace-max: 1120px;
       --workspace-pad: 40px;
     }
-    .topbar { padding: 0 40px; }
+    .topbar-inner { padding: 0 40px; }
     .topbar-link { font-size: 13px; }
     .phase-inner { min-height: 44px; }
     .ph-step { font-size: 12px; }
@@ -398,14 +399,14 @@
 
     @media (max-width: 1280px) {
       :root { --workspace-pad: 28px; }
-      .topbar { padding: 0 28px; }
+      .topbar-inner { padding: 0 28px; }
       .page-title { font-size: 30px; }
       .page-sub { font-size: 16px; }
     }
 
     @media (max-width: 900px) {
       :root { --workspace-pad: 18px; }
-      .topbar { padding: 0 18px; }
+      .topbar-inner { padding: 0 18px; }
       .page { padding: 30px var(--workspace-pad); }
       .page-title { font-size: 26px; }
       .page-sub { font-size: 15px; margin-bottom: 24px; }
@@ -416,14 +417,16 @@
 
 <!-- Topbar -->
 <nav class="topbar">
-  <a href="index.html" class="topbar-brand">
-    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
-    <div class="t-div"></div>
-    <span style="font-size:13px; font-weight:500; color:#1a1a1a;">AI Curriculum Review &amp; Design</span>
-    <span style="font-size:10px; font-weight:500; color:#999; border:1px solid #d8d8d8; padding:2px 8px; letter-spacing:0.02em; margin-left:4px;">Concept Prototype</span>
-  </a>
-  <div class="topbar-right">
-    <a href="index.html" class="topbar-link">← Home</a>
+  <div class="topbar-inner">
+    <a href="index.html" class="topbar-brand">
+      <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
+      <div class="t-div"></div>
+      <span style="font-size:13px; font-weight:500; color:#1a1a1a;">AI Curriculum Designer</span>
+      <span style="font-size:10px; font-weight:500; color:#999; border:1px solid #d8d8d8; padding:2px 8px; letter-spacing:0.02em; margin-left:4px;">Concept Prototype</span>
+    </a>
+    <div class="topbar-right">
+      <a href="index.html" class="topbar-link">← Home</a>
+    </div>
   </div>
 </nav>
 
