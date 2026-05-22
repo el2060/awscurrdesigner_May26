@@ -239,6 +239,39 @@
   --transition-fast: 150ms ease;
   --transition-base: 200ms ease;
   --transition-slow: 300ms ease;
+
+  /* ─────────────────────────────────────────────
+     Unified Curriculum Designer Palette
+     Used across homepage and all subpages.
+     ───────────────────────────────────────────── */
+
+  /* Neutrals */
+  --hp-bg:          #fafaf9;
+  --hp-card:        #ffffff;
+  --hp-text:        #111827;
+  --hp-body:        #4b5563;
+  --hp-muted:       #9ca3af;
+  --hp-border:      #e5e7eb;
+  --hp-border-soft: #f1f1ee;
+
+  /* Primary — Design (indigo) */
+  --hp-indigo-700: #3730a3;
+  --hp-indigo-600: #4f46e5;
+  --hp-indigo-100: #e0e7ff;
+  --hp-indigo-50:  #eef2ff;
+  --hp-indigo-25:  #f5f7ff;
+
+  /* Phase 1 — Discovery (amber) */
+  --hp-amber-700: #b45309;
+  --hp-amber-600: #d97706;
+  --hp-amber-100: #fde6b8;
+  --hp-amber-50:  #fffbeb;
+
+  /* Path B — Review (emerald) */
+  --hp-emerald-700: #047857;
+  --hp-emerald-600: #059669;
+  --hp-emerald-100: #c7ecd9;
+  --hp-emerald-50:  #ecfdf5;
 }
 
 /* --- Reset --- */

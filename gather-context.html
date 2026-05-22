@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gather Context — AI Curriculum Review &amp; Design</title>
+  <title>Curriculum Inputs — AI Curriculum Review &amp; Design</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -475,9 +475,426 @@
       .page-title { font-size: 26px; }
       .page-sub { font-size: 15px; margin-bottom: 24px; }
     }
+
+    /* ───────────────────────────────────────────────
+       Cohesive Shell — Curriculum Designer aesthetic
+       (overrides above to align with homepage)
+       ─────────────────────────────────────────────── */
+    body { background: var(--hp-bg); color: var(--hp-text); }
+    .topbar {
+      height: 56px;
+      border-bottom: 1px solid var(--hp-border);
+      background: #fff;
+    }
+    .topbar-brand { gap: 10px; color: var(--hp-text); }
+    .brand-name {
+      font-size: 13px; font-weight: 600; color: var(--hp-text);
+      letter-spacing: -0.01em;
+    }
+    .brand-tag {
+      font-size: 10px; font-weight: 600; color: var(--hp-muted);
+      border: 1px solid var(--hp-border); padding: 3px 8px;
+      letter-spacing: 0.06em; margin-left: 4px;
+      text-transform: uppercase; border-radius: 4px;
+      background: #fff;
+    }
+    .t-div { background: var(--hp-border); height: 18px; margin: 0 8px; }
+    .topbar-link {
+      font-size: 12px; color: var(--hp-muted);
+      transition: color 120ms;
+    }
+    .topbar-link:hover { color: var(--hp-text); text-decoration: none; }
+    .topbar-pill {
+      border: 1px solid var(--hp-border); background: #fff;
+      color: var(--hp-body); border-radius: 999px;
+      padding: 4px 10px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .page-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    body.discovery-scope .page-eyebrow { color: var(--hp-amber-700); }
+    body.design-scope    .page-eyebrow { color: var(--hp-indigo-600); }
+    body.review-scope    .page-eyebrow { color: var(--hp-emerald-700); }
+
+    .page-title {
+      font-size: 32px; font-weight: 700;
+      color: var(--hp-text);
+      letter-spacing: -0.022em;
+      line-height: 1.18;
+      margin-bottom: 12px;
+    }
+    .page-sub {
+      font-size: 16px; color: var(--hp-body);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 720px;
+    }
+
+    /* Phase bar — accent per scope */
+    body.discovery-scope .ph-step.active { color: var(--hp-amber-700); }
+    body.discovery-scope .ph-step.active .ph-num {
+      background: var(--hp-amber-700); border-color: var(--hp-amber-700); color: #fff;
+    }
+    body.design-scope .ph-step.active { color: var(--hp-indigo-700); }
+    body.design-scope .ph-step.active .ph-num {
+      background: var(--hp-indigo-700); border-color: var(--hp-indigo-700); color: #fff;
+    }
+    body.review-scope .ph-step.active { color: var(--hp-emerald-700); }
+    body.review-scope .ph-step.active .ph-num {
+      background: var(--hp-emerald-700); border-color: var(--hp-emerald-700); color: #fff;
+    }
+
+    @media (max-width: 1280px) {
+      .page-title { font-size: 30px; }
+    }
+    @media (max-width: 900px) {
+      .page-title { font-size: 24px; }
+      .page-sub { font-size: 14px; margin-bottom: 22px; }
+    }
+
+    /* ───────────────────────────────────────────────
+       Discovery Page Refinements — scannable AI summary,
+       category icons, amber-accented cards
+       ─────────────────────────────────────────────── */
+
+    /* — Upload zones: rounded cards with category icons — */
+    .upload-zone {
+      border: 1px solid var(--hp-border);
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .upload-zone:hover {
+      border-color: var(--hp-amber-100);
+      box-shadow: 0 2px 12px rgba(180, 83, 9, 0.05);
+    }
+    .uz-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 18px 4px;
+    }
+    .uz-icon {
+      width: 36px; height: 36px;
+      background: var(--hp-amber-50);
+      color: var(--hp-amber-700);
+      border-radius: 8px;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .uz-icon svg { width: 18px; height: 18px; }
+    .uz-header .uz-title { margin-right: auto; }
+    .uz-title { font-size: 14px; font-weight: 600; color: var(--hp-text); }
+    .uz-badge {
+      font-size: 11px; font-weight: 600;
+      color: var(--hp-amber-700);
+      background: var(--hp-amber-50);
+      border: 1px solid var(--hp-amber-100);
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+    }
+    .uz-desc {
+      font-size: 13px; color: var(--hp-body);
+      padding: 4px 18px 10px 66px;
+      line-height: 1.55;
+    }
+    .uz-ai-hint {
+      font-size: 11px; font-weight: 500;
+      color: var(--hp-amber-700);
+      padding: 0 18px 12px 66px;
+      display: flex; align-items: center; gap: 6px;
+      letter-spacing: 0;
+    }
+    .uz-ai-hint::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--hp-amber-600);
+      flex-shrink: 0;
+    }
+    .uz-controls { padding: 0 18px 14px 66px; display: flex; justify-content: flex-start; }
+    .uz-toggle {
+      border: 1px solid var(--hp-border);
+      background: #fff;
+      color: var(--hp-body);
+      font-size: 12px; font-weight: 500;
+      padding: 5px 11px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 120ms;
+    }
+    .uz-toggle:hover {
+      border-color: var(--hp-amber-600);
+      color: var(--hp-amber-700);
+      background: var(--hp-amber-50);
+    }
+    .uz-files { border-top: 1px solid var(--hp-border-soft); }
+    .uz-file, .uz-link, .uz-note {
+      padding: 10px 18px;
+      gap: 12px;
+      border-bottom: 1px solid var(--hp-border-soft);
+    }
+    .uz-file:last-child, .uz-link:last-child, .uz-note:last-child { border-bottom: none; }
+    .uz-file:hover, .uz-link:hover, .uz-note:hover { background: var(--hp-amber-50); }
+    .uz-file-ext {
+      font-size: 9px; font-weight: 700;
+      color: var(--hp-amber-700);
+      border: 1px solid var(--hp-amber-100);
+      padding: 2px 6px;
+      background: var(--hp-amber-50);
+      border-radius: 4px;
+    }
+    .uz-file-name, .uz-link-url, .uz-note-text {
+      font-size: 13px; color: var(--hp-text);
+    }
+    .uz-file-size { color: var(--hp-muted); font-size: 11px; }
+    .uz-file-rm:hover { color: var(--hp-amber-700); }
+    .uz-actions {
+      display: flex; gap: 8px;
+      padding: 12px 18px !important;
+      margin: 0 !important;
+      border-top: 1px solid var(--hp-border-soft);
+      background: #fafafa;
+    }
+    .uz-drop {
+      border: 1px dashed var(--hp-border);
+      background: #fff;
+      padding: 9px 12px;
+      font-size: 12px; font-weight: 500;
+      color: var(--hp-body);
+      text-align: center;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 120ms;
+      margin: 0 !important;
+    }
+    .uz-drop:hover {
+      border-color: var(--hp-amber-600);
+      color: var(--hp-amber-700);
+      background: var(--hp-amber-50);
+    }
+
+    /* — Sidebar — */
+    .side-box {
+      border: 1px solid var(--hp-border);
+      border-radius: 12px;
+      padding: 18px;
+      background: #fff;
+    }
+    .side-title {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--hp-muted);
+      margin-bottom: 14px;
+    }
+    .side-row {
+      padding: 9px 0;
+      border-bottom: 1px solid var(--hp-border-soft);
+      font-size: 13px;
+      color: var(--hp-body);
+    }
+    .side-row:nth-last-of-type(1) { border-bottom: none; }
+    .side-count {
+      font-size: 13px; font-weight: 700;
+      color: var(--hp-text);
+    }
+    .side-total {
+      margin-top: 12px;
+      padding-top: 14px;
+      border-top: 1px solid var(--hp-border);
+      font-size: 13px;
+      color: var(--hp-body);
+    }
+    .side-total-num {
+      font-weight: 700;
+      color: var(--hp-amber-700);
+    }
+
+    /* — AI Context Summary — refined card — */
+    .analysis-inline {
+      margin-top: 28px;
+      border: 1px solid var(--hp-amber-100);
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(180, 83, 9, 0.07);
+    }
+    .ai-head {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 16px;
+      padding: 22px 24px;
+      background: linear-gradient(180deg, var(--hp-amber-50) 0%, #fff 100%);
+      border-bottom: 1px solid var(--hp-amber-100);
+    }
+    .ai-head-copy {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .ai-head-icon {
+      width: 42px; height: 42px;
+      background: var(--hp-amber-700);
+      color: #fff;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(180, 83, 9, 0.22);
+    }
+    .ai-head-icon svg { width: 22px; height: 22px; }
+    .ai-head-text { display: grid; gap: 3px; }
+    .ai-title {
+      font-size: 17px; font-weight: 700; color: var(--hp-text);
+      letter-spacing: -0.012em;
+    }
+    .ai-subtitle {
+      font-size: 12.5px; color: var(--hp-body);
+      line-height: 1.5;
+    }
+    .ai-time {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600;
+      color: var(--hp-amber-700);
+      background: #fff;
+      border: 1px solid var(--hp-amber-100);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+      white-space: nowrap;
+    }
+    .ai-time::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--hp-amber-600);
+      flex-shrink: 0;
+    }
+
+    /* Stat strip */
+    .ai-stat-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--hp-border-soft);
+      background: #fff;
+    }
+    .ai-stat {
+      padding: 18px 20px;
+      border-right: 1px solid var(--hp-border-soft);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .ai-stat:last-child { border-right: none; }
+    .ai-stat-icon {
+      width: 30px; height: 30px;
+      background: var(--hp-amber-50);
+      color: var(--hp-amber-700);
+      border-radius: 7px;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ai-stat-icon svg { width: 15px; height: 15px; }
+    .ai-stat-num {
+      font-size: 26px; font-weight: 700;
+      color: var(--hp-text);
+      font-family: var(--font-sans);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .ai-stat-label {
+      font-size: 12px; color: var(--hp-body);
+      line-height: 1.4;
+    }
+
+    /* Summary section cards */
+    .ai-body { padding: 18px; display: flex; flex-direction: column; gap: 12px; background: #fafaf9; }
+    .ai-row {
+      padding: 16px 18px;
+      border: 1px solid var(--hp-border);
+      border-radius: 10px;
+      background: #fff;
+      transition: border-color 150ms;
+    }
+    .ai-row:hover { border-color: var(--hp-amber-100); }
+    .ai-row-head {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 12px;
+    }
+    .ai-row-icon {
+      width: 28px; height: 28px;
+      background: var(--hp-amber-50);
+      color: var(--hp-amber-700);
+      border-radius: 7px;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ai-row-icon svg { width: 15px; height: 15px; }
+    .ai-row-title {
+      font-size: 13px; font-weight: 700;
+      color: var(--hp-text);
+      letter-spacing: 0;
+      text-transform: none;
+      margin: 0;
+    }
+    .ai-row p {
+      font-size: 13.5px; color: var(--hp-body);
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+    .ai-row ul {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .ai-row li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 13.5px; color: var(--hp-body);
+      line-height: 1.55;
+      margin: 0;
+    }
+    .ai-row li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 9px;
+      width: 5px; height: 5px;
+      background: var(--hp-amber-600);
+      border-radius: 50%;
+    }
+
+    /* Bottom bar — amber primary CTA */
+    .bottom-bar {
+      background: #fff;
+      border-top: 1px solid var(--hp-border);
+    }
+    .bb-note { font-size: 13px; color: var(--hp-body); }
+    .btn-primary {
+      background: var(--hp-amber-700);
+      border-color: var(--hp-amber-700);
+      color: #fff;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 13px; font-weight: 600;
+      transition: all 150ms;
+      box-shadow: 0 2px 6px rgba(180, 83, 9, 0.15);
+    }
+    .btn-primary:hover {
+      background: var(--hp-amber-600);
+      border-color: var(--hp-amber-600);
+      box-shadow: 0 4px 12px rgba(180, 83, 9, 0.25);
+    }
+    .btn-ghost { border-radius: 8px; }
+
+    @media (max-width: 900px) {
+      .ai-stat-strip { grid-template-columns: 1fr; }
+      .ai-stat { border-right: none; border-bottom: 1px solid var(--hp-border-soft); }
+      .ai-stat:last-child { border-bottom: none; }
+      .ai-head { flex-direction: column; }
+      .uz-desc, .uz-ai-hint, .uz-controls { padding-left: 18px; }
+    }
   </style>
 </head>
-<body>
+<body class="discovery-scope">
 
 <!-- Topbar -->
 <nav class="topbar">
@@ -486,8 +903,8 @@
       <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
            alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
       <div class="t-div"></div>
-      <span>AI Curriculum Designer</span>
-      <span style="font-size:10px; font-weight:500; color:#999; border:1px solid #d8d8d8; padding:2px 8px; letter-spacing:0.02em; margin-left:4px;">Concept Prototype</span>
+      <span class="brand-name">AI Curriculum Designer</span>
+      <span class="brand-tag">Concept Prototype</span>
     </a>
     <div class="topbar-right">
       <a href="index.html" class="topbar-link">← Home</a>
@@ -498,8 +915,9 @@
 <!-- Page -->
 <main class="page">
 
-  <div class="page-title">Gather &amp; Synthesise Context</div>
-  <div class="page-sub">Upload once and reuse across steps. Upload reference materials to support planning, drafting, and curriculum review workflows.</div>
+  <div class="page-eyebrow">Phase 1 · Discovery &amp; Analysis</div>
+  <div class="page-title">Gather &amp; Analyse Curriculum Inputs</div>
+  <div class="page-sub">Consolidate industry inputs, curriculum references, student insights, and existing module materials to inform AI-assisted module design.</div>
 
   <div class="layout">
 
@@ -510,8 +928,11 @@
         <!-- 1. Industry & Benchmarking -->
         <div class="upload-zone">
           <div class="uz-header">
+            <div class="uz-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
             <div class="uz-title">Industry &amp; Benchmarking</div>
-              <div class="uz-badge">4 files</div>
+            <div class="uz-badge">4 files</div>
           </div>
           <div class="uz-desc">Industry reports, employer inputs, advisory discussions, and local or international curriculum references.</div>
           <div class="uz-ai-hint">Suggested category based on uploaded content</div>
@@ -568,6 +989,9 @@
         <!-- 2. Curriculum & Standards -->
         <div class="upload-zone">
           <div class="uz-header">
+            <div class="uz-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
             <div class="uz-title">Curriculum &amp; Standards</div>
             <div class="uz-badge">2 files</div>
           </div>
@@ -598,6 +1022,9 @@
         <!-- 3. Student & Module Insights -->
         <div class="upload-zone">
           <div class="uz-header">
+            <div class="uz-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
             <div class="uz-title">Student &amp; Module Insights</div>
             <div class="uz-badge">5 files</div>
           </div>
@@ -646,6 +1073,9 @@
         <!-- 4. Existing Module Materials -->
         <div class="upload-zone">
           <div class="uz-header">
+            <div class="uz-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
             <div class="uz-title">Existing Module Materials</div>
             <div class="uz-badge">3 files</div>
           </div>
@@ -684,56 +1114,101 @@
       <section id="analysis-results" class="analysis-inline hidden" aria-live="polite">
         <div class="ai-head">
           <div class="ai-head-copy">
-            <div class="ai-title">Context Summary</div>
-            <div class="ai-subtitle">Generated from uploaded references and module inputs</div>
+            <div class="ai-head-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+            </div>
+            <div class="ai-head-text">
+              <div class="ai-title">AI Context Summary</div>
+              <div class="ai-subtitle">Synthesised from uploaded references to inform module drafting decisions</div>
+            </div>
           </div>
           <div class="ai-time" id="analysis-time">Not run yet</div>
         </div>
+
         <div class="ai-stat-strip">
           <div class="ai-stat">
+            <div class="ai-stat-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
             <div class="ai-stat-num" id="ai-sources">14</div>
             <div class="ai-stat-label">Reference inputs reviewed</div>
           </div>
           <div class="ai-stat">
+            <div class="ai-stat-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+            </div>
             <div class="ai-stat-num" id="ai-signals">4</div>
             <div class="ai-stat-label">Curriculum areas referenced</div>
           </div>
           <div class="ai-stat">
+            <div class="ai-stat-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+            </div>
             <div class="ai-stat-num" id="ai-gaps">6</div>
             <div class="ai-stat-label">Suggested drafting considerations</div>
           </div>
         </div>
+
         <div class="ai-body">
           <div class="ai-row">
-            <div class="ai-row-title">Common themes across uploaded references</div>
+            <div class="ai-row-head">
+              <div class="ai-row-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </div>
+              <div class="ai-row-title">Common themes across uploaded references</div>
+            </div>
             <p>Hospital partner discussions, employer feedback, graduate outcomes, and module review inputs suggest increasing emphasis on clinical interpretation, escalation decision-making, and inter-professional communication within critical care nursing contexts.</p>
           </div>
+
           <div class="ai-row">
-            <div class="ai-row-title">Suggested learning outcome considerations</div>
+            <div class="ai-row-head">
+              <div class="ai-row-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              </div>
+              <div class="ai-row-title">Suggested learning outcome considerations</div>
+            </div>
             <ul>
               <li>Consider including an outcome on interpreting AI-assisted monitoring alerts and patient trend data for escalation decisions.</li>
               <li>Consider strengthening integration across pathophysiology, diagnostics, and clinical risk indicators when justifying nursing interventions.</li>
               <li>Consider emphasising inter-professional handover and documentation practices in high-acuity care settings.</li>
             </ul>
           </div>
+
           <div class="ai-row">
-            <div class="ai-row-title">Suggested content emphases</div>
+            <div class="ai-row-head">
+              <div class="ai-row-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div class="ai-row-title">Suggested content emphases</div>
+            </div>
             <ul>
               <li>Prioritise commonly encountered ICU scenarios referenced by partner hospitals, including GI bleed, acute pancreatitis, and liver deterioration cases.</li>
               <li>Introduce early-warning interpretation, risk scoring, and escalation workflow discussions where relevant.</li>
               <li>Sequence learning from clinical foundations towards integrated case management with alignment to learning outcomes.</li>
             </ul>
           </div>
+
           <div class="ai-row">
-            <div class="ai-row-title">Suggested T&amp;L approaches</div>
+            <div class="ai-row-head">
+              <div class="ai-row-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </div>
+              <div class="ai-row-title">Suggested teaching &amp; learning approaches</div>
+            </div>
             <ul>
               <li>Use blended delivery with concise concept inputs followed by guided case-based application.</li>
               <li>Incorporate simulation activities using monitoring dashboards, lab trends, and structured clinical huddles.</li>
               <li>Include formative checkpoints with debrief feedback on reasoning, communication, and escalation decisions.</li>
             </ul>
           </div>
+
           <div class="ai-row">
-            <div class="ai-row-title">Suggested assessment considerations</div>
+            <div class="ai-row-head">
+              <div class="ai-row-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              </div>
+              <div class="ai-row-title">Suggested assessment considerations</div>
+            </div>
             <ul>
               <li>Use case-based assessments involving interpretation of monitoring alerts, diagnostics, and intervention prioritisation.</li>
               <li>Combine individual clinical reasoning with team-based simulation and handover activities where appropriate.</li>

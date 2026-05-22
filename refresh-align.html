@@ -411,9 +411,575 @@
       .page-title { font-size: 26px; }
       .page-sub { font-size: 15px; margin-bottom: 24px; }
     }
+
+    /* ───────────────────────────────────────────────
+       Cohesive Shell — Curriculum Designer aesthetic
+       (overrides above to align with homepage)
+       ─────────────────────────────────────────────── */
+    body { background: var(--hp-bg); color: var(--hp-text); }
+    .topbar {
+      height: 56px;
+      border-bottom: 1px solid var(--hp-border);
+      background: #fff;
+    }
+    .topbar-brand { gap: 10px; color: var(--hp-text); }
+    .brand-name {
+      font-size: 13px; font-weight: 600; color: var(--hp-text);
+      letter-spacing: -0.01em;
+    }
+    .brand-tag {
+      font-size: 10px; font-weight: 600; color: var(--hp-muted);
+      border: 1px solid var(--hp-border); padding: 3px 8px;
+      letter-spacing: 0.06em; margin-left: 4px;
+      text-transform: uppercase; border-radius: 4px;
+      background: #fff;
+    }
+    .t-div { background: var(--hp-border); height: 18px; margin: 0 8px; }
+    .topbar-link {
+      font-size: 12px; color: var(--hp-muted);
+      transition: color 120ms;
+    }
+    .topbar-link:hover { color: var(--hp-text); text-decoration: none; }
+    .topbar-pill {
+      border: 1px solid var(--hp-border); background: #fff;
+      color: var(--hp-body); border-radius: 999px;
+      padding: 4px 10px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .page-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    body.discovery-scope .page-eyebrow { color: var(--hp-amber-700); }
+    body.design-scope    .page-eyebrow { color: var(--hp-indigo-600); }
+    body.review-scope    .page-eyebrow { color: var(--hp-emerald-700); }
+
+    .page-title {
+      font-size: 32px; font-weight: 700;
+      color: var(--hp-text);
+      letter-spacing: -0.022em;
+      line-height: 1.18;
+      margin-bottom: 12px;
+    }
+    .page-sub {
+      font-size: 16px; color: var(--hp-body);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 720px;
+    }
+
+    /* Phase bar — accent per scope */
+    body.discovery-scope .ph-step.active { color: var(--hp-amber-700); }
+    body.discovery-scope .ph-step.active .ph-num {
+      background: var(--hp-amber-700); border-color: var(--hp-amber-700); color: #fff;
+    }
+    body.design-scope .ph-step.active { color: var(--hp-indigo-700); }
+    body.design-scope .ph-step.active .ph-num {
+      background: var(--hp-indigo-700); border-color: var(--hp-indigo-700); color: #fff;
+    }
+    body.review-scope .ph-step.active { color: var(--hp-emerald-700); }
+    body.review-scope .ph-step.active .ph-num {
+      background: var(--hp-emerald-700); border-color: var(--hp-emerald-700); color: #fff;
+    }
+
+    @media (max-width: 1280px) {
+      .page-title { font-size: 30px; }
+    }
+    @media (max-width: 900px) {
+      .page-title { font-size: 24px; }
+      .page-sub { font-size: 14px; margin-bottom: 22px; }
+    }
+
+    /* ───────────────────────────────────────────────
+       Review Page Refinements — emerald accents,
+       icons, refined cards
+       ─────────────────────────────────────────────── */
+
+    /* Plan sections */
+    .plan-section {
+      border: 1px solid var(--hp-border);
+      border-radius: 12px;
+      margin-bottom: 14px;
+      background: #fff;
+      overflow: hidden;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .plan-section:hover { border-color: var(--hp-emerald-100); box-shadow: 0 2px 12px rgba(4, 120, 87, 0.04); }
+    .ps-header {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--hp-border-soft);
+      gap: 14px;
+      background: #fff;
+    }
+    .ps-header:hover { background: var(--hp-emerald-50); }
+    .plan-section.collapsed .ps-header { border-bottom: none; }
+    .ps-num {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--hp-emerald-700);
+      color: #fff;
+      font-size: 12px; font-weight: 700;
+      font-family: var(--font-sans);
+      box-shadow: 0 2px 6px rgba(4, 120, 87, 0.20);
+    }
+    .ps-title {
+      font-size: 15px; font-weight: 700;
+      color: var(--hp-text);
+      letter-spacing: -0.005em;
+    }
+    .ps-desc {
+      font-size: 12px;
+      color: var(--hp-muted);
+    }
+    .ps-toggle { color: var(--hp-muted); font-size: 14px; }
+    .ps-body { padding: 18px; }
+
+    /* Forms */
+    .field-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--hp-body);
+    }
+    .field-label .opt { color: var(--hp-muted); }
+    .plan-input, .plan-textarea {
+      font-size: 13.5px;
+      color: var(--hp-text);
+      border: 1px solid var(--hp-border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      transition: border-color 120ms, box-shadow 120ms;
+    }
+    .plan-input:focus, .plan-textarea:focus {
+      border-color: var(--hp-emerald-600);
+      box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.10);
+    }
+
+    /* Action buttons */
+    .btn-action {
+      background: var(--hp-emerald-700);
+      border: 1px solid var(--hp-emerald-700);
+      color: #fff;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 13px; font-weight: 600;
+      box-shadow: 0 2px 6px rgba(4, 120, 87, 0.20);
+      transition: all 150ms;
+    }
+    .btn-action:hover {
+      background: var(--hp-emerald-600);
+      border-color: var(--hp-emerald-600);
+    }
+    .btn-subtle {
+      border: 1px solid var(--hp-border);
+      color: var(--hp-body);
+      background: #fff;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 13px; font-weight: 600;
+      transition: all 120ms;
+    }
+    .btn-subtle:hover {
+      border-color: var(--hp-emerald-600);
+      color: var(--hp-emerald-700);
+      background: var(--hp-emerald-50);
+    }
+
+    /* State pill */
+    .state-pill {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0;
+      border: 1px solid var(--hp-border);
+      background: var(--hp-bg);
+      color: var(--hp-muted);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+    }
+    .state-pill.loaded {
+      border-color: var(--hp-emerald-100);
+      color: var(--hp-emerald-700);
+      background: var(--hp-emerald-50);
+    }
+
+    /* Import drop */
+    .import-drop {
+      border: 1px dashed var(--hp-border);
+      background: var(--hp-bg);
+      color: var(--hp-body);
+      font-size: 13px;
+      padding: 14px;
+      border-radius: 8px;
+    }
+    .import-note { font-size: 13px; color: var(--hp-body); margin-bottom: 12px; line-height: 1.55; }
+
+    /* Loaded files */
+    .loaded-list {
+      border-top: 1px solid var(--hp-border-soft);
+      padding-top: 12px;
+    }
+    .loaded-item {
+      padding: 9px 0;
+      border-bottom: 1px solid var(--hp-border-soft);
+      font-size: 13px;
+      color: var(--hp-text);
+    }
+    .file-chip {
+      font-size: 9px; font-weight: 700;
+      color: var(--hp-emerald-700);
+      border: 1px solid var(--hp-emerald-100);
+      padding: 2px 6px;
+      background: var(--hp-emerald-50);
+      border-radius: 4px;
+    }
+
+    /* Detected context — emerald accent */
+    .context-detected {
+      border: 1px solid var(--hp-emerald-100);
+      background: var(--hp-emerald-50);
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+    .context-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--hp-emerald-700);
+      margin-bottom: 6px;
+    }
+    .context-main {
+      font-size: 13px;
+      color: var(--hp-text);
+      font-weight: 600;
+    }
+    .context-sub {
+      font-size: 12px;
+      color: var(--hp-body);
+      margin-top: 3px;
+    }
+
+    /* Check items */
+    .check-group-2col { gap: 10px; }
+    .check-item {
+      padding: 12px 14px;
+      border: 1px solid var(--hp-border);
+      border-radius: 10px;
+      gap: 12px;
+      background: #fff;
+      transition: all 150ms;
+    }
+    .check-item:hover {
+      background: var(--hp-emerald-50);
+      border-color: var(--hp-emerald-100);
+    }
+    .check-item.on {
+      background: var(--hp-emerald-50);
+      border-color: var(--hp-emerald-700);
+      box-shadow: 0 1px 4px rgba(4, 120, 87, 0.10);
+    }
+    .check-box {
+      width: 18px; height: 18px;
+      border: 1.5px solid var(--hp-border);
+      border-radius: 5px;
+      margin-top: 1px;
+    }
+    .check-item.on .check-box {
+      background: var(--hp-emerald-700);
+      border-color: var(--hp-emerald-700);
+    }
+    .check-item.on .check-box::after {
+      font-size: 11px;
+    }
+    .check-label {
+      font-size: 13px;
+      color: var(--hp-text);
+      font-weight: 600;
+    }
+    .check-sub { font-size: 11px; color: var(--hp-body); margin-top: 3px; }
+    .check-ref { color: var(--hp-emerald-700); font-size: 11px; font-weight: 600; }
+
+    /* References */
+    .ref-row {
+      font-size: 13px;
+      color: var(--hp-body);
+      padding: 6px 0;
+    }
+    .ref-row input { accent-color: var(--hp-emerald-700); }
+
+    /* Goal & style chips */
+    .goal-grid { gap: 8px; }
+    .goal-chip, .style-chip {
+      border: 1px solid var(--hp-border);
+      background: #fff;
+      color: var(--hp-body);
+      font-size: 12.5px; font-weight: 600;
+      border-radius: 8px;
+      padding: 9px 12px;
+      transition: all 150ms;
+    }
+    .goal-chip:hover, .style-chip:hover {
+      border-color: var(--hp-emerald-100);
+      color: var(--hp-emerald-700);
+      background: var(--hp-emerald-50);
+    }
+    .goal-chip.on, .style-chip.on {
+      border-color: var(--hp-emerald-700);
+      background: var(--hp-emerald-50);
+      color: var(--hp-emerald-700);
+    }
+
+    .field-prompt { color: var(--hp-muted); font-size: 12px; }
+
+    /* Sidebar */
+    .side-card {
+      border: 1px solid var(--hp-border);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .side-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--hp-muted);
+      padding: 14px 16px 10px;
+    }
+    .side-card-body { padding: 0 16px 14px; }
+    .side-rec-item {
+      font-size: 12.5px;
+      color: var(--hp-body);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--hp-border-soft);
+      gap: 10px;
+      line-height: 1.5;
+    }
+    .side-rec-item::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--hp-emerald-600);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+    .sum-row {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--hp-border-soft);
+      font-size: 12.5px;
+    }
+    .sum-key { color: var(--hp-muted); font-weight: 500; }
+    .sum-val { color: var(--hp-text); }
+    .sum-val.empty { color: var(--hp-muted); font-weight: 400; }
+    .side-card.ai-side {
+      background: linear-gradient(180deg, var(--hp-emerald-50) 0%, #fff 70%);
+      border-color: var(--hp-emerald-100);
+    }
+    .side-card.ai-side .side-label { color: var(--hp-emerald-700); }
+
+    /* Inline review */
+    .review-inline {
+      border: 1px solid var(--hp-emerald-100);
+      border-radius: 14px;
+      background: #fff;
+      margin-top: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(4, 120, 87, 0.07);
+    }
+    .review-head {
+      padding: 22px 24px;
+      background: linear-gradient(180deg, var(--hp-emerald-50) 0%, #fff 100%);
+      border-bottom: 1px solid var(--hp-emerald-100);
+      gap: 16px;
+    }
+    .review-head-icon {
+      width: 42px; height: 42px;
+      background: var(--hp-emerald-700);
+      color: #fff;
+      border-radius: 10px;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(4, 120, 87, 0.22);
+    }
+    .review-head-icon svg { width: 22px; height: 22px; }
+    .review-head-copy { display: flex; align-items: center; gap: 14px; }
+    .review-title {
+      font-size: 17px; font-weight: 700;
+      color: var(--hp-text);
+      letter-spacing: -0.012em;
+      text-transform: none;
+      margin-bottom: 4px;
+    }
+    .review-sub {
+      font-size: 12.5px;
+      color: var(--hp-body);
+      line-height: 1.5;
+    }
+    .review-stamp {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600;
+      color: var(--hp-emerald-700);
+      background: #fff;
+      border: 1px solid var(--hp-emerald-100);
+      padding: 5px 11px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .review-stamp::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--hp-emerald-600);
+      flex-shrink: 0;
+    }
+    .review-metrics {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--hp-border-soft);
+      gap: 12px;
+    }
+    .metric {
+      border: 1px solid var(--hp-border);
+      background: #fff;
+      padding: 14px 16px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .metric-k {
+      font-size: 11px;
+      color: var(--hp-body);
+      letter-spacing: 0;
+      text-transform: none;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .metric-v {
+      font-size: 24px;
+      color: var(--hp-text);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .review-actions {
+      padding: 14px 20px;
+      gap: 8px;
+      border-bottom: 1px solid var(--hp-border-soft);
+    }
+    .review-refine-btn {
+      border: 1px solid var(--hp-border);
+      background: #fff;
+      color: var(--hp-body);
+      font-size: 12px; font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 999px;
+      transition: all 120ms;
+    }
+    .review-refine-btn:hover {
+      border-color: var(--hp-emerald-600);
+      color: var(--hp-emerald-700);
+      background: var(--hp-emerald-50);
+    }
+    .review-panels { padding: 18px 20px; gap: 12px; }
+    .review-card {
+      border: 1px solid var(--hp-border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      background: #fff;
+      transition: border-color 150ms;
+    }
+    .review-card:hover { border-color: var(--hp-emerald-100); }
+    .review-card-title {
+      font-size: 14px;
+      color: var(--hp-text);
+      font-weight: 700;
+    }
+    .review-badge {
+      font-size: 10px; font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+    .review-badge.warn {
+      background: var(--hp-amber-50);
+      color: var(--hp-amber-700);
+      border: 1px solid var(--hp-amber-100);
+    }
+    .review-badge.ok {
+      background: var(--hp-emerald-50);
+      color: var(--hp-emerald-700);
+      border: 1px solid var(--hp-emerald-100);
+    }
+    .review-block-label {
+      font-size: 11px;
+      color: var(--hp-emerald-700);
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin: 12px 0 6px;
+    }
+    .review-list {
+      padding-left: 0;
+      list-style: none;
+      color: var(--hp-body);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .review-list li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+    }
+    .review-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 9px;
+      width: 5px; height: 5px;
+      background: var(--hp-emerald-600);
+      border-radius: 50%;
+    }
+
+    /* Bottom bar — emerald primary */
+    .bottom-bar {
+      background: #fff;
+      border-top: 1px solid var(--hp-border);
+    }
+    .bb-note { font-size: 13px; color: var(--hp-body); }
+    .bb-helper { font-size: 12px; color: var(--hp-muted); }
+    .btn-primary {
+      background: var(--hp-emerald-700);
+      border: 1px solid var(--hp-emerald-700);
+      color: #fff;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 13px; font-weight: 600;
+      transition: all 150ms;
+      box-shadow: 0 2px 6px rgba(4, 120, 87, 0.20);
+    }
+    .btn-primary:hover {
+      background: var(--hp-emerald-600);
+      border-color: var(--hp-emerald-600);
+      box-shadow: 0 4px 12px rgba(4, 120, 87, 0.30);
+    }
+    .btn-primary[disabled] {
+      background: var(--hp-border);
+      border-color: var(--hp-border);
+      color: var(--hp-muted);
+      box-shadow: none;
+    }
+    .btn-ghost {
+      border: 1px solid var(--hp-border);
+      color: var(--hp-body);
+      background: #fff;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .btn-ghost:hover {
+      border-color: var(--hp-emerald-600);
+      color: var(--hp-emerald-700);
+    }
   </style>
 </head>
-<body>
+<body class="review-scope">
 
 <!-- Topbar -->
 <nav class="topbar">
@@ -421,8 +987,8 @@
     <a href="index.html" class="topbar-brand">
       <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
       <div class="t-div"></div>
-      <span style="font-size:13px; font-weight:500; color:#1a1a1a;">AI Curriculum Designer</span>
-      <span style="font-size:10px; font-weight:500; color:#999; border:1px solid #d8d8d8; padding:2px 8px; letter-spacing:0.02em; margin-left:4px;">Concept Prototype</span>
+      <span class="brand-name">AI Curriculum Designer</span>
+      <span class="brand-tag">Concept Prototype</span>
     </a>
     <div class="topbar-right">
       <a href="index.html" class="topbar-link">← Home</a>
@@ -433,6 +999,7 @@
 <!-- Page -->
 <main class="page">
 
+  <div class="page-eyebrow">Path B · Review &amp; Refinement</div>
   <div class="page-title">Module Review &amp; Refresh</div>
   <div class="page-sub">Import module documentation, select review focus areas, and generate targeted AI review findings and refresh suggestions.</div>
 
@@ -610,11 +1177,16 @@ Examples:
 
       <div class="review-inline" id="review-inline">
         <div class="review-head">
-          <div>
-            <div class="review-title">AI Review Findings &amp; Recommendations</div>
-            <div class="review-sub">Targeted findings, potential gaps, and suggested refresh actions based on your selected review focus areas.</div>
-            <div class="review-head-actions">
-              <button class="btn-subtle" id="rerun-review-btn" style="display:none;" onclick="runInlineReview()">Update AI Review</button>
+          <div class="review-head-copy">
+            <div class="review-head-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+            </div>
+            <div>
+              <div class="review-title">AI Review Findings &amp; Recommendations</div>
+              <div class="review-sub">Targeted findings, potential gaps, and suggested refresh actions based on your selected review focus areas.</div>
+              <div class="review-head-actions">
+                <button class="btn-subtle" id="rerun-review-btn" style="display:none;" onclick="runInlineReview()">Update AI Review</button>
+              </div>
             </div>
           </div>
           <div class="review-stamp" id="review-stamp">Generated from selected focus areas</div>
@@ -640,7 +1212,7 @@ Examples:
     <div class="layout-side">
 
       <div class="side-card ai-side">
-        <span class="side-label">✦ What AI will do</span>
+        <span class="side-label">What AI will do</span>
         <div class="side-card-body">
           <div class="side-rec-item">Review curriculum documentation against selected focus areas</div>
           <div class="side-rec-item">Highlight curriculum gaps, imbalances, and areas for refresh</div>

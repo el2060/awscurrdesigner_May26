@@ -7,251 +7,323 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Palette (local to homepage) ── */
+    .home-scope {
+      --hp-bg: #fafaf9;
+      --hp-card: #ffffff;
+      --hp-text: #111827;
+      --hp-body: #4b5563;
+      --hp-muted: #9ca3af;
+      --hp-border: #e5e7eb;
+      --hp-border-soft: #f1f1ee;
+
+      /* Primary — Design */
+      --hp-indigo-700: #3730a3;
+      --hp-indigo-600: #4f46e5;
+      --hp-indigo-100: #e0e7ff;
+      --hp-indigo-50:  #eef2ff;
+      --hp-indigo-25:  #f5f7ff;
+
+      /* Phase 1 — Discovery */
+      --hp-amber-700: #b45309;
+      --hp-amber-600: #d97706;
+      --hp-amber-100: #fde6b8;
+      --hp-amber-50:  #fffbeb;
+
+      /* Path B — Review */
+      --hp-emerald-700: #047857;
+      --hp-emerald-600: #059669;
+      --hp-emerald-100: #c7ecd9;
+      --hp-emerald-50:  #ecfdf5;
+    }
+
     body {
       font-family: var(--font-sans);
-      background: #fff;
-      color: #1a1a1a;
+      background: var(--hp-bg, #fafaf9);
+      color: var(--hp-text, #111827);
       min-height: 100vh;
     }
 
     /* ── Topbar ── */
     .topbar {
-      height: 52px; border-bottom: 1px solid #e0e0e0;
+      height: 56px; border-bottom: 1px solid var(--hp-border);
       display: flex; align-items: center; justify-content: center;
-      padding: 0 16px; background: #fff;
+      padding: 0 40px; background: #fff;
     }
     .topbar-inner {
-      width: 100%;
-      max-width: 680px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
+      width: 100%; max-width: 1040px;
+      margin: 0 auto; display: flex; align-items: center;
     }
     .topbar-brand {
       display: flex; align-items: center; gap: 10px;
       text-decoration: none; color: inherit;
     }
-    .t-div { width: 1px; height: 16px; background: #e0e0e0; margin: 0 6px; }
-    .brand-name { font-size: 13px; font-weight: 500; color: #1a1a1a; letter-spacing: -0.01em; }
+    .t-div { width: 1px; height: 18px; background: var(--hp-border); margin: 0 8px; }
+    .brand-name { font-size: 13px; font-weight: 600; color: var(--hp-text); letter-spacing: -0.01em; }
     .brand-tag {
-      font-size: 10px; font-weight: 500; color: #999;
-      border: 1px solid #d8d8d8; padding: 2px 8px;
-      letter-spacing: 0.02em; margin-left: 4px;
+      font-size: 10px; font-weight: 600; color: var(--hp-muted);
+      border: 1px solid var(--hp-border); padding: 3px 8px;
+      letter-spacing: 0.06em; margin-left: 4px;
+      text-transform: uppercase; border-radius: 4px;
     }
 
     /* ── Page ── */
     .page {
-      max-width: 1360px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 40px 32px 100px;
+      padding: 56px 40px 100px;
     }
-    .page-inner {
-      max-width: 680px;
-      margin: 0 auto;
+    .page-inner { max-width: 720px; margin: 0 auto; }
+    .page-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--hp-indigo-600);
+      margin-bottom: 14px;
     }
     .page-title {
-      font-size: 22px; font-weight: 700; color: #1a1a1a;
-      letter-spacing: -0.02em; margin-bottom: 44px;
+      font-size: 34px; font-weight: 700; color: var(--hp-text);
+      letter-spacing: -0.022em; line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .intro {
+      font-size: 16px; color: var(--hp-body); line-height: 1.6;
+      margin-bottom: 48px; max-width: 620px;
     }
 
     /* ── Path blocks ── */
     .path-block { margin-bottom: 0; }
-
     .path-label {
-      font-size: 12px; font-weight: 600; letter-spacing: 0;
-      color: #666;
-      margin-bottom: 12px; display: block;
+      font-size: 18px; font-weight: 600; color: var(--hp-text);
+      letter-spacing: -0.012em;
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .path-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 50%;
+      font-size: 11px; font-weight: 700; font-family: var(--font-mono);
+      background: var(--hp-indigo-50); color: var(--hp-indigo-700);
+    }
+    .path-block.review .path-num {
+      background: var(--hp-emerald-50); color: var(--hp-emerald-700);
     }
 
+    /* ── Optional context (discovery — amber) ── */
     .optional-context {
-      border: 1px solid #e0e0e0;
-      background: #fafafa;
-      margin-bottom: 10px;
+      border: 1px solid var(--hp-amber-100);
+      background: var(--hp-amber-50);
+      border-radius: 10px;
+      margin-bottom: 14px;
+      overflow: hidden;
     }
     .optional-context summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 11px 14px;
-      font-size: 12px;
-      color: #555;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      list-style: none; cursor: pointer;
+      padding: 13px 16px;
+      font-size: 12px; font-weight: 600;
+      color: var(--hp-amber-700);
+      display: flex; align-items: center; justify-content: space-between;
       user-select: none;
+      letter-spacing: 0.01em;
     }
     .optional-context summary::-webkit-details-marker { display: none; }
-    .optional-context summary::after { content: '▾'; color: #bbb; font-size: 11px; }
+    .optional-context summary::after {
+      content: '▾'; color: var(--hp-amber-600); font-size: 11px;
+      transition: transform 150ms;
+    }
     .optional-context:not([open]) summary::after { transform: rotate(-90deg); }
     .optional-context-body { padding: 0 14px 14px; }
 
-    /* ── Phase cards ── */
+    /* ── Phase cards (shared) ── */
     .phase-card {
       display: flex; flex-direction: column;
-      border: 1px solid #e0e0e0;
+      border: 1px solid var(--hp-border);
+      background: var(--hp-card);
+      border-radius: 10px;
       text-decoration: none; color: inherit;
-      background: #fff;
-      transition: border-color 100ms;
+      transition: border-color 150ms, box-shadow 150ms, transform 150ms;
       cursor: pointer;
+      position: relative;
     }
-    .phase-card:hover { border-color: #888; }
+    .phase-card:hover { border-color: #c4c4c4; }
 
-    /* Phase 1 — lighter, preparatory */
+    /* Phase 1 — preparatory (amber) */
     .phase-prep {
-      background: #fafafa;
-      padding: 14px 16px;
-    }
-    .phase-prep:hover { background: #f5f5f5; }
-
-    /* Phase 2 — main action */
-    .phase-main {
       background: #fff;
-      padding: 22px 24px 20px;
+      padding: 18px 20px;
+      border-color: var(--hp-amber-100);
+    }
+    .phase-prep:hover {
+      border-color: var(--hp-amber-600);
+      box-shadow: 0 4px 14px rgba(180, 83, 9, 0.10);
+    }
+
+    /* Phase 2 — main action (indigo) */
+    .phase-main {
+      background: var(--hp-card);
+      padding: 28px 30px 24px;
     }
     .phase-main-primary {
-      border-color: #c9d9ea;
-      background: #fbfdff;
+      border-color: var(--hp-indigo-100);
+      background: linear-gradient(180deg, var(--hp-indigo-25) 0%, #fff 65%);
     }
     .phase-main-primary:hover {
-      border-color: #004689;
+      border-color: var(--hp-indigo-600);
+      box-shadow: 0 6px 22px rgba(55, 48, 163, 0.12);
     }
-    .phase-recommended {
-      margin-left: 8px;
-      border: 1px solid #d7e4f2;
-      background: #f3f8ff;
-      color: #24537c;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 2px 7px;
-      vertical-align: middle;
+    .phase-main-primary .phase-tag { color: var(--hp-indigo-700); }
+    .phase-main-primary .phase-steps li::before {
+      background: var(--hp-indigo-50); color: var(--hp-indigo-700);
+    }
+    .phase-main-primary .phase-cta {
+      color: #fff; background: var(--hp-indigo-700); border-color: var(--hp-indigo-700);
+    }
+    .phase-main-primary:hover .phase-cta {
+      background: var(--hp-indigo-600); border-color: var(--hp-indigo-600);
     }
 
+    /* Path B — review (emerald) */
+    .phase-main-review {
+      border-color: var(--hp-emerald-100);
+      background: linear-gradient(180deg, var(--hp-emerald-50) 0%, #fff 65%);
+    }
+    .phase-main-review:hover {
+      border-color: var(--hp-emerald-600);
+      box-shadow: 0 6px 22px rgba(4, 120, 87, 0.12);
+    }
+    .phase-main-review .phase-tag { color: var(--hp-emerald-700); }
+    .phase-main-review .phase-steps li::before {
+      background: var(--hp-emerald-50); color: var(--hp-emerald-700);
+    }
+    .phase-main-review .phase-cta {
+      color: #fff; background: var(--hp-emerald-700); border-color: var(--hp-emerald-700);
+    }
+    .phase-main-review:hover .phase-cta {
+      background: var(--hp-emerald-600); border-color: var(--hp-emerald-600);
+    }
+
+    /* Shared text */
     .phase-tag {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.09em;
-      text-transform: uppercase; color: #999;
-      margin-bottom: 8px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.11em;
+      text-transform: uppercase; color: var(--hp-muted);
+      margin-bottom: 10px;
     }
     .phase-title {
-      font-size: 15px; font-weight: 700; color: #1a1a1a;
-      letter-spacing: -0.01em; margin-bottom: 6px;
+      font-size: 20px; font-weight: 700; color: var(--hp-text);
+      letter-spacing: -0.015em; margin-bottom: 8px;
     }
     .phase-desc {
-      font-size: 13px; color: #888; line-height: 1.6;
-      margin-bottom: 14px;
+      font-size: 14px; color: var(--hp-body); line-height: 1.6;
+      margin-bottom: 18px;
     }
+    .phase-prep .phase-title { font-size: 16px; margin-bottom: 6px; }
+    .phase-prep .phase-desc { font-size: 13px; margin-bottom: 14px; }
 
     /* Step list */
     .phase-steps {
-      list-style: none;
-      counter-reset: step;
-      display: flex; flex-direction: column; gap: 6px;
-      margin-bottom: 18px;
+      list-style: none; counter-reset: step;
+      display: flex; flex-direction: column; gap: 9px;
+      margin-bottom: 22px;
     }
     .phase-steps li {
       counter-increment: step;
-      display: flex; align-items: flex-start; gap: 9px;
-      font-size: 12px; color: #666; line-height: 1.45;
+      display: flex; align-items: flex-start; gap: 11px;
+      font-size: 13px; color: var(--hp-body); line-height: 1.5;
     }
     .phase-steps li::before {
       content: counter(step);
-      width: 17px; height: 17px; flex-shrink: 0;
-      font-size: 9px; font-weight: 700; font-family: var(--font-mono);
-      background: #efefef; color: #999;
+      width: 20px; height: 20px; flex-shrink: 0;
+      font-size: 10px; font-weight: 700; font-family: var(--font-mono);
+      background: #f3f4f6; color: var(--hp-muted);
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       margin-top: 1px;
     }
-    .phase-main .phase-steps li::before { background: #f0f0f0; }
 
-    /* Input source tags (Phase 1) */
+    /* Input source tags (Phase 1 — amber chips) */
     .source-tags {
-      display: flex; flex-wrap: wrap; gap: 5px;
+      display: flex; flex-wrap: wrap; gap: 6px;
       margin-bottom: 16px;
     }
     .source-tag {
-      font-size: 11px; color: #777;
-      border: 1px solid #e4e4e4; padding: 2px 8px;
-      background: #fff;
+      font-size: 11px; font-weight: 500; color: var(--hp-amber-700);
+      border: 1px solid var(--hp-amber-100); padding: 3px 10px;
+      background: var(--hp-amber-50); border-radius: 999px;
     }
 
-    /* CTA */
+    /* CTAs */
     .phase-cta {
-      font-size: 12px; font-weight: 600; color: #555;
-      border: 1px solid #d0d0d0; padding: 7px 14px;
-      align-self: flex-start;
-      transition: all 100ms;
+      font-size: 12px; font-weight: 600; color: var(--hp-body);
+      border: 1px solid var(--hp-border); padding: 9px 16px;
+      align-self: flex-start; border-radius: 6px;
+      transition: all 150ms;
+      background: #fff;
     }
-    .phase-card:hover .phase-cta {
-      background: #004689; color: #fff; border-color: #004689;
+    .phase-prep .phase-cta {
+      color: var(--hp-amber-700);
+      border-color: var(--hp-amber-100);
+      background: var(--hp-amber-50);
     }
-    .phase-card:hover { border-color: #004689; }
+    .phase-prep:hover .phase-cta {
+      background: var(--hp-amber-700); color: #fff; border-color: var(--hp-amber-700);
+    }
 
     /* ── Phase connector ── */
     .phase-connector {
       display: flex; align-items: center; gap: 10px;
-      padding: 10px 0 10px 24px;
+      padding: 8px 0 8px 24px;
     }
     .pc-line {
-      width: 1px; height: 28px; background: #d8d8d8;
+      width: 1px; height: 26px;
+      background: linear-gradient(180deg, var(--hp-amber-100), var(--hp-indigo-100));
       flex-shrink: 0;
     }
     .pc-text {
-      font-size: 11px; color: #bbb; white-space: nowrap;
+      font-size: 11px; color: var(--hp-muted); letter-spacing: 0.02em;
     }
 
-    /* ── Path separator ── */
+    /* ── Path separator (pill style) ── */
     .path-sep {
-      display: flex; align-items: center; gap: 16px;
-      margin: 32px 0;
+      display: flex; align-items: center; gap: 14px;
+      margin: 44px 0;
     }
-    .path-sep::before,
-    .path-sep::after {
-      content: ''; flex: 1; height: 1px; background: #ebebeb;
+    .path-sep::before, .path-sep::after {
+      content: ''; flex: 1; height: 1px; background: var(--hp-border);
     }
     .path-sep-text {
-      font-size: 11px; color: #ccc; letter-spacing: 0.05em;
+      font-size: 10px; font-weight: 700; color: var(--hp-muted);
+      letter-spacing: 0.18em; text-transform: uppercase;
+      background: var(--hp-bg); padding: 5px 14px;
+      border: 1px solid var(--hp-border); border-radius: 999px;
       flex-shrink: 0;
     }
 
     /* ── Footer ── */
     .page-footer {
-      margin-top: 44px; padding-top: 20px;
-      border-top: 1px solid #ebebeb;
-      font-size: 11px; color: #ccc;
+      margin-top: 56px; padding-top: 22px;
+      border-top: 1px solid var(--hp-border);
+      font-size: 11px; color: var(--hp-muted);
     }
 
-    /* ── Readability baseline for whole flow ── */
-    .topbar { padding: 0 40px; }
-    .page { max-width: 1120px; padding: 44px 40px 100px; }
-    .page-title { font-size: 34px; margin-bottom: 36px; }
-    .intro { font-size: 18px; margin-bottom: 30px; }
-    .path-label { font-size: 26px; }
-    .phase-title { font-size: 24px; }
-    .phase-desc { font-size: 14px; }
-    .phase-steps li { font-size: 14px; }
-    .source-tag { font-size: 12px; }
-    .phase-cta { font-size: 13px; }
-
+    /* Responsive */
     @media (max-width: 1280px) {
       .topbar { padding: 0 28px; }
-      .page { padding: 36px 28px 96px; }
+      .page { padding: 44px 28px 96px; }
       .page-title { font-size: 30px; }
-      .intro { font-size: 16px; }
-      .phase-title { font-size: 22px; }
     }
-
     @media (max-width: 900px) {
       .topbar { padding: 0 18px; }
-      .page { padding: 30px 18px 90px; }
-      .page-title { font-size: 26px; margin-bottom: 26px; }
-      .intro { font-size: 15px; margin-bottom: 24px; }
-      .phase-main, .phase-prep { padding: 16px; }
-      .phase-title { font-size: 20px; }
+      .page { padding: 32px 18px 90px; }
+      .page-title { font-size: 26px; }
+      .intro { font-size: 14px; margin-bottom: 32px; }
+      .phase-main { padding: 20px; }
+      .phase-prep { padding: 16px; }
+      .phase-title { font-size: 18px; }
       .phase-desc, .phase-steps li { font-size: 13px; }
+      .path-sep { margin: 32px 0; }
     }
   </style>
 </head>
-<body>
+<body class="home-scope">
 
 <!-- Topbar -->
 <nav class="topbar">
@@ -270,31 +342,32 @@
 <main class="page">
   <div class="page-inner">
 
+  <div class="page-eyebrow">AI Curriculum Designer</div>
   <div class="page-title">Choose a Curriculum Workflow</div>
 
   <!-- Introductory Paragraph -->
   <div class="intro">
-    <p>Select a workflow, optionally include shared references, then draft and refine module content with AI support.</p>
+    <p>Select a workflow, optionally analyse curriculum inputs first, then draft and refine module content with AI support.</p>
   </div>
 
   <!-- ═══ PATH A: New Module Design ═══ -->
   <div class="path-block">
-    <span class="path-label">Design a New Module</span>
+    <span class="path-label"><span class="path-num">A</span>Design a New Module</span>
 
-    <!-- Optional Context Library -->
+    <!-- Optional Curriculum Discovery & Analysis -->
     <details class="optional-context">
-      <summary>Optional reusable context library</summary>
+      <summary>Optional curriculum discovery &amp; analysis</summary>
       <div class="optional-context-body">
         <a class="phase-card phase-prep" href="gather-context.html">
-          <div class="phase-title">Gather &amp; Synthesize Context</div>
-          <div class="phase-desc">Upload shared reference materials once and reuse them across workflows.</div>
+          <div class="phase-title">Gather &amp; Analyse Curriculum Inputs</div>
+          <div class="phase-desc">Consolidate industry inputs, curriculum references, student insights, and existing module materials to inform AI-assisted module design.</div>
           <div class="source-tags">
             <span class="source-tag">Industry</span>
             <span class="source-tag">Frameworks</span>
             <span class="source-tag">Student insights</span>
             <span class="source-tag">Module materials</span>
           </div>
-          <div class="phase-cta">Open Context Library →</div>
+          <div class="phase-cta">Open Curriculum Inputs →</div>
         </a>
       </div>
     </details>
@@ -302,13 +375,13 @@
     <!-- Connector -->
     <div class="phase-connector">
       <div class="pc-line"></div>
-      <div class="pc-text">Optional shared context</div>
+      <div class="pc-text">Optional curriculum inputs</div>
     </div>
 
     <!-- Main Workflow -->
     <a class="phase-card phase-main phase-main-primary" href="plan-direction.html">
       <div class="phase-tag">Main Workflow</div>
-      <div class="phase-title">Design New Module <span class="phase-recommended">Recommended</span></div>
+      <div class="phase-title">Design New Module</div>
       <div class="phase-desc">Define module direction, draft key sections, and iteratively refine curriculum content with AI support.</div>
       <ol class="phase-steps">
         <li>Define module direction</li>
@@ -328,10 +401,11 @@
   </div>
 
   <!-- ═══ PATH B: Review Existing ═══ -->
-  <div class="path-block">
-    <span class="path-label">Review an Existing Module</span>
+  <div class="path-block review">
+    <span class="path-label"><span class="path-num">B</span>Review an Existing Module</span>
 
-    <a class="phase-card phase-main" href="refresh-align.html">
+    <a class="phase-card phase-main phase-main-review" href="refresh-align.html">
+      <div class="phase-tag">Review Workflow</div>
       <div class="phase-title">Module Review &amp; Refinement</div>
       <div class="phase-desc">Import existing module materials, configure review focus areas, then review and refine AI-generated recommendations.</div>
       <ol class="phase-steps">
