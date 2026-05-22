@@ -96,6 +96,12 @@
       padding: 2px 7px; flex-shrink: 0;
     }
     .uz-desc { font-size: 11px; color: #aaa; padding: 3px 18px 10px; line-height: 1.5; }
+    .uz-ai-hint {
+      font-size: 10px;
+      color: #9aa1a8;
+      padding: 0 18px 10px;
+      letter-spacing: 0.02em;
+    }
     .uz-controls {
       display: flex;
       justify-content: flex-end;
@@ -483,7 +489,7 @@
 <main class="page">
 
   <div class="page-title">Gather &amp; Synthesise Context</div>
-  <div class="page-sub">Upload once and reuse across steps.</div>
+  <div class="page-sub">Upload once and reuse across steps. Upload reference materials to support planning, drafting, and curriculum review workflows.</div>
 
   <div class="layout">
 
@@ -497,8 +503,9 @@
             <div class="uz-title">Industry &amp; Benchmarking</div>
               <div class="uz-badge">4 files</div>
           </div>
-          <div class="uz-desc">Industry reports, employer feedback, market trend scans, and local or global benchmarking references.</div>
-            <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View files</button></div>
+          <div class="uz-desc">Industry reports, employer inputs, advisory discussions, and local or international curriculum references.</div>
+          <div class="uz-ai-hint">Suggested category based on uploaded content</div>
+            <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View references</button></div>
             <div class="uz-files">
               <div class="uz-file">
                 <span class="uz-file-ext">PDF</span>
@@ -554,8 +561,9 @@
             <div class="uz-title">Curriculum &amp; Standards</div>
             <div class="uz-badge">2 files</div>
           </div>
-          <div class="uz-desc">Skills frameworks, competency maps, accreditation references, and curriculum standard requirements.</div>
-          <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View files</button></div>
+          <div class="uz-desc">Skills frameworks, competency maps, accreditation references, and curriculum guidelines.</div>
+          <div class="uz-ai-hint">Suggested category based on uploaded content</div>
+          <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View references</button></div>
           <div class="uz-files">
             <div class="uz-file">
               <span class="uz-file-ext">PDF</span>
@@ -583,8 +591,9 @@
             <div class="uz-title">Student &amp; Module Insights</div>
             <div class="uz-badge">5 files</div>
           </div>
-          <div class="uz-desc">Student feedback, learning analytics, graduate outcomes, and internal module review insights.</div>
-          <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View files</button></div>
+          <div class="uz-desc">Student feedback, learning analytics, graduate outcomes, and module review inputs.</div>
+          <div class="uz-ai-hint">Suggested category based on uploaded content</div>
+          <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View references</button></div>
           <div class="uz-files">
             <div class="uz-file">
               <span class="uz-file-ext">XLSX</span>
@@ -630,8 +639,9 @@
             <div class="uz-title">Existing Module Materials</div>
             <div class="uz-badge">3 files</div>
           </div>
-          <div class="uz-desc">Current MDDs, assessment briefs, syllabi, and other existing module artifacts.</div>
-          <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View files</button></div>
+          <div class="uz-desc">Current MDDs, assessment briefs, syllabi, and related module materials.</div>
+          <div class="uz-ai-hint">Suggested category based on uploaded content</div>
+          <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View references</button></div>
           <div class="uz-files">
             <div class="uz-file">
               <span class="uz-file-ext">XLSX</span>
@@ -728,7 +738,7 @@
     <!-- Sidebar -->
     <div class="layout-side">
       <div class="side-box">
-        <span class="side-title">Materials gathered</span>
+        <span class="side-title">Reference Inputs</span>
         <div class="side-row">
           <span>Industry &amp; benchmarking</span>
           <span class="side-count" id="cnt-0">4</span>
@@ -851,7 +861,7 @@
   function toggleZone(btn) {
     const zone = btn.closest('.upload-zone');
     const isOpen = zone.classList.toggle('open');
-    btn.textContent = isOpen ? 'Hide files' : 'View files';
+    btn.textContent = isOpen ? 'Hide references' : 'View references';
   }
 
   function getZoneIndex(el) {
