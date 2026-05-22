@@ -3,2091 +3,881 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plan Curriculum Direction — AI Curriculum Review &amp; Design</title>
+  <title>Plan Curriculum Direction</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--font-sans); background: #fff; color: #1a1a1a; min-height: 100vh; padding-bottom: 72px; }
     :root {
-      --workspace-max: 1120px;
-      --workspace-pad: 32px;
+      --workspace-max: 1460px;
+      --workspace-pad: 24px;
+    }
+    body {
+      font-family: var(--font-sans, 'Inter', Arial, sans-serif);
+      background: #f3f5f8;
+      color: #19212a;
+      min-height: 100vh;
     }
 
-    /* ── Topbar ── */
-    .topbar { height: 52px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; padding: 0 40px; background: #fff; position: sticky; top: 0; z-index: 100; }
-    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .t-div { width: 1px; height: 16px; background: #e0e0e0; margin: 0 6px; }
-    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
-    .topbar-link { font-size: 12px; color: #888; text-decoration: none; }
-    .topbar-link:hover { color: #1a1a1a; }
-
-    /* ── Phase bar (color accents: NP Blue for active, teal-green for done) ── */
-    .phase-bar { border-bottom: 1px solid #e0e0e0; background: #fafafa; }
-    .phase-inner { max-width: var(--workspace-max); margin: 0 auto; padding: 0 var(--workspace-pad); display: flex; align-items: center; height: 40px; overflow-x: auto; }
-    .ph-step { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #bbb; white-space: nowrap; flex-shrink: 0; }
-    .ph-step.active { color: #004689; font-weight: 600; }
-    .ph-step.done { color: #2D7A4A; }
-    .ph-num { width: 20px; height: 20px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; font-family: var(--font-mono); flex-shrink: 0; }
-    .ph-step.active .ph-num { background: #004689; color: #fff; border-color: #004689; }
-    .ph-step.done .ph-num { background: #2D7A4A; color: #fff; border-color: #2D7A4A; }
-    .ph-connector { width: 28px; height: 1px; background: #e0e0e0; margin: 0 8px; flex-shrink: 0; }
-
-    /* ── Page ── */
-    .page { max-width: var(--workspace-max); margin: 0 auto; padding: 40px var(--workspace-pad); }
-    .page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
-    .page-title { font-size: 26px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 6px; }
-    .page-sub { font-size: 15px; color: #888; line-height: 1.55; max-width: 760px; }
-    .page-head-actions { display: flex; gap: 8px; flex-shrink: 0; }
-    .front-matter {
-      border: 1px solid #e4e4e4;
-      background: #fafafa;
-      padding: 16px 20px;
-      margin-bottom: 20px;
-    }
-    .front-matter-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #aaa;
-      margin-bottom: 12px; display: block;
-    }
-    .front-matter-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px 16px;
-    }
-    .front-matter-field {
+    .topbar {
+      height: 52px;
+      border-bottom: 1px solid #e4e7ea;
       display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .front-matter-field.full { grid-column: 1 / -1; }
-    .front-matter-field-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #aaa;
-    }
-    .front-matter-input {
-      width: 100%;
-      border: 1px solid #d8d8d8;
+      align-items: center;
+      padding: 0 28px;
       background: #fff;
-      padding: 8px 10px;
-      font-family: inherit;
-      font-size: 13px;
-      color: #1a1a1a;
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
-    .front-matter-input:focus { outline: none; border-color: #888; }
-    .front-matter-note {
+    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .t-div { width: 1px; height: 16px; background: #e0e0e0; margin: 0 4px; }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .topbar-link { font-size: 12px; color: #6d7782; text-decoration: none; }
+    .topbar-pill {
+      border: 1px solid #d6dde6;
+      background: #f8fafc;
+      color: #4f5f71;
+      border-radius: 999px;
+      padding: 4px 9px;
       font-size: 11px;
-      color: #888;
-      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .page {
+      max-width: var(--workspace-max);
+      margin: 0 auto;
+      padding: 22px var(--workspace-pad) 28px;
+      display: grid;
+      gap: 12px;
+    }
+    .page-title { font-size: 22px; font-weight: 700; color: #18212b; margin-bottom: 4px; }
+    .page-sub { font-size: 13px; color: #6e7b88; line-height: 1.55; max-width: 780px; }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .doc-surface {
+      border: 1px solid #dce3eb;
+      border-radius: 14px;
+      background: #fff;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .doc-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px;
+      border-bottom: 1px solid #e6ebf1;
+    }
+
+    .doc-title { font-size: 14px; font-weight: 700; color: #1c2732; }
+    .doc-meta { font-size: 11px; color: #6f7e8c; }
+    .doc-status {
+      font-size: 11px;
+      font-weight: 700;
+      color: #2d6a43;
+      border: 1px solid #cfe4d9;
+      background: #f4fbf7;
+      border-radius: 999px;
+      padding: 4px 8px;
+    }
+
+    .section-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 10px 14px;
+      border-bottom: 1px solid #e6ebf1;
+      background: #f8fafc;
+      align-items: flex-start;
+    }
+
+    .tab {
+      border: 1px solid #d7dfe8;
+      background: #fff;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #607080;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      border-color: #1a1a1a;
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    .doc-body {
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      overflow: visible;
+      min-height: 0;
+    }
+
+    .doc-pane,
+    .chat-pane {
+      display: none;
+    }
+
+    .doc-pane.active,
+    .chat-pane.active {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .doc-block {
+      border: 1px solid #dde4ec;
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px 11px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .doc-block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .doc-block-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #2f4357;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .doc-block-meta {
+      font-size: 10px;
+      color: #8493a1;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .doc-text {
+      font-size: 13px;
+      color: #283b4f;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .doc-line {
+      font-size: 13px;
+      color: #2a3d50;
+      line-height: 1.5;
+    }
+
+    .module-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      color: #2c3d4f;
+    }
+
+    .module-table th,
+    .module-table td {
+      border: 1px solid #d6e0ea;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+
+    .module-table th {
+      width: 42%;
+      background: #fafcfe;
+      color: #334a5f;
+      font-weight: 700;
+    }
+
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      color: #2c3d4f;
       margin-top: 4px;
     }
 
-    /* ── Layout ── */
-    .layout { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: flex-start; }
-    .layout-main { min-width: 0; }
-    .layout-side { display: none; }
-    @media (max-width: 1280px) {
-      :root { --workspace-pad: 24px; }
-      .topbar { padding: 0 24px; }
+    .hours-table th,
+    .hours-table td {
+      border: 1px solid #d6e0ea;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: anywhere;
     }
 
-    @media (max-width: 1080px) {
-      .layout-side { position: static; }
+    .hours-table th {
+      background: #f7fafd;
+      font-weight: 700;
+      color: #334a5f;
+    }
+
+    .assessment-list {
+      padding-left: 18px;
+      display: grid;
+      gap: 4px;
+      color: #2b3f54;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .doc-footnote {
+      font-size: 11px;
+      color: #6f8193;
+    }
+
+    .previous-toggle {
+      border: 1px solid #d4dde7;
+      background: #fff;
+      color: #506274;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      width: fit-content;
+    }
+
+    .previous-preview {
+      border: 1px dashed #d8e1ea;
+      border-radius: 10px;
+      background: #fafcfe;
+      padding: 10px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .chat-surface {
+      border: 1px solid #dce3eb;
+      border-radius: 14px;
+      background: #fff;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      overflow: hidden;
+      min-height: 0;
+      max-width: 1080px;
+      width: 100%;
+      justify-self: start;
+    }
+
+    .chat-top {
+      padding: 12px 14px;
+      border-bottom: 1px solid #e6ebf1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: #fbfcfd;
+    }
+
+    .agent {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .agent-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #1b2530;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .agent-title { font-size: 13px; font-weight: 700; color: #223140; }
+    .agent-sub { font-size: 11px; color: #738292; }
+
+    .chat-state {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #58718b;
+      border: 1px solid #d8e4f0;
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: #f4f8fc;
+    }
+
+    .chat-body {
+      padding: 18px;
+      background: #f8fafd;
+      overflow-y: auto;
+      display: grid;
+      gap: 20px;
+      align-content: start;
+    }
+
+    .bubble {
+      max-width: 94%;
+      border-radius: 12px;
+      padding: 9px 10px;
+      border: 1px solid #dce5ee;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #26384b;
+      background: #fff;
+      white-space: pre-wrap;
+    }
+
+    .bubble.ai {
+      justify-self: start;
+      background: #ffffff;
+    }
+
+    .bubble.ai.lead {
+      background: #172535;
+      color: #f3f7fc;
+      border-color: #172535;
+      max-width: 100%;
+    }
+
+    .bubble.ai.minimal {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: #2b3e52;
+      max-width: 100%;
+    }
+
+    .bubble.ai.minimal .question-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #30465b;
+    }
+
+    .bubble.user {
+      justify-self: end;
+      background: #1f2b36;
+      color: #f4f7fb;
+      border-color: #1f2b36;
+    }
+
+    .bubble.user.lecturer {
+      background: #e7eef7;
+      color: #1f354b;
+      border-color: #d2ddec;
+      max-width: 100%;
+    }
+
+    .msg-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 5px;
+      opacity: 0.85;
+    }
+
+    .choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .choice {
+      border: 1px solid #d2dce7;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #5c6d7d;
+      background: #fff;
+    }
+
+    .choice.active {
+      border-color: #1a1a1a;
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    .synthesis-card {
+      border: 1px solid #d7e4f2;
+      background: #f3f8ff;
+      border-radius: 10px;
+      padding: 10px;
+      display: grid;
+      gap: 6px;
+      color: #2a435a;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .synthesis-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #5f7892;
+    }
+
+    .chat-footer {
+      border-top: 1px solid #e6ebf1;
+      padding: 12px 14px;
+      display: grid;
+      gap: 8px;
+      background: #fff;
+    }
+
+    .composer {
+      border: 1px solid #d5dde6;
+      border-radius: 10px;
+      background: #fbfcfd;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #5f6f7e;
+      line-height: 1.4;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    .secondary-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .primary-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .time {
+      font-size: 11px;
+      color: #82909d;
+    }
+
+    .btn-accept {
+      border: 1px solid #1a1a1a;
+      background: #1a1a1a;
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-secondary {
+      border: 1px solid #d2dbe4;
+      background: #fff;
+      color: #4f6070;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .alignment-notes {
+      border: 1px solid #d9e4ef;
+      border-radius: 10px;
+      background: #f7fbff;
+      padding: 10px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .alignment-notes .doc-block-title {
+      margin-bottom: 2px;
+    }
+
+    @media (min-width: 1500px) {
+      .workspace {
+        grid-template-columns: minmax(0, 1.15fr) minmax(460px, 0.85fr);
+      }
+
+      .chat-surface {
+        max-width: none;
+      }
     }
 
     @media (max-width: 900px) {
       :root { --workspace-pad: 16px; }
       .topbar { padding: 0 16px; }
-      .page { padding: 28px var(--workspace-pad); }
-      .page-head { flex-direction: column; margin-bottom: 24px; }
       .page-title { font-size: 20px; }
-      .page-sub { font-size: 15px; margin-bottom: 0; }
-      .field-row { flex-direction: column; }
-      .field[style] { width: 100% !important; flex: 1 !important; }
-      .chip-group#chip-level { flex-wrap: wrap !important; }
-      .npgc-grid,
-      .check-group-2col,
-      .assessment-bank,
-      .review-modal-body { grid-template-columns: 1fr; }
-    }
-
-    /* ── Plan sections ── */
-    .plan-section { border: 1px solid #e4e4e4; margin-bottom: 10px; background: #fff; }
-    .ps-header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; user-select: none; }
-    .ps-header:hover { background: #fafafa; }
-    .ps-num { width: 22px; height: 22px; flex-shrink: 0; font-size: 10px; font-weight: 700; font-family: var(--font-mono); background: #004689; color: #fff; display: flex; align-items: center; justify-content: center; }
-    .ps-title { font-size: 15px; font-weight: 600; color: #1a1a1a; }
-    .ps-desc { font-size: 12px; color: #aaa; margin-left: auto; max-width: 320px; text-align: right; line-height: 1.4; }
-    .ps-toggle { flex-shrink: 0; font-size: 11px; color: #ccc; margin-left: 10px; transition: transform 130ms; line-height: 1; }
-    .plan-section.collapsed .ps-toggle { transform: rotate(-90deg); }
-    .plan-section.collapsed .ps-body { display: none; }
-    .ps-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
-    .ps-body > .section-ai {
-      order: -1;
-      margin-top: 0;
-    }
-
-    /* ── Form rows ── */
-    .field-row { display: flex; gap: 10px; margin-bottom: 12px; }
-    .field-row:last-child { margin-bottom: 0; }
-    .field { display: flex; flex-direction: column; gap: 5px; flex: 1; }
-    .field-label { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #aaa; }
-    .field-label .opt { font-weight: 400; text-transform: none; letter-spacing: 0; color: #ccc; }
-    .plan-input, .plan-select { font-family: var(--font-sans); font-size: 14px; color: #1a1a1a; border: 1px solid #d8d8d8; padding: 8px 12px; background: #fff; outline: none; width: 100%; transition: border-color 100ms; }
-    .plan-select { appearance: none; cursor: pointer; }
-    .plan-input:focus, .plan-select:focus { border-color: #888; }
-    .plan-textarea { font-family: var(--font-sans); font-size: 14px; color: #1a1a1a; border: 1px solid #d8d8d8; padding: 10px 12px; background: #fff; outline: none; width: 100%; resize: vertical; min-height: 72px; line-height: 1.6; transition: border-color 100ms; }
-    .plan-textarea:focus { border-color: #888; }
-    .plan-hint { font-size: 11px; color: #bbb; line-height: 1.5; margin-top: 4px; }
-    .section-ai {
-      margin-top: 12px;
-      padding: 12px;
-      border: 1px solid #d8e3f4;
-      background: linear-gradient(180deg, #f7faff 0%, #fdfefe 100%);
-      border-radius: 12px;
-    }
-    .section-ai-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-    .section-ai-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #004689;
-    }
-    .section-ai-note {
-      margin-top: 6px;
-      font-size: 12px;
-      color: #35506d;
-      line-height: 1.5;
-      background: #eaf2ff;
-      border: 1px solid #d3e2fb;
-      border-radius: 10px;
-      padding: 8px 10px;
-    }
-    .section-ai-brief {
-      width: 100%;
-      min-height: 58px;
-      margin-top: 8px;
-      padding: 10px 12px;
-      border: 1px solid #c9d8ef;
-      background: #fff;
-      font: inherit;
-      font-size: 13px;
-      line-height: 1.45;
-      resize: vertical;
-      border-radius: 10px;
-    }
-    .section-ai-brief:focus { outline: none; border-color: #6995cf; }
-    .section-ai-actions { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
-    .section-ai-btn {
-      border: 1px solid #bfd0eb;
-      background: #fff;
-      color: #30527b;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 7px 11px;
-      cursor: pointer;
-      font-family: inherit;
-      border-radius: 999px;
-    }
-    .section-ai-actions .section-ai-btn:last-child {
-      border-color: #004689;
-      background: #004689;
-      color: #fff;
-    }
-    .section-ai-actions .section-ai-btn:last-child:hover {
-      border-color: #003768;
-      background: #003768;
-    }
-    .section-ai-btn:hover { border-color: #6995cf; color: #0d2f57; }
-    .section-ai-output {
-      display: none;
-      border: 1px solid #d8e3f4;
-      background: #f8fbff;
-      border-radius: 12px;
-      padding: 10px;
-      margin-top: 8px;
-    }
-    .section-ai-output.show { display: block; }
-    .section-ai-output-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: #4f6d95;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .section-ai-output-text {
-      font-size: 13px;
-      color: #35506d;
-      line-height: 1.5;
-    }
-    .section-ai-group {
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid #dfe9f6;
-    }
-    .section-ai-group-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #4f6d95;
-      margin-bottom: 4px;
-    }
-    .section-ai-list {
-      margin: 0;
-      padding-left: 16px;
-      color: #35506d;
-      font-size: 12px;
-      line-height: 1.5;
-    }
-    .section-ai-actions-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; justify-content: flex-end; }
-    .chat-msg {
-      margin-bottom: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .chat-msg-meta {
-      font-size: 10px;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: #6b84a8;
-      font-weight: 700;
-    }
-    .chat-bubble {
-      font-size: 13px;
-      line-height: 1.5;
-      border-radius: 12px;
-      padding: 9px 11px;
-      max-width: 92%;
-      white-space: pre-wrap;
-    }
-    .chat-msg-user { align-items: flex-end; }
-    .chat-msg-user .chat-msg-meta { color: #4f6d95; }
-    .chat-msg-user .chat-bubble {
-      background: #004689;
-      color: #fff;
-      border-top-right-radius: 4px;
-    }
-    .chat-msg-ai { align-items: flex-start; }
-    .chat-msg-ai .chat-bubble {
-      background: #eaf2ff;
-      color: #244466;
-      border: 1px solid #d3e2fb;
-      border-top-left-radius: 4px;
-    }
-    .chat-suggestion-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 7px;
-      margin-top: 6px;
-    }
-    .chat-suggestion-card {
-      border: 1px solid #cddcf1;
-      border-radius: 10px;
-      background: #fff;
-      padding: 8px 10px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .chat-suggestion-text {
-      font-size: 12px;
-      color: #2f4e70;
-      line-height: 1.45;
-      flex: 1;
-    }
-    .output-widget {
-      margin-top: 10px;
-      border: 1px solid #cddcf1;
-      border-radius: 10px;
-      background: #fff;
-      padding: 9px;
-    }
-    .output-widget-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 7px;
-    }
-    .output-widget-title {
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #4f6d95;
-      font-weight: 700;
-    }
-    .output-widget-tools {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .output-format {
-      border: 1px solid #bfd0eb;
-      border-radius: 8px;
-      font-size: 12px;
-      padding: 5px 8px;
-      color: #30527b;
-      background: #fff;
-      font-family: inherit;
-    }
-    .output-text {
-      width: 100%;
-      min-height: 104px;
-      border: 1px solid #d8e3f4;
-      border-radius: 8px;
-      padding: 9px 10px;
-      font: inherit;
-      font-size: 12px;
-      line-height: 1.5;
-      color: #2f4e70;
-      background: #f9fcff;
-      resize: vertical;
-    }
-    .output-preview {
-      display: none;
-      border: 1px solid #d8e3f4;
-      border-radius: 8px;
-      background: #f9fcff;
-      padding: 10px;
-      color: #2f4e70;
-    }
-    .output-preview.show { display: block; }
-    .preview-heading {
-      font-size: 18px;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 8px;
-      color: #1f3f62;
-    }
-    .preview-subheading {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #4f6d95;
-      margin-bottom: 8px;
-      text-align: center;
-    }
-    .preview-label {
-      font-size: 12px;
-      font-weight: 600;
-      margin: 6px 0;
-      color: #35506d;
-    }
-    .preview-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-      font-size: 12px;
-    }
-    .preview-table th,
-    .preview-table td {
-      border: 1px solid #c7d8f0;
-      padding: 7px 8px;
-      vertical-align: top;
-      text-align: left;
-    }
-    .preview-table th {
-      background: #edf4ff;
-      color: #2f4e70;
-      font-weight: 700;
-    }
-
-    /* ── Stepper ── */
-    .stepper { display: flex; align-items: center; border: 1px solid #d8d8d8; background: #fff; height: 34px; }
-    .stepper-btn { width: 30px; height: 100%; font-size: 14px; color: #888; border: none; background: #f8f8f8; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .stepper-btn:hover { background: #f0f0f0; color: #1a1a1a; }
-    .stepper-val { flex: 1; text-align: center; font-size: 13px; font-weight: 600; font-family: var(--font-mono); color: #1a1a1a; border-left: 1px solid #e8e8e8; border-right: 1px solid #e8e8e8; }
-
-    /* ── Chips ── */
-    .chip-group { display: flex; gap: 6px; flex-wrap: wrap; }
-    .chip { font-size: 12px; font-weight: 500; color: #666; border: 1px solid #d0d0d0; padding: 6px 14px; cursor: pointer; background: #fff; user-select: none; transition: all 100ms; }
-    .chip:hover { border-color: #004689; color: #004689; }
-    .chip.on { background: #004689; color: #fff; border-color: #004689; }
-
-    /* ── NPGC grid ── */
-    .npgc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .npgc-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid #ececec; cursor: pointer; user-select: none; transition: background 80ms; }
-    .npgc-item:hover { background: #fafafa; border-color: #004689; }
-    .npgc-item.on { background: #f0f6fc; border-color: #004689; }
-    .npgc-cb { width: 15px; height: 15px; border: 1px solid #ccc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #fff; transition: all 80ms; }
-    .npgc-item.on .npgc-cb { background: #004689; border-color: #004689; }
-    .npgc-item.on .npgc-cb::after { content: '✓'; color: #fff; font-size: 9px; font-weight: 700; }
-    .npgc-num { font-size: 9px; font-weight: 700; font-family: var(--font-mono); color: #aaa; flex-shrink: 0; }
-    .npgc-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
-    .npgc-ref { display: none; font-size: 10px; color: #2d5f92; margin-top: 2px; font-weight: 600; line-height: 1.35; }
-    .npgc-item.on .npgc-ref { display: block; }
-    .npgc-note { font-size: 11px; color: #bbb; margin-top: 8px; line-height: 1.45; }
-    .auto-map-note { font-size: 11px; color: #2d5f92; margin-top: 8px; line-height: 1.45; }
-
-    .assessment-bank { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
-    .assessment-card {
-      border: 1px solid #ececec;
-      background: #fff;
-      padding: 10px 12px;
-      cursor: pointer;
-      transition: border-color 80ms, background 80ms;
-      min-height: 74px;
-    }
-    .assessment-card:hover { border-color: #004689; background: #fafcff; }
-    .assessment-card.on { border-color: #004689; background: #f0f6fc; }
-    .assessment-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .assessment-card-name { font-size: 13px; font-weight: 600; color: #1a1a1a; }
-    .assessment-card-plus { font-size: 14px; color: #004689; font-weight: 700; }
-    .assessment-card-sub { font-size: 11px; color: #777; line-height: 1.4; margin-top: 4px; }
-    .assessment-detail {
-      margin-top: 12px;
-      border: 1px solid #e8e8e8;
-      background: #fbfbfb;
-      padding: 12px;
-    }
-    .assessment-detail-title { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
-    .assessment-detail-grid { display: grid; grid-template-columns: 120px 1fr; gap: 8px 10px; align-items: center; }
-    .assessment-detail-label { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #aaa; }
-    .assessment-detail-input { width: 100%; border: 1px solid #d8d8d8; background: #fff; padding: 8px 10px; font-family: inherit; font-size: 13px; }
-    .assessment-detail-input:focus { outline: none; border-color: #888; }
-    .assessment-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-    .tiny-action {
-      border: 1px solid #d0d0d0;
-      background: #fff;
-      color: #555;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 5px 8px;
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .tiny-action:hover { border-color: #999; color: #1a1a1a; }
-
-    /* ── Check group ── */
-    .check-group-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .check-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid #e8e8e8; cursor: pointer; user-select: none; transition: background 80ms; }
-    .check-item:hover { background: #fafafa; border-color: #004689; }
-    .check-item.on { background: #f0f6fc; border-color: #004689; }
-    .check-box { width: 15px; height: 15px; border: 1px solid #ccc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #fff; transition: all 80ms; }
-    .check-item.on .check-box { background: #004689; border-color: #004689; }
-    .check-item.on .check-box::after { content: '✓'; color: #fff; font-size: 9px; font-weight: 700; }
-    .check-label { font-size: 14px; color: #1a1a1a; }
-    .check-sub { font-size: 10px; color: #aaa; margin-left: auto; }
-
-    /* ── AI insight (subtle, inline) ── */
-    .ai-hint { display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; background: #fffef8; border: 1px solid #ecd88f; margin-top: 10px; }
-    .ai-hint-icon { font-size: 11px; font-weight: 700; color: #7a5f00; letter-spacing: 0.06em; flex-shrink: 0; padding-top: 1px; }
-    .ai-hint-text { font-size: 12px; color: #555; line-height: 1.45; }
-
-    /* ── Sidebar ── */
-    .side-card { border: 1px solid #e4e4e4; margin-bottom: 10px; }
-    .side-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; padding: 12px 14px 8px; display: block; }
-    .side-card-body { padding: 0 14px 12px; }
-    .side-rec-item { font-size: 11px; color: #666; line-height: 1.5; padding: 6px 0; border-bottom: 1px solid #f4f4f4; display: flex; gap: 7px; align-items: flex-start; }
-    .side-rec-item:last-child { border-bottom: none; }
-    .side-rec-item::before { content: '·'; color: #ccc; flex-shrink: 0; }
-    .sum-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #f4f4f4; font-size: 11px; }
-    .sum-row:last-child { border-bottom: none; }
-    .sum-key { color: #aaa; }
-    .sum-val { color: #1a1a1a; font-weight: 600; text-align: right; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .sum-val.empty { color: #bbb; font-weight: 400; }
-
-    .side-card.ai-side { background: #fffef8; border-color: #ecd88f; }
-    .side-card.ai-side .side-label { color: #7a5f00; }
-
-    /* ── Inline contextual AI insight ── */
-    .ai-inline {
-      display: flex; align-items: flex-start; gap: 8px;
-      padding: 9px 12px; margin-top: 10px;
-      background: #fffef8; border-left: 2px solid #FCB040;
-      font-size: 11px; color: #555; line-height: 1.5;
-    }
-    .ai-inline::before {
-      content: '✦'; color: #b8901c; flex-shrink: 0;
-      font-size: 10px; margin-top: 1px; font-weight: 700;
-    }
-
-    /* ── AI Draft workspace additions ── */
-    .scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .scope-item {
-      border: 1px solid #e4e4e4;
-      padding: 10px 12px;
-      cursor: pointer;
-      background: #fff;
-      transition: all 100ms;
-    }
-    .scope-item:hover { border-color: #004689; background: #fafcff; }
-    .scope-item.on { border-color: #004689; background: #f0f6fc; }
-    .scope-top { display: flex; align-items: center; gap: 8px; }
-    .scope-cb { width: 14px; text-align: center; color: #004689; font-weight: 700; }
-    .scope-name { font-size: 14px; font-weight: 600; color: #1a1a1a; }
-    .scope-sub { font-size: 12px; color: #777; margin-top: 4px; line-height: 1.45; }
-    .scope-ref { font-size: 10px; color: #2d5f92; margin-top: 4px; font-weight: 600; }
-    .scope-actions { display: flex; gap: 8px; margin-top: 10px; }
-
-    .mini-btn {
-      border: 1px solid #d0d0d0;
-      background: #fff;
-      color: #555;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 6px 10px;
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .mini-btn:hover { border-color: #999; color: #1a1a1a; }
-
-    .link-row { display: flex; gap: 8px; align-items: stretch; margin-top: 8px; }
-    .link-row .plan-input { flex: 1; }
-
-    .observations-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px solid #e4e4e4;
-      padding: 10px 12px;
-      cursor: pointer;
-      background: #fff;
-      margin-top: 8px;
-    }
-    .observations-title { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6b5a1d; }
-    .observations-count { font-size: 11px; color: #8d7a2a; border: 1px solid #ecd88f; background: #fffef8; padding: 2px 8px; }
-    .observations-body {
-      border: 1px solid #e4e4e4;
-      border-top: none;
-      padding: 10px 12px;
-      background: #fff;
-      display: none;
-    }
-    .observations-body.show { display: block; }
-    .observations-list { margin: 0; padding-left: 16px; font-size: 12px; color: #555; line-height: 1.5; }
-
-    .priority-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-    .priority-chip {
-      display: inline-flex; align-items: center; gap: 6px;
-      border: 1px solid #dadada; background: #fff; color: #444;
-      padding: 7px 10px; font-size: 12px; font-weight: 600; cursor: pointer;
-      font-family: inherit;
-    }
-    .priority-chip.on { border-color: #004689; background: #f0f6fc; color: #004689; }
-    .priority-chip .priority-dot { width: 6px; height: 6px; border-radius: 999px; background: #bbb; }
-    .priority-chip.on .priority-dot { background: #004689; }
-
-    .field-stack { display: grid; gap: 12px; }
-    .field-block { border: 1px solid #ececec; padding: 12px; background: #fff; }
-    .field-block-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7a5f00; margin-bottom: 8px; }
-    .field-block-note { font-size: 11px; color: #888; margin-top: 8px; line-height: 1.45; }
-
-    .right-summary-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7a5f00; margin-bottom: 10px; }
-    .snapshot { border: 1px solid #ececec; background: #fafafa; padding: 10px 12px; margin-bottom: 12px; }
-    .snapshot-title { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
-    .snapshot-list { margin: 0; padding-left: 16px; font-size: 12px; color: #555; line-height: 1.55; }
-    .readiness-list { list-style: none; margin: 0; display: grid; gap: 6px; }
-    .readiness-item { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; color: #555; line-height: 1.45; }
-    .readiness-mark { width: 16px; flex-shrink: 0; text-align: center; font-weight: 700; }
-    .readiness-item.good .readiness-mark { color: #2d7a4a; }
-    .readiness-item.warn .readiness-mark { color: #b07a00; }
-    .readiness-item.good { color: #333; }
-    .readiness-item.warn { color: #6a5a00; }
-
-    .generation-stage {
-      border-top: 1px solid #dcdcdc;
-      background: linear-gradient(180deg, #fafafa 0%, #fff 100%);
-      padding-top: 14px;
-      margin-top: 10px;
-    }
-    .generation-stage-label {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #777;
-      margin: 0 0 8px;
-    }
-    .generation-stage-note { font-size: 12px; color: #666; margin: 6px 0 10px; }
-    .generation-stage .plan-section { margin-top: 0; }
-
-    .plan-hint-inline { font-size: 11px; color: #888; margin-top: 8px; line-height: 1.5; }
-
-    .draft-output {
-      border: 1px solid #e4e4e4;
-      background: #fff;
-      margin-top: 12px;
-      display: none;
-    }
-    .draft-output.show { display: block; }
-    .draft-head {
-      padding: 12px 14px;
-      border-bottom: 1px solid #f0f0f0;
-      background: #fafafa;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-    .draft-title { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #1a1a1a; }
-    .draft-sub { font-size: 12px; color: #666; line-height: 1.45; margin-top: 3px; }
-    .draft-actions { display: flex; gap: 8px; }
-    .draft-cards { padding: 12px 14px; display: grid; gap: 10px; }
-    .draft-card { border: 1px solid #e8e8e8; padding: 10px 12px; }
-    .draft-card h4 { font-size: 13px; color: #1a1a1a; margin-bottom: 6px; }
-    .draft-card p { font-size: 12px; color: #555; line-height: 1.5; }
-
-    /* ── Review modal ── */
-    .review-cta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-    .review-modal-backdrop {
-      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.35);
-      display: none; align-items: center; justify-content: center; padding: 24px; z-index: 300;
-    }
-    .review-modal-backdrop.show { display: flex; }
-    .review-modal {
-      width: min(860px, 100%); max-height: min(88vh, 900px); overflow: auto;
-      background: #fff; border: 1px solid #dedede; box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
-    }
-    .review-modal-head {
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      padding: 16px 18px; border-bottom: 1px solid #f0f0f0;
-    }
-    .review-modal-title { font-size: 15px; font-weight: 700; color: #1a1a1a; }
-    .review-modal-sub { font-size: 12px; color: #777; margin-top: 2px; }
-    .review-modal-close {
-      border: 1px solid #d0d0d0; background: #fff; color: #555;
-      font-size: 12px; font-weight: 600; padding: 6px 10px; cursor: pointer; font-family: inherit;
-    }
-    .review-modal-body { padding: 16px 18px 18px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 16px; }
-    .review-panel { border: 1px solid #e8e8e8; background: #fbfbfb; padding: 12px; }
-    .review-panel-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; margin-bottom: 10px; }
-    .review-lines { display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: #444; line-height: 1.5; }
-    .review-line { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid #f0f0f0; }
-    .review-line:last-child { border-bottom: none; padding-bottom: 0; }
-    .review-line-key { color: #888; }
-    .review-line-val { text-align: right; font-weight: 600; color: #1a1a1a; }
-    .review-list { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #444; }
-    .review-list li { margin-left: 18px; }
-    .review-modal-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-    .btn-ghost { font-size: 12px; font-weight: 500; color: #888; border: 1px solid #d8d8d8; padding: 7px 16px; background: #fff; cursor: pointer; text-decoration: none; }
-    .btn-ghost:hover { border-color: #999; color: #1a1a1a; }
-    .btn-primary { font-size: 12px; font-weight: 600; color: #fff; border: 1px solid #004689; padding: 7px 18px; background: #004689; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-primary:hover { background: #003366; border-color: #003366; }
-
-    /* ── Global readability profile (aligned to review page scale) ── */
-    :root {
-      --workspace-max: 1120px;
-      --workspace-pad: 32px;
-    }
-    .topbar { padding: 0 40px; }
-    .topbar-link { font-size: 13px; }
-    .phase-inner { min-height: 44px; }
-    .ph-step { font-size: 12px; }
-    .page { max-width: var(--workspace-max); padding: 40px var(--workspace-pad); }
-    .page-title { font-size: 22px; margin-bottom: 6px; }
-    .page-sub { font-size: 13px; line-height: 1.65; margin-bottom: 28px; max-width: 600px; }
-    .ps-title { font-size: 13px; }
-    .ps-desc, .field-label, .side-label { font-size: 12px; }
-    .plan-input, .plan-select, .plan-textarea, .check-label, .btn-ghost, .btn-primary, .bb-note { font-size: 14px; }
-    .scope-name { font-size: 14px; }
-    .scope-sub, .observations-list, .draft-card p { font-size: 12px; }
-    .field-stack { gap: 10px; }
-
-    @media (max-width: 1280px) {
-      :root { --workspace-pad: 28px; }
-      .topbar { padding: 0 28px; }
-      .page-title { font-size: 30px; }
-      .page-sub { font-size: 16px; }
-    }
-
-    @media (max-width: 900px) {
-      :root { --workspace-pad: 18px; }
-      .topbar { padding: 0 18px; }
-      .page { padding: 30px var(--workspace-pad); }
-      .page-title { font-size: 26px; }
-      .page-sub { font-size: 15px; margin-bottom: 24px; }
-      .scope-grid { grid-template-columns: 1fr; }
-      .link-row { flex-direction: column; }
+      .workspace { grid-template-columns: 1fr; }
+      .doc-surface, .chat-surface { min-height: auto; }
+      .doc-body { overflow: visible; }
+      .chat-surface { max-width: none; }
     }
   </style>
 </head>
 <body>
+  <nav class="topbar">
+    <a href="index.html" class="topbar-brand">
+      <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
+      <div class="t-div"></div>
+      <span style="font-size:13px; font-weight:500; color:#1a1a1a;">AI Curriculum Review and Design</span>
+      <span style="font-size:10px; font-weight:500; color:#999; border:1px solid #d8d8d8; padding:2px 8px; letter-spacing:0.02em;">Concept Prototype</span>
+    </a>
+    <div class="topbar-right">
+      <span class="topbar-pill">Session: Drafting</span>
+      <a href="index.html" class="topbar-link">Home</a>
+    </div>
+  </nav>
 
-<!-- Topbar -->
-<nav class="topbar">
-  <a href="index.html" class="topbar-brand">
-    <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
-    <div class="t-div"></div>
-    <span style="font-size:13px; font-weight:500; color:#1a1a1a;">AI Curriculum Review &amp; Design</span>
-    <span style="font-size:10px; font-weight:500; color:#999; border:1px solid #d8d8d8; padding:2px 8px; letter-spacing:0.02em; margin-left:4px;">Concept Prototype</span>
-  </a>
-  <div class="topbar-right">
-    <a href="index.html" class="topbar-link">← Home</a>
-  </div>
-</nav>
-
-<!-- Page -->
-<main class="page">
-
-  <div class="page-head">
-    <div>
+  <main class="page">
+    <section class="page-head">
       <div class="page-title">Plan Curriculum Direction</div>
-      <div class="page-sub">Start with the module idea, then shape the synopsis, outcomes, content, and assessment inside one guided curriculum workspace.</div>
-    </div>
-    <div class="page-head-actions">
-      <button class="btn-subtle" type="button" onclick="openReviewModal()">Review</button>
-    </div>
-  </div>
+      <div class="page-sub">Drafting view with a canonical document on the left and temporary AI guidance on the right.</div>
+    </section>
 
-  <div class="front-matter">
-    <span class="front-matter-label">Module Metadata</span>
-    <div class="front-matter-grid">
-      <div class="front-matter-field full">
-        <label class="front-matter-field-label" for="diploma-title">Diploma Title</label>
-        <input class="front-matter-input" id="diploma-title" type="text" placeholder="e.g. Diploma in Digital Product Design" oninput="updateSummary()">
-      </div>
-      <div class="front-matter-field full">
-        <label class="front-matter-field-label" for="module-name">Module Name</label>
-        <input class="front-matter-input" id="module-name" type="text" placeholder="e.g. Applied AI for Design" oninput="updateSummary()">
-      </div>
-      <div class="front-matter-field full">
-        <label class="front-matter-field-label" for="module-catalogue">Module Catalogue and ID</label>
-        <input class="front-matter-input" id="module-catalogue" type="text" placeholder="e.g. DPD3024 / 045821" oninput="updateSummary()">
-      </div>
-      <div class="front-matter-field full">
-        <label class="front-matter-field-label" for="pre-requisites">Pre-Requisites</label>
-        <input class="front-matter-input" id="pre-requisites" type="text" placeholder="e.g. None / prior design fundamentals" oninput="updateSummary()">
-      </div>
-      <div class="front-matter-field">
-        <label class="front-matter-field-label" for="timetabled-hours">Timetabled Hours</label>
-        <input class="front-matter-input" id="timetabled-hours" type="text" placeholder="e.g. 60 hours" oninput="updateSummary()">
-      </div>
-      <div class="front-matter-field">
-        <label class="front-matter-field-label" for="contact-hours">Contact Hours</label>
-        <input class="front-matter-input" id="contact-hours" type="text" placeholder="e.g. 60 hours" oninput="updateSummary()">
-      </div>
-      <div class="front-matter-field">
-        <label class="front-matter-field-label" for="credit-units">Credit Units</label>
-        <input class="front-matter-input" id="credit-units" type="text" placeholder="e.g. 4" oninput="updateSummary()">
-      </div>
-      <div class="front-matter-field">
-        <label class="front-matter-field-label" for="assessment-weightage">Assessment Weightage</label>
-        <input class="front-matter-input" id="assessment-weightage" type="text" placeholder="e.g. Continuous Assessment 100%" oninput="updateSummary()">
-      </div>
-    </div>
-  </div>
-
-  <div class="layout">
-
-    <div class="layout-main">
-
-      <!-- Section A: Module Overview -->
-      <div class="plan-section collapsed">
-        <div class="ps-header" onclick="toggleSection(this)">
-          <div class="ps-num">A</div>
-          <div class="ps-title">Module Overview</div>
-          <div class="ps-desc">Title, level, credit units, and delivery mode</div>
-          <div class="ps-toggle">▾</div>
-        </div>
-        <div class="ps-body">
-          <div class="field-row">
-            <div class="field">
-              <label class="field-label">Module Title</label>
-              <input class="plan-input" id="f-title" type="text" placeholder="e.g. Data Structures &amp; Algorithms" oninput="updateSummary()">
-            </div>
+    <section class="workspace">
+      <div class="doc-surface">
+        <div class="doc-top">
+          <div>
+            <div class="doc-title">Digital Marketing Module (Level 2)</div>
+            <div class="doc-meta">Working draft saved 2 minutes ago</div>
           </div>
-          <div class="field-row">
-            <div class="field" style="flex:1.4;">
-              <label class="field-label">Level</label>
-              <div class="chip-group" id="chip-level" style="flex-wrap:nowrap;">
-                <span class="chip" onclick="selChip(this,'level')">L1</span>
-                <span class="chip on" onclick="selChip(this,'level')">L2</span>
-                <span class="chip" onclick="selChip(this,'level')">L3</span>
+          <div class="doc-status">Updated</div>
+        </div>
+
+        <div class="section-tabs">
+          <button class="tab" data-tab="overview" type="button">Module Overview</button>
+          <button class="tab" data-tab="synopsis" type="button">Synopsis and Aims</button>
+          <button class="tab active" data-tab="outcomes" type="button">Learning Outcomes</button>
+          <button class="tab" data-tab="content" type="button">Content Plan</button>
+          <button class="tab" data-tab="teaching" type="button">Teaching Strategies</button>
+          <button class="tab" data-tab="assessment" type="button">Assessment Plan</button>
+          <button class="tab" data-tab="plagiarism" type="button">Plagiarism Policy</button>
+          <button class="tab" data-tab="resources" type="button">Resources</button>
+        </div>
+
+        <div class="doc-body">
+          <div class="doc-pane" data-pane="overview">
+            <div class="doc-block">
+              <div class="doc-block-header">
+                <div class="doc-block-title">Module Document: Advanced Critical Care Nursing Science II</div>
+                <div class="doc-block-meta">Section Retained</div>
               </div>
-            </div>
-            <div class="field" style="flex:0 0 auto; width:120px;">
-              <label class="field-label">Credit Units</label>
-              <div class="stepper">
-                <button class="stepper-btn" onclick="step('cu',-1)">−</button>
-                <div class="stepper-val" id="cu-val">4</div>
-                <button class="stepper-btn" onclick="step('cu',1)">+</button>
-              </div>
-            </div>
-            <div class="field" style="flex:1;">
-              <label class="field-label">Delivery Mode</label>
-              <div class="chip-group" id="chip-delivery">
-                <span class="chip" onclick="selChip(this,'delivery')">Face-to-Face</span>
-                <span class="chip on" onclick="selChip(this,'delivery')">Blended</span>
-                <span class="chip" onclick="selChip(this,'delivery')">Fully Online</span>
-              </div>
+              <div class="doc-line"><strong>Institution:</strong> Ngee Ann Polytechnic - School of Health Sciences</div>
+              <table class="module-table">
+                <tbody>
+                  <tr><th>Course Name</th><td>Advanced Diploma in Critical Care Nursing - Specialty Module 3</td></tr>
+                  <tr><th>Module Name</th><td>Advanced Critical Care Nursing Science II</td></tr>
+                  <tr><th>Module Catalogue and ID</th><td>-</td></tr>
+                  <tr><th>Pre-Requisite</th><td>-</td></tr>
+                  <tr><th>Timetabled Hours</th><td>-</td></tr>
+                  <tr><th>Contact Hours</th><td>-</td></tr>
+                  <tr><th>Credit Units</th><td>-</td></tr>
+                  <tr><th>Assessment Weightage</th><td>-</td></tr>
+                </tbody>
+              </table>
+              <div class="doc-footnote">Overview structure kept for module document format. Remaining fields can be filled later.</div>
             </div>
           </div>
-          <div class="section-ai">
-            <div class="section-ai-head">
-              <div>
-                <div class="section-ai-label">AI co-create</div>
-                <div class="section-ai-note">Describe your intent. AI may ask follow-up questions before drafting.</div>
+
+          <div class="doc-pane" data-pane="synopsis">
+            <div class="doc-block">
+              <div class="doc-block-header">
+                <div class="doc-block-title">1. Synopsis and Aims</div>
+                <div class="doc-block-meta">Section Retained</div>
               </div>
+              <div class="doc-text">Synopsis placeholder retained for the module document.
+Detailed synopsis and aims are intentionally not populated in this mock.</div>
             </div>
-            <textarea class="section-ai-brief" id="module-brief" placeholder="Domain, learner level, and outcome focus"></textarea>
-            <div class="section-ai-actions" style="margin-top:8px;">
-              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('module-ai-output','module','f-title','draft')">Draft</button>
+          </div>
+
+          <div class="doc-pane active" data-pane="outcomes">
+            <div class="doc-block">
+              <div class="doc-block-header">
+                <div class="doc-block-title">2. Learning Outcomes</div>
+                <div class="doc-block-meta">Current Version</div>
+              </div>
+              <div class="doc-text">2.1 Discuss nursing care management of critically ill patients with gastrointestinal and hepato-biliary disorders.
+2.2 Interpret relevant laboratory and diagnostic findings for critical care decision-making.
+2.3 Integrate pathophysiology knowledge into safe, evidence-informed nursing interventions.
+2.4 Communicate clinical recommendations clearly within inter-professional care teams.</div>
+              <div class="doc-footnote">Updated from AI suggestions 2 mins ago</div>
             </div>
-            <div class="section-ai-output" id="module-ai-output" data-target="f-title"></div>
+            <div class="previous-preview">
+              <button class="previous-toggle" type="button">View Previous Draft</button>
+              <div class="doc-footnote">Previous draft hidden in this static mock.</div>
+            </div>
+
+            <div class="alignment-notes">
+              <div class="doc-block-title">Alignment Notes</div>
+              <div class="doc-line">&#10003; Measurable outcome verbs detected</div>
+              <div class="doc-line">&#10003; Applied case-analysis performance aligned</div>
+              <div class="doc-line">&#10003; Inter-professional communication integrated</div>
+            </div>
+          </div>
+
+          <div class="doc-pane" data-pane="content">
+            <div class="doc-block">
+              <div class="doc-block-header">
+                <div class="doc-block-title">3. Content: Topics and Hours</div>
+                <div class="doc-block-meta">Current Version</div>
+              </div>
+              <div class="doc-line"><strong>Online e-learning hours:</strong> 30 hours</div>
+              <table class="hours-table">
+                <thead>
+                  <tr>
+                    <th style="width:14%;">No</th>
+                    <th>Topic</th>
+                    <th style="width:26%;">Lecture-Tutorial hours</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>1</td><td>Gastrointestinal emergencies and acute abdomen</td><td>3</td></tr>
+                  <tr><td>2</td><td>Abdominal trauma and compartment syndrome</td><td>3</td></tr>
+                  <tr><td>3</td><td>Gastrointestinal bleeding and acute pancreatitis</td><td>3</td></tr>
+                  <tr><td>4</td><td>Hepato-biliary disorders and liver failure</td><td>3</td></tr>
+                  <tr><td>5</td><td>Integrated case simulation and care planning</td><td>3</td></tr>
+                </tbody>
+              </table>
+              <div class="doc-footnote">Content table follows the expected module-document format.</div>
+            </div>
+          </div>
+
+          <div class="doc-pane" data-pane="teaching">
+            <div class="doc-block">
+              <div class="doc-block-header">
+                <div class="doc-block-title">4. Teaching Methodology / Teaching and Learning Strategies</div>
+                <div class="doc-block-meta">Section Retained</div>
+              </div>
+              <div class="doc-text">This section is kept in the module document for audience walkthrough.
+Detailed strategy content is intentionally not populated in this mock.</div>
+              <div class="doc-footnote">Populate during live co-design as needed.</div>
+            </div>
+          </div>
+
+          <div class="doc-pane" data-pane="assessment">
+            <div class="doc-block">
+              <div class="doc-block-header">
+                <div class="doc-block-title">5. Assessment Strategies</div>
+                <div class="doc-block-meta">Current Version</div>
+              </div>
+              <ul class="assessment-list">
+                <li><strong>Group Project: 50%</strong> (30% group performance + 20% individual contribution)</li>
+                <li><strong>Class Test 1: 25%</strong></li>
+                <li><strong>Class Test 2: 25%</strong></li>
+              </ul>
+              <div class="doc-text">Students are required to critically analyse a case scenario and justify nursing decisions with evidence. Class tests assess individual understanding of core concepts and clinical reasoning.</div>
+              <div class="doc-footnote">Assessment format aligned to continuous assessment structure.</div>
+            </div>
+          </div>
+
+          <div class="doc-pane" data-pane="plagiarism">
+            <div class="doc-block">
+              <div class="doc-block-header">
+                <div class="doc-block-title">6. Plagiarism Policy</div>
+                <div class="doc-block-meta">Section Retained</div>
+              </div>
+              <div class="doc-text">Plagiarism policy section retained in module document format.
+Detailed policy wording is intentionally not populated in this mock.</div>
+            </div>
+          </div>
+
+          <div class="doc-pane" data-pane="resources">
+            <div class="doc-block">
+              <div class="doc-block-header">
+                <div class="doc-block-title">7. Recommended Texts / References / Learning Resources</div>
+                <div class="doc-block-meta">Section Retained</div>
+              </div>
+              <div class="doc-text">7.1 Textbooks
+
+Reference and resource sections are retained for the module document.
+Detailed listings are intentionally not populated in this mock.</div>
+              <div class="doc-footnote">Populate references and toolkits during final drafting.</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Section B: Synopsis and Aims -->
-      <div class="plan-section collapsed">
-        <div class="ps-header" onclick="toggleSection(this)">
-          <div class="ps-num">B</div>
-          <div class="ps-title">Synopsis and Aims</div>
-          <div class="ps-desc">Summarise the intent and focus of the module</div>
-          <div class="ps-toggle">▾</div>
-        </div>
-        <div class="ps-body">
-          <div class="section-ai">
-            <div class="section-ai-head">
-              <div>
-                <div class="section-ai-label">AI co-create</div>
-                <div class="section-ai-note">Describe the purpose. AI may ask follow-up questions before drafting.</div>
-              </div>
+      <div class="chat-surface">
+        <div class="chat-top">
+          <div class="agent">
+            <div class="agent-dot">AI</div>
+            <div>
+              <div class="agent-title">AI Curriculum Guide</div>
+              <div class="agent-sub">Structured guidance for this section</div>
             </div>
-            <textarea class="section-ai-brief" id="purpose-brief" placeholder="Capability, context, and tone"></textarea>
-            <div class="section-ai-actions" style="margin-top:8px;">
-              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('purpose-ai-output','purpose','f-purpose','draft')">Draft</button>
-            </div>
-            <div class="section-ai-output" id="purpose-ai-output" data-target="f-purpose"></div>
           </div>
-          <div class="field">
-            <label class="field-label">Synopsis and Aims</label>
-            <textarea class="plan-textarea" id="f-purpose" placeholder="What should students achieve in this module?" oninput="updateSummary()"></textarea>
-            <div class="plan-hint">e.g. apply design thinking to community engagement projects</div>
-          </div>
+          <span class="chat-state">Guided Mode</span>
         </div>
-      </div>
 
-      <!-- Section C: Learning Outcomes -->
-      <div class="plan-section collapsed">
-        <div class="ps-header" onclick="toggleSection(this)">
-          <div class="ps-num">C</div>
-          <div class="ps-title">Learning Outcomes</div>
-          <div class="ps-desc">What should students demonstrate by the end?</div>
-          <div class="ps-toggle">▾</div>
-        </div>
-        <div class="ps-body">
-          <div class="field">
-            <label class="field-label">Learning Outcomes</label>
-            <textarea class="plan-textarea" id="f-outcomes" placeholder="Students should be able to..."></textarea>
-            <div class="plan-hint">Keep the statements measurable and realistic for the module level.</div>
-          </div>
-          <div class="section-ai">
-            <div class="section-ai-head">
-              <div>
-                <div class="section-ai-label">AI co-create</div>
-                <div class="section-ai-note">Set the outcome direction. AI may ask follow-up questions before drafting.</div>
-              </div>
-            </div>
-            <textarea class="section-ai-brief" id="outcomes-brief" placeholder="Core skills, level verbs, evidence"></textarea>
-            <div class="section-ai-actions" style="margin-top:8px;">
-              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('outcomes-ai-output','outcomes','f-outcomes','draft')">Draft</button>
-            </div>
-            <div class="section-ai-output" id="outcomes-ai-output" data-target="f-outcomes"></div>
-          </div>
-        </div>
-      </div>
+        <div class="chat-body">
+          <div class="chat-pane active" data-pane="outcomes">
+            <div class="bubble ai lead">Let us shape measurable and applied learning outcomes for this module.
+Start with a rough description of what students should be able to do.</div>
 
-      <!-- Section D: Content -->
-      <div class="plan-section collapsed">
-        <div class="ps-header" onclick="toggleSection(this)">
-          <div class="ps-num">D</div>
-          <div class="ps-title">Content</div>
-          <div class="ps-desc">Topics and Hours</div>
-          <div class="ps-toggle">▾</div>
-        </div>
-        <div class="ps-body">
-          <div class="section-ai">
-            <div class="section-ai-head">
-              <div>
-                <div class="section-ai-label">AI co-create</div>
-                <div class="section-ai-note">Describe your intended journey. AI may ask follow-up questions before drafting.</div>
-              </div>
+            <div class="bubble user lecturer">
+              <div class="msg-label">Lecturer Draft</div>
+              manage critically ill GI and hepato-biliary patients safely and communicate clear care recommendations
             </div>
-            <textarea class="section-ai-brief" id="topics-brief" placeholder="What should come first, and how much should be online?"></textarea>
-            <div class="chip-group" style="margin-top:8px; flex-wrap:wrap; gap:8px;">
-              <span class="chip" onclick="nudgeSectionBrief('topics-brief','Start with foundations, then guided practice, then applied task.')">Foundation-led</span>
-              <span class="chip" onclick="nudgeSectionBrief('topics-brief','Use project-led flow with short checkpoints.')">Project-led</span>
-              <span class="chip" onclick="nudgeSectionBrief('topics-brief','Shift more hours into online e-learning.')">More online</span>
-              <span class="chip" onclick="nudgeSectionBrief('topics-brief','Keep sequence short and concise.')">Keep concise</span>
-            </div>
-            <div class="section-ai-actions" style="margin-top:8px;">
-              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('topics-ai-output','topics','f-topics','draft')">Draft</button>
-            </div>
-            <div class="section-ai-output" id="topics-ai-output" data-target="f-topics"></div>
-          </div>
-          <div class="field" style="margin-top:14px;">
-            <label class="field-label">Topics and Hours</label>
-            <textarea class="plan-textarea" id="f-topics" placeholder="AI will draft the sequence here, then you can edit it."></textarea>
-            <div class="plan-hint">Edit freely after generation. Keep the sequence clear and concise.</div>
-          </div>
-          <div class="field-row">
-            <div class="field" style="max-width:240px;">
-              <label class="field-label">Online e-learning hours <span class="opt">(*)</span></label>
-              <input class="plan-input" id="f-online-hours" type="text" placeholder="e.g. 20 hours" oninput="updateSummary()">
-              <div class="plan-hint">* Online e-learning hours are shown separately from contact hours.</div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Section E: T&L Strategies -->
-      <div class="plan-section collapsed">
-        <div class="ps-header" onclick="toggleSection(this)">
-          <div class="ps-num">E</div>
-          <div class="ps-title">T&amp;L Strategies</div>
-          <div class="ps-desc">How the module is taught and practised</div>
-          <div class="ps-toggle">▾</div>
-        </div>
-        <div class="ps-body">
-          <div class="field" style="margin-bottom:14px;">
-            <label class="field-label">T&amp;L Strategies <span class="opt">(select all that apply)</span></label>
-            <div class="check-group-2col" id="tl-strategy-group">
-              <div class="check-item on" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Case-based</div></div>
-              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Studio / Workshop</div></div>
-              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Discussion</div></div>
-              <div class="check-item on" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Hands-on</div></div>
-              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Industry Project</div></div>
-              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Simulation</div></div>
-              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Team-based</div></div>
-              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Self-directed</div></div>
-              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">AI-supported</div></div>
-            </div>
-          </div>
-          <div class="field">
-            <label class="field-label">Delivery Mode</label>
-            <div class="chip-group" id="chip-delivery">
-              <span class="chip" onclick="selChip(this,'delivery')">Face-to-Face</span>
-              <span class="chip on" onclick="selChip(this,'delivery')">Blended</span>
-              <span class="chip" onclick="selChip(this,'delivery')">Fully Online</span>
-            </div>
-          </div>
-          <div class="field">
-            <label class="field-label">Optional activities <span class="opt">(optional)</span></label>
-            <textarea class="plan-textarea" id="tl-notes" placeholder="e.g. field visit, peer critique, reflective journal"></textarea>
-          </div>
-          <div class="section-ai">
-            <div class="section-ai-head">
-              <div>
-                <div class="section-ai-label">AI co-create</div>
-                <div class="section-ai-note">Prompt your preferred teaching approach. AI may ask follow-up questions before drafting.</div>
-              </div>
-            </div>
-            <textarea class="section-ai-brief" id="experience-brief" placeholder="Teaching mode, activity mix, pacing"></textarea>
-            <div class="section-ai-actions" style="margin-top:8px;">
-              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('tl-ai-output','experience','tl-notes','draft')">Draft</button>
-            </div>
-            <div class="section-ai-output" id="tl-ai-output" data-target="tl-notes"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section F: Assessment Strategies -->
-      <div class="plan-section collapsed">
-        <div class="ps-header" onclick="toggleSection(this)">
-          <div class="ps-num">F</div>
-          <div class="ps-title">Assessment Strategies</div>
-          <div class="ps-desc">Choose the assessment shape, then refine the task</div>
-          <div class="ps-toggle">▾</div>
-        </div>
-        <div class="ps-body">
-          <div class="field" style="margin-bottom:14px;">
-            <label class="field-label">Assessment Pattern</label>
-            <div class="chip-group" id="chip-asmttype">
-              <span class="chip on" onclick="selChip(this,'asmttype')">CA Only</span>
-              <span class="chip" onclick="selChip(this,'asmttype')">CA + Final Exam</span>
-              <span class="chip" onclick="selChip(this,'asmttype')">CA + Common Test</span>
-            </div>
-            <div class="auto-map-note">Set the overall assessment structure first.</div>
-          </div>
-          <div class="field" style="margin-bottom:10px;">
-            <label class="field-label">Assessment Types</label>
-            <div class="assessment-bank" id="assessment-bank">
-              <div class="assessment-card on" data-type="Project" onclick="selectAssessmentCard(this)"><div class="assessment-card-top"><div class="assessment-card-name">Project</div><div class="assessment-card-plus">+</div></div><div class="assessment-card-sub">Applied work with staged submissions</div></div>
-              <div class="assessment-card" data-type="Presentation" onclick="selectAssessmentCard(this)"><div class="assessment-card-top"><div class="assessment-card-name">Presentation</div><div class="assessment-card-plus">+</div></div><div class="assessment-card-sub">Short pitch or viva-style sharing</div></div>
-              <div class="assessment-card" data-type="Practical" onclick="selectAssessmentCard(this)"><div class="assessment-card-top"><div class="assessment-card-name">Practical</div><div class="assessment-card-plus">+</div></div><div class="assessment-card-sub">Hands-on task or live demonstration</div></div>
-              <div class="assessment-card" data-type="Portfolio" onclick="selectAssessmentCard(this)"><div class="assessment-card-top"><div class="assessment-card-name">Portfolio</div><div class="assessment-card-plus">+</div></div><div class="assessment-card-sub">Collection of work across the module</div></div>
-              <div class="assessment-card" data-type="Report" onclick="selectAssessmentCard(this)"><div class="assessment-card-top"><div class="assessment-card-name">Report</div><div class="assessment-card-plus">+</div></div><div class="assessment-card-sub">Structured written response</div></div>
-              <div class="assessment-card" data-type="Quiz" onclick="selectAssessmentCard(this)"><div class="assessment-card-top"><div class="assessment-card-name">Quiz</div><div class="assessment-card-plus">+</div></div><div class="assessment-card-sub">Short knowledge check</div></div>
-              <div class="assessment-card" data-type="Reflection" onclick="selectAssessmentCard(this)"><div class="assessment-card-top"><div class="assessment-card-name">Reflection</div><div class="assessment-card-plus">+</div></div><div class="assessment-card-sub">Short reflective submission</div></div>
-              <div class="assessment-card" data-type="Participation" onclick="selectAssessmentCard(this)"><div class="assessment-card-top"><div class="assessment-card-name">Participation</div><div class="assessment-card-plus">+</div></div><div class="assessment-card-sub">Contribution to class activities</div></div>
-            </div>
-          </div>
-          <div class="assessment-detail" id="assessment-detail">
-            <div class="assessment-detail-title" id="assessment-detail-title">Project</div>
-            <div class="assessment-detail-grid">
-              <div class="assessment-detail-label">Weightage</div>
-              <input class="assessment-detail-input" id="assessment-weight" type="text" value="40%">
-              <div class="assessment-detail-label">Context</div>
-              <input class="assessment-detail-input" id="assessment-context" type="text" placeholder="e.g. authentic task, industry scenario, group work, practical demo">
-              <div class="assessment-detail-label">Notes</div>
-              <input class="assessment-detail-input" id="assessment-notes" type="text" placeholder="e.g. group-based, industry panel, staged submissions">
-            </div>
-            <div class="assessment-actions">
-              <button class="tiny-action" type="button" onclick="suggestAssessmentRubric()">Suggest rubric criteria</button>
-              <button class="tiny-action" type="button" onclick="alignAssessmentLO()">Check LO alignment</button>
-              <button class="tiny-action" type="button" onclick="makeAssessmentMoreAuthentic()">Make it more authentic</button>
-            </div>
-          </div>
-          <div class="section-ai">
-            <div class="section-ai-head">
-              <div>
-                <div class="section-ai-label">AI co-create</div>
-                <div class="section-ai-note">State assessment intent. AI may ask follow-up questions before drafting.</div>
-              </div>
-            </div>
-            <textarea class="section-ai-brief" id="assessment-brief" placeholder="Assessment type, authenticity, evidence"></textarea>
-            <div class="section-ai-actions" style="margin-top:8px;">
-              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('assessment-ai-output','assessment','assessment-context','draft')">Draft</button>
-            </div>
-            <div class="section-ai-output" id="assessment-ai-output" data-target="assessment-context"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section G: Plagiarism Policy -->
-      <div class="plan-section collapsed">
-        <div class="ps-header" onclick="toggleSection(this)">
-          <div class="ps-num">G</div>
-          <div class="ps-title">Plagiarism Policy</div>
-          <div class="ps-desc">Academic integrity, AI-use disclosure, and citation expectations</div>
-          <div class="ps-toggle">▾</div>
-        </div>
-        <div class="ps-body">
-          <div class="field">
-            <label class="field-label">Plagiarism Policy</label>
-            <textarea class="plan-textarea" id="plagiarism-policy" placeholder="State the policy expectations for citation, AI disclosure, and original work."></textarea>
-            <div class="plan-hint">Keep it short, clear, and aligned to the module brief.</div>
-          </div>
-          <div class="section-ai">
-            <div class="section-ai-head">
-              <div>
-                <div class="section-ai-label">AI co-create</div>
-                <div class="section-ai-note">Define policy stance. AI may ask follow-up questions before drafting.</div>
-              </div>
-            </div>
-            <textarea class="section-ai-brief" id="plagiarism-brief" placeholder="Citation, AI disclosure, tone"></textarea>
-            <div class="section-ai-actions" style="margin-top:8px;">
-              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('plagiarism-ai-output','plagiarism','plagiarism-policy','draft')">Draft</button>
-            </div>
-            <div class="section-ai-output" id="plagiarism-ai-output" data-target="plagiarism-policy"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section H: Recommended Texts / References / Learning Resources -->
-      <div class="plan-section">
-        <div class="ps-header" onclick="toggleSection(this)">
-          <div class="ps-num">H</div>
-          <div class="ps-title">Recommended Texts / References / Learning Resources</div>
-          <div class="ps-desc">Readings, tools, and references that support the module</div>
-          <div class="ps-toggle">▾</div>
-        </div>
-        <div class="ps-body">
-          <div class="field" style="margin-bottom:14px;">
-            <label class="field-label">Core References</label>
-            <textarea class="plan-textarea" id="f-resources" placeholder="List key textbooks, articles, software tools, websites, or standards that should inform the module."></textarea>
-            <div class="plan-hint">These references help shape relevant readings, tools, and supporting materials.</div>
-          </div>
-          <div class="link-row">
-            <input id="guidance-link" class="plan-input" type="text" placeholder="Add reference links or benchmarks (optional)">
-            <button class="mini-btn" onclick="addGuidanceLink()">Add link</button>
-          </div>
-          <div class="section-ai">
-            <div class="section-ai-head">
-              <div>
-                <div class="section-ai-label">AI co-create</div>
-                <div class="section-ai-note">Set your reference direction. AI may ask follow-up questions before drafting.</div>
-              </div>
-            </div>
-            <textarea class="section-ai-brief" id="resources-brief" placeholder="Academic, industry, tools, standards"></textarea>
-            <div class="section-ai-actions" style="margin-top:8px;">
-              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('resources-ai-output','resources','f-resources','draft')">Draft</button>
-            </div>
-            <div class="section-ai-output" id="resources-ai-output" data-target="f-resources"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section I: Additional Planning Notes -->
-      <div class="plan-section">
-        <div class="ps-header" onclick="toggleSection(this)">
-          <div class="ps-num">I</div>
-          <div class="ps-title">Additional Planning Notes</div>
-          <div class="ps-desc">Useful constraints and supporting notes outside the core module document</div>
-          <div class="ps-toggle">▾</div>
-        </div>
-        <div class="ps-body">
-          <div class="field-stack">
-            <div class="field-block">
-              <div class="field-block-title">Focus Areas</div>
-              <div class="priority-grid" id="priority-grid">
-                <button class="priority-chip" type="button" data-label="Industry relevance" onclick="togglePriority(this)"><span class="priority-dot"></span><span>Industry relevance</span></button>
-                <button class="priority-chip on" type="button" data-label="Applied learning emphasis" onclick="togglePriority(this)"><span class="priority-dot"></span><span>Applied learning emphasis</span></button>
-                <button class="priority-chip" type="button" data-label="Stronger competency integration" onclick="togglePriority(this)"><span class="priority-dot"></span><span>Stronger competency integration</span></button>
-                <button class="priority-chip" type="button" data-label="Clearer assessment alignment" onclick="togglePriority(this)"><span class="priority-dot"></span><span>Clearer assessment alignment</span></button>
-                <button class="priority-chip" type="button" data-label="Scaffolded learning progression" onclick="togglePriority(this)"><span class="priority-dot"></span><span>Scaffolded learning progression</span></button>
-                <button class="priority-chip" type="button" data-label="Communication-focused" onclick="togglePriority(this)"><span class="priority-dot"></span><span>Communication-focused</span></button>
-                <button class="priority-chip" type="button" data-label="Workplace authenticity" onclick="togglePriority(this)"><span class="priority-dot"></span><span>Workplace authenticity</span></button>
-                <button class="priority-chip" type="button" data-label="Technology-enhanced learning" onclick="togglePriority(this)"><span class="priority-dot"></span><span>Technology-enhanced learning</span></button>
-                <button class="priority-chip" type="button" data-label="Interdisciplinary integration" onclick="togglePriority(this)"><span class="priority-dot"></span><span>Interdisciplinary integration</span></button>
+            <div class="bubble ai minimal">
+              <div class="question-title">Which capability should be more visible in the outcomes?</div>
+              <div class="choice-row">
+                <span class="choice">Clinical intervention</span>
+                <span class="choice active">Clinical reasoning</span>
+                <span class="choice">Interpretation</span>
+                <span class="choice">Communication</span>
               </div>
             </div>
 
-            <div class="field-block">
-              <div class="field-block-title">Context / Preferences</div>
-              <textarea id="ai-guidance" class="plan-textarea" placeholder="e.g. keep workload manageable, use applied examples, avoid heavy theory"></textarea>
-              <div class="field-block-note">Use this for any useful limits or preferences.</div>
-            </div>
-
-            <div class="field-block">
-              <div class="field-block-title">Programme Notes</div>
-              <textarea id="school-notes" class="plan-textarea" placeholder="e.g. programme norms, assessment rules, accreditation requirements"></textarea>
-              <div class="field-block-note">Keep non-negotiables visible without interrupting the flow.</div>
-            </div>
-          </div>
-
-          <div class="plan-hint-inline">Use this for school or programme constraints that need to stay embedded in the draft.</div>
-
-          <div class="section-ai">
-            <div class="section-ai-head">
-              <div>
-                <div class="section-ai-label">AI co-create</div>
-                <div class="section-ai-note">Capture non-negotiables. AI may ask follow-up questions before drafting.</div>
+            <div class="bubble ai minimal">
+              <div class="question-title">How should students demonstrate learning?</div>
+              <div class="choice-row">
+                <span class="choice">Simulation</span>
+                <span class="choice">Presentation</span>
+                <span class="choice active">Case analysis</span>
               </div>
             </div>
-            <textarea class="section-ai-brief" id="context-brief" placeholder="Policies, constraints, preferred tone"></textarea>
-            <div class="section-ai-actions" style="margin-top:8px;">
-              <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('context-ai-output','context','ai-guidance','draft')">Draft</button>
-            </div>
-            <div class="section-ai-output" id="context-ai-output" data-target="ai-guidance"></div>
-          </div>
 
-          <div class="field-block" style="margin-top:14px;">
-            <div class="field-block-title">Graduate Competencies</div>
-            <div class="plan-hint" style="margin-bottom:10px;">Select the core competencies for the module.</div>
-            <div class="npgc-grid" id="npgc-grid">
-              <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC1</div><div class="npgc-name">Domain &amp; Interdisciplinary</div><div class="npgc-ref">NP graduate competency</div></div></div>
-              <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC2</div><div class="npgc-name">Critical Thinking</div><div class="npgc-ref">NP graduate competency</div></div></div>
-              <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC3</div><div class="npgc-name">Innovation &amp; Entrepreneurial</div><div class="npgc-ref">NP graduate competency</div></div></div>
-              <div class="npgc-item on" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC4</div><div class="npgc-name">Digital Competence</div><div class="npgc-ref">NP graduate competency</div></div></div>
-              <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC5</div><div class="npgc-name">Self-Development</div><div class="npgc-ref">NP graduate competency</div></div></div>
-              <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC6</div><div class="npgc-name">Collaboration</div><div class="npgc-ref">NP graduate competency</div></div></div>
-              <div class="npgc-item" onclick="toggleNPGC(this)"><div class="npgc-cb"></div><div><div class="npgc-num">GC7</div><div class="npgc-name">Communication</div><div class="npgc-ref">NP graduate competency</div></div></div>
+            <div class="synthesis-card">
+              <div class="synthesis-title">Suggested Direction</div>
+              <div>Applied critical-care outcomes with stronger clinical reasoning and inter-professional communication.</div>
             </div>
-            <div class="field" style="margin-top:12px;">
-              <label class="field-label">Competency Rationale</label>
-              <textarea class="plan-textarea" id="competency-rationale" placeholder="Why do these competencies matter most for this module?"></textarea>
-            </div>
-            <div class="npgc-note">Adjust these later if needed.</div>
-            <div class="section-ai">
-              <div class="section-ai-head">
-                <div>
-                  <div class="section-ai-label">AI co-create</div>
-                  <div class="section-ai-note">Prompt the competency rationale. AI may ask follow-up questions before drafting.</div>
-                </div>
-              </div>
-                <textarea class="section-ai-brief" id="competencies-brief" placeholder="Why these competencies matter here"></textarea>
-              <div class="section-ai-actions" style="margin-top:8px;">
-                  <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('competencies-ai-output','competencies','competency-rationale','draft')">Draft</button>
-              </div>
-              <div class="section-ai-output" id="competencies-ai-output" data-target="competency-rationale"></div>
+
+            <div class="synthesis-card">
+              <div class="synthesis-title">Suggested Update</div>
+              <div>2.1 Discuss nursing care management of critically ill patients with gastrointestinal and hepato-biliary disorders.
+2.2 Interpret relevant laboratory and diagnostic findings for critical care decision-making.
+2.3 Integrate pathophysiology knowledge into safe, evidence-informed nursing interventions.
+2.4 Communicate clinical recommendations clearly within inter-professional care teams.</div>
             </div>
           </div>
 
-          <div class="observations-toggle" onclick="toggleObservations()">
-            <div class="observations-title">Working notes</div>
-            <div class="observations-count" id="obs-count">0</div>
+          <div class="chat-pane" data-pane="content">
+            <div class="bubble ai">Let us structure the content plan for delivery and pacing.
+Start with the major topics you want students to cover.</div>
+
+            <div class="bubble user">acute abdomen, abdominal trauma, GI bleed, pancreatitis, liver failure, case simulation</div>
+
+            <div class="bubble ai">Which sequencing model should drive the topic flow?
+              <div class="choice-row">
+                <span class="choice active">Foundation to application</span>
+                <span class="choice">Case-first</span>
+                <span class="choice">Project-led</span>
+              </div>
+            </div>
+
+            <div class="bubble ai">How should lecture-tutorial hours be distributed?
+              <div class="choice-row">
+                <span class="choice active">Balanced by topic cluster</span>
+                <span class="choice">Practice-heavy middle</span>
+                <span class="choice">Front-loaded theory</span>
+              </div>
+            </div>
+
+            <div class="bubble ai">Suggested direction:
+Progress from core GI emergencies to hepato-biliary disorders, then integrate via case simulation and care planning.</div>
+
+            <div class="bubble ai">Suggested update:
+Content plan now includes online e-learning hours and a topic-hour table suitable for module documentation.</div>
           </div>
-          <div class="observations-body" id="obs-body">
-            <ul class="observations-list" id="obs-list"></ul>
+
+          <div class="chat-pane" data-pane="teaching">
+            <div class="bubble ai">No detailed AI co-design mock is configured for this section in this demo.</div>
+          </div>
+
+          <div class="chat-pane" data-pane="assessment">
+            <div class="bubble ai">Let us calibrate the assessment plan for continuous and authentic evaluation.
+Start with the main assessment components you want.</div>
+
+            <div class="bubble user">group project, two class tests, strong focus on applied recommendation</div>
+
+            <div class="bubble ai">Which capability should carry the highest weight?
+              <div class="choice-row">
+                <span class="choice active">Applied analysis</span>
+                <span class="choice">Communication</span>
+                <span class="choice">Team collaboration</span>
+              </div>
+            </div>
+
+            <div class="bubble ai">How should the group project weighting be split?
+              <div class="choice-row">
+                <span class="choice active">30% group + 20% individual</span>
+                <span class="choice">40% group + 10% individual</span>
+                <span class="choice">50% group only</span>
+              </div>
+            </div>
+
+            <div class="bubble ai">Suggested direction:
+Use a 50% authentic project with individual accountability, supported by two 25% class tests.</div>
+
+            <div class="bubble ai">Suggested update:
+Assessment strategy now presents standard weighting format and concise rationale for each component.</div>
+          </div>
+
+          <div class="chat-pane" data-pane="plagiarism">
+            <div class="bubble ai">No detailed AI co-design mock is configured for this section in this demo.</div>
+          </div>
+
+          <div class="chat-pane" data-pane="resources">
+            <div class="bubble ai">No detailed AI co-design mock is configured for this section in this demo.</div>
+          </div>
+        </div>
+
+        <div class="chat-footer">
+          <div class="composer">Refine this section...</div>
+          <div class="actions">
+            <div class="secondary-actions">
+              <button class="btn-secondary">Generate Alternative</button>
+              <button class="btn-secondary">Refine Tone</button>
+            </div>
+            <div class="primary-actions">
+              <button class="btn-accept">Apply to Document</button>
+            </div>
           </div>
         </div>
       </div>
+    </section>
+  </main>
 
-    </div><!-- end layout-main -->
+  <script>
+    const tabs = document.querySelectorAll('.tab[data-tab]');
+    const panes = document.querySelectorAll('[data-pane]');
 
-  </div><!-- end layout -->
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-tab');
 
-</main>
+        tabs.forEach((item) => item.classList.remove('active'));
+        tab.classList.add('active');
 
-<div class="review-modal-backdrop" id="review-modal-backdrop" aria-hidden="true">
-  <div class="review-modal" role="dialog" aria-modal="true" aria-labelledby="review-modal-title">
-    <div class="review-modal-head">
-      <div>
-        <div class="review-modal-title" id="review-modal-title">Review &amp; Export</div>
-        <div class="review-modal-sub">A concise summary before you print, copy, or continue editing.</div>
-      </div>
-      <button class="review-modal-close" type="button" onclick="closeReviewModal()">Close</button>
-    </div>
-    <div class="review-modal-body">
-      <div class="review-panel">
-        <div class="review-panel-title">Module summary</div>
-        <div class="review-lines" id="review-summary-lines"></div>
-      </div>
-      <div class="review-panel">
-        <div class="review-panel-title">Export actions</div>
-        <ul class="review-list">
-          <li>Copy the summary for another document.</li>
-          <li>Print or save as PDF from the browser print dialog.</li>
-          <li>Close the modal and keep editing inline.</li>
-        </ul>
-        <div class="review-modal-actions">
-          <button class="btn-action" type="button" onclick="copyReviewSummary()">Copy summary</button>
-          <button class="btn-action" type="button" onclick="window.print()">Print / Save PDF</button>
-          <button class="btn-subtle" type="button" onclick="closeReviewModal()">Continue editing</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  const stepperVals = { cu: 4, ch: 3 };
-  const stepperMin = { cu: 1, ch: 1 };
-  const stepperMax = { cu: 8, ch: 6 };
-
-  function step(id, delta) {
-    stepperVals[id] = Math.min(stepperMax[id], Math.max(stepperMin[id], stepperVals[id] + delta));
-    document.getElementById(id + '-val').textContent = stepperVals[id];
-    updateSummary();
-  }
-
-  function selChip(el, group) {
-    document.querySelectorAll(`#chip-${group} .chip`).forEach(c => c.classList.remove('on'));
-    el.classList.add('on');
-    updateSummary();
-    refreshObservations();
-  }
-
-  function toggleNPGC(el) { el.classList.toggle('on'); updateSummary(); refreshObservations(); }
-  function toggleCheck(el) { el.classList.toggle('on'); refreshObservations(); }
-  function toggleSection(headerEl) { headerEl.parentElement.classList.toggle('collapsed'); }
-
-  function toggleScope(el) {
-    el.classList.toggle('on');
-    const cb = el.querySelector('.scope-cb');
-    if (cb) cb.textContent = el.classList.contains('on') ? '✓' : '';
-    updateSummary();
-    refreshReadiness();
-  }
-
-  function selectAllScopes() {
-    document.querySelectorAll('#scope-grid .scope-item').forEach(el => {
-      el.classList.add('on');
-      const cb = el.querySelector('.scope-cb');
-      if (cb) cb.textContent = '✓';
+        panes.forEach((pane) => {
+          pane.classList.toggle('active', pane.getAttribute('data-pane') === target);
+        });
+      });
     });
-    updateSummary();
-    refreshReadiness();
-  }
-
-  function clearScopes() {
-    document.querySelectorAll('#scope-grid .scope-item').forEach(el => {
-      el.classList.remove('on');
-      const cb = el.querySelector('.scope-cb');
-      if (cb) cb.textContent = '';
-    });
-    updateSummary();
-    refreshReadiness();
-  }
-
-  function togglePriority(el) {
-    el.classList.toggle('on');
-    refreshReadiness();
-  }
-
-  function addGuidanceLink() {
-    const el = document.getElementById('guidance-link');
-    if (!el.value.trim()) return;
-    document.getElementById('ai-guidance').value += (document.getElementById('ai-guidance').value.trim() ? '\n' : '') + 'Reference: ' + el.value.trim();
-    el.value = '';
-    refreshReadiness();
-  }
-
-  function nudgeSectionBrief(id, text) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.value = el.value.trim() ? el.value.trim() + ' ' + text : text;
-    el.focus();
-  }
-
-  function toggleObservations() {
-    document.getElementById('obs-body').classList.toggle('show');
-  }
-
-  const assessmentTemplates = {
-    Project: { weight: '40%', context: 'e.g. community campaign proposal for a real-world client', notes: 'e.g. group-based, industry panel, staged submissions' },
-    Presentation: { weight: '20%', context: 'e.g. short pitch or viva-style sharing', notes: 'e.g. individual, timed, visual support allowed' },
-    Practical: { weight: '30%', context: 'e.g. hands-on task or live demonstration', notes: 'e.g. lab-based, individual, checklist rubric' },
-    Portfolio: { weight: '50%', context: 'e.g. collection of work across the module', notes: 'e.g. staged submissions, reflective notes included' },
-    Report: { weight: '40%', context: 'e.g. structured written response', notes: 'e.g. formal tone, references required' },
-    Quiz: { weight: '10%', context: 'e.g. short knowledge check', notes: 'e.g. low stakes, multiple attempts' },
-    Reflection: { weight: '15%', context: 'e.g. short reflective submission', notes: 'e.g. learning journal, self-assessment prompts' },
-    Participation: { weight: '10%', context: 'e.g. contribution to class activities', notes: 'e.g. attendance, discussion, workshop contribution' }
-  };
-
-  function selectAssessmentCard(card) {
-    document.querySelectorAll('.assessment-card').forEach(el => el.classList.remove('on'));
-    card.classList.add('on');
-    const type = card.dataset.type || 'Project';
-    const template = assessmentTemplates[type] || assessmentTemplates.Project;
-    document.getElementById('assessment-detail-title').textContent = type;
-    document.getElementById('assessment-weight').value = template.weight;
-    document.getElementById('assessment-context').value = template.context;
-    document.getElementById('assessment-notes').value = template.notes;
-    refreshReadiness();
-  }
-
-  function suggestAssessmentRubric() {
-    const type = document.getElementById('assessment-detail-title').textContent || 'Assessment';
-    document.getElementById('assessment-notes').value = `Focus criteria for ${type.toLowerCase()}: clarity, application, evidence, and relevance.`;
-    refreshReadiness();
-  }
-
-  function alignAssessmentLO() {
-    document.getElementById('assessment-context').value = 'Aligned to the most important learning outcomes and synopsis and aims.';
-    refreshReadiness();
-  }
-
-  function makeAssessmentMoreAuthentic() {
-    document.getElementById('assessment-context').value = 'Authentic task linked to a realistic client, scenario, or workplace context.';
-    refreshReadiness();
-  }
-
-  function showSectionAssist(outputId, title, text, targetId) {
-    const panel = document.getElementById(outputId);
-    if (!panel) return;
-    panel.dataset.target = targetId;
-    panel.dataset.value = text;
-    panel.innerHTML = `
-      <div class="section-ai-output-title">${title}</div>
-      <div class="section-ai-output-text">${text}</div>
-      <div class="section-ai-actions-row">
-        <button class="section-ai-btn" type="button" onclick="applySectionAssist('${outputId}')">Apply</button>
-        <button class="section-ai-btn" type="button" onclick="insertSectionAssist('${outputId}')">Insert</button>
-        <button class="section-ai-btn" type="button" onclick="hideSectionAssist('${outputId}')">Ignore</button>
-      </div>`;
-    panel.classList.add('show');
-  }
-
-  function escapeHtml(text) {
-    return String(text)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
-
-  function getSectionValue(targetId) {
-    const target = document.getElementById(targetId);
-    return target ? target.value.trim() : '';
-  }
-
-  function splitDraftIdeas(raw) {
-    const base = String(raw || '').replace(/^.*?:\s*/, '').trim();
-    if (!base) return [];
-    return base.split(/,|;|\n/).map(item => item.trim()).filter(Boolean);
-  }
-
-  function buildStructuredPreviewHtml(sectionKey, rawText) {
-    if (sectionKey !== 'topics') {
-      return `<pre style="margin:0; white-space:pre-wrap; font:inherit;">${escapeHtml(String(rawText || ''))}</pre>`;
-    }
-
-    const raw = String(rawText || '').trim();
-    const ideas = splitDraftIdeas(raw);
-    const topicLines = ideas.length
-      ? ideas
-      : [
-          'Foundations and orientation',
-          'Guided practice and worked examples',
-          'Applied case work',
-          'Project development and feedback',
-          'Consolidation and reflection'
-        ];
-    const onlineHours = document.getElementById('f-online-hours')?.value?.trim() || '20 hours';
-    const rows = Array.from({ length: Math.max(5, topicLines.length) }, (_, i) => {
-      const topic = topicLines[i] || 'Independent learning / consultation';
-      const hours = i < 2 ? '4 hrs' : i < 4 ? '3 hrs' : '2 hrs';
-      return `
-        <tr>
-          <td>${i + 1}</td>
-          <td>${escapeHtml(topic)}</td>
-          <td>${hours}</td>
-        </tr>`;
-    }).join('');
-
-    return `
-      <div class="preview-heading">Teaching and Learning</div>
-      <div class="preview-subheading">Content</div>
-      <div class="preview-label">Topics and Hours</div>
-      <div class="preview-label">Online e-learning hours (*): ${escapeHtml(onlineHours)}</div>
-      <table class="preview-table">
-        <thead>
-          <tr>
-            <th style="width:90px;">Week</th>
-            <th>Topics</th>
-            <th style="width:220px;">Lecture- Tutorial hours</th>
-          </tr>
-        </thead>
-        <tbody>${rows}</tbody>
-      </table>`;
-  }
-
-  function formatSectionOutput(sectionKey, rawText, format) {
-    const raw = String(rawText || '').trim();
-    if (!raw) return '';
-    if (format === 'plain') return raw;
-
-    const ideas = splitDraftIdeas(raw);
-    if (format === 'bullets') {
-      if (!ideas.length) return '- ' + raw;
-      return ideas.map(item => `- ${item}`).join('\n');
-    }
-
-    // Demo structured view for quick copy/paste to module document formats.
-    if (sectionKey === 'topics') {
-      const topicLines = ideas.length
-        ? ideas
-        : [
-            'Foundations and orientation',
-            'Guided practice and worked examples',
-            'Applied case work',
-            'Project development and feedback',
-            'Consolidation and reflection'
-          ];
-      const onlineHours = document.getElementById('f-online-hours')?.value?.trim() || '20 hours';
-      const rows = Array.from({ length: Math.max(5, topicLines.length) }, (_, i) => {
-        const topic = topicLines[i] || 'Independent learning / consultation';
-        const hours = i < 2 ? '4 hrs' : i < 4 ? '3 hrs' : '2 hrs';
-        return `${String(i + 1).padEnd(4)} | ${topic.padEnd(48)} | ${hours}`;
-      }).join('\n');
-
-      return `Teaching and Learning\nCONTENT\n\nTopics and Hours\nOnline e-learning hours (*): ${onlineHours}\n\nWeek | Topics                                           | Lecture-Tutorial hours\n-----|---------------------------------------------------|----------------------\n${rows}`;
-    }
-
-    if (sectionKey === 'assessment') {
-      return `Assessment strategy\n- Component: ${raw}\n- Rationale: Authentic and outcome-aligned\n- Evidence: Clear criteria and workload balance`;
-    }
-
-    if (!ideas.length) return raw;
-    return ideas.map((item, idx) => `${idx + 1}. ${item}`).join('\n');
-  }
-
-  function refreshOutputWidget(outputId, sectionKey) {
-    const panel = document.getElementById(outputId);
-    if (!panel) return;
-    const select = document.getElementById(outputId + '-format');
-    const textarea = document.getElementById(outputId + '-text');
-    const preview = document.getElementById(outputId + '-preview');
-    if (!select || !textarea || !preview) return;
-    const format = select.value;
-    const raw = panel.dataset.raw || panel.dataset.value || '';
-    const formatted = formatSectionOutput(sectionKey, raw, format);
-    textarea.value = formatted;
-    panel.dataset.value = formatted;
-
-    if (format === 'structured') {
-      preview.innerHTML = buildStructuredPreviewHtml(sectionKey, raw);
-      preview.classList.add('show');
-      textarea.style.display = 'none';
-    } else {
-      preview.classList.remove('show');
-      preview.innerHTML = '';
-      textarea.style.display = '';
-    }
-  }
-
-  function copySectionOutput(outputId) {
-    const textarea = document.getElementById(outputId + '-text');
-    const value = textarea ? textarea.value : '';
-    if (!value) return;
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(value);
-      return;
-    }
-    textarea.select();
-    document.execCommand('copy');
-  }
-
-  const DEMO_SCRIPTED_MODE = true;
-  const sectionAiRuntime = {};
-
-  function shouldAskFollowUps(sectionKey, seed, current, mode) {
-    // Demo-only heuristic to simulate adaptive probing in a prototype.
-    if (mode === 'refine') return true;
-    const seedLen = (seed || '').trim().length;
-    const currentLen = (current || '').trim().length;
-    const hasReasonableContext = seedLen >= 36 || currentLen >= 64;
-    if (!hasReasonableContext) return true;
-
-    const ambiguousSignals = /(something|maybe|not sure|any|general|tbd|unsure|flexible)/i;
-    if (ambiguousSignals.test(seed || '')) return true;
-
-    return false;
-  }
-
-  function getFollowUpDepth(sectionKey, seed, current, mode) {
-    if (!shouldAskFollowUps(sectionKey, seed, current, mode)) return 0;
-
-    const complexSections = ['topics', 'assessment', 'context'];
-    const seedLen = (seed || '').trim().length;
-    const currentLen = (current || '').trim().length;
-    const lowContext = seedLen < 24 && currentLen < 40;
-
-    if (complexSections.includes(sectionKey) && lowContext) return 3;
-    if (lowContext) return 2;
-    return 1;
-  }
-
-  function buildAiCoCreate(sectionKey, mode, seed, current) {
-    const seedLine = seed || 'No seed entered yet';
-    const currentLine = current || 'Not drafted yet';
-    const isRefine = mode === 'refine';
-
-    switch (sectionKey) {
-      case 'module':
-        return {
-          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
-          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
-          questions: [
-            'What should the title signal first: domain, outcome, or workplace context?',
-            'Is this more foundation, applied, or capstone in feel?',
-            'Should the title read more academic, practical, or industry-facing?'
-          ],
-          options: [
-            'Title angle: problem-focused and practical',
-            'Title angle: capability-led and student-facing',
-            'Title angle: industry-aware with a clear outcome signal'
-          ],
-          draft: seed ? `Module title option: ${seedLine}` : `Module title option: concise, clear, and outcome-led.`
-        };
-      case 'purpose':
-        return {
-          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
-          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
-          questions: [
-            'What problem or capability should this module build?',
-            'What real-world context should anchor the purpose?',
-            'Should the purpose emphasise design, delivery, analysis, or reflection?'
-          ],
-          options: [
-            'Purpose angle: capability-building with a practical output',
-            'Purpose angle: applied decision-making in a real context',
-            'Purpose angle: reflective and workplace-ready learning'
-          ],
-          draft: seed
-            ? `This module develops students' ability to ${seedLine.toLowerCase()}.`
-            : 'This module develops students to apply core concepts in a practical, clearly framed context.'
-        };
-      case 'outcomes':
-        return {
-          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
-          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
-          questions: [
-            'Which verbs best match the module level?',
-            'What evidence would prove the learning happened?',
-            'How many outcomes are enough without overloading the module?'
-          ],
-          options: [
-            'Balance conceptual understanding with practical application',
-            'Make one outcome explicitly about communication or reflection',
-            'Keep the set short enough to assess confidently'
-          ],
-          draft: seed
-            ? `Suggested outcome language: ${seedLine}`
-            : 'Suggested outcome language: apply, analyse, create, and communicate in a level-appropriate way.'
-        };
-      case 'topics':
-        return {
-          title: isRefine ? 'Refined sequence' : 'Topics and Hours draft',
-          lead: current ? `Based on: ${currentLine}.` : 'Add topics, hours, and online e-learning hours.',
-          questions: [
-            'What should happen first so later topics feel easier?',
-            'Which topics need contact hours, and which can sit in online e-learning?'
-          ],
-          options: [
-            'Sequence: foundation, guided practice, applied task, review',
-            'Sequence: concept, studio, checkpoint, capstone',
-            'Sequence: orientation, build-up, project, consolidation'
-          ],
-          draft: seed
-            ? `Suggested content outline: ${seedLine}`
-            : 'Suggested content outline: foundation, guided practice, applied task, then review and reflection.'
-        };
-      case 'experience':
-        return {
-          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
-          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
-          questions: [
-            'Should the module feel more studio-like, case-based, or project-driven?',
-            'What should happen individually versus in groups?',
-            'Which parts need AI-supported guidance and which need human discussion?'
-          ],
-          options: [
-            'Model: studio-led with short critique cycles',
-            'Model: blended, case-based, and lightly scaffolded',
-            'Model: project spine with discussion checkpoints'
-          ],
-          draft: seed
-            ? `Suggested teaching approach: ${seedLine}`
-            : 'Suggested teaching approach: case-based input, guided practice, hands-on application, and structured feedback.'
-        };
-      case 'assessment':
-        return {
-          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
-          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
-          questions: [
-            'What should the assessment prove that a quiz could not?',
-            'Should the task be individual, group-based, or mixed?',
-            'Where is the clearest authentic or workplace anchor?'
-          ],
-          options: [
-            'Shape: project with one short checkpoint',
-            'Shape: presentation plus brief reflective note',
-            'Shape: practical task with transparent criteria'
-          ],
-          draft: seed
-            ? `Suggested assessment logic: ${seedLine}`
-            : 'Suggested assessment logic: an authentic, criterion-led task with clear evidence points and realistic workload.'
-        };
-      case 'plagiarism':
-        return {
-          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
-          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
-          questions: [
-            'Should the policy focus on citation, AI disclosure, or both?',
-            'What should students explicitly do when using external material?',
-            'Should the tone be formal, supportive, or firm?'
-          ],
-          options: [
-            'Frame: concise policy with clear citation and AI-use expectations',
-            'Frame: supportive reminder with explicit consequences',
-            'Frame: student-friendly integrity note with disclosure guidance'
-          ],
-          draft: seed
-            ? `Suggested policy note: ${seedLine}`
-            : 'Suggested policy note: students must cite external sources, disclose AI use where relevant, and submit original work.'
-        };
-      case 'competencies':
-        return {
-          title: isRefine ? 'Refined suggestion' : 'Suggested competency rationale',
-          lead: current ? `Based on: ${currentLine}.` : 'Use AI to explain the competency mix, not just select labels.',
-          questions: [
-            'Which 2–4 competencies are truly central?',
-            'Which competency should be visible in assessment evidence?',
-            'What should be implied by the competency mix, not overexplained?'
-          ],
-          options: [
-            'Emphasis: communication + collaboration + applied problem solving',
-            'Emphasis: digital competence + critical thinking + reflection',
-            'Emphasis: domain expertise with one clear human skill anchor'
-          ],
-          draft: seed
-            ? `Suggested competency rationale: ${seedLine}`
-            : 'Suggested competency rationale: select the smallest set that best matches the module evidence and industry intent.'
-        };
-      case 'resources':
-        return {
-          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
-          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
-          questions: [
-            'Should the resources lean academic, industry, or tool-based?',
-            'Which sources are essential rather than optional?',
-            'Do you need standards, tool docs, cases, or readings?'
-          ],
-          options: [
-            'Mix: one standard, one industry source, one practical guide',
-            'Mix: short readings, benchmark examples, and tool references',
-            'Mix: authoritative core text with current applied references'
-          ],
-          draft: seed
-            ? `Suggested reference direction: ${seedLine}`
-            : 'Suggested reference direction: authoritative, current, and closely tied to the module task.'
-        };
-      case 'context':
-        return {
-          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
-          lead: current ? `Based on: ${currentLine}.` : 'Add a few keywords, then generate.',
-          questions: [
-            'What must the AI never ignore?',
-            'Which institutional rules shape the draft?',
-            'What should be embedded quietly rather than highlighted?'
-          ],
-          options: [
-            'Frame: keep requirements visible but low-friction',
-            'Frame: embed rules into the workflow, not separate them out',
-            'Frame: preserve flexibility while respecting programme standards'
-          ],
-          draft: seed
-            ? `Suggested context note: ${seedLine}`
-            : 'Suggested context note: embedded requirements, manageable workload, and room for educator judgment.'
-        };
-      default:
-        return {
-          title: isRefine ? 'Refined suggestion' : 'AI suggestion',
-          lead: 'Add a few keywords, then generate.',
-          questions: ['What is the goal?', 'What is the constraint?', 'What would make this feel clearer?'],
-          options: ['Option one', 'Option two', 'Option three'],
-          draft: seed || current || 'Draft a clearer version.'
-        };
-    }
-  }
-
-  function showSectionCoCreate(outputId, sectionKey, targetId, mode) {
-    const panel = document.getElementById(outputId);
-    if (!panel) return;
-    const seed = getSectionValue(sectionKey + '-brief');
-    const current = getSectionValue(targetId);
-    const cfg = buildAiCoCreate(sectionKey, mode, seed, current);
-    const followUpDepth = DEMO_SCRIPTED_MODE ? getFollowUpDepth(sectionKey, seed, current, mode) : 0;
-    const followUps = followUpDepth > 0 ? cfg.questions.slice(0, followUpDepth) : [];
-    sectionAiRuntime[outputId] = { options: cfg.options || [], draft: cfg.draft || '' };
-    panel.dataset.target = targetId;
-    panel.dataset.raw = cfg.draft;
-    panel.dataset.value = cfg.draft;
-    panel.innerHTML = `
-      <div class="section-ai-output-title">${escapeHtml(cfg.title)}</div>
-      <div class="chat-msg chat-msg-user">
-        <div class="chat-msg-meta">You</div>
-        <div class="chat-bubble">${escapeHtml(seed || 'Please help me draft this section.')}</div>
-      </div>
-      <div class="chat-msg chat-msg-ai">
-        <div class="chat-msg-meta">AI</div>
-        <div class="chat-bubble">${escapeHtml(cfg.lead)}</div>
-      </div>
-      ${followUps.length ? `
-      <div class="chat-msg chat-msg-ai">
-        <div class="chat-msg-meta">AI</div>
-        <div class="chat-bubble">To shape a stronger draft, I would clarify:\n${followUps.map((item, i) => `${i + 1}. ${item}`).join('\n')}</div>
-      </div>` : ''}
-      <div class="section-ai-group">
-        <div class="section-ai-group-label">AI suggestions</div>
-        <div class="chat-suggestion-list">
-          ${cfg.options.map((item, idx) => `
-            <div class="chat-suggestion-card">
-              <div class="chat-suggestion-text">${escapeHtml(item)}</div>
-              <button class="section-ai-btn" type="button" onclick="previewSectionOption('${outputId}', '${sectionKey}', ${idx})">Use</button>
-            </div>`).join('')}
-        </div>
-      </div>
-      <div class="output-widget">
-        <div class="output-widget-head">
-          <div class="output-widget-title">Generated output</div>
-          <div class="output-widget-tools">
-            <select class="output-format" id="${outputId}-format" onchange="refreshOutputWidget('${outputId}','${sectionKey}')">
-              <option value="plain">Plain</option>
-              <option value="bullets">Bullets</option>
-              <option value="structured">Structured</option>
-            </select>
-            <button class="section-ai-btn" type="button" onclick="copySectionOutput('${outputId}')">Copy</button>
-          </div>
-        </div>
-        <div class="output-preview" id="${outputId}-preview"></div>
-        <textarea class="output-text" id="${outputId}-text"></textarea>
-      </div>
-      <div class="section-ai-actions-row">
-        <button class="section-ai-btn" type="button" onclick="applySectionAssist('${outputId}')">Apply to section</button>
-        <button class="section-ai-btn" type="button" onclick="insertSectionAssist('${outputId}')">Insert</button>
-        <button class="section-ai-btn" type="button" onclick="showSectionCoCreate('${outputId}','${sectionKey}','${targetId}','refine')">Refine</button>
-        <button class="section-ai-btn" type="button" onclick="hideSectionAssist('${outputId}')">Close</button>
-      </div>`;
-    refreshOutputWidget(outputId, sectionKey);
-    panel.classList.add('show');
-  }
-
-  function previewSectionOption(outputId, sectionKey, optionIndex) {
-    const panel = document.getElementById(outputId);
-    if (!panel) return;
-    const state = sectionAiRuntime[outputId];
-    if (!state || !state.options || !state.options[optionIndex]) return;
-    panel.dataset.raw = state.options[optionIndex];
-    refreshOutputWidget(outputId, sectionKey);
-  }
-
-  function applySectionAssist(outputId) {
-    const panel = document.getElementById(outputId);
-    if (!panel) return;
-    const target = document.getElementById(panel.dataset.target);
-    const widgetValue = document.getElementById(outputId + '-text')?.value;
-    if (target) target.value = widgetValue || panel.dataset.value || '';
-    panel.classList.remove('show');
-    updateSummary();
-  }
-
-  function insertSectionAssist(outputId) {
-    const panel = document.getElementById(outputId);
-    if (!panel) return;
-    const target = document.getElementById(panel.dataset.target);
-    if (target) {
-      const addition = document.getElementById(outputId + '-text')?.value || panel.dataset.value || '';
-      target.value = target.value.trim() ? target.value.trim() + '\n' + addition : addition;
-    }
-    panel.classList.remove('show');
-    updateSummary();
-  }
-
-  function hideSectionAssist(outputId) {
-    const panel = document.getElementById(outputId);
-    if (panel) panel.classList.remove('show');
-  }
-
-  function buildReviewSummary() {
-    const diplomaTitle = document.getElementById('diploma-title').value.trim() || 'Not set';
-    const moduleName = document.getElementById('module-name').value.trim() || 'Not set';
-    const moduleCatalogue = document.getElementById('module-catalogue').value.trim() || 'Not set';
-    const preRequisites = document.getElementById('pre-requisites').value.trim() || 'Not set';
-    const timetabledHours = document.getElementById('timetabled-hours').value.trim() || 'Not set';
-    const contactHours = document.getElementById('contact-hours').value.trim() || 'Not set';
-    const creditUnitsMeta = document.getElementById('credit-units').value.trim() || String(stepperVals.cu);
-    const assessmentWeightage = document.getElementById('assessment-weightage').value.trim() || 'Not set';
-    const title = document.getElementById('f-title').value.trim() || moduleName || 'Not set';
-    const level = document.querySelector('#chip-level .chip.on')?.textContent?.trim() || 'L2';
-    const cu = String(stepperVals.cu) + ' CU';
-    const delivery = document.querySelector('#chip-delivery .chip.on')?.textContent?.trim() || 'Blended';
-    const assessment = document.querySelector('#chip-asmttype .chip.on')?.textContent?.trim() || 'CA Only';
-    const purpose = document.getElementById('f-purpose').value.trim() || 'Not filled in yet';
-    const outcomes = document.getElementById('f-outcomes').value.trim() || 'Not filled in yet';
-    const topics = document.getElementById('f-topics').value.trim() || 'Not filled in yet';
-    const onlineHours = document.getElementById('f-online-hours').value.trim() || 'Not set';
-    const assessmentType = document.getElementById('assessment-detail-title')?.textContent?.trim() || 'Project';
-    const assessmentWeight = document.getElementById('assessment-weight')?.value.trim() || '40%';
-    const teaching = Array.from(document.querySelectorAll('#tl-strategy-group .check-item.on .check-label')).map(el => el.textContent.trim()).join(', ') || 'None selected';
-    const plagiarism = document.getElementById('plagiarism-policy').value.trim() || 'Not filled in yet';
-    const resources = document.getElementById('f-resources').value.trim() || 'Not filled in yet';
-
-    return [
-      { key: 'Diploma Title', val: diplomaTitle },
-      { key: 'Module Name', val: title },
-      { key: 'Module Catalogue and ID', val: moduleCatalogue },
-      { key: 'Pre-Requisites', val: preRequisites },
-      { key: 'Timetabled Hours', val: timetabledHours },
-      { key: 'Contact Hours', val: contactHours },
-      { key: 'Credit Units', val: creditUnitsMeta },
-      { key: 'Assessment Weightage', val: assessmentWeightage },
-      { key: 'Level / Delivery', val: `${level} • ${delivery}` },
-      { key: 'Synopsis and Aims', val: purpose },
-      { key: 'Learning Outcomes', val: outcomes },
-      { key: 'Content: Topics and Hours', val: topics },
-      { key: 'Online e-learning hours (*)', val: onlineHours },
-      { key: 'T&L Strategies', val: teaching },
-      { key: 'Assessment Strategies', val: `${assessmentType} (${assessmentWeight})` },
-      { key: 'Plagiarism Policy', val: plagiarism },
-      { key: 'Recommended Texts / References / Learning Resources', val: resources }
-    ];
-  }
-
-  function renderReviewSummary() {
-    const lines = document.getElementById('review-summary-lines');
-    if (!lines) return;
-    const summary = buildReviewSummary();
-    lines.innerHTML = '';
-    summary.forEach(item => {
-      const row = document.createElement('div');
-      row.className = 'review-line';
-      row.innerHTML = `<span class="review-line-key">${item.key}</span><span class="review-line-val">${item.val}</span>`;
-      lines.appendChild(row);
-    });
-  }
-
-  function openReviewModal() {
-    renderReviewSummary();
-    const backdrop = document.getElementById('review-modal-backdrop');
-    if (backdrop) backdrop.classList.add('show');
-  }
-
-  function closeReviewModal() {
-    const backdrop = document.getElementById('review-modal-backdrop');
-    if (backdrop) backdrop.classList.remove('show');
-  }
-
-  async function copyReviewSummary() {
-    const text = buildReviewSummary().map(item => `${item.key}: ${item.val}`).join('\n');
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch (error) {
-      const temp = document.createElement('textarea');
-      temp.value = text;
-      document.body.appendChild(temp);
-      temp.select();
-      document.execCommand('copy');
-      temp.remove();
-    }
-  }
-
-  function refreshObservations() {
-    const observations = [];
-    const level = document.querySelector('#chip-level .chip.on')?.textContent?.trim() || 'L2';
-    const asmtType = document.querySelector('#chip-asmttype .chip.on')?.textContent?.trim() || '';
-    const groupMode = document.querySelector('#chip-group .chip.on')?.textContent?.trim() || '';
-    const delivery = document.querySelector('#chip-delivery .chip.on')?.textContent?.trim() || '';
-    const selectedNpgc = Array.from(document.querySelectorAll('#npgc-grid .npgc-item.on .npgc-name')).map(el => el.textContent.trim());
-    const tlLabels = Array.from(document.querySelectorAll('#tl-strategy-group .check-item.on .check-label')).map(el => el.textContent.trim());
-
-    if (level === 'L3' && asmtType === 'CA Only') {
-      observations.push('L3 scope with CA Only selected. Consider adding a higher-order capstone or stronger synthesis checkpoint.');
-    }
-    if (!selectedNpgc.some(x => x.includes('Communication')) && groupMode.includes('group')) {
-      observations.push('Group component selected but Communication competency is not prioritised. Consider mapping one communication evidence point.');
-    }
-    if (delivery === 'Blended' && !tlLabels.includes('E-Learning / ICT-Enabled')) {
-      observations.push('Blended delivery is selected but no explicit e-learning strategy is checked. Add one to strengthen delivery coherence.');
-    }
-    if (tlLabels.includes('Project-Based Learning') && asmtType === 'CA + Final Exam') {
-      observations.push('Project-based learning plus final exam may create end-loaded workload. Review milestone pacing across semester weeks.');
-    }
-
-    const list = document.getElementById('obs-list');
-    list.innerHTML = '';
-    observations.forEach(text => {
-      const li = document.createElement('li');
-      li.textContent = text;
-      list.appendChild(li);
-    });
-
-    document.getElementById('obs-count').textContent = String(observations.length);
-    refreshSummarySnapshot();
-    refreshReadiness();
-  }
-
-  function suggestOutcomes() {
-    const base = document.getElementById('f-purpose').value.trim() || 'the module focus';
-    const npgc = Array.from(document.querySelectorAll('#npgc-grid .npgc-item.on .npgc-name')).map(el => el.textContent.trim());
-    const text = [
-      'Apply core concepts related to ' + base + '.',
-      'Analyse practical situations using ' + (npgc[0] || 'relevant graduate competencies') + '.',
-      'Produce a response or artefact aligned to the module brief.',
-      'Communicate reasoning clearly in an academic or workplace context.'
-    ].join('\n');
-    document.getElementById('f-outcomes').value = text;
-    refreshReadiness();
-  }
-
-  function suggestTopics() {
-    const level = document.querySelector('#chip-level .chip.on')?.textContent?.trim() || 'L2';
-    const text = [
-      '1. Foundations',
-      '2. Guided practice',
-      '3. Applied task',
-      '4. Review and reflection'
-    ].join('\n') + '\n\nPace at ' + level + ' with a balance of input, practice, and feedback.';
-    document.getElementById('f-topics').value = text;
-    refreshReadiness();
-  }
-
-  function refreshSummarySnapshot() {
-    const title = document.getElementById('f-title').value.trim() || 'Module details not yet complete';
-    const level = document.querySelector('#chip-level .chip.on')?.textContent?.trim() || 'L2';
-    const cu = String(stepperVals.cu) + ' CU';
-    const delivery = document.querySelector('#chip-delivery .chip.on')?.textContent?.trim() || '—';
-    const npgcItems = Array.from(document.querySelectorAll('#npgc-grid .npgc-item.on .npgc-name')).map(el => el.textContent.trim());
-    const priorities = Array.from(document.querySelectorAll('#priority-grid .priority-chip.on')).map(el => el.dataset.label);
-    const aiAssistCount = document.querySelectorAll('.section-ai').length;
-    const observations = Number(document.getElementById('obs-count').textContent || '0');
-
-    const list = document.getElementById('snapshot-list');
-    if (!list) return;
-    const lines = [
-      `${title} | ${level} | ${cu} | ${delivery}`,
-      npgcItems.length ? `Competency emphasis: ${npgcItems.slice(0, 3).join(', ')}` : 'Competency emphasis not selected yet',
-      priorities.length ? `Drafting priorities: ${priorities.slice(0, 3).join(', ')}` : 'Drafting priorities not selected yet',
-      `${aiAssistCount} inline helpers enabled`,
-      `${observations} draft notes`
-    ];
-    list.innerHTML = '';
-    lines.forEach(text => {
-      const li = document.createElement('li');
-      li.textContent = text;
-      list.appendChild(li);
-    });
-  }
-
-  function updateStickyMeta() {
-    return;
-  }
-
-  function refreshReadiness() {
-    const title = document.getElementById('f-title').value.trim();
-    const purpose = document.getElementById('f-purpose').value.trim();
-    const outcomes = document.getElementById('f-outcomes')?.value.trim() || '';
-    const topics = document.getElementById('f-topics')?.value.trim() || '';
-    const resources = document.getElementById('f-resources').value.trim();
-    const guidance = document.getElementById('ai-guidance').value.trim();
-    const priorities = document.querySelectorAll('#priority-grid .priority-chip.on').length;
-    const aiAssistCount = document.querySelectorAll('.section-ai').length;
-    const readiness = [];
-
-    readiness.push({ good: !!title, text: title ? 'Module title defined' : 'Module title still missing' });
-    readiness.push({ good: !!purpose, text: purpose ? 'Module intent defined' : 'Module intent still broad' });
-    readiness.push({ good: document.querySelectorAll('#npgc-grid .npgc-item.on').length >= 2, text: document.querySelectorAll('#npgc-grid .npgc-item.on').length >= 2 ? 'Graduate competencies selected' : 'Select at least two graduate competencies' });
-    readiness.push({ good: !!outcomes, text: outcomes ? 'Learning outcomes drafted' : 'Learning outcomes still need draft text' });
-    readiness.push({ good: !!topics, text: topics ? 'Topic outline drafted' : 'Topic outline may be too brief' });
-    readiness.push({ good: !!document.querySelector('#chip-asmttype .chip.on'), text: 'Assessment structure specified' });
-    readiness.push({ good: priorities > 0, text: priorities > 0 ? 'Drafting priorities selected' : 'No drafting priorities selected yet' });
-    readiness.push({ good: !!resources || !!guidance, text: (resources || guidance) ? 'Context or references provided' : 'Add references or context notes for stronger grounding' });
-    readiness.push({ good: aiAssistCount >= 4, text: aiAssistCount >= 4 ? 'Helpful prompts are available across key sections' : 'Add a few more prompt blocks to key sections' });
-
-    const list = document.getElementById('readiness-list');
-    if (!list) {
-      updateStickyMeta();
-      return;
-    }
-    list.innerHTML = '';
-    readiness.forEach(item => {
-      const li = document.createElement('li');
-      li.className = 'readiness-item ' + (item.good ? 'good' : 'warn');
-      li.innerHTML = '<span class="readiness-mark">' + (item.good ? '✓' : '⚠') + '</span><span>' + item.text + '</span>';
-      list.appendChild(li);
-    });
-    updateStickyMeta();
-  }
-
-  function updateSummary() {
-    refreshSummarySnapshot();
-    refreshReadiness();
-    updateStickyMeta();
-  }
-
-  function setSum(id, val) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    if (val) { el.textContent = val; el.classList.remove('empty'); }
-    else { el.textContent = 'Not set'; el.classList.add('empty'); }
-  }
-
-  document.getElementById('ai-guidance').addEventListener('input', () => {
-    refreshReadiness();
-  });
-
-  ['diploma-title', 'module-name', 'module-catalogue', 'pre-requisites', 'timetabled-hours', 'contact-hours', 'credit-units', 'assessment-weightage'].forEach(id => {
-    document.getElementById(id)?.addEventListener('input', updateSummary);
-  });
-
-  document.getElementById('f-purpose').addEventListener('input', refreshReadiness);
-  document.getElementById('f-outcomes')?.addEventListener('input', refreshReadiness);
-  document.getElementById('f-topics')?.addEventListener('input', refreshReadiness);
-  document.getElementById('f-resources').addEventListener('input', refreshReadiness);
-  document.getElementById('school-notes')?.addEventListener('input', refreshReadiness);
-
-  updateSummary();
-  refreshObservations();
-  refreshSummarySnapshot();
-  refreshReadiness();
-  updateStickyMeta();
-</script>
-
+  </script>
 </body>
 </html>
