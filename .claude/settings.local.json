@@ -16,7 +16,10 @@
       "mcp__Claude_in_Chrome__tabs_context_mcp",
       "Bash(powershell -Command ' *)",
       "Bash(ls \"C:\\\\Users\\\\limee\\\\OneDrive\\\\Desktop\\\\AWS Curr Builder Docs\\\\\")",
-      "Bash(python3)"
+      "Bash(python3)",
+      "Bash(grep -rn -i \"context library\\\\|Gather.*Synth\\\\|Gather.*Context\\\\|Open Context\\\\|Imported references\\\\|shared context\\\\|reference materials\\\\|context bridge\" \"C:\\\\Users\\\\limee\\\\OneDrive\\\\Desktop\\\\AWS Curr builder mockup\\\\\\\\\" --include=\"*.html\")",
+      "Bash(ls \"C:\\\\Users\\\\limee\\\\OneDrive\\\\Desktop\\\\AWS Curr builder mockup\\\\\")",
+      "Bash(git rm *)"
     ]
   }
 }

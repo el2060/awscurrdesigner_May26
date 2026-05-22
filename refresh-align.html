@@ -661,6 +661,61 @@
 
     /* Check items */
     .check-group-2col { gap: 10px; }
+    .check-group-1col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .focus-group {
+      border: 1px solid var(--hp-border-soft);
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .focus-group:last-child { margin-bottom: 0; }
+    .focus-group-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--hp-text);
+      margin-bottom: 3px;
+      letter-spacing: -0.01em;
+    }
+    .focus-group-sub {
+      font-size: 11px;
+      color: var(--hp-body);
+      margin-bottom: 10px;
+      line-height: 1.45;
+    }
+    .focus-divider {
+      border-top: 1px solid var(--hp-border-soft);
+      margin: 4px 0 12px;
+    }
+    .lens-tag {
+      font-size: 10px;
+      color: var(--hp-muted);
+      margin-left: 4px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .check-item.upcoming {
+      border-style: dashed;
+      border-color: var(--hp-border);
+      background: #fbfbfb;
+      cursor: not-allowed;
+      opacity: 0.78;
+    }
+    .check-item.upcoming:hover {
+      background: #fbfbfb;
+      border-color: var(--hp-border);
+      box-shadow: none;
+    }
+    .check-item.upcoming .check-box {
+      background: #f4f4f4;
+      border-color: var(--hp-border);
+    }
     .check-item {
       padding: 12px 14px;
       border: 1px solid var(--hp-border);
@@ -698,7 +753,6 @@
     }
     .check-sub { font-size: 11px; color: var(--hp-body); margin-top: 3px; }
     .check-ref { color: var(--hp-emerald-700); font-size: 11px; font-weight: 600; }
-
     /* References */
     .ref-row {
       font-size: 13px;
@@ -999,41 +1053,41 @@
 <!-- Page -->
 <main class="page">
 
-  <div class="page-eyebrow">Path B · Review &amp; Refinement</div>
+  <div class="page-eyebrow">Path B · Module Review &amp; Refresh</div>
   <div class="page-title">Module Review &amp; Refresh</div>
-  <div class="page-sub">Import module documentation, select review focus areas, and generate targeted AI review findings and refresh suggestions.</div>
+  <div class="page-sub">Review existing module materials and generate suggestions for curriculum refresh, alignment, and improvement.</div>
 
   <div class="layout">
 
     <div class="layout-main">
 
-      <!-- Section A: Module documentation import -->
+      <!-- Section A: Add Module Materials -->
       <div class="plan-section">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">A</div>
-          <div class="ps-title">Import Module Documentation</div>
-          <div class="ps-desc">Provide module documentation for AI-assisted review</div>
+          <div class="ps-title">Add Module Materials</div>
+          <div class="ps-desc">Add module materials, supporting notes, or references for review</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
-          <p class="import-note">Upload or paste module documentation, assessment plans, rubrics, or curriculum notes for review and refinement.</p>
+          <p class="import-note">Upload, paste, or provide module outlines, lesson activities, assessment briefs, rubrics, or related teaching materials for review.</p>
           <div class="import-actions">
-            <button class="btn-action" onclick="loadModule()">Upload Documents</button>
-            <button class="btn-subtle" onclick="focusPasteArea()">Paste Module Documentation</button>
-            <span class="state-pill" id="import-state">Not imported</span>
+            <button class="btn-action" onclick="loadModule()">Upload Files</button>
+            <button class="btn-subtle" onclick="focusPasteArea()">Paste Content</button>
+            <span class="state-pill" id="import-state">No materials added</span>
           </div>
 
           <div class="import-drop">
-            Drag and drop MDDs, assessment briefs, rubrics, schedules, or related curriculum documents
+            Drag and drop module files or supporting references
           </div>
 
           <div class="field">
-            <label class="field-label">Paste module documentation <span class="opt">(optional)</span></label>
-            <textarea id="module-paste" class="plan-textarea" placeholder="Paste module overview, learning outcomes, assessment plans, curriculum notes, or review context."></textarea>
+            <label class="field-label">Paste Additional Materials or Notes <span class="opt">(optional)</span></label>
+            <textarea id="module-paste" class="plan-textarea" placeholder="Paste module outlines, lesson activities, assessment details, review notes, or AI-enabled learning activities for review."></textarea>
           </div>
 
           <div class="context-detected" id="detected-context">
-            <div class="context-label">Detected Module Context</div>
+            <div class="context-label">Detected Module Information</div>
             <div class="context-main" id="detected-main">ICT1234 · Data Structures &amp; Algorithms · AY25/26 S1</div>
             <div class="context-sub" id="detected-sub">3 supporting documents identified</div>
           </div>
@@ -1051,126 +1105,69 @@
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">B</div>
           <div class="ps-title">Review Focus Areas</div>
-          <div class="ps-desc">Select review focus areas for curriculum analysis</div>
+          <div class="ps-desc">Select areas for curriculum review and refresh</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
-          <div class="check-group-2col" id="checks">
-            <div class="check-item on" data-check="Graduate Competencies" onclick="toggleCheck(this)">
-              <div class="check-box"></div>
-              <div>
-                <div class="check-label">Graduate Competencies</div>
-                <div class="check-sub">NPGC coverage &amp; progression</div>
-                <div class="check-ref">Uses NPGC Framework</div>
-              </div>
+          <div class="focus-group">
+            <div class="focus-group-title">Curriculum &amp; Learning Design</div>
+            <div class="check-group-2col" id="checks">
+              <div class="check-item on" data-check="Learning Outcomes &amp; Content" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Learning Outcomes &amp; Content</div></div></div>
+              <div class="check-item on" data-check="Assessment &amp; Workload" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Assessment &amp; Workload</div></div></div>
+              <div class="check-item on" data-check="Teaching &amp; Learning" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Teaching &amp; Learning</div></div></div>
+              <div class="check-item" data-check="Industry Relevance" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Industry Relevance</div></div></div>
             </div>
-            <div class="check-item on" data-check="Assessment Strategy" onclick="toggleCheck(this)">
-              <div class="check-box"></div>
-              <div>
-                <div class="check-label">Assessment Strategy</div>
-                <div class="check-sub">Balance &amp; alignment</div>
-                <div class="check-ref">Uses NP Assessment Framework</div>
-              </div>
+          </div>
+
+          <div class="focus-group">
+            <div class="focus-group-title">Future-Ready Skills</div>
+            <div class="check-group-2col">
+              <div class="check-item on" data-check="Communication &amp; Presentation" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Communication &amp; Presentation</div></div></div>
+              <div class="check-item upcoming" aria-disabled="true"><div class="check-box"></div><div><div class="check-label">Resilience <span class="lens-tag">Upcoming</span></div><div class="check-sub">Adaptability in changing roles and environments</div></div></div>
             </div>
-            <div class="check-item" data-check="Teaching &amp; Learning" onclick="toggleCheck(this)">
-              <div class="check-box"></div>
-              <div>
-                <div class="check-label">Teaching &amp; Learning</div>
-                <div class="check-sub">Approach &amp; delivery</div>
-                <div class="check-ref">Uses pedagogical alignment checks</div>
-              </div>
+          </div>
+
+          <div class="focus-group">
+            <div class="focus-group-title">AI-Enabled Curriculum &amp; Assessment</div>
+            <div class="check-group-2col">
+              <div class="check-item" data-check="Anchor Opportunities" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Anchor Opportunities <span class="lens-tag">3As</span></div></div></div>
+              <div class="check-item" data-check="Augment Opportunities" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Augment Opportunities <span class="lens-tag">3As</span></div></div></div>
+              <div class="check-item" data-check="Advance Opportunities" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Advance Opportunities <span class="lens-tag">3As</span></div></div></div>
+              <div class="check-item" data-check="3As Scaffolding" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">3As Scaffolding <span class="lens-tag">3As</span></div></div></div>
             </div>
-            <div class="check-item" data-check="Industry Relevance" onclick="toggleCheck(this)">
-              <div class="check-box"></div>
-              <div>
-                <div class="check-label">Industry Relevance</div>
-                <div class="check-sub">Workforce currency</div>
-                <div class="check-ref">Uses current industry skills signals</div>
-              </div>
-            </div>
-            <div class="check-item on" data-check="Content &amp; Outcomes" onclick="toggleCheck(this)">
-              <div class="check-box"></div>
-              <div>
-                <div class="check-label">Content &amp; Outcomes</div>
-                <div class="check-sub">Outcome alignment &amp; Bloom's coverage</div>
-                <div class="check-ref">Uses outcomes-to-content mapping checks</div>
-              </div>
-            </div>
-            <div class="check-item on" data-check="Communication Skills" onclick="toggleCheck(this)">
-              <div class="check-box"></div>
-              <div>
-                <div class="check-label">Communication Skills</div>
-                <div class="check-sub">Communication clarity &amp; presentation</div>
-                <div class="check-ref">Uses Communication &amp; Presentation Rubrics</div>
-              </div>
+          </div>
+
+          <div class="focus-divider"></div>
+
+          <div class="focus-group">
+            <div class="focus-group-title">AI Learning Activities &amp; Assessment</div>
+            <div class="check-group-2col">
+              <div class="check-item" data-check="PAIR-Guided Activities" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">PAIR-Guided Activities</div></div></div>
+              <div class="check-item" data-check="AI-Enabled Assessment" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">AI-Enabled Assessment</div></div></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Section C: Reference Frameworks & Notes -->
+      <!-- Section C: Additional Notes -->
       <div class="plan-section">
         <div class="ps-header" onclick="toggleSection(this)">
           <div class="ps-num">C</div>
-          <div class="ps-title">AI Review Instructions &amp; Context</div>
-          <div class="ps-desc">Set review goals, priorities, style, and supporting context for more targeted findings</div>
+          <div class="ps-title">Additional Review Notes <span class="opt">(optional)</span></div>
+          <div class="ps-desc">Add any review priorities, curriculum concerns, or areas you would like to focus on</div>
           <div class="ps-toggle">▾</div>
         </div>
         <div class="ps-body">
-          <div class="field" style="margin-bottom:14px;">
-            <label class="field-label">Review Goal Presets <span class="opt">(optional)</span></label>
-            <div class="goal-grid" id="goal-presets">
-              <button class="goal-chip" type="button" data-goal="Curriculum Refresh" onclick="toggleGoal(this)">Curriculum Refresh</button>
-              <button class="goal-chip" type="button" data-goal="Assessment Alignment" onclick="toggleGoal(this)">Assessment Alignment</button>
-              <button class="goal-chip" type="button" data-goal="Accreditation Preparation" onclick="toggleGoal(this)">Accreditation Preparation</button>
-              <button class="goal-chip" type="button" data-goal="Improve Industry Relevance" onclick="toggleGoal(this)">Improve Industry Relevance</button>
-              <button class="goal-chip" type="button" data-goal="Reduce Content Overload" onclick="toggleGoal(this)">Reduce Content Overload</button>
-              <button class="goal-chip" type="button" data-goal="Strengthen Communication Skills" onclick="toggleGoal(this)">Strengthen Communication Skills</button>
-              <button class="goal-chip" type="button" data-goal="Improve Bloom's Progression" onclick="toggleGoal(this)">Improve Bloom's Progression</button>
-              <button class="goal-chip" type="button" data-goal="AI Integration Opportunities" onclick="toggleGoal(this)">AI Integration Opportunities</button>
-            </div>
-          </div>
-
-          <div class="field" style="margin-bottom:14px;">
-            <label class="field-label">Review Priorities</label>
-            <textarea id="review-priorities" class="plan-textarea" placeholder="What should the AI pay particular attention to? For example: assessment overload, progression gaps, outcome-assessment alignment, or practical implementation concerns."></textarea>
-          </div>
-
-          <div class="field" style="margin-bottom:14px;">
-            <label class="field-label">Desired Review Style <span class="opt">(optional)</span></label>
-            <div class="style-group" id="review-style-group">
-              <button class="style-chip on" type="button" data-style="Lecturer-friendly suggestions" onclick="setReviewStyle(this)">Lecturer-friendly suggestions</button>
-              <button class="style-chip" type="button" data-style="Concise summary" onclick="setReviewStyle(this)">Concise summary</button>
-              <button class="style-chip" type="button" data-style="Detailed analysis" onclick="setReviewStyle(this)">Detailed analysis</button>
-              <button class="style-chip" type="button" data-style="Accreditation-focused" onclick="setReviewStyle(this)">Accreditation-focused</button>
-              <button class="style-chip" type="button" data-style="Practical recommendations" onclick="setReviewStyle(this)">Practical recommendations</button>
-              <button class="style-chip" type="button" data-style="Leadership briefing style" onclick="setReviewStyle(this)">Leadership briefing style</button>
-            </div>
-          </div>
-
-          <div class="field" style="margin-bottom:14px;">
-            <label class="field-label">Additional Frameworks <span class="opt">(optional)</span></label>
-            <div class="ref-group">
-              <label class="ref-row"><input type="checkbox" class="ref-check" value="Industry Skills Frameworks">Industry Skills Frameworks</label>
-              <label class="ref-row"><input type="checkbox" class="ref-check" value="Accreditation Standards">Accreditation Standards</label>
-              <label class="ref-row"><input type="checkbox" class="ref-check" value="School-specific Rubrics">School-specific Rubrics</label>
-              <label class="ref-row"><input type="checkbox" class="ref-check" value="External Benchmarking Criteria">External Benchmarking Criteria</label>
-            </div>
-          </div>
           <div class="field">
-            <label class="field-label">AI Review Instructions &amp; Context <span class="opt">(optional)</span></label>
-            <textarea id="activity-notes" class="plan-textarea" placeholder="Describe specific review priorities, curriculum concerns, intended refresh areas, accreditation considerations, preferred feedback style, or questions for the AI review.
-
-Examples:
-• Focus on reducing assessment overload
-• Check alignment between outcomes and assessments
-• Suggest stronger industry relevance for Year 2 students
-• Review communication rubric clarity
-• Prioritize practical implementation suggestions
-• Provide concise recommendations suitable for curriculum discussion
-• Consider Skills Framework for Infocomm Technology
-• Reference external benchmarks or pasted URLs where relevant"></textarea>
-            <div class="field-prompt">Paste URLs, benchmarking references, school notes, or specific curriculum constraints to improve context-aware review output.</div>
+            <label class="field-label">Additional Review Notes <span class="opt">(optional)</span></label>
+            <textarea id="activity-notes" class="plan-textarea" placeholder="Examples:
+• Reduce content overload
+• Improve assessment alignment
+• Refresh industry relevance
+• Strengthen communication expectations
+• Identify opportunities for PAIR-guided activities
+• Review opportunities across Anchor, Augment, and Advance"></textarea>
+            <div class="field-prompt">Optional: Add benchmarking references, accreditation considerations, curriculum constraints, or specific review questions.</div>
           </div>
         </div>
       </div>
@@ -1182,26 +1179,26 @@ Examples:
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
             </div>
             <div>
-              <div class="review-title">AI Review Findings &amp; Recommendations</div>
-              <div class="review-sub">Targeted findings, potential gaps, and suggested refresh actions based on your selected review focus areas.</div>
+              <div class="review-title">AI Curriculum Review Findings</div>
+              <div class="review-sub">Suggested observations, potential improvement areas, and refresh recommendations based on your selected review areas.</div>
               <div class="review-head-actions">
-                <button class="btn-subtle" id="rerun-review-btn" style="display:none;" onclick="runInlineReview()">Update AI Review</button>
+                <button class="btn-subtle" id="rerun-review-btn" style="display:none;" onclick="runInlineReview()">Update Suggestions</button>
               </div>
             </div>
           </div>
-          <div class="review-stamp" id="review-stamp">Generated from selected focus areas</div>
+          <div class="review-stamp" id="review-stamp">Generated from selected review areas</div>
         </div>
         <div class="review-metrics">
-          <div class="metric"><div class="metric-k">Focus Areas Reviewed</div><div class="metric-v" id="metric-focus">0</div></div>
-          <div class="metric"><div class="metric-k">Suggested Refresh Actions</div><div class="metric-v" id="metric-actions">0</div></div>
+          <div class="metric"><div class="metric-k">Review Areas</div><div class="metric-v" id="metric-focus">0</div></div>
+          <div class="metric"><div class="metric-k">Suggestions</div><div class="metric-v" id="metric-actions">0</div></div>
           <div class="metric"><div class="metric-k">Potential Gaps</div><div class="metric-v" id="metric-gaps">0</div></div>
         </div>
         <div class="review-actions" id="review-actions" style="display:none;">
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('assessment')">Focus More on Assessment</button>
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('industry')">Compare Against Industry Skills Framework</button>
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('recommendations')">Generate Alternative Suggestions</button>
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('followup')">Ask Follow-up</button>
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('expand')">Expand Recommendations</button>
+          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('assessment')">Focus on Assessment</button>
+          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('industry')">Focus on Industry Relevance</button>
+          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('recommendations')">Suggest Alternative Approaches</button>
+          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('expand')">Expand Suggestions</button>
+          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('followup')">Ask Follow-up Question</button>
         </div>
         <div class="review-panels" id="review-panels"></div>
       </div>
@@ -1212,24 +1209,21 @@ Examples:
     <div class="layout-side">
 
       <div class="side-card ai-side">
-        <span class="side-label">What AI will do</span>
+        <span class="side-label">AI Review Support</span>
         <div class="side-card-body">
-          <div class="side-rec-item">Review curriculum documentation against selected focus areas</div>
-          <div class="side-rec-item">Highlight curriculum gaps, imbalances, and areas for refresh</div>
-          <div class="side-rec-item">Suggest targeted refinements across module sections</div>
-          <div class="side-rec-item">Reference selected institutional or industry frameworks</div>
+          <div class="side-rec-item">Review module structure and alignment</div>
+          <div class="side-rec-item">Highlight potential gaps or overload</div>
+          <div class="side-rec-item">Suggest refresh opportunities</div>
+          <div class="side-rec-item">Identify curriculum refresh opportunities</div>
         </div>
       </div>
 
       <div class="side-card">
-        <span class="side-label">Review Summary</span>
+        <span class="side-label">Current Review Setup</span>
         <div class="side-card-body">
-          <div class="sum-row"><span class="sum-key">Module</span><span class="sum-val empty" id="sum-module">Not imported</span></div>
-          <div class="sum-row"><span class="sum-key">Focus areas</span><span class="sum-val" id="sum-focus">4 selected</span></div>
-          <div class="sum-row"><span class="sum-key">Goals</span><span class="sum-val empty" id="sum-goals">None</span></div>
-          <div class="sum-row"><span class="sum-key">Style</span><span class="sum-val" id="sum-style">Lecturer-friendly</span></div>
-          <div class="sum-row"><span class="sum-key">References</span><span class="sum-val empty" id="sum-refs">None</span></div>
-          <div class="sum-row"><span class="sum-key">Notes</span><span class="sum-val empty" id="sum-notes">None</span></div>
+          <div class="sum-row"><span class="sum-key">Module detected</span><span class="sum-val empty" id="sum-module">No materials added</span></div>
+          <div class="sum-row"><span class="sum-key">Review areas selected</span><span class="sum-val" id="sum-focus">4 selected</span></div>
+          <div class="sum-row"><span class="sum-key">Additional notes added</span><span class="sum-val empty" id="sum-notes">None</span></div>
         </div>
       </div>
 
@@ -1243,11 +1237,11 @@ Examples:
 <div class="bottom-bar">
   <div class="bottom-inner">
     <div class="bb-left">
-      <div class="bb-note" id="bb-note">Import module documentation, then run AI review</div>
-      <div class="bb-helper">AI findings can be refined and regenerated based on updated focus areas or review instructions.</div>
+      <div class="bb-note" id="bb-note">Add module materials and select review areas to run AI curriculum review.</div>
+      <div class="bb-helper">Suggested observations can be refreshed any time after updating review areas or notes.</div>
     </div>
     <div class="bb-actions">
-      <button class="btn-primary" id="run-review-btn" onclick="runInlineReview()">Run AI Review →</button>
+      <button class="btn-primary" id="run-review-btn" onclick="runInlineReview()">Run AI Curriculum Review →</button>
     </div>
   </div>
 </div>
@@ -1256,6 +1250,7 @@ Examples:
   function toggleSection(headerEl) { headerEl.parentElement.classList.toggle('collapsed'); }
 
   function toggleCheck(el) {
+    if (el.classList.contains('upcoming')) return;
     el.classList.toggle('on');
     updateSummary();
     markReviewStale();
@@ -1265,85 +1260,121 @@ Examples:
     document.getElementById('module-paste').focus();
   }
 
-  function toggleGoal(btn) {
-    btn.classList.toggle('on');
-    updateSummary();
-    markReviewStale();
-  }
-
-  function setReviewStyle(btn) {
-    document.querySelectorAll('#review-style-group .style-chip').forEach(chip => chip.classList.remove('on'));
-    btn.classList.add('on');
-    updateSummary();
-    markReviewStale();
-  }
-
   const reviewLensMap = {
-    'Graduate Competencies': {
+    'Learning Outcomes & Content': {
       status: 'warn',
       findings: [
-        'Current competency emphasis is strong in GC1 and GC2 but weaker in GC3 progression.',
-        'Explicit evidence points for collaboration and self-development are limited in current design.'
+        'Learning outcomes are mostly aligned with covered topics, but progression can be clearer across the semester.',
+        'A few outcomes appear broad and could be mapped more explicitly to teaching and assessment evidence.'
       ],
       actions: [
-        'Add one assessed activity mapped to GC3 or GC5 to improve competency distribution.',
-        'Make competency mapping explicit in section-level assessment descriptors.'
+        'Refine outcome statements to make expected progression and depth more visible.',
+        'Tighten mapping between weekly content and specific outcome evidence points.'
       ],
       gaps: 1
     },
-    'Assessment Strategy': {
+    'Assessment & Workload': {
       status: 'warn',
       findings: [
-        'Assessment components are generally aligned but formative checkpoints appear limited.',
-        'Some rubric wording could more clearly indicate progressive skill levels.'
+        'Assessment intent is generally clear, but workload balance across key weeks may be uneven.',
+        'Formative feedback opportunities before major graded tasks appear limited.'
       ],
       actions: [
-        'Introduce a low-stakes formative checkpoint before the major submission.',
-        'Strengthen rubric descriptors for clarity and progression.'
+        'Introduce an earlier low-stakes checkpoint to reduce late-stage assessment risk.',
+        'Review clustering of deadlines to improve workload pacing and student readiness.'
       ],
       gaps: 1
     },
     'Teaching & Learning': {
       status: 'ok',
       findings: [
-        'Selected approaches support applied learning and blended delivery expectations.',
-        'Learning activity pacing appears reasonable across delivery modes.'
+        'Learning activities support applied teaching intent and student engagement.',
+        'Delivery approach appears workable, with room to increase active learning moments.'
       ],
       actions: [
-        'Include one structured reflection touchpoint to close the learning loop.'
+        'Add one structured reflection or feedback loop to reinforce learning transfer.'
       ],
       gaps: 0
     },
     'Industry Relevance': {
       status: 'warn',
       findings: [
-        'Industry signal references are present but not yet clearly tied to module updates.',
-        'Workforce currency checkpoints are not explicitly documented.'
+        'Industry relevance is present, but links to current workplace practice can be more explicit.',
+        'Examples and contexts may benefit from a more current set of sector references.'
       ],
       actions: [
-        'Add explicit industry benchmark references in weekly topic notes.'
+        'Refresh selected examples and tasks with current industry scenarios or expectations.'
       ],
       gaps: 1
     },
-    'Content & Outcomes': {
+    'Communication & Presentation': {
       status: 'ok',
       findings: [
-        'Outcomes and topic coverage are mostly aligned, with acceptable Bloom progression.',
-        'Some outcomes may need clearer traceability to specific assessment evidence.'
+        'Communication expectations are visible, though criteria can be clearer for presentation quality.',
+        'Opportunities exist to strengthen consistency in communication standards across tasks.'
       ],
       actions: [
-        'Tighten outcome-to-assessment mapping statements in the module narrative.'
+        'Clarify communication and presentation criteria with concrete quality indicators.'
       ],
       gaps: 0
     },
-    'Communication Skills': {
-      status: 'warn',
+    'Anchor Opportunities': {
+      status: 'ok',
       findings: [
-        'Communication coverage is visible but criteria could be more explicit for presentation quality.',
-        'Current evidence points emphasize delivery more than audience adaptation.'
+        'Foundational AI-supported opportunities are available in current learning activities.'
       ],
       actions: [
-        'Refine communication rubric criteria for clarity, structure, and audience adaptation.'
+        'Identify low-risk tasks where AI can support comprehension, drafting, or idea generation.'
+      ],
+      gaps: 0
+    },
+    'Augment Opportunities': {
+      status: 'warn',
+      findings: [
+        'Augment-level opportunities are possible but not yet consistently designed into activity flow.'
+      ],
+      actions: [
+        'Add one activity where students use AI to compare options and justify decisions.'
+      ],
+      gaps: 1
+    },
+    'Advance Opportunities': {
+      status: 'warn',
+      findings: [
+        'Advanced AI-enabled performance tasks are limited in current implementation.'
+      ],
+      actions: [
+        'Design one capstone-style task requiring judgment, validation, and responsible AI use.'
+      ],
+      gaps: 1
+    },
+    '3As Scaffolding': {
+      status: 'ok',
+      findings: [
+        'The module can support staged 3As scaffolding, but stage transitions are not yet clearly documented.'
+      ],
+      actions: [
+        'Define stage-level outcomes for Anchor, Augment, and Advance across the semester timeline.'
+      ],
+      gaps: 0
+    },
+    'PAIR-Guided Activities': {
+      status: 'ok',
+      findings: [
+        'PAIR-style activity design can strengthen active learning and structured participation.'
+      ],
+      actions: [
+        'Add one PAIR-guided classroom activity with explicit prompts, roles, and reflection output.'
+      ],
+      gaps: 0
+    },
+    'AI-Enabled Assessment': {
+      status: 'warn',
+      findings: [
+        'AI-enabled assessment opportunities exist, but current rubrics and evidence types remain traditional.'
+      ],
+      actions: [
+        'Introduce one AI-enabled assessment component emphasizing judgment, process evidence, and reflection.'
       ],
       gaps: 1
     }
@@ -1351,9 +1382,6 @@ Examples:
 
   function runInlineReview() {
     const selected = Array.from(document.querySelectorAll('.check-item.on')).map(el => el.dataset.check);
-    const selectedGoals = Array.from(document.querySelectorAll('#goal-presets .goal-chip.on')).map(el => el.dataset.goal);
-    const selectedStyle = document.querySelector('#review-style-group .style-chip.on')?.dataset.style || 'Lecturer-friendly suggestions';
-    const priorities = document.getElementById('review-priorities').value.trim();
     const notes = document.getElementById('activity-notes').value.trim();
     const panel = document.getElementById('review-inline');
     const panels = document.getElementById('review-panels');
@@ -1361,14 +1389,14 @@ Examples:
 
     if (selected.length === 0) {
       panel.classList.add('show');
-      panels.innerHTML = '<div class="review-card"><div class="review-card-title">No review focus area selected</div><div class="review-block-label">Next step</div><ul class="review-list"><li>Select at least one focus area, then run AI review again.</li></ul></div>';
+      panels.innerHTML = '<div class="review-card"><div class="review-card-title">No review area selected</div><div class="review-block-label">Next step</div><ul class="review-list"><li>Select at least one review area, then generate suggestions again.</li></ul></div>';
       document.getElementById('metric-focus').textContent = '0';
       document.getElementById('metric-actions').textContent = '0';
       document.getElementById('metric-gaps').textContent = '0';
       document.getElementById('review-actions').style.display = 'none';
-      stamp.textContent = 'Awaiting selected focus areas';
+      stamp.textContent = 'Awaiting selected review areas';
       document.getElementById('run-review-btn').disabled = false;
-      document.getElementById('run-review-btn').textContent = 'Run AI Review →';
+      document.getElementById('run-review-btn').textContent = 'Run AI Curriculum Review →';
       document.getElementById('rerun-review-btn').style.display = 'none';
       return;
     }
@@ -1385,10 +1413,8 @@ Examples:
       const findingItems = data.findings.map(x => '<li>' + x + '</li>').join('');
       const actionItems = data.actions.map(x => '<li>' + x + '</li>').join('');
       const contextItems = [];
-      if (selectedGoals.length > 0) contextItems.push('Goals: ' + selectedGoals.join(', '));
-      if (priorities) contextItems.push('Priorities: ' + priorities);
-      if (notes) contextItems.push('Instructions: ' + notes);
-      contextItems.push('Review style: ' + selectedStyle);
+      if (notes) contextItems.push('Notes: ' + notes);
+      contextItems.push('Scope: Module review suggestions');
       const contextMarkup = contextItems.map(item => '<li>' + item + '</li>').join('');
 
       const card = document.createElement('div');
@@ -1411,15 +1437,13 @@ Examples:
     document.getElementById('metric-actions').textContent = String(actionCount);
     document.getElementById('metric-gaps').textContent = String(gapCount);
     document.getElementById('review-actions').style.display = 'flex';
-    stamp.textContent = selectedGoals.length > 0
-      ? 'Generated with goals: ' + selectedGoals.slice(0, 2).join(', ')
-      : 'Generated from selected focus areas';
+    stamp.textContent = 'Generated from selected review areas';
 
     panel.classList.add('show');
     panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    document.getElementById('bb-note').textContent = 'AI review generated · refine focus areas and run again anytime';
+    document.getElementById('bb-note').textContent = 'Review suggestions generated. Update review areas or notes to regenerate.';
     document.getElementById('run-review-btn').disabled = true;
-    document.getElementById('run-review-btn').textContent = 'Review Generated';
+    document.getElementById('run-review-btn').textContent = 'Review Completed';
     document.getElementById('rerun-review-btn').style.display = 'inline-flex';
   }
 
@@ -1427,37 +1451,32 @@ Examples:
     const panelVisible = document.getElementById('review-inline').classList.contains('show');
     if (!panelVisible) return;
     document.getElementById('run-review-btn').disabled = false;
-    document.getElementById('run-review-btn').textContent = 'Update AI Review →';
-    document.getElementById('bb-note').textContent = 'Focus areas changed · update AI review to refresh findings';
+    document.getElementById('run-review-btn').textContent = 'Update AI Curriculum Review →';
+    document.getElementById('bb-note').textContent = 'Review setup changed. Update suggestions to refresh findings.';
   }
 
   function applyQuickRefine(mode) {
-    const prioritiesEl = document.getElementById('review-priorities');
     const notesEl = document.getElementById('activity-notes');
     if (mode === 'assessment') {
       document.querySelectorAll('.check-item').forEach(el => {
-        const keep = el.dataset.check === 'Assessment Strategy' || el.dataset.check === 'Content & Outcomes';
+        const keep = el.dataset.check === 'Assessment & Workload' || el.dataset.check === 'Learning Outcomes & Content';
         el.classList.toggle('on', keep);
       });
-      prioritiesEl.value = 'Prioritize assessment balance, workload, and outcome-assessment traceability.';
+      notesEl.value = 'Prioritize assessment alignment, workload balance, and clearer links between outcomes and assessments.';
     }
     if (mode === 'industry') {
       const industryCheck = Array.from(document.querySelectorAll('.check-item')).find(el => el.dataset.check === 'Industry Relevance');
       if (industryCheck) industryCheck.classList.add('on');
-      const sfRef = Array.from(document.querySelectorAll('.ref-check')).find(el => el.value === 'Industry Skills Frameworks');
-      if (sfRef) sfRef.checked = true;
-      notesEl.value = (notesEl.value ? notesEl.value + '\n' : '') + 'Compare findings against Industry Skills Framework references.';
+      notesEl.value = (notesEl.value ? notesEl.value + '\n' : '') + 'Compare recommendations against current industry trends and workplace expectations.';
     }
     if (mode === 'recommendations') {
-      prioritiesEl.value = 'Provide alternative implementation pathways with trade-offs and effort estimates.';
+      notesEl.value = 'Suggest alternative improvement pathways, including practical trade-offs and implementation effort.';
     }
     if (mode === 'followup') {
-      notesEl.value = (notesEl.value ? notesEl.value + '\n' : '') + 'Follow-up: Which two recommendations should be implemented first for next semester?';
+      notesEl.value = (notesEl.value ? notesEl.value + '\n' : '') + 'Follow-up: Which recommendations should be prioritized for next semester and why?';
     }
     if (mode === 'expand') {
-      prioritiesEl.value = 'Expand recommendations with practical classroom-level examples and sequencing.';
-      const styleDetailed = Array.from(document.querySelectorAll('#review-style-group .style-chip')).find(chip => chip.dataset.style === 'Detailed analysis');
-      if (styleDetailed) setReviewStyle(styleDetailed);
+      notesEl.value = 'Expand suggestions with concrete classroom examples, sequencing, and implementation steps.';
     }
     updateSummary();
     markReviewStale();
@@ -1468,42 +1487,19 @@ Examples:
     document.getElementById('loaded-files').style.display = 'flex';
     document.getElementById('detected-context').classList.add('show');
     const st = document.getElementById('import-state');
-    st.textContent = 'Module Loaded';
+    st.textContent = '3 files added';
     st.classList.add('loaded');
     document.getElementById('sum-module').textContent = 'ICT1234 · Data Structures & Algorithms';
     document.getElementById('sum-module').classList.remove('empty');
-    document.getElementById('bb-note').textContent = 'Module documentation imported · ready to run AI review';
+    document.getElementById('bb-note').textContent = 'Materials added. Select review areas to generate suggestions.';
     document.getElementById('run-review-btn').disabled = false;
-    document.getElementById('run-review-btn').textContent = 'Run AI Review →';
+    document.getElementById('run-review-btn').textContent = 'Run AI Curriculum Review →';
   }
 
   function updateSummary() {
     const focus = document.querySelectorAll('.check-item.on').length;
-    const goals = document.querySelectorAll('#goal-presets .goal-chip.on').length;
-    const style = document.querySelector('#review-style-group .style-chip.on')?.dataset.style || 'Lecturer-friendly suggestions';
     document.getElementById('sum-focus').textContent = focus + ' selected';
-    const goalsEl = document.getElementById('sum-goals');
-    if (goals > 0) {
-      goalsEl.textContent = goals + ' selected';
-      goalsEl.classList.remove('empty');
-    } else {
-      goalsEl.textContent = 'None';
-      goalsEl.classList.add('empty');
-    }
-    document.getElementById('sum-style').textContent = style;
   }
-
-  document.querySelectorAll('.ref-check').forEach(cb => cb.addEventListener('change', () => {
-    const refs = document.querySelectorAll('.ref-check:checked').length;
-    const el = document.getElementById('sum-refs');
-    if (refs > 0) { el.textContent = refs + ' selected'; el.classList.remove('empty'); }
-    else { el.textContent = 'None'; el.classList.add('empty'); }
-    markReviewStale();
-  }));
-
-  document.getElementById('review-priorities').addEventListener('input', () => {
-    markReviewStale();
-  });
 
   document.getElementById('activity-notes').addEventListener('input', (e) => {
     const el = document.getElementById('sum-notes');
