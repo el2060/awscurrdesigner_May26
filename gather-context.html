@@ -260,16 +260,25 @@
     .ai-head {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       gap: 12px;
       padding: 12px 18px;
       border-bottom: 1px solid #efefef;
       background: #fafafa;
     }
+    .ai-head-copy {
+      display: grid;
+      gap: 2px;
+    }
     .ai-title {
       font-size: 13px;
       font-weight: 700;
       color: #1a1a1a;
+    }
+    .ai-subtitle {
+      font-size: 11px;
+      color: #7d7d7d;
+      line-height: 1.45;
     }
     .ai-time {
       font-size: 11px;
@@ -654,58 +663,61 @@
 
       <section id="analysis-results" class="analysis-inline hidden" aria-live="polite">
         <div class="ai-head">
-          <div class="ai-title">Context Analysis (Concept Mock)</div>
+          <div class="ai-head-copy">
+            <div class="ai-title">Context Summary</div>
+            <div class="ai-subtitle">Generated from uploaded references and module inputs</div>
+          </div>
           <div class="ai-time" id="analysis-time">Not run yet</div>
         </div>
         <div class="ai-stat-strip">
           <div class="ai-stat">
             <div class="ai-stat-num" id="ai-sources">14</div>
-            <div class="ai-stat-label">Sources considered</div>
+            <div class="ai-stat-label">Reference inputs reviewed</div>
           </div>
           <div class="ai-stat">
             <div class="ai-stat-num" id="ai-signals">4</div>
-            <div class="ai-stat-label">Design areas covered</div>
+            <div class="ai-stat-label">Curriculum areas referenced</div>
           </div>
           <div class="ai-stat">
             <div class="ai-stat-num" id="ai-gaps">6</div>
-            <div class="ai-stat-label">Draft actions identified</div>
+            <div class="ai-stat-label">Suggested drafting considerations</div>
           </div>
         </div>
         <div class="ai-body">
           <div class="ai-row">
-            <div class="ai-row-title">Design input summary</div>
-            <p>Hospital partner interviews, employer survey findings, graduate outcomes, and module-review evidence indicate stronger demand for AI-enabled clinical interpretation, safe escalation decisions, and inter-professional communication in critical care nursing practice.</p>
+            <div class="ai-row-title">Common themes across uploaded references</div>
+            <p>Hospital partner discussions, employer feedback, graduate outcomes, and module review inputs suggest increasing emphasis on clinical interpretation, escalation decision-making, and inter-professional communication within critical care nursing contexts.</p>
           </div>
           <div class="ai-row">
-            <div class="ai-row-title">Learning outcomes inputs</div>
+            <div class="ai-row-title">Suggested learning outcome considerations</div>
             <ul>
-              <li>Add an outcome on interpreting AI-assisted monitoring alerts and patient trend data for escalation decisions.</li>
-              <li>Add an outcome on integrating pathophysiology, diagnostics, and risk indicators to justify nursing interventions.</li>
-              <li>Add an outcome on clear inter-professional handover and documentation quality in high-acuity settings.</li>
+              <li>Consider including an outcome on interpreting AI-assisted monitoring alerts and patient trend data for escalation decisions.</li>
+              <li>Consider strengthening integration across pathophysiology, diagnostics, and clinical risk indicators when justifying nursing interventions.</li>
+              <li>Consider emphasising inter-professional handover and documentation practices in high-acuity care settings.</li>
             </ul>
           </div>
           <div class="ai-row">
-            <div class="ai-row-title">Content and topics inputs</div>
+            <div class="ai-row-title">Suggested content emphases</div>
             <ul>
-              <li>Prioritise high-frequency ICU scenarios from partner hospitals: GI bleed, acute pancreatitis, and liver failure deterioration.</li>
-              <li>Include AI-enabled early warning interpretation, risk scoring, and escalation workflow decision points.</li>
-              <li>Sequence from clinical foundations to integrated case management with explicit mapping to each learning outcome.</li>
+              <li>Prioritise commonly encountered ICU scenarios referenced by partner hospitals, including GI bleed, acute pancreatitis, and liver deterioration cases.</li>
+              <li>Introduce early-warning interpretation, risk scoring, and escalation workflow discussions where relevant.</li>
+              <li>Sequence learning from clinical foundations towards integrated case management with alignment to learning outcomes.</li>
             </ul>
           </div>
           <div class="ai-row">
-            <div class="ai-row-title">Teaching and learning inputs</div>
+            <div class="ai-row-title">Suggested T&amp;L approaches</div>
             <ul>
               <li>Use blended delivery with concise concept inputs followed by guided case-based application.</li>
-              <li>Use simulation sessions with monitoring dashboards, lab trends, and structured clinical huddles.</li>
-              <li>Insert weekly formative checkpoints with debrief feedback on reasoning, communication, and safe escalation.</li>
+              <li>Incorporate simulation activities using monitoring dashboards, lab trends, and structured clinical huddles.</li>
+              <li>Include formative checkpoints with debrief feedback on reasoning, communication, and escalation decisions.</li>
             </ul>
           </div>
           <div class="ai-row">
-            <div class="ai-row-title">Assessment inputs</div>
+            <div class="ai-row-title">Suggested assessment considerations</div>
             <ul>
-              <li>Use authentic case assessments requiring interpretation of AI alerts, diagnostics, and intervention prioritisation.</li>
-              <li>Combine individual clinical reasoning evidence with team-based simulation and handover performance.</li>
-              <li>Align rubric criteria to decision accuracy, patient safety actions, communication clarity, and documentation standards.</li>
+              <li>Use case-based assessments involving interpretation of monitoring alerts, diagnostics, and intervention prioritisation.</li>
+              <li>Combine individual clinical reasoning with team-based simulation and handover activities where appropriate.</li>
+              <li>Align rubric criteria to decision-making, patient safety, communication clarity, and documentation quality.</li>
             </ul>
           </div>
         </div>
