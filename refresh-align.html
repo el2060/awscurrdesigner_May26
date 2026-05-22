@@ -751,8 +751,121 @@
       color: var(--hp-text);
       font-weight: 600;
     }
+    .check-label-main {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--hp-text);
+      line-height: 1.25;
+    }
+    .check-label-meta {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--hp-muted);
+      line-height: 1.35;
+    }
     .check-sub { font-size: 11px; color: var(--hp-body); margin-top: 3px; }
     .check-ref { color: var(--hp-emerald-700); font-size: 11px; font-weight: 600; }
+    .check-hint {
+      display: none;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--hp-border-soft);
+      font-size: 11px;
+      color: var(--hp-body);
+      line-height: 1.45;
+    }
+    .check-hint-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--hp-muted);
+      margin-bottom: 4px;
+    }
+    .check-hint-list {
+      margin: 0;
+      padding-left: 14px;
+    }
+    .check-hint-list li { margin-bottom: 2px; }
+    .check-item.on .check-hint { display: block; }
+    .industry-inputs {
+      display: none;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--hp-border-soft);
+    }
+    .check-item.on .industry-inputs { display: block; }
+    .industry-inputs-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--hp-muted);
+      margin-bottom: 6px;
+    }
+    .industry-inputs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .industry-chip {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--hp-body);
+      border: 1px solid var(--hp-border);
+      border-radius: 8px;
+      background: #fff;
+      padding: 6px 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      line-height: 1.3;
+    }
+    .industry-chip:hover {
+      border-color: var(--hp-emerald-100);
+      background: var(--hp-emerald-50);
+      color: var(--hp-emerald-700);
+    }
+    .industry-chip input[type="file"] {
+      display: none;
+    }
+    .industry-chip input[type="checkbox"] {
+      accent-color: var(--hp-emerald-700);
+      margin: 0;
+    }
+    .industry-input {
+      width: 100%;
+      border: 1px solid var(--hp-border);
+      border-radius: 8px;
+      font: inherit;
+      font-size: 11px;
+      color: var(--hp-text);
+      background: #fff;
+      padding: 7px 8px;
+      margin-bottom: 6px;
+    }
+    .industry-textarea {
+      width: 100%;
+      border: 1px solid var(--hp-border);
+      border-radius: 8px;
+      font: inherit;
+      font-size: 11px;
+      color: var(--hp-text);
+      background: #fff;
+      padding: 7px 8px;
+      min-height: 52px;
+      resize: vertical;
+    }
+    .industry-input-note {
+      margin-top: 4px;
+      font-size: 10px;
+      color: var(--hp-muted);
+    }
     /* References */
     .ref-row {
       font-size: 13px;
@@ -1112,17 +1225,17 @@
           <div class="focus-group">
             <div class="focus-group-title">Curriculum &amp; Learning Design</div>
             <div class="check-group-2col" id="checks">
-              <div class="check-item on" data-check="Learning Outcomes &amp; Content" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Learning Outcomes &amp; Content</div></div></div>
-              <div class="check-item on" data-check="Assessment &amp; Workload" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Assessment &amp; Workload</div></div></div>
-              <div class="check-item on" data-check="Teaching &amp; Learning" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Teaching &amp; Learning</div></div></div>
-              <div class="check-item" data-check="Industry Relevance" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Industry Relevance</div></div></div>
+              <div class="check-item on" data-check="Learning Outcomes &amp; Curriculum Content" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Learning Outcomes &amp; Curriculum Content</div><div class="check-hint"><div class="check-hint-title">Review informed by</div><ul class="check-hint-list"><li>Module outcomes &amp; syllabus</li><li>Bloom's progression</li><li>Competency alignment</li><li>Uploaded curriculum materials</li></ul></div></div></div>
+              <div class="check-item on" data-check="Assessment Design &amp; Feedback" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Assessment Design &amp; Feedback</div><div class="check-hint"><div class="check-hint-title">Review informed by</div><ul class="check-hint-list"><li>NP Assessment Framework</li><li>Assessment alignment &amp; validity</li><li>Assessment workload balance</li><li>Formative &amp; summative feedback</li><li>Assessment rubrics &amp; criteria</li></ul></div></div></div>
+              <div class="check-item on" data-check="Teaching &amp; Learning" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Teaching &amp; Learning</div><div class="check-hint"><div class="check-hint-title">Review informed by</div><ul class="check-hint-list"><li>Lesson &amp; learning activities</li><li>Active learning approaches</li><li>AI-enabled learning opportunities</li><li>PAIR-guided activities</li></ul></div></div></div>
+              <div class="check-item" data-check="Industry Relevance" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Industry Relevance</div><div class="check-hint"><div class="check-hint-title">Review informed by</div><ul class="check-hint-list"><li>Industry practices &amp; workflows</li><li>Skills frameworks or standards</li><li>Advisory or employer inputs</li><li>AI-assisted industry research</li></ul></div><div class="industry-inputs" onclick="event.stopPropagation()"><div class="industry-inputs-title">Industry inputs (optional)</div><div class="industry-inputs-grid"><label class="industry-chip">Upload industry reports<input type="file" accept=".pdf,.doc,.docx,.txt,.md"></label><label class="industry-chip"><input type="checkbox">AI-assisted web research</label></div><input class="industry-input" type="url" placeholder="Add URLs (reports, standards, role pages)"><textarea class="industry-textarea" placeholder="Add advisory/employer notes, job descriptions, or professional standards"></textarea><div class="industry-input-note">Minimal mode: leave fields blank. Enhanced mode: add sources above.</div></div></div></div>
             </div>
           </div>
 
           <div class="focus-group">
             <div class="focus-group-title">Future-Ready Skills</div>
             <div class="check-group-2col">
-              <div class="check-item on" data-check="Communication &amp; Presentation" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Communication &amp; Presentation</div></div></div>
+              <div class="check-item on" data-check="Communication &amp; Presentation" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Communication &amp; Presentation</div><div class="check-hint"><div class="check-hint-title">Review informed by</div><ul class="check-hint-list"><li>Communication rubrics</li><li>Presentation expectations</li><li>Industry communication needs</li></ul></div></div></div>
               <div class="check-item upcoming" aria-disabled="true"><div class="check-box"></div><div><div class="check-label">Resilience <span class="lens-tag">Upcoming</span></div><div class="check-sub">Adaptability in changing roles and environments</div></div></div>
             </div>
           </div>
@@ -1130,10 +1243,9 @@
           <div class="focus-group">
             <div class="focus-group-title">AI Curriculum Transformation (3As)</div>
             <div class="check-group-2col">
-              <div class="check-item" data-check="Anchor" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Anchor (Foundational Human Skills &amp; Judgement)</div></div></div>
-              <div class="check-item" data-check="Augment" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Augment (AI-Enhanced Workflows &amp; Practice)</div></div></div>
-              <div class="check-item" data-check="Advance" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Advance (Emerging &amp; Transformative AI Applications)</div></div></div>
-              <div class="check-item" data-check="Curriculum Progression Across Levels" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Curriculum Progression Across Levels</div></div></div>
+              <div class="check-item" data-check="Anchor" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label"><span class="check-label-main">Anchor</span><span class="check-label-meta">Core Competencies, Judgement &amp; Human Qualities</span></div></div></div>
+              <div class="check-item" data-check="Augment" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label"><span class="check-label-main">Augment</span><span class="check-label-meta">AI-Enhanced Learning &amp; Professional Workflows</span></div></div></div>
+              <div class="check-item" data-check="Advance" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label"><span class="check-label-main">Advance</span><span class="check-label-meta">Emerging &amp; Transformative AI Applications</span></div></div></div>
             </div>
           </div>
 
@@ -1258,7 +1370,7 @@
   }
 
   const reviewLensMap = {
-    'Learning Outcomes & Content': {
+    'Learning Outcomes & Curriculum Content': {
       status: 'warn',
       findings: [
         'Outcome alignment is solid, but progression can be clearer.'
@@ -1268,13 +1380,13 @@
       ],
       gaps: 1
     },
-    'Assessment & Workload': {
+    'Assessment Design & Feedback': {
       status: 'warn',
       findings: [
-        'Workload balance and formative checkpoints need attention.'
+        'Assessment alignment, workload balance, and feedback design need refinement.'
       ],
       actions: [
-        'Add an early checkpoint and rebalance deadline clusters.'
+        'Strengthen validity mapping, add formative checkpoints, and clarify rubric criteria.'
       ],
       gaps: 1
     },
@@ -1337,16 +1449,6 @@
         'Design one transformative capstone task.'
       ],
       gaps: 1
-    },
-    'Curriculum Progression Across Levels': {
-      status: 'ok',
-      findings: [
-        'Progression across levels exists but transitions are unclear.'
-      ],
-      actions: [
-        'Define explicit progression outcomes across levels.'
-      ],
-      gaps: 0
     },
     'PAIR-Guided Learning Activities': {
       status: 'ok',
@@ -1449,10 +1551,10 @@
     const notesEl = document.getElementById('activity-notes');
     if (mode === 'assessment') {
       document.querySelectorAll('.check-item').forEach(el => {
-        const keep = el.dataset.check === 'Assessment & Workload' || el.dataset.check === 'Learning Outcomes & Content';
+        const keep = el.dataset.check === 'Assessment Design & Feedback' || el.dataset.check === 'Learning Outcomes & Curriculum Content';
         el.classList.toggle('on', keep);
       });
-      notesEl.value = 'Prioritize assessment alignment and workload balance.';
+      notesEl.value = 'Prioritize assessment design, alignment, and feedback quality.';
     }
     if (mode === 'industry') {
       const industryCheck = Array.from(document.querySelectorAll('.check-item')).find(el => el.dataset.check === 'Industry Relevance');
