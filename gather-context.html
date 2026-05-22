@@ -250,6 +250,86 @@
       padding: 7px 8px;
     }
 
+    /* ── Inline analysis (same-page) ── */
+    .analysis-inline {
+      margin-top: 18px;
+      border: 1px solid #e4e4e4;
+      background: #fff;
+    }
+    .analysis-inline.hidden { display: none; }
+    .ai-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      border-bottom: 1px solid #efefef;
+      background: #fafafa;
+    }
+    .ai-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    .ai-time {
+      font-size: 11px;
+      color: #999;
+      font-family: var(--font-mono);
+    }
+    .ai-stat-strip {
+      display: flex;
+      border-bottom: 1px solid #efefef;
+    }
+    .ai-stat {
+      flex: 1;
+      padding: 12px 16px;
+      border-right: 1px solid #efefef;
+    }
+    .ai-stat:last-child { border-right: none; }
+    .ai-stat-num {
+      font-size: 18px;
+      font-weight: 700;
+      color: #004689;
+      font-family: var(--font-mono);
+    }
+    .ai-stat-label {
+      font-size: 11px;
+      color: #999;
+    }
+    .ai-body { padding: 10px 0; }
+    .ai-row {
+      padding: 10px 18px;
+      border-bottom: 1px solid #f4f4f4;
+    }
+    .ai-row:last-child { border-bottom: none; }
+    .ai-row-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #888;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    .ai-row p {
+      font-size: 13px;
+      color: #2a2a2a;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+    .ai-row p:last-child { margin-bottom: 0; }
+    .ai-row ul {
+      margin: 2px 0 0;
+      padding-left: 16px;
+      list-style: disc;
+    }
+    .ai-row li {
+      font-size: 13px;
+      color: #2a2a2a;
+      line-height: 1.5;
+      margin-bottom: 3px;
+    }
+    .ai-row li:last-child { margin-bottom: 0; }
+
     /* ── Sidebar ── */
     .side-box {
       border: 1px solid #e4e4e4;
@@ -355,6 +435,8 @@
     .uz-title { font-size: 15px; }
     .uz-desc, .side-row, .side-total, .bb-note, .btn-ghost, .btn-primary { font-size: 13px; }
     .uz-file-name, .uz-link-url, .uz-note-text, .cp-focus { font-size: 14px; }
+    .ai-title { font-size: 15px; }
+    .ai-row p, .ai-row li { font-size: 14px; }
 
     @media (max-width: 1280px) {
       :root { --workspace-pad: 28px; }
@@ -570,6 +652,50 @@
 
       </div>
 
+      <section id="analysis-results" class="analysis-inline hidden" aria-live="polite">
+        <div class="ai-head">
+          <div class="ai-title">Context Analysis (Concept Mock)</div>
+          <div class="ai-time" id="analysis-time">Not run yet</div>
+        </div>
+        <div class="ai-stat-strip">
+          <div class="ai-stat">
+            <div class="ai-stat-num" id="ai-sources">14</div>
+            <div class="ai-stat-label">Sources considered</div>
+          </div>
+          <div class="ai-stat">
+            <div class="ai-stat-num" id="ai-signals">4</div>
+            <div class="ai-stat-label">Priority signals</div>
+          </div>
+          <div class="ai-stat">
+            <div class="ai-stat-num" id="ai-gaps">3</div>
+            <div class="ai-stat-label">Gaps to address</div>
+          </div>
+        </div>
+        <div class="ai-body">
+          <div class="ai-row">
+            <div class="ai-row-title">Quick synthesis</div>
+            <p>Evidence points to strong relevance for applied AI, cloud workflows, and integration skills, with highest confidence from industry reports and graduate outcomes.</p>
+          </div>
+          <div class="ai-row">
+            <div class="ai-row-title">Top signals</div>
+            <ul>
+              <li>Increase hands-on AI usage in core modules, not only electives.</li>
+              <li>Embed cloud-native development and CI/CD practices earlier.</li>
+              <li>Strengthen communication and stakeholder-facing deliverables.</li>
+              <li>Align assessment tasks with real project integration scenarios.</li>
+            </ul>
+          </div>
+          <div class="ai-row">
+            <div class="ai-row-title">Pre-work for new module design</div>
+            <ul>
+              <li>Confirm 3 to 4 future-focused outcomes tied to industry demand.</li>
+              <li>Draft a 2-track learning sequence: foundations then integration studio.</li>
+              <li>Define one authentic capstone brief and rubric skeleton for validation.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
     </div>
 
     <!-- Sidebar -->
@@ -608,20 +734,24 @@
   <div class="bottom-inner">
     <div class="bb-note" id="bb-note">Ready for context analysis</div>
     <div class="bb-actions">
-      <a href="analyse-synthesise.html" class="btn-primary">Analyse Context →</a>
+      <button id="analyze-btn" class="btn-primary" type="button" onclick="runInlineAnalysis()">Analyse Context</button>
     </div>
   </div>
 </div>
 
 <script>
   function updateReadinessPanel() {
+    const coverage = document.getElementById('cp-coverage');
+    const addHints = document.getElementById('cp-insights');
+    const readyNote = document.getElementById('cp-ready');
+    if (!coverage || !addHints || !readyNote) return;
+
     const labels = [
       'Industry and benchmarking',
       'Curriculum and standards',
       'Student and module insights',
       'Existing module materials'
     ];
-    const coverage = document.getElementById('cp-coverage');
     coverage.innerHTML = '';
     counts.forEach((count, i) => {
       const li = document.createElement('li');
@@ -629,7 +759,6 @@
       coverage.appendChild(li);
     });
 
-    const addHints = document.getElementById('cp-insights');
     addHints.innerHTML = '';
     const hints = [
       'Add recent module-review notes.',
@@ -642,7 +771,7 @@
     });
 
     const ready = counts.every(c => c > 0);
-    document.getElementById('cp-ready').textContent = ready
+    readyNote.textContent = ready
       ? 'Ready for synthesis and gap analysis.'
       : 'Add at least one source in each category to improve analysis readiness.';
   }
@@ -650,6 +779,33 @@
   // Track counts per zone (4 grouped source categories)
   const counts = [4, 2, 5, 3];
   const sideIds = ['cnt-0','cnt-1','cnt-2','cnt-3'];
+  let analysisVisible = false;
+
+  function stampAnalysisTime() {
+    const now = new Date();
+    const timeText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('analysis-time').textContent = 'Updated ' + timeText;
+  }
+
+  function refreshInlineAnalysisStats() {
+    const total = counts.reduce((a, b) => a + b, 0);
+    const activeCategories = counts.filter(c => c > 0).length;
+    document.getElementById('ai-sources').textContent = total;
+    document.getElementById('ai-signals').textContent = Math.max(3, activeCategories);
+    document.getElementById('ai-gaps').textContent = Math.max(1, 4 - activeCategories + 1);
+  }
+
+  function runInlineAnalysis() {
+    const analysis = document.getElementById('analysis-results');
+    analysis.classList.remove('hidden');
+    analysisVisible = true;
+    refreshInlineAnalysisStats();
+    stampAnalysisTime();
+    document.getElementById('bb-note').textContent = 'Analysis generated below. You can refine context and re-run.';
+    const btn = document.getElementById('analyze-btn');
+    btn.textContent = 'Re-run Analysis';
+    analysis.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 
   function updateTotals() {
     let total = counts.reduce((a, b) => a + b, 0);
@@ -657,11 +813,13 @@
       document.getElementById(id).textContent = counts[i];
     });
     document.getElementById('cnt-total').textContent = total + ' files';
-    const cats = counts.filter(c => c > 0).length;
-    document.getElementById('bb-note').textContent = 'Ready for context analysis';
+    document.getElementById('bb-note').textContent = analysisVisible
+      ? 'Context changed. Re-run analysis to refresh findings.'
+      : 'Ready for context analysis';
     document.querySelectorAll('.upload-zone').forEach((zone, i) => {
       zone.querySelector('.uz-badge').textContent = counts[i] + ' file' + (counts[i] !== 1 ? 's' : '');
     });
+    if (analysisVisible) refreshInlineAnalysisStats();
     updateReadinessPanel();
   }
 

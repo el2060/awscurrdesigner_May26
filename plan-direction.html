@@ -53,6 +53,122 @@
     .page-title { font-size: 22px; font-weight: 700; color: #18212b; margin-bottom: 4px; }
     .page-sub { font-size: 13px; color: #6e7b88; line-height: 1.55; max-width: 780px; }
 
+    .context-bridge {
+      border: 1px solid #d8e2ec;
+      border-radius: 12px;
+      background: #fbfdff;
+      padding: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .bridge-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .bridge-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #5f7488;
+      margin-bottom: 3px;
+    }
+
+    .bridge-sub {
+      font-size: 12px;
+      color: #5f7081;
+      line-height: 1.45;
+      max-width: 760px;
+    }
+
+    .bridge-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .bridge-btn {
+      border: 1px solid #d1dce7;
+      background: #fff;
+      color: #4d6073;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .bridge-btn.primary {
+      border-color: #1a1a1a;
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    .bridge-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 10px;
+    }
+
+    .bridge-card {
+      border: 1px solid #dbe5ef;
+      border-radius: 10px;
+      background: #fff;
+      padding: 10px;
+      display: grid;
+      gap: 7px;
+    }
+
+    .bridge-card-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b7f92;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .bridge-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .bridge-chip {
+      border: 1px solid #d2dce7;
+      background: #fff;
+      color: #4f6275;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .bridge-chip.selected {
+      border-color: #0f2d4a;
+      background: #0f2d4a;
+      color: #f3f7fb;
+    }
+
+    .bridge-list {
+      display: grid;
+      gap: 4px;
+      padding-left: 16px;
+      color: #314a61;
+      font-size: 12px;
+      line-height: 1.45;
+      list-style: disc;
+    }
+
+    .bridge-note {
+      font-size: 11px;
+      color: #6f8396;
+    }
+
     .workspace {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
@@ -419,6 +535,46 @@
       color: #5f7892;
     }
 
+    .context-in-use {
+      border: 1px solid #d7e4f2;
+      background: #f5f9ff;
+      border-radius: 10px;
+      padding: 10px;
+      display: grid;
+      gap: 6px;
+      color: #2a435a;
+    }
+
+    .context-in-use-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .context-in-use-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #5f7892;
+    }
+
+    .context-in-use-meta {
+      font-size: 10px;
+      color: #6d8298;
+      font-weight: 700;
+    }
+
+    .context-in-use-list {
+      font-size: 12px;
+      line-height: 1.45;
+      padding-left: 16px;
+      list-style: disc;
+      display: grid;
+      gap: 3px;
+    }
+
     .chat-footer {
       border-top: 1px solid #e6ebf1;
       padding: 12px 14px;
@@ -518,6 +674,7 @@
       .doc-surface, .chat-surface { min-height: auto; }
       .doc-body { overflow: visible; }
       .chat-surface { max-width: none; }
+      .bridge-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -538,14 +695,47 @@
   <main class="page">
     <section class="page-head">
       <div class="page-title">Plan Curriculum Direction</div>
-      <div class="page-sub">Drafting view with a canonical document on the left and temporary AI guidance on the right.</div>
+      <div class="page-sub">Drafting view for a new module, with module draft on the left and AI guidance on the right.</div>
+    </section>
+
+    <section class="context-bridge" aria-label="Context bridge from gather and analyse">
+      <div class="bridge-head">
+        <div>
+          <div class="bridge-title">Optional Input From Gather and Analyse</div>
+          <div class="bridge-sub">Use earlier analysis to choose a new module title and carry key planning notes into this draft. You can apply it or skip it.</div>
+        </div>
+        <div class="bridge-actions">
+          <button class="bridge-btn" type="button">Review Source</button>
+          <button class="bridge-btn primary" type="button">Use This Analysis</button>
+        </div>
+      </div>
+      <div class="bridge-grid">
+        <div class="bridge-card">
+          <div class="bridge-card-title">Proposed New Module Titles</div>
+          <div class="bridge-chip-row">
+            <span class="bridge-chip selected">Cloud Automation Studio</span>
+            <span class="bridge-chip">Applied AI for Business Workflows</span>
+            <span class="bridge-chip">Responsible AI Implementation Lab</span>
+          </div>
+          <div class="bridge-note">Mock behavior: selected title and notes are shown in drafting guidance below.</div>
+        </div>
+        <div class="bridge-card">
+          <div class="bridge-card-title">Analysis Summary For Design New Module</div>
+          <ul class="bridge-list">
+            <li>Recommended title: Cloud Automation Studio</li>
+            <li>Target level: Year 2 students in computing pathways</li>
+            <li>Suggested focus: cloud workflows, automation, and practical deployment</li>
+          </ul>
+          <div class="bridge-note">Analysis run: May 22, 2026 · 10:42</div>
+        </div>
+      </div>
     </section>
 
     <section class="workspace">
       <div class="doc-surface">
         <div class="doc-top">
           <div>
-            <div class="doc-title">Advanced Critical Care Nursing Science II</div>
+            <div class="doc-title">Cloud Automation Studio</div>
             <div class="doc-meta">Working draft saved 2 minutes ago</div>
           </div>
           <div class="doc-status">Updated</div>
@@ -566,14 +756,14 @@
           <div class="doc-pane" data-pane="overview">
             <div class="doc-block">
               <div class="doc-block-header">
-                <div class="doc-block-title">Module Document: Advanced Critical Care Nursing Science II</div>
+                <div class="doc-block-title">Module Document: Cloud Automation Studio</div>
                 <div class="doc-block-meta">Section Retained</div>
               </div>
-              <div class="doc-line"><strong>Institution:</strong> Ngee Ann Polytechnic - School of Health Sciences</div>
+              <div class="doc-line"><strong>Institution:</strong> Ngee Ann Polytechnic - School of InfoComm Technology</div>
               <table class="module-table">
                 <tbody>
-                  <tr><th>Course Name</th><td>Advanced Diploma in Critical Care Nursing - Specialty Module 3</td></tr>
-                  <tr><th>Module Name</th><td>Advanced Critical Care Nursing Science II</td></tr>
+                  <tr><th>Course Name</th><td>Diploma in Information Technology</td></tr>
+                  <tr><th>Module Name</th><td>Cloud Automation Studio</td></tr>
                   <tr><th>Module Catalogue and ID</th><td>-</td></tr>
                   <tr><th>Pre-Requisite</th><td>-</td></tr>
                   <tr><th>Timetabled Hours</th><td>-</td></tr>
@@ -720,6 +910,18 @@ Detailed listings are intentionally not populated in this mock.</div>
           <div class="chat-pane active" data-pane="outcomes">
             <div class="bubble ai lead">Let's shape measurable and applied learning outcomes for this module.
 Start with a rough description of what students should be able to do.</div>
+
+            <div class="context-in-use">
+              <div class="context-in-use-head">
+                <div class="context-in-use-title">Context In Use For This Draft</div>
+                <div class="context-in-use-meta">1 title + 2 planning notes</div>
+              </div>
+              <ul class="context-in-use-list">
+                <li>Chosen module title: Cloud Automation Studio.</li>
+                <li>At least one outcome should cover workflow automation with cloud tools.</li>
+                <li>Assessment should include a deployment-ready team project.</li>
+              </ul>
+            </div>
 
             <div class="bubble user">Manage critically ill GI and hepato-biliary patients safely and communicate clear care recommendations.</div>
 
