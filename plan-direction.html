@@ -66,6 +66,50 @@
       border: 1px solid #d8e2ec;
       border-radius: 12px;
       background: #fbfdff;
+      overflow: hidden;
+    }
+
+    .bridge-accordion {
+      display: grid;
+    }
+
+    .bridge-summary {
+      list-style: none;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .bridge-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .bridge-summary-hint {
+      border: 1px solid #d1dce7;
+      background: #fff;
+      color: #4d6073;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .bridge-summary-hint::before {
+      content: 'Show details';
+    }
+
+    .bridge-accordion[open] .bridge-summary-hint::before {
+      content: 'Hide details';
+    }
+
+    .bridge-panel {
+      border-top: 1px solid #e3ebf4;
       padding: 12px;
       display: grid;
       gap: 10px;
@@ -1206,41 +1250,46 @@
     </section>
 
     <section class="context-bridge" aria-label="Context bridge from curriculum input analysis">
-      <div class="bridge-head">
-        <div class="bridge-head-copy">
-          <div class="bridge-head-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      <details class="bridge-accordion">
+        <summary class="bridge-summary">
+          <div class="bridge-head-copy">
+            <div class="bridge-head-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </div>
+            <div>
+              <div class="bridge-title">From Curriculum Input Analysis</div>
+              <div class="bridge-sub">Selected curriculum inputs analysed earlier for use in this module draft.</div>
+            </div>
           </div>
-          <div>
-            <div class="bridge-title">From Curriculum Input Analysis</div>
-            <div class="bridge-sub">Selected curriculum inputs analysed earlier for use in this module draft.</div>
+          <span class="bridge-summary-hint" aria-hidden="true"></span>
+        </summary>
+        <div class="bridge-panel">
+          <div class="bridge-actions">
+            <button class="bridge-btn" type="button">Open Curriculum Inputs</button>
+            <button class="bridge-btn primary" type="button">Use in Module Draft</button>
+          </div>
+          <div class="bridge-grid">
+            <div class="bridge-card">
+              <div class="bridge-card-title">Selected curriculum inputs</div>
+              <div class="bridge-note" style="margin-bottom:0;">Module: <strong>Advanced Critical Care Nursing Science II</strong></div>
+              <div class="bridge-chip-row">
+                <span class="bridge-chip selected">Hospital interviews: ICU escalation decision points</span>
+                <span class="bridge-chip">Employer survey: clinical documentation gap trends</span>
+                <span class="bridge-chip">Benchmark scan: simulation-based assessment patterns</span>
+              </div>
+            </div>
+            <div class="bridge-card">
+              <div class="bridge-card-title">Used in this module draft</div>
+              <ul class="bridge-list">
+                <li>Source analysis: Curriculum input analysis</li>
+                <li>Module: Advanced Critical Care Nursing Science II</li>
+                <li>Use in design: outcomes, content plan, and assessment strategy</li>
+              </ul>
+              <div class="bridge-note">Analysis run: May 22, 2026 · 10:42</div>
+            </div>
           </div>
         </div>
-        <div class="bridge-actions">
-          <button class="bridge-btn" type="button">Open Curriculum Inputs</button>
-          <button class="bridge-btn primary" type="button">Use in Module Draft</button>
-        </div>
-      </div>
-      <div class="bridge-grid">
-        <div class="bridge-card">
-          <div class="bridge-card-title">Selected curriculum inputs</div>
-          <div class="bridge-note" style="margin-bottom:0;">Module: <strong>Advanced Critical Care Nursing Science II</strong></div>
-          <div class="bridge-chip-row">
-            <span class="bridge-chip selected">Hospital interviews: ICU escalation decision points</span>
-            <span class="bridge-chip">Employer survey: clinical documentation gap trends</span>
-            <span class="bridge-chip">Benchmark scan: simulation-based assessment patterns</span>
-          </div>
-        </div>
-        <div class="bridge-card">
-          <div class="bridge-card-title">Used in this module draft</div>
-          <ul class="bridge-list">
-            <li>Source analysis: Curriculum input analysis</li>
-            <li>Module: Advanced Critical Care Nursing Science II</li>
-            <li>Use in design: outcomes, content plan, and assessment strategy</li>
-          </ul>
-          <div class="bridge-note">Analysis run: May 22, 2026 · 10:42</div>
-        </div>
-      </div>
+      </details>
     </section>
 
     <section class="workspace">
