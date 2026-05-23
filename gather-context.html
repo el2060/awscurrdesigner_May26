@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Curriculum Inputs — AI Curriculum Review &amp; Design</title>
+  <title>Gather Curriculum Context — AI Curriculum Designer</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -597,7 +597,7 @@
     }
 
     /* ───────────────────────────────────────────────
-       Discovery Page Refinements — scannable AI summary,
+       Context Page Refinements - scannable AI summary,
        category icons, amber-accented cards
        ─────────────────────────────────────────────── */
 
@@ -956,22 +956,23 @@
 <main class="page">
 
   <!--
-    PATH A · PHASE 1 — Discovery & Analysis
-    Input gathering: industry, frameworks, student insights, module materials.
-    Feeds Phase 2 (plan-direction.html) as "discovery inputs" via the
-    Connected Inputs strip.
+    PATH A · STEP 1 — CONTEXT
+    Gather references and review the AI context summary before entering
+    the co-design workspace.
   -->
-  <div class="page-eyebrow">Path A · Phase 1 · Discovery &amp; Analysis</div>
+  <div class="page-eyebrow">Path A · Step 1 · Context</div>
   <!-- Step strip orients the lecturer within the overall Path A flow -->
   <nav class="step-strip" aria-label="Path A progress">
-    <span class="ss-step active"><span class="ss-num">1</span>Discovery</span>
+    <span class="ss-step active"><span class="ss-num">1</span>Context</span>
     <span class="ss-sep"></span>
-    <span class="ss-step"><span class="ss-num">2</span>Co-Design</span>
+    <span class="ss-step"><span class="ss-num">2</span>Design</span>
     <span class="ss-sep"></span>
-    <span class="ss-step"><span class="ss-num">3</span>Materials &amp; Export</span>
+    <span class="ss-step"><span class="ss-num">3</span>Materials</span>
+    <span class="ss-sep"></span>
+    <span class="ss-step"><span class="ss-num">4</span>Export</span>
   </nav>
-  <div class="page-title">Gather &amp; Analyse Curriculum Inputs</div>
-  <div class="page-sub">Consolidate industry inputs, curriculum references, student insights, and existing module materials to inform AI-assisted module design.</div>
+  <div class="page-title">Gather Curriculum Context</div>
+  <div class="page-sub">Bring together curriculum references, industry inputs, existing materials, and student insights to inform AI-supported module design. AI will summarise these references before co-design begins.</div>
 
   <div class="layout">
 
@@ -988,8 +989,7 @@
             <div class="uz-title">Industry &amp; Benchmarking</div>
             <div class="uz-badge">4 files</div>
           </div>
-          <div class="uz-desc">Industry reports, employer inputs, advisory discussions, and local or international curriculum references.</div>
-          <div class="uz-ai-hint">Suggested category based on uploaded content</div>
+          <div class="uz-desc">Industry reports, advisory discussions, and benchmark references.</div>
             <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View references</button></div>
             <div class="uz-files">
               <div class="uz-file">
@@ -1040,17 +1040,16 @@
             </div>
         </div>
 
-        <!-- 2. Curriculum & Standards -->
+        <!-- 2. Curriculum Standards -->
         <div class="upload-zone" id="standards">
           <div class="uz-header">
             <div class="uz-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
             </div>
-            <div class="uz-title">Curriculum &amp; Standards</div>
+            <div class="uz-title">Curriculum Standards</div>
             <div class="uz-badge">2 files</div>
           </div>
-          <div class="uz-desc">Skills frameworks, competency maps, accreditation references, and curriculum guidelines.</div>
-          <div class="uz-ai-hint">Suggested category based on uploaded content</div>
+          <div class="uz-desc">Skills frameworks, accreditation references, and curriculum guidelines.</div>
           <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View references</button></div>
           <div class="uz-files">
             <div class="uz-file">
@@ -1082,8 +1081,7 @@
             <div class="uz-title">Student &amp; Module Insights</div>
             <div class="uz-badge">5 files</div>
           </div>
-          <div class="uz-desc">Student feedback, learning analytics, graduate outcomes, and module review inputs.</div>
-          <div class="uz-ai-hint">Suggested category based on uploaded content</div>
+          <div class="uz-desc">Student feedback, module review notes, and graduate outcomes.</div>
           <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View references</button></div>
           <div class="uz-files">
             <div class="uz-file">
@@ -1133,8 +1131,7 @@
             <div class="uz-title">Existing Module Materials</div>
             <div class="uz-badge">3 files</div>
           </div>
-          <div class="uz-desc">Current MDDs, assessment briefs, syllabi, and related module materials.</div>
-          <div class="uz-ai-hint">Suggested category based on uploaded content</div>
+          <div class="uz-desc">Current MDDs, assessment briefs, slides, and learning materials.</div>
           <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View references</button></div>
           <div class="uz-files">
             <div class="uz-file">
@@ -1173,7 +1170,7 @@
             </div>
             <div class="ai-head-text">
               <div class="ai-title">AI Context Summary</div>
-              <div class="ai-subtitle">Synthesised from uploaded references to inform module drafting decisions</div>
+              <div class="ai-subtitle">A concise summary of your references to guide module direction and drafting.</div>
             </div>
           </div>
           <div class="ai-time" id="analysis-time">Not run yet</div>
@@ -1185,21 +1182,21 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
             </div>
             <div class="ai-stat-num" id="ai-sources">14</div>
-            <div class="ai-stat-label">Reference inputs reviewed</div>
+            <div class="ai-stat-label">Context items reviewed</div>
           </div>
           <div class="ai-stat">
             <div class="ai-stat-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
             </div>
             <div class="ai-stat-num" id="ai-signals">4</div>
-            <div class="ai-stat-label">Curriculum areas referenced</div>
+            <div class="ai-stat-label">Context areas covered</div>
           </div>
           <div class="ai-stat">
             <div class="ai-stat-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
             </div>
             <div class="ai-stat-num" id="ai-gaps">6</div>
-            <div class="ai-stat-label">Suggested drafting considerations</div>
+            <div class="ai-stat-label">Design considerations</div>
           </div>
         </div>
 
@@ -1277,21 +1274,21 @@
     <!-- Sidebar -->
     <div class="layout-side">
       <div class="side-box">
-        <span class="side-title">Reference Inputs</span>
+        <span class="side-title">Uploaded Context</span>
         <div class="side-row">
           <span>Industry &amp; benchmarking</span>
           <span class="side-count" id="cnt-0">4</span>
         </div>
         <div class="side-row">
-          <span>Curriculum &amp; standards</span>
+          <span>Curriculum Standards</span>
           <span class="side-count" id="cnt-1">2</span>
         </div>
         <div class="side-row">
-          <span>Student &amp; module insights</span>
+          <span>Student Insights</span>
           <span class="side-count" id="cnt-2">5</span>
         </div>
         <div class="side-row">
-          <span>Existing module materials</span>
+          <span>Existing Materials</span>
           <span class="side-count" id="cnt-3">3</span>
         </div>
         <div class="side-total">
@@ -1308,10 +1305,10 @@
 <!-- Bottom bar -->
 <div class="bottom-bar">
   <div class="bottom-inner">
-    <div class="bb-note" id="bb-note">Ready to generate analysis</div>
+    <div class="bb-note" id="bb-note">Ready to generate an AI context summary.</div>
     <div class="bb-actions">
-      <button id="analyze-btn" class="btn-primary" type="button" onclick="runInlineAnalysis()">Analyse Context</button>
-      <a id="continue-btn" class="btn-primary" href="plan-direction.html" style="display:none; background:#3730a3; border-color:#3730a3;">Continue to Co-Design →</a>
+      <button id="analyze-btn" class="btn-primary" type="button" onclick="runInlineAnalysis()">Generate AI Summary</button>
+      <a id="continue-btn" class="btn-primary" href="plan-direction.html" style="display:none; background:#004689; border-color:#004689;">Start Co-Design →</a>
     </div>
   </div>
 </div>
@@ -1325,9 +1322,9 @@
 
     const labels = [
       'Industry and benchmarking',
-      'Curriculum and standards',
-      'Student and module insights',
-      'Existing module materials'
+      'Curriculum standards',
+      'Student insights',
+      'Existing materials'
     ];
     coverage.innerHTML = '';
     counts.forEach((count, i) => {
@@ -1349,8 +1346,8 @@
 
     const ready = counts.every(c => c > 0);
     readyNote.textContent = ready
-      ? 'Ready for synthesis and gap analysis.'
-      : 'Add at least one source in each category to improve analysis readiness.';
+      ? 'Ready to generate an AI context summary.'
+      : 'Add at least one item in each context area for a fuller summary.';
   }
 
   // Track counts per zone (4 grouped source categories)
@@ -1379,11 +1376,11 @@
     refreshInlineAnalysisStats();
     stampAnalysisTime();
 
-    // Once analysed, demote the Analyse button and surface Continue to Co-Design
+    // Once summarized, surface the next lecturer-facing step.
     const analyzeBtn = document.getElementById('analyze-btn');
     const continueBtn = document.getElementById('continue-btn');
     if (analyzeBtn) {
-      analyzeBtn.textContent = 'Re-analyse';
+      analyzeBtn.textContent = 'Refresh Summary';
       analyzeBtn.classList.remove('btn-primary');
       analyzeBtn.classList.add('btn-ghost');
       analyzeBtn.style.background = '';
@@ -1392,7 +1389,7 @@
     }
     if (continueBtn) continueBtn.style.display = 'inline-flex';
 
-    document.getElementById('bb-note').textContent = 'Analysis complete · ready to start co-designing the module.';
+    document.getElementById('bb-note').textContent = 'AI context summary ready. Continue to define the module direction.';
     analysis.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -1403,8 +1400,8 @@
     });
     document.getElementById('cnt-total').textContent = total + ' files';
     document.getElementById('bb-note').textContent = analysisVisible
-      ? 'Context updated. Select Analyse Context to refresh the summary below.'
-      : 'Ready to generate analysis';
+      ? 'Context updated. Refresh the AI summary before continuing.'
+      : 'Ready to generate an AI context summary.';
     document.querySelectorAll('.upload-zone').forEach((zone, i) => {
       zone.querySelector('.uz-badge').textContent = counts[i] + ' file' + (counts[i] !== 1 ? 's' : '');
     });

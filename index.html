@@ -18,14 +18,14 @@
       --hp-border: #e5e7eb;
       --hp-border-soft: #f1f1ee;
 
-      /* Primary — Design */
-      --hp-indigo-700: #3730a3;
-      --hp-indigo-600: #4f46e5;
-      --hp-indigo-100: #e0e7ff;
-      --hp-indigo-50:  #eef2ff;
-      --hp-indigo-25:  #f5f7ff;
+      /* Primary - NP Blue */
+      --hp-indigo-700: #004689;
+      --hp-indigo-600: #003366;
+      --hp-indigo-100: #b8d0e6;
+      --hp-indigo-50:  #f0f6fc;
+      --hp-indigo-25:  #f7fbff;
 
-      /* Phase 1 — Discovery */
+      /* Step 1 - Context */
       --hp-amber-700: #b45309;
       --hp-amber-600: #d97706;
       --hp-amber-100: #fde6b8;
@@ -277,6 +277,31 @@
       border-color: var(--hp-indigo-600);
       text-decoration: none;
     }
+    .flow-step-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: 4px 0 8px;
+    }
+    .flow-step {
+      display: grid;
+      gap: 4px;
+      padding: 10px 9px;
+      border: 1px solid var(--hp-indigo-100);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .flow-step-num {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--hp-indigo-700);
+    }
+    .flow-step-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--hp-text);
+    }
+    .workflow-card .phase-steps { margin: 2px 0 0; }
 
     /* Path B — review (emerald) */
     .phase-main-review {
@@ -416,6 +441,7 @@
       .phase-prep { padding: 16px; }
       .phase-title { font-size: 18px; }
       .phase-desc, .phase-steps li { font-size: 13px; }
+      .flow-step-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .path-sep { margin: 32px 0; }
     }
   </style>
@@ -439,98 +465,50 @@
 <main class="page">
   <div class="page-inner">
 
-  <div class="page-eyebrow">Discover · Design · Materials · Review</div>
-  <div class="page-title">Curriculum Workflows</div>
+  <div class="page-eyebrow">AI-assisted curriculum co-design</div>
+  <div class="page-title">Choose a Workflow</div>
 
   <!-- Introductory Paragraph -->
   <div class="intro">
-    <p>Select a workflow, optionally analyse curriculum inputs first, then draft and refine module content with AI support.</p>
+    <p>Design a new module from curriculum context, or review an existing module with focused AI recommendations.</p>
   </div>
 
   <!-- ═══ PATH A: New Module Design ═══ -->
   <div class="path-block">
     <span class="path-label">Design a New Module</span>
 
-    <a class="phase-card phase-prep" href="start-module.html">
-      <div class="phase-title">Start a New Module</div>
-      <div class="phase-desc">Begin with a few simple curriculum decisions. The workspace expands as you refine the module.</div>
+    <a class="phase-card phase-main phase-main-primary" href="gather-context.html">
+      <div class="phase-tag">Step 1 of 4 · Context</div>
+      <div class="phase-title">Gather Curriculum Context</div>
+      <div class="phase-desc">Upload or reference materials that will inform the module design process before AI-supported co-design begins.</div>
       <div class="source-tags">
-        <span class="source-tag">Module basics</span>
-        <span class="source-tag">Learner group</span>
-        <span class="source-tag">Optional inputs</span>
+        <span class="source-tag">Industry &amp; Benchmarking</span>
+        <span class="source-tag">Curriculum Standards</span>
+        <span class="source-tag">Student &amp; Module Insights</span>
+        <span class="source-tag">Existing Module Materials</span>
       </div>
-      <div class="phase-cta">Open Start State →</div>
+      <div class="phase-cta">Start Context Review →</div>
     </a>
 
-    <div class="phase-connector">
-      <div class="pc-line"></div>
-      <div class="pc-text">Workspace expands after first decisions</div>
-    </div>
-
-    <!-- Optional input review -->
-    <details class="optional-context">
-      <summary>Optional curriculum inputs</summary>
-      <div class="optional-context-body">
-        <a class="phase-card phase-prep" href="gather-context.html">
-          <div class="phase-title">Gather &amp; Analyse Curriculum Inputs</div>
-          <div class="phase-desc">Consolidate industry inputs, curriculum references, student insights, and existing module materials to inform AI-assisted module design.</div>
-          <div class="source-tags">
-            <span class="source-tag">Industry</span>
-            <span class="source-tag">Frameworks</span>
-            <span class="source-tag">Student insights</span>
-            <span class="source-tag">Module materials</span>
-          </div>
-          <div class="phase-cta">Open Curriculum Inputs →</div>
-        </a>
+    <section class="next-step-card workflow-card" aria-label="AI Co-Design Workflow">
+      <div class="next-step-kicker">What happens next</div>
+      <div class="next-step-title">AI Co-Design Workflow</div>
+      <p class="next-step-desc">Once context is reviewed, continue into module drafting, aligned teaching materials, and a complete export package.</p>
+      <div class="flow-step-row" aria-label="New module steps">
+        <div class="flow-step"><span class="flow-step-num">1</span><span class="flow-step-name">Context</span></div>
+        <div class="flow-step"><span class="flow-step-num">2</span><span class="flow-step-name">Design</span></div>
+        <div class="flow-step"><span class="flow-step-num">3</span><span class="flow-step-name">Materials</span></div>
+        <div class="flow-step"><span class="flow-step-num">4</span><span class="flow-step-name">Export</span></div>
       </div>
-    </details>
-
-    <!-- Main Workflow -->
-    <a class="phase-card phase-main phase-main-primary" href="plan-direction.html">
-      <div class="phase-title">Design New Module</div>
-      <div class="phase-desc">Define module direction, draft key sections, and iteratively refine curriculum content with AI support.</div>
       <ol class="phase-steps">
+        <li>Review AI context summary</li>
         <li>Define module direction</li>
-        <li>Select sections to develop</li>
         <li>Draft module sections</li>
-        <li>Review and refine content</li>
-        <li>Check curriculum alignment</li>
-        <li>Continue into teaching &amp; learning materials</li>
+        <li>Refine teaching and assessment approach</li>
+        <li>Generate T&amp;L materials</li>
         <li>Export module package</li>
       </ol>
-      <div class="phase-cta">Start New Module Flow →</div>
-    </a>
-
-    <!-- Continuation into T&L materials generation — feature of Path A flow.
-         Picks up linked curriculum context from the completed module draft. -->
-    <div class="next-step-card" aria-label="Continue into Teaching & Learning Materials">
-      <div class="next-step-kicker">Next Step (Optional)</div>
-      <div class="next-step-title">Generate Teaching &amp; Learning Materials</div>
-      <p class="next-step-desc">Generate aligned T&amp;L materials directly from the completed module draft, using its outcomes, content, teaching strategy, and assessments as context.</p>
-
-      <div class="context-mini">
-        <div class="context-mini-title">Using Linked Curriculum Context</div>
-        <ul class="context-mini-list">
-          <li>Learning Outcomes</li>
-          <li>Content &amp; Hours</li>
-          <li>Teaching Strategy</li>
-          <li>Assessment Design</li>
-        </ul>
-      </div>
-
-      <div class="material-chip-row" aria-label="Material types">
-        <span class="material-chip">Slides</span>
-        <span class="material-chip">Learning Activities</span>
-        <span class="material-chip">Case Studies</span>
-        <span class="material-chip">Quiz Questions</span>
-        <span class="material-chip">Facilitator Guide</span>
-      </div>
-
-      <div class="next-step-actions">
-        <span class="pc-text">Using module draft</span>
-        <a class="next-step-link" href="generate-materials.html">Continue →</a>
-      </div>
-    </div>
+    </section>
   </div>
 
   <!-- ═══ Separator ═══ -->
