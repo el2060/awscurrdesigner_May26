@@ -29,8 +29,6 @@
   <title>AI Curriculum Designer</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap");
-
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -155,7 +153,7 @@
     }
 
     body {
-      font-family: "Manrope", "Segoe UI", sans-serif;
+      font-family: var(--font-sans);
       background: radial-gradient(circle at 12% -20%, #eef4fb 0%, var(--bg) 38%), var(--bg);
       color: var(--ink);
       min-height: 100vh;
@@ -829,7 +827,7 @@
       font-size: 19px;
       font-weight: 700;
       color: #123655;
-      font-family: "Fraunces", serif;
+      font-family: var(--font-heading);
       letter-spacing: -0.01em;
     }
 
@@ -1257,7 +1255,7 @@
       font-weight: 700;
       letter-spacing: -0.01em;
       margin-bottom: 4px;
-      font-family: "Fraunces", serif;
+      font-family: var(--font-heading);
     }
 
     .artifact-sub {
