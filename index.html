@@ -166,10 +166,11 @@
     .phase-main-primary {
       border-color: var(--hp-indigo-100);
       background: linear-gradient(180deg, var(--hp-indigo-25) 0%, #fff 65%);
+      box-shadow: 0 8px 24px rgba(0, 70, 137, 0.10);
     }
     .phase-main-primary:hover {
       border-color: var(--hp-indigo-600);
-      box-shadow: 0 6px 22px rgba(55, 48, 163, 0.12);
+      box-shadow: 0 10px 28px rgba(0, 70, 137, 0.16);
     }
     .phase-main-primary .phase-tag { color: var(--hp-indigo-700); }
     .phase-main-primary .phase-steps li::before {
@@ -302,6 +303,128 @@
       color: var(--hp-text);
     }
     .workflow-card .phase-steps { margin: 2px 0 0; }
+
+    .optional-prep {
+      padding: 14px 16px;
+      border-color: #f5d9af;
+      background: linear-gradient(180deg, #fffdf7 0%, #fffcf3 100%);
+      box-shadow: none;
+      margin-bottom: 10px;
+    }
+    .optional-prep .phase-tag {
+      margin-bottom: 8px;
+      color: var(--hp-amber-700);
+      letter-spacing: 0.09em;
+    }
+    .optional-prep .phase-title {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+    .optional-prep .phase-desc {
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    .optional-prep .source-tags {
+      margin-bottom: 12px;
+    }
+
+    .co-design-main {
+      margin-top: 6px;
+    }
+    .co-design-main .phase-title {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .co-design-main .phase-desc {
+      margin-bottom: 14px;
+    }
+    .co-design-main .flow-step-row {
+      margin: 2px 0 0;
+    }
+
+    .phase-main-review .flow-step {
+      border-color: var(--hp-emerald-100);
+      background: #fff;
+    }
+    .phase-main-review .flow-step-num {
+      color: var(--hp-emerald-700);
+    }
+
+    .entry-card {
+      padding: 24px 24px 20px;
+    }
+    .entry-card .phase-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .entry-card .phase-desc {
+      font-size: 15px;
+      margin-bottom: 16px;
+      max-width: 62ch;
+    }
+    .entry-card .phase-cta {
+      font-weight: 700;
+      padding: 10px 16px;
+    }
+
+    .optional-helper {
+      margin-top: 12px;
+      border: 1px solid var(--hp-border-soft);
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .optional-helper summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 11px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--hp-body);
+      letter-spacing: 0.01em;
+      user-select: none;
+    }
+    .optional-helper summary::-webkit-details-marker { display: none; }
+    .optional-helper summary::after {
+      content: '▾';
+      font-size: 11px;
+      color: var(--hp-muted);
+      transition: transform 120ms;
+    }
+    .optional-helper:not([open]) summary::after {
+      transform: rotate(-90deg);
+    }
+    .optional-helper-body {
+      border-top: 1px solid var(--hp-border-soft);
+      padding: 12px 14px 14px;
+      display: grid;
+      gap: 10px;
+    }
+    .optional-helper-text {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--hp-body);
+    }
+    .helper-link {
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--hp-amber-700);
+      border: 1px solid var(--hp-amber-100);
+      background: var(--hp-amber-50);
+      border-radius: 6px;
+      padding: 8px 12px;
+      align-self: flex-start;
+    }
+    .helper-link:hover {
+      text-decoration: none;
+      color: #fff;
+      background: var(--hp-amber-700);
+      border-color: var(--hp-amber-700);
+    }
 
     /* Path B — review (emerald) */
     .phase-main-review {
@@ -484,45 +607,24 @@
 
   <!-- Introductory Paragraph -->
   <div class="intro">
-    <p>Design a new module from curriculum context, or refine an existing module through an AI-supported review flow.</p>
+    <p>Choose what you want to do: design a new module or review an existing module.</p>
   </div>
 
   <!-- ═══ PATH A: New Module Design ═══ -->
   <div class="path-block">
-    <span class="path-label">Design a New Module</span>
-
-    <a class="phase-card phase-main phase-main-primary" href="gather-context.html">
-      <div class="phase-tag">Step 1 of 4 · Context</div>
-      <div class="phase-title">Gather Curriculum Context</div>
-      <div class="phase-desc">Upload curriculum references, industry inputs, student insights, and existing module materials.</div>
-      <div class="source-tags">
-        <span class="source-tag">Industry &amp; Benchmarking</span>
-        <span class="source-tag">Curriculum Standards</span>
-        <span class="source-tag">Student &amp; Module Insights</span>
-        <span class="source-tag">Existing Module Materials</span>
-      </div>
-      <div class="phase-cta">Start Context →</div>
-      <a class="phase-skip-link" href="plan-direction.html">Skip context (prework done) → Start Co-Design</a>
+    <a class="phase-card phase-main phase-main-primary entry-card" href="plan-direction.html" aria-label="Design a New Module">
+      <div class="phase-title">Design a New Module</div>
+      <p class="phase-desc">Develop a new module draft, refine curriculum sections, generate aligned teaching &amp; learning materials, and export the completed package.</p>
+      <div class="phase-cta">Start New Module →</div>
     </a>
 
-    <section class="next-step-card workflow-card" aria-label="AI Co-Design Workflow">
-      <div class="next-step-kicker">What happens next</div>
-      <div class="next-step-title">AI Co-Design Workflow</div>
-      <p class="next-step-desc">Move from context review and synthesis into co-design, then generate aligned materials and export the completed package.</p>
-      <div class="flow-step-row" aria-label="New module steps">
-        <div class="flow-step"><span class="flow-step-num">1</span><span class="flow-step-name">Context</span></div>
-        <div class="flow-step"><span class="flow-step-num">2</span><span class="flow-step-name">Co-Design</span></div>
-        <div class="flow-step"><span class="flow-step-num">3</span><span class="flow-step-name">Materials</span></div>
-        <div class="flow-step"><span class="flow-step-num">4</span><span class="flow-step-name">Export</span></div>
+    <details class="optional-helper" aria-label="Optional Discovery and Analysis">
+      <summary>Optional Context Analysis</summary>
+      <div class="optional-helper-body">
+        <p class="optional-helper-text">Analyse and synthesise curriculum references, industry inputs, student insights, and existing materials before starting module design.</p>
+        <a class="helper-link" href="gather-context.html">Analyse Context →</a>
       </div>
-      <ol class="phase-steps">
-        <li>Review and synthesise context</li>
-        <li>Co-design module direction</li>
-        <li>Refine the module draft</li>
-        <li>Generate T&amp;L materials</li>
-        <li>Export module package</li>
-      </ol>
-    </section>
+    </details>
   </div>
 
   <!-- ═══ Separator ═══ -->
@@ -532,23 +634,15 @@
 
   <!-- ═══ PATH B: Review Existing ═══ -->
   <div class="path-block review">
-    <span class="path-label">Review an Existing Module</span>
-
-    <a class="phase-card phase-main phase-main-review" href="refresh-align.html">
-      <div class="phase-title">Module Review Flow</div>
-      <div class="phase-desc">Gather review context, select review focus, review AI suggestions, then refine and export.</div>
-      <ol class="phase-steps">
-        <li>Gather review context</li>
-        <li>Select review focus</li>
-        <li>Review AI suggestions</li>
-        <li>Refine and export</li>
-      </ol>
-      <div class="phase-cta">Start Review Flow →</div>
+    <a class="phase-card phase-main phase-main-review entry-card" href="refresh-align.html" aria-label="Review an Existing Module">
+      <div class="phase-title">Review an Existing Module</div>
+      <p class="phase-desc">Review existing module materials, refine recommendations, update aligned sections, and export updated materials.</p>
+      <div class="phase-cta">Start Module Review →</div>
     </a>
   </div>
 
   <div class="page-footer">
-    Ngee Ann Polytechnic &nbsp;·&nbsp; AI Curriculum Review &amp; Design &nbsp;·&nbsp; Interactive walkthrough concept
+    Ngee Ann Polytechnic &nbsp;·&nbsp; AI Curriculum Review &amp; Design &nbsp;·&nbsp; Workflow concept prototype for curriculum co-design discussions
   </div>
 
   </div>
