@@ -147,7 +147,7 @@
     /* ── Layout ── */
     .layout {
       display: grid;
-      grid-template-columns: 1fr 300px;
+      grid-template-columns: 1fr 260px;
       gap: 24px;
       align-items: flex-start;
     }
@@ -192,93 +192,84 @@
     }
     .sc-body { padding: 20px; }
 
-    /* ── Context Sources block ── */
-    .ctx-block {
-      border: 1px solid var(--hp-emerald-100);
-      background: linear-gradient(180deg, var(--hp-emerald-50) 0%, #fff 70%);
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin-bottom: 14px;
-    }
-    .ctx-head {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 12px;
-    }
-    .ctx-icon {
-      width: 28px; height: 28px;
+    /* ── Context Sources drawer (inside Section 1) ── */
+    .ctx-drawer {
+      margin-top: 16px;
+      border: 1px solid var(--hp-border);
       border-radius: 8px;
-      background: var(--hp-emerald-700);
-      color: #fff;
-      display: inline-flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+      background: #fff;
+      overflow: hidden;
     }
-    .ctx-title {
-      font-size: 14px; font-weight: 700;
-      color: var(--hp-text); letter-spacing: -0.005em;
+    .ctx-drawer > summary {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 14px;
+      cursor: pointer; user-select: none; list-style: none;
+      font-size: 13px; font-weight: 600; color: var(--hp-body);
+      gap: 8px;
+    }
+    .ctx-drawer > summary::-webkit-details-marker { display: none; }
+    .ctx-drawer > summary:hover { background: var(--hp-bg); }
+    .ctx-summary-label { display: flex; align-items: center; gap: 8px; }
+    .ctx-summary-label svg { color: var(--hp-emerald-700); flex-shrink: 0; }
+    .ctx-badge {
+      font-size: 11px; font-weight: 600;
+      color: var(--hp-emerald-700);
+      background: var(--hp-emerald-50);
+      border: 1px solid var(--hp-emerald-100);
+      padding: 2px 9px; border-radius: 999px; white-space: nowrap;
+    }
+    .ctx-drawer-body {
+      padding: 14px 14px 16px;
+      border-top: 1px solid var(--hp-border-soft);
+      background: var(--hp-bg);
     }
     .ctx-sub {
       font-size: 12px; color: var(--hp-body); line-height: 1.5;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
     .ctx-group-label {
       font-size: 11px; font-weight: 700;
       letter-spacing: 0.08em; text-transform: uppercase;
       color: var(--hp-emerald-700);
-      margin: 14px 0 8px;
+      margin: 12px 0 8px;
     }
     .ctx-group-label:first-of-type { margin-top: 0; }
     .ctx-active-list {
-      list-style: none;
-      display: grid; gap: 6px;
-      margin-bottom: 4px;
+      list-style: none; display: grid; gap: 4px; margin-bottom: 4px;
     }
     .ctx-active-list li {
       display: flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--hp-text);
-      padding: 6px 0;
+      font-size: 12.5px; color: var(--hp-text); padding: 4px 0;
     }
     .ctx-active-list li::before {
-      content: '✓';
-      color: var(--hp-emerald-700);
-      font-weight: 700;
-      font-size: 12px;
-      flex-shrink: 0;
+      content: '✓'; color: var(--hp-emerald-700);
+      font-weight: 700; font-size: 11px; flex-shrink: 0;
     }
-    .ctx-add-row {
-      display: flex; flex-wrap: wrap; gap: 8px;
-    }
+    .ctx-add-row { display: flex; flex-wrap: wrap; gap: 8px; }
     .ctx-add-btn {
-      border: 1px dashed var(--hp-border);
-      background: #fff;
-      color: var(--hp-body);
-      font-size: 12px; font-weight: 600;
-      padding: 7px 12px;
-      border-radius: 999px;
-      cursor: pointer;
+      border: 1px dashed var(--hp-border); background: #fff;
+      color: var(--hp-body); font-size: 12px; font-weight: 600;
+      padding: 6px 12px; border-radius: 999px; cursor: pointer;
       display: inline-flex; align-items: center; gap: 5px;
     }
     .ctx-add-btn:hover {
-      border-color: var(--hp-emerald-600);
-      border-style: solid;
-      color: var(--hp-emerald-700);
-      background: var(--hp-emerald-50);
+      border-color: var(--hp-emerald-600); border-style: solid;
+      color: var(--hp-emerald-700); background: var(--hp-emerald-50);
     }
     .ctx-add-btn.added {
-      background: var(--hp-emerald-50);
-      border-color: var(--hp-emerald-100);
-      border-style: solid;
-      color: var(--hp-emerald-700);
+      background: var(--hp-emerald-50); border-color: var(--hp-emerald-100);
+      border-style: solid; color: var(--hp-emerald-700);
     }
     .ctx-add-btn.added::before { content: '✓ '; font-weight: 700; }
 
     /* Institutional references strip */
     .inst-strip {
       display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
-      padding: 10px 14px;
-      background: #fff;
-      border: 1px solid var(--hp-border);
-      border-radius: 999px;
-      margin-bottom: 18px;
+      padding: 8px 12px;
+      background: var(--hp-bg);
+      border: 1px solid var(--hp-border-soft);
+      border-radius: 8px;
+      margin-bottom: 20px;
       font-size: 12px;
       color: var(--hp-body);
     }
@@ -339,14 +330,20 @@
     }
 
     .drop-zone {
-      border: 1px dashed var(--hp-border);
+      border: 1.5px dashed var(--hp-border);
       background: var(--hp-bg);
       color: var(--hp-body);
       font-size: 13px;
-      padding: 16px;
-      border-radius: 8px;
+      padding: 28px 20px;
+      border-radius: 10px;
       margin-bottom: 14px;
       text-align: center;
+      cursor: pointer;
+      transition: border-color 150ms, background 150ms;
+    }
+    .drop-zone:hover {
+      border-color: var(--hp-emerald-600);
+      background: var(--hp-emerald-50);
     }
 
     .field { display: flex; flex-direction: column; gap: 6px; }
@@ -431,6 +428,7 @@
       gap: 10px;
     }
     @media (max-width: 640px) { .focus-grid { grid-template-columns: 1fr; } }
+    .focus-grid > .focus-card:last-child:nth-child(2n+1) { grid-column: 1 / -1; }
     .focus-card {
       display: flex;
       align-items: flex-start;
@@ -484,31 +482,12 @@
     .focus-title { font-size: 13.5px; font-weight: 700; color: var(--hp-text); }
     .focus-desc { font-size: 12px; color: var(--hp-body); line-height: 1.5; }
 
-    /* Sub-group label inside Section B */
-    .focus-group-label {
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--hp-muted);
-      margin: 22px 0 10px;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .focus-group-label:first-child { margin-top: 0; }
-    .focus-group-label .group-hint {
-      font-size: 11px; font-weight: 500;
-      letter-spacing: 0; text-transform: none;
-      color: var(--hp-muted);
-    }
-
     /* ── Sidebar ── */
     .side-card {
       border: 1px solid var(--hp-border);
       border-radius: 12px;
       background: #fff;
       overflow: hidden;
-    }
-    .side-card.ai-side {
-      background: linear-gradient(180deg, var(--hp-emerald-50) 0%, #fff 70%);
-      border-color: var(--hp-emerald-100);
     }
     .side-label {
       font-size: 11px; font-weight: 700;
@@ -517,28 +496,8 @@
       padding: 14px 16px 10px;
       display: flex; align-items: center; gap: 8px;
     }
-    .side-card.ai-side .side-label { color: var(--hp-emerald-700); }
     .side-label svg { width: 14px; height: 14px; }
     .side-card-body { padding: 0 16px 14px; }
-    .side-rec-item {
-      font-size: 12.5px;
-      color: var(--hp-body);
-      padding: 8px 0;
-      border-bottom: 1px solid var(--hp-border-soft);
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      line-height: 1.5;
-    }
-    .side-rec-item:last-child { border-bottom: none; }
-    .side-rec-item::before {
-      content: '';
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--hp-emerald-600);
-      margin-top: 7px;
-      flex-shrink: 0;
-    }
     .sum-row {
       display: flex;
       justify-content: space-between;
@@ -610,42 +569,6 @@
       background: var(--hp-emerald-600);
       flex-shrink: 0;
     }
-    .review-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      padding: 18px 24px;
-      border-bottom: 1px solid var(--hp-border-soft);
-    }
-    @media (max-width: 720px) { .review-metrics { grid-template-columns: 1fr; } }
-    .metric {
-      border: 1px solid var(--hp-border);
-      border-radius: 10px;
-      padding: 14px 16px;
-      background: #fff;
-      display: grid; gap: 4px;
-    }
-    .metric-k { font-size: 11px; color: var(--hp-body); font-weight: 500; }
-    .metric-v { font-size: 24px; font-weight: 700; color: var(--hp-text); letter-spacing: -0.02em; }
-    .review-actions {
-      display: flex; flex-wrap: wrap; gap: 8px;
-      padding: 14px 24px;
-      border-bottom: 1px solid var(--hp-border-soft);
-    }
-    .review-refine-btn {
-      border: 1px solid var(--hp-border);
-      background: #fff;
-      color: var(--hp-body);
-      font-size: 12px; font-weight: 600;
-      padding: 7px 12px;
-      border-radius: 999px;
-      cursor: pointer;
-    }
-    .review-refine-btn:hover {
-      border-color: var(--hp-emerald-600);
-      color: var(--hp-emerald-700);
-      background: var(--hp-emerald-50);
-    }
     .review-panels { padding: 18px 24px; display: grid; gap: 12px; }
     .review-card {
       border: 1px solid var(--hp-border);
@@ -691,12 +614,44 @@
       .page-sub { font-size: 14px; }
     }
 
-    .review-block-label {
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--hp-emerald-700);
-      margin: 12px 0 6px;
+    /* Skeleton placeholder content */
+    .skel-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--hp-emerald-700); margin: 12px 0 8px;
     }
+    .skel-label:first-of-type { margin-top: 4px; }
+    .skel-line { height: 9px; background: #d4e4f5; border-radius: 999px; margin-bottom: 7px; }
+    .skel-line.w-full { width: 94%; }
+    .skel-line.w-lg   { width: 78%; }
+    .skel-line.w-md   { width: 60%; }
+    .skel-line.w-sm   { width: 44%; }
+
+    /* Chat pane */
+    .chat-pane {
+      border-top: 1px solid var(--hp-border-soft);
+      padding: 14px 24px 20px;
+      background: var(--hp-bg);
+    }
+    .chat-prompts { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
+    .chat-prompt-btn {
+      border: 1px solid var(--hp-border); background: #fff;
+      color: var(--hp-body); font-size: 12px; font-weight: 500;
+      padding: 5px 12px; border-radius: 999px; cursor: pointer;
+    }
+    .chat-prompt-btn:hover { border-color: var(--hp-emerald-600); color: var(--hp-emerald-700); background: var(--hp-emerald-50); }
+    .chat-input-row { display: flex; gap: 8px; }
+    .chat-input {
+      flex: 1; font-family: inherit; font-size: 13px; color: var(--hp-text);
+      border: 1px solid var(--hp-border); border-radius: 8px;
+      padding: 10px 12px; background: #fff; outline: none;
+    }
+    .chat-input:focus { border-color: var(--hp-emerald-600); box-shadow: 0 0 0 3px rgba(4,120,87,0.08); }
+    .chat-send {
+      background: var(--hp-emerald-700); border: 1px solid var(--hp-emerald-700);
+      color: #fff; border-radius: 8px; padding: 10px 16px;
+      font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap;
+    }
+    .chat-send:hover { background: var(--hp-emerald-600); border-color: var(--hp-emerald-600); }
 
     /* Informed by — reference traceability inside review cards */
     .informed-by {
@@ -723,25 +678,6 @@
       border-radius: 999px;
       padding: 2px 9px;
     }
-    .review-list {
-      list-style: none;
-      color: var(--hp-body);
-      font-size: 13px;
-      line-height: 1.55;
-    }
-    .review-list li {
-      position: relative;
-      padding-left: 18px;
-      margin-bottom: 6px;
-    }
-    .review-list li::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 9px;
-      width: 5px; height: 5px;
-      background: var(--hp-emerald-600);
-      border-radius: 50%;
-    }
 
     /* ── Bottom bar ── */
     .bottom-bar {
@@ -755,11 +691,8 @@
       height: 100%;
       margin: 0 auto;
       padding: 0 40px;
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; justify-content: flex-end;
     }
-    .bb-note { font-size: 13px; color: var(--hp-body); }
-    .bb-helper { font-size: 12px; color: var(--hp-muted); }
-    .bb-left { display: flex; flex-direction: column; gap: 2px; }
     .bb-actions { display: flex; gap: 10px; }
     .btn-ghost {
       border: 1px solid var(--hp-border);
@@ -840,7 +773,7 @@
           <div class="sc-num">1</div>
           <div class="sc-title-wrap">
             <div class="sc-title">Add Module Materials</div>
-            <div class="sc-desc">Upload module outlines, assessment briefs, slides, rubrics, or reference materials</div>
+            <div class="sc-desc">Upload or paste your module materials for AI review</div>
           </div>
         </div>
         <div class="sc-body">
@@ -850,7 +783,11 @@
             <span class="state-pill" id="import-state">No materials added</span>
           </div>
 
-          <div class="drop-zone">Drag and drop module-related files</div>
+          <div class="drop-zone" onclick="loadModule()">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--hp-muted);display:block;margin:0 auto 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <div style="font-size:13px;font-weight:500;color:var(--hp-body);">Drag files here, or <span style="color:var(--hp-emerald-700);font-weight:600;">browse to upload</span></div>
+            <div style="font-size:11px;color:var(--hp-muted);margin-top:4px;">Module outlines, assessment briefs, slides, rubrics, and reference documents</div>
+          </div>
 
           <div class="field">
             <label class="field-label">Paste additional materials or notes <span class="opt">(optional)</span></label>
@@ -868,33 +805,33 @@
             <div class="loaded-item"><span class="file-chip">PDF</span><span>ICT1234_Assessment_Brief.pdf</span></div>
             <div class="loaded-item"><span class="file-chip">DOCX</span><span>ICT1234_Comms_Rubric_Draft.docx</span></div>
           </div>
-        </div>
-      </div>
 
-      <!-- ── Review Context Sources ── -->
-      <div class="ctx-block">
-        <div class="ctx-head">
-          <div class="ctx-icon" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-          </div>
-          <div class="ctx-title">Review Context Sources</div>
-        </div>
-        <div class="ctx-sub">AI grounds its review in NP institutional frameworks and your module materials. Add optional external context to enrich the recommendations.</div>
-
-        <div class="ctx-group-label">Active Context</div>
-        <ul class="ctx-active-list">
-          <li>Module materials uploaded above</li>
-          <li>NP Assessment Framework</li>
-          <li>NP Graduate Competencies (NPGC)</li>
-          <li>Communication Competency Toolkit</li>
-        </ul>
-
-        <div class="ctx-group-label">Add Optional Context</div>
-        <div class="ctx-add-row">
-          <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Industry reports</button>
-          <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Accreditation requirements</button>
-          <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Benchmarking references</button>
-          <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Workplace trend signals</button>
+          <details class="ctx-drawer">
+            <summary>
+              <span class="ctx-summary-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                Review context sources
+              </span>
+              <span class="ctx-badge">4 active</span>
+            </summary>
+            <div class="ctx-drawer-body">
+              <div class="ctx-sub">AI grounds its review in NP institutional frameworks and your module materials. Add optional external context to enrich the recommendations.</div>
+              <div class="ctx-group-label">Active Context</div>
+              <ul class="ctx-active-list">
+                <li>Module materials uploaded above</li>
+                <li>NP Assessment Framework</li>
+                <li>NP Graduate Competencies (NPGC)</li>
+                <li>Communication Competency Toolkit</li>
+              </ul>
+              <div class="ctx-group-label">Add Optional Context</div>
+              <div class="ctx-add-row">
+                <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Industry reports</button>
+                <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Accreditation requirements</button>
+                <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Benchmarking references</button>
+                <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Workplace trend signals</button>
+              </div>
+            </div>
+          </details>
         </div>
       </div>
 
@@ -1023,26 +960,25 @@
           </div>
           <div class="review-head-copy">
             <div class="review-title">AI Review Suggestions</div>
-            <div class="review-sub">Observations, potential improvement areas, and refresh recommendations based on your selected focus areas.</div>
+            <div class="review-sub">Observations and suggested refinements across your selected focus areas.</div>
           </div>
           <span class="review-stamp" id="review-stamp">Generated from focus areas</span>
         </div>
 
-        <div class="review-metrics">
-          <div class="metric"><div class="metric-k">Review areas</div><div class="metric-v" id="metric-focus">0</div></div>
-          <div class="metric"><div class="metric-k">Suggestions</div><div class="metric-v" id="metric-actions">0</div></div>
-          <div class="metric"><div class="metric-k">Potential gaps</div><div class="metric-v" id="metric-gaps">0</div></div>
-        </div>
-
-        <div class="review-actions" id="review-actions">
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('assessment')">Review Assessment + Competency Evidence</button>
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('industry')">Compare Against Industry Trends</button>
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('alternatives')">Suggest Alternative Improvements</button>
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('expand')">Expand Recommendations</button>
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('followup')">Ask Follow-up Question</button>
-        </div>
-
         <div class="review-panels" id="review-panels"></div>
+
+        <div class="chat-pane">
+          <div class="chat-prompts">
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Focus on assessment alignment and feedback timing')">Assessment alignment</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Prioritise which changes to make first for next semester')">Prioritise changes</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Expand suggestions for Teaching &amp; Learning activities')">Expand T&amp;L suggestions</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Compare against current industry benchmarks')">Industry benchmarks</button>
+          </div>
+          <div class="chat-input-row">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Ask a follow-up or request a specific refinement...">
+            <button class="chat-send" type="button">Send →</button>
+          </div>
+        </div>
       </div>
 
     </div><!-- end layout-main -->
@@ -1050,25 +986,11 @@
     <!-- ── Sidebar ── -->
     <aside class="layout-side">
 
-      <div class="side-card ai-side">
-        <span class="side-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z"/></svg>
-          AI Review Suggestions
-        </span>
-        <div class="side-card-body">
-          <div class="side-rec-item">Surface curriculum gaps</div>
-          <div class="side-rec-item">Review assessment alignment</div>
-          <div class="side-rec-item">Check AI integration opportunities</div>
-          <div class="side-rec-item">Suggest Human Edge integration points</div>
-          <div class="side-rec-item">Identify overlap or sequencing issues</div>
-        </div>
-      </div>
-
       <div class="side-card">
-        <span class="side-label">Current Review Setup</span>
+        <span class="side-label">Review Setup</span>
         <div class="side-card-body">
           <div class="sum-row"><span class="sum-key">Module</span><span class="sum-val empty" id="sum-module">Not added</span></div>
-          <div class="sum-row"><span class="sum-key">Focus areas</span><span class="sum-val" id="sum-focus">3 selected</span></div>
+          <div class="sum-row"><span class="sum-key">Focus areas</span><span class="sum-val" id="sum-focus">7 selected</span></div>
           <div class="sum-row"><span class="sum-key">Notes</span><span class="sum-val empty" id="sum-notes">None</span></div>
         </div>
       </div>
@@ -1082,10 +1004,6 @@
 <!-- Bottom bar -->
 <div class="bottom-bar">
   <div class="bottom-inner">
-    <div class="bb-left">
-      <div class="bb-note" id="bb-note">Gather review context and select review focus to generate AI suggestions.</div>
-      <div class="bb-helper">You can refine focus areas and regenerate suggestions anytime.</div>
-    </div>
     <div class="bb-actions">
       <button class="btn-primary" id="generate-btn" type="button" onclick="runReview()">Review AI Suggestions →</button>
     </div>
@@ -1093,116 +1011,27 @@
 </div>
 
 <script>
-  // Review-dimension data — what AI surfaces per lens, plus traceability
   const reviewData = {
-    "Learning Outcomes": {
-      status: 'warn',
-      findings: [
-        'Outcome wording is broadly clear, but some outcomes overlap in scope and cognitive level.',
-        'Bloom\'s progression across the module is uneven — higher-order outcomes appear early without sufficient scaffolding.'
-      ],
-      actions: [
-        'Tighten outcome wording to remove overlap and clarify the targeted cognitive level for each.',
-        'Reorder or reframe outcomes so progression from foundational to applied is visible across the module arc.'
-      ],
-      informedBy: ['Module outcomes', 'NP Assessment Framework', 'Module materials'],
-      gaps: 1
-    },
-    "Content & Sequencing": {
-      status: 'warn',
-      findings: [
-        'Topic hours are distributed unevenly — some weeks are significantly denser than others.',
-        'A few topic clusters appear before the foundational knowledge they depend on has been established.'
-      ],
-      actions: [
-        'Rebalance contact and self-directed hours across the module to reduce peak workload weeks.',
-        'Move or restructure 1–2 topic clusters to ensure prerequisite knowledge is established before application.'
-      ],
-      informedBy: ['Module topic schedule', 'Module materials'],
-      gaps: 1
-    },
-    "Teaching & Learning": {
-      status: 'ok',
-      findings: [
-        'Delivery approach supports applied learning and aligns with stated pedagogical intent.',
-        'Activity variety is reasonable, though reflection touchpoints are sparse across the module.'
-      ],
-      actions: [
-        'Add one brief structured reflection prompt per topic cluster to close the learning loop.'
-      ],
-      informedBy: ['Module learning plan', 'Module materials'],
-      gaps: 0
-    },
-    "Assessment Design": {
-      status: 'warn',
-      findings: [
-        'Assessment tasks are relevant, but the balance between formative and summative components is weighted heavily toward summative.',
-        'Feedback timing and moderation practices are not explicitly documented in the module plan.'
-      ],
-      actions: [
-        'Refine communication rubric criteria for clarity, structure, and audience fit.',
-        'Add one practice presentation with peer feedback before the final assessment.'
-      ],
-      informedBy: ['Communication Competency Toolkit', 'Module rubrics'],
-      gaps: 1
-    },
-    "Human Skills & Resilience": {
-      status: 'warn',
-      findings: [
-        'Resilience and adaptability are implicit in the module design but not explicitly named in outcomes or assessments.',
-        'Collaboration and communication expectations are present, but could be made more visible across the module arc.'
-      ],
-      actions: [
-        'Surface one outcome or activity explicitly focused on resilience, adaptability, or communication under pressure.',
-        'Add a structured peer-feedback or reflection component that develops collaboration explicitly.'
-      ],
-      informedBy: ['NP Human Edge', 'NP Graduate Competencies', 'Module materials'],
-      gaps: 1
-    },
-    "AI Integration (PAIR & 3As)": {
-      status: 'warn',
-      findings: [
-        'AI tools are referenced in delivery but there is no explicit guidance on appropriate use boundaries.',
-        'No tasks currently ask students to engage critically with AI-generated outputs.'
-      ],
-      actions: [
-        'Add a brief module-level AI use statement clarifying where AI assistance is permitted and where independent work is expected.',
-        'Include one task that requires students to evaluate, refine, or critique an AI-generated output.'
-      ],
-      informedBy: ['AI Integration (PAIR & 3As)', 'NP AI guidance', 'Module assessment plan'],
-      gaps: 1
-    },
-    "Human Skills & Resilience": {
-      status: 'warn',
-      findings: [
-        'Communication and collaboration expectations are present but not consistently visible across outcomes and assessment criteria.',
-        'Resilience and adaptability are not explicitly named in any outcome or activity description.'
-      ],
-      actions: [
-        'Add or revise one outcome to make communication or collaboration expectations explicit.',
-        'Include a structured peer-feedback or reflection activity that develops adaptability and teamwork.'
-      ],
-      informedBy: ['NP Human Edge', 'NP Graduate Competencies', 'Module materials'],
-      gaps: 1
-    }
+    "Learning Outcomes":           { status: 'warn', informedBy: ['Module outcomes', 'NP Assessment Framework'] },
+    "Content & Sequencing":        { status: 'warn', informedBy: ['Module topic schedule', 'Module materials'] },
+    "Teaching & Learning":         { status: 'ok',   informedBy: ['Module learning plan', 'Module materials'] },
+    "Assessment Design":           { status: 'warn', informedBy: ['Communication Competency Toolkit', 'Module rubrics'] },
+    "Communication & Presentation":{ status: 'warn', informedBy: ['Communication Competency Toolkit', 'Module rubrics'] },
+    "AI Integration (PAIR & 3As)": { status: 'warn', informedBy: ['NP AI guidance', 'Module assessment plan'] },
+    "Human Skills & Resilience":   { status: 'warn', informedBy: ['NP Human Edge', 'NP Graduate Competencies'] }
   };
 
-  // ─── Toggle optional context source ───
   function toggleCtxAdd(btn) {
     btn.classList.toggle('added');
     const label = btn.textContent.replace(/^[+✓]\s*/, '');
     btn.textContent = (btn.classList.contains('added') ? '' : '+ ') + label;
-    markReviewStale();
   }
 
-  // ─── Toggle focus card ───
   function toggleFocus(el) {
     el.classList.toggle('on');
     updateSummary();
-    markReviewStale();
   }
 
-  // ─── Load module (simulate upload) ───
   function loadModule() {
     document.getElementById('loaded-files').classList.add('show');
     document.getElementById('detected-card').classList.add('show');
@@ -1211,62 +1040,35 @@
     pill.classList.add('loaded');
     document.getElementById('sum-module').textContent = 'ICT1234 · Data Structures & Algorithms';
     document.getElementById('sum-module').classList.remove('empty');
-    document.getElementById('bb-note').textContent = 'Review context added. Confirm review focus, then review AI suggestions.';
   }
 
-  // ─── Summary ───
   function updateSummary() {
-    const focus = document.querySelectorAll('.focus-card.on').length;
-    document.getElementById('sum-focus').textContent = focus + ' selected';
+    document.getElementById('sum-focus').textContent = document.querySelectorAll('.focus-card.on').length + ' selected';
   }
 
-  // ─── Notes input listener ───
   document.getElementById('review-notes').addEventListener('input', (e) => {
     const el = document.getElementById('sum-notes');
     if (e.target.value.trim()) { el.textContent = 'Added'; el.classList.remove('empty'); }
     else { el.textContent = 'None'; el.classList.add('empty'); }
-    markReviewStale();
   });
 
-  // ─── Stale review marker ───
-  function markReviewStale() {
-    const panel = document.getElementById('review-inline');
-    if (!panel.classList.contains('show')) return;
-    document.getElementById('generate-btn').disabled = false;
-    document.getElementById('generate-btn').textContent = 'Update Suggestions →';
-    document.getElementById('bb-note').textContent = 'Focus areas or notes changed — update suggestions to refresh findings.';
-  }
-
-  // ─── Run review ───
   function runReview() {
-    const selected = Array.from(document.querySelectorAll('.focus-card.on')).map(el => el.dataset.focus.replace('&amp;', '&'));
+    const selected = Array.from(document.querySelectorAll('.focus-card.on')).map(el => el.dataset.focus.replace(/&amp;/g, '&'));
     const panel = document.getElementById('review-inline');
     const panels = document.getElementById('review-panels');
-    const stamp = document.getElementById('review-stamp');
+
+    panels.innerHTML = '';
 
     if (selected.length === 0) {
+      panels.innerHTML = '<div class="review-card" style="color:var(--hp-body);font-size:13px;text-align:center;padding:24px;">Select at least one focus area above to generate AI suggestions.</div>';
+      document.getElementById('review-stamp').textContent = 'No focus areas selected';
       panel.classList.add('show');
-      panels.innerHTML = '<div class="review-card"><div class="review-card-title">No focus area selected</div><div class="review-block-label">Next step</div><ul class="review-list"><li>Select at least one focus area, then review AI suggestions again.</li></ul></div>';
-      document.getElementById('metric-focus').textContent = '0';
-      document.getElementById('metric-actions').textContent = '0';
-      document.getElementById('metric-gaps').textContent = '0';
-      stamp.textContent = 'Awaiting focus areas';
       return;
     }
 
-    let actionCount = 0;
-    let gapCount = 0;
-    panels.innerHTML = '';
-
     selected.forEach((focus) => {
-      const data = reviewData[focus] || { status: 'ok', findings: ['No major issues detected.'], actions: ['No immediate action required.'], informedBy: ['Module materials'], gaps: 0 };
-      actionCount += data.actions.length;
-      gapCount += data.gaps;
-
-      const findingItems = data.findings.map(x => '<li>' + x + '</li>').join('');
-      const actionItems = data.actions.map(x => '<li>' + x + '</li>').join('');
+      const data = reviewData[focus] || { status: 'ok', informedBy: ['Module materials'] };
       const informedChips = (data.informedBy || []).map(x => '<span class="informed-chip">' + x + '</span>').join('');
-
       const card = document.createElement('div');
       card.className = 'review-card';
       card.innerHTML =
@@ -1274,56 +1076,25 @@
           '<div class="review-card-title">' + focus + '</div>' +
           '<span class="review-badge ' + (data.status === 'warn' ? 'warn' : 'ok') + '">' + (data.status === 'warn' ? 'Refresh suggested' : 'Aligned') + '</span>' +
         '</div>' +
-        '<div class="informed-by">' +
-          '<span class="informed-label">Informed by</span>' + informedChips +
-        '</div>' +
-        '<div class="review-block-label">AI observations</div>' +
-        '<ul class="review-list">' + findingItems + '</ul>' +
-        '<div class="review-block-label">Suggested actions</div>' +
-        '<ul class="review-list">' + actionItems + '</ul>';
+        '<div class="informed-by"><span class="informed-label">Informed by</span>' + informedChips + '</div>' +
+        '<div class="skel-label">Observations</div>' +
+        '<div class="skel-line w-full"></div><div class="skel-line w-lg"></div><div class="skel-line w-full"></div><div class="skel-line w-md"></div>' +
+        '<div class="skel-label">Suggested Actions</div>' +
+        '<div class="skel-line w-full"></div><div class="skel-line w-lg"></div><div class="skel-line w-sm"></div>';
       panels.appendChild(card);
     });
 
-    document.getElementById('metric-focus').textContent = String(selected.length);
-    document.getElementById('metric-actions').textContent = String(actionCount);
-    document.getElementById('metric-gaps').textContent = String(gapCount);
-    stamp.textContent = 'Generated from ' + selected.length + ' focus area' + (selected.length === 1 ? '' : 's');
-
+    document.getElementById('review-stamp').textContent = 'Generated from ' + selected.length + ' focus area' + (selected.length === 1 ? '' : 's');
     panel.classList.add('show');
     panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    document.getElementById('bb-note').textContent = 'Review generated · refine focus areas or notes and update anytime.';
-    document.getElementById('generate-btn').textContent = 'Update Suggestions →';
   }
 
-  // ─── Quick refine actions ───
-  function applyQuickRefine(mode) {
-    const notes = document.getElementById('review-notes');
-    if (mode === 'assessment') {
-      document.querySelectorAll('.focus-card').forEach(el => {
-        const keep = el.dataset.focus === 'Assessment Design' || el.dataset.focus === 'Learning Outcomes &amp; Alignment';
-        el.classList.toggle('on', keep);
-      });
-      notes.value = 'Prioritise assessment alignment, progression, feedback, and moderation evidence.';
-    }
-    if (mode === 'industry') {
-      const card = Array.from(document.querySelectorAll('.focus-card')).find(el => el.dataset.focus === 'Professional Practice');
-      if (card) card.classList.add('on');
-      notes.value = (notes.value ? notes.value + '\n' : '') + 'Compare findings against current industry trends and uploaded benchmark references.';
-    }
-    if (mode === 'alternatives') {
-      notes.value = 'Provide alternative implementation pathways with trade-offs and effort estimates.';
-    }
-    if (mode === 'expand') {
-      notes.value = 'Expand recommendations with practical classroom-level examples and sequencing.';
-    }
-    if (mode === 'followup') {
-      notes.value = (notes.value ? notes.value + '\n' : '') + 'Follow-up: which two recommendations should be implemented first for next semester?';
-    }
-    updateSummary();
-    runReview();
+  function fillChat(text) {
+    const input = document.getElementById('chat-input');
+    input.value = text;
+    input.focus();
   }
 
-  // initial summary
   updateSummary();
 </script>
 
