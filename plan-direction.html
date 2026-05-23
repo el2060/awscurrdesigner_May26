@@ -318,14 +318,6 @@
       gap: 16px;
     }
 
-    .setup-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
     .setup-kicker {
       color: var(--brand);
       font-size: 10px;
@@ -348,109 +340,131 @@
       max-width: 360px;
     }
 
-    .connector-picker {
-      border: 1px solid #dce6f1;
-      border-radius: 10px;
-      background: #f9fbfe;
-      padding: 8px;
-      display: grid;
-      gap: 8px;
+    .analysis-setup {
+      padding: 0;
+      overflow: hidden;
+      border-color: #d7e3ef;
+      background: #fcfeff;
     }
 
-    .connector-option {
-      position: relative;
-      border: 1px solid #dce6f1;
-      border-radius: 8px;
+    .analysis-accordion > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .analysis-accordion > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .analysis-accordion > summary::after {
+      content: "Show previous runs";
+      justify-self: start;
+      margin-top: 2px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #5f748a;
+      border: 1px solid #d8e4ef;
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: #fff;
+    }
+
+    .analysis-accordion[open] > summary {
+      border-bottom: 1px solid #e3ecf4;
+      background: #fff;
+    }
+
+    .analysis-accordion[open] > summary::after {
+      content: "Hide previous runs";
+    }
+
+    .analysis-runs {
+      padding: 10px 12px 14px;
+      display: grid;
+      gap: 8px;
+      background: #f9fcff;
+    }
+
+    .analysis-run {
+      border: 1px solid #dce7f2;
+      border-radius: 10px;
       background: #fff;
       padding: 10px 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-height: 50px;
+      display: grid;
+      gap: 6px;
       cursor: pointer;
       transition: border-color 120ms, background 120ms;
     }
 
-    .connector-option:has(input:checked) {
-      border-color: #b8d0e6;
+    .analysis-run:has(input:checked) {
+      border-color: #b6cee4;
       background: #f3f8fd;
     }
 
-    .connector-icon {
-      width: 24px;
-      height: 24px;
-      border-radius: 6px;
-      background: #e7f0fa;
-      color: #2c5f93;
-      font-size: 11px;
-      font-weight: 800;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+    .analysis-run-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .connector-copy {
-      display: grid;
-      gap: 1px;
-      min-width: 0;
-      flex: 1;
-    }
-
-    .connector-name {
+    .analysis-run-title {
       font-size: 13px;
       font-weight: 700;
       color: #1f3d5a;
     }
 
-    .connector-sub {
+    .analysis-run-time {
       font-size: 11px;
-      color: #607990;
+      color: #71869a;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .analysis-run-desc {
+      font-size: 12px;
+      color: #5c7489;
       line-height: 1.45;
     }
 
-    .connector-option input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .connector-toggle {
-      width: 42px;
-      height: 24px;
-      border-radius: 999px;
-      background: #c7d4e2;
-      position: relative;
-      flex-shrink: 0;
-      transition: background 120ms;
-    }
-
-    .connector-toggle::after {
-      content: "";
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #fff;
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      transition: transform 120ms;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    }
-
-    .connector-option input:checked + .connector-toggle {
-      background: #3f8ff2;
-    }
-
-    .connector-option input:checked + .connector-toggle::after {
-      transform: translateX(18px);
-    }
-
-    .connector-meta {
+    .analysis-run-pick {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
       font-size: 11px;
-      color: #5d7389;
       font-weight: 700;
-      letter-spacing: 0.02em;
+      color: #2d4e6e;
+      width: fit-content;
+    }
+
+    .analysis-run-pick input {
+      width: 14px;
+      height: 14px;
+      accent-color: var(--brand);
+    }
+
+    .analysis-cta {
+      margin-top: 2px;
+      display: inline-flex;
+      text-decoration: none;
+      border: 1px solid #bfd4e8;
+      border-radius: 999px;
+      background: #fff;
+      color: #234868;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      width: fit-content;
+    }
+
+    .analysis-cta:hover {
+      text-decoration: none;
+      border-color: #9fbfdb;
+      background: #f2f8fe;
     }
 
     .connected-strip {
@@ -1473,57 +1487,49 @@
       </nav>
       <h1 class="page-title">Start Co-Design</h1>
       <p class="page-sub">
-        Select background context to inform this draft.
+        Choose previous analysis summaries to carry forward into this module draft.
       </p>
     </section>
 
-    <section class="setup-card" aria-label="Context connector">
-      <div class="setup-head">
-        <div>
-          <div class="setup-kicker">Context Connector</div>
-          <h2 class="setup-title">Select Background Context</h2>
+    <section class="setup-card analysis-setup" aria-label="Use previous analysis">
+      <details class="analysis-accordion">
+        <summary>
+          <div class="setup-kicker">Use Previous Analysis</div>
+          <h2 class="setup-title">Select completed analysis summaries to guide module co-design.</h2>
+          <p class="setup-note">Keep this optional and lightweight so the main focus stays on the chat and live artifact canvas below.</p>
+        </summary>
+
+        <div class="analysis-runs" aria-label="Previous analysis runs">
+          <label class="analysis-run">
+            <span class="analysis-run-top">
+              <span class="analysis-run-title">ICU Curriculum Context Summary</span>
+              <span class="analysis-run-time">Completed 2 hrs ago</span>
+            </span>
+            <span class="analysis-run-desc">Industry benchmarking, student insights, existing materials</span>
+            <span class="analysis-run-pick"><input type="checkbox" checked>Use in co-design</span>
+          </label>
+
+          <label class="analysis-run">
+            <span class="analysis-run-top">
+              <span class="analysis-run-title">Benchmark &amp; Standards Review</span>
+              <span class="analysis-run-time">Completed yesterday</span>
+            </span>
+            <span class="analysis-run-desc">Curriculum frameworks and reference mapping</span>
+            <span class="analysis-run-pick"><input type="checkbox" checked>Use in co-design</span>
+          </label>
+
+          <label class="analysis-run">
+            <span class="analysis-run-top">
+              <span class="analysis-run-title">Existing Module Review</span>
+              <span class="analysis-run-time">Completed yesterday</span>
+            </span>
+            <span class="analysis-run-desc">Assessment and content observations</span>
+            <span class="analysis-run-pick"><input type="checkbox">Use in co-design</span>
+          </label>
+
+          <a class="analysis-cta" href="#coDesignWorkspace">Use Selected Analysis →</a>
         </div>
-        <p class="setup-note">Use previous-step context or offline prework.</p>
-      </div>
-      <div class="connector-picker" aria-label="Available connectors">
-        <label class="connector-option">
-          <span class="connector-icon">AI</span>
-          <span class="connector-copy">
-            <span class="connector-name">AI Context Summary</span>
-            <span class="connector-sub">Carry forward synthesis from Step 1</span>
-          </span>
-          <input type="checkbox" checked>
-          <span class="connector-toggle" aria-hidden="true"></span>
-        </label>
-        <label class="connector-option">
-          <span class="connector-icon">OF</span>
-          <span class="connector-copy">
-            <span class="connector-name">Offline / External Prework</span>
-            <span class="connector-sub">Notes prepared outside this flow</span>
-          </span>
-          <input type="checkbox" checked>
-          <span class="connector-toggle" aria-hidden="true"></span>
-        </label>
-        <label class="connector-option">
-          <span class="connector-icon">MM</span>
-          <span class="connector-copy">
-            <span class="connector-name">Existing Module Materials</span>
-            <span class="connector-sub">Current module docs and assets</span>
-          </span>
-          <input type="checkbox" checked>
-          <span class="connector-toggle" aria-hidden="true"></span>
-        </label>
-        <label class="connector-option">
-          <span class="connector-icon">IN</span>
-          <span class="connector-copy">
-            <span class="connector-name">Industry Signals</span>
-            <span class="connector-sub">Optional benchmark and trend references</span>
-          </span>
-          <input type="checkbox">
-          <span class="connector-toggle" aria-hidden="true"></span>
-        </label>
-      </div>
-      <div class="connector-meta">3 connectors selected for this draft</div>
+      </details>
     </section>
 
     <section class="workspace-strip" aria-label="Current module">
