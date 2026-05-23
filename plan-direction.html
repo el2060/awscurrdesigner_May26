@@ -236,6 +236,67 @@
       gap: 8px;
     }
 
+    .workspace-strip {
+      border: 1px solid #d9e4ef;
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .workspace-strip-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .workspace-strip-kicker {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #4b6783;
+    }
+
+    .workspace-strip-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1f3d5a;
+      letter-spacing: -0.01em;
+    }
+
+    .workspace-strip-meta {
+      font-size: 12px;
+      color: #597089;
+      font-weight: 600;
+    }
+
+    .workspace-strip-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .workspace-strip-link {
+      border: 1px solid #cfddea;
+      border-radius: 999px;
+      background: #f8fbff;
+      color: #35526f;
+      padding: 6px 11px;
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .workspace-strip-link:hover {
+      border-color: #b5cce3;
+      background: #eef5fb;
+      text-decoration: none;
+    }
+
     .connected-btn {
       border: 1px solid #cfddea;
       border-radius: 999px;
@@ -395,12 +456,22 @@
     }
 
     .thread-link .thread-status {
+      display: block;
       margin-top: 4px;
       color: #74879b;
       letter-spacing: 0;
       text-transform: none;
       font-size: 10px;
       font-weight: 600;
+    }
+
+    .thread-link .thread-status.attention {
+      color: #8f5615;
+      font-weight: 700;
+    }
+
+    .thread-link.active .thread-status.attention {
+      color: #ffd79f;
     }
 
     .thread-link.active .thread-status {
@@ -1032,12 +1103,12 @@
       <div class="page-eyebrow">Phase 2 · Curriculum Co-Design</div>
       <h1 class="page-title">Plan Curriculum Direction</h1>
       <p class="page-sub">
-        Work in focused co-design specialist lanes while the full module artifact updates as one coherent document.
+        Work in focused co-design work areas while the full module artifact updates as one coherent document.
         Each lane keeps context tight, decisions visible, and tradeoffs explicit.
       </p>
       <div class="session-strip" aria-label="Session continuity">
         <span class="session-chip">Session: Advanced Diploma in Critical Care Nursing</span>
-        <span class="session-chip">7 specialist lanes active</span>
+        <span class="session-chip">7 work areas active</span>
       </div>
     </section>
 
@@ -1062,6 +1133,21 @@
       </div>
     </section>
 
+    <section class="workspace-strip" aria-label="Current workspace">
+      <div class="workspace-strip-top">
+        <div>
+          <div class="workspace-strip-kicker">Current Workspace</div>
+          <div class="workspace-strip-title">Advanced Critical Care Nursing Science II</div>
+        </div>
+        <div class="workspace-strip-meta">Drafting session · 4 linked curriculum inputs · 2 downstream material sets</div>
+      </div>
+      <div class="workspace-strip-actions">
+        <a class="workspace-strip-link" href="gather-context.html">View Inputs</a>
+        <a class="workspace-strip-link" href="#artifactScroll">View Module Draft</a>
+        <a class="workspace-strip-link" href="generate-materials.html">View Materials</a>
+      </div>
+    </section>
+
     <section class="workspace">
       <aside class="workspace-side" aria-label="Conversation workspace">
         <div class="thread-shell">
@@ -1078,14 +1164,14 @@
               <div class="thread-shared-time">Context synthesized 8 mins ago</div>
             </div>
             <div class="thread-rail-divider" aria-hidden="true"></div>
-            <div class="thread-rail-kicker">Specialist Lanes</div>
-            <button class="thread-link active" data-thread="outcomes" type="button">Learning Outcomes<small>Competency Specialist</small><small class="thread-status">AI recommendation prepared from benchmark signals</small></button>
-            <button class="thread-link" data-thread="content" type="button">Content &amp; Hours<small>Curriculum Sequencing Specialist</small><small class="thread-status">Triggered by workload clustering insights</small></button>
-            <button class="thread-link" data-thread="teaching" type="button">Teaching Strategy<small>Learning Design Specialist</small><small class="thread-status">Cross-impact detected from sequencing updates</small></button>
-            <button class="thread-link warn" data-thread="assessment" type="button">Assessment Design<small>Authentic Assessment Specialist</small><small class="thread-status">Triggered by outcome revisions</small></button>
-            <button class="thread-link" data-thread="resources" type="button">Learning Resources<small>Resource Curation Specialist</small><small class="thread-status">AI recommendations generated from context synthesis</small></button>
-            <button class="thread-link" data-thread="alignment" type="button">Alignment Review<small>Curriculum Systems Reviewer</small><small class="thread-status">Cross-check triggered by assessment updates</small></button>
-            <button class="thread-link" data-thread="integrity" type="button">Academic Integrity<small>AI Governance Advisor</small><small class="thread-status">Triggered by assessment authenticity pattern</small></button>
+            <div class="thread-rail-kicker">Work Areas</div>
+            <button class="thread-link active" data-thread="outcomes" type="button">Learning Outcomes</button>
+            <button class="thread-link" data-thread="content" type="button">Content &amp; Hours</button>
+            <button class="thread-link" data-thread="teaching" type="button">Teaching Strategy</button>
+            <button class="thread-link warn" data-thread="assessment" type="button">Assessment Design<span class="thread-status attention">● Requires review</span></button>
+            <button class="thread-link" data-thread="resources" type="button">Learning Resources</button>
+            <button class="thread-link" data-thread="alignment" type="button">Alignment Review<span class="thread-status">● Updated</span></button>
+            <button class="thread-link" data-thread="integrity" type="button">Academic Integrity</button>
           </nav>
 
           <section class="thread-workspace" aria-live="polite">
@@ -1094,7 +1180,6 @@
                 <h2 class="thread-title" id="threadTitle">Learning Outcomes</h2>
                 <span class="thread-stage" id="threadStage">Active lane</span>
               </div>
-              <div class="thread-specialist" id="threadSpecialist">Competency Specialist</div>
               <p class="thread-sub" id="threadSubtitle">Sharpen measurable outcomes for escalation reasoning while preserving current assessment load.</p>
             </header>
 
@@ -1259,7 +1344,6 @@
     const threadData = {
       outcomes: {
         title: "Learning Outcomes",
-        specialist: "Competency Specialist",
         subtitle: "Sharpen measurable outcomes for escalation reasoning while preserving current assessment load.",
         stage: "Active lane",
         sectionLabel: "Learning Outcomes",
@@ -1275,16 +1359,15 @@
         selected: 1,
         prompts: ["Generate 2 alternatives", "Check Bloom level", "Map to assessments", "Tighten verbs"],
         blocks: [
-          { label: "Competency Specialist", copy: "Before revising further: should this module emphasize clinical judgement, procedural confidence, or interdisciplinary escalation?" },
+          { label: "AI Co-Design", copy: "Before revising further: should this module emphasize clinical judgement, procedural confidence, or interdisciplinary escalation?" },
           { label: "Module Leader", copy: "More emphasis on escalation and reasoning." },
-          { label: "Competency Specialist", copy: "Understood. I will strengthen escalation-oriented decision-making outcomes without increasing assessment load." },
+          { label: "AI Co-Design", copy: "Understood. I will strengthen escalation-oriented decision-making outcomes without increasing assessment load." },
           { label: "", copy: "Option A: Explicit escalation trigger verbs.\nOption B: Stronger diagnostic interpretation language.\nOption C: Escalation communication with time-critical rationale." }
         ],
         tradeoffs: "A/B improve measurability quickly. C improves team-readiness visibility but may require rubric updates."
       },
       content: {
         title: "Content & Hours",
-        specialist: "Curriculum Sequencing Specialist",
         subtitle: "Re-sequence topics to reduce overload and protect high-value simulation learning.",
         stage: "Design lane",
         sectionLabel: "Content & Hours",
@@ -1300,16 +1383,15 @@
         selected: 0,
         prompts: ["Trim low-value overlap", "Show week-by-week flow", "Check contact-hour cap"],
         blocks: [
-          { label: "Curriculum Sequencing Specialist", copy: "Where is learner overload most visible now: diagnostics week, simulation week, or debrief consolidation?" },
+          { label: "AI Co-Design", copy: "Where is learner overload most visible now: diagnostics week, simulation week, or debrief consolidation?" },
           { label: "Module Leader", copy: "Simulation prep and diagnostics week are overloaded." },
-          { label: "Curriculum Sequencing Specialist", copy: "I will spread diagnostics across two cycles and convert one prep segment into guided asynchronous review." },
+          { label: "AI Co-Design", copy: "I will spread diagnostics across two cycles and convert one prep segment into guided asynchronous review." },
           { label: "", copy: "New sequence keeps total hours stable while opening more deliberate practice time before integrated simulation." }
         ],
         tradeoffs: "Lower overload improves depth retention. Asynchronous shift needs clearer quality guardrails for learner preparation."
       },
       teaching: {
         title: "Teaching Strategy",
-        specialist: "Learning Design Specialist",
         subtitle: "Refine facilitation and debrief rhythm so reasoning quality improves across the module.",
         stage: "Design lane",
         sectionLabel: "Teaching Strategy",
@@ -1325,16 +1407,15 @@
         selected: 1,
         prompts: ["Add facilitator prompts", "Show cycle cadence", "Balance instructor load"],
         blocks: [
-          { label: "Learning Design Specialist", copy: "Should debriefs prioritize diagnostic justification, communication under pressure, or escalation timing decisions?" },
+          { label: "AI Co-Design", copy: "Should debriefs prioritize diagnostic justification, communication under pressure, or escalation timing decisions?" },
           { label: "Module Leader", copy: "Escalation timing and justification." },
-          { label: "Learning Design Specialist", copy: "I will reframe debrief prompts toward timing thresholds and defensible escalation triggers." },
+          { label: "AI Co-Design", copy: "I will reframe debrief prompts toward timing thresholds and defensible escalation triggers." },
           { label: "", copy: "Adding short reasoning checkpoints between simulations can improve transfer without extending timetabled hours." }
         ],
         tradeoffs: "Higher debrief precision improves outcome evidence. More facilitator guidance may require staff calibration resources."
       },
       assessment: {
         title: "Assessment Design",
-        specialist: "Authentic Assessment Specialist",
         subtitle: "Strengthen authenticity and AI-era validity without creating unmanageable marking burden.",
         stage: "Critical lane",
         sectionLabel: "Assessment Design",
@@ -1350,16 +1431,15 @@
         selected: 2,
         prompts: ["Compare 3 patterns", "Show rubric impact", "Reduce marking overhead"],
         blocks: [
-          { label: "Authentic Assessment Specialist", copy: "Which evidence should carry the heaviest weight: live simulation decisions, written reasoning, or interdisciplinary brief defence?" },
+          { label: "AI Co-Design", copy: "Which evidence should carry the heaviest weight: live simulation decisions, written reasoning, or interdisciplinary brief defence?" },
           { label: "Module Leader", copy: "Live simulation plus concise written reasoning." },
-          { label: "Authentic Assessment Specialist", copy: "I will increase live decision evidence and keep written artefacts short but traceable for integrity." },
+          { label: "AI Co-Design", copy: "I will increase live decision evidence and keep written artefacts short but traceable for integrity." },
           { label: "", copy: "Pattern 1: Simulation-heavy weighted stations.\nPattern 2: Mixed station + brief reasoning memo.\nPattern 3: Team escalation panel with individual defence." }
         ],
         tradeoffs: "Simulation-heavy design raises authenticity. Hybrid design may be easier to moderate across cohorts."
       },
       resources: {
         title: "Learning Resources",
-        specialist: "Resource Curation Specialist",
         subtitle: "Prioritize resources that directly support escalation competency and current assessments.",
         stage: "Enrichment lane",
         sectionLabel: "Learning Resources",
@@ -1375,16 +1455,15 @@
         selected: 0,
         prompts: ["Map to outcomes", "Shortlist local relevance", "Balance open/licensed"],
         blocks: [
-          { label: "Resource Curation Specialist", copy: "Should resources optimize for exam preparation, simulation realism, or cross-disciplinary handover quality?" },
+          { label: "AI Co-Design", copy: "Should resources optimize for exam preparation, simulation realism, or cross-disciplinary handover quality?" },
           { label: "Module Leader", copy: "Simulation realism and handover quality." },
-          { label: "Resource Curation Specialist", copy: "I will shortlist resources tied to high-risk escalation scenarios and interdisciplinary communication rubrics." },
+          { label: "AI Co-Design", copy: "I will shortlist resources tied to high-risk escalation scenarios and interdisciplinary communication rubrics." },
           { label: "", copy: "Three resource bundles prepared: local case library, current journal digest, and simulation briefing templates." }
         ],
         tradeoffs: "Local relevance increases immediate utility. Broader benchmarking resources may improve long-term curriculum resilience."
       },
       alignment: {
         title: "Alignment Review",
-        specialist: "Curriculum Systems Reviewer",
         subtitle: "Validate systemic coherence across outcomes, delivery, assessment, and workload constraints.",
         stage: "Review lane",
         sectionLabel: "Alignment Review",
@@ -1400,16 +1479,15 @@
         selected: 0,
         prompts: ["Show misalignment risks", "Flag unresolved decisions", "Propose correction set"],
         blocks: [
-          { label: "Curriculum Systems Reviewer", copy: "Do you want alignment checking to prioritize accreditation evidence, learner workload, or competency depth first?" },
+          { label: "AI Co-Design", copy: "Do you want alignment checking to prioritize accreditation evidence, learner workload, or competency depth first?" },
           { label: "Module Leader", copy: "Competency depth first, then workload." },
-          { label: "Curriculum Systems Reviewer", copy: "I will flag any section where depth is claimed but not evidenced through teaching sequence or assessment design." },
+          { label: "AI Co-Design", copy: "I will flag any section where depth is claimed but not evidenced through teaching sequence or assessment design." },
           { label: "", copy: "Current pass indicates two strengths and one risk: resource mapping still lags the revised assessment changes." }
         ],
         tradeoffs: "Depth-first review prevents superficial alignment. Secondary workload checks protect feasibility before implementation."
       },
       integrity: {
         title: "Academic Integrity",
-        specialist: "AI Governance Advisor",
         subtitle: "Define AI-use boundaries so learning remains authentic and reasoning evidence stays traceable.",
         stage: "Policy lane",
         sectionLabel: "Academic Integrity",
@@ -1425,9 +1503,9 @@
         selected: 1,
         prompts: ["Draft policy language", "Insert in guide", "Create learner checklist"],
         blocks: [
-          { label: "AI Governance Advisor", copy: "Should this policy sound compliance-led, coaching-led, or scenario-led for student comprehension?" },
+          { label: "AI Co-Design", copy: "Should this policy sound compliance-led, coaching-led, or scenario-led for student comprehension?" },
           { label: "Module Leader", copy: "Coaching-led with clear boundaries." },
-          { label: "AI Governance Advisor", copy: "I will keep standards explicit while framing AI use as guided support rather than hidden shortcut." },
+          { label: "AI Co-Design", copy: "I will keep standards explicit while framing AI use as guided support rather than hidden shortcut." },
           { label: "", copy: "Draft includes permitted AI actions, prohibited substitutions, and mandatory reasoning trace annotations." }
         ],
         tradeoffs: "Coaching tone improves adoption. Strong enforcement clauses are still required in high-stakes assessment sections."
@@ -1445,7 +1523,6 @@
     const threadPromptRow = document.getElementById("threadPromptRow");
     const activeSectionPill = document.getElementById("activeSectionPill");
     const threadThinking = document.getElementById("threadThinking");
-    const threadSpecialist = document.getElementById("threadSpecialist");
     const openContextSummary = document.getElementById("openContextSummary");
     const changeInputs = document.getElementById("changeInputs");
 
@@ -1460,7 +1537,6 @@
       threadSubtitle.textContent = lane.subtitle;
       threadStage.textContent = lane.stage;
       activeSectionPill.textContent = "Editing: " + lane.sectionLabel;
-      threadSpecialist.textContent = lane.specialist;
 
       threadCanvas.innerHTML = "";
 
@@ -1670,7 +1746,7 @@
       <div class="context-modal-head">
         <div>
           <h3 class="context-modal-title" id="contextModalTitle">Imported AI Context</h3>
-          <p class="context-modal-sub">Synthesized from Discovery &amp; Analysis outputs and injected as shared curriculum memory for all specialist lanes.</p>
+          <p class="context-modal-sub">Synthesized from Discovery &amp; Analysis outputs and injected as shared curriculum memory for all work areas.</p>
         </div>
         <button type="button" class="context-modal-close" data-close-context>Close</button>
       </div>

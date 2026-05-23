@@ -181,6 +181,102 @@
       background: var(--hp-indigo-600); border-color: var(--hp-indigo-600);
     }
 
+    /* Downstream continuation (compact) */
+    .next-step-card {
+      margin-top: 12px;
+      border: 1px solid var(--hp-indigo-100);
+      background: linear-gradient(180deg, #f8f9ff 0%, #fff 72%);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: grid;
+      gap: 10px;
+    }
+    .next-step-kicker {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--hp-indigo-700);
+    }
+    .next-step-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--hp-text);
+      letter-spacing: -0.01em;
+    }
+    .next-step-desc {
+      font-size: 13px;
+      color: var(--hp-body);
+      line-height: 1.55;
+    }
+    .context-mini {
+      border: 1px solid var(--hp-indigo-100);
+      background: var(--hp-indigo-50);
+      border-radius: 8px;
+      padding: 9px 10px;
+      display: grid;
+      gap: 6px;
+    }
+    .context-mini-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--hp-indigo-700);
+    }
+    .context-mini-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .context-mini-list li {
+      font-size: 11px;
+      color: var(--hp-indigo-700);
+      border: 1px solid var(--hp-indigo-100);
+      background: #fff;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-weight: 600;
+    }
+    .material-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .material-chip {
+      font-size: 11px;
+      color: #5b6270;
+      border: 1px solid var(--hp-border);
+      background: #fff;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-weight: 600;
+    }
+    .next-step-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .next-step-link {
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--hp-indigo-700);
+      border: 1px solid var(--hp-indigo-700);
+      border-radius: 6px;
+      padding: 8px 13px;
+      transition: all 150ms;
+    }
+    .next-step-link:hover {
+      background: var(--hp-indigo-600);
+      border-color: var(--hp-indigo-600);
+      text-decoration: none;
+    }
+
     /* Path B — review (emerald) */
     .phase-main-review {
       border-color: var(--hp-emerald-100);
@@ -389,10 +485,40 @@
         <li>Draft module sections</li>
         <li>Review and refine content</li>
         <li>Check curriculum alignment</li>
-        <li>Export module draft</li>
+        <li>Continue into teaching &amp; learning materials (optional)</li>
+        <li>Export module package</li>
       </ol>
       <div class="phase-cta">Start New Module Flow →</div>
     </a>
+
+    <div class="next-step-card" aria-label="Optional continuation into materials generation">
+      <div class="next-step-kicker">Next Step (Optional)</div>
+      <div class="next-step-title">Continue into Teaching &amp; Learning Materials</div>
+      <p class="next-step-desc">Use the approved module draft to generate aligned learning materials and teaching resources. Connected to: Advanced Critical Care Nursing Science II.</p>
+
+      <div class="context-mini">
+        <div class="context-mini-title">Connected Curriculum Context</div>
+        <ul class="context-mini-list">
+          <li>Learning Outcomes</li>
+          <li>Content &amp; Hours</li>
+          <li>Teaching Strategy</li>
+          <li>Assessment Design</li>
+        </ul>
+      </div>
+
+      <div class="material-chip-row" aria-label="Material types">
+        <span class="material-chip">Slides</span>
+        <span class="material-chip">Learning Activities</span>
+        <span class="material-chip">Case Studies</span>
+        <span class="material-chip">Quiz Questions</span>
+        <span class="material-chip">Facilitator Guide</span>
+      </div>
+
+      <div class="next-step-actions">
+        <span class="pc-text">Imported from approved module draft</span>
+        <a class="next-step-link" href="generate-materials.html">Continue →</a>
+      </div>
+    </div>
   </div>
 
   <!-- ═══ Separator ═══ -->
