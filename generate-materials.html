@@ -12,7 +12,7 @@
   COMPONENTS (for developer handoff)
     1. Step strip            (MVP — orients lecturer in Path A flow)
     2. Linked context strip  (MVP — shows which module draft feeds this)
-    3. Material type picker  (MVP — core vs. supporting groups)
+    3. Phase material picker (MVP — before/during/after class)
     4. Generated preview     (MVP frame; preview snippets are DEMO FILLER)
     5. Bottom actions        (MVP — back / generate / export)
   ═════════════════════════════════════════════════════════════════════════
@@ -202,6 +202,7 @@
   color: #63778a;
   font-size: 13px;
   line-height: 1.5;
+  max-width: 60ch;
 }
 
 .analysis-setup {
@@ -224,7 +225,7 @@
 }
 
 .analysis-accordion > summary::after {
-  content: "View Context Details";
+  content: "Change Draft";
   justify-self: start;
   margin-top: 2px;
   font-size: 11px;
@@ -242,9 +243,8 @@
 }
 
 .analysis-accordion[open] > summary::after {
-  content: "Hide Context Details";
+  content: "Close Options";
 }
-
 .analysis-runs {
   padding: 16px;
   display: grid;
@@ -310,8 +310,49 @@
   height: 14px;
   accent-color: var(--brand);
 }
-      max-width: 60ch;
-    }
+
+.flow-sequence {
+  border: 1px solid #d6e3ef;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #f7fbff 0%, #ffffff 82%);
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.flow-sequence-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5f748a;
+}
+
+.flow-sequence-track {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.flow-sequence-item {
+  border: 1px solid #dce8f4;
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #425b73;
+}
+
+.flow-sequence-item strong {
+  display: block;
+  color: #24394f;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 3px;
+}
 
     .setup-meta-grid {
       display: grid;
@@ -327,6 +368,24 @@
       color: #2e4459;
       font-weight: 600;
       line-height: 1.45;
+    }
+
+    .setup-approach-row {
+      border-top: 1px solid #dde8f2;
+      padding-top: 12px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .setup-approach-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #5f748a;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
     }
 
     .setup-config {
@@ -492,7 +551,7 @@
 
     .material-groups {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
     }
 
@@ -512,8 +571,9 @@
       letter-spacing: -0.01em;
     }
 
-    .material-group-title.core::before,
-    .material-group-title.support::before {
+    .material-group-title.before::before,
+    .material-group-title.during::before,
+    .material-group-title.after::before {
       content: "";
       display: inline-block;
       width: 8px;
@@ -523,12 +583,16 @@
       vertical-align: middle;
     }
 
-    .material-group-title.core::before {
+    .material-group-title.before::before {
       background: var(--brand);
     }
 
-    .material-group-title.support::before {
-      background: #8aa0b8;
+    .material-group-title.during::before {
+      background: #2f7a52;
+    }
+
+    .material-group-title.after::before {
+      background: #7a6a2f;
     }
 
     .material-output {
@@ -554,6 +618,49 @@
       color: #46586d;
       font-size: 11px;
       line-height: 1.45;
+    }
+
+    .phase-note {
+      border-top: 1px dashed #d9e4ef;
+      padding-top: 10px;
+      font-size: 12px;
+      color: #627389;
+      line-height: 1.5;
+    }
+
+    .essentials-hint {
+      margin-top: 12px;
+      border: 1px solid #d9e6f3;
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: #f8fbff;
+      font-size: 12px;
+      color: #5d7389;
+      line-height: 1.45;
+    }
+
+    .material-extra[hidden] {
+      display: none;
+    }
+
+    .more-materials {
+      margin-top: 10px;
+      border: 1px solid #c4d9eb;
+      border-radius: 999px;
+      background: #fff;
+      color: #2f4d6f;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      cursor: pointer;
+      width: fit-content;
+    }
+
+    .more-materials:hover {
+      background: #f4f9ff;
+      border-color: #aac8df;
     }
 
     .section-title {
@@ -700,6 +807,14 @@
       gap: 12px;
       font-size: 13px;
       color: var(--ink-mid);
+    }
+
+    .side-trust-note {
+      border-top: 1px dashed #d4dee9;
+      padding-top: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #63788e;
     }
 
     .side-next-item {
@@ -894,6 +1009,16 @@
       .preview-shell {
         grid-template-columns: 1fr;
       }
+
+      .flow-sequence-track {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .material-groups {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 1280px) {
@@ -925,6 +1050,10 @@
         grid-template-columns: 1fr;
       }
 
+      .flow-sequence-track {
+        grid-template-columns: 1fr;
+      }
+
       .actions {
         padding-top: 14px;
       }
@@ -950,47 +1079,43 @@
 
   <main class="page">
     <section>
-      <h1 class="page-title">Generate Teaching &amp; Learning Materials</h1>
-      <p class="page-sub">Generate aligned teaching and learning materials based on the approved module draft and curriculum direction.</p>
+      <h1 class="page-title">Generate Learning Materials</h1>
+      <p class="page-sub">Your curriculum decisions from the module draft drive what gets generated. Start with essential flipped-learning materials, then expand only where needed.</p>
+      <div class="flow-sequence" aria-label="Lecturer planning sequence">
+        <div class="flow-sequence-title">Typical lecturer sequence</div>
+        <div class="flow-sequence-track">
+          <div class="flow-sequence-item"><strong>1. Weeks &amp; Topics</strong>Identify which weeks and focus areas this material set supports.</div>
+          <div class="flow-sequence-item"><strong>2. Learning Experience</strong>Define before, during, and after class learning experiences.</div>
+          <div class="flow-sequence-item"><strong>3. Materials To Prepare</strong>Start with essential slides, activities, and quizzes.</div>
+          <div class="flow-sequence-item"><strong>4. AI Assist Level</strong>Decide what AI should draft versus what lecturers should author manually.</div>
+        </div>
+      </div>
     </section>
 
     <section class="setup-card analysis-setup" aria-label="Curriculum context">
       <details class="analysis-accordion">
-        <summary>
-          <div class="setup-kicker">Curriculum Context Loaded</div>
-          <h2 class="setup-title">Advanced Critical Care Nursing Science II</h2>
-          <p class="setup-note">The generated materials will automatically align with the approved curriculum structure.</p>
+        <summary style="padding-bottom: 14px;">
+          <div class="setup-kicker" style="color: #63778a;">Using Module Draft</div>
+          <h2 class="setup-title" style="margin-bottom: 4px;">Advanced Critical Care Nursing Science II</h2>
+          <p class="setup-note" style="font-size: 12px; margin-bottom: 6px;">Using approved module structure and outcomes.</p>
         </summary>
 
-        <div class="analysis-runs">
-          <label class="analysis-run">
-            <span class="analysis-run-top">
-              <span class="analysis-run-title">Approved Module Draft</span>
-              <span class="analysis-run-time">Completed just now</span>
-            </span>
-            <span class="analysis-run-desc">Includes synopsis, learning outcomes, weekly sequencing, assessment strategy, clinical simulation emphasis, and AI guidance.</span>
-            <span class="analysis-run-pick"><input type="checkbox" checked>Use as context</span>
-          </label>
-
-          <div class="setup-config" style="background: #fff; border: 1px solid #dce7f2; border-radius: 10px; padding: 14px 16px; margin: 0; border-top: 1px solid #dce7f2;">
-            <div class="setup-config-title" style="margin-bottom: 8px;">Lecturer Configuration</div>
-            <div class="setup-config-grid">
-              <div class="setup-config-field">
-                <label style="font-weight: 600; font-size: 11px;">Teaching Weeks:</label>
-                <select class="setup-select">
-                  <option>All Weeks (1-15)</option>
-                  <option>Week 1-5 Only</option>
-                </select>
-              </div>
-              <div class="setup-config-field">
-                <label style="font-weight: 600; font-size: 11px;">Delivery Mode Adaptation:</label>
-                <select class="setup-select">
-                  <option>Blended learning</option>
-                  <option>Classroom primarily</option>
-                  <option>Simulation primarily</option>
-                </select>
-              </div>
-            </div>
+        <div class="analysis-runs" style="padding-top: 0;">
+          <div class="setup-meta-grid" style="padding: 0 4px; border-top: 1px solid #e3ecf4; padding-top: 14px;">
+            <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> learning outcomes</div>
+            <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> weekly structure</div>
+            <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> assessment approach</div>
+            <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> teaching strategy</div>
+            <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> AI &amp; integrity guidance</div>
+          </div>
+          <div class="setup-approach-row">
+            <label class="setup-approach-label" for="learning-approach">Learning Approach</label>
+            <select class="setup-select" id="learning-approach" style="max-width: 280px;">
+              <option selected>Blended / Flipped Learning</option>
+              <option>Flipped Learning (High Async)</option>
+              <option>Blended with Applied Workshops</option>
+              <option>Face-to-Face with Digital Reinforcement</option>
+            </select>
           </div>
         </div>
       </details>
@@ -1002,64 +1127,93 @@
           <div class="sc-header">
             <div class="sc-num">1</div>
             <div class="sc-title-wrap">
-              <div class="sc-title">Select Material Types</div>
-              <div class="sc-desc">Choose core and supporting materials to generate</div>
+              <div class="sc-title">Learning Materials</div>
+              <div class="sc-desc">Group materials by learning phase so planning follows flipped-learning flow</div>
             </div>
           </div>
           <div class="sc-body">
             <div class="material-groups">
               <div class="material-group">
-                <div class="material-group-title core">Core Teaching Materials</div>
+                <div class="material-group-title before">Before Class</div>
                 <div class="check-grid">
                   <div class="check-item">
-                    <input id="slides" type="checkbox" checked>
-                    <label for="slides">Lecture Slides</label>
+                    <input id="pre-slides" type="checkbox" checked>
+                    <label for="pre-slides">Pre-learning slides</label>
                   </div>
                   <div class="check-item">
-                    <input id="activities" type="checkbox" checked>
-                    <label for="activities">Learning Activities</label>
+                    <input id="pre-quiz" type="checkbox" checked>
+                    <label for="pre-quiz">Pre-class quiz</label>
                   </div>
-                  <div class="check-item">
-                    <input id="cases" type="checkbox" checked>
-                    <label for="cases">Case Studies</label>
+                  <div class="check-item material-extra" hidden>
+                    <input id="explainer" type="checkbox">
+                    <label for="explainer">Short explainer content</label>
+                  </div>
+                  <div class="check-item material-extra" hidden>
+                    <input id="reading-summary" type="checkbox">
+                    <label for="reading-summary">Reading summary</label>
                   </div>
                 </div>
                 <div class="material-output">
-                  <strong>Lecture Slides</strong>
-                  <p>Week 1 ICU escalation overview · Early warning indicators · Guided interpretation examples</p>
-                </div>
-                <div class="material-output">
-                  <strong>Case Studies</strong>
-                  <p>GI bleed deterioration scenario · Interdisciplinary escalation handoff</p>
+                  <strong>Starter focus</strong>
+                  <p>Pre-learning slides and a quick pre-class quiz prepare students before in-class application.</p>
                 </div>
               </div>
 
               <div class="material-group">
-                <div class="material-group-title support">Supporting Materials</div>
+                <div class="material-group-title during">During Class</div>
                 <div class="check-grid">
                   <div class="check-item">
-                    <input id="quiz" type="checkbox">
-                    <label for="quiz">Quiz Questions</label>
+                    <input id="activities" type="checkbox" checked>
+                    <label for="activities">Learning activities</label>
                   </div>
-                  <div class="check-item">
-                    <input id="facilitator" type="checkbox">
-                    <label for="facilitator">Facilitator Guide</label>
+                  <div class="check-item material-extra" hidden>
+                    <input id="case-discussions" type="checkbox">
+                    <label for="case-discussions">Case discussions</label>
                   </div>
-                  <div class="check-item">
-                    <input id="handout" type="checkbox">
-                    <label for="handout">Student Handout</label>
+                  <div class="check-item material-extra" hidden>
+                    <input id="simulation-prompts" type="checkbox">
+                    <label for="simulation-prompts">Simulation prompts</label>
+                  </div>
+                  <div class="check-item material-extra" hidden>
+                    <input id="application-exercises" type="checkbox">
+                    <label for="application-exercises">Application exercises</label>
                   </div>
                 </div>
                 <div class="material-output">
-                  <strong>Learning Activities</strong>
-                  <p>Small-group escalation discussion · scenario-based debrief prompt · quick knowledge check</p>
+                  <strong>Facilitation focus</strong>
+                  <p>In-class activities prompt application of pre-class concepts through guided facilitation.</p>
                 </div>
-                <div class="material-preview">Optional support outputs stay lightweight and editable so the module remains educator-controlled.</div>
+              </div>
+
+              <div class="material-group">
+                <div class="material-group-title after">After Class</div>
+                <div class="check-grid">
+                  <div class="check-item material-extra" hidden>
+                    <input id="reflection" type="checkbox">
+                    <label for="reflection">Reflection prompts</label>
+                  </div>
+                  <div class="check-item material-extra" hidden>
+                    <input id="reinforcement-quiz" type="checkbox">
+                    <label for="reinforcement-quiz">Reinforcement quiz</label>
+                  </div>
+                  <div class="check-item material-extra" hidden>
+                    <input id="practice-exercises" type="checkbox">
+                    <label for="practice-exercises">Practice exercises</label>
+                  </div>
+                </div>
+                <div class="material-output">
+                  <strong>Reinforcement focus</strong>
+                  <p>After-class materials consolidate learning and support reflection, practice, and formative checks.</p>
+                </div>
+                <div class="phase-note">After-class materials are optional by default for faster module setup.</div>
               </div>
             </div>
 
+            <button class="more-materials" id="toggle-materials" type="button" aria-expanded="false">Show More Materials</button>
+            <div class="essentials-hint">Essentials are selected first: slides, activities, and quiz. Expand when you are ready to add guides, handouts, rubrics, or extended resources.</div>
+
             <div class="actions">
-              <div class="hint">Preview, refine, and export within this page.</div>
+              <div class="hint">Curriculum priorities first, AI assistance second. Preview and refine before export.</div>
               <div>
                 <button class="btn secondary" type="button">Preview Render</button>
                 <button class="btn primary" type="button">Generate Draft</button>
@@ -1071,17 +1225,20 @@
 
       <aside class="layout-side">
         <div class="side-box">
-          <div class="side-title">Material Summary</div>
-          <div class="side-row"><span>Core materials</span><span class="side-count">3 selected</span></div>
-          <div class="side-row"><span>Supporting materials</span><span class="side-count">0 selected</span></div>
-          <div class="side-row"><span>Editable outputs</span><span class="side-count">5 items</span></div>
-          <div class="side-total"><span>Total planned outputs</span><span class="side-total-num">8</span></div>
+          <div class="side-title">Planning Snapshot</div>
+          <div class="side-row"><span>Weeks supported</span><span class="side-count">Week 1 to Week 6</span></div>
+          <div class="side-row"><span>Learning approach</span><span class="side-count">Blended / Flipped</span></div>
+          <div class="side-row"><span>Before class</span><span class="side-count">2 selected</span></div>
+          <div class="side-row"><span>During class</span><span class="side-count">1 selected</span></div>
+          <div class="side-row"><span>After class</span><span class="side-count">0 selected</span></div>
+          <div class="side-total"><span>Starter set</span><span class="side-total-num">3 essentials</span></div>
+          <div class="side-trust-note">Your module draft controls what is generated. AI helps draft aligned materials rather than creating disconnected assets.</div>
         </div>
 
         <div class="side-next">
           <div class="side-next-label">Next Step</div>
-          <div class="side-next-item">Keep the workflow in-page: preview, refine, and export from this screen.</div>
-          <div class="side-next-item">This mock is intentionally illustrative for developers, not a navigation step.</div>
+          <div class="side-next-item">Generate the essentials first, then add advanced materials only where learning outcomes need extra support.</div>
+          <div class="side-next-item">This keeps setup lightweight while preserving flipped-learning alignment.</div>
         </div>
       </aside>
     </div>
@@ -1090,8 +1247,8 @@
       <div class="sc-header">
         <div class="sc-num">2</div>
         <div class="sc-title-wrap">
-          <div class="sc-title">Preview & Export Mock</div>
-          <div class="sc-desc">Illustrative render, export options, and download controls stay on this page</div>
+          <div class="sc-title">Preview & Export</div>
+          <div class="sc-desc">Review your generated slides and activities, then download the materials</div>
         </div>
       </div>
       <div class="sc-body">
@@ -1099,7 +1256,7 @@
           <div class="preview-panel">
             <div class="preview-panel-head">
               <div class="preview-panel-kicker">Rendered Preview</div>
-              <div class="preview-panel-title">Teaching & Learning Materials Pack</div>
+              <div class="preview-panel-title">Learning Materials Pack</div>
               <div class="preview-panel-sub">A mock preview area that shows what the generated bundle might look like before export.</div>
             </div>
             <div class="preview-stage">
@@ -1138,5 +1295,22 @@
       </div>
     </section>
   </main>
+
+  <script>
+    const toggleMaterialsBtn = document.getElementById('toggle-materials');
+    const extraMaterials = document.querySelectorAll('.material-extra');
+
+    if (toggleMaterialsBtn && extraMaterials.length) {
+      toggleMaterialsBtn.addEventListener('click', () => {
+        const expanded = toggleMaterialsBtn.getAttribute('aria-expanded') === 'true';
+        extraMaterials.forEach((item) => {
+          item.hidden = expanded;
+        });
+
+        toggleMaterialsBtn.setAttribute('aria-expanded', String(!expanded));
+        toggleMaterialsBtn.textContent = expanded ? 'Show More Materials' : 'Show Fewer Materials';
+      });
+    }
+  </script>
 </body>
 </html>
