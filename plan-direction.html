@@ -1567,9 +1567,9 @@
     <section class="workspace" id="coDesignWorkspace">
       <aside class="workspace-side" aria-label="Conversation workspace">
         <div class="thread-shell">
-          <nav class="thread-rail" aria-label="Module workflow">
+          <nav class="thread-rail" aria-label="Module document sections">
             <div class="thread-rail-kicker">Module sections</div>
-            <button class="thread-link active" data-thread="welcome" type="button">Overview</button>
+            <button class="thread-link active" data-thread="welcome" type="button">Module Overview</button>
             <button class="thread-link" data-thread="synopsis" type="button">Synopsis &amp; Aims</button>
             <button class="thread-link" data-thread="outcomes" type="button">Learning Outcomes</button>
             <button class="thread-link" data-thread="content" type="button">Content &amp; Hours</button>
@@ -1606,7 +1606,7 @@
               <h2 class="artifact-title">Advanced Critical Care Nursing Science II</h2>
               <p class="artifact-sub">Update each section and review changes in the draft panel.</p>
             </div>
-            <div class="artifact-live" id="activeSectionPill">Editing: Learning Outcomes</div>
+            <div class="artifact-live" id="activeSectionPill">Editing: Module Overview</div>
           </header>
 
           <div class="artifact-body">
@@ -1624,7 +1624,7 @@
 
             <article class="artifact-scroll" id="artifactScroll">
               <section class="module-section" id="overview">
-                <div class="section-label">Overview</div>
+                <div class="section-label">Module Overview</div>
                 <h3 class="section-title">Module Overview</h3>
                 <table class="section-table">
                   <tbody>
@@ -1638,7 +1638,7 @@
               </section>
 
               <section class="module-section" id="synopsis">
-                <div class="section-label">Summary</div>
+                <div class="section-label">Synopsis &amp; Aims</div>
                 <h3 class="section-title">Synopsis and Aims</h3>
                 <p class="section-copy">
                   This module strengthens escalation judgement in acute-care contexts through integrated simulation,
@@ -1658,7 +1658,7 @@
               </section>
 
               <section class="module-section" id="content">
-                <div class="section-label">Hours</div>
+                <div class="section-label">Content &amp; Hours</div>
                 <h3 class="section-title">Content and Hours</h3>
                 <table class="section-table">
                   <thead>
@@ -1712,8 +1712,8 @@
               </section>
 
               <section class="module-section" id="alignment">
-                <div class="section-label">Alignment</div>
-                <h3 class="section-title">Curriculum Alignment</h3>
+                <div class="section-label">Alignment Review</div>
+                <h3 class="section-title">Alignment Review</h3>
                 <p class="section-copy">
                   Review coherence across learning outcomes, assessments, teaching strategies, NP Graduate Competencies,
                   industry relevance, workload, and AI-era assessment validity.
@@ -1733,8 +1733,8 @@
               </section>
 
               <section class="module-section" id="integrity">
-                <div class="section-label">Integrity</div>
-                <h3 class="section-title">Academic Integrity and Responsible AI Use</h3>
+                <div class="section-label">Responsible AI &amp; Integrity</div>
+                <h3 class="section-title">Responsible AI &amp; Integrity</h3>
                 <ul class="section-list">
                   <li>AI-assisted drafting is allowed for outline generation, not final clinical claims.</li>
                   <li>Students must annotate where AI support influenced their reasoning artifacts.</li>
@@ -1755,11 +1755,11 @@
         title: "Curriculum Designer",
         subtitle: "Draft and refine your module progressively.",
         stage: "Getting started",
-        sectionLabel: "Overview",
-        prompts: ["Learning Outcomes"],
-        actions: ["Learning Outcomes"],
+        sectionLabel: "Module Overview",
+        prompts: ["Synopsis & Aims"],
+        actions: ["Synopsis & Aims"],
         greeting: "Start building your module draft.",
-        intro: "Work through the key curriculum sections from learning outcomes to assessment and alignment.",
+        intro: "Work through each module document section from overview and aims to alignment and integrity.",
         inputHint: "Describe what you want to build"
       },
       synopsis: {
@@ -1797,7 +1797,7 @@
           "Benchmark institutions use simulation-led assessment",
           "Student feedback requested more interdisciplinary practice"
         ],
-        downstream: ["Assessment Design", "Alignment Review", "Academic Integrity"],
+        downstream: ["Assessment Design", "Alignment Review", "Responsible AI & Integrity"],
         systemSignal: "AI note: escalation outcome verb updates will trigger rubric wording checks in Assessment Design.",
         options: ["Clinical judgement", "Escalation reasoning", "Interdisciplinary response"],
         selected: 1,
@@ -1875,7 +1875,7 @@
           "Student feedback asks for clearer rubric expectations",
           "AI context summary flags over-reliance on written recall tasks"
         ],
-        downstream: ["Learning Outcomes", "Alignment Review", "Academic Integrity"],
+        downstream: ["Learning Outcomes", "Alignment Review", "Responsible AI & Integrity"],
         systemSignal: "AI note: assessment weighting changes will update the alignment review.",
         options: ["Authentic evidence", "Workload balance", "AI-safe redesign"],
         selected: 2,
@@ -2022,7 +2022,7 @@
           chip.type = "button";
           chip.className = "lane-chip";
           chip.textContent = action;
-          chip.addEventListener("click", () => activateThread("outcomes", true));
+          chip.addEventListener("click", () => activateThread("synopsis", true));
           welcomeActions.appendChild(chip);
         });
 
@@ -2039,7 +2039,7 @@
           chip.type = "button";
           chip.className = "lane-chip";
           chip.textContent = prompt;
-          chip.addEventListener("click", () => activateThread("outcomes", true));
+          chip.addEventListener("click", () => activateThread("synopsis", true));
           threadPromptRow.appendChild(chip);
         });
 
