@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<!--
+  ═════════════════════════════════════════════════════════════════════════
+  PATH B — Module Review and Refresh
+  ═════════════════════════════════════════════════════════════════════════
+  CONCEPT
+    Refresh workspace for an existing module. Lecturer works in one review
+    workstream at a time. AI tracks decision memory across lanes and
+    surfaces ripple effects on the living module artifact below.
+
+  COMPONENTS (for developer handoff)
+    1. Step strip          (MVP — orients lecturer in Path B flow)
+    2. Review workstreams  (MVP — lane selector with status labels)
+    3. Active lane panel   (MVP — AI chat / decision memory / ripple)
+    4. Living artifact     (MVP frame; section bodies are DEMO FILLER)
+       - Sections are collapsed by default; clicking expands one at a time.
+       - Active workstream drives which artifact section is highlighted.
+
+  SHARED PATTERN
+    plan-direction.html (Path A · Phase 2) uses the SAME lanes + living
+    artifact pattern. Treat as one component family with two config presets.
+    Path B differs in: workstream labels, status verbs (Refining / Aligned
+    / Drafting / Exploring), and "Advance lane" CTA semantics.
+  ═════════════════════════════════════════════════════════════════════════
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module Review and Refresh</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f5f7f8;
+      --paper: #ffffff;
+      --paper-soft: #f9fbfc;
+      --ink: #172532;
+      --ink-mid: #4f6275;
+      --ink-soft: #7d8fa2;
+      --line: #dbe3ea;
+      --line-soft: #e9eef3;
+      --brand: #0f5d4d;
+      --brand-soft: #e8f4f1;
+      --warn: #c07436;
+      --max: 1200px;
+      --radius: 14px;
+    }
+
+    body {
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at 9% -25%, #eaf7f4 0%, var(--bg) 36%), var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      padding-bottom: 76px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+    }
+
+    .topbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .t-div {
+      width: 1px;
+      height: 18px;
+      background: var(--line);
+    }
+
+    .brand-tag {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      color: var(--ink-soft);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 9px;
+    }
+
+    .topbar-right {
+      margin-left: auto;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .topbar-pill {
+      border: 1px solid #d3e8e1;
+      background: var(--brand-soft);
+      color: var(--brand);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+    }
+
+    .topbar-link {
+      color: var(--ink-soft);
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .topbar-link:hover {
+      color: var(--ink);
+    }
+
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 44px 40px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .page-eyebrow {
+      color: var(--brand);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 12px;
+    }
+
+    /* ── Slim step strip — orients lecturer within Path B ── */
+    .step-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin: 14px 0 4px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #e6efe9;
+    }
+    .step-strip .ss-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #95a8a0;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .step-strip .ss-num {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #ecf2ee;
+      color: #95a8a0;
+      font-size: 10px;
+      font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .step-strip .ss-step.done { color: #2f7a52; }
+    .step-strip .ss-step.done .ss-num { background: #d6eede; color: #2f7a52; }
+    .step-strip .ss-step.active { color: var(--brand); }
+    .step-strip .ss-step.active .ss-num { background: var(--brand); color: #fff; }
+    .step-strip .ss-sep {
+      width: 16px; height: 1px;
+      background: #d6e0db;
+      flex-shrink: 0;
+    }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.022em;
+      line-height: 1.18;
+      margin-bottom: 12px;
+    }
+
+    .page-sub {
+      max-width: 720px;
+      font-size: 16px;
+      color: var(--ink-mid);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(390px, 0.98fr) minmax(0, 1.02fr);
+      gap: 18px;
+      min-height: calc(100vh - 224px);
+      align-items: start;
+    }
+
+    .workspace-side,
+    .workspace-main {
+      min-width: 0;
+    }
+
+    .workspace-side {
+      position: sticky;
+      top: 76px;
+    }
+
+    .thread-shell {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fcfefe 0%, #f8fbfb 100%);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 172px minmax(0, 1fr);
+      min-height: calc(100vh - 238px);
+    }
+
+    .thread-rail {
+      border-right: 1px solid var(--line-soft);
+      background: #f5fafa;
+      padding: 12px 8px;
+      display: grid;
+      align-content: start;
+      gap: 4px;
+    }
+
+    .rail-kicker {
+      margin: 0 8px 8px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-soft);
+      font-weight: 700;
+    }
+
+    .thread-link {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      border-radius: 10px;
+      text-align: left;
+      padding: 8px 9px;
+      color: #5f7486;
+      font-size: 12px;
+      line-height: 1.34;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 120ms ease, color 120ms ease;
+    }
+
+    .thread-link:hover {
+      background: #eaf4f1;
+      color: #203d4b;
+    }
+
+    .thread-link.active {
+      background: #214355;
+      color: #fff;
+    }
+
+    .thread-link small {
+      display: block;
+      margin-top: 2px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.9;
+    }
+
+    .thread-workspace {
+      display: grid;
+      grid-template-rows: auto auto auto 1fr auto;
+      min-height: 0;
+    }
+
+    .thread-head {
+      padding: 12px 15px;
+      border-bottom: 1px solid var(--line-soft);
+      background: linear-gradient(180deg, #f2f9f7 0%, transparent 100%);
+      display: grid;
+      gap: 8px;
+    }
+
+    .thread-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .thread-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1f3f4e;
+    }
+
+    .lane-state {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      border: 1px solid #cfe2db;
+      color: #376b5d;
+      background: #f7fcfa;
+      border-radius: 999px;
+      padding: 4px 9px;
+    }
+
+    .thread-sub {
+      font-size: 12px;
+      color: #5f7486;
+      line-height: 1.45;
+    }
+
+    .decision-memory,
+    .working-memory,
+    .ripple-card {
+      padding: 10px 15px;
+      display: grid;
+      gap: 7px;
+      background: #fcfefe;
+    }
+
+    .working-memory,
+    .ripple-card {
+      border-top: 1px solid #eef3f6;
+    }
+
+    .memory-title,
+    .ripple-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #6b8195;
+      font-weight: 700;
+    }
+
+    .memory-list,
+    .ripple-list {
+      display: grid;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .memory-list li,
+    .ripple-list li {
+      font-size: 12px;
+      color: #41596f;
+      line-height: 1.45;
+    }
+
+    .memory-list .done {
+      color: #2f6b5d;
+    }
+
+    .memory-list .open {
+      color: #9a5d2e;
+    }
+
+    .thread-canvas {
+      overflow-y: auto;
+      padding: 13px 15px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .turn {
+      display: grid;
+      gap: 6px;
+      border-left: 1px solid #dce8ef;
+      padding-left: 9px;
+    }
+
+    .turn.ai {
+      border-color: #cde2dc;
+    }
+
+    .turn.user {
+      border-color: #dfe5ec;
+    }
+
+    .turn-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #7d90a3;
+      font-weight: 600;
+    }
+
+    .turn-copy {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #2a445a;
+      white-space: pre-wrap;
+    }
+
+    .choice-row,
+    .prompt-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 3px;
+    }
+
+    .chip {
+      border: 1px solid #d5e2eb;
+      border-radius: 999px;
+      background: #fff;
+      color: #607789;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .chip.selected {
+      border-color: #214355;
+      background: #214355;
+      color: #fff;
+    }
+
+    .thread-footer {
+      padding: 10px 15px 13px;
+      background: #fbfdfd;
+      display: grid;
+      gap: 8px;
+    }
+
+    .thinking-line {
+      font-size: 11px;
+      color: #6e8498;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(-2px);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .thinking-line.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .footer-title {
+      font-size: 11px;
+      color: #637a8f;
+      font-weight: 700;
+    }
+
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-mini {
+      border: 1px solid #d6e4ec;
+      border-radius: 999px;
+      background: #fff;
+      color: #5f7689;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 11px;
+      cursor: pointer;
+    }
+
+    .btn-live {
+      border: 1px solid #1f4d5f;
+      border-radius: 999px;
+      background: #1f4d5f;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+
+    .artifact {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      min-height: calc(100vh - 238px);
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      overflow: hidden;
+    }
+
+    .artifact-head {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line-soft);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .artifact-kicker {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #6f8598;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .artifact-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 5px;
+    }
+
+    .artifact-sub {
+      font-size: 12px;
+      color: #667d90;
+    }
+
+    .artifact-live {
+      border: 1px solid #d2e5df;
+      background: #eff9f6;
+      color: #2f6b5d;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 11px;
+    }
+
+    .jump-bar {
+      border-bottom: 1px solid var(--line-soft);
+      background: #fbfdfd;
+      padding: 7px 20px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+
+    .jump-label {
+      font-size: 10px;
+      color: #7a8fa3;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .jump-select {
+      border: 1px solid #d7e3eb;
+      border-radius: 8px;
+      background: #fff;
+      color: #62788d;
+      font-size: 11px;
+      padding: 5px 8px;
+      min-width: 220px;
+      font-family: inherit;
+    }
+
+    .artifact-scroll {
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    /* ── Module sections: collapsed preview by default, only active fully expanded ── */
+    .module-section {
+      border-top: 1px solid #e7edf3;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      transition: opacity 140ms ease, background 140ms ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .module-section:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    /* Collapsed (non-active): keep header line only, hide body content */
+    .module-section:not(.active) > *:not(.section-label):not(.section-title) {
+      display: none;
+    }
+    .module-section:not(.active) {
+      opacity: 0.75;
+    }
+    .module-section:not(.active):hover {
+      opacity: 1;
+      background: #f4fbf8;
+      border-radius: 8px;
+    }
+    .module-section:not(.active) .section-title::after {
+      content: "›";
+      margin-left: 8px;
+      color: #95a8a0;
+      font-weight: 400;
+    }
+
+    .module-section.active {
+      opacity: 1;
+      background: linear-gradient(180deg, #f4fbf8 0%, transparent 75%);
+      border-radius: 10px;
+      margin: 0 -12px;
+      padding: 14px 12px 8px;
+      cursor: default;
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #648095;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #213f53;
+      margin-bottom: 8px;
+    }
+
+    .section-copy,
+    .section-list,
+    .section-table {
+      color: #355068;
+      font-size: 13px;
+      line-height: 1.62;
+    }
+
+    .section-list {
+      list-style: none;
+      display: grid;
+      gap: 4px;
+    }
+
+    .section-list li::before {
+      content: "• ";
+      color: #4c6f88;
+    }
+
+    .section-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+
+    .section-table th,
+    .section-table td {
+      border: 1px solid #dbe4ee;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .section-table th {
+      width: 40%;
+      background: #f9fbfd;
+      color: #2f4a61;
+    }
+
+    .bottom-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 62px;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 30;
+    }
+
+    .bottom-inner {
+      max-width: var(--max);
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .bb-note {
+      font-size: 12px;
+      color: #607689;
+    }
+
+    .bb-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .bb-btn {
+      border: 1px solid #d5e2ea;
+      background: #fff;
+      border-radius: 999px;
+      color: #607689;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 12px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .bb-btn.primary {
+      border-color: #1f4d5f;
+      background: #1f4d5f;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    @media (max-width: 1220px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .workspace-side {
+        position: static;
+      }
+
+      .thread-shell,
+      .artifact {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .page {
+        padding: 16px;
+      }
+
+      .page-title {
+        font-size: 24px;
+      }
+
+      .thread-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .thread-rail {
+        border-right: 0;
+        border-bottom: 1px solid var(--line-soft);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .rail-kicker {
+        grid-column: 1 / -1;
+      }
+
+      .jump-select {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .artifact-scroll {
+        padding: 16px;
+      }
+
+      .bottom-bar {
+        height: auto;
+      }
+
+      .bottom-inner {
+        padding: 10px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="topbar-brand">
+        <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
+        <div class="t-div"></div>
+        <span>AI Curriculum Designer</span>
+        <span class="brand-tag">Concept Prototype</span>
+      </a>
+      <div class="topbar-right">
+        <span class="topbar-pill">Path B · Refresh</span>
+        <a href="index.html" class="topbar-link">← Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page">
+    <section>
+      <div class="page-eyebrow">Path B · Module Review and Refresh</div>
+      <!-- Step strip orients the lecturer within Path B workstreams -->
+      <nav class="step-strip" aria-label="Path B progress">
+        <span class="ss-step done"><span class="ss-num">1</span>Import Materials</span>
+        <span class="ss-sep"></span>
+        <span class="ss-step active"><span class="ss-num">2</span>Review &amp; Refine</span>
+        <span class="ss-sep"></span>
+        <span class="ss-step"><span class="ss-num">3</span>Apply Updates</span>
+      </nav>
+      <h1 class="page-title">AI-Facilitated Curriculum Refresh Workspace</h1>
+      <p class="page-sub">
+        Work in focused review workstreams. The AI keeps lane momentum, tracks cumulative decisions,
+        and surfaces cross-thread ripple effects while the full module artifact stays visible.
+      </p>
+    </section>
+
+    <section class="workspace">
+      <aside class="workspace-side" aria-label="AI co-design workstreams">
+        <div class="thread-shell">
+          <nav class="thread-rail" aria-label="Refresh workstreams">
+            <div class="rail-kicker">Review Workstreams</div>
+            <button class="thread-link active" type="button" data-thread="outcomes">Outcomes &amp; Competencies<small>refining</small></button>
+            <button class="thread-link" type="button" data-thread="flow">Learning Flow &amp; Workload<small>exploring</small></button>
+            <button class="thread-link" type="button" data-thread="teaching">Teaching &amp; Learning<small>drafting</small></button>
+            <button class="thread-link" type="button" data-thread="assessment">Assessment &amp; Evidence<small>drafting</small></button>
+            <button class="thread-link" type="button" data-thread="communication">Communication &amp; Presentation<small>exploring</small></button>
+            <button class="thread-link" type="button" data-thread="resources">Industry &amp; Benchmark Fit<small>exploring</small></button>
+            <button class="thread-link" type="button" data-thread="alignment">Coherence &amp; Alignment<small>aligned</small></button>
+            <button class="thread-link" type="button" data-thread="integrity">Integrity &amp; AI Policy<small>drafting</small></button>
+          </nav>
+
+          <section class="thread-workspace">
+            <header class="thread-head">
+              <div class="thread-title-row">
+                <h2 class="thread-title" id="threadTitle">Outcomes and Competencies</h2>
+                <span class="lane-state" id="laneState">Refining</span>
+              </div>
+              <p class="thread-sub" id="threadSubtitle">The lane is still in progress. We are tightening competency evidence without increasing assessment load.</p>
+            </header>
+
+            <section class="decision-memory" aria-label="Decision memory">
+              <div class="memory-title">Decisions In This Lane</div>
+              <ul class="memory-list" id="decisionMemory"></ul>
+            </section>
+
+            <section class="working-memory" aria-label="Working memory">
+              <div class="memory-title">Current Focus</div>
+              <ul class="memory-list" id="workingMemory"></ul>
+            </section>
+
+            <section class="ripple-card" aria-label="Ripple effects">
+              <div class="ripple-title">Potential Downstream Updates</div>
+              <ul class="ripple-list" id="rippleList"></ul>
+            </section>
+
+            <div class="thread-canvas" id="threadCanvas"></div>
+
+            <footer class="thread-footer">
+              <div class="thinking-line" id="thinkingLine">Analyzing assessment implications...</div>
+              <div class="footer-title">Keep this workstream moving</div>
+              <div class="footer-actions">
+                <div class="prompt-row" id="promptRow"></div>
+                <button class="btn-live" id="continueBtn" type="button">Continue refinement</button>
+              </div>
+            </footer>
+          </section>
+        </div>
+      </aside>
+
+      <section class="workspace-main" aria-label="Module artifact">
+        <div class="artifact">
+          <header class="artifact-head">
+            <div>
+              <div class="artifact-kicker">Living Module Artifact</div>
+              <h2 class="artifact-title">ICT1234 · Data Structures and Algorithms</h2>
+              <p class="artifact-sub">Whole-module view stays visible. Active area is emphasized while all surrounding sections remain in context.</p>
+            </div>
+            <div class="artifact-live" id="activePill">Active: Outcomes and Competencies</div>
+          </header>
+
+          <div class="jump-bar">
+            <label class="jump-label" for="jumpSelect">Jump to section</label>
+            <select class="jump-select" id="jumpSelect">
+              <option value="overview">Module Overview</option>
+              <option value="outcomes" selected>Outcomes and Competencies</option>
+              <option value="flow">Learning Flow and Workload</option>
+              <option value="teaching">Teaching and Learning</option>
+              <option value="assessment">Assessment and Evidence</option>
+              <option value="communication">Communication and Presentation</option>
+              <option value="resources">Industry and Benchmark Fit</option>
+              <option value="alignment">Coherence and Alignment</option>
+              <option value="integrity">Integrity and AI Policy</option>
+            </select>
+          </div>
+
+          <article class="artifact-scroll" id="artifactScroll">
+            <section class="module-section" id="overview">
+              <div class="section-label">Frame</div>
+              <h3 class="section-title">Module Overview</h3>
+              <table class="section-table">
+                <tbody>
+                  <tr><th>Programme</th><td>Diploma in ICT</td></tr>
+                  <tr><th>Module</th><td>Data Structures and Algorithms</td></tr>
+                  <tr><th>Credits</th><td>4</td></tr>
+                  <tr><th>Contact Hours</th><td>60</td></tr>
+                  <tr><th>Delivery Mode</th><td>Blended with weekly studio and coding lab</td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section class="module-section active" id="outcomes">
+              <div class="section-label">Competency</div>
+              <h3 class="section-title">Outcomes and Competencies</h3>
+              <ul class="section-list">
+                <li>Select and justify appropriate data structures for realistic software constraints.</li>
+                <li>Design, analyze, and optimize algorithmic solutions under complexity limits.</li>
+                <li>Communicate tradeoffs between runtime, memory, and maintainability.</li>
+                <li>Demonstrate debugging discipline when validating algorithm correctness.</li>
+              </ul>
+            </section>
+
+            <section class="module-section" id="flow">
+              <div class="section-label">Sequencing</div>
+              <h3 class="section-title">Learning Flow and Workload</h3>
+              <table class="section-table">
+                <thead>
+                  <tr><th>Learning Cluster</th><th>Hours</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Complexity foundations and analysis habits</td><td>12</td></tr>
+                  <tr><td>Core structures through applied coding labs</td><td>20</td></tr>
+                  <tr><td>Algorithm design patterns and critique sessions</td><td>16</td></tr>
+                  <tr><td>Integrated challenge and reflection</td><td>12</td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section class="module-section" id="teaching">
+              <div class="section-label">Pedagogy</div>
+              <h3 class="section-title">Teaching and Learning</h3>
+              <ul class="section-list">
+                <li>Blended delivery with concise concept inputs followed by guided case-based application.</li>
+                <li>Simulation and lab activities anchored to real escalation scenarios.</li>
+                <li>Peer review and structured debrief checkpoints to deepen reasoning.</li>
+                <li>Formative micro-checks tied to each learning outcome cluster.</li>
+              </ul>
+            </section>
+
+            <section class="module-section" id="assessment">
+              <div class="section-label">Evidence</div>
+              <h3 class="section-title">Assessment and Evidence</h3>
+              <table class="section-table">
+                <thead>
+                  <tr><th>Assessment Component</th><th>Weight</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Applied coding challenge</td><td>35%</td></tr>
+                  <tr><td>Algorithm critique brief</td><td>20%</td></tr>
+                  <tr><td>Lab performance and checkpoint reflection</td><td>15%</td></tr>
+                  <tr><td>Final design-and-justify task</td><td>30%</td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section class="module-section" id="communication">
+              <div class="section-label">Communication</div>
+              <h3 class="section-title">Communication and Presentation</h3>
+              <ul class="section-list">
+                <li>Written communication: technical clarity, structure, and audience adaptation in critique briefs.</li>
+                <li>Oral presentation: defensible reasoning and concise stakeholder framing in checkpoint defence.</li>
+                <li>Visual communication: clean diagrams, tradeoff tables, and reasoning traces in submissions.</li>
+                <li>Rubric criteria explicitly weight clarity, structure, and audience awareness across artefacts.</li>
+              </ul>
+            </section>
+
+            <section class="module-section" id="resources">
+              <div class="section-label">Industry Inputs</div>
+              <h3 class="section-title">Industry and Benchmark Fit</h3>
+              <ul class="section-list">
+                <li>Contemporary benchmark datasets for algorithmic stress-testing.</li>
+                <li>Industry-oriented case prompts from software engineering practice.</li>
+                <li>Reference notebook templates for complexity narration and tradeoff logs.</li>
+                <li>Curated journal and engineering blog digest for current patterns.</li>
+              </ul>
+            </section>
+
+            <section class="module-section" id="alignment">
+              <div class="section-label">Systemic Check</div>
+              <h3 class="section-title">Coherence and Alignment</h3>
+              <p class="section-copy">
+                Outcomes, lab sequencing, and performance evidence are largely aligned. Current improvement opportunity is
+                tightening the explicit mapping between benchmark resources and final assessment criteria.
+              </p>
+            </section>
+
+            <section class="module-section" id="integrity">
+              <div class="section-label">Governance</div>
+              <h3 class="section-title">Integrity and AI Policy</h3>
+              <ul class="section-list">
+                <li>AI tools are allowed for ideation and draft pseudocode, not direct final submission generation.</li>
+                <li>Students must provide trace notes on AI influence in solution development.</li>
+                <li>Live checkpoint defence validates authorship and reasoning quality.</li>
+                <li>Integrity review emphasizes rationale traceability over text similarity alone.</li>
+              </ul>
+            </section>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="bottom-bar">
+    <div class="bottom-inner">
+      <div class="bb-note" id="bbNote">Lane is active and unresolved. Continue iterative refinement or switch workstreams.</div>
+      <div class="bb-actions">
+        <a class="bb-btn" href="plan-direction.html">Open Design Workspace</a>
+        <button class="bb-btn primary" id="advanceBtn" type="button">Advance This Lane</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const threadData = {
+      outcomes: {
+        title: "Outcomes and Competencies",
+        subtitle: "The lane is still in progress. We are tightening competency evidence without increasing assessment load.",
+        state: "Refining",
+        section: "outcomes",
+        activeLabel: "Outcomes and Competencies",
+        decisionMemory: [
+          { text: "strengthen algorithmic reasoning visibility", done: true },
+          { text: "preserve current assessment load", done: true },
+          { text: "resolve coding challenge weighting", done: false }
+        ],
+        workingMemory: [
+          "emphasize competency clarity",
+          "avoid assessment bloat",
+          "keep workload balanced with labs"
+        ],
+        ripple: [
+          "Assessment criteria descriptors",
+          "Lab checkpoint prompts",
+          "Alignment mapping notes"
+        ],
+        prompts: ["show 2 variants", "check bloom verbs", "map to evidence"],
+        sequence: [
+          {
+            role: "ai",
+            text: "The current outcomes already communicate structure awareness well.\n\nI can make algorithmic judgement more visible without increasing assessment complexity.",
+            options: ["strengthen clinical judgement", "emphasize escalation triggers", "balance both"]
+          },
+          {
+            role: "user",
+            text: "Balance both, but keep emphasis on defensible reasoning."
+          },
+          {
+            role: "ai",
+            text: "Understood. I will blend stronger reasoning verbs with explicit tradeoff communication signals in each outcome.\n\nShould I also tighten wording for easier rubric scoring?"
+          },
+          {
+            role: "ai",
+            text: "Drafting in progress:\nOption A keeps current structure and upgrades verbs.\nOption B reduces overlap and sharpens measurability.\n\nPick one and I will propagate changes to assessment evidence mapping.",
+            showLabel: false
+          }
+        ]
+      },
+      flow: {
+        title: "Learning Flow and Workload",
+        subtitle: "The lane is exploratory. We are balancing challenge pacing against learner overload risks.",
+        state: "Exploring",
+        section: "flow",
+        activeLabel: "Learning Flow and Workload",
+        decisionMemory: [
+          { text: "reduce overload in week 6 to week 8", done: true },
+          { text: "retain integrated challenge week", done: true },
+          { text: "decide async prep share", done: false }
+        ],
+        workingMemory: [
+          "flatten workload spikes",
+          "protect deliberate practice",
+          "keep total contact hours unchanged"
+        ],
+        ripple: [
+          "Assessment release schedule",
+          "Teaching facilitation load",
+          "Student prep guidance"
+        ],
+        prompts: ["show weekly map", "compare 2 pacing models", "flag overload risk"],
+        sequence: [
+          { role: "ai", text: "Workload pressure appears highest right before the integrated challenge.\n\nI can rebalance without reducing rigor." , options: ["shift readings earlier", "split coding sprint", "add scaffolded checkpoint"] },
+          { role: "user", text: "Split the sprint and add one scaffolded checkpoint." },
+          { role: "ai", text: "Good call. That will improve pacing and preserve challenge depth.\n\nDo you want the checkpoint graded or formative?" },
+          { role: "ai", text: "I can now draft two pacing variants and show expected learner workload impact per week.", showLabel: false }
+        ]
+      },
+      teaching: {
+        title: "Teaching and Learning",
+        subtitle: "The lane is drafting. We are tightening pedagogical fit between concept delivery and applied practice.",
+        state: "Drafting",
+        section: "teaching",
+        activeLabel: "Teaching and Learning",
+        decisionMemory: [
+          { text: "anchor lectures to weekly cases", done: true },
+          { text: "add structured peer debrief", done: true },
+          { text: "finalize formative checkpoint cadence", done: false }
+        ],
+        workingMemory: [
+          "concept-to-case scaffolding",
+          "deliberate peer critique",
+          "low-stakes formative checks"
+        ],
+        ripple: [
+          "Assessment formative weighting",
+          "Learning Flow pacing",
+          "Communication rubric prompts"
+        ],
+        prompts: ["suggest 3 activity variants", "map activities to outcomes", "balance lecture vs lab"],
+        sequence: [
+          { role: "ai", text: "Current teaching pattern leans toward concept delivery first.\n\nI can rebalance so applied practice reinforces concepts earlier in each week.", options: ["flip the sequence", "interleave both", "keep current order"] },
+          { role: "user", text: "Interleave both, but keep total contact hours unchanged." },
+          { role: "ai", text: "Good. I will redesign each week so concepts and applied practice alternate without expanding hours." },
+          { role: "ai", text: "Cross-thread note: this will likely affect Assessment formative weighting and Communication rubric framing.", showLabel: false }
+        ]
+      },
+      assessment: {
+        title: "Assessment and Evidence",
+        subtitle: "The lane is drafting. We are validating authenticity while keeping marking workload feasible.",
+        state: "Drafting",
+        section: "assessment",
+        activeLabel: "Assessment and Evidence",
+        decisionMemory: [
+          { text: "maintain performance-heavy evidence", done: true },
+          { text: "add concise reasoning memo", done: true },
+          { text: "finalize simulation weighting", done: false }
+        ],
+        workingMemory: [
+          "authentic performance evidence",
+          "manageable marking burden",
+          "traceable rationale"
+        ],
+        ripple: [
+          "Outcomes wording for evidence verbs",
+          "Rubric descriptor thresholds",
+          "Alignment review summary"
+        ],
+        prompts: ["compare weighting models", "show rubric implications", "check moderation effort"],
+        sequence: [
+          { role: "ai", text: "Current assessment evidence is solid, but reasoning visibility could be stronger in the final task.\n\nI can improve this without adding another assessment component.", options: ["increase live task weight", "tighten memo quality bar", "balance both"] },
+          { role: "user", text: "Balance both, but avoid inflating marking time." },
+          { role: "ai", text: "Great. I will reweight marginally and simplify memo criteria to keep marking sustainable." },
+          { role: "ai", text: "Cross-thread note: changing simulation weighting may require minor updates in Outcomes and Alignment lanes.", showLabel: false }
+        ]
+      },
+      communication: {
+        title: "Communication and Presentation",
+        subtitle: "The lane is exploratory. We are clarifying expectations for written, oral, and visual communication.",
+        state: "Exploring",
+        section: "communication",
+        activeLabel: "Communication and Presentation",
+        decisionMemory: [
+          { text: "weight clarity in critique brief rubric", done: true },
+          { text: "add oral defence prompt examples", done: true },
+          { text: "finalize visual diagram criteria", done: false }
+        ],
+        workingMemory: [
+          "clarity and structure",
+          "audience awareness",
+          "defensible reasoning trace"
+        ],
+        ripple: [
+          "Assessment rubric descriptors",
+          "Teaching activity prompts",
+          "Coherence narrative tone"
+        ],
+        prompts: ["tighten rubric verbs", "draft oral defence examples", "add diagram criteria"],
+        sequence: [
+          { role: "ai", text: "Current communication criteria are present but vague.\n\nI can make them more specific without lengthening rubrics.", options: ["specify clarity bar", "specify audience adaptation", "balance both"] },
+          { role: "user", text: "Balance both, keep criteria concise." },
+          { role: "ai", text: "Understood. I will rewrite each criterion to focus on observable behaviour: clarity, structure, and audience fit." },
+          { role: "ai", text: "Cross-thread note: tighter wording will affect Assessment rubric descriptors and Teaching prompts.", showLabel: false }
+        ]
+      },
+      resources: {
+        title: "Industry and Benchmark Fit",
+        subtitle: "The lane is exploratory. We are refreshing materials for currency and direct competency support.",
+        state: "Exploring",
+        section: "resources",
+        activeLabel: "Industry and Benchmark Fit",
+        decisionMemory: [
+          { text: "prioritize benchmark relevance", done: true },
+          { text: "keep module-level accessibility", done: true },
+          { text: "select final journal cluster", done: false }
+        ],
+        workingMemory: [
+          "industry realism",
+          "outcome-resource traceability",
+          "balanced open and licensed assets"
+        ],
+        ripple: [
+          "Assessment scenario authenticity",
+          "Teaching activity references",
+          "Alignment evidence table"
+        ],
+        prompts: ["shortlist resources", "map to outcomes", "flag stale references"],
+        sequence: [
+          { role: "ai", text: "Your resource base is stable, but several examples are no longer current with practice trends.\n\nI can refresh them while preserving existing flow.", options: ["replace all outdated items", "patch critical gaps", "benchmark first"] },
+          { role: "user", text: "Benchmark first, then patch critical gaps." },
+          { role: "ai", text: "Done. I will return a focused shortlist with direct mapping to competency statements." },
+          { role: "ai", text: "Cross-thread note: updated resources will likely improve authenticity in Assessment and support Alignment evidence.", showLabel: false }
+        ]
+      },
+      alignment: {
+        title: "Coherence and Alignment",
+        subtitle: "This lane is mostly aligned, but we still need to close one traceability gap.",
+        state: "Aligned",
+        section: "alignment",
+        activeLabel: "Coherence and Alignment",
+        decisionMemory: [
+          { text: "outcomes-to-assessment map reviewed", done: true },
+          { text: "hours-to-depth relationship validated", done: true },
+          { text: "resource traceability closure", done: false }
+        ],
+        workingMemory: [
+          "system-level coherence",
+          "evidence chain clarity",
+          "implementation feasibility"
+        ],
+        ripple: [
+          "Resource lane final mapping",
+          "Assessment rubric annotations",
+          "Final review narrative"
+        ],
+        prompts: ["show mismatch summary", "generate closure checklist", "prepare final narrative"],
+        sequence: [
+          { role: "ai", text: "Overall coherence is strong. One gap remains in explicit resource-to-outcome traceability.\n\nI can resolve this with minimal edits.", options: ["quick fix", "full trace map", "hold for later"] },
+          { role: "user", text: "Apply quick fix now, keep full map optional." },
+          { role: "ai", text: "Understood. I will add concise trace references in the artifact and keep the full map as an appendix option." },
+          { role: "ai", text: "After this pass, the module should be ready for final refresh sign-off.", showLabel: false }
+        ]
+      },
+      integrity: {
+        title: "Integrity and AI Policy",
+        subtitle: "The lane is drafting. We are defining boundaries that are enforceable and coaching-oriented.",
+        state: "Drafting",
+        section: "integrity",
+        activeLabel: "Integrity and AI Policy",
+        decisionMemory: [
+          { text: "allow AI for ideation only", done: true },
+          { text: "require reasoning trace notes", done: true },
+          { text: "finalize defence checkpoint format", done: false }
+        ],
+        workingMemory: [
+          "clear policy tone",
+          "enforceable boundaries",
+          "student comprehension"
+        ],
+        ripple: [
+          "Assessment design safeguards",
+          "Learning activity instructions",
+          "Student module guide wording"
+        ],
+        prompts: ["draft policy v2", "add examples", "tighten enforcement language"],
+        sequence: [
+          { role: "ai", text: "Policy language is directionally good, but students may still find boundaries ambiguous.\n\nI can make expectations clearer without sounding punitive.", options: ["coaching tone", "compliance tone", "hybrid tone"] },
+          { role: "user", text: "Use coaching tone with explicit boundaries." },
+          { role: "ai", text: "Great. I will keep language supportive while making prohibited substitutions unambiguous." },
+          { role: "ai", text: "Cross-thread note: this may trigger small updates in Assessment criteria and Alignment narrative.", showLabel: false }
+        ]
+      }
+    };
+
+    const threadButtons = Array.from(document.querySelectorAll(".thread-link[data-thread]"));
+    const moduleSections = Array.from(document.querySelectorAll(".module-section"));
+
+    const threadTitle = document.getElementById("threadTitle");
+    const laneState = document.getElementById("laneState");
+    const threadSubtitle = document.getElementById("threadSubtitle");
+    const decisionMemory = document.getElementById("decisionMemory");
+    const workingMemory = document.getElementById("workingMemory");
+    const rippleList = document.getElementById("rippleList");
+    const threadCanvas = document.getElementById("threadCanvas");
+    const promptRow = document.getElementById("promptRow");
+    const continueBtn = document.getElementById("continueBtn");
+    const activePill = document.getElementById("activePill");
+    const jumpSelect = document.getElementById("jumpSelect");
+    const bbNote = document.getElementById("bbNote");
+    const advanceBtn = document.getElementById("advanceBtn");
+    const thinkingLine = document.getElementById("thinkingLine");
+
+    let activeThread = "outcomes";
+    let activeStep = 0;
+
+    function renderMemory(listEl, items, isDecision) {
+      listEl.innerHTML = "";
+      items.forEach((item) => {
+        const li = document.createElement("li");
+        if (isDecision) {
+          li.className = item.done ? "done" : "open";
+          li.textContent = item.done ? "✓ " + item.text : "• unresolved: " + item.text;
+        } else {
+          li.textContent = "• " + item;
+        }
+        listEl.appendChild(li);
+      });
+    }
+
+    function renderTurns(data) {
+      threadCanvas.innerHTML = "";
+
+      const visibleTurns = data.sequence.slice(0, activeStep + 1);
+      visibleTurns.forEach((turn) => {
+        const turnEl = document.createElement("section");
+        turnEl.className = "turn " + turn.role;
+
+        const label = document.createElement("div");
+        label.className = "turn-label";
+        label.textContent = turn.role === "ai" ? "AI" : "Module Leader";
+
+        const copy = document.createElement("div");
+        copy.className = "turn-copy";
+        copy.textContent = turn.text;
+
+        if (turn.showLabel !== false) {
+          turnEl.appendChild(label);
+        }
+        turnEl.appendChild(copy);
+
+        if (turn.options && turn.options.length) {
+          const choices = document.createElement("div");
+          choices.className = "choice-row";
+          turn.options.forEach((opt, idx) => {
+            const chip = document.createElement("button");
+            chip.className = "chip" + (idx === 1 ? " selected" : "");
+            chip.type = "button";
+            chip.textContent = opt;
+            choices.appendChild(chip);
+          });
+          turnEl.appendChild(choices);
+        }
+
+        threadCanvas.appendChild(turnEl);
+      });
+
+      if (activeStep >= data.sequence.length - 1) {
+        continueBtn.textContent = "Iteration complete";
+        continueBtn.disabled = true;
+      } else {
+        continueBtn.textContent = "Continue refinement";
+        continueBtn.disabled = false;
+      }
+    }
+
+    function pulseThinking(message) {
+      if (!thinkingLine) {
+        return;
+      }
+
+      thinkingLine.textContent = message;
+      thinkingLine.classList.add("show");
+      window.setTimeout(() => {
+        thinkingLine.classList.remove("show");
+      }, 620);
+    }
+
+    function setActiveSection(sectionId, shouldScroll) {
+      moduleSections.forEach((section) => {
+        section.classList.toggle("active", section.id === sectionId);
+      });
+
+      if (jumpSelect.value !== sectionId) {
+        jumpSelect.value = sectionId;
+      }
+
+      if (shouldScroll) {
+        const target = document.getElementById(sectionId);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    }
+
+    function renderThread(key, resetStep) {
+      const data = threadData[key];
+      if (!data) {
+        return;
+      }
+
+      if (resetStep) {
+        activeStep = 0;
+      }
+
+      threadTitle.textContent = data.title;
+      laneState.textContent = data.state;
+      threadSubtitle.textContent = data.subtitle;
+      activePill.textContent = "Active: " + data.activeLabel;
+
+      renderMemory(decisionMemory, data.decisionMemory, true);
+      renderMemory(workingMemory, data.workingMemory, false);
+      renderMemory(rippleList, data.ripple, false);
+      renderTurns(data);
+
+      promptRow.innerHTML = "";
+      data.prompts.forEach((prompt) => {
+        const chip = document.createElement("button");
+        chip.className = "chip";
+        chip.type = "button";
+        chip.textContent = prompt;
+        promptRow.appendChild(chip);
+      });
+
+      setActiveSection(data.section, false);
+      bbNote.textContent = "Workstream active: " + data.title + ". Continue to keep momentum and update linked sections.";
+    }
+
+    function activateThread(key) {
+      activeThread = key;
+      threadButtons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.thread === key);
+      });
+      renderThread(key, true);
+    }
+
+    threadButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activateThread(btn.dataset.thread);
+      });
+    });
+
+    continueBtn.addEventListener("click", () => {
+      const data = threadData[activeThread];
+      if (activeStep < data.sequence.length - 1) {
+        pulseThinking("Analyzing linked section implications...");
+        activeStep += 1;
+        renderTurns(data);
+      }
+    });
+
+    advanceBtn.addEventListener("click", () => {
+      const data = threadData[activeThread];
+      if (activeStep < data.sequence.length - 1) {
+        pulseThinking("Updated 2 linked sections");
+        activeStep += 1;
+        renderTurns(data);
+      }
+      bbNote.textContent = "Advanced one iteration in " + data.title + ". Ripple effects are now visible in linked sections.";
+    });
+
+    jumpSelect.addEventListener("change", (event) => {
+      setActiveSection(event.target.value, true);
+    });
+
+    // Allow clicking a collapsed module-section to expand it inline
+    moduleSections.forEach((section) => {
+      section.addEventListener("click", () => {
+        if (section.classList.contains("active")) return;
+        setActiveSection(section.id, false);
+      });
+    });
+
+    renderThread("outcomes", true);
+  </script>
+</body>
+</html>
