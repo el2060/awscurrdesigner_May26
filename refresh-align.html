@@ -904,22 +904,44 @@
           <div class="sc-num">2</div>
           <div class="sc-title-wrap">
             <div class="sc-title">Review Focus Areas</div>
-            <div class="sc-desc">Choose the areas for AI to review across your module materials</div>
+            <div class="sc-desc">Select what you want AI to review in this module.</div>
           </div>
         </div>
         <div class="sc-body">
 
-          <div class="focus-group-label">Curriculum &amp; Learning</div>
+          <div class="focus-group-label">Review Areas</div>
           <div class="focus-grid" id="focus-grid">
 
-            <div class="focus-card on" data-focus="Learning Outcomes &amp; Alignment" onclick="toggleFocus(this)">
+            <div class="focus-card on" data-focus="Learning Outcomes" onclick="toggleFocus(this)">
               <span class="focus-check"></span>
               <span class="focus-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
               </span>
               <div class="focus-text">
-                <div class="focus-title">Learning Outcomes &amp; Alignment</div>
-                <div class="focus-desc">Alignment between outcomes, content, activities, assessment, and competency evidence coverage</div>
+                <div class="focus-title">Learning Outcomes</div>
+                <div class="focus-desc">Outcomes, scope, and alignment</div>
+              </div>
+            </div>
+
+            <div class="focus-card on" data-focus="Content &amp; Sequencing" onclick="toggleFocus(this)">
+              <span class="focus-check"></span>
+              <span class="focus-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              </span>
+              <div class="focus-text">
+                <div class="focus-title">Content &amp; Sequencing</div>
+                <div class="focus-desc">Topics, hours, and progression</div>
+              </div>
+            </div>
+
+            <div class="focus-card on" data-focus="Teaching &amp; Learning" onclick="toggleFocus(this)">
+              <span class="focus-check"></span>
+              <span class="focus-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </span>
+              <div class="focus-text">
+                <div class="focus-title">Teaching &amp; Learning</div>
+                <div class="focus-desc">Activities, engagement, and delivery</div>
               </div>
             </div>
 
@@ -930,89 +952,40 @@
               </span>
               <div class="focus-text">
                 <div class="focus-title">Assessment Design</div>
-                <div class="focus-desc">Assessment strategy, authenticity, progression, and mapped competency evidence</div>
+                <div class="focus-desc">Assessment alignment and balance</div>
               </div>
             </div>
 
-            <div class="focus-card" data-focus="Teaching &amp; Learning" onclick="toggleFocus(this)">
-              <span class="focus-check"></span>
-              <span class="focus-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              </span>
-              <div class="focus-text">
-                <div class="focus-title">Teaching &amp; Learning</div>
-                <div class="focus-desc">Activities, sequencing, engagement, and blended delivery</div>
-              </div>
-            </div>
-
-            <div class="focus-card" data-focus="Learning Resources" onclick="toggleFocus(this)">
-              <span class="focus-check"></span>
-              <span class="focus-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-              </span>
-              <div class="focus-text">
-                <div class="focus-title">Learning Resources</div>
-                <div class="focus-desc">Supporting materials, references, media, and learner guidance</div>
-              </div>
-            </div>
-
-            <div class="focus-card on" data-focus="Communication" onclick="toggleFocus(this)">
+            <div class="focus-card on" data-focus="Communication &amp; Presentation" onclick="toggleFocus(this)">
               <span class="focus-check"></span>
               <span class="focus-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
               </span>
               <div class="focus-text">
-                <div class="focus-title">Communication</div>
-                <div class="focus-desc">Presentation clarity, disciplinary communication, and visible competency evidence</div>
+                <div class="focus-title">Communication &amp; Presentation</div>
+                <div class="focus-desc">Presentation, audience engagement, and communication skills</div>
               </div>
             </div>
 
-          </div>
-
-          <div class="focus-group-label">NP Curriculum Priorities</div>
-          <div class="focus-grid" id="focus-grid-optional">
-
-            <div class="focus-card" data-focus="Human Skills &amp; Resilience" onclick="toggleFocus(this)">
-              <span class="focus-check"></span>
-              <span class="focus-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </span>
-              <div class="focus-text">
-                <div class="focus-title">Human Skills &amp; Resilience</div>
-                <div class="focus-desc">Review opportunities to strengthen resilience, adaptability, communication, and collaboration.</div>
-              </div>
-            </div>
-
-            <div class="focus-card" data-focus="AI Integration (PAIR &amp; 3As)" onclick="toggleFocus(this)">
+            <div class="focus-card on" data-focus="AI Integration (PAIR &amp; 3As)" onclick="toggleFocus(this)">
               <span class="focus-check"></span>
               <span class="focus-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
               </span>
               <div class="focus-text">
                 <div class="focus-title">AI Integration (PAIR &amp; 3As)</div>
-                <div class="focus-desc">Review how AI supports learning, assessment, reflection, and authentic professional practice.</div>
+                <div class="focus-desc">AI-supported learning and assessment</div>
               </div>
             </div>
 
-            <div class="focus-card" data-focus="Professional Practice" onclick="toggleFocus(this)">
+            <div class="focus-card on" data-focus="Human Skills &amp; Resilience" onclick="toggleFocus(this)">
               <span class="focus-check"></span>
               <span class="focus-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               </span>
               <div class="focus-text">
-                <div class="focus-title">Professional Practice</div>
-                <div class="focus-desc">Review alignment with workplace practices, professional tools, and authentic applied learning.</div>
-              </div>
-            </div>
-
-            <div class="focus-card" data-focus="Global &amp; Social Perspectives" onclick="toggleFocus(this)">
-              <span class="focus-check"></span>
-              <span class="focus-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/></svg>
-              </span>
-              <div class="focus-text">
-                <div class="focus-title">Global &amp; Social Perspectives</div>
-                <div class="focus-desc">Review opportunities for multidisciplinary, ethical, and real-world problem contexts.</div>
+                <div class="focus-title">Human Skills &amp; Resilience</div>
+                <div class="focus-desc">Adaptability, teamwork, and self-development</div>
               </div>
             </div>
 
@@ -1027,19 +1000,18 @@
           <div class="sc-num">3</div>
           <div class="sc-title-wrap">
             <div class="sc-title">Additional Review Notes <span style="font-weight:500;color:var(--hp-muted);">(optional)</span></div>
-            <div class="sc-desc">Add review priorities, curriculum concerns, or what you'd like AI to focus on</div>
+            <div class="sc-desc">Add specific review questions or focus areas.</div>
           </div>
         </div>
         <div class="sc-body">
           <div class="field">
             <textarea id="review-notes" class="plan-textarea" style="min-height:120px;" placeholder="Examples:
 • Reduce content overload
+• Strengthen presentation skills
 • Improve assessment alignment
-• Refresh industry relevance
-• Review Bloom's progression
-• Strengthen communication expectations
-• Suggest more authentic assessment ideas"></textarea>
-            <div class="field-hint">Optional: add benchmarking references, accreditation considerations, curriculum constraints, or specific review questions.</div>
+• Review AI integration opportunities
+• Improve flipped learning flow"></textarea>
+            <div class="field-hint">Add benchmarking references, accreditation considerations, curriculum constraints, or specific review requests.</div>
           </div>
         </div>
       </div>
@@ -1097,7 +1069,7 @@
         <span class="side-label">Current Review Setup</span>
         <div class="side-card-body">
           <div class="sum-row"><span class="sum-key">Module</span><span class="sum-val empty" id="sum-module">Not added</span></div>
-          <div class="sum-row"><span class="sum-key">Focus areas</span><span class="sum-val" id="sum-focus">3 selected</span></div>
+          <div class="sum-row"><span class="sum-key">Focus areas</span><span class="sum-val" id="sum-focus">7 selected</span></div>
           <div class="sum-row"><span class="sum-key">Notes</span><span class="sum-val empty" id="sum-notes">None</span></div>
         </div>
       </div>
@@ -1124,119 +1096,95 @@
 <script>
   // Review-dimension data — what AI surfaces per lens, plus traceability
   const reviewData = {
-    "Learning Outcomes & Alignment": {
+    "Learning Outcomes": {
       status: 'warn',
       findings: [
-        'Outcomes, content, and assessment are mostly aligned, and Communication evidence is visible across outcome verbs.',
-        'Critical Thinking and Collaboration evidence are less consistent across current assessment evidence and progression cues.'
+        'Outcome wording is broadly clear, but some outcomes overlap in scope and cognitive level.',
+        'Bloom\'s progression across the module is uneven — higher-order outcomes appear early without sufficient scaffolding.'
       ],
       actions: [
-        'Tighten outcome wording to reduce overlap and clarify Bloom progression against targeted competencies.',
-        'Re-sequence one topic cluster so cognitive load and competency evidence both grow gradually across weeks.'
+        'Tighten outcome wording to remove overlap and clarify the targeted cognitive level for each.',
+        'Reorder or reframe outcomes so progression from foundational to applied is visible across the module arc.'
       ],
-      informedBy: ['NP Assessment Framework', 'NP Graduate Competencies (embedded)', 'Module outcomes', 'Module materials'],
+      informedBy: ['Module outcomes', 'NP Assessment Framework', 'Module materials'],
       gaps: 1
     },
-    "Assessment Design": {
+    "Content & Sequencing": {
       status: 'warn',
       findings: [
-        'Assessment strategy is sound, with strong Communication and Critical Thinking evidence in current tasks.',
-        'Collaboration and Digital Competence evidence remain limited, and moderation/feedback loops are not explicitly evidenced in module documentation.'
+        'Topic hours are distributed unevenly — some weeks are significantly denser than others.',
+        'A few topic clusters appear before the foundational knowledge they depend on has been established.'
       ],
       actions: [
-        'Introduce one low-stakes formative checkpoint that explicitly captures Collaboration or Digital Competence evidence.',
-        'Surface moderation and feedback cadence explicitly in the assessment plan and competency evidence notes.'
+        'Rebalance contact and self-directed hours across the module to reduce peak workload weeks.',
+        'Move or restructure 1–2 topic clusters to ensure prerequisite knowledge is established before application.'
       ],
-      informedBy: ['NP Assessment Framework', 'NP Graduate Competencies (embedded)', 'Module assessment plan', 'Module rubrics'],
+      informedBy: ['Module topic schedule', 'Module materials'],
       gaps: 1
     },
     "Teaching & Learning": {
       status: 'ok',
       findings: [
-        'Delivery mix supports applied learning and matches stated pedagogical intent.',
-        'Activity sequencing and engagement design appear reasonable across modes.'
+        'Delivery approach supports applied learning and aligns with stated pedagogical intent.',
+        'Activity variety is reasonable, though reflection touchpoints are sparse across the module.'
       ],
       actions: [
-        'Add one structured reflection touchpoint to close the learning loop per topic cluster.'
+        'Add one brief structured reflection prompt per topic cluster to close the learning loop.'
       ],
       informedBy: ['Module learning plan', 'Module materials'],
       gaps: 0
     },
-    "Learning Resources": {
-      status: 'ok',
-      findings: [
-        'Supporting materials cover the core content and are accessible across delivery modes.',
-        'Reference list is current but could be tightened to reduce duplication.'
-      ],
-      actions: [
-        'Curate the reference list down to the highest-signal items and signpost them per topic.'
-      ],
-      informedBy: ['Module materials', 'Module references'],
-      gaps: 0
-    },
-    "Communication": {
+    "Assessment Design": {
       status: 'warn',
       findings: [
-        'Communication expectations are visible but rubric criteria could be more specific.',
-        'Current evidence emphasizes delivery more than audience adaptation and disciplinary register.'
+        'Assessment tasks are relevant, but the balance between formative and summative components is weighted heavily toward summative.',
+        'Feedback timing and moderation practices are not explicitly documented in the module plan.'
       ],
       actions: [
-        'Refine communication rubric criteria for clarity, structure, and audience fit.',
-        'Add one practice presentation with peer feedback before the final assessment.'
+        'Introduce at least one low-stakes formative checkpoint with structured feedback before the major summative task.',
+        'Document the feedback and moderation cadence explicitly in the assessment plan.'
       ],
-      informedBy: ['Communication Competency Toolkit', 'Module rubrics'],
+      informedBy: ['Module assessment plan', 'Module rubrics', 'NP Assessment Framework'],
       gaps: 1
     },
-    "Human Skills & Resilience": {
+    "Communication & Presentation": {
       status: 'warn',
       findings: [
-        'Resilience and adaptability are implicit in the module design but not explicitly named in outcomes or assessments.',
-        'Collaboration and communication expectations are present, but could be made more visible across the module arc.'
+        'Communication expectations are present in assessment tasks, but rubric criteria for presentation quality are broad.',
+        'Audience engagement and disciplinary communication are not explicitly scaffolded across the module.'
       ],
       actions: [
-        'Surface one outcome or activity explicitly focused on resilience, adaptability, or communication under pressure.',
-        'Add a structured peer-feedback or reflection component that develops collaboration explicitly.'
+        'Refine presentation rubric criteria to address clarity, structure, and audience fit separately.',
+        'Add a low-stakes practice presentation with peer feedback before the final assessed task.'
       ],
-      informedBy: ['NP Human Edge', 'NP Graduate Competencies', 'Module materials'],
+      informedBy: ['Module rubrics', 'Module assessment plan', 'NP Graduate Competencies'],
       gaps: 1
     },
     "AI Integration (PAIR & 3As)": {
       status: 'warn',
       findings: [
-        'AI tools appear in delivery but expectations for responsible use are not yet explicit.',
-        'No structured guidance on when AI support is appropriate vs. when independent work is required.'
+        'AI tools are referenced in delivery but there is no explicit guidance on appropriate use boundaries.',
+        'No tasks currently ask students to engage critically with AI-generated outputs.'
       ],
       actions: [
-        'Add a short module-level AI use note describing where AI support is welcome and where it is not.',
-        'Include one task that asks students to critique or improve an AI-generated output.'
+        'Add a brief module-level AI use statement clarifying where AI assistance is permitted and where independent work is expected.',
+        'Include one task that requires students to evaluate, refine, or critique an AI-generated output.'
       ],
       informedBy: ['AI Integration (PAIR & 3As)', 'NP AI guidance', 'Module assessment plan'],
       gaps: 1
     },
-    "Professional Practice": {
+    "Human Skills & Resilience": {
       status: 'warn',
       findings: [
-        'Industry references are present but not consistently tied to weekly content.',
-        'Workplace tools and professional practices are mentioned but not explicitly sequenced.'
+        'Communication and collaboration expectations are present but not consistently visible across outcomes and assessment criteria.',
+        'Resilience and adaptability are not explicitly named in any outcome or activity description.'
       ],
       actions: [
-        'Tie at least one activity per topic cluster to a current workplace tool or professional context.',
-        'Add explicit industry benchmark references in weekly topic notes.'
+        'Add or revise one outcome to make communication or collaboration expectations explicit.',
+        'Include a structured peer-feedback or reflection activity that develops adaptability and teamwork.'
       ],
-      informedBy: ['Uploaded industry references', 'Module materials'],
+      informedBy: ['NP Human Edge', 'NP Graduate Competencies', 'Module materials'],
       gaps: 1
-    },
-    "Global & Social Perspectives": {
-      status: 'ok',
-      findings: [
-        'Module has clear applied learning components anchored in realistic scenarios.',
-        'Multidisciplinary and ethical dimensions are present but largely implicit.'
-      ],
-      actions: [
-        'Surface one interdisciplinary touchpoint explicitly — e.g., link a task to an ethical dimension or real-world social context.'
-      ],
-      informedBy: ['Module materials', 'Programme outcomes'],
-      gaps: 0
     }
   };
 
