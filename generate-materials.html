@@ -169,28 +169,147 @@
       margin-bottom: 8px;
     }
 
-    .connected {
-      border: 1px solid #b8d0e6;
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, #f7fbff 0%, var(--brand-soft) 100%);
-      padding: 14px 16px;
+    .setup-card {
+      border: 1px solid #c8daec;
+      border-radius: 12px;
+      background: #fff;
+      padding: 18px;
       display: grid;
-      gap: 10px;
+      gap: 14px;
     }
 
-    .connected-kicker {
+    .setup-card.context-card {
+      border-color: #d7e3ef;
+      background: linear-gradient(180deg, #f7fbff 0%, #ffffff 72%);
+    }
+
+    .setup-kicker {
+      color: var(--brand);
       font-size: 10px;
       font-weight: 700;
-      text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--brand);
+      text-transform: uppercase;
+      margin-bottom: 4px;
     }
 
-    .connected-row {
+    .setup-title {
+      color: #172a3d;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .setup-note {
+      color: #435e77;
+      font-size: 12px;
+      line-height: 1.55;
+      max-width: 60ch;
+    }
+
+    .setup-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .setup-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #2e4459;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .setup-config {
+      margin-top: 2px;
+      padding-top: 12px;
+      border-top: 1px solid #dae5f1;
+    }
+
+    .setup-config-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #6f869e;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    .setup-config-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 14px;
+      font-size: 13px;
+      color: #3b5773;
+    }
+
+    .setup-config-field {
+      display: grid;
+      gap: 4px;
+    }
+
+    .setup-select {
+      border: 1px solid #c9ddec;
+      border-radius: 6px;
+      padding: 5px 9px;
+      font-size: 13px;
+      color: #233f5b;
+      background: #fff;
+      min-width: 164px;
+    }
+
+    .section-card {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    .sc-header {
+      display: flex;
       align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .sc-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--brand);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0, 70, 137, 0.18);
+    }
+
+    .sc-title-wrap {
+      display: grid;
+      gap: 2px;
+    }
+
+    .sc-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #24394f;
+      letter-spacing: -0.005em;
+    }
+
+    .sc-desc {
+      font-size: 12px;
+      color: #7b8c9d;
+    }
+
+    .sc-body {
+      padding: 20px;
     }
 
     .workspace-strip {
@@ -264,15 +383,6 @@
       font-weight: 600;
     }
 
-    .workspace {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--paper);
-      padding: 18px;
-      display: grid;
-      gap: 14px;
-    }
-
     .material-groups {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -281,7 +391,7 @@
 
     .material-group {
       border: 1px solid #dfe5ec;
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 12px;
       background: #fff;
       display: grid;
@@ -292,6 +402,7 @@
       font-size: 13px;
       font-weight: 700;
       color: #24394f;
+      letter-spacing: -0.01em;
     }
 
     .material-group-title.core::before,
@@ -331,8 +442,8 @@
     }
 
     .material-preview {
-      border-left: 2px solid #dfe5ec;
-      padding-left: 10px;
+      border-left: 1px solid #dfe5ec;
+      padding-left: 12px;
       color: #46586d;
       font-size: 11px;
       line-height: 1.45;
@@ -342,6 +453,7 @@
       font-size: 16px;
       font-weight: 700;
       color: #24394f;
+      letter-spacing: -0.01em;
     }
 
     .check-grid {
@@ -373,12 +485,13 @@
     }
 
     .actions {
+      border-top: 1px solid var(--line-soft);
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
-      padding-top: 4px;
+      padding-top: 16px;
     }
 
     .hint {
@@ -412,7 +525,13 @@
     @media (max-width: 1280px) {
       .topbar { padding: 0 28px; }
       .page { padding: 40px 28px; }
-      .title { font-size: 30px; }
+      .page-title { font-size: 30px; }
+    }
+
+    @media (max-width: 1080px) {
+      .material-groups {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 900px) {
@@ -420,14 +539,26 @@
       .topbar-pill { display: none; }
       .brand-tag { display: none; }
       .page { padding: 32px 18px; }
-      .title {
+      .page-title {
         font-size: 26px;
       }
 
-      .sub { font-size: 14px; }
+      .page-sub { font-size: 14px; }
+
+      .setup-config-grid {
+        gap: 12px;
+      }
+
+      .setup-select {
+        min-width: 100%;
+      }
 
       .check-grid {
         grid-template-columns: 1fr;
+      }
+
+      .actions {
+        padding-top: 14px;
       }
     }
   </style>
@@ -451,48 +582,37 @@
 
   <main class="page">
     <section>
-      <div class="eyebrow">Path A · Step 3 · Materials</div>
-      <!-- Step strip orients the lecturer within Path A flow -->
-      <nav class="step-strip" aria-label="Path A progress">
-        <span class="ss-step done"><span class="ss-num">1</span>Context</span>
-        <span class="ss-sep"></span>
-        <span class="ss-step done"><span class="ss-num">2</span>Co-Design</span>
-        <span class="ss-sep"></span>
-        <span class="ss-step active"><span class="ss-num">3</span>Materials</span>
-        <span class="ss-sep"></span>
-        <span class="ss-step"><span class="ss-num">4</span>Export</span>
-      </nav>
-      <h1 class="title">Generate Teaching &amp; Learning Materials</h1>
-      <p class="sub">Generate aligned teaching and learning materials based on the approved module draft and curriculum direction.</p>
+      <h1 class="page-title">Generate Teaching &amp; Learning Materials</h1>
+      <p class="page-sub">Generate aligned teaching and learning materials based on the approved module draft and curriculum direction.</p>
     </section>
 
-    <section class="setup-card" style="border-color: #c9d9eb; background: linear-gradient(180deg, #f2f7fc 0%, #ffffff 100%);">
-      <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #1d436a; font-weight: 700; margin-bottom: 6px;">Curriculum Context Loaded</div>
-      <h2 style="font-size: 20px; font-weight: 700; color: #172a3d; margin-bottom: 4px; font-family: var(--font-heading);">Advanced Critical Care Nursing Science II</h2>
-      <p style="font-size: 13px; color: #435e77; line-height: 1.5; max-width: 60ch; margin-bottom: 16px;">The generated materials will automatically align with the approved curriculum structure.</p>
-      
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;">
-        <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #2e4459; font-weight: 600;"><span style="color: #2f7a52;">✓</span> Module synopsis</div>
-        <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #2e4459; font-weight: 600;"><span style="color: #2f7a52;">✓</span> Learning outcomes</div>
-        <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #2e4459; font-weight: 600;"><span style="color: #2f7a52;">✓</span> Weekly sequencing</div>
-        <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #2e4459; font-weight: 600;"><span style="color: #2f7a52;">✓</span> Assessment strategy</div>
-        <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #2e4459; font-weight: 600;"><span style="color: #2f7a52;">✓</span> Clinical simulation emphasis</div>
-        <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #2e4459; font-weight: 600;"><span style="color: #2f7a52;">✓</span> AI &amp; integrity guidance</div>
+    <section class="setup-card context-card">
+      <div class="setup-kicker">Curriculum Context Loaded</div>
+      <h2 class="setup-title">Advanced Critical Care Nursing Science II</h2>
+      <p class="setup-note">The generated materials will automatically align with the approved curriculum structure.</p>
+
+      <div class="setup-meta-grid">
+        <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> Module synopsis</div>
+        <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> Learning outcomes</div>
+        <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> Weekly sequencing</div>
+        <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> Assessment strategy</div>
+        <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> Clinical simulation emphasis</div>
+        <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> AI &amp; integrity guidance</div>
       </div>
-      
-      <div style="margin-top: 18px; padding-top: 18px; border-top: 1px solid #dae5f1;">
-        <h4 style="font-size: 11px; font-weight: 700; color: #6f869e; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">Lecturer Configuration</h4>
-        <div style="display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: #3b5773;">
-          <div style="display: grid; gap: 4px;">
-            <label style="font-weight: 600;">Teaching Weeks:</label> 
-            <select style="border: 1px solid #c9ddec; border-radius: 6px; padding: 6px 10px; font-size: 13px; color: #233f5b; background: #fff; min-width: 180px;">
+
+      <div class="setup-config">
+        <div class="setup-config-title">Lecturer Configuration</div>
+        <div class="setup-config-grid">
+          <div class="setup-config-field">
+            <label style="font-weight: 600;">Teaching Weeks:</label>
+            <select class="setup-select">
               <option>All Weeks (1-15)</option>
               <option>Week 1-5 Only</option>
             </select>
           </div>
-          <div style="display: grid; gap: 4px;">
-            <label style="font-weight: 600;">Delivery Mode Adaptation:</label> 
-            <select style="border: 1px solid #c9ddec; border-radius: 6px; padding: 6px 10px; font-size: 13px; color: #233f5b; background: #fff; min-width: 180px;">
+          <div class="setup-config-field">
+            <label style="font-weight: 600;">Delivery Mode Adaptation:</label>
+            <select class="setup-select">
               <option>Blended learning</option>
               <option>Classroom primarily</option>
               <option>Simulation primarily</option>
@@ -502,65 +622,72 @@
       </div>
     </section>
 
-    <section class="workspace">
-      <h2 class="section-title">Select Material Types</h2>
-
-      <div class="material-groups">
-        <div class="material-group">
-          <div class="material-group-title core">Core Teaching Materials</div>
-          <div class="check-grid">
-            <div class="check-item">
-              <input id="slides" type="checkbox" checked>
-              <label for="slides">Lecture Slides</label>
-            </div>
-            <div class="check-item">
-              <input id="activities" type="checkbox" checked>
-              <label for="activities">Learning Activities</label>
-            </div>
-            <div class="check-item">
-              <input id="cases" type="checkbox" checked>
-              <label for="cases">Case Studies</label>
-            </div>
-          </div>
-          <div class="material-output">
-            <strong>Lecture Slides</strong>
-            <p>Week 1 ICU escalation overview · Early warning indicators · Guided interpretation examples</p>
-          </div>
-          <div class="material-output">
-            <strong>Case Studies</strong>
-            <p>GI bleed deterioration scenario · Interdisciplinary escalation handoff</p>
-          </div>
-        </div>
-
-        <div class="material-group">
-          <div class="material-group-title support">Supporting Materials</div>
-          <div class="check-grid">
-            <div class="check-item">
-              <input id="quiz" type="checkbox">
-              <label for="quiz">Quiz Questions</label>
-            </div>
-            <div class="check-item">
-              <input id="facilitator" type="checkbox">
-              <label for="facilitator">Facilitator Guide</label>
-            </div>
-            <div class="check-item">
-              <input id="handout" type="checkbox">
-              <label for="handout">Student Handout</label>
-            </div>
-          </div>
-          <div class="material-output">
-            <strong>Learning Activities</strong>
-            <p>Small-group escalation discussion · scenario-based debrief prompt · quick knowledge check</p>
-          </div>
-          <div class="material-preview">Optional support outputs stay lightweight and editable so the module remains educator-controlled.</div>
+    <section class="section-card">
+      <div class="sc-header">
+        <div class="sc-num">1</div>
+        <div class="sc-title-wrap">
+          <div class="sc-title">Select Material Types</div>
+          <div class="sc-desc">Choose core and supporting materials to generate</div>
         </div>
       </div>
+      <div class="sc-body">
+        <div class="material-groups">
+          <div class="material-group">
+            <div class="material-group-title core">Core Teaching Materials</div>
+            <div class="check-grid">
+              <div class="check-item">
+                <input id="slides" type="checkbox" checked>
+                <label for="slides">Lecture Slides</label>
+              </div>
+              <div class="check-item">
+                <input id="activities" type="checkbox" checked>
+                <label for="activities">Learning Activities</label>
+              </div>
+              <div class="check-item">
+                <input id="cases" type="checkbox" checked>
+                <label for="cases">Case Studies</label>
+              </div>
+            </div>
+            <div class="material-output">
+              <strong>Lecture Slides</strong>
+              <p>Week 1 ICU escalation overview · Early warning indicators · Guided interpretation examples</p>
+            </div>
+            <div class="material-output">
+              <strong>Case Studies</strong>
+              <p>GI bleed deterioration scenario · Interdisciplinary escalation handoff</p>
+            </div>
+          </div>
 
-      <div class="actions">
-        <div class="hint">Review generated materials before assembling the export package.</div>
-        <div>
-          <a class="btn" href="plan-direction.html">Back to Module Design</a>
-          <a class="btn primary" href="export-package.html">Continue to Export →</a>
+          <div class="material-group">
+            <div class="material-group-title support">Supporting Materials</div>
+            <div class="check-grid">
+              <div class="check-item">
+                <input id="quiz" type="checkbox">
+                <label for="quiz">Quiz Questions</label>
+              </div>
+              <div class="check-item">
+                <input id="facilitator" type="checkbox">
+                <label for="facilitator">Facilitator Guide</label>
+              </div>
+              <div class="check-item">
+                <input id="handout" type="checkbox">
+                <label for="handout">Student Handout</label>
+              </div>
+            </div>
+            <div class="material-output">
+              <strong>Learning Activities</strong>
+              <p>Small-group escalation discussion · scenario-based debrief prompt · quick knowledge check</p>
+            </div>
+            <div class="material-preview">Optional support outputs stay lightweight and editable so the module remains educator-controlled.</div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <div class="hint">Review generated materials before assembling the export package.</div>
+          <div>
+            <a class="btn" href="plan-direction.html">Back to Module Design</a>
+            <a class="btn primary" href="export-package.html">Continue to Export →</a>
+          </div>
         </div>
       </div>
     </section>

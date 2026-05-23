@@ -1690,17 +1690,6 @@
 
   <main class="page">
     <section>
-      <div class="page-eyebrow">Module Design Workspace</div>
-      <!-- Step strip orients the lecturer within the overall Path A flow -->
-      <nav class="step-strip" aria-label="Design progress">
-        <span class="ss-step done"><span class="ss-num">1</span>Analysis</span>
-        <span class="ss-sep"></span>
-        <span class="ss-step active"><span class="ss-num">2</span>Draft</span>
-        <span class="ss-sep"></span>
-        <span class="ss-step"><span class="ss-num">3</span>Materials</span>
-        <span class="ss-sep"></span>
-        <span class="ss-step"><span class="ss-num">4</span>Export</span>
-      </nav>
       <h1 class="page-title">Start Co-Design</h1>
       <p class="page-sub">
         Choose previous analysis summaries to carry forward into this module draft.
@@ -1974,7 +1963,7 @@
           "Improve interdisciplinary communication"
         ],
         greeting: "Hi Sarah — let’s shape the role of this module within the programme first.\n\nI’ve reviewed the earlier curriculum analysis, benchmarking inputs, and existing references.",
-        intro: "To start, tell me:\n• What should students be able to handle more confidently after this module?\n• Where does this module sit within the learner journey?\n• Are there particular industry or clinical practice gaps this module should address?",
+        intro: "<strong>To start, tell me:</strong><ul style=\"margin-top: 6px; padding-left: 20px;\"><li>What should students be able to handle more confidently after this module?</li><li>Where does this module sit within the learner journey?</li><li>Are there particular industry or clinical practice gaps this module should address?</li></ul>",
         inputHint: "Describe the module's role and purpose..."
       },
       synopsis: {
@@ -2479,7 +2468,7 @@
 
         const intro = document.createElement("div");
         intro.className = "choice-intro";
-        intro.innerText = lane.intro.replace(/\n/g, "<br>");
+        intro.innerHTML = lane.intro.replace(/\n/g, "<br>");
         welcomeActions.appendChild(intro);
 
         const options = document.createElement("div");
