@@ -522,16 +522,103 @@
       border-color: #003366;
     }
 
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .layout-main,
+    .layout-side {
+      min-width: 0;
+    }
+
+    .layout-side {
+      position: sticky;
+      top: 76px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .side-box,
+    .side-next {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .side-next {
+      background: linear-gradient(180deg, #f8fbff 0%, #fff 78%);
+    }
+
+    .side-title,
+    .side-next-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8b99ab;
+    }
+
+    .side-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line-soft);
+      font-size: 13px;
+      color: var(--ink-mid);
+    }
+
+    .side-row:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .side-count,
+    .side-total-num {
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .side-total {
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--ink-mid);
+    }
+
+    .side-next-item {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ink-mid);
+    }
+
+    @media (max-width: 1080px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .layout-side {
+        position: static;
+      }
+
+      .material-groups {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 1280px) {
       .topbar { padding: 0 28px; }
       .page { padding: 40px 28px; }
       .page-title { font-size: 30px; }
-    }
-
-    @media (max-width: 1080px) {
-      .material-groups {
-        grid-template-columns: 1fr;
-      }
     }
 
     @media (max-width: 900px) {
@@ -622,75 +709,95 @@
       </div>
     </section>
 
-    <section class="section-card">
-      <div class="sc-header">
-        <div class="sc-num">1</div>
-        <div class="sc-title-wrap">
-          <div class="sc-title">Select Material Types</div>
-          <div class="sc-desc">Choose core and supporting materials to generate</div>
-        </div>
-      </div>
-      <div class="sc-body">
-        <div class="material-groups">
-          <div class="material-group">
-            <div class="material-group-title core">Core Teaching Materials</div>
-            <div class="check-grid">
-              <div class="check-item">
-                <input id="slides" type="checkbox" checked>
-                <label for="slides">Lecture Slides</label>
-              </div>
-              <div class="check-item">
-                <input id="activities" type="checkbox" checked>
-                <label for="activities">Learning Activities</label>
-              </div>
-              <div class="check-item">
-                <input id="cases" type="checkbox" checked>
-                <label for="cases">Case Studies</label>
-              </div>
-            </div>
-            <div class="material-output">
-              <strong>Lecture Slides</strong>
-              <p>Week 1 ICU escalation overview · Early warning indicators · Guided interpretation examples</p>
-            </div>
-            <div class="material-output">
-              <strong>Case Studies</strong>
-              <p>GI bleed deterioration scenario · Interdisciplinary escalation handoff</p>
+    <div class="layout">
+      <div class="layout-main">
+        <section class="section-card">
+          <div class="sc-header">
+            <div class="sc-num">1</div>
+            <div class="sc-title-wrap">
+              <div class="sc-title">Select Material Types</div>
+              <div class="sc-desc">Choose core and supporting materials to generate</div>
             </div>
           </div>
+          <div class="sc-body">
+            <div class="material-groups">
+              <div class="material-group">
+                <div class="material-group-title core">Core Teaching Materials</div>
+                <div class="check-grid">
+                  <div class="check-item">
+                    <input id="slides" type="checkbox" checked>
+                    <label for="slides">Lecture Slides</label>
+                  </div>
+                  <div class="check-item">
+                    <input id="activities" type="checkbox" checked>
+                    <label for="activities">Learning Activities</label>
+                  </div>
+                  <div class="check-item">
+                    <input id="cases" type="checkbox" checked>
+                    <label for="cases">Case Studies</label>
+                  </div>
+                </div>
+                <div class="material-output">
+                  <strong>Lecture Slides</strong>
+                  <p>Week 1 ICU escalation overview · Early warning indicators · Guided interpretation examples</p>
+                </div>
+                <div class="material-output">
+                  <strong>Case Studies</strong>
+                  <p>GI bleed deterioration scenario · Interdisciplinary escalation handoff</p>
+                </div>
+              </div>
 
-          <div class="material-group">
-            <div class="material-group-title support">Supporting Materials</div>
-            <div class="check-grid">
-              <div class="check-item">
-                <input id="quiz" type="checkbox">
-                <label for="quiz">Quiz Questions</label>
-              </div>
-              <div class="check-item">
-                <input id="facilitator" type="checkbox">
-                <label for="facilitator">Facilitator Guide</label>
-              </div>
-              <div class="check-item">
-                <input id="handout" type="checkbox">
-                <label for="handout">Student Handout</label>
+              <div class="material-group">
+                <div class="material-group-title support">Supporting Materials</div>
+                <div class="check-grid">
+                  <div class="check-item">
+                    <input id="quiz" type="checkbox">
+                    <label for="quiz">Quiz Questions</label>
+                  </div>
+                  <div class="check-item">
+                    <input id="facilitator" type="checkbox">
+                    <label for="facilitator">Facilitator Guide</label>
+                  </div>
+                  <div class="check-item">
+                    <input id="handout" type="checkbox">
+                    <label for="handout">Student Handout</label>
+                  </div>
+                </div>
+                <div class="material-output">
+                  <strong>Learning Activities</strong>
+                  <p>Small-group escalation discussion · scenario-based debrief prompt · quick knowledge check</p>
+                </div>
+                <div class="material-preview">Optional support outputs stay lightweight and editable so the module remains educator-controlled.</div>
               </div>
             </div>
-            <div class="material-output">
-              <strong>Learning Activities</strong>
-              <p>Small-group escalation discussion · scenario-based debrief prompt · quick knowledge check</p>
+
+            <div class="actions">
+              <div class="hint">Review generated materials before assembling the export package.</div>
+              <div>
+                <a class="btn" href="plan-direction.html">Back to Module Design</a>
+                <a class="btn primary" href="export-package.html">Continue to Export →</a>
+              </div>
             </div>
-            <div class="material-preview">Optional support outputs stay lightweight and editable so the module remains educator-controlled.</div>
           </div>
+        </section>
+      </div>
+
+      <aside class="layout-side">
+        <div class="side-box">
+          <div class="side-title">Material Summary</div>
+          <div class="side-row"><span>Core materials</span><span class="side-count">3 selected</span></div>
+          <div class="side-row"><span>Supporting materials</span><span class="side-count">0 selected</span></div>
+          <div class="side-row"><span>Editable outputs</span><span class="side-count">5 items</span></div>
+          <div class="side-total"><span>Total planned outputs</span><span class="side-total-num">8</span></div>
         </div>
 
-        <div class="actions">
-          <div class="hint">Review generated materials before assembling the export package.</div>
-          <div>
-            <a class="btn" href="plan-direction.html">Back to Module Design</a>
-            <a class="btn primary" href="export-package.html">Continue to Export →</a>
-          </div>
+        <div class="side-next">
+          <div class="side-next-label">Next Step</div>
+          <div class="side-next-item">Generate the teaching materials, then move to export packaging.</div>
+          <div class="side-next-item">The summary stays pinned so the page behaves like the other workflow screens.</div>
         </div>
-      </div>
-    </section>
+      </aside>
+    </div>
   </main>
 </body>
 </html>
