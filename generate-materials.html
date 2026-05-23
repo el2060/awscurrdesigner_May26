@@ -609,49 +609,41 @@
     .material-group {
       border: 1px solid #dfe5ec;
       border-radius: 12px;
-      padding: 12px;
       background: #fff;
       display: grid;
-      gap: 10px;
+      gap: 0;
+      overflow: hidden;
     }
 
+    .material-group-header {
+      padding: 12px 14px 10px;
+      border-bottom: 1px solid #e8eef4;
+    }
+    .material-group-header.oal-header   { background: linear-gradient(135deg, #f0f6fc 0%, #f7faff 100%); }
+    .material-group-header.ipl-header   { background: linear-gradient(135deg, #f0faf5 0%, #f7fdf9 100%); }
+    .material-group-header.followup-header { background: linear-gradient(135deg, #fdf8f0 0%, #fffdf7 100%); }
+
     .material-group-title {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       color: #24394f;
       letter-spacing: -0.01em;
     }
-
-    .material-group-title.oal::before,
-    .material-group-title.ipl::before,
-    .material-group-title.followup::before {
-      content: "";
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-
-    .material-group-title.oal::before { background: var(--brand); }
-    .material-group-title.ipl::before { background: #2f7a52; }
-    .material-group-title.followup::before { background: #7a6a2f; }
+    .material-group-title.oal   { color: var(--brand); }
+    .material-group-title.ipl   { color: #2f7a52; }
+    .material-group-title.followup { color: #7a5c1e; }
 
     .material-group-subtitle {
       font-size: 11px;
       color: #8496a9;
       font-weight: 500;
       margin-top: 2px;
-      margin-bottom: 6px;
-      padding-left: 16px;
     }
 
-    .material-group-desc {
-      font-size: 12px;
-      color: #627389;
-      line-height: 1.5;
-      margin-bottom: 4px;
+    .material-group-items {
+      padding: 12px 14px;
+      display: grid;
+      gap: 0;
     }
 
     .material-output {
@@ -760,16 +752,11 @@
     .actions {
       border-top: 1px solid var(--line-soft);
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
       padding-top: 16px;
-    }
-
-    .hint {
-      font-size: 12px;
-      color: #687b90;
     }
 
     .btn {
@@ -1208,8 +1195,7 @@
       <div class="sc-header">
         <div class="sc-num">2</div>
         <div class="sc-title-wrap">
-          <div class="sc-title">Material Generation Setup</div>
-          <div class="sc-desc">Set generation preferences separately from connected curriculum context</div>
+          <div class="sc-title">Material Setup</div>
         </div>
       </div>
       <div class="generation-setup-body">
@@ -1240,7 +1226,7 @@
           <div class="phase-toggle-grid">
             <label class="phase-toggle"><input type="checkbox" checked> OAL</label>
             <label class="phase-toggle"><input type="checkbox" checked> IPL</label>
-            <label class="phase-toggle"><input type="checkbox" checked> Follow-Up Learning</label>
+            <label class="phase-toggle"><input type="checkbox" checked> Consolidation &amp; Reflection</label>
           </div>
         </div>
       </div>
@@ -1252,93 +1238,97 @@
           <div class="sc-header">
             <div class="sc-num">3</div>
             <div class="sc-title-wrap">
-              <div class="sc-title">What would you like to generate?</div>
-              <div class="sc-desc">Select materials for each part of the Digital Flipped Learning cycle.</div>
+              <div class="sc-title">Select Materials</div>
             </div>
           </div>
           <div class="sc-body">
             <div class="material-groups">
               <div class="material-group">
-                <div class="material-group-title oal">OAL</div>
-                <div class="material-group-subtitle">Online-Asynchronous Learning</div>
-                <p class="material-group-desc">Prepare students before IPL through guided learning and checks for understanding.</p>
-                <div class="check-grid">
-                  <div class="check-item">
-                    <input id="oal-slides" type="checkbox" checked>
-                    <label for="oal-slides">OAL slides</label>
-                  </div>
-                  <div class="check-item">
-                    <input id="guided-readings" type="checkbox" checked>
-                    <label for="guided-readings">Guided readings</label>
-                  </div>
-                  <div class="check-item">
-                    <input id="pre-quiz" type="checkbox" checked>
-                    <label for="pre-quiz">Pre-class quiz</label>
-                  </div>
-                  <div class="check-item material-extra" hidden>
-                    <input id="explainer" type="checkbox">
-                    <label for="explainer">Short explainer content</label>
+                <div class="material-group-header oal-header">
+                  <div class="material-group-title oal">OAL</div>
+                  <div class="material-group-subtitle">Online-Asynchronous Learning</div>
+                </div>
+                <div class="material-group-items">
+                  <div class="check-grid">
+                    <div class="check-item">
+                      <input id="oal-slides" type="checkbox" checked>
+                      <label for="oal-slides">OAL slides</label>
+                    </div>
+                    <div class="check-item">
+                      <input id="guided-readings" type="checkbox" checked>
+                      <label for="guided-readings">Guided readings</label>
+                    </div>
+                    <div class="check-item">
+                      <input id="pre-quiz" type="checkbox" checked>
+                      <label for="pre-quiz">Pre-class quiz</label>
+                    </div>
+                    <div class="check-item material-extra" hidden>
+                      <input id="explainer" type="checkbox">
+                      <label for="explainer">Short explainer content</label>
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="material-group">
-                <div class="material-group-title ipl">IPL</div>
-                <div class="material-group-subtitle">In-Person Learning</div>
-                <p class="material-group-desc">Support facilitated learning, discussion, and application during class.</p>
-                <div class="check-grid">
-                  <div class="check-item">
-                    <input id="activities" type="checkbox" checked>
-                    <label for="activities">Learning activities</label>
-                  </div>
-                  <div class="check-item">
-                    <input id="case-discussions" type="checkbox" checked>
-                    <label for="case-discussions">Case discussions</label>
-                  </div>
-                  <div class="check-item material-extra" hidden>
-                    <input id="simulation-prompts" type="checkbox">
-                    <label for="simulation-prompts">Simulation prompts</label>
-                  </div>
-                  <div class="check-item material-extra" hidden>
-                    <input id="application-exercises" type="checkbox">
-                    <label for="application-exercises">Application exercises</label>
+                <div class="material-group-header ipl-header">
+                  <div class="material-group-title ipl">IPL</div>
+                  <div class="material-group-subtitle">In-Person Learning</div>
+                </div>
+                <div class="material-group-items">
+                  <div class="check-grid">
+                    <div class="check-item">
+                      <input id="activities" type="checkbox" checked>
+                      <label for="activities">Learning activities</label>
+                    </div>
+                    <div class="check-item">
+                      <input id="case-discussions" type="checkbox" checked>
+                      <label for="case-discussions">Case discussions</label>
+                    </div>
+                    <div class="check-item material-extra" hidden>
+                      <input id="simulation-prompts" type="checkbox">
+                      <label for="simulation-prompts">Simulation prompts</label>
+                    </div>
+                    <div class="check-item material-extra" hidden>
+                      <input id="application-exercises" type="checkbox">
+                      <label for="application-exercises">Application exercises</label>
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="material-group">
-                <div class="material-group-title followup">Follow-Up Learning</div>
-                <p class="material-group-desc">Extend and consolidate learning after IPL where needed.</p>
-                <div class="check-grid">
-                  <div class="check-item">
-                    <input id="reflection" type="checkbox" checked>
-                    <label for="reflection">Reflection prompts</label>
-                  </div>
-                  <div class="check-item material-extra" hidden>
-                    <input id="practice-exercises" type="checkbox">
-                    <label for="practice-exercises">Practice exercises</label>
-                  </div>
-                  <div class="check-item material-extra" hidden>
-                    <input id="reinforcement-quiz" type="checkbox">
-                    <label for="reinforcement-quiz">Reinforcement quiz</label>
-                  </div>
-                  <div class="check-item material-extra" hidden>
-                    <input id="followup-activities" type="checkbox">
-                    <label for="followup-activities">Follow-up activities</label>
+                <div class="material-group-header followup-header">
+                  <div class="material-group-title followup">Consolidation &amp; Reflection</div>
+                </div>
+                <div class="material-group-items">
+                  <div class="check-grid">
+                    <div class="check-item">
+                      <input id="reflection" type="checkbox" checked>
+                      <label for="reflection">Reflection prompts</label>
+                    </div>
+                    <div class="check-item material-extra" hidden>
+                      <input id="practice-exercises" type="checkbox">
+                      <label for="practice-exercises">Practice exercises</label>
+                    </div>
+                    <div class="check-item material-extra" hidden>
+                      <input id="reinforcement-quiz" type="checkbox">
+                      <label for="reinforcement-quiz">Reinforcement quiz</label>
+                    </div>
+                    <div class="check-item material-extra" hidden>
+                      <input id="followup-activities" type="checkbox">
+                      <label for="followup-activities">Follow-up activities</label>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <button class="more-materials" id="toggle-materials" type="button" aria-expanded="false">Show More Materials</button>
-            <div class="essentials-hint">Start with core OAL and IPL materials first, then expand Follow-Up materials where outcomes need extra support.</div>
+            <button class="more-materials" id="toggle-materials" type="button" aria-expanded="false">+ More Materials</button>
 
             <div class="actions">
-              <div class="hint">Curriculum priorities first, AI assistance second. Preview and refine before export.</div>
-              <div>
-                <button class="btn secondary" type="button">Preview Render</button>
-                <button class="btn primary" type="button">Generate Draft</button>
-              </div>
+              <button class="btn secondary" type="button">Preview</button>
+              <button class="btn primary" type="button">Generate Materials</button>
             </div>
           </div>
         </section>
@@ -1351,9 +1341,8 @@
           <div class="side-row"><span>Learning approach</span><span class="side-count">Blended / Flipped</span></div>
           <div class="side-row"><span>OAL</span><span class="side-count">3 selected</span></div>
           <div class="side-row"><span>IPL</span><span class="side-count">2 selected</span></div>
-          <div class="side-row"><span>Follow-Up</span><span class="side-count">1 selected</span></div>
+          <div class="side-row"><span>Consolidation &amp; Reflection</span><span class="side-count">1 selected</span></div>
           <div class="side-total"><span>Materials selected</span><span class="side-total-num">6 total</span></div>
-          <div class="side-trust-note">Your module draft controls what is generated. AI helps draft aligned materials rather than creating disconnected assets.</div>
         </div>
       </aside>
     </div>
@@ -1372,7 +1361,6 @@
             <div class="preview-panel-head">
               <div class="preview-panel-kicker">Rendered Preview</div>
               <div class="preview-panel-title">Learning Materials Pack</div>
-              <div class="preview-panel-sub">A mock preview area that shows what the generated bundle might look like before export.</div>
             </div>
             <div class="preview-stage">
               <div class="preview-canvas">
@@ -1380,15 +1368,13 @@
                 <div class="preview-canvas-line mid"></div>
                 <div class="preview-canvas-box">
                   <div class="preview-canvas-label">Slide Preview</div>
-                  <div class="preview-canvas-text">Week 1 escalation pathways, case-based prompts, and instructor cues appear here as an illustrative render.</div>
                 </div>
                 <div class="preview-canvas-line short"></div>
                 <div class="preview-canvas-line wide"></div>
               </div>
               <div class="export-actions">
                 <button class="btn secondary" type="button">Refresh Preview</button>
-                <button class="btn secondary" type="button">Toggle Compact View</button>
-                <button class="btn primary" type="button">Download PDF Mock</button>
+                <button class="btn primary" type="button">Download PDF</button>
               </div>
             </div>
           </div>
@@ -1400,10 +1386,6 @@
               <div class="export-tool"><strong>PPTX</strong><span>Lecture deck mock</span></div>
               <div class="export-tool"><strong>DOCX</strong><span>Facilitator notes</span></div>
               <div class="export-tool"><strong>ZIP</strong><span>All outputs packaged</span></div>
-            </div>
-            <div class="mini-status">
-              <div class="mini-status-title">Status</div>
-              <div class="mini-status-text">Export is intentionally mocked here for illustration. Developers can wire real render / download actions later.</div>
             </div>
           </div>
         </div>
