@@ -811,7 +811,7 @@
     <span class="ss-step"><span class="ss-num">3</span>AI Review Suggestions</span>
   </nav>
   <h1 class="page-title">Module Review &amp; Refresh</h1>
-  <p class="page-sub">Add module materials, choose what you'd like AI to focus on, and generate review suggestions to refresh the module.</p>
+  <p class="page-sub">Add module materials, choose what you'd like AI to focus on, and generate review suggestions that integrate competency evidence directly into outcomes, assessment, and curriculum alignment.</p>
 
   <div class="inst-strip" aria-label="Institutional references">
     <span class="inst-strip-label">Institutional references active</span>
@@ -899,7 +899,7 @@
         </div>
         <div class="sc-body">
 
-          <div class="focus-group-label">Core Curriculum Areas <span class="group-hint">— grounded in NP frameworks</span></div>
+          <div class="focus-group-label">Core Curriculum Areas <span class="group-hint">— with embedded NP Graduate Competency evidence checks</span></div>
           <div class="focus-grid" id="focus-grid">
 
             <div class="focus-card on" data-focus="Learning Outcomes &amp; Alignment" onclick="toggleFocus(this)">
@@ -909,7 +909,7 @@
               </span>
               <div class="focus-text">
                 <div class="focus-title">Learning Outcomes &amp; Alignment</div>
-                <div class="focus-desc">Alignment between outcomes, content, activities, and assessment</div>
+                <div class="focus-desc">Alignment between outcomes, content, activities, assessment, and competency evidence coverage</div>
               </div>
             </div>
 
@@ -920,7 +920,7 @@
               </span>
               <div class="focus-text">
                 <div class="focus-title">Assessment Design</div>
-                <div class="focus-desc">Assessment strategy, progression, feedback, and balance</div>
+                <div class="focus-desc">Assessment strategy, authenticity, progression, and mapped competency evidence</div>
               </div>
             </div>
 
@@ -953,25 +953,14 @@
               </span>
               <div class="focus-text">
                 <div class="focus-title">Communication</div>
-                <div class="focus-desc">Presentation clarity, disciplinary communication, learner expression</div>
+                <div class="focus-desc">Presentation clarity, disciplinary communication, and visible competency evidence</div>
               </div>
             </div>
 
           </div>
 
-          <div class="focus-group-label">Optional Institutional &amp; Future-Focused Lenses <span class="group-hint">— add for accreditation or strategic review</span></div>
+          <div class="focus-group-label">Optional Future-Focused Lenses <span class="group-hint">— add for strategic review depth</span></div>
           <div class="focus-grid" id="focus-grid-optional">
-
-            <div class="focus-card" data-focus="NP Graduate Competencies" onclick="toggleFocus(this)">
-              <span class="focus-check"></span>
-              <span class="focus-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              </span>
-              <div class="focus-text">
-                <div class="focus-title">NP Graduate Competencies</div>
-                <div class="focus-desc">Map and review against selected NPGCs (Communication, Critical Thinking, Collaboration, Digital, Self-Development, Innovation, Domain &amp; Interdisciplinary)</div>
-              </div>
-            </div>
 
             <div class="focus-card" data-focus="AI Integration" onclick="toggleFocus(this)">
               <span class="focus-check"></span>
@@ -1054,7 +1043,7 @@
         </div>
 
         <div class="review-actions" id="review-actions">
-          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('assessment')">Review Assessment Alignment</button>
+          <button class="review-refine-btn" type="button" onclick="applyQuickRefine('assessment')">Review Assessment + Competency Evidence</button>
           <button class="review-refine-btn" type="button" onclick="applyQuickRefine('industry')">Compare Against Industry Trends</button>
           <button class="review-refine-btn" type="button" onclick="applyQuickRefine('alternatives')">Suggest Alternative Improvements</button>
           <button class="review-refine-btn" type="button" onclick="applyQuickRefine('expand')">Expand Recommendations</button>
@@ -1076,6 +1065,7 @@
         </span>
         <div class="side-card-body">
           <div class="side-rec-item">Review module structure and alignment</div>
+          <div class="side-rec-item">Surface competency evidence signals in core lanes</div>
           <div class="side-rec-item">Highlight potential gaps or overload</div>
           <div class="side-rec-item">Suggest practical refresh opportunities</div>
           <div class="side-rec-item">Generate actionable improvement ideas</div>
@@ -1116,27 +1106,27 @@
     "Learning Outcomes & Alignment": {
       status: 'warn',
       findings: [
-        'Outcomes, content, and assessment are mostly aligned but a few outcomes overlap, blurring progression cues.',
-        'A few topic clusters appear front-loaded relative to outcome difficulty.'
+        'Outcomes, content, and assessment are mostly aligned, and Communication evidence is visible across outcome verbs.',
+        'Critical Thinking and Collaboration evidence are less consistent across current assessment evidence and progression cues.'
       ],
       actions: [
-        'Tighten outcome wording to reduce overlap and clarify Bloom progression.',
-        'Re-sequence one topic cluster so cognitive load grows gradually across weeks.'
+        'Tighten outcome wording to reduce overlap and clarify Bloom progression against targeted competencies.',
+        'Re-sequence one topic cluster so cognitive load and competency evidence both grow gradually across weeks.'
       ],
-      informedBy: ['NP Assessment Framework', 'Module outcomes', 'Module materials'],
+      informedBy: ['NP Assessment Framework', 'NP Graduate Competencies (embedded)', 'Module outcomes', 'Module materials'],
       gaps: 1
     },
     "Assessment Design": {
       status: 'warn',
       findings: [
-        'Assessment strategy is sound but formative checkpoints look limited relative to summative weight.',
-        'Moderation and feedback loops are present but not explicitly evidenced in the module documentation.'
+        'Assessment strategy is sound, with strong Communication and Critical Thinking evidence in current tasks.',
+        'Collaboration and Digital Competence evidence remain limited, and moderation/feedback loops are not explicitly evidenced in module documentation.'
       ],
       actions: [
-        'Introduce one low-stakes formative checkpoint mid-semester to support progression.',
-        'Surface moderation and feedback cadence explicitly in the assessment plan.'
+        'Introduce one low-stakes formative checkpoint that explicitly captures Collaboration or Digital Competence evidence.',
+        'Surface moderation and feedback cadence explicitly in the assessment plan and competency evidence notes.'
       ],
-      informedBy: ['NP Assessment Framework', 'Module assessment plan', 'Module rubrics'],
+      informedBy: ['NP Assessment Framework', 'NP Graduate Competencies (embedded)', 'Module assessment plan', 'Module rubrics'],
       gaps: 1
     },
     "Teaching & Learning": {
@@ -1175,20 +1165,6 @@
       ],
       informedBy: ['Communication Competency Toolkit', 'Module rubrics'],
       gaps: 1
-    },
-    "NP Graduate Competencies": {
-      status: 'warn',
-      findings: [
-        'Module activities support Communication and Critical Thinking competencies well.',
-        'Collaboration and Self-Development competencies are less visible in current evidence.',
-        'Innovation and Digital Competence threads exist but are not explicitly mapped.'
-      ],
-      actions: [
-        'Make NPGC mapping explicit in the module guide — one to two competencies per major task.',
-        'Strengthen Collaboration evidence by formalising one team-based deliverable.'
-      ],
-      informedBy: ['NP Graduate Competencies (NPGC)', 'Module outcomes', 'Module assessment plan'],
-      gaps: 2
     },
     "AI Integration": {
       status: 'warn',

@@ -721,6 +721,60 @@
       line-height: 1.45;
     }
 
+    .lane-competency {
+      border: 1px solid #dbe8f4;
+      background: #f9fbff;
+      border-radius: 10px;
+      padding: 10px 11px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .lane-signal-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .lane-signal-pill {
+      border: 1px solid #d5e2ef;
+      background: #ffffff;
+      color: #39536c;
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .lane-snapshot-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      background: #fff;
+      border: 1px solid #dce7f2;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .lane-snapshot-table th,
+    .lane-snapshot-table td {
+      padding: 7px 8px;
+      border-bottom: 1px solid #e5edf5;
+      text-align: left;
+    }
+
+    .lane-snapshot-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .lane-snapshot-table th {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #667d94;
+      background: #f7fbff;
+    }
+
     .lane-decision {
       padding: 7px 0 3px;
       display: grid;
@@ -1222,7 +1276,7 @@
         <li>Student &amp; Module Insights</li>
         <li>Existing Module Materials</li>
       </ul>
-      <div class="connected-metrics">Inputs are available for drafting and alignment checks.</div>
+      <div class="connected-metrics">Inputs are active for drafting, assessment alignment, and continuous NP Graduate Competency evidence checks.</div>
       <div class="connected-actions">
         <button type="button" class="connected-btn primary" id="openContextSummary">View Context Summary</button>
         <button type="button" class="connected-btn" id="changeInputs">Change Inputs</button>
@@ -1255,7 +1309,7 @@
                 <li>Industry benchmarking</li>
                 <li>Student insights</li>
                 <li>Existing module materials</li>
-                <li>Curriculum standards</li>
+                <li>Curriculum standards with NP Graduate Competency signals</li>
               </ul>
               <div class="thread-shared-time">Context synthesized 8 mins ago</div>
             </div>
@@ -1266,7 +1320,7 @@
             <button class="thread-link" data-thread="teaching" type="button">Teaching Strategy</button>
             <button class="thread-link warn" data-thread="assessment" type="button">Assessment Design<span class="thread-status attention">● Requires review</span></button>
             <button class="thread-link" data-thread="resources" type="button">Learning Resources</button>
-            <button class="thread-link" data-thread="alignment" type="button">Alignment Review<span class="thread-status">● Updated</span></button>
+            <button class="thread-link" data-thread="alignment" type="button">Curriculum &amp; Competency Alignment<span class="thread-status">● Updated</span></button>
             <button class="thread-link" data-thread="integrity" type="button">Academic Integrity</button>
           </nav>
 
@@ -1310,7 +1364,7 @@
               <button data-section="teaching" type="button">Teaching Strategy</button>
               <button data-section="assessment" type="button">Assessment Design</button>
               <button data-section="resources" type="button">Learning Resources</button>
-              <button data-section="alignment" type="button">Alignment Review</button>
+              <button data-section="alignment" type="button">Curriculum &amp; Competency Alignment</button>
               <button data-section="integrity" type="button">Academic Integrity</button>
             </nav>
 
@@ -1410,12 +1464,24 @@
 
               <section class="module-section" id="alignment">
                 <div class="section-label">System Check</div>
-                <h3 class="section-title">Alignment Review</h3>
+                <h3 class="section-title">Curriculum and Competency Alignment</h3>
                 <div class="section-provenance">Synchronized from Cross-Lane Context</div>
                 <p class="section-copy">
-                  Assessment tasks now evidence all high-level outcomes, simulation hours better match escalation depth,
-                  and resources are mapped directly to competency clusters and debrief intent.
+                  Review coherence across learning outcomes, assessments, teaching strategies, NP Graduate Competencies,
+                  industry relevance, workload, and AI-era assessment validity.
                 </p>
+                <table class="section-table">
+                  <thead>
+                    <tr><th>Competency</th><th>Current Evidence</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Communication</td><td>Strong</td></tr>
+                    <tr><td>Critical Thinking</td><td>Strong</td></tr>
+                    <tr><td>Collaboration</td><td>Moderate</td></tr>
+                    <tr><td>Digital Competence</td><td>Limited</td></tr>
+                  </tbody>
+                </table>
+                <p class="section-copy">AI suggestion: introduce one digitally mediated escalation task to strengthen Digital Competence evidence without increasing total assessment load.</p>
               </section>
 
               <section class="module-section" id="integrity">
@@ -1453,6 +1519,12 @@
         systemSignal: "Escalation outcome verb updates will trigger rubric wording checks in Assessment Design.",
         options: ["Clinical judgement", "Escalation reasoning", "Interdisciplinary response"],
         selected: 1,
+        competencySignals: [
+          "Critical Thinking & Problem Solving",
+          "Communication",
+          "Collaboration & Cross-Cultural Sensitivity"
+        ],
+        signalSummary: "Outcome wording strongly evidences Communication. Critical Thinking evidence is improving, but Collaboration is still weakly evidenced in current assessments.",
         prompts: ["Generate 2 alternatives", "Check Bloom level", "Map to assessments", "Tighten verbs"],
         blocks: [
           { label: "AI Co-Design", copy: "Before revising further: should this module emphasize clinical judgement, procedural confidence, or interdisciplinary escalation?" },
@@ -1525,6 +1597,12 @@
         systemSignal: "Assessment weighting change detected. Alignment Review lane has been updated.",
         options: ["Authentic evidence", "Workload balance", "AI-safe redesign"],
         selected: 2,
+        competencySignals: [
+          "Communication",
+          "Critical Thinking & Problem Solving",
+          "Digital Competence"
+        ],
+        signalSummary: "Current assessment pattern strongly evidences Communication and Critical Thinking, but Collaboration and Digital Competence remain under-evidenced.",
         prompts: ["Compare 3 patterns", "Show rubric impact", "Reduce marking overhead"],
         blocks: [
           { label: "AI Co-Design", copy: "Which evidence should carry the heaviest weight: live simulation decisions, written reasoning, or interdisciplinary brief defence?" },
@@ -1559,10 +1637,10 @@
         tradeoffs: "Local relevance increases immediate utility. Broader benchmarking resources may improve long-term curriculum resilience."
       },
       alignment: {
-        title: "Alignment Review",
-        subtitle: "Validate systemic coherence across outcomes, delivery, assessment, and workload constraints.",
+        title: "Curriculum & Competency Alignment",
+        subtitle: "Review coherence across outcomes, assessments, teaching strategy, NP Graduate Competencies, and industry practice.",
         stage: "Review lane",
-        sectionLabel: "Alignment Review",
+        sectionLabel: "Curriculum & Competency Alignment",
         contextUsed: [
           "Standards matrix from Discovery phase",
           "Outcome and rubric mapping generated in co-design lanes",
@@ -1573,6 +1651,19 @@
         systemSignal: "Cross-check complete: one unresolved resource-to-assessment link remains.",
         options: ["Outcome-to-assessment", "Hours-to-depth", "Resource fit"],
         selected: 0,
+        competencySignals: [
+          "Communication",
+          "Critical Thinking & Problem Solving",
+          "Collaboration",
+          "Digital Competence"
+        ],
+        evidenceSnapshot: [
+          { competency: "Communication", evidence: "Strong" },
+          { competency: "Critical Thinking", evidence: "Strong" },
+          { competency: "Collaboration", evidence: "Moderate" },
+          { competency: "Digital Competence", evidence: "Limited" }
+        ],
+        signalSummary: "Coverage is strong for Communication and Critical Thinking. AI recommends one digitally mediated escalation task to address limited Digital Competence evidence.",
         prompts: ["Show misalignment risks", "Flag unresolved decisions", "Propose correction set"],
         blocks: [
           { label: "AI Co-Design", copy: "Do you want alignment checking to prioritize accreditation evidence, learner workload, or competency depth first?" },
@@ -1722,6 +1813,55 @@
       laneImpact.textContent = lane.systemSignal;
       threadCanvas.appendChild(laneImpact);
 
+      if (lane.competencySignals || lane.evidenceSnapshot || lane.signalSummary) {
+        const competency = document.createElement("div");
+        competency.className = "lane-competency";
+
+        const competencyLabel = document.createElement("div");
+        competencyLabel.className = "lane-label";
+        competencyLabel.textContent = "Competency signals";
+        competency.appendChild(competencyLabel);
+
+        if (lane.competencySignals && lane.competencySignals.length > 0) {
+          const signalList = document.createElement("div");
+          signalList.className = "lane-signal-list";
+          lane.competencySignals.forEach((signal) => {
+            const pill = document.createElement("span");
+            pill.className = "lane-signal-pill";
+            pill.textContent = signal;
+            signalList.appendChild(pill);
+          });
+          competency.appendChild(signalList);
+        }
+
+        if (lane.evidenceSnapshot && lane.evidenceSnapshot.length > 0) {
+          const table = document.createElement("table");
+          table.className = "lane-snapshot-table";
+          table.innerHTML = "<thead><tr><th>Competency</th><th>Current evidence</th></tr></thead><tbody></tbody>";
+          const tbody = table.querySelector("tbody");
+          lane.evidenceSnapshot.forEach((row) => {
+            const tr = document.createElement("tr");
+            const c1 = document.createElement("td");
+            c1.textContent = row.competency;
+            const c2 = document.createElement("td");
+            c2.textContent = row.evidence;
+            tr.appendChild(c1);
+            tr.appendChild(c2);
+            tbody.appendChild(tr);
+          });
+          competency.appendChild(table);
+        }
+
+        if (lane.signalSummary) {
+          const summary = document.createElement("div");
+          summary.className = "lane-copy";
+          summary.textContent = lane.signalSummary;
+          competency.appendChild(summary);
+        }
+
+        threadCanvas.appendChild(competency);
+      }
+
       const pending = document.createElement("div");
       pending.className = "lane-pending";
 
@@ -1849,7 +1989,7 @@
     <div class="context-modal-card" role="dialog" aria-modal="true" aria-labelledby="contextModalTitle">
       <div class="context-modal-head">
         <div>
-          <h3 class="context-modal-title" id="contextModalTitle">Imported AI Context</h3>
+          <h3 class="context-modal-title" id="contextModalTitle">Imported AI Context and Competency Signals</h3>
           <p class="context-modal-sub">Synthesized from Discovery &amp; Analysis outputs and injected as shared curriculum memory for all work areas.</p>
         </div>
         <button type="button" class="context-modal-close" data-close-context>Close</button>
@@ -1886,7 +2026,7 @@
           <ul class="context-modal-list">
             <li>Strengthen escalation outcomes</li>
             <li>Rebalance simulation workload</li>
-            <li>Align rubric wording</li>
+            <li>Align rubric wording with competency evidence coverage</li>
           </ul>
         </section>
       </div>
