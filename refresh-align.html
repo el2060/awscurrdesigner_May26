@@ -822,11 +822,12 @@
   <h1 class="page-title">Review an Existing Module</h1>
   <p class="page-sub">Upload module materials and review suggested refinements section by section.</p>
 
-  <div class="inst-strip" aria-label="Institutional references">
-    <span class="inst-strip-label">Institutional references active</span>
-    <span class="inst-chip">NP Assessment Framework</span>
-    <span class="inst-chip">NP Graduate Competencies</span>
-    <span class="inst-chip">Communication Toolkit</span>
+  <div class="inst-strip" aria-label="Reviewing against">
+    <span class="inst-strip-label">Reviewing Against</span>
+    <span class="inst-chip">NP Human Edge</span>
+    <span class="inst-chip">AI Integration (PAIR &amp; 3As)</span>
+    <span class="inst-chip">Assessment Framework</span>
+    <span class="inst-chip">Graduate Competencies</span>
   </div>
 
   <div class="layout">
@@ -838,8 +839,8 @@
         <div class="sc-header">
           <div class="sc-num">1</div>
           <div class="sc-title-wrap">
-            <div class="sc-title">Gather Review Context</div>
-            <div class="sc-desc">Module outlines, assessment briefs, rubrics, slides, or any reference material</div>
+            <div class="sc-title">Add Module Materials</div>
+            <div class="sc-desc">Upload module outlines, assessment briefs, slides, rubrics, or reference materials</div>
           </div>
         </div>
         <div class="sc-body">
@@ -902,13 +903,13 @@
         <div class="sc-header">
           <div class="sc-num">2</div>
           <div class="sc-title-wrap">
-            <div class="sc-title">Select Review Focus</div>
-            <div class="sc-desc">Choose the areas AI should review across your module materials</div>
+            <div class="sc-title">Review Focus Areas</div>
+            <div class="sc-desc">Choose the areas for AI to review across your module materials</div>
           </div>
         </div>
         <div class="sc-body">
 
-          <div class="focus-group-label">Core Curriculum Areas <span class="group-hint">— with embedded NP Graduate Competency evidence checks</span></div>
+          <div class="focus-group-label">Curriculum &amp; Learning</div>
           <div class="focus-grid" id="focus-grid">
 
             <div class="focus-card on" data-focus="Learning Outcomes &amp; Alignment" onclick="toggleFocus(this)">
@@ -968,39 +969,50 @@
 
           </div>
 
-          <div class="focus-group-label">Optional Future-Focused Lenses <span class="group-hint">— add for strategic review depth</span></div>
+          <div class="focus-group-label">NP Curriculum Priorities</div>
           <div class="focus-grid" id="focus-grid-optional">
 
-            <div class="focus-card" data-focus="AI Integration" onclick="toggleFocus(this)">
+            <div class="focus-card" data-focus="Human Skills &amp; Resilience" onclick="toggleFocus(this)">
+              <span class="focus-check"></span>
+              <span class="focus-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </span>
+              <div class="focus-text">
+                <div class="focus-title">Human Skills &amp; Resilience</div>
+                <div class="focus-desc">Review opportunities to strengthen resilience, adaptability, communication, and collaboration.</div>
+              </div>
+            </div>
+
+            <div class="focus-card" data-focus="AI Integration (PAIR &amp; 3As)" onclick="toggleFocus(this)">
               <span class="focus-check"></span>
               <span class="focus-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
               </span>
               <div class="focus-text">
-                <div class="focus-title">AI Integration</div>
-                <div class="focus-desc">Review opportunities for responsible AI-enabled learning activities</div>
+                <div class="focus-title">AI Integration (PAIR &amp; 3As)</div>
+                <div class="focus-desc">Review how AI supports learning, assessment, reflection, and authentic professional practice.</div>
               </div>
             </div>
 
-            <div class="focus-card" data-focus="Industry &amp; Practice Signals" onclick="toggleFocus(this)">
+            <div class="focus-card" data-focus="Professional Practice" onclick="toggleFocus(this)">
               <span class="focus-check"></span>
               <span class="focus-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
               </span>
               <div class="focus-text">
-                <div class="focus-title">Industry &amp; Practice Signals</div>
-                <div class="focus-desc">Review currency against uploaded industry references and emerging practices</div>
+                <div class="focus-title">Professional Practice</div>
+                <div class="focus-desc">Review alignment with workplace practices, professional tools, and authentic applied learning.</div>
               </div>
             </div>
 
-            <div class="focus-card" data-focus="Interdisciplinary &amp; Applied Learning" onclick="toggleFocus(this)">
+            <div class="focus-card" data-focus="Global &amp; Social Perspectives" onclick="toggleFocus(this)">
               <span class="focus-check"></span>
               <span class="focus-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/></svg>
               </span>
               <div class="focus-text">
-                <div class="focus-title">Interdisciplinary &amp; Applied Learning</div>
-                <div class="focus-desc">Authentic, applied, or integrated learning opportunities</div>
+                <div class="focus-title">Global &amp; Social Perspectives</div>
+                <div class="focus-desc">Review opportunities for multidisciplinary, ethical, and real-world problem contexts.</div>
               </div>
             </div>
 
@@ -1070,14 +1082,14 @@
       <div class="side-card ai-side">
         <span class="side-label">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z"/></svg>
-          AI Review Support
+          AI Review Suggestions
         </span>
         <div class="side-card-body">
-          <div class="side-rec-item">Review module structure and alignment</div>
-          <div class="side-rec-item">Surface competency evidence signals in core lanes</div>
-          <div class="side-rec-item">Highlight potential gaps or overload</div>
-          <div class="side-rec-item">Suggest practical refresh opportunities</div>
-          <div class="side-rec-item">Generate actionable improvement ideas</div>
+          <div class="side-rec-item">Surface curriculum gaps</div>
+          <div class="side-rec-item">Review assessment alignment</div>
+          <div class="side-rec-item">Check AI integration opportunities</div>
+          <div class="side-rec-item">Suggest Human Edge integration points</div>
+          <div class="side-rec-item">Identify overlap or sequencing issues</div>
         </div>
       </div>
 
@@ -1175,7 +1187,20 @@
       informedBy: ['Communication Competency Toolkit', 'Module rubrics'],
       gaps: 1
     },
-    "AI Integration": {
+    "Human Skills & Resilience": {
+      status: 'warn',
+      findings: [
+        'Resilience and adaptability are implicit in the module design but not explicitly named in outcomes or assessments.',
+        'Collaboration and communication expectations are present, but could be made more visible across the module arc.'
+      ],
+      actions: [
+        'Surface one outcome or activity explicitly focused on resilience, adaptability, or communication under pressure.',
+        'Add a structured peer-feedback or reflection component that develops collaboration explicitly.'
+      ],
+      informedBy: ['NP Human Edge', 'NP Graduate Competencies', 'Module materials'],
+      gaps: 1
+    },
+    "AI Integration (PAIR & 3As)": {
       status: 'warn',
       findings: [
         'AI tools appear in delivery but expectations for responsible use are not yet explicit.',
@@ -1185,30 +1210,30 @@
         'Add a short module-level AI use note describing where AI support is welcome and where it is not.',
         'Include one task that asks students to critique or improve an AI-generated output.'
       ],
-      informedBy: ['NP AI guidance', 'Module assessment plan'],
+      informedBy: ['AI Integration (PAIR & 3As)', 'NP AI guidance', 'Module assessment plan'],
       gaps: 1
     },
-    "Industry & Practice Signals": {
+    "Professional Practice": {
       status: 'warn',
       findings: [
         'Industry references are present but not consistently tied to weekly content.',
-        'Workplace currency checkpoints are not explicitly documented in the module plan.'
+        'Workplace tools and professional practices are mentioned but not explicitly sequenced.'
       ],
       actions: [
-        'Add explicit industry benchmark references in weekly topic notes.',
-        'Schedule a yearly industry-currency review at the start of each academic year.'
+        'Tie at least one activity per topic cluster to a current workplace tool or professional context.',
+        'Add explicit industry benchmark references in weekly topic notes.'
       ],
       informedBy: ['Uploaded industry references', 'Module materials'],
       gaps: 1
     },
-    "Interdisciplinary & Applied Learning": {
+    "Global & Social Perspectives": {
       status: 'ok',
       findings: [
         'Module has clear applied learning components anchored in realistic scenarios.',
-        'Interdisciplinary opportunities are present but largely implicit.'
+        'Multidisciplinary and ethical dimensions are present but largely implicit.'
       ],
       actions: [
-        'Surface one interdisciplinary touchpoint explicitly — e.g., link a task to an adjacent module or programme outcome.'
+        'Surface one interdisciplinary touchpoint explicitly — e.g., link a task to an ethical dimension or real-world social context.'
       ],
       informedBy: ['Module materials', 'Programme outcomes'],
       gaps: 0
@@ -1334,7 +1359,7 @@
       notes.value = 'Prioritise assessment alignment, progression, feedback, and moderation evidence.';
     }
     if (mode === 'industry') {
-      const card = Array.from(document.querySelectorAll('.focus-card')).find(el => el.dataset.focus === 'Industry &amp; Practice Signals');
+      const card = Array.from(document.querySelectorAll('.focus-card')).find(el => el.dataset.focus === 'Professional Practice');
       if (card) card.classList.add('on');
       notes.value = (notes.value ? notes.value + '\n' : '') + 'Compare findings against current industry trends and uploaded benchmark references.';
     }
