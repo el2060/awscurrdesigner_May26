@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start a New Module</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f6f7f4;
+      --paper: #ffffff;
+      --ink: #172230;
+      --ink-mid: #4d5d70;
+      --line: #dde3ea;
+      --line-soft: #e9edf2;
+      --brand: #2f358f;
+      --brand-soft: #eff2ff;
+      --max: 1120px;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at 10% -20%, #eef3ff 0%, var(--bg) 42%), var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(6px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .topbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #243448;
+    }
+
+    .topbar-badge {
+      margin-left: auto;
+      border: 1px solid #d8e0f7;
+      background: #fff;
+      color: #4b56af;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px 22px 60px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #4b56af;
+      margin-bottom: 8px;
+    }
+
+    .title {
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .sub {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--ink-mid);
+      max-width: 820px;
+    }
+
+    .progress {
+      border: 1px solid #d8e0f7;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #f8f9ff 0%, #f5f7ff 100%);
+      padding: 12px 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .progress-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .progress-kicker {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #4b56af;
+    }
+
+    .progress-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #243448;
+      letter-spacing: -0.01em;
+    }
+
+    .progress-meta {
+      font-size: 12px;
+      color: #607189;
+      font-weight: 600;
+    }
+
+    .progress-bar {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .progress-step {
+      border: 1px solid #d7dff0;
+      border-radius: 999px;
+      background: #fff;
+      color: #4c5d7d;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .progress-step.active {
+      background: var(--brand);
+      color: #fff;
+      border-color: var(--brand);
+    }
+
+    .workspace {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid #dfe5ec;
+      border-radius: 10px;
+      background: #fff;
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .panel-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #24394f;
+    }
+
+    .panel-sub {
+      font-size: 12px;
+      color: #677b90;
+      line-height: 1.5;
+    }
+
+    .field-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #6a7c90;
+    }
+
+    .field-box {
+      border: 1px solid #d9e2ec;
+      background: #fbfcfe;
+      border-radius: 8px;
+      padding: 11px 12px;
+      color: #35506b;
+      font-size: 13px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+    }
+
+    .kickoff-list {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .kickoff-list li {
+      border: 1px solid #dfe5ec;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: #334b62;
+      background: #fff;
+    }
+
+    .kickoff-list li.active {
+      border-color: #b8c4f4;
+      background: #f6f7ff;
+      box-shadow: inset 0 0 0 1px rgba(47, 53, 143, 0.08);
+    }
+
+    .optional-context {
+      border: 1px solid #dfe5ec;
+      border-radius: 10px;
+      background: #fcfdff;
+      padding: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .optional-summary {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #64768a;
+    }
+
+    .optional-list {
+      list-style: disc;
+      padding-left: 18px;
+      color: #385066;
+      font-size: 13px;
+      line-height: 1.5;
+      display: grid;
+      gap: 3px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding-top: 2px;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #687b90;
+    }
+
+    .btn {
+      border: 1px solid #d2dcef;
+      border-radius: 8px;
+      background: #fff;
+      color: #344b61;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 9px 14px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn.primary {
+      border-color: var(--brand);
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .btn.primary:hover {
+      background: #232975;
+      border-color: #232975;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      text-decoration: none;
+    }
+
+    @media (max-width: 920px) {
+      .title {
+        font-size: 24px;
+      }
+
+      .workspace-grid,
+      .progress-bar {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-title">AI Curriculum Designer</div>
+      <div class="topbar-badge">Start Mode</div>
+    </div>
+  </nav>
+
+  <main class="page">
+    <section>
+      <div class="eyebrow">Phase 1 · New Module Start</div>
+      <h1 class="title">Create New Module</h1>
+      <p class="sub">Start with a few key curriculum decisions. The workspace will progressively build as you refine the module.</p>
+    </section>
+
+    <section class="progress" aria-label="Workflow progression">
+      <div class="progress-top">
+        <div>
+          <div class="progress-kicker">Workflow progression</div>
+          <div class="progress-title">Discover → Design → Materials → Review → Export</div>
+        </div>
+        <div class="progress-meta">Starting state · no imported context yet</div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-step active">Start</div>
+        <div class="progress-step">Design</div>
+        <div class="progress-step">Materials</div>
+        <div class="progress-step">Review</div>
+        <div class="progress-step">Export</div>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="workspace-grid">
+        <div class="panel">
+          <div class="panel-title">Module Setup</div>
+          <p class="panel-sub">Provide the minimum details needed to begin. More structure can be added after the first choices are made.</p>
+
+          <div class="field-grid">
+            <div class="field">
+              <label>Module name</label>
+              <div class="field-box">Advanced Critical Care Nursing Science II</div>
+            </div>
+            <div class="field">
+              <label>Programme</label>
+              <div class="field-box">Diploma in Nursing</div>
+            </div>
+            <div class="field">
+              <label>Credit units</label>
+              <div class="field-box">4</div>
+            </div>
+            <div class="field">
+              <label>Target learner group</label>
+              <div class="field-box">Year 2 nursing learners</div>
+            </div>
+            <div class="field">
+              <label>Existing materials</label>
+              <div class="field-box">Optional</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Guided Curriculum Kickoff</div>
+          <p class="panel-sub">What would you like to start with? The system will expand the workspace once your first direction is set.</p>
+
+          <ul class="kickoff-list">
+            <li class="active">Learning outcomes</li>
+            <li>Module scope</li>
+            <li>Industry alignment</li>
+            <li>Assessment direction</li>
+            <li>Teaching approach</li>
+          </ul>
+
+          <div class="optional-context">
+            <div class="optional-summary">Optional context inputs</div>
+            <ul class="optional-list">
+              <li>Upload module documents</li>
+              <li>Add benchmarking references</li>
+              <li>Import curriculum standards</li>
+              <li>Bring in existing materials</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div class="hint">AI will progressively build your curriculum workspace as decisions are made.</div>
+        <div>
+          <a class="btn" href="index.html">Back to Workflow Home</a>
+          <a class="btn primary" href="plan-direction.html">Start Co-Design Workspace →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
