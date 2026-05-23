@@ -1751,15 +1751,14 @@
     <section class="workspace-strip" aria-label="Current module">
       <div class="workspace-strip-top">
         <div>
-          <div class="workspace-strip-kicker">Current Module Draft</div>
+          <div class="workspace-strip-kicker">Module Design Workspace</div>
           <div class="workspace-strip-title">Advanced Critical Care Nursing Science II</div>
         </div>
-        <div class="workspace-strip-meta">Draft updates as you confirm each section</div>
+        <div class="workspace-strip-meta">Curriculum draft updates continuously as sections are refined.</div>
       </div>
       <div class="workspace-strip-actions">
-        <a class="workspace-strip-link" href="gather-context.html">Analysis summary</a>
-        <a class="workspace-strip-link" href="#artifactScroll">Module draft</a>
-        <a class="workspace-strip-link" href="generate-materials.html">Materials</a>
+        <a class="workspace-strip-link" href="gather-context.html">View Analysis Inputs</a>
+        <a class="workspace-strip-link" href="#artifactScroll">View Module Draft</a>
       </div>
     </section>
 
@@ -1768,14 +1767,14 @@
         <div class="thread-shell">
           <nav class="thread-rail" aria-label="Conversation threads">
             <div class="thread-rail-kicker">Threads</div>
-            <button class="thread-link active" data-thread="welcome" type="button">Frame module direction</button>
-            <button class="thread-link" data-thread="outcomes" type="button">Outcomes &amp; Evidence</button>
-            <button class="thread-link" data-thread="content" type="button">Content &amp; Pacing</button>
-            <button class="thread-link" data-thread="teaching" type="button">Learning activities</button>
-            <button class="thread-link" data-thread="assessment" type="button">Assessment Pattern</button>
-            <button class="thread-link" data-thread="resources" type="button">Resource Signals</button>
-            <button class="thread-link" data-thread="alignment" type="button">Alignment Tensions</button>
-            <button class="thread-link" data-thread="integrity" type="button">AI &amp; Authenticity</button>
+            <button class="thread-link active" data-thread="welcome" type="button">Module Direction</button>
+            <button class="thread-link" data-thread="outcomes" type="button">Learning Outcomes</button>
+            <button class="thread-link" data-thread="content" type="button">Content &amp; Sequencing</button>
+            <button class="thread-link" data-thread="teaching" type="button">Learning Activities</button>
+            <button class="thread-link" data-thread="assessment" type="button">Assessment Design</button>
+            <button class="thread-link" data-thread="resources" type="button">Learning Resources</button>
+            <button class="thread-link" data-thread="alignment" type="button">Curriculum Alignment</button>
+            <button class="thread-link" data-thread="integrity" type="button">AI &amp; Academic Integrity</button>
           </nav>
 
           <section class="thread-workspace" aria-live="polite">
@@ -1952,6 +1951,25 @@
         </div>
       </section>
     </section>
+
+    <section class="setup-card" style="margin-top: 32px; border-color: #c8daec; background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);" aria-label="Next Step">
+      <div class="setup-kicker" style="color: #2f7a52; margin-bottom: 8px;">NEXT STEP · TEACHING & LEARNING MATERIALS</div>
+      <h2 class="setup-title" style="font-size: 20px; font-family: var(--font-heading);">Generate Learning Materials</h2>
+      <p class="setup-note">Use the approved curriculum structure, learning outcomes, sequencing, and assessment strategy to generate aligned learning materials.</p>
+      
+      <div style="margin-top: 14px; display: grid; gap: 10px;">
+        <div style="font-size: 11px; font-weight: 700; color: #5f748a; text-transform: uppercase; letter-spacing: 0.08em;">Context Inherited:</div>
+        <ul style="list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; font-size: 13px; color: #35526e; font-weight: 600;">
+          <li style="display: flex; align-items: center; gap: 8px;"><span style="color: #2f7a52; font-weight: 700;">✓</span> Module synopsis</li>
+          <li style="display: flex; align-items: center; gap: 8px;"><span style="color: #2f7a52; font-weight: 700;">✓</span> Learning outcomes</li>
+          <li style="display: flex; align-items: center; gap: 8px;"><span style="color: #2f7a52; font-weight: 700;">✓</span> Weekly sequencing</li>
+          <li style="display: flex; align-items: center; gap: 8px;"><span style="color: #2f7a52; font-weight: 700;">✓</span> Assessment plan</li>
+          <li style="display: flex; align-items: center; gap: 8px;"><span style="color: #2f7a52; font-weight: 700;">✓</span> AI guidance</li>
+        </ul>
+      </div>
+
+      <a class="btn primary" href="generate-materials.html" style="margin-top: 20px; justify-self: start; display: inline-block; padding: 12px 18px; background: #004689; color: #fff; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 600; transition: background 150ms;">Continue to Materials Workspace →</a>
+    </section>
   </main>
 
   <script>
@@ -1961,17 +1979,17 @@
         subtitle: "We will shape this module together while the draft updates live on the right.",
         stage: "Getting started",
         sectionLabel: "Module Overview",
-        prompts: ["Clinical judgement under pressure", "Balanced approach"],
+        prompts: ["Build on prior nursing science modules", "Prepare for ICU clinical placements"],
         actions: [
-          "Clinical judgement under pressure",
-          "Interdisciplinary coordination",
-          "Simulation-based decision making",
-          "Diagnostic reasoning",
-          "Balanced approach"
+          "Build on prior nursing science modules",
+          "Strengthen escalation judgement",
+          "Increase simulation-based practice",
+          "Prepare for ICU clinical placements",
+          "Improve interdisciplinary communication"
         ],
-        greeting: "I have reviewed your selected analysis summaries and benchmark inputs.",
-        intro: "To begin, what kind of learning experience should this module emphasize most?",
-        inputHint: "Describe what you want to build"
+        greeting: "Hi Sarah — let’s shape the role of this module within the programme first.\n\nI’ve reviewed the earlier curriculum analysis, benchmarking inputs, and existing references.",
+        intro: "To start, tell me:\n• What should students be able to handle more confidently after this module?\n• Where does this module sit within the learner journey?\n• Are there particular industry or clinical practice gaps this module should address?",
+        inputHint: "Describe the module's role and purpose..."
       },
       synopsis: {
         title: "Synopsis & Aims",
@@ -2210,14 +2228,14 @@
     let activeThreadKey = "welcome";
 
     const railLabels = {
-      welcome: "Frame module direction",
-      outcomes: "Define learning outcomes",
-      content: "Plan content & pacing",
-      teaching: "Design learning activities",
-      assessment: "Design assessments",
-      resources: "Curate learning resources",
-      alignment: "Review curriculum alignment",
-      integrity: "Set AI & integrity guidance"
+      welcome: "Module Direction",
+      outcomes: "Learning Outcomes",
+      content: "Content & Sequencing",
+      teaching: "Learning Activities",
+      assessment: "Assessment Design",
+      resources: "Learning Resources",
+      alignment: "Curriculum Alignment",
+      integrity: "AI & Academic Integrity"
     };
 
     const threadOpeners = {
@@ -2386,7 +2404,18 @@
         const key = button.dataset.thread;
         const state = threadState[key] || {};
         const label = railLabels[key] || button.textContent;
-        const meta = state.updatedAt ? "Updated " + state.updatedAt : "Awaiting input";
+        
+        let meta = "Waiting for direction";
+        if (state.updatedAt) {
+          meta = "✓ Drafted";
+        } else {
+          if (key === "welcome") meta = "Active — clarifying role";
+          else if (key === "content") meta = "In progress — hours unresolved";
+          else if (key === "assessment") meta = "Waiting for outcome confirmation";
+          else if (key === "alignment") meta = "Pending upstream decisions";
+          else if (key === "integrity") meta = "Pending upstream decisions";
+        }
+
         button.innerHTML = "<span class=\"thread-link-title\">" + label + "</span><span class=\"thread-link-meta\">" + meta + "</span>";
       });
     }
@@ -2457,14 +2486,14 @@
       threadCanvas.innerHTML = "";
 
       if (key === "welcome") {
-        threadCanvas.appendChild(createTurn("AI", "Let us frame the module direction first. Which emphasis feels closest to your intent?"));
+        threadCanvas.appendChild(createTurn("AI", lane.greeting));
 
         const welcomeActions = document.createElement("div");
         welcomeActions.className = "direction-pack";
 
         const intro = document.createElement("div");
         intro.className = "choice-intro";
-        intro.textContent = "I can shape the opening draft around one of these starting directions:";
+        intro.innerText = lane.intro.replace(/\n/g, "<br>");
         welcomeActions.appendChild(intro);
 
         const options = document.createElement("div");
