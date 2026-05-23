@@ -601,6 +601,176 @@
       color: var(--ink-mid);
     }
 
+    .preview-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .preview-panel {
+      border: 1px solid var(--line-soft);
+      border-radius: 12px;
+      background: #fff;
+      overflow: hidden;
+      display: grid;
+      gap: 0;
+    }
+
+    .preview-panel-head {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line-soft);
+      display: grid;
+      gap: 4px;
+      background: linear-gradient(180deg, #f8fbff 0%, #fff 100%);
+    }
+
+    .preview-panel-kicker {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brand);
+    }
+
+    .preview-panel-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .preview-panel-sub {
+      font-size: 12px;
+      color: var(--ink-mid);
+      line-height: 1.5;
+    }
+
+    .preview-stage {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .preview-canvas {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+      padding: 16px;
+      min-height: 220px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .preview-canvas-line {
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #d9e6f4 0%, #eef4fb 100%);
+    }
+
+    .preview-canvas-line.wide { width: 78%; }
+    .preview-canvas-line.mid { width: 58%; }
+    .preview-canvas-line.short { width: 38%; }
+    .preview-canvas-box {
+      border: 1px dashed #c8d6e7;
+      border-radius: 10px;
+      background: #fff;
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+    }
+    .preview-canvas-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .preview-canvas-text {
+      font-size: 13px;
+      color: var(--ink-mid);
+      line-height: 1.5;
+    }
+
+    .export-tools {
+      border: 1px solid var(--line-soft);
+      border-radius: 10px;
+      background: #fff;
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .export-tools-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .export-tool-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .export-tool {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--line-soft);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--ink-mid);
+      background: #fafcff;
+    }
+
+    .export-tool strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .export-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .btn.secondary {
+      border-color: var(--line);
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .btn.secondary:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+      background: #f7fbff;
+    }
+
+    .mini-status {
+      border: 1px solid #c8daec;
+      border-radius: 10px;
+      background: #fff;
+      padding: 14px 16px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .mini-status-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--brand);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .mini-status-text {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ink-mid);
+    }
+
     @media (max-width: 1080px) {
       .layout {
         grid-template-columns: 1fr;
@@ -611,6 +781,10 @@
       }
 
       .material-groups {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-shell {
         grid-template-columns: 1fr;
       }
     }
@@ -772,10 +946,10 @@
             </div>
 
             <div class="actions">
-              <div class="hint">Review generated materials before assembling the export package.</div>
+              <div class="hint">Preview, refine, and export within this page.</div>
               <div>
-                <a class="btn" href="plan-direction.html">Back to Module Design</a>
-                <a class="btn primary" href="export-package.html">Continue to Export →</a>
+                <button class="btn secondary" type="button">Preview Render</button>
+                <button class="btn primary" type="button">Generate Draft</button>
               </div>
             </div>
           </div>
@@ -793,11 +967,63 @@
 
         <div class="side-next">
           <div class="side-next-label">Next Step</div>
-          <div class="side-next-item">Generate the teaching materials, then move to export packaging.</div>
-          <div class="side-next-item">The summary stays pinned so the page behaves like the other workflow screens.</div>
+          <div class="side-next-item">Keep the workflow in-page: preview, refine, and export from this screen.</div>
+          <div class="side-next-item">This mock is intentionally illustrative for developers, not a navigation step.</div>
         </div>
       </aside>
     </div>
+
+    <section class="section-card">
+      <div class="sc-header">
+        <div class="sc-num">2</div>
+        <div class="sc-title-wrap">
+          <div class="sc-title">Preview & Export Mock</div>
+          <div class="sc-desc">Illustrative render, export options, and download controls stay on this page</div>
+        </div>
+      </div>
+      <div class="sc-body">
+        <div class="preview-shell">
+          <div class="preview-panel">
+            <div class="preview-panel-head">
+              <div class="preview-panel-kicker">Rendered Preview</div>
+              <div class="preview-panel-title">Teaching & Learning Materials Pack</div>
+              <div class="preview-panel-sub">A mock preview area that shows what the generated bundle might look like before export.</div>
+            </div>
+            <div class="preview-stage">
+              <div class="preview-canvas">
+                <div class="preview-canvas-line wide"></div>
+                <div class="preview-canvas-line mid"></div>
+                <div class="preview-canvas-box">
+                  <div class="preview-canvas-label">Slide Preview</div>
+                  <div class="preview-canvas-text">Week 1 escalation pathways, case-based prompts, and instructor cues appear here as an illustrative render.</div>
+                </div>
+                <div class="preview-canvas-line short"></div>
+                <div class="preview-canvas-line wide"></div>
+              </div>
+              <div class="export-actions">
+                <button class="btn secondary" type="button">Refresh Preview</button>
+                <button class="btn secondary" type="button">Toggle Compact View</button>
+                <button class="btn primary" type="button">Download PDF Mock</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="export-tools">
+            <div class="export-tools-title">Export Options</div>
+            <div class="export-tool-list">
+              <div class="export-tool"><strong>PDF</strong><span>Formatted handout bundle</span></div>
+              <div class="export-tool"><strong>PPTX</strong><span>Lecture deck mock</span></div>
+              <div class="export-tool"><strong>DOCX</strong><span>Facilitator notes</span></div>
+              <div class="export-tool"><strong>ZIP</strong><span>All outputs packaged</span></div>
+            </div>
+            <div class="mini-status">
+              <div class="mini-status-title">Status</div>
+              <div class="mini-status-text">Export is intentionally mocked here for illustration. Developers can wire real render / download actions later.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </body>
 </html>
