@@ -1,9 +1,27 @@
 <!DOCTYPE html>
+<!--
+  ═════════════════════════════════════════════════════════════════════════
+  PATH A · PHASE 3 — Generate Teaching & Learning Materials
+  ═════════════════════════════════════════════════════════════════════════
+  CONCEPT
+    Downstream continuation from Phase 2 (plan-direction.html). Picks up
+    the completed module draft as linked curriculum context and generates
+    aligned T&L materials (slides, activities, case studies, quizzes,
+    facilitator guides, rubrics).
+
+  COMPONENTS (for developer handoff)
+    1. Step strip            (MVP — orients lecturer in Path A flow)
+    2. Linked context strip  (MVP — shows which module draft feeds this)
+    3. Material type picker  (MVP — core vs. supporting groups)
+    4. Generated preview     (MVP frame; preview snippets are DEMO FILLER)
+    5. Bottom actions        (MVP — back / generate / export)
+  ═════════════════════════════════════════════════════════════════════════
+-->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generate T&L Materials</title>
+  <title>Generate T&L Materials — AI Curriculum Designer</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     *, *::before, *::after {
@@ -33,35 +51,89 @@
     }
 
     .topbar {
+      height: 56px;
       border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(6px);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 40px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
-
     .topbar-inner {
+      width: 100%;
       max-width: var(--max);
       margin: 0 auto;
-      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+    }
+    .topbar-brand {
       display: flex;
       align-items: center;
       gap: 10px;
+      text-decoration: none;
+      color: inherit;
     }
-
-    .topbar-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #243448;
+    .t-div { width: 1px; height: 18px; background: var(--line); margin: 0 8px; }
+    .brand-name { font-size: 13px; font-weight: 600; color: #111827; letter-spacing: -0.01em; }
+    .brand-tag {
+      font-size: 10px; font-weight: 600; color: #9ca3af;
+      border: 1px solid var(--line); padding: 3px 8px;
+      letter-spacing: 0.06em; margin-left: 4px;
+      text-transform: uppercase; border-radius: 4px;
     }
-
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+    .topbar-pill {
+      border: 1px solid #c7cefa; background: #eff2ff;
+      color: var(--brand); border-radius: 999px;
+      padding: 4px 11px; font-size: 11px; font-weight: 600;
+    }
     .topbar-link {
-      margin-left: auto;
       text-decoration: none;
       font-size: 12px;
       color: #6d7e91;
     }
+    .topbar-link:hover { color: #2e445d; }
 
-    .topbar-link:hover {
-      color: #2e445d;
+    /* Step strip — orients lecturer within Path A */
+    .step-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin: 14px 0 4px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .step-strip .ss-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #97a3b3;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .step-strip .ss-num {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #eef1f6;
+      color: #97a3b3;
+      font-size: 10px;
+      font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .step-strip .ss-step.done { color: #2f7a52; }
+    .step-strip .ss-step.done .ss-num { background: #d6eede; color: #2f7a52; }
+    .step-strip .ss-step.active { color: var(--brand); }
+    .step-strip .ss-step.active .ss-num { background: var(--brand); color: #fff; }
+    .step-strip .ss-sep {
+      width: 16px; height: 1px;
+      background: #d8dde5;
+      flex-shrink: 0;
     }
 
     .page {
@@ -349,16 +421,33 @@
 <body>
   <nav class="topbar">
     <div class="topbar-inner">
-      <div class="topbar-title">AI Curriculum Designer</div>
-      <a class="topbar-link" href="index.html">← Workflow Home</a>
+      <a href="index.html" class="topbar-brand">
+        <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
+             alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
+        <div class="t-div"></div>
+        <span class="brand-name">AI Curriculum Designer</span>
+        <span class="brand-tag">Concept Prototype</span>
+      </a>
+      <div class="topbar-right">
+        <span class="topbar-pill">Path A · Materials</span>
+        <a class="topbar-link" href="index.html">← Home</a>
+      </div>
     </div>
   </nav>
 
   <main class="page">
     <section>
-      <div class="eyebrow">Path A · T&amp;L Materials</div>
+      <div class="eyebrow">Path A · Phase 3 · Materials Generation</div>
+      <!-- Step strip orients the lecturer within Path A flow -->
+      <nav class="step-strip" aria-label="Path A progress">
+        <span class="ss-step done"><span class="ss-num">1</span>Discovery</span>
+        <span class="ss-sep"></span>
+        <span class="ss-step done"><span class="ss-num">2</span>Co-Design</span>
+        <span class="ss-sep"></span>
+        <span class="ss-step active"><span class="ss-num">3</span>Materials &amp; Export</span>
+      </nav>
       <h1 class="title">Generate T&amp;L Materials</h1>
-      <p class="sub">Generate aligned T&amp;L materials from the module draft.</p>
+      <p class="sub">Generate aligned T&amp;L materials from the completed module draft, using its outcomes, content, teaching strategy, and assessment design as linked context.</p>
     </section>
 
     <section class="connected" aria-label="Imported curriculum structure">

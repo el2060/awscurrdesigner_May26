@@ -1,4 +1,27 @@
 <!DOCTYPE html>
+<!--
+  ═════════════════════════════════════════════════════════════════════════
+  PATH A · PHASE 2 — Plan Curriculum Direction
+  ═════════════════════════════════════════════════════════════════════════
+  CONCEPT
+    Co-design workspace. Lecturer works in one "lane" (work area) at a time
+    while the AI keeps lane momentum, surfaces tradeoffs, and shows ripple
+    effects on the persistent module artifact (living document) below.
+
+  COMPONENTS (for developer handoff)
+    1. Step strip          (MVP — orients lecturer in Path A flow)
+    2. Connected strip     (MVP — shows discovery inputs are wired in)
+    3. Workspace strip     (MVP — current module + lane selector)
+    4. Active lane panel   (MVP — chat / decisions / ripple / prompts)
+    5. Living artifact     (MVP frame; section bodies are DEMO FILLER)
+       - Sections are collapsed by default; clicking expands one at a time.
+       - Active lane drives which artifact section is highlighted.
+
+  SHARED PATTERN
+    refresh-align.html (Path B) uses the SAME lanes + living artifact
+    pattern. Treat as one component family with two config presets.
+  ═════════════════════════════════════════════════════════════════════════
+-->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -124,6 +147,45 @@
       text-transform: uppercase;
       color: var(--brand);
       margin-bottom: 8px;
+    }
+
+    /* ── Slim step strip — orients lecturer within Path A ── */
+    .step-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin: 14px 0 4px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #ebeef3;
+    }
+    .step-strip .ss-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #97a3b3;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .step-strip .ss-num {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #eef1f6;
+      color: #97a3b3;
+      font-size: 10px;
+      font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .step-strip .ss-step.done { color: #2f7a52; }
+    .step-strip .ss-step.done .ss-num { background: #d6eede; color: #2f7a52; }
+    .step-strip .ss-step.active { color: var(--brand); }
+    .step-strip .ss-step.active .ss-num { background: var(--brand); color: #fff; }
+    .step-strip .ss-sep {
+      width: 16px; height: 1px;
+      background: #d8dde5;
+      flex-shrink: 0;
     }
 
     .page-title {
@@ -840,11 +902,14 @@
       align-content: start;
     }
 
+    /* ── Module sections: collapsed preview by default, only active fully expanded ── */
     .module-section {
       border-top: 1px solid #e7edf4;
-      padding-top: 14px;
-      opacity: 0.58;
+      padding-top: 12px;
+      padding-bottom: 12px;
       transition: opacity 160ms ease, background 160ms ease;
+      cursor: pointer;
+      position: relative;
     }
 
     .module-section:first-child {
@@ -852,12 +917,33 @@
       padding-top: 0;
     }
 
+    /* Collapsed (non-active): keep header line only, hide body content */
+    .module-section:not(.active) > *:not(.section-label):not(.section-title) {
+      display: none;
+    }
+    .module-section:not(.active) {
+      opacity: 0.75;
+    }
+    .module-section:not(.active):hover {
+      opacity: 1;
+      background: #f7fbff;
+      border-radius: 8px;
+    }
+    .module-section:not(.active) .section-title::after {
+      content: "›";
+      margin-left: 8px;
+      color: #97a3b3;
+      font-weight: 400;
+    }
+
+    /* Active: emphasized, full content */
     .module-section.active {
       opacity: 1;
       background: linear-gradient(180deg, #f7fbff 0%, transparent 72%);
       border-radius: 10px;
-      padding: 12px 12px 4px;
+      padding: 14px 12px 8px;
       margin: 0 -12px;
+      cursor: default;
     }
 
     .section-label {
@@ -1100,7 +1186,15 @@
 
   <main class="page">
     <section>
-      <div class="page-eyebrow">Phase 2 · Curriculum Co-Design</div>
+      <div class="page-eyebrow">Path A · Phase 2 · Curriculum Co-Design</div>
+      <!-- Step strip orients the lecturer within the overall Path A flow -->
+      <nav class="step-strip" aria-label="Path A progress">
+        <span class="ss-step done"><span class="ss-num">1</span>Discovery</span>
+        <span class="ss-sep"></span>
+        <span class="ss-step active"><span class="ss-num">2</span>Co-Design</span>
+        <span class="ss-sep"></span>
+        <span class="ss-step"><span class="ss-num">3</span>Materials &amp; Export</span>
+      </nav>
       <h1 class="page-title">Plan Curriculum Direction</h1>
       <p class="page-sub">
         Work in focused co-design work areas while the full module artifact updates as one coherent document.
@@ -1694,6 +1788,14 @@
     navButtons.forEach((button) => {
       button.addEventListener("click", () => {
         setActiveSection(button.dataset.section, true);
+      });
+    });
+
+    // Allow clicking a collapsed module-section to expand it inline
+    moduleSections.forEach((section) => {
+      section.addEventListener("click", (e) => {
+        if (section.classList.contains("active")) return;
+        setActiveSection(section.id, false);
       });
     });
 

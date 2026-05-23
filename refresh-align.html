@@ -1,4 +1,28 @@
 <!DOCTYPE html>
+<!--
+  ═════════════════════════════════════════════════════════════════════════
+  PATH B — Module Review and Refresh
+  ═════════════════════════════════════════════════════════════════════════
+  CONCEPT
+    Refresh workspace for an existing module. Lecturer works in one review
+    workstream at a time. AI tracks decision memory across lanes and
+    surfaces ripple effects on the living module artifact below.
+
+  COMPONENTS (for developer handoff)
+    1. Step strip          (MVP — orients lecturer in Path B flow)
+    2. Review workstreams  (MVP — lane selector with status labels)
+    3. Active lane panel   (MVP — AI chat / decision memory / ripple)
+    4. Living artifact     (MVP frame; section bodies are DEMO FILLER)
+       - Sections are collapsed by default; clicking expands one at a time.
+       - Active workstream drives which artifact section is highlighted.
+
+  SHARED PATTERN
+    plan-direction.html (Path A · Phase 2) uses the SAME lanes + living
+    artifact pattern. Treat as one component family with two config presets.
+    Path B differs in: workstream labels, status verbs (Refining / Aligned
+    / Drafting / Exploring), and "Advance lane" CTA semantics.
+  ═════════════════════════════════════════════════════════════════════════
+-->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -125,6 +149,45 @@
       text-transform: uppercase;
       letter-spacing: 0.13em;
       margin-bottom: 8px;
+    }
+
+    /* ── Slim step strip — orients lecturer within Path B ── */
+    .step-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin: 14px 0 4px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #e6efe9;
+    }
+    .step-strip .ss-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #95a8a0;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .step-strip .ss-num {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #ecf2ee;
+      color: #95a8a0;
+      font-size: 10px;
+      font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .step-strip .ss-step.done { color: #2f7a52; }
+    .step-strip .ss-step.done .ss-num { background: #d6eede; color: #2f7a52; }
+    .step-strip .ss-step.active { color: var(--brand); }
+    .step-strip .ss-step.active .ss-num { background: var(--brand); color: #fff; }
+    .step-strip .ss-sep {
+      width: 16px; height: 1px;
+      background: #d6e0db;
+      flex-shrink: 0;
     }
 
     .page-title {
@@ -520,11 +583,14 @@
       align-content: start;
     }
 
+    /* ── Module sections: collapsed preview by default, only active fully expanded ── */
     .module-section {
       border-top: 1px solid #e7edf3;
-      padding-top: 14px;
-      opacity: 0.56;
+      padding-top: 12px;
+      padding-bottom: 12px;
       transition: opacity 140ms ease, background 140ms ease;
+      cursor: pointer;
+      position: relative;
     }
 
     .module-section:first-child {
@@ -532,12 +598,32 @@
       padding-top: 0;
     }
 
+    /* Collapsed (non-active): keep header line only, hide body content */
+    .module-section:not(.active) > *:not(.section-label):not(.section-title) {
+      display: none;
+    }
+    .module-section:not(.active) {
+      opacity: 0.75;
+    }
+    .module-section:not(.active):hover {
+      opacity: 1;
+      background: #f4fbf8;
+      border-radius: 8px;
+    }
+    .module-section:not(.active) .section-title::after {
+      content: "›";
+      margin-left: 8px;
+      color: #95a8a0;
+      font-weight: 400;
+    }
+
     .module-section.active {
       opacity: 1;
       background: linear-gradient(180deg, #f4fbf8 0%, transparent 75%);
       border-radius: 10px;
       margin: 0 -12px;
-      padding: 12px 12px 5px;
+      padding: 14px 12px 8px;
+      cursor: default;
     }
 
     .section-label {
@@ -726,6 +812,14 @@
   <main class="page">
     <section>
       <div class="page-eyebrow">Path B · Module Review and Refresh</div>
+      <!-- Step strip orients the lecturer within Path B workstreams -->
+      <nav class="step-strip" aria-label="Path B progress">
+        <span class="ss-step done"><span class="ss-num">1</span>Import Materials</span>
+        <span class="ss-sep"></span>
+        <span class="ss-step active"><span class="ss-num">2</span>Review &amp; Refine</span>
+        <span class="ss-sep"></span>
+        <span class="ss-step"><span class="ss-num">3</span>Apply Updates</span>
+      </nav>
       <h1 class="page-title">AI-Facilitated Curriculum Refresh Workspace</h1>
       <p class="page-sub">
         Work in focused review workstreams. The AI keeps lane momentum, tracks cumulative decisions,
@@ -1282,6 +1376,14 @@
 
     jumpSelect.addEventListener("change", (event) => {
       setActiveSection(event.target.value, true);
+    });
+
+    // Allow clicking a collapsed module-section to expand it inline
+    moduleSections.forEach((section) => {
+      section.addEventListener("click", () => {
+        if (section.classList.contains("active")) return;
+        setActiveSection(section.id, false);
+      });
     });
 
     renderThread("outcomes", true);

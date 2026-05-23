@@ -520,6 +520,45 @@
     body.design-scope    .page-eyebrow { color: var(--hp-indigo-600); }
     body.review-scope    .page-eyebrow { color: var(--hp-emerald-700); }
 
+    /* ── Slim step strip — orients lecturer within Path A ── */
+    .step-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin: 14px 0 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--hp-border);
+    }
+    .step-strip .ss-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--hp-muted);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .step-strip .ss-num {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #f1f1ee;
+      color: var(--hp-muted);
+      font-size: 10px;
+      font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .step-strip .ss-step.done { color: var(--hp-emerald-700); }
+    .step-strip .ss-step.done .ss-num { background: var(--hp-emerald-50); color: var(--hp-emerald-700); }
+    .step-strip .ss-step.active { color: var(--hp-amber-700); }
+    .step-strip .ss-step.active .ss-num { background: var(--hp-amber-700); color: #fff; }
+    .step-strip .ss-sep {
+      width: 16px; height: 1px;
+      background: var(--hp-border);
+      flex-shrink: 0;
+    }
+
     .page-title {
       font-size: 32px; font-weight: 700;
       color: var(--hp-text);
@@ -915,7 +954,21 @@
 <!-- Page -->
 <main class="page">
 
-  <div class="page-eyebrow">Phase 1 · Discovery &amp; Analysis</div>
+  <!--
+    PATH A · PHASE 1 — Discovery & Analysis
+    Input gathering: industry, frameworks, student insights, module materials.
+    Feeds Phase 2 (plan-direction.html) as "discovery inputs" via the
+    Connected Inputs strip.
+  -->
+  <div class="page-eyebrow">Path A · Phase 1 · Discovery &amp; Analysis</div>
+  <!-- Step strip orients the lecturer within the overall Path A flow -->
+  <nav class="step-strip" aria-label="Path A progress">
+    <span class="ss-step active"><span class="ss-num">1</span>Discovery</span>
+    <span class="ss-sep"></span>
+    <span class="ss-step"><span class="ss-num">2</span>Co-Design</span>
+    <span class="ss-sep"></span>
+    <span class="ss-step"><span class="ss-num">3</span>Materials &amp; Export</span>
+  </nav>
   <div class="page-title">Gather &amp; Analyse Curriculum Inputs</div>
   <div class="page-sub">Consolidate industry inputs, curriculum references, student insights, and existing module materials to inform AI-assisted module design.</div>
 

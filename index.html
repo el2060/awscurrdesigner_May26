@@ -144,7 +144,8 @@
       cursor: pointer;
       position: relative;
     }
-    .phase-card:hover { border-color: #c4c4c4; }
+    .phase-card:hover { border-color: #c4c4c4; text-decoration: none; }
+    .phase-card:hover *, .next-step-link:hover, .next-step-link:hover * { text-decoration: none !important; }
 
     /* Phase 1 — preparatory (amber) */
     .phase-prep {
@@ -494,16 +495,18 @@
         <li>Draft module sections</li>
         <li>Review and refine content</li>
         <li>Check curriculum alignment</li>
-        <li>Continue into teaching &amp; learning materials (optional)</li>
+        <li>Continue into teaching &amp; learning materials</li>
         <li>Export module package</li>
       </ol>
       <div class="phase-cta">Start New Module Flow →</div>
     </a>
 
-    <div class="next-step-card" aria-label="Optional continuation into materials generation">
+    <!-- Continuation into T&L materials generation — feature of Path A flow.
+         Picks up linked curriculum context from the completed module draft. -->
+    <div class="next-step-card" aria-label="Continue into Teaching & Learning Materials">
       <div class="next-step-kicker">Next Step (Optional)</div>
-      <div class="next-step-title">Continue into Teaching &amp; Learning Materials</div>
-      <p class="next-step-desc">Generate aligned T&amp;L materials from the module draft.</p>
+      <div class="next-step-title">Generate Teaching &amp; Learning Materials</div>
+      <p class="next-step-desc">Generate aligned T&amp;L materials directly from the completed module draft, using its outcomes, content, teaching strategy, and assessments as context.</p>
 
       <div class="context-mini">
         <div class="context-mini-title">Using Linked Curriculum Context</div>
