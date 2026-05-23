@@ -140,6 +140,129 @@
       line-height: 1.65;
     }
 
+    .session-strip {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .session-chip {
+      border: 1px solid #d5e1ee;
+      border-radius: 999px;
+      background: #f6faff;
+      color: #31506e;
+      padding: 5px 11px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .connected-strip {
+      border: 1px solid #d8e5f2;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #f8fbff 0%, #f5f9fe 100%);
+      padding: 14px 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .connected-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .connected-kicker {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #4a6783;
+      font-weight: 700;
+    }
+
+    .connected-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1f3d5a;
+      margin-top: 2px;
+    }
+
+    .connected-meta {
+      border: 1px solid #d8e6f4;
+      border-radius: 999px;
+      background: #fff;
+      color: #4d6782;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .connected-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      color: #35526e;
+      font-size: 13px;
+      line-height: 1.45;
+      list-style: none;
+    }
+
+    .connected-list li {
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .connected-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #2f7a52;
+      font-weight: 700;
+    }
+
+    .connected-metrics {
+      color: #4f667e;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .connected-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .connected-btn {
+      border: 1px solid #cfddea;
+      border-radius: 999px;
+      background: #fff;
+      color: #35526f;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .connected-btn:hover {
+      border-color: #b5cce3;
+      background: #f7fbff;
+    }
+
+    .connected-btn.primary {
+      border-color: #1f3d5a;
+      background: #1f3d5a;
+      color: #fff;
+    }
+
+    .connected-btn.primary:hover {
+      background: #193149;
+      border-color: #193149;
+    }
+
     .workspace {
       display: grid;
       grid-template-columns: minmax(370px, 0.95fr) minmax(0, 1.05fr);
@@ -186,6 +309,57 @@
       font-weight: 700;
     }
 
+    .thread-rail-divider {
+      height: 1px;
+      background: #dce5ee;
+      margin: 8px 6px;
+    }
+
+    .thread-shared-context {
+      margin: 0 8px;
+      padding: 8px;
+      border: 1px solid #dde7f1;
+      border-radius: 10px;
+      background: #fff;
+      display: grid;
+      gap: 6px;
+    }
+
+    .thread-shared-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #61748a;
+      font-weight: 700;
+    }
+
+    .thread-shared-list {
+      list-style: disc;
+      padding-left: 16px;
+      color: #526880;
+      font-size: 11px;
+      line-height: 1.35;
+      display: grid;
+      gap: 2px;
+    }
+
+    .thread-shared-time {
+      font-size: 10px;
+      color: #75899d;
+      font-weight: 600;
+    }
+
+    .thread-rail-summary {
+      margin: 0 8px 10px;
+      padding: 8px;
+      border: 1px solid #dde7f1;
+      border-radius: 10px;
+      background: #fff;
+      color: #4f647a;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
     .thread-link {
       width: 100%;
       text-align: left;
@@ -218,6 +392,36 @@
       margin-top: 2px;
       letter-spacing: 0.04em;
       text-transform: uppercase;
+    }
+
+    .thread-link .thread-status {
+      margin-top: 4px;
+      color: #74879b;
+      letter-spacing: 0;
+      text-transform: none;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .thread-link.active .thread-status {
+      color: #d8e8f7;
+    }
+
+    .thread-link.warn {
+      border: 1px solid #f1d19f;
+      background: #fff9ef;
+      color: #67410f;
+    }
+
+    .thread-link.warn:hover {
+      background: #fff3df;
+      color: #4f330f;
+    }
+
+    .thread-link.warn.active {
+      border-color: #1f344a;
+      background: #1f344a;
+      color: #fff;
     }
 
     .thread-workspace {
@@ -264,6 +468,41 @@
       font-size: 12px;
       color: #5f7084;
       line-height: 1.5;
+    }
+
+    .thread-specialist {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      border: 1px solid #d7e4f0;
+      border-radius: 999px;
+      background: #fff;
+      color: #48627c;
+      padding: 5px 10px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 700;
+    }
+
+    .lane-context {
+      border: 1px solid #dce9f5;
+      background: #f8fbff;
+      border-radius: 10px;
+      padding: 9px 11px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .lane-context-list {
+      list-style: disc;
+      padding-left: 18px;
+      color: #38536d;
+      font-size: 12px;
+      line-height: 1.45;
+      display: grid;
+      gap: 2px;
     }
 
     .thread-canvas {
@@ -316,6 +555,35 @@
       border-color: #1f344a;
       background: #1f344a;
       color: #fff;
+    }
+
+    .lane-network {
+      border: 1px solid #dbe8f4;
+      background: #f8fbff;
+      border-radius: 10px;
+      padding: 9px 11px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .lane-network-list {
+      list-style: disc;
+      padding-left: 18px;
+      color: #38526b;
+      font-size: 12px;
+      line-height: 1.45;
+      display: grid;
+      gap: 2px;
+    }
+
+    .lane-impact {
+      border: 1px solid #f2d9ab;
+      background: #fff8ed;
+      border-radius: 10px;
+      padding: 8px 10px;
+      color: #5e4314;
+      font-size: 12px;
+      line-height: 1.45;
     }
 
     .lane-decision {
@@ -537,6 +805,119 @@
       margin-bottom: 8px;
     }
 
+    .section-provenance {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid #d9e6f2;
+      border-radius: 999px;
+      background: #f7fbff;
+      color: #5f7891;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      padding: 4px 8px;
+      margin: 0 0 8px;
+    }
+
+    .context-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 80;
+    }
+
+    .context-modal.show {
+      display: flex;
+    }
+
+    .context-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(14, 24, 34, 0.44);
+    }
+
+    .context-modal-card {
+      position: relative;
+      width: min(760px, 100%);
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+      border: 1px solid #d6e3f0;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 20px 40px rgba(20, 38, 56, 0.2);
+      padding: 18px 18px 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .context-modal-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .context-modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1f3851;
+      margin-bottom: 3px;
+    }
+
+    .context-modal-sub {
+      color: #5d7389;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .context-modal-close {
+      border: 1px solid #d0dde9;
+      border-radius: 999px;
+      background: #fff;
+      color: #47607a;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 10px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .context-modal-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .context-modal-block {
+      border: 1px solid #e1e9f1;
+      border-radius: 10px;
+      background: #fafcfe;
+      padding: 10px 11px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .context-modal-block h4 {
+      color: #2f4c68;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .context-modal-list {
+      list-style: disc;
+      padding-left: 18px;
+      color: #39536c;
+      font-size: 13px;
+      line-height: 1.45;
+      display: grid;
+      gap: 2px;
+    }
+
     .section-copy,
     .section-list,
     .section-table {
@@ -590,6 +971,10 @@
     @media (max-width: 860px) {
       .page {
         padding: 16px;
+      }
+
+      .connected-list {
+        grid-template-columns: 1fr;
       }
 
       .page-title {
@@ -647,23 +1032,60 @@
       <div class="page-eyebrow">Phase 2 · Curriculum Co-Design</div>
       <h1 class="page-title">Plan Curriculum Direction</h1>
       <p class="page-sub">
-        Work in focused co-design lanes with AI while the full module artifact updates as one coherent document.
+        Work in focused co-design specialist lanes while the full module artifact updates as one coherent document.
         Each lane keeps context tight, decisions visible, and tradeoffs explicit.
       </p>
+      <div class="session-strip" aria-label="Session continuity">
+        <span class="session-chip">Session: Advanced Diploma in Critical Care Nursing</span>
+        <span class="session-chip">7 specialist lanes active</span>
+      </div>
+    </section>
+
+    <section class="connected-strip" aria-label="Connected AI context from discovery workflow">
+      <div class="connected-top">
+        <div>
+          <div class="connected-kicker">Connected AI Context</div>
+          <h2 class="connected-title">Using analysed discovery inputs from Phase 1</h2>
+        </div>
+        <div class="connected-meta">Imported from Discovery &amp; Analysis · 8 mins ago</div>
+      </div>
+      <ul class="connected-list">
+        <li>Industry &amp; Benchmarking</li>
+        <li>Curriculum &amp; Standards</li>
+        <li>Student &amp; Module Insights</li>
+        <li>Existing Module Materials</li>
+      </ul>
+      <div class="connected-metrics">14 references · 6 drafting considerations · 4 curriculum clusters</div>
+      <div class="connected-actions">
+        <button type="button" class="connected-btn primary" id="openContextSummary">View Context Summary</button>
+        <button type="button" class="connected-btn" id="changeInputs">Change Inputs</button>
+      </div>
     </section>
 
     <section class="workspace">
       <aside class="workspace-side" aria-label="Conversation workspace">
         <div class="thread-shell">
           <nav class="thread-rail" aria-label="Module design threads">
-            <div class="thread-rail-kicker">Design Threads</div>
-            <button class="thread-link active" data-thread="outcomes" type="button">Learning Outcomes<small>core lane</small></button>
-            <button class="thread-link" data-thread="content" type="button">Content &amp; Hours<small>sequencing</small></button>
-            <button class="thread-link" data-thread="teaching" type="button">Teaching Strategy<small>delivery</small></button>
-            <button class="thread-link" data-thread="assessment" type="button">Assessment Design<small>authenticity</small></button>
-            <button class="thread-link" data-thread="resources" type="button">Learning Resources<small>quality</small></button>
-            <button class="thread-link" data-thread="alignment" type="button">Alignment Review<small>system check</small></button>
-            <button class="thread-link" data-thread="integrity" type="button">AI / Academic Integrity<small>policy</small></button>
+            <div class="thread-rail-kicker">AI Co-Design Workspace</div>
+            <div class="thread-shared-context">
+              <div class="thread-shared-title">Shared Curriculum Context</div>
+              <ul class="thread-shared-list">
+                <li>Industry benchmarking</li>
+                <li>Student insights</li>
+                <li>Existing module materials</li>
+                <li>Curriculum standards</li>
+              </ul>
+              <div class="thread-shared-time">Context synthesized 8 mins ago</div>
+            </div>
+            <div class="thread-rail-divider" aria-hidden="true"></div>
+            <div class="thread-rail-kicker">Specialist Lanes</div>
+            <button class="thread-link active" data-thread="outcomes" type="button">Learning Outcomes<small>Competency Specialist</small><small class="thread-status">AI recommendation prepared from benchmark signals</small></button>
+            <button class="thread-link" data-thread="content" type="button">Content &amp; Hours<small>Curriculum Sequencing Specialist</small><small class="thread-status">Triggered by workload clustering insights</small></button>
+            <button class="thread-link" data-thread="teaching" type="button">Teaching Strategy<small>Learning Design Specialist</small><small class="thread-status">Cross-impact detected from sequencing updates</small></button>
+            <button class="thread-link warn" data-thread="assessment" type="button">Assessment Design<small>Authentic Assessment Specialist</small><small class="thread-status">Triggered by outcome revisions</small></button>
+            <button class="thread-link" data-thread="resources" type="button">Learning Resources<small>Resource Curation Specialist</small><small class="thread-status">AI recommendations generated from context synthesis</small></button>
+            <button class="thread-link" data-thread="alignment" type="button">Alignment Review<small>Curriculum Systems Reviewer</small><small class="thread-status">Cross-check triggered by assessment updates</small></button>
+            <button class="thread-link" data-thread="integrity" type="button">Academic Integrity<small>AI Governance Advisor</small><small class="thread-status">Triggered by assessment authenticity pattern</small></button>
           </nav>
 
           <section class="thread-workspace" aria-live="polite">
@@ -672,6 +1094,7 @@
                 <h2 class="thread-title" id="threadTitle">Learning Outcomes</h2>
                 <span class="thread-stage" id="threadStage">Active lane</span>
               </div>
+              <div class="thread-specialist" id="threadSpecialist">Competency Specialist</div>
               <p class="thread-sub" id="threadSubtitle">Sharpen measurable outcomes for escalation reasoning while preserving current assessment load.</p>
             </header>
 
@@ -707,7 +1130,7 @@
               <button data-section="assessment" type="button">Assessment Design</button>
               <button data-section="resources" type="button">Learning Resources</button>
               <button data-section="alignment" type="button">Alignment Review</button>
-              <button data-section="integrity" type="button">AI / Academic Integrity</button>
+              <button data-section="integrity" type="button">Academic Integrity</button>
             </nav>
 
             <article class="artifact-scroll" id="artifactScroll">
@@ -737,6 +1160,7 @@
               <section class="module-section active" id="outcomes">
                 <div class="section-label">Competency</div>
                 <h3 class="section-title">Learning Outcomes</h3>
+                <div class="section-provenance">Informed by Industry Benchmarking + Student Insights</div>
                 <ul class="section-list">
                   <li>Apply escalation frameworks to complex, time-sensitive patient deterioration scenarios.</li>
                   <li>Justify differential clinical decisions using diagnostic indicators and risk thresholds.</li>
@@ -748,6 +1172,7 @@
               <section class="module-section" id="content">
                 <div class="section-label">Sequencing</div>
                 <h3 class="section-title">Content and Hours</h3>
+                <div class="section-provenance">Informed by Existing Materials Analysis</div>
                 <table class="section-table">
                   <thead>
                     <tr><th>Topic Cluster</th><th>Hours</th></tr>
@@ -764,6 +1189,7 @@
               <section class="module-section" id="teaching">
                 <div class="section-label">Pedagogy</div>
                 <h3 class="section-title">Teaching Strategy</h3>
+                <div class="section-provenance">Informed by Student Insights</div>
                 <ul class="section-list">
                   <li>Escalation drills with staged uncertainty and role handoffs.</li>
                   <li>Structured simulation debriefs focused on clinical reasoning traces.</li>
@@ -775,6 +1201,7 @@
               <section class="module-section" id="assessment">
                 <div class="section-label">Evidence</div>
                 <h3 class="section-title">Assessment Design</h3>
+                <div class="section-provenance">Aligned to Benchmark Review + Student Feedback</div>
                 <table class="section-table">
                   <thead>
                     <tr><th>Assessment</th><th>Weight</th></tr>
@@ -791,6 +1218,7 @@
               <section class="module-section" id="resources">
                 <div class="section-label">Inputs</div>
                 <h3 class="section-title">Learning Resources</h3>
+                <div class="section-provenance">Informed by Industry Signals</div>
                 <ul class="section-list">
                   <li>Critical care escalation case bank with local context variants.</li>
                   <li>Recent journal cluster on high-risk deterioration pathways.</li>
@@ -802,6 +1230,7 @@
               <section class="module-section" id="alignment">
                 <div class="section-label">System Check</div>
                 <h3 class="section-title">Alignment Review</h3>
+                <div class="section-provenance">Synchronized from Cross-Lane Context</div>
                 <p class="section-copy">
                   Assessment tasks now evidence all high-level outcomes, simulation hours better match escalation depth,
                   and resources are mapped directly to competency clusters and debrief intent.
@@ -810,7 +1239,8 @@
 
               <section class="module-section" id="integrity">
                 <div class="section-label">Governance</div>
-                <h3 class="section-title">AI and Academic Integrity</h3>
+                <h3 class="section-title">Academic Integrity and Responsible AI Use</h3>
+                <div class="section-provenance">Aligned to Standards + Assessment Pattern</div>
                 <ul class="section-list">
                   <li>AI-assisted drafting is allowed for outline generation, not final clinical claims.</li>
                   <li>Students must annotate where AI support influenced their reasoning artifacts.</li>
@@ -829,112 +1259,175 @@
     const threadData = {
       outcomes: {
         title: "Learning Outcomes",
+        specialist: "Competency Specialist",
         subtitle: "Sharpen measurable outcomes for escalation reasoning while preserving current assessment load.",
         stage: "Active lane",
         sectionLabel: "Learning Outcomes",
+        contextUsed: [
+          "Employer emphasis on escalation judgement",
+          "Existing module over-indexes on theory recall",
+          "Benchmark institutions use simulation-led assessment",
+          "Student feedback requested more interdisciplinary practice"
+        ],
+        downstream: ["Assessment Design", "Alignment Review", "Academic Integrity"],
+        systemSignal: "Escalation outcome verb updates will trigger rubric wording checks in Assessment Design.",
         options: ["Clinical judgement", "Escalation reasoning", "Interdisciplinary response"],
         selected: 1,
         prompts: ["Generate 2 alternatives", "Check Bloom level", "Map to assessments", "Tighten verbs"],
         blocks: [
-          { label: "AI", copy: "Before revising further: should this module emphasize clinical judgement, procedural confidence, or interdisciplinary escalation?" },
+          { label: "Competency Specialist", copy: "Before revising further: should this module emphasize clinical judgement, procedural confidence, or interdisciplinary escalation?" },
           { label: "Module Leader", copy: "More emphasis on escalation and reasoning." },
-          { label: "AI", copy: "Understood. I will strengthen escalation-oriented decision-making outcomes without increasing assessment load." },
+          { label: "Competency Specialist", copy: "Understood. I will strengthen escalation-oriented decision-making outcomes without increasing assessment load." },
           { label: "", copy: "Option A: Explicit escalation trigger verbs.\nOption B: Stronger diagnostic interpretation language.\nOption C: Escalation communication with time-critical rationale." }
         ],
         tradeoffs: "A/B improve measurability quickly. C improves team-readiness visibility but may require rubric updates."
       },
       content: {
         title: "Content & Hours",
+        specialist: "Curriculum Sequencing Specialist",
         subtitle: "Re-sequence topics to reduce overload and protect high-value simulation learning.",
         stage: "Design lane",
         sectionLabel: "Content & Hours",
+        contextUsed: [
+          "Assessment-heavy Week 9 cluster detected",
+          "Overlapping pharmacology sequencing in existing materials",
+          "Standards mapping indicates under-emphasized simulation transfer",
+          "Student workload feedback flags prep-week overload"
+        ],
+        downstream: ["Teaching Strategy", "Assessment Design"],
+        systemSignal: "Diagnostic-hour redistribution detected. Teaching Strategy lane has been synchronized.",
         options: ["Reduce overload", "Shift to simulation", "Online/offline rebalance"],
         selected: 0,
         prompts: ["Trim low-value overlap", "Show week-by-week flow", "Check contact-hour cap"],
         blocks: [
-          { label: "AI", copy: "Where is learner overload most visible now: diagnostics week, simulation week, or debrief consolidation?" },
+          { label: "Curriculum Sequencing Specialist", copy: "Where is learner overload most visible now: diagnostics week, simulation week, or debrief consolidation?" },
           { label: "Module Leader", copy: "Simulation prep and diagnostics week are overloaded." },
-          { label: "AI", copy: "I will spread diagnostics across two cycles and convert one prep segment into guided asynchronous review." },
+          { label: "Curriculum Sequencing Specialist", copy: "I will spread diagnostics across two cycles and convert one prep segment into guided asynchronous review." },
           { label: "", copy: "New sequence keeps total hours stable while opening more deliberate practice time before integrated simulation." }
         ],
         tradeoffs: "Lower overload improves depth retention. Asynchronous shift needs clearer quality guardrails for learner preparation."
       },
       teaching: {
         title: "Teaching Strategy",
+        specialist: "Learning Design Specialist",
         subtitle: "Refine facilitation and debrief rhythm so reasoning quality improves across the module.",
         stage: "Design lane",
         sectionLabel: "Teaching Strategy",
+        contextUsed: [
+          "Student reflections request more guided debrief depth",
+          "Benchmark facilitation models emphasize short reasoning cycles",
+          "Current module uses limited peer critique checkpoints",
+          "Industry partner notes communication gaps under pressure"
+        ],
+        downstream: ["Learning Outcomes", "Alignment Review"],
+        systemSignal: "Debrief prompt revisions may require outcome evidence language alignment.",
         options: ["Debrief depth", "Simulation touchpoints", "Peer critique loops"],
         selected: 1,
         prompts: ["Add facilitator prompts", "Show cycle cadence", "Balance instructor load"],
         blocks: [
-          { label: "AI", copy: "Should debriefs prioritize diagnostic justification, communication under pressure, or escalation timing decisions?" },
+          { label: "Learning Design Specialist", copy: "Should debriefs prioritize diagnostic justification, communication under pressure, or escalation timing decisions?" },
           { label: "Module Leader", copy: "Escalation timing and justification." },
-          { label: "AI", copy: "I will reframe debrief prompts toward timing thresholds and defensible escalation triggers." },
+          { label: "Learning Design Specialist", copy: "I will reframe debrief prompts toward timing thresholds and defensible escalation triggers." },
           { label: "", copy: "Adding short reasoning checkpoints between simulations can improve transfer without extending timetabled hours." }
         ],
         tradeoffs: "Higher debrief precision improves outcome evidence. More facilitator guidance may require staff calibration resources."
       },
       assessment: {
         title: "Assessment Design",
+        specialist: "Authentic Assessment Specialist",
         subtitle: "Strengthen authenticity and AI-era validity without creating unmanageable marking burden.",
         stage: "Critical lane",
         sectionLabel: "Assessment Design",
+        contextUsed: [
+          "Benchmark institutions prioritize simulation-led evidence",
+          "Industry signals emphasize live escalation decisions",
+          "Student feedback asks for clearer rubric expectations",
+          "Discovery analysis flags over-reliance on written recall tasks"
+        ],
+        downstream: ["Learning Outcomes", "Alignment Review", "Academic Integrity"],
+        systemSignal: "Assessment weighting change detected. Alignment Review lane has been updated.",
         options: ["Authentic evidence", "Workload balance", "AI-safe redesign"],
         selected: 2,
         prompts: ["Compare 3 patterns", "Show rubric impact", "Reduce marking overhead"],
         blocks: [
-          { label: "AI", copy: "Which evidence should carry the heaviest weight: live simulation decisions, written reasoning, or interdisciplinary brief defence?" },
+          { label: "Authentic Assessment Specialist", copy: "Which evidence should carry the heaviest weight: live simulation decisions, written reasoning, or interdisciplinary brief defence?" },
           { label: "Module Leader", copy: "Live simulation plus concise written reasoning." },
-          { label: "AI", copy: "I will increase live decision evidence and keep written artefacts short but traceable for integrity." },
+          { label: "Authentic Assessment Specialist", copy: "I will increase live decision evidence and keep written artefacts short but traceable for integrity." },
           { label: "", copy: "Pattern 1: Simulation-heavy weighted stations.\nPattern 2: Mixed station + brief reasoning memo.\nPattern 3: Team escalation panel with individual defence." }
         ],
         tradeoffs: "Simulation-heavy design raises authenticity. Hybrid design may be easier to moderate across cohorts."
       },
       resources: {
         title: "Learning Resources",
+        specialist: "Resource Curation Specialist",
         subtitle: "Prioritize resources that directly support escalation competency and current assessments.",
         stage: "Enrichment lane",
         sectionLabel: "Learning Resources",
+        contextUsed: [
+          "Industry benchmarking highlights acute escalation case libraries",
+          "Student preferences favor practical and interdisciplinary scenarios",
+          "Existing resource set is light on debrief exemplars",
+          "Standards require stronger evidence-aligned reference mapping"
+        ],
+        downstream: ["Teaching Strategy", "Assessment Design"],
+        systemSignal: "Three shortlisted bundles are now mapped to revised simulation and memo tasks.",
         options: ["Case libraries", "Journal sets", "Simulation templates"],
         selected: 0,
         prompts: ["Map to outcomes", "Shortlist local relevance", "Balance open/licensed"],
         blocks: [
-          { label: "AI", copy: "Should resources optimize for exam preparation, simulation realism, or cross-disciplinary handover quality?" },
+          { label: "Resource Curation Specialist", copy: "Should resources optimize for exam preparation, simulation realism, or cross-disciplinary handover quality?" },
           { label: "Module Leader", copy: "Simulation realism and handover quality." },
-          { label: "AI", copy: "I will shortlist resources tied to high-risk escalation scenarios and interdisciplinary communication rubrics." },
+          { label: "Resource Curation Specialist", copy: "I will shortlist resources tied to high-risk escalation scenarios and interdisciplinary communication rubrics." },
           { label: "", copy: "Three resource bundles prepared: local case library, current journal digest, and simulation briefing templates." }
         ],
         tradeoffs: "Local relevance increases immediate utility. Broader benchmarking resources may improve long-term curriculum resilience."
       },
       alignment: {
         title: "Alignment Review",
+        specialist: "Curriculum Systems Reviewer",
         subtitle: "Validate systemic coherence across outcomes, delivery, assessment, and workload constraints.",
         stage: "Review lane",
         sectionLabel: "Alignment Review",
+        contextUsed: [
+          "Standards matrix from Discovery phase",
+          "Outcome and rubric mapping generated in co-design lanes",
+          "Workload distribution signal from student/module insights",
+          "Existing module constraints imported from source materials"
+        ],
+        downstream: ["Learning Outcomes", "Content & Hours", "Assessment Design"],
+        systemSignal: "Cross-check complete: one unresolved resource-to-assessment link remains.",
         options: ["Outcome-to-assessment", "Hours-to-depth", "Resource fit"],
         selected: 0,
         prompts: ["Show misalignment risks", "Flag unresolved decisions", "Propose correction set"],
         blocks: [
-          { label: "AI", copy: "Do you want alignment checking to prioritize accreditation evidence, learner workload, or competency depth first?" },
+          { label: "Curriculum Systems Reviewer", copy: "Do you want alignment checking to prioritize accreditation evidence, learner workload, or competency depth first?" },
           { label: "Module Leader", copy: "Competency depth first, then workload." },
-          { label: "AI", copy: "I will flag any section where depth is claimed but not evidenced through teaching sequence or assessment design." },
+          { label: "Curriculum Systems Reviewer", copy: "I will flag any section where depth is claimed but not evidenced through teaching sequence or assessment design." },
           { label: "", copy: "Current pass indicates two strengths and one risk: resource mapping still lags the revised assessment changes." }
         ],
         tradeoffs: "Depth-first review prevents superficial alignment. Secondary workload checks protect feasibility before implementation."
       },
       integrity: {
-        title: "AI / Academic Integrity",
+        title: "Academic Integrity",
+        specialist: "AI Governance Advisor",
         subtitle: "Define AI-use boundaries so learning remains authentic and reasoning evidence stays traceable.",
         stage: "Policy lane",
-        sectionLabel: "AI / Academic Integrity",
+        sectionLabel: "Academic Integrity",
+        contextUsed: [
+          "Curriculum standards for responsible AI use",
+          "Assessment authenticity risks identified in Discovery",
+          "Student support needs for transparent AI attribution",
+          "Benchmark policy language from peer institutions"
+        ],
+        downstream: ["Assessment Design", "Learning Outcomes"],
+        systemSignal: "Policy guidance synchronized with the latest simulation-heavy assessment pattern.",
         options: ["Preventive policy", "Assessment safeguards", "Student transparency"],
         selected: 1,
         prompts: ["Draft policy language", "Insert in guide", "Create learner checklist"],
         blocks: [
-          { label: "AI", copy: "Should this policy sound compliance-led, coaching-led, or scenario-led for student comprehension?" },
+          { label: "AI Governance Advisor", copy: "Should this policy sound compliance-led, coaching-led, or scenario-led for student comprehension?" },
           { label: "Module Leader", copy: "Coaching-led with clear boundaries." },
-          { label: "AI", copy: "I will keep standards explicit while framing AI use as guided support rather than hidden shortcut." },
+          { label: "AI Governance Advisor", copy: "I will keep standards explicit while framing AI use as guided support rather than hidden shortcut." },
           { label: "", copy: "Draft includes permitted AI actions, prohibited substitutions, and mandatory reasoning trace annotations." }
         ],
         tradeoffs: "Coaching tone improves adoption. Strong enforcement clauses are still required in high-stakes assessment sections."
@@ -952,6 +1445,9 @@
     const threadPromptRow = document.getElementById("threadPromptRow");
     const activeSectionPill = document.getElementById("activeSectionPill");
     const threadThinking = document.getElementById("threadThinking");
+    const threadSpecialist = document.getElementById("threadSpecialist");
+    const openContextSummary = document.getElementById("openContextSummary");
+    const changeInputs = document.getElementById("changeInputs");
 
     function renderThread(key) {
       const lane = threadData[key];
@@ -964,6 +1460,7 @@
       threadSubtitle.textContent = lane.subtitle;
       threadStage.textContent = lane.stage;
       activeSectionPill.textContent = "Editing: " + lane.sectionLabel;
+      threadSpecialist.textContent = lane.specialist;
 
       threadCanvas.innerHTML = "";
 
@@ -1011,6 +1508,47 @@
       tradeoffs.className = "lane-tradeoffs";
       tradeoffs.innerHTML = "<summary>Tradeoffs considered</summary><div class=\"lane-tradeoffs-content\">" + lane.tradeoffs + "</div>";
       threadCanvas.appendChild(tradeoffs);
+
+      const contextUsed = document.createElement("div");
+      contextUsed.className = "lane-context";
+
+      const contextLabel = document.createElement("div");
+      contextLabel.className = "lane-label";
+      contextLabel.textContent = "Context in use";
+      contextUsed.appendChild(contextLabel);
+
+      const contextList = document.createElement("ul");
+      contextList.className = "lane-context-list";
+      lane.contextUsed.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        contextList.appendChild(li);
+      });
+      contextUsed.appendChild(contextList);
+      threadCanvas.appendChild(contextUsed);
+
+      const network = document.createElement("div");
+      network.className = "lane-network";
+
+      const networkLabel = document.createElement("div");
+      networkLabel.className = "lane-label";
+      networkLabel.textContent = "Potential downstream updates";
+      network.appendChild(networkLabel);
+
+      const networkList = document.createElement("ul");
+      networkList.className = "lane-network-list";
+      lane.downstream.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        networkList.appendChild(li);
+      });
+      network.appendChild(networkList);
+      threadCanvas.appendChild(network);
+
+      const laneImpact = document.createElement("div");
+      laneImpact.className = "lane-impact";
+      laneImpact.textContent = lane.systemSignal;
+      threadCanvas.appendChild(laneImpact);
 
       const pending = document.createElement("div");
       pending.className = "lane-pending";
@@ -1060,7 +1598,7 @@
       });
 
       if (threadThinking) {
-        threadThinking.textContent = "Analyzing section implications...";
+        threadThinking.textContent = "Syncing downstream specialist implications...";
         threadThinking.classList.add("show");
         window.setTimeout(() => {
           threadThinking.classList.remove("show");
@@ -1083,8 +1621,96 @@
       });
     });
 
+    if (openContextSummary) {
+      openContextSummary.addEventListener("click", () => {
+        const modal = document.getElementById("contextModal");
+        if (modal) {
+          modal.classList.add("show");
+          modal.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+        }
+      });
+    }
+
+    if (changeInputs) {
+      changeInputs.addEventListener("click", () => {
+        window.location.href = "gather-context.html";
+      });
+    }
+
+    document.querySelectorAll("[data-close-context]").forEach((element) => {
+      element.addEventListener("click", () => {
+        const modal = document.getElementById("contextModal");
+        if (modal) {
+          modal.classList.remove("show");
+          modal.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+        }
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        const modal = document.getElementById("contextModal");
+        if (modal && modal.classList.contains("show")) {
+          modal.classList.remove("show");
+          modal.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+        }
+      }
+    });
+
     renderThread("outcomes");
     setActiveSection("outcomes", false);
   </script>
+
+  <div class="context-modal" id="contextModal" aria-hidden="true">
+    <div class="context-modal-backdrop" data-close-context></div>
+    <div class="context-modal-card" role="dialog" aria-modal="true" aria-labelledby="contextModalTitle">
+      <div class="context-modal-head">
+        <div>
+          <h3 class="context-modal-title" id="contextModalTitle">Imported AI Context</h3>
+          <p class="context-modal-sub">Synthesized from Discovery &amp; Analysis outputs and injected as shared curriculum memory for all specialist lanes.</p>
+        </div>
+        <button type="button" class="context-modal-close" data-close-context>Close</button>
+      </div>
+
+      <div class="context-modal-grid">
+        <section class="context-modal-block">
+          <h4>Industry Signals</h4>
+          <ul class="context-modal-list">
+            <li>Escalation decision-making</li>
+            <li>Interdisciplinary communication</li>
+            <li>Simulation-heavy assessment models</li>
+          </ul>
+        </section>
+
+        <section class="context-modal-block">
+          <h4>Student Insights</h4>
+          <ul class="context-modal-list">
+            <li>More authentic acute-care scenarios</li>
+            <li>Stronger diagnostic interpretation practice</li>
+          </ul>
+        </section>
+
+        <section class="context-modal-block">
+          <h4>Existing Materials Detected</h4>
+          <ul class="context-modal-list">
+            <li>Overlap in pharmacology sequencing</li>
+            <li>Assessment-heavy Week 9 cluster</li>
+          </ul>
+        </section>
+
+        <section class="context-modal-block">
+          <h4>AI Suggested Design Priorities</h4>
+          <ul class="context-modal-list">
+            <li>Strengthen escalation outcomes</li>
+            <li>Rebalance simulation workload</li>
+            <li>Align rubric wording</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
