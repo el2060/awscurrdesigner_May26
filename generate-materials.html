@@ -311,40 +311,6 @@
   accent-color: var(--brand);
 }
 
-.flow-sequence {
-  border: 1px solid #d6e3ef;
-  border-radius: 12px;
-  background: linear-gradient(180deg, #f7fbff 0%, #ffffff 82%);
-  padding: 12px;
-  display: grid;
-  gap: 8px;
-}
-
-.flow-sequence-title {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #5f748a;
-}
-
-.flow-sequence-track {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.flow-sequence-item {
-  border: 1px solid #dce8f4;
-  border-radius: 999px;
-  padding: 8px 12px;
-  background: #fff;
-  font-size: 12px;
-  line-height: 1.2;
-  color: #324c66;
-  font-weight: 600;
-}
-
     .setup-meta-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1100,7 +1066,6 @@
         grid-template-columns: 1fr;
       }
 
-      .flow-sequence-track { justify-content: flex-start; }
     }
 
     @media (max-width: 1200px) {
@@ -1138,8 +1103,6 @@
         grid-template-columns: 1fr;
       }
 
-      .flow-sequence-track { justify-content: flex-start; }
-
       .actions {
         padding-top: 14px;
       }
@@ -1167,19 +1130,6 @@
     <section>
       <h1 class="page-title">Generate Learning Materials</h1>
       <p class="page-sub">Generate aligned pre-class, in-class, and post-class learning materials.</p>
-      <div class="flow-sequence" aria-label="Material setup">
-        <div class="flow-sequence-title">Material setup</div>
-        <div class="flow-sequence-track">
-          <div class="flow-sequence-item">Teaching weeks</div>
-          <div class="flow-sequence-item">Learning activities</div>
-          <div class="flow-sequence-item">Materials to generate</div>
-          <div class="flow-sequence-item">Review outputs</div>
-          <div class="flow-sequence-item">Slides</div>
-          <div class="flow-sequence-item">Quizzes</div>
-          <div class="flow-sequence-item">Facilitator guide</div>
-          <div class="flow-sequence-item">Export package</div>
-        </div>
-      </div>
     </section>
 
     <section class="setup-card analysis-setup" aria-label="Curriculum context">
