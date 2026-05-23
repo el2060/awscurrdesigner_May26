@@ -225,7 +225,7 @@
 }
 
 .analysis-accordion > summary::after {
-  content: "Change Draft";
+  content: "View Connected Drafts";
   justify-self: start;
   margin-top: 2px;
   font-size: 11px;
@@ -243,7 +243,7 @@
 }
 
 .analysis-accordion[open] > summary::after {
-  content: "Close Options";
+  content: "Hide Draft Options";
 }
 .analysis-runs {
   padding: 16px;
@@ -370,22 +370,116 @@
       line-height: 1.45;
     }
 
-    .setup-approach-row {
-      border-top: 1px solid #dde8f2;
-      padding-top: 12px;
-      display: grid;
-      grid-template-columns: auto 1fr;
+    .setup-connector-top {
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
+      justify-content: space-between;
       gap: 10px;
     }
 
-    .setup-approach-label {
+    .setup-connector-meta {
+      font-size: 12px;
+      color: #6b7f92;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .setup-sections-block {
+      border-top: 1px solid #e1eaf2;
+      padding-top: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .setup-sections-title {
       font-size: 11px;
       font-weight: 700;
       color: #5f748a;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      white-space: nowrap;
+    }
+
+    .setup-draft-picker {
+      border-top: 1px dashed #d6e2ee;
+      padding-top: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .setup-draft-picker-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #5f748a;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .setup-draft-action {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .generation-setup {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .generation-setup-body {
+      padding: 18px 20px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .generation-setup-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .generation-field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .generation-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #5f748a;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .phase-toggle-wrap {
+      border-top: 1px dashed #dbe6f0;
+      padding-top: 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .phase-toggle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .phase-toggle {
+      border: 1px solid #dce5ef;
+      border-radius: 10px;
+      padding: 10px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #334b62;
+      font-weight: 600;
+    }
+
+    .phase-toggle input {
+      accent-color: var(--brand);
     }
 
     .setup-config {
@@ -1010,6 +1104,11 @@
         grid-template-columns: 1fr;
       }
 
+      .generation-setup-grid,
+      .phase-toggle-grid {
+        grid-template-columns: 1fr;
+      }
+
       .flow-sequence-track {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -1095,39 +1194,116 @@
     <section class="setup-card analysis-setup" aria-label="Curriculum context">
       <details class="analysis-accordion">
         <summary style="padding-bottom: 14px;">
-          <div class="setup-kicker" style="color: #63778a;">Using Module Draft</div>
-          <h2 class="setup-title" style="margin-bottom: 4px;">Advanced Critical Care Nursing Science II</h2>
-          <p class="setup-note" style="font-size: 12px; margin-bottom: 6px;">Using approved module structure and outcomes.</p>
+          <div class="setup-kicker" style="color: #63778a;">Using Curriculum Design Context</div>
+          <div class="setup-connector-top">
+            <div>
+              <h2 class="setup-title" style="margin-bottom: 4px;">Advanced Critical Care Nursing Science II</h2>
+              <p class="setup-connector-meta">Connected draft · Completed 2 hrs ago</p>
+            </div>
+            <button class="workspace-strip-link" type="button">Change Connected Draft</button>
+          </div>
+          <p class="setup-note" style="font-size: 12px; margin-top: 6px; margin-bottom: 6px;">Using approved curriculum design inputs from an earlier workflow.</p>
         </summary>
 
         <div class="analysis-runs" style="padding-top: 0;">
-          <div class="setup-meta-grid" style="padding: 0 4px; border-top: 1px solid #e3ecf4; padding-top: 14px;">
-            <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> learning outcomes</div>
-            <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> weekly structure</div>
-            <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> assessment approach</div>
-            <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> teaching strategy</div>
-            <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> AI &amp; integrity guidance</div>
+          <div class="setup-sections-block" style="padding: 0 4px; border-top: 1px solid #e3ecf4; padding-top: 14px;">
+            <div class="setup-sections-title">Connected Sections</div>
+            <div class="setup-meta-grid">
+              <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> learning outcomes</div>
+              <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> weekly structure</div>
+              <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> teaching strategy</div>
+              <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> assessment approach</div>
+              <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> AI &amp; integrity guidance</div>
+            </div>
           </div>
-          <div class="setup-approach-row">
-            <label class="setup-approach-label" for="learning-approach">Learning Approach</label>
-            <select class="setup-select" id="learning-approach" style="max-width: 280px;">
+
+          <div class="setup-draft-picker">
+            <div class="setup-draft-picker-title">Select From Completed Curriculum Design Runs</div>
+
+            <label class="analysis-run">
+              <div class="analysis-run-top">
+                <div class="analysis-run-title">ICU Nursing Draft v2</div>
+                <div class="analysis-run-time">Completed 2 hrs ago</div>
+              </div>
+              <div class="analysis-run-desc">Balanced flipped setup with pre-learning resources and in-class simulation activities.</div>
+              <span class="analysis-run-pick"><input type="radio" name="connected-draft" checked> Use this draft</span>
+            </label>
+
+            <label class="analysis-run">
+              <div class="analysis-run-top">
+                <div class="analysis-run-title">Benchmark &amp; Alignment Revision</div>
+                <div class="analysis-run-time">Completed yesterday</div>
+              </div>
+              <div class="analysis-run-desc">Focused on external benchmark mapping and assessment standardization.</div>
+              <span class="analysis-run-pick"><input type="radio" name="connected-draft"> Use this draft</span>
+            </label>
+
+            <label class="analysis-run">
+              <div class="analysis-run-top">
+                <div class="analysis-run-title">Simulation-Focused Curriculum Draft</div>
+                <div class="analysis-run-time">Completed 3 days ago</div>
+              </div>
+              <div class="analysis-run-desc">Scenario-heavy design run with stronger in-class facilitation and debrief emphasis.</div>
+              <span class="analysis-run-pick"><input type="radio" name="connected-draft"> Use this draft</span>
+            </label>
+
+            <div class="setup-draft-action">
+              <button class="btn secondary" type="button">Use Selected Draft</button>
+            </div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="generation-setup" aria-label="Material generation setup">
+      <div class="sc-header">
+        <div class="sc-num">2</div>
+        <div class="sc-title-wrap">
+          <div class="sc-title">Material Generation Setup</div>
+          <div class="sc-desc">Set generation preferences separately from connected curriculum context</div>
+        </div>
+      </div>
+      <div class="generation-setup-body">
+        <div class="generation-setup-grid">
+          <div class="generation-field">
+            <label class="generation-label" for="learning-approach">Learning Approach</label>
+            <select class="setup-select" id="learning-approach">
               <option selected>Blended / Flipped Learning</option>
               <option>Flipped Learning (High Async)</option>
               <option>Blended with Applied Workshops</option>
               <option>Face-to-Face with Digital Reinforcement</option>
             </select>
           </div>
+
+          <div class="generation-field">
+            <label class="generation-label" for="teaching-weeks">Teaching Weeks</label>
+            <select class="setup-select" id="teaching-weeks">
+              <option selected>All Weeks</option>
+              <option>Week 1 to Week 6</option>
+              <option>Week 7 to Week 12</option>
+              <option>Custom Week Range</option>
+            </select>
+          </div>
         </div>
-      </details>
+
+        <div class="phase-toggle-wrap">
+          <div class="generation-label">Generate Materials For</div>
+          <div class="phase-toggle-grid">
+            <label class="phase-toggle"><input type="checkbox" checked> Before class</label>
+            <label class="phase-toggle"><input type="checkbox" checked> During class</label>
+            <label class="phase-toggle"><input type="checkbox" checked> After class</label>
+          </div>
+        </div>
+      </div>
     </section>
 
     <div class="layout">
       <div class="layout-main">
         <section class="section-card">
           <div class="sc-header">
-            <div class="sc-num">1</div>
+            <div class="sc-num">3</div>
             <div class="sc-title-wrap">
-              <div class="sc-title">Learning Materials</div>
+              <div class="sc-title">What would you like to generate?</div>
               <div class="sc-desc">Group materials by learning phase so planning follows flipped-learning flow</div>
             </div>
           </div>
@@ -1245,7 +1421,7 @@
 
     <section class="section-card">
       <div class="sc-header">
-        <div class="sc-num">2</div>
+        <div class="sc-num">4</div>
         <div class="sc-title-wrap">
           <div class="sc-title">Preview & Export</div>
           <div class="sc-desc">Review your generated slides and activities, then download the materials</div>
