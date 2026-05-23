@@ -6,2659 +6,1085 @@
   <title>Plan Curriculum Direction</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --workspace-max: 1460px;
-      --workspace-pad: 24px;
-      --pane-height: calc(100vh - 190px);
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
+
+    :root {
+      --bg: #f6f7f4;
+      --paper: #ffffff;
+      --paper-soft: #fbfbfa;
+      --ink: #172230;
+      --ink-mid: #4d5d70;
+      --ink-soft: #7f8d9f;
+      --line: #dde3ea;
+      --line-soft: #e9edf2;
+      --brand: #183b61;
+      --brand-soft: #eaf1f8;
+      --accent: #c46a2a;
+      --max: 1480px;
+      --radius: 14px;
+    }
+
     body {
-      font-family: var(--font-sans, 'Inter', Arial, sans-serif);
-      background: #f3f5f8;
-      color: #19212a;
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at 12% -20%, #eef4fb 0%, var(--bg) 38%), var(--bg);
+      color: var(--ink);
       min-height: 100vh;
     }
 
     .topbar {
-      height: 52px;
-      border-bottom: 1px solid #e4e7ea;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 16px;
-      background: #fff;
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.93);
+      backdrop-filter: blur(8px);
     }
+
     .topbar-inner {
-      width: 100%;
-      max-width: var(--workspace-max);
+      max-width: var(--max);
       margin: 0 auto;
+      padding: 14px 24px;
       display: flex;
       align-items: center;
-      padding: 0 28px;
+      gap: 12px;
     }
-    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .t-div { width: 1px; height: 16px; background: #e0e0e0; margin: 0 4px; }
-    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-    .topbar-link { font-size: 12px; color: #6d7782; text-decoration: none; }
-    .topbar-pill {
-      border: 1px solid #d6dde6;
-      background: #f8fafc;
-      color: #4f5f71;
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .t-div {
+      width: 1px;
+      height: 18px;
+      background: var(--line);
+    }
+
+    .brand-tag {
+      border: 1px solid var(--line);
+      background: #fff;
       border-radius: 999px;
+      color: var(--ink-soft);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       padding: 4px 9px;
+    }
+
+    .topbar-right {
+      margin-left: auto;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .topbar-pill {
+      border: 1px solid #d6e2ef;
+      border-radius: 999px;
       font-size: 11px;
       font-weight: 700;
+      color: var(--brand);
+      background: var(--brand-soft);
+      padding: 4px 10px;
+    }
+
+    .topbar-link {
+      color: var(--ink-soft);
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .topbar-link:hover {
+      color: var(--ink);
     }
 
     .page {
-      max-width: var(--workspace-max);
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 22px var(--workspace-pad) 28px;
+      padding: 24px;
       display: grid;
-      gap: 12px;
-    }
-    .page-title { font-size: 22px; font-weight: 700; color: #18212b; margin-bottom: 4px; }
-    .page-sub { font-size: 13px; color: #6e7b88; line-height: 1.55; max-width: 780px; }
-
-    .context-bridge {
-      border: 1px solid #d8e2ec;
-      border-radius: 12px;
-      background: #fbfdff;
-      overflow: hidden;
+      gap: 18px;
     }
 
-    .bridge-accordion {
-      display: grid;
-    }
-
-    .bridge-summary {
-      list-style: none;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding: 12px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .bridge-summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .bridge-summary-hint {
-      border: 1px solid #d1dce7;
-      background: #fff;
-      color: #4d6073;
-      border-radius: 999px;
-      padding: 5px 10px;
+    .page-eyebrow {
       font-size: 11px;
       font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .bridge-summary-hint::before {
-      content: 'Show details';
-    }
-
-    .bridge-accordion[open] .bridge-summary-hint::before {
-      content: 'Hide details';
-    }
-
-    .bridge-panel {
-      border-top: 1px solid #e3ebf4;
-      padding: 12px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .bridge-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .bridge-title {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #5f7488;
-      margin-bottom: 3px;
+      color: var(--brand);
+      margin-bottom: 8px;
     }
 
-    .bridge-sub {
-      font-size: 12px;
-      color: #5f7081;
-      line-height: 1.45;
-      max-width: 760px;
-    }
-
-    .bridge-actions {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .bridge-btn {
-      border: 1px solid #d1dce7;
-      background: #fff;
-      color: #4d6073;
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 11px;
+    .page-title {
+      font-size: 32px;
       font-weight: 700;
-      white-space: nowrap;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
     }
 
-    .bridge-btn.primary {
-      border-color: #1a1a1a;
-      background: #1a1a1a;
-      color: #fff;
-    }
-
-    .bridge-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 10px;
-    }
-
-    .bridge-card {
-      border: 1px solid #dbe5ef;
-      border-radius: 10px;
-      background: #fff;
-      padding: 10px;
-      display: grid;
-      gap: 7px;
-    }
-
-    .bridge-card-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: #6b7f92;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .bridge-chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .bridge-chip {
-      border: 1px solid #d2dce7;
-      background: #fff;
-      color: #4f6275;
-      border-radius: 999px;
-      padding: 4px 8px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .bridge-chip.selected {
-      border-color: #0f2d4a;
-      background: #0f2d4a;
-      color: #f3f7fb;
-    }
-
-    .bridge-list {
-      display: grid;
-      gap: 4px;
-      padding-left: 16px;
-      color: #314a61;
-      font-size: 12px;
-      line-height: 1.45;
-      list-style: disc;
-    }
-
-    .bridge-note {
-      font-size: 11px;
-      color: #6f8396;
+    .page-sub {
+      max-width: 940px;
+      color: var(--ink-mid);
+      font-size: 15px;
+      line-height: 1.65;
     }
 
     .workspace {
       display: grid;
-      grid-template-columns: minmax(360px, 0.84fr) minmax(0, 1.16fr);
-      gap: 24px;
+      grid-template-columns: minmax(370px, 0.95fr) minmax(0, 1.05fr);
+      gap: 18px;
+      min-height: calc(100vh - 205px);
       align-items: start;
-      min-height: 0;
     }
 
-    .workspace-main,
-    .workspace-side {
-      min-width: 0;
-      display: grid;
-      gap: 16px;
-      align-content: start;
-      min-height: 0;
-      height: auto;
-    }
-
+    .workspace-side,
     .workspace-main {
-      order: 2;
-      position: sticky;
-      top: 72px;
-      height: calc(100vh - 100px);
-      align-content: stretch;
-    }
-
-    .workspace-side {
-      order: 1;
-      position: static;
-      top: auto;
-      background: #f8fafc;
-      border: 0;
-      border-right: 1px solid #edf2f7;
-      border-radius: 0;
-      padding: 0 12px 0 0;
-      box-shadow: none;
-      overflow: visible;
-    }
-
-    .lane-pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .lane-pill {
-      border: 1px solid #d7e2ee;
-      background: #fff;
-      color: #5a6d80;
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .lane-pill.active {
-      border-color: #243244;
-      background: #243244;
-      color: #fff;
-    }
-
-    .co-design-meta {
-      display: grid;
-      gap: 10px;
-    }
-
-    .co-design-row {
-      display: grid;
-      gap: 4px;
-    }
-
-    .co-design-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #6d8094;
-    }
-
-    .co-design-value {
-      font-size: 13px;
-      line-height: 1.45;
-      color: #152334;
-      font-weight: 600;
-    }
-
-    .co-design-uses {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .mode-switch {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding-top: 2px;
-    }
-
-    .mode-chip {
-      border: 1px solid #d7e2ee;
-      background: #fff;
-      color: #5a6d80;
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .mode-chip.active {
-      border-color: #243244;
-      background: #243244;
-      color: #fff;
-    }
-
-    .doc-surface {
-      border: 1px solid #dce3eb;
-      border-radius: 14px;
-      background: #fff;
-      display: grid;
-      grid-template-rows: auto 1fr;
-      overflow: hidden;
-      min-height: 0;
-      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
-      height: 100%;
-    }
-
-    .doc-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 14px;
-      border-bottom: 1px solid #e6ebf1;
-    }
-
-    .doc-top-main,
-    .doc-top-side {
-      display: grid;
-      gap: 4px;
-    }
-
-    .doc-top-side {
-      justify-items: end;
-    }
-
-    .surface-kicker {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #667a8e;
-    }
-
-    .surface-note {
-      font-size: 11px;
-      color: #788897;
-    }
-
-    .doc-title { font-size: 14px; font-weight: 700; color: #1c2732; }
-    .doc-meta { font-size: 11px; color: #6f7e8c; }
-    .doc-status {
-      font-size: 11px;
-      font-weight: 700;
-      color: #2d6a43;
-      border: 1px solid #cfe4d9;
-      background: #f4fbf7;
-      border-radius: 999px;
-      padding: 4px 8px;
-    }
-
-    .doc-workspace {
-      display: grid;
-      grid-template-columns: 188px minmax(0, 1fr);
-      min-height: 0;
-      height: 100%;
-    }
-
-    .section-tabs {
-      display: grid;
-      gap: 8px;
-      padding: 16px;
-      border-right: 1px solid #e6ebf1;
-      background: #fbfcfe;
-      align-content: start;
-      overflow-y: auto;
-    }
-
-    .tab {
-      border: 1px solid #d7dfe8;
-      background: #fff;
-      border-radius: 10px;
-      padding: 9px 12px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #607080;
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .tab.active {
-      border-color: #1a1a1a;
-      background: #1a1a1a;
-      color: #fff;
-    }
-
-    .doc-body {
-      padding: 18px;
-      display: grid;
-      gap: 12px;
-      align-content: start;
-      overflow-y: auto;
-      min-height: 0;
-    }
-
-    .preview-focus {
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      padding: 0;
-      display: grid;
-      gap: 0;
-    }
-
-    .preview-focus-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding: 2px 0 8px;
-      border-bottom: 1px solid #edf2f7;
-    }
-
-    .preview-focus-title {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-transform: none;
-      color: #4f6377;
-    }
-
-    .preview-focus-text {
-      font-size: 12px;
-      color: #63778b;
-      line-height: 1.5;
-    }
-
-    .preview-badge {
-      border: 1px solid #d9e2ee;
-      background: #fff;
-      color: #56687a;
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .preview-diff {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding-top: 8px;
-    }
-
-    .preview-diff-row {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 0;
-      border-radius: 0;
-      background: transparent;
-      border: 0;
-    }
-
-    .preview-diff-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0;
-      text-transform: none;
-      color: #7a8c9d;
-    }
-
-    .preview-diff-copy {
-      font-size: 12px;
-      line-height: 1.45;
-      color: #4f6377;
-    }
-
-    .doc-pane,
-    .chat-pane {
-      display: none;
-    }
-
-    .doc-pane.active,
-    .chat-pane.active {
-      display: grid;
-      gap: 10px;
-      align-content: start;
-    }
-
-    .doc-block {
-      border: 1px solid #dde4ec;
-      background: #fff;
-      border-radius: 10px;
-      padding: 10px 11px;
-      display: grid;
-      gap: 6px;
-    }
-
-    .doc-block-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .doc-block-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: #2f4357;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
-
-    .doc-block-meta {
-      font-size: 10px;
-      color: #8493a1;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .doc-text {
-      font-size: 13px;
-      color: #283b4f;
-      line-height: 1.5;
-      white-space: pre-wrap;
-    }
-
-    .doc-line {
-      font-size: 13px;
-      color: #2a3d50;
-      line-height: 1.5;
-    }
-
-    .module-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-      color: #2c3d4f;
-    }
-
-    .module-table th,
-    .module-table td {
-      border: 1px solid #d6e0ea;
-      padding: 8px;
-      text-align: left;
-      vertical-align: top;
-      overflow-wrap: anywhere;
-    }
-
-    .module-table th {
-      width: 42%;
-      background: #fafcfe;
-      color: #334a5f;
-      font-weight: 700;
-    }
-
-    .hours-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-      color: #2c3d4f;
-      margin-top: 4px;
-    }
-
-    .hours-table th,
-    .hours-table td {
-      border: 1px solid #d6e0ea;
-      padding: 8px;
-      text-align: left;
-      vertical-align: top;
-      overflow-wrap: anywhere;
-    }
-
-    .hours-table th {
-      background: #f7fafd;
-      font-weight: 700;
-      color: #334a5f;
-    }
-
-    .assessment-list {
-      padding-left: 18px;
-      display: grid;
-      gap: 4px;
-      color: #2b3f54;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .doc-footnote {
-      font-size: 11px;
-      color: #6f8193;
-    }
-
-    .previous-toggle {
-      border: 1px solid #d4dde7;
-      background: #fff;
-      color: #506274;
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 11px;
-      font-weight: 700;
-      width: fit-content;
-    }
-
-    .previous-preview {
-      border: 1px dashed #d8e1ea;
-      border-radius: 10px;
-      background: #fafcfe;
-      padding: 10px;
-      display: grid;
-      gap: 6px;
-    }
-
-    .chat-surface {
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      display: grid;
-      grid-template-rows: auto auto;
-      overflow: visible;
-      min-height: 0;
-      max-width: 1080px;
-      width: 100%;
-      justify-self: start;
-      height: auto;
-    }
-
-    .chat-top {
-      padding: 14px 14px 12px;
-      border-bottom: 1px solid #d7e2ee;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      background: transparent;
-    }
-
-    .chat-top-main {
-      display: grid;
-      gap: 8px;
       min-width: 0;
     }
 
-    .chat-top-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
+    .workspace-side {
+      position: sticky;
+      top: 76px;
     }
 
-    .thread-modes {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .thread-mode {
-      border: 1px solid #d8e3ef;
-      background: #fff;
-      color: #607487;
-      border-radius: 999px;
-      padding: 4px 9px;
-      font-size: 10px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .thread-mode.active {
-      border-color: #223244;
-      background: #223244;
-      color: #fff;
-    }
-
-    .chat-top-note {
-      font-size: 11px;
-      color: #6f8195;
-    }
-
-    .entry {
+    .thread-shell {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fcfdff 0%, #f9fbfd 100%);
+      border-radius: var(--radius);
       display: grid;
-      gap: 6px;
-      padding: 6px 0;
-      border-bottom: 1px solid #e1eaf4;
+      grid-template-columns: 164px minmax(0, 1fr);
+      min-height: calc(100vh - 220px);
+      overflow: hidden;
     }
 
-    .entry-label {
+    .thread-rail {
+      border-right: 1px solid var(--line-soft);
+      background: #f7fafd;
+      padding: 12px 8px;
+      display: grid;
+      align-content: start;
+      gap: 4px;
+    }
+
+    .thread-rail-kicker {
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.1em;
+      color: var(--ink-soft);
+      margin: 0 8px 8px;
       font-weight: 700;
-      color: #6f8195;
-    }
-
-    .entry-copy {
-      font-size: 13px;
-      line-height: 1.55;
-      color: #203244;
-    }
-
-    .flow-section {
-      border-bottom: 1px solid #e1eaf4;
-      padding: 8px 0;
-    }
-
-    .flow-summary {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      cursor: pointer;
-      font-size: 12px;
-      color: #203244;
-      font-weight: 700;
-      padding: 4px 0;
-    }
-
-    .flow-summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .flow-summary-meta {
-      font-size: 11px;
-      font-weight: 600;
-      color: #6f8195;
-    }
-
-    .flow-content {
-      display: grid;
-      gap: 8px;
-      padding: 7px 0 1px;
-    }
-
-    .thread-stream {
-      display: grid;
-      gap: 10px;
-    }
-
-    .thread-line {
-      font-size: 12.5px;
-      line-height: 1.55;
-      color: #31485d;
-      white-space: pre-wrap;
-    }
-
-    .thread-line.ai {
-      color: #253b4f;
-    }
-
-    .thread-line.user {
-      color: #546a7e;
-    }
-
-    .active-decision {
-      border: 0;
-      border-top: 1px solid #e6edf5;
-      border-bottom: 1px solid #e6edf5;
-      border-radius: 0;
-      background: transparent;
-      padding: 8px 0;
-      display: grid;
-      gap: 6px;
-    }
-
-    .decision-title {
-      font-size: 11px;
-      color: #516a80;
-      font-weight: 700;
-    }
-
-    .decision-inline-confirm {
-      font-size: 11px;
-      color: #678095;
-      font-weight: 700;
-    }
-
-    .thread-link-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
     }
 
     .thread-link {
+      width: 100%;
+      text-align: left;
       border: 0;
+      border-radius: 10px;
+      padding: 9px 10px;
       background: transparent;
-      color: #5c7390;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 0;
+      color: #5f7084;
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 600;
       cursor: pointer;
-      text-decoration: underline;
-      text-underline-offset: 2px;
+      transition: background 120ms ease, color 120ms ease;
     }
 
-    .collapsed-history {
-      border-top: 1px dashed #dfe8f2;
-      padding-top: 8px;
-      font-size: 11px;
-      color: #677f94;
-      line-height: 1.45;
+    .thread-link:hover {
+      background: #edf3fa;
+      color: #1f344a;
     }
 
-    .continuation-inline {
-      border-top: 1px solid #e8eef6;
-      padding-top: 8px;
-      display: grid;
-      gap: 6px;
-    }
-
-    .continuation-title {
-      font-size: 11px;
-      color: #61788d;
-      font-weight: 700;
-    }
-
-    .continuation-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .continuation-chip {
-      border: 1px solid #dce6f1;
-      background: #fff;
-      color: #5f7488;
-      border-radius: 999px;
-      padding: 4px 9px;
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .thread-status {
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      padding: 0;
-      display: grid;
-      gap: 8px;
-    }
-
-    .thread-status-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .thread-status-title {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #607385;
-    }
-
-    .thread-status-copy {
-      font-size: 12.5px;
-      line-height: 1.5;
-      color: #607385;
-    }
-
-    .change-tray {
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      padding: 0;
-      display: grid;
-      gap: 10px;
-    }
-
-    .change-tray-list {
-      display: grid;
-      gap: 8px;
-      list-style: none;
-      padding: 0;
-    }
-
-    .change-tray-item {
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 10px;
-      display: grid;
-      gap: 3px;
-      background: #fbfcff;
-    }
-
-    .change-tray-item strong {
-      font-size: 12px;
-      color: #233345;
-    }
-
-    .change-tray-item span {
-      font-size: 12px;
-      line-height: 1.45;
-      color: #607284;
-    }
-
-    .suggestion-card {
-      border: 1px solid #d7e4f2;
-      background: #fff;
-      border-radius: 12px;
-      padding: 14px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .suggestion-card-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .suggestion-card-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: #27384a;
-    }
-
-    .suggestion-card-reason {
-      font-size: 12.5px;
-      line-height: 1.55;
-      color: #586a7c;
-    }
-
-    .suggestion-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .micro-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .micro-link {
-      border: 1px solid #dfe7f1;
-      background: #fff;
-      color: #617689;
-      border-radius: 999px;
-      padding: 4px 9px;
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .inline-pending {
-      border: 1px solid #dce7f2;
-      border-radius: 10px;
-      background: #f7fbff;
-      padding: 10px;
-      display: grid;
-      gap: 7px;
-    }
-
-    .inline-pending-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: #2a4258;
-    }
-
-    .inline-pending-copy {
-      font-size: 12px;
-      color: #5f758a;
-      line-height: 1.45;
-    }
-
-    .entry-compact {
-      border-bottom: 0;
-      padding: 2px 0;
-    }
-
-    .entry-compact .entry-label {
-      display: none;
-    }
-
-    .entry-compact .entry-copy {
-      font-size: 12px;
-      color: #6a7f93;
-    }
-
-    .agent {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-    }
-
-    .agent-dot {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: #1b2530;
+    .thread-link.active {
+      background: #1f344a;
       color: #fff;
-      font-size: 11px;
-      font-weight: 700;
+    }
+
+    .thread-link small {
+      display: block;
+      font-size: 10px;
+      opacity: 0.9;
+      margin-top: 2px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .thread-workspace {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 0;
+    }
+
+    .thread-head {
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid var(--line-soft);
+      background: linear-gradient(180deg, #f8fbff 0%, transparent 100%);
+      display: grid;
+      gap: 8px;
+    }
+
+    .thread-head-top {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .agent-title { font-size: 13px; font-weight: 700; color: #223140; }
-    .agent-sub { font-size: 11px; color: #738292; }
-
-    .chat-state {
-      font-size: 11px;
+    .thread-title {
+      font-size: 15px;
       font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #58718b;
-      border: 1px solid #d8e4f0;
+      color: #1e3348;
+    }
+
+    .thread-stage {
+      border: 1px solid #d6e3f0;
+      background: #fff;
       border-radius: 999px;
       padding: 4px 9px;
-      background: #f4f8fc;
+      font-size: 10px;
+      color: #63758a;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
     }
 
-    .chat-body {
-      padding: 18px;
-      background: #f8fafd;
-      overflow: visible;
+    .thread-sub {
+      font-size: 12px;
+      color: #5f7084;
+      line-height: 1.5;
+    }
+
+    .thread-canvas {
+      overflow-y: auto;
+      padding: 14px 16px 16px;
       display: grid;
       gap: 14px;
       align-content: start;
     }
 
-    .bubble {
-      max-width: 94%;
-      border-radius: 12px;
-      padding: 9px 10px;
-      border: 1px solid #dce5ee;
+    .lane-block {
+      display: grid;
+      gap: 8px;
+    }
+
+    .lane-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7e8fa0;
+      font-weight: 600;
+    }
+
+    .lane-copy {
+      color: #2f475f;
       font-size: 13px;
-      line-height: 1.5;
-      color: #26384b;
-      background: #fff;
+      line-height: 1.6;
       white-space: pre-wrap;
     }
 
-    .bubble.ai {
-      justify-self: start;
-      background: #ffffff;
-    }
-
-    .bubble.ai.lead {
-      background: #eef2ff;
-      color: #1d2f42;
-      border-color: #dbe5f1;
-      max-width: 100%;
-    }
-
-    .bubble.ai.minimal {
-      border: 0;
-      padding: 0;
-      background: transparent;
-      color: #2b3e52;
-      max-width: 100%;
-    }
-
-    .bubble.ai.minimal .question-title {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #30465b;
-    }
-
-    .bubble.user {
-      justify-self: end;
-      background: #f3f7fb;
-      color: #284056;
-      border-color: #d9e4ef;
-    }
-
-    .choice-row {
+    .lane-options,
+    .lane-prompts {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
+      gap: 7px;
     }
 
-    .inline-prompts {
-      display: grid;
-      gap: 8px;
-      border-top: 1px solid #e6edf5;
-      padding-top: 8px;
-    }
-
-    .inline-prompt-row {
-      display: grid;
-      gap: 6px;
-    }
-
-    .inline-prompt-title {
-      font-size: 11px;
-      color: #5f7489;
-      font-weight: 700;
-    }
-
-    .choice {
-      border: 1px solid #d2dce7;
-      border-radius: 999px;
-      padding: 4px 8px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #5c6d7d;
+    .lane-chip {
+      border: 1px solid #d9e4ef;
       background: #fff;
+      color: #607387;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
     }
 
-    .choice.active {
-      border-color: #1a1a1a;
-      background: #1a1a1a;
+    .lane-chip.selected {
+      border-color: #1f344a;
+      background: #1f344a;
       color: #fff;
     }
 
-    .synthesis-card {
-      border: 1px solid #d7e4f2;
-      background: #f3f8ff;
-      border-radius: 10px;
-      padding: 10px;
+    .lane-decision {
+      padding: 7px 0 3px;
       display: grid;
-      gap: 6px;
-      color: #2a435a;
-      line-height: 1.5;
-      font-size: 13px;
-    }
-
-    .synthesis-title {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #5f7892;
-    }
-
-    .context-in-use {
-      border: 1px solid #d7e4f2;
-      background: #f5f9ff;
-      border-radius: 10px;
-      padding: 10px;
-      display: grid;
-      gap: 6px;
-      color: #2a435a;
-    }
-
-    .context-in-use-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       gap: 8px;
     }
 
-    .context-in-use-title {
+    .lane-tradeoffs {
+      border: 1px solid #e8edf3;
+      background: #fcfdff;
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: grid;
+      gap: 6px;
+      color: #5b6f84;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .lane-tradeoffs summary {
+      list-style: none;
+      cursor: pointer;
       font-size: 11px;
       font-weight: 700;
+      color: #62778d;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #5f7892;
     }
 
-    .context-in-use-meta {
-      font-size: 10px;
-      color: #6d8298;
-      font-weight: 700;
-    }
-
-    .context-in-use-list {
-      font-size: 12px;
-      line-height: 1.45;
-      padding-left: 16px;
-      list-style: disc;
-      display: grid;
-      gap: 3px;
-    }
-
-    .chat-footer {
+    .lane-tradeoffs summary::-webkit-details-marker {
       display: none;
     }
 
-    .composer {
-      border: 1px solid #d5dde6;
-      border-radius: 10px;
-      background: #fbfcfd;
-      padding: 8px 10px;
-      font-size: 12px;
-      color: #5f6f7e;
-      line-height: 1.4;
+    .lane-tradeoffs-content {
+      padding-top: 5px;
     }
 
-    .actions {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 10px;
+    .lane-tradeoffs strong {
+      color: #30475f;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
     }
 
-    .secondary-actions {
+    .lane-pending {
+      padding-top: 2px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .thread-footer {
+      padding: 10px 16px 13px;
+      display: grid;
+      gap: 8px;
+      background: #fcfdff;
+    }
+
+    .thread-foot-title {
+      font-size: 11px;
+      color: #607387;
+      font-weight: 700;
+    }
+
+    .thread-foot-prompts {
       display: flex;
-      gap: 6px;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .artifact {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      min-height: calc(100vh - 220px);
+      display: grid;
+      grid-template-rows: auto 1fr;
+      overflow: hidden;
+    }
+
+    .artifact-head {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line-soft);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
-    .primary-actions {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .time {
-      font-size: 11px;
-      color: #82909d;
-    }
-
-    .btn-accept {
-      border: 1px solid #1a1a1a;
-      background: #1a1a1a;
-      color: #fff;
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: 11px;
+    .artifact-kicker {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #6f8195;
       font-weight: 700;
-      letter-spacing: 0.02em;
+      margin-bottom: 6px;
     }
 
-    .btn-secondary {
-      border: 1px solid #d2dbe4;
-      background: #fff;
-      color: #4f6070;
+    .artifact-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+
+    .artifact-sub {
+      font-size: 12px;
+      color: #6a7d91;
+    }
+
+    .artifact-live {
+      font-size: 12px;
+      color: #527291;
+      background: #eef4fb;
+      border: 1px solid #d8e5f3;
       border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 11px;
+      padding: 6px 11px;
       font-weight: 700;
     }
 
-    .btn-row {
-      display: flex;
-      gap: 6px;
-      align-items: center;
+    .artifact-body {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      min-height: 0;
     }
 
-    .alignment-notes {
-      border: 1px solid #d9e4ef;
-      border-radius: 10px;
-      background: #f7fbff;
+    .artifact-nav {
+      border-right: 1px solid var(--line-soft);
+      background: var(--paper-soft);
       padding: 10px;
+      overflow-y: auto;
+      display: grid;
+      align-content: start;
+      gap: 4px;
+    }
+
+    .artifact-nav button {
+      width: 100%;
+      text-align: left;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      background: transparent;
+      color: #7a8b9d;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 8px;
+      cursor: pointer;
+    }
+
+    .artifact-nav button:hover {
+      border-color: #e5ebf2;
+      background: #fff;
+      color: #556b80;
+    }
+
+    .artifact-nav button.active {
+      border-color: #d5e2ef;
+      background: #eef3f8;
+      color: #2e4862;
+    }
+
+    .thread-thinking {
+      font-size: 11px;
+      color: #6f8498;
+      font-weight: 600;
+      padding: 2px 0 6px;
+      opacity: 0;
+      transform: translateY(-2px);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .thread-thinking.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .artifact-scroll {
+      overflow-y: auto;
+      padding: 22px 26px;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .module-section {
+      border-top: 1px solid #e7edf4;
+      padding-top: 14px;
+      opacity: 0.58;
+      transition: opacity 160ms ease, background 160ms ease;
+    }
+
+    .module-section:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .module-section.active {
+      opacity: 1;
+      background: linear-gradient(180deg, #f7fbff 0%, transparent 72%);
+      border-radius: 10px;
+      padding: 12px 12px 4px;
+      margin: 0 -12px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #678097;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #20374d;
+      margin-bottom: 8px;
+    }
+
+    .section-copy,
+    .section-list,
+    .section-table {
+      color: #324b63;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .section-list {
+      padding-left: 18px;
       display: grid;
       gap: 4px;
     }
 
-    .alignment-notes .doc-block-title {
-      margin-bottom: 2px;
-    }
-
-    .doc-continuation {
-      border-top: 1px dashed #e2e9f2;
-      padding-top: 10px;
-      display: grid;
-      gap: 8px;
-    }
-
-    .doc-continuation-line {
-      height: 8px;
+    .section-table {
       width: 100%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #f2f6fb 0%, #e9f0f8 55%, #f2f6fb 100%);
-      opacity: 0.95;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 12px;
     }
 
-    .doc-continuation-line.short {
-      width: 72%;
+    .section-table th,
+    .section-table td {
+      border: 1px solid #dbe4ee;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
     }
 
-    .doc-sync-flash {
-      animation: docSyncFlash 300ms ease-out;
+    .section-table th {
+      width: 38%;
+      background: #f9fbfe;
+      color: #314960;
     }
 
-    @keyframes docSyncFlash {
-      0% { background-color: #eef6ff; }
-      100% { background-color: transparent; }
-    }
-
-    @media (min-width: 1500px) {
-      .chat-surface {
-        max-width: none;
-      }
-    }
-
-    @media (max-width: 1100px) {
+    @media (max-width: 1200px) {
       .workspace {
         grid-template-columns: 1fr;
-      }
-
-      .workspace-main,
-      .workspace-side {
-        order: initial;
       }
 
       .workspace-side {
         position: static;
       }
 
-      .doc-workspace {
+      .thread-shell,
+      .artifact {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .page {
+        padding: 16px;
+      }
+
+      .page-title {
+        font-size: 24px;
+      }
+
+      .thread-shell {
         grid-template-columns: 1fr;
       }
 
-      .section-tabs {
+      .thread-rail {
         border-right: 0;
-        border-bottom: 1px solid #e6ebf1;
+        border-bottom: 1px solid var(--line-soft);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-    }
 
-    @media (max-width: 900px) {
-      :root { --workspace-pad: 16px; }
-      .topbar-inner { padding: 0; }
-      .page-title { font-size: 20px; }
-      .workspace { grid-template-columns: 1fr; }
-      .doc-surface, .chat-surface { min-height: auto; }
-      .doc-body { overflow: visible; }
-      .chat-surface { max-width: none; }
-      .bridge-grid { grid-template-columns: 1fr; }
-      .doc-top { align-items: flex-start; }
-      .doc-top-side { justify-items: start; }
-    }
+      .thread-rail-kicker {
+        grid-column: 1 / -1;
+      }
 
-    /* ───────────────────────────────────────────────
-       Cohesive Shell — Curriculum Designer aesthetic
-       (overrides above to align with homepage)
-       ─────────────────────────────────────────────── */
-    body { background: var(--hp-bg); color: var(--hp-text); }
-    .topbar {
-      height: 56px;
-      border-bottom: 1px solid var(--hp-border);
-      background: #fff;
-    }
-    .topbar-brand { gap: 10px; color: var(--hp-text); }
-    .brand-name {
-      font-size: 13px; font-weight: 600; color: var(--hp-text);
-      letter-spacing: -0.01em;
-    }
-    .brand-tag {
-      font-size: 10px; font-weight: 600; color: var(--hp-muted);
-      border: 1px solid var(--hp-border); padding: 3px 8px;
-      letter-spacing: 0.06em; margin-left: 4px;
-      text-transform: uppercase; border-radius: 4px;
-      background: #fff;
-    }
-    .t-div { background: var(--hp-border); height: 18px; margin: 0 8px; }
-    .topbar-link {
-      font-size: 12px; color: var(--hp-muted);
-      transition: color 120ms;
-    }
-    .topbar-link:hover { color: var(--hp-text); text-decoration: none; }
-    .topbar-pill {
-      border: 1px solid var(--hp-indigo-100);
-      background: var(--hp-indigo-50);
-      color: var(--hp-indigo-700);
-      border-radius: 999px;
-      padding: 4px 10px; font-size: 11px; font-weight: 600;
-      letter-spacing: 0.02em;
-    }
+      .artifact-body {
+        grid-template-columns: 1fr;
+      }
 
-    .page-eyebrow {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-    body.discovery-scope .page-eyebrow { color: var(--hp-amber-700); }
-    body.design-scope    .page-eyebrow { color: var(--hp-indigo-600); }
-    body.review-scope    .page-eyebrow { color: var(--hp-emerald-700); }
+      .artifact-nav {
+        border-right: 0;
+        border-bottom: 1px solid var(--line-soft);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
 
-    .page-title {
-      font-size: 32px; font-weight: 700;
-      color: var(--hp-text);
-      letter-spacing: -0.022em;
-      line-height: 1.18;
-      margin-bottom: 10px;
-    }
-    .page-sub {
-      font-size: 16px; color: var(--hp-body);
-      line-height: 1.6;
-      margin-bottom: 0;
-      max-width: 720px;
-    }
-
-    /* Phase bar — accent per scope */
-    body.discovery-scope .ph-step.active { color: var(--hp-amber-700); }
-    body.discovery-scope .ph-step.active .ph-num {
-      background: var(--hp-amber-700); border-color: var(--hp-amber-700); color: #fff;
-    }
-    body.design-scope .ph-step.active { color: var(--hp-indigo-700); }
-    body.design-scope .ph-step.active .ph-num {
-      background: var(--hp-indigo-700); border-color: var(--hp-indigo-700); color: #fff;
-    }
-    body.review-scope .ph-step.active { color: var(--hp-emerald-700); }
-    body.review-scope .ph-step.active .ph-num {
-      background: var(--hp-emerald-700); border-color: var(--hp-emerald-700); color: #fff;
-    }
-
-    @media (max-width: 1280px) {
-      .page-title { font-size: 30px; }
-    }
-    @media (max-width: 900px) {
-      .page-title { font-size: 24px; }
-      .page-sub { font-size: 14px; }
-    }
-
-    /* ───────────────────────────────────────────────
-       Design Page Refinements — indigo accents,
-       icons, refined cards (consistent with discovery page)
-       ─────────────────────────────────────────────── */
-
-    .page { padding: 28px var(--workspace-pad) 100px; gap: 16px; background: transparent; }
-    .workspace { gap: 20px; }
-
-    .lane-card {
-      border: 1px solid var(--hp-indigo-100);
-      box-shadow: 0 4px 16px rgba(55, 48, 163, 0.05);
-    }
-    .lane-card-kicker {
-      color: var(--hp-indigo-600);
-    }
-    .lane-card-title {
-      color: var(--hp-text);
-      letter-spacing: -0.015em;
-    }
-    .lane-card-copy {
-      color: var(--hp-body);
-    }
-    .lane-pill {
-      border: 1px solid var(--hp-border);
-      color: var(--hp-body);
-    }
-    .lane-pill.active {
-      border-color: var(--hp-indigo-700);
-      background: var(--hp-indigo-700);
-      color: #fff;
-    }
-    .co-design-label,
-    .preview-focus-title,
-    .thread-status-title {
-      color: var(--hp-indigo-600);
-    }
-    .co-design-value,
-    .preview-diff-copy,
-    .suggestion-card-title {
-      color: var(--hp-text);
-    }
-    .mode-chip,
-    .preview-badge {
-      border: 1px solid var(--hp-border);
-      color: var(--hp-body);
-      background: #fff;
-    }
-    .mode-chip.active {
-      border-color: var(--hp-indigo-700);
-      background: var(--hp-indigo-700);
-      color: #fff;
-    }
-
-    /* Context bridge — indigo accent + icon */
-    .context-bridge {
-      border: 1px solid var(--hp-indigo-100);
-      background: linear-gradient(180deg, var(--hp-indigo-25) 0%, #fff 70%);
-      border-radius: 12px;
-      padding: 0;
-    }
-    .bridge-summary,
-    .bridge-panel {
-      padding-left: 18px;
-      padding-right: 18px;
-    }
-    .bridge-summary {
-      padding-top: 16px;
-      padding-bottom: 16px;
-    }
-    .bridge-panel {
-      padding-top: 0;
-      padding-bottom: 16px;
-      gap: 14px;
-    }
-    .bridge-summary-hint {
-      border: 1px solid var(--hp-border);
-      background: #fff;
-      color: var(--hp-body);
-      border-radius: 999px;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .bridge-head { align-items: center; }
-    .bridge-head-copy { display: flex; align-items: center; gap: 14px; }
-    .bridge-head-icon {
-      width: 34px; height: 34px;
-      background: var(--hp-indigo-700);
-      color: #fff;
-      border-radius: 9px;
-      display: inline-flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(55, 48, 163, 0.22);
-    }
-    .bridge-head-icon svg { width: 17px; height: 17px; }
-    .bridge-title {
-      color: var(--hp-indigo-700);
-      letter-spacing: 0.1em;
-      font-size: 11px;
-      margin-bottom: 4px;
-    }
-    .bridge-sub { color: var(--hp-body); font-size: 13px; line-height: 1.5; }
-    .bridge-btn {
-      border: 1px solid var(--hp-border);
-      background: #fff;
-      color: var(--hp-body);
-      border-radius: 8px;
-      padding: 7px 13px;
-      font-size: 12px; font-weight: 600;
-      transition: all 120ms;
-    }
-    .bridge-btn:hover {
-      border-color: var(--hp-indigo-600);
-      color: var(--hp-indigo-700);
-      background: var(--hp-indigo-50);
-    }
-    .bridge-btn.primary {
-      border-color: var(--hp-indigo-700);
-      background: var(--hp-indigo-700);
-      color: #fff;
-      box-shadow: 0 2px 6px rgba(55, 48, 163, 0.20);
-    }
-    .bridge-btn.primary:hover {
-      background: var(--hp-indigo-600);
-      border-color: var(--hp-indigo-600);
-    }
-    .bridge-card {
-      border: 1px solid var(--hp-indigo-100);
-      border-radius: 10px;
-      background: #fff;
-      padding: 14px;
-    }
-    .bridge-card-title {
-      color: var(--hp-indigo-700);
-      font-size: 11px; letter-spacing: 0.1em;
-      margin-bottom: 4px;
-    }
-    .bridge-chip {
-      border: 1px solid var(--hp-border);
-      color: var(--hp-body);
-      background: #fff;
-      font-size: 11px; font-weight: 500;
-      padding: 4px 10px;
-    }
-    .bridge-chip.selected {
-      border-color: var(--hp-indigo-700);
-      background: var(--hp-indigo-700);
-      color: #fff;
-    }
-    .bridge-list {
-      color: var(--hp-body);
-      font-size: 13px;
-      padding-left: 18px;
-      list-style: none;
-    }
-    .bridge-list li {
-      position: relative;
-      padding-left: 2px;
-      margin-bottom: 4px;
-    }
-    .bridge-list li::before {
-      content: '';
-      position: absolute;
-      left: -14px; top: 8px;
-      width: 5px; height: 5px;
-      background: var(--hp-indigo-600);
-      border-radius: 50%;
-    }
-    .bridge-note { color: var(--hp-muted); font-size: 12px; }
-
-    /* Doc surface */
-    .doc-surface {
-      border: 1px solid var(--hp-border);
-      border-radius: 12px;
-      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
-    }
-    .doc-top {
-      padding: 16px 20px;
-      background: #fff;
-      border-bottom: 1px solid var(--hp-border);
-    }
-    .surface-kicker {
-      color: var(--hp-indigo-600);
-    }
-    .surface-note {
-      color: var(--hp-muted);
-    }
-    .doc-title { color: var(--hp-text); font-size: 15px; font-weight: 700; }
-    .doc-meta { color: var(--hp-muted); font-size: 12px; }
-    .doc-status {
-      color: var(--hp-emerald-700);
-      border: 1px solid var(--hp-emerald-100);
-      background: var(--hp-emerald-50);
-      font-size: 11px;
-      padding: 4px 10px;
-      font-weight: 600;
-    }
-    .section-tabs {
-      background: var(--hp-bg);
-      padding: 12px 16px;
-      border-right: 1px solid var(--hp-border);
-      gap: 8px;
-    }
-    .tab {
-      border: 1px solid var(--hp-border);
-      color: var(--hp-body);
-      background: #fff;
-      font-size: 12px; font-weight: 500;
-      padding: 10px 12px;
-      border-radius: 10px;
-      transition: all 120ms;
-    }
-    .tab:hover {
-      border-color: var(--hp-indigo-100);
-      color: var(--hp-indigo-700);
-      background: var(--hp-indigo-50);
-    }
-    .tab.active {
-      border-color: var(--hp-indigo-700);
-      background: var(--hp-indigo-700);
-      color: #fff;
-      box-shadow: 0 1px 4px rgba(55, 48, 163, 0.18);
-    }
-    .doc-body { padding: 18px; gap: 14px; }
-    .preview-focus {
-      border: 1px solid var(--hp-indigo-100);
-      background: linear-gradient(180deg, var(--hp-indigo-25) 0%, #fff 100%);
-    }
-    .preview-diff-row {
-      border-color: var(--hp-border);
-    }
-    .doc-block {
-      border: 1px solid var(--hp-border);
-      border-radius: 10px;
-      padding: 14px 16px;
-      background: #fff;
-    }
-    .doc-pane.active .doc-block:first-child {
-      border-color: var(--hp-indigo-200);
-      box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.12);
-    }
-    .doc-block-title {
-      color: var(--hp-indigo-700);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-    }
-    .doc-block-meta {
-      color: var(--hp-muted);
-      font-size: 10px;
-    }
-    .doc-text, .doc-line {
-      color: var(--hp-text);
-      font-size: 13.5px;
-      line-height: 1.6;
-    }
-    .doc-footnote { color: var(--hp-muted); font-size: 11px; font-style: italic; }
-    .module-table th, .hours-table th {
-      background: var(--hp-indigo-25);
-      color: var(--hp-text);
-      border-color: var(--hp-border);
-      font-size: 12px;
-    }
-    .module-table td, .hours-table td {
-      border-color: var(--hp-border);
-      color: var(--hp-body);
-      font-size: 12.5px;
-    }
-
-    /* Alignment notes — indigo callout */
-    .alignment-notes {
-      border: 1px solid var(--hp-indigo-100);
-      background: var(--hp-indigo-25);
-      border-radius: 10px;
-      padding: 12px 14px;
-    }
-    .alignment-notes .doc-block-title { color: var(--hp-indigo-700); }
-    .alignment-notes .doc-line {
-      color: var(--hp-indigo-700);
-      font-weight: 500;
-      font-size: 13px;
-    }
-
-    .previous-preview {
-      border: 1px dashed var(--hp-border);
-      background: var(--hp-bg);
-      border-radius: 10px;
-      padding: 12px;
-    }
-    .previous-toggle {
-      border: 1px solid var(--hp-border);
-      color: var(--hp-body);
-      background: #fff;
-      border-radius: 6px;
-      font-size: 11px; font-weight: 600;
-      padding: 6px 11px;
-    }
-    .previous-toggle:hover {
-      border-color: var(--hp-indigo-600);
-      color: var(--hp-indigo-700);
-    }
-
-    /* Chat surface */
-    .chat-surface {
-      border: 1px solid var(--hp-indigo-100);
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(55, 48, 163, 0.06);
-    }
-    .chat-top {
-      background: linear-gradient(180deg, var(--hp-indigo-50) 0%, #fff 100%);
-      border-bottom: 1px solid var(--hp-indigo-100);
-      padding: 14px 18px;
-    }
-    .chat-top-note {
-      color: var(--hp-body);
-    }
-    .agent { gap: 12px; }
-    .agent-dot {
-      background: var(--hp-indigo-700);
-      color: #fff;
-      width: 36px; height: 36px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(55, 48, 163, 0.22);
-      font-size: 0;
-    }
-    .agent-dot svg { width: 18px; height: 18px; }
-    .agent-title { color: var(--hp-text); font-size: 14px; font-weight: 700; }
-    .agent-sub { color: var(--hp-body); font-size: 12px; }
-    .chat-state {
-      border: 1px solid var(--hp-indigo-100);
-      background: #fff;
-      color: var(--hp-indigo-700);
-      font-size: 11px;
-      padding: 4px 10px;
-      letter-spacing: 0.04em;
-    }
-
-    .chat-body {
-      background: #f7faff;
-      padding: 14px;
-      gap: 12px;
-      overflow-y: auto;
-    }
-    .bubble {
-      border: 0;
-      background: transparent;
-      color: #22364a;
-      border-radius: 12px;
-      padding: 2px 0;
-      font-size: 13px;
-      line-height: 1.55;
-    }
-    .bubble.ai.lead {
-      background: transparent;
-      border-color: transparent;
-      color: #22364a;
-      box-shadow: none;
-      padding: 0;
-    }
-    .bubble.ai.minimal .question-title {
-      color: #203244;
-      font-size: 13px;
-      font-weight: 600;
-    }
-    .bubble.user {
-      background: transparent;
-      border-color: transparent;
-      color: #4f6275;
-    }
-    .choice {
-      border: 1px solid #d7e2ee;
-      color: #617487;
-      background: #fff;
-      border-radius: 999px;
-      padding: 5px 11px;
-      font-size: 11px;
-      font-weight: 500;
-      transition: all 120ms;
-    }
-    .choice:hover {
-      border-color: var(--hp-indigo-600);
-      color: var(--hp-indigo-700);
-      background: var(--hp-indigo-50);
-    }
-    .choice.active {
-      border-color: #243244;
-      background: #243244;
-      color: #fff;
-    }
-
-    /* Synthesis & context-in-use cards */
-    .synthesis-card,
-    .context-in-use {
-      border: 0;
-      background: transparent;
-      border-radius: 10px;
-      padding: 0;
-      color: #4f6275;
-      font-size: 13px;
-      line-height: 1.55;
-    }
-    .synthesis-head,
-    .context-in-use-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .synthesis-head-text,
-    .context-in-use-head-text {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-    }
-    .synthesis-icon,
-    .context-in-use-icon {
-      width: 26px; height: 26px;
-      background: var(--hp-indigo-700);
-      color: #fff;
-      border-radius: 7px;
-      display: inline-flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .synthesis-icon svg,
-    .context-in-use-icon svg { width: 14px; height: 14px; }
-    .synthesis-title,
-    .context-in-use-title {
-      color: #5f7892;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      text-transform: uppercase;
-      margin: 0;
-    }
-    .context-in-use-meta { color: #6f8195; font-size: 11px; font-weight: 600; }
-    .context-in-use-list {
-      color: #5e7184;
-      font-size: 12.5px;
-      padding-left: 0;
-      list-style: none;
-      display: grid; gap: 5px;
-    }
-    .context-chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .context-chip {
-      border: 1px solid #d7e2ee;
-      background: #fff;
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 11px;
-      color: #5c6f82;
-      font-weight: 600;
-    }
-    .context-in-use-list li {
-      position: relative;
-      padding-left: 16px;
-    }
-    .context-in-use-list li::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 8px;
-      width: 5px; height: 5px;
-      background: var(--hp-indigo-600);
-      border-radius: 50%;
-    }
-    .synthesis-card > div:not(.synthesis-head) {
-      color: var(--hp-body);
-    }
-    .thread-status,
-    .change-tray,
-    .suggestion-card {
-      border-color: transparent;
-      box-shadow: none;
-    }
-    .suggestion-card {
-      background: #fff;
-      border: 1px solid #d7e4f2;
-      border-radius: 12px;
-      padding: 12px;
-    }
-    .change-tray-item {
-      border-color: #d8e3ef;
-      background: #f8fbff;
-    }
-    .suggestion-card-title,
-    .thread-status-title {
-      color: #203244;
-    }
-    .suggestion-card-reason,
-    .thread-status-copy,
-    .change-tray-item span {
-      color: #607385;
-    }
-    .change-tray-item strong {
-      color: #152334;
-    }
-    .preview-badge {
-      border-color: #d7e2ee;
-      background: #fff;
-      color: #5f7285;
-    }
-
-    /* Chat footer */
-    .chat-footer {
-      display: none;
-    }
-    .composer {
-      border: 1px solid #d7e2ee;
-      background: #fff;
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 12.5px;
-      color: #6a7d91;
-    }
-    .btn-accept {
-      background: #eef2ff;
-      border: 1px solid #eef2ff;
-      color: #0f1724;
-      border-radius: 8px;
-      padding: 9px 16px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0;
-      box-shadow: none;
-      transition: all 150ms;
-    }
-    .btn-accept:hover {
-      background: #ffffff;
-      border-color: #ffffff;
-      box-shadow: none;
-    }
-    .btn-secondary {
-      border: 1px solid #d7e2ee;
-      color: #5f7285;
-      background: #fff;
-      border-radius: 8px;
-      padding: 7px 12px;
-      font-size: 11px; font-weight: 600;
-    }
-    .btn-secondary:hover {
-      border-color: #243244;
-      color: #243244;
-    }
-
-    .pending-tray,
-    .pending-actions {
-      display: none;
-    }
-
-    /* Final left-pane light mode lock */
-    .workspace-main {
-      position: sticky !important;
-      top: 72px !important;
-      height: calc(100vh - 100px) !important;
-      align-content: stretch !important;
-    }
-    .workspace-side {
-      background: #f8fafc !important;
-      border: 0 !important;
-      border-right: 1px solid #edf2f7 !important;
-      box-shadow: none !important;
-      border-radius: 0 !important;
-      position: static !important;
-      top: auto !important;
-      overflow: visible !important;
-      height: auto !important;
-      padding-right: 12px !important;
-    }
-    .chat-surface {
-      background: transparent !important;
-      border: 0 !important;
-      box-shadow: none !important;
-      overflow: visible !important;
-      height: auto !important;
-    }
-    .chat-top,
-    .chat-footer {
-      border-color: #d7e2ee !important;
-    }
-    .chat-body {
-      background: #f8fafc !important;
-      overflow: visible !important;
-      padding: 10px 10px 14px !important;
-      gap: 10px !important;
-    }
-    .entry,
-    .flow-section {
-      border-color: #e1eaf4 !important;
-    }
-    .entry-label,
-    .flow-summary-meta,
-    .thread-status-title,
-    .context-in-use-meta,
-    .chat-top-note {
-      color: #6f8195 !important;
-    }
-    .entry-copy,
-    .flow-summary,
-    .suggestion-card-title,
-    .change-tray-item strong,
-    .bubble,
-    .bubble.ai.lead,
-    .bubble.ai.minimal .question-title {
-      color: #203244 !important;
-    }
-    .bubble.user {
-      color: #4f6275 !important;
-    }
-    .suggestion-card,
-    .change-tray {
-      background: #fff !important;
-      border-color: #d7e4f2 !important;
-    }
-    .context-chip,
-    .choice,
-    .preview-badge,
-    .btn-secondary,
-    .composer,
-    .pending-tray {
-      border-color: #d7e2ee !important;
-      background: #fff !important;
-      color: #607385 !important;
-    }
-    .choice.active,
-    .lane-pill.active,
-    .mode-chip.active {
-      background: #243244 !important;
-      border-color: #243244 !important;
-      color: #fff !important;
-    }
-
-    /* Final right-pane calm pass */
-    .doc-surface {
-      border: 1px solid #e6edf5 !important;
-      box-shadow: none !important;
-      background: #fff !important;
-    }
-    .doc-top {
-      border-bottom: 1px solid #edf2f7 !important;
-      background: #fff !important;
-    }
-    .section-tabs {
-      background: #fcfdff !important;
-      border-right: 1px solid #edf2f7 !important;
-    }
-    .doc-body {
-      padding: 22px 24px !important;
-      gap: 16px !important;
-      overflow-y: auto !important;
-    }
-    .doc-pane.active {
-      gap: 14px !important;
-    }
-    .preview-focus-head {
-      border-bottom: 1px solid #edf2f7 !important;
-      padding-bottom: 10px !important;
-    }
-    .preview-diff {
-      padding-top: 6px !important;
-    }
-    .doc-block {
-      border: 0 !important;
-      border-top: 1px solid #edf2f7 !important;
-      border-radius: 0 !important;
-      padding: 14px 0 !important;
-      background: transparent !important;
-      box-shadow: none !important;
-    }
-    .doc-pane.active .doc-block:first-child {
-      border-top: 0 !important;
-      box-shadow: none !important;
-    }
-    .alignment-notes {
-      border: 1px solid #e7eef6 !important;
-      background: #fafcff !important;
-    }
-
-    @media (max-width: 1100px) {
-      :root { --pane-height: auto; }
-      .workspace-main,
-      .workspace-side,
-      .doc-surface,
-      .chat-surface { min-height: auto; height: auto; }
-      .workspace-side,
-      .workspace-main { position: static; overflow: visible; }
-      .doc-body,
-      .chat-body,
-      .section-tabs { overflow: visible; }
+      .artifact-scroll {
+        padding: 16px;
+      }
     }
   </style>
 </head>
-<body class="design-scope">
+<body>
   <nav class="topbar">
     <div class="topbar-inner">
       <a href="index.html" class="topbar-brand">
         <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
         <div class="t-div"></div>
-        <span class="brand-name">AI Curriculum Designer</span>
+        <span>AI Curriculum Designer</span>
         <span class="brand-tag">Concept Prototype</span>
       </a>
       <div class="topbar-right">
-        <span class="topbar-pill">Session: Drafting</span>
+        <span class="topbar-pill">Co-Design Session</span>
         <a href="index.html" class="topbar-link">← Home</a>
       </div>
     </div>
   </nav>
 
   <main class="page">
-    <section class="page-head">
-      <div class="page-eyebrow">Phase 2 · Module Design</div>
-      <div class="page-title">Plan Curriculum Direction</div>
-      <div class="page-sub">Draft and refine module document sections with AI guidance informed by analysed curriculum inputs.</div>
-    </section>
-
-    <section class="context-bridge" aria-label="Context bridge from curriculum input analysis">
-      <details class="bridge-accordion">
-        <summary class="bridge-summary">
-          <div class="bridge-head-copy">
-            <div class="bridge-head-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            </div>
-            <div>
-              <div class="bridge-title">Using 3 Curriculum Inputs</div>
-              <div class="bridge-sub">Industry interviews, survey signals, and benchmarking references are linked to this module draft.</div>
-            </div>
-          </div>
-          <span class="bridge-summary-hint" aria-hidden="true"></span>
-        </summary>
-        <div class="bridge-panel">
-          <div class="bridge-actions">
-            <button class="bridge-btn" type="button">Open Curriculum Inputs</button>
-            <button class="bridge-btn primary" type="button">Use in Module Draft</button>
-          </div>
-          <div class="bridge-grid">
-            <div class="bridge-card">
-              <div class="bridge-card-title">Selected curriculum inputs</div>
-              <div class="bridge-note" style="margin-bottom:0;">Module: <strong>Advanced Critical Care Nursing Science II</strong></div>
-              <div class="bridge-chip-row">
-                <span class="bridge-chip selected">Hospital interviews: ICU escalation decision points</span>
-                <span class="bridge-chip">Employer survey: clinical documentation gap trends</span>
-                <span class="bridge-chip">Benchmark scan: simulation-based assessment patterns</span>
-              </div>
-            </div>
-            <div class="bridge-card">
-              <div class="bridge-card-title">Used in this module draft</div>
-              <ul class="bridge-list">
-                <li>Source analysis: Curriculum input analysis</li>
-                <li>Module: Advanced Critical Care Nursing Science II</li>
-                <li>Use in design: outcomes, content plan, and assessment strategy</li>
-              </ul>
-              <div class="bridge-note">Analysis run: May 22, 2026 · 10:42</div>
-            </div>
-          </div>
-        </div>
-      </details>
+    <section>
+      <div class="page-eyebrow">Phase 2 · Curriculum Co-Design</div>
+      <h1 class="page-title">Plan Curriculum Direction</h1>
+      <p class="page-sub">
+        Work in focused co-design lanes with AI while the full module artifact updates as one coherent document.
+        Each lane keeps context tight, decisions visible, and tradeoffs explicit.
+      </p>
     </section>
 
     <section class="workspace">
-      <aside class="workspace-side" aria-label="Curriculum co-design workspace">
-        <div class="chat-surface">
-        <div class="chat-top">
-          <div class="chat-top-main">
-            <div class="agent">
-              <div class="agent-dot" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+      <aside class="workspace-side" aria-label="Conversation workspace">
+        <div class="thread-shell">
+          <nav class="thread-rail" aria-label="Module design threads">
+            <div class="thread-rail-kicker">Design Threads</div>
+            <button class="thread-link active" data-thread="outcomes" type="button">Learning Outcomes<small>core lane</small></button>
+            <button class="thread-link" data-thread="content" type="button">Content &amp; Hours<small>sequencing</small></button>
+            <button class="thread-link" data-thread="teaching" type="button">Teaching Strategy<small>delivery</small></button>
+            <button class="thread-link" data-thread="assessment" type="button">Assessment Design<small>authenticity</small></button>
+            <button class="thread-link" data-thread="resources" type="button">Learning Resources<small>quality</small></button>
+            <button class="thread-link" data-thread="alignment" type="button">Alignment Review<small>system check</small></button>
+            <button class="thread-link" data-thread="integrity" type="button">AI / Academic Integrity<small>policy</small></button>
+          </nav>
+
+          <section class="thread-workspace" aria-live="polite">
+            <header class="thread-head">
+              <div class="thread-head-top">
+                <h2 class="thread-title" id="threadTitle">Learning Outcomes</h2>
+                <span class="thread-stage" id="threadStage">Active lane</span>
               </div>
-              <div>
-                <div class="agent-title">AI Curriculum Co-Designer</div>
-                <div class="agent-sub">Editing: <span data-active-section>Learning Outcomes</span></div>
-                <div class="agent-sub">Using 3 curriculum inputs</div>
-              </div>
-            </div>
-            <div class="thread-modes" role="tablist" aria-label="Conversation presets">
-              <button class="thread-mode active" type="button" data-thread-target="outcomes">Outcomes</button>
-              <button class="thread-mode" type="button" data-thread-target="content">Content</button>
-              <button class="thread-mode" type="button" data-thread-target="assessment">Assessment</button>
-              <button class="thread-mode" type="button" data-thread-target="resources">Resources</button>
-            </div>
-          </div>
-        </div>
+              <p class="thread-sub" id="threadSubtitle">Sharpen measurable outcomes for escalation reasoning while preserving current assessment load.</p>
+            </header>
 
-        <div class="chat-body">
-          <div class="chat-pane active" data-pane="outcomes">
-            <div class="thread-stream">
-              <div class="thread-line ai">The current wording already supports communication well.
+            <div class="thread-canvas" id="threadCanvas"></div>
 
-I think we can make clinical reasoning more assessable without increasing workload.</div>
-
-              <div class="active-decision">
-                <div class="decision-title">Would you like to:</div>
-                <div class="choice-row">
-                  <span class="choice active">Strengthen reasoning</span>
-                  <span class="choice">Balance both</span>
-                  <span class="choice">Keep communication-led</span>
-                </div>
-              </div>
-
-              <div class="thread-line user">Strengthen reasoning.</div>
-
-              <div class="thread-line ai">Understood. I will revise the outcomes to foreground decision-making in acute-care escalation scenarios.
-
-Draft prepared.</div>
-
-              <div class="thread-link-row">
-                <button class="thread-link" type="button">Preview changes</button>
-                <button class="thread-link apply-link" type="button">Apply</button>
-                <button class="thread-link" type="button">Try another direction</button>
-              </div>
-
-              <div class="active-decision">
-                <div class="decision-inline-confirm">✓ Focus set: Clinical reasoning</div>
-                <div class="decision-title">Would students demonstrate this better through:</div>
-                <div class="choice-row">
-                  <span class="choice active">Case analysis</span>
-                  <span class="choice">Simulation</span>
-                  <span class="choice">Oral defence</span>
-                </div>
-              </div>
-
-              <div class="collapsed-history">&#10003; Learning outcomes revised · Focused on clinical reasoning + escalation</div>
-
-              <div class="continuation-inline">
-                <div class="continuation-title">Continue refining...</div>
-                <div class="continuation-chips">
-                  <span class="continuation-chip">strengthen communication</span>
-                  <span class="continuation-chip">simplify wording</span>
-                  <span class="continuation-chip">align assessment</span>
-                  <span class="continuation-chip">suggest alternatives</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="chat-pane" data-pane="content">
-            <div class="thread-stream">
-              <div class="thread-line ai">The ICU escalation segment looks compressed into two hours.
-
-We can rebalance this without expanding total contact time.</div>
-
-              <div class="active-decision">
-                <div class="decision-title">Should I:</div>
-                <div class="choice-row">
-                  <span class="choice active">Rebalance contact hours</span>
-                  <span class="choice">Reduce overlap</span>
-                  <span class="choice">Shift part asynchronous</span>
-                </div>
-              </div>
-
-              <div class="thread-line user">Rebalance contact hours first.</div>
-              <div class="thread-line ai">Great, I will protect critical escalation practice and trim lower-impact overlap.
-
-Draft sequence prepared.</div>
-              <div class="thread-link-row">
-                <button class="thread-link" type="button">Preview changes</button>
-                <button class="thread-link apply-link" type="button">Apply</button>
-                <button class="thread-link" type="button">Try another direction</button>
-              </div>
-
-              <div class="continuation-inline">
-                <div class="continuation-title">Continue refining...</div>
-                <div class="continuation-chips">
-                  <span class="continuation-chip">rebalance workload</span>
-                  <span class="continuation-chip">increase simulation</span>
-                  <span class="continuation-chip">reduce overlap</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="chat-pane" data-pane="assessment">
-            <div class="thread-stream">
-              <div class="thread-line ai">The current assessment mix still leans toward recall.
-
-We can strengthen applied reasoning while keeping marking load manageable.</div>
-
-              <div class="active-decision">
-                <div class="decision-title">Would you like stronger:</div>
-                <div class="choice-row">
-                  <span class="choice active">Applied reasoning</span>
-                  <span class="choice">Authentic practice</span>
-                  <span class="choice">AI-safe safeguards</span>
-                </div>
-              </div>
-
-              <div class="thread-line ai">To refine this properly, I need one detail:
-Should this be evidenced in simulation, coursework, or both?</div>
-
-              <div class="thread-link-row">
-                <button class="thread-link" type="button">Simulation first</button>
-                <button class="thread-link" type="button">Coursework first</button>
-                <button class="thread-link" type="button">Use both</button>
-              </div>
-
-              <div class="thread-link-row">
-                <button class="thread-link" type="button">Preview changes</button>
-                <button class="thread-link apply-link" type="button">Apply</button>
-                <button class="thread-link" type="button">Try another direction</button>
-              </div>
-
-              <div class="continuation-inline">
-                <div class="continuation-title">Continue refining...</div>
-                <div class="continuation-chips">
-                  <span class="continuation-chip">workload balance</span>
-                  <span class="continuation-chip">clinical readiness</span>
-                  <span class="continuation-chip">accreditation alignment</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="chat-pane" data-pane="teaching">
-            <div class="thread-stream">
-              <div class="thread-line ai">Your current strategy explains delivery methods clearly.
-
-I can make practice opportunities more explicit without adding complexity.</div>
-              <div class="active-decision">
-                <div class="decision-title">Should I prioritise:</div>
-                <div class="choice-row">
-                  <span class="choice active">Simulation touchpoints</span>
-                  <span class="choice">Peer critique loops</span>
-                  <span class="choice">Debrief structure</span>
-                </div>
-              </div>
-
-              <div class="continuation-inline">
-                <div class="continuation-title">Continue refining...</div>
-                <div class="continuation-chips">
-                  <span class="continuation-chip">add facilitation prompts</span>
-                  <span class="continuation-chip">map activity flow</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="chat-pane" data-pane="plagiarism">
-            <div class="thread-stream">
-              <div class="thread-line ai">The policy section can sound clearer and more coaching-oriented.
-
-I can keep standards firm while making expectations easier for students to follow.</div>
-              <div class="active-decision">
-                <div class="decision-title">Would you like wording that is:</div>
-                <div class="choice-row">
-                  <span class="choice active">Preventive</span>
-                  <span class="choice">Compliance-led</span>
-                  <span class="choice">Example-based</span>
-                </div>
-              </div>
-
-              <div class="continuation-inline">
-                <div class="continuation-title">Continue refining...</div>
-                <div class="continuation-chips">
-                  <span class="continuation-chip">add examples</span>
-                  <span class="continuation-chip">tighten policy tone</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="chat-pane" data-pane="resources">
-            <div class="thread-stream">
-              <div class="thread-line ai">I found benchmark patterns from comparable simulation-heavy programmes.
-
-I can suggest resources that match your current outcomes and assessment direction.</div>
-
-              <div class="active-decision">
-                <div class="decision-title">Should I prioritise:</div>
-                <div class="choice-row">
-                  <span class="choice active">Case libraries</span>
-                  <span class="choice">Journal resources</span>
-                  <span class="choice">Simulation formats</span>
-                </div>
-              </div>
-
-              <div class="thread-line ai">I will start with case libraries and then map each resource to a specific learning outcome.</div>
-              <div class="thread-link-row">
-                <button class="thread-link" type="button">Preview shortlist</button>
-                <button class="thread-link apply-link" type="button">Apply</button>
-                <button class="thread-link" type="button">Try another direction</button>
-              </div>
-
-              <div class="continuation-inline">
-                <div class="continuation-title">Continue refining...</div>
-                <div class="continuation-chips">
-                  <span class="continuation-chip">journal resources</span>
-                  <span class="continuation-chip">case repositories</span>
-                  <span class="continuation-chip">simulation formats</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+            <footer class="thread-footer">
+              <div class="thread-thinking" id="threadThinking">Analyzing linked section implications...</div>
+              <div class="thread-foot-title">Continue this lane with targeted prompts</div>
+              <div class="thread-foot-prompts" id="threadPromptRow"></div>
+            </footer>
+          </section>
         </div>
       </aside>
 
-      <div class="workspace-main">
-        <div class="doc-surface">
-        <div class="doc-top">
-          <div class="doc-top-main">
-            <div class="surface-kicker">Live Module Artifact</div>
-            <div class="doc-title">Advanced Critical Care Nursing Science II</div>
-            <div class="doc-meta">Working draft</div>
-          </div>
-          <div class="doc-top-side">
-            <div class="surface-note">Synced with current co-design thread</div>
+      <section class="workspace-main" aria-label="Live module artifact">
+        <div class="artifact">
+          <header class="artifact-head">
+            <div>
+              <div class="artifact-kicker">Persistent Module Artifact</div>
+              <h2 class="artifact-title">Advanced Critical Care Nursing Science II</h2>
+              <p class="artifact-sub">Whole-module visibility with active section emphasis and systemic ripple awareness.</p>
+            </div>
+            <div class="artifact-live" id="activeSectionPill">Editing: Learning Outcomes</div>
+          </header>
+
+          <div class="artifact-body">
+            <nav class="artifact-nav" aria-label="Module section navigation">
+              <button class="active" data-section="overview" type="button">Module Overview</button>
+              <button data-section="synopsis" type="button">Synopsis &amp; Aims</button>
+              <button data-section="outcomes" type="button">Learning Outcomes</button>
+              <button data-section="content" type="button">Content &amp; Hours</button>
+              <button data-section="teaching" type="button">Teaching Strategy</button>
+              <button data-section="assessment" type="button">Assessment Design</button>
+              <button data-section="resources" type="button">Learning Resources</button>
+              <button data-section="alignment" type="button">Alignment Review</button>
+              <button data-section="integrity" type="button">AI / Academic Integrity</button>
+            </nav>
+
+            <article class="artifact-scroll" id="artifactScroll">
+              <section class="module-section" id="overview">
+                <div class="section-label">Foundation</div>
+                <h3 class="section-title">Module Overview</h3>
+                <table class="section-table">
+                  <tbody>
+                    <tr><th>Programme</th><td>Diploma in Nursing</td></tr>
+                    <tr><th>Module Name</th><td>Advanced Critical Care Nursing Science II</td></tr>
+                    <tr><th>Credit Units</th><td>4</td></tr>
+                    <tr><th>Total Contact Hours</th><td>60</td></tr>
+                    <tr><th>Assessment Weightage</th><td>100%</td></tr>
+                  </tbody>
+                </table>
+              </section>
+
+              <section class="module-section" id="synopsis">
+                <div class="section-label">Narrative</div>
+                <h3 class="section-title">Synopsis and Aims</h3>
+                <p class="section-copy">
+                  This module strengthens escalation judgement in acute-care contexts through integrated simulation,
+                  interdisciplinary communication, and evidence-informed decision pathways.
+                </p>
+              </section>
+
+              <section class="module-section active" id="outcomes">
+                <div class="section-label">Competency</div>
+                <h3 class="section-title">Learning Outcomes</h3>
+                <ul class="section-list">
+                  <li>Apply escalation frameworks to complex, time-sensitive patient deterioration scenarios.</li>
+                  <li>Justify differential clinical decisions using diagnostic indicators and risk thresholds.</li>
+                  <li>Communicate escalation recommendations to interdisciplinary teams with defensible reasoning.</li>
+                  <li>Reflect on decision quality and identify mitigation strategies for near-miss escalation events.</li>
+                </ul>
+              </section>
+
+              <section class="module-section" id="content">
+                <div class="section-label">Sequencing</div>
+                <h3 class="section-title">Content and Hours</h3>
+                <table class="section-table">
+                  <thead>
+                    <tr><th>Topic Cluster</th><th>Hours</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Escalation judgement foundations</td><td>10</td></tr>
+                    <tr><td>Diagnostic interpretation in acute events</td><td>14</td></tr>
+                    <tr><td>Interdisciplinary escalation simulations</td><td>22</td></tr>
+                    <tr><td>Case synthesis and debrief</td><td>14</td></tr>
+                  </tbody>
+                </table>
+              </section>
+
+              <section class="module-section" id="teaching">
+                <div class="section-label">Pedagogy</div>
+                <h3 class="section-title">Teaching Strategy</h3>
+                <ul class="section-list">
+                  <li>Escalation drills with staged uncertainty and role handoffs.</li>
+                  <li>Structured simulation debriefs focused on clinical reasoning traces.</li>
+                  <li>Peer critique checkpoints for escalation communication quality.</li>
+                  <li>Short evidence synthesis bursts before each applied practice cycle.</li>
+                </ul>
+              </section>
+
+              <section class="module-section" id="assessment">
+                <div class="section-label">Evidence</div>
+                <h3 class="section-title">Assessment Design</h3>
+                <table class="section-table">
+                  <thead>
+                    <tr><th>Assessment</th><th>Weight</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Escalation case analysis</td><td>30%</td></tr>
+                    <tr><td>Simulation response station</td><td>25%</td></tr>
+                    <tr><td>Team-based interdisciplinary brief</td><td>15%</td></tr>
+                    <tr><td>Clinical reasoning portfolio</td><td>30%</td></tr>
+                  </tbody>
+                </table>
+              </section>
+
+              <section class="module-section" id="resources">
+                <div class="section-label">Inputs</div>
+                <h3 class="section-title">Learning Resources</h3>
+                <ul class="section-list">
+                  <li>Critical care escalation case bank with local context variants.</li>
+                  <li>Recent journal cluster on high-risk deterioration pathways.</li>
+                  <li>Simulation facilitation guide with reflective debrief scripts.</li>
+                  <li>Interdisciplinary handover quality rubric and exemplars.</li>
+                </ul>
+              </section>
+
+              <section class="module-section" id="alignment">
+                <div class="section-label">System Check</div>
+                <h3 class="section-title">Alignment Review</h3>
+                <p class="section-copy">
+                  Assessment tasks now evidence all high-level outcomes, simulation hours better match escalation depth,
+                  and resources are mapped directly to competency clusters and debrief intent.
+                </p>
+              </section>
+
+              <section class="module-section" id="integrity">
+                <div class="section-label">Governance</div>
+                <h3 class="section-title">AI and Academic Integrity</h3>
+                <ul class="section-list">
+                  <li>AI-assisted drafting is allowed for outline generation, not final clinical claims.</li>
+                  <li>Students must annotate where AI support influenced their reasoning artifacts.</li>
+                  <li>Simulation assessments require in-person justification of escalation rationale.</li>
+                  <li>Integrity checks focus on reasoning traceability rather than text similarity only.</li>
+                </ul>
+              </section>
+            </article>
           </div>
         </div>
-
-        <div class="doc-workspace">
-        <div class="section-tabs">
-          <button class="tab" data-tab="overview" type="button">Module Overview</button>
-          <button class="tab" data-tab="synopsis" type="button">Synopsis and Aims</button>
-          <button class="tab active" data-tab="outcomes" type="button">Learning Outcomes</button>
-          <button class="tab" data-tab="content" type="button">Content Plan</button>
-          <button class="tab" data-tab="teaching" type="button">Teaching Strategies</button>
-          <button class="tab" data-tab="assessment" type="button">Assessment Plan</button>
-          <button class="tab" data-tab="plagiarism" type="button">Plagiarism Policy</button>
-          <button class="tab" data-tab="resources" type="button">Resources</button>
-        </div>
-
-        <div class="doc-body">
-          <div class="doc-pane" data-pane="overview">
-            <div class="doc-block">
-              <div class="doc-block-header">
-                <div class="doc-block-title">Module Document Format</div>
-                <div class="doc-block-meta">Template View</div>
-              </div>
-              <div class="doc-line"><strong>Institution:</strong> [Institution Name]</div>
-              <table class="module-table">
-                <tbody>
-                  <tr><th>Course Name</th><td>[Course Name]</td></tr>
-                  <tr><th>Module Name</th><td>[Module Name]</td></tr>
-                  <tr><th>Module Catalogue and ID</th><td>[Code]</td></tr>
-                  <tr><th>Pre-Requisite</th><td>[Pre-requisite]</td></tr>
-                  <tr><th>Timetabled Hours</th><td>[Hours]</td></tr>
-                  <tr><th>Contact Hours</th><td>[Hours]</td></tr>
-                  <tr><th>Credit Units</th><td>[Credits]</td></tr>
-                  <tr><th>Assessment Weightage</th><td>[Weightage]</td></tr>
-                </tbody>
-              </table>
-              <div class="doc-footnote">Mock layout only for UI and user-flow demonstration.</div>
-            </div>
-          </div>
-
-          <div class="doc-pane" data-pane="synopsis">
-            <div class="doc-block">
-              <div class="doc-block-header">
-                <div class="doc-block-title">1. Synopsis and Aims</div>
-                <div class="doc-block-meta">Template View</div>
-              </div>
-              <div class="doc-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere feugiat dui, sed cursus augue luctus ut.</div>
-            </div>
-          </div>
-
-          <div class="doc-pane active" data-pane="outcomes">
-            <div class="preview-focus">
-              <div class="preview-focus-head">
-                <div>
-                  <div class="preview-focus-title">Editing: <span data-active-section>Learning Outcomes</span></div>
-                  <div class="preview-focus-text">Draft update ready</div>
-                </div>
-              </div>
-            </div>
-            <div class="doc-block">
-              <div class="doc-block-header">
-                <div class="doc-block-title">2. Learning Outcomes</div>
-                <div class="doc-block-meta">Live Preview</div>
-              </div>
-              <div class="doc-text">LO2. Clinical reasoning in acute-care scenarios
-LO3. Diagnostic interpretation for escalation
-LO4. Interdisciplinary communication</div>
-            </div>
-            <div class="doc-continuation" aria-hidden="true">
-              <div class="doc-continuation-line"></div>
-              <div class="doc-continuation-line"></div>
-              <div class="doc-continuation-line short"></div>
-            </div>
-          </div>
-
-          <div class="doc-pane" data-pane="content">
-            <div class="doc-block">
-              <div class="doc-block-header">
-                <div class="doc-block-title">3. Content: Topics and Hours</div>
-                <div class="doc-block-meta">Live Preview</div>
-              </div>
-              <div class="doc-text">Week 1 - Foundations
-Week 2 - Escalation Response
-Week 3 - Integrated Simulation
-Week 4 - Case Review</div>
-            </div>
-          </div>
-
-          <div class="doc-pane" data-pane="teaching">
-            <div class="doc-block">
-              <div class="doc-block-header">
-                <div class="doc-block-title">4. Teaching Methodology / Teaching and Learning Strategies</div>
-                <div class="doc-block-meta">Template View</div>
-              </div>
-              <div class="doc-text">Lorem ipsum dolor sit amet. Curabitur eget nisl ac lorem tempus consequat.</div>
-              <div class="doc-footnote">Minimal copy for mock demo.</div>
-            </div>
-          </div>
-
-          <div class="doc-pane" data-pane="assessment">
-            <div class="doc-block">
-              <div class="doc-block-header">
-                <div class="doc-block-title">5. Assessment Strategies</div>
-                <div class="doc-block-meta">Live Preview</div>
-              </div>
-              <div class="doc-text">30% Applied Case Analysis
-20% Simulation Response
-20% Group Discussion
-30% Clinical Reasoning Quiz</div>
-            </div>
-          </div>
-
-          <div class="doc-pane" data-pane="plagiarism">
-            <div class="doc-block">
-              <div class="doc-block-header">
-                <div class="doc-block-title">6. Plagiarism Policy</div>
-                <div class="doc-block-meta">Template View</div>
-              </div>
-              <div class="doc-text">Lorem ipsum policy placeholder text for layout demonstration.</div>
-            </div>
-          </div>
-
-          <div class="doc-pane" data-pane="resources">
-            <div class="doc-block">
-              <div class="doc-block-header">
-                <div class="doc-block-title">7. Recommended Texts / References / Learning Resources</div>
-                <div class="doc-block-meta">Template View</div>
-              </div>
-              <div class="doc-text">Lorem ipsum resource line 1.
-Lorem ipsum resource line 2.
-Lorem ipsum resource line 3.</div>
-              <div class="doc-footnote">Light placeholder text for demo screens.</div>
-            </div>
-          </div>
-        </div>
-        </div>
-        </div>
-      </div>
+      </section>
     </section>
   </main>
 
   <script>
-    const tabs = document.querySelectorAll('.tab[data-tab]');
-    const panes = document.querySelectorAll('[data-pane]');
-    const activeSectionLabels = document.querySelectorAll('[data-active-section]');
-    const docBody = document.querySelector('.doc-body');
-    const applyLinks = document.querySelectorAll('.apply-link');
-    const threadModes = document.querySelectorAll('.thread-mode[data-thread-target]');
+    const threadData = {
+      outcomes: {
+        title: "Learning Outcomes",
+        subtitle: "Sharpen measurable outcomes for escalation reasoning while preserving current assessment load.",
+        stage: "Active lane",
+        sectionLabel: "Learning Outcomes",
+        options: ["Clinical judgement", "Escalation reasoning", "Interdisciplinary response"],
+        selected: 1,
+        prompts: ["Generate 2 alternatives", "Check Bloom level", "Map to assessments", "Tighten verbs"],
+        blocks: [
+          { label: "AI", copy: "Before revising further: should this module emphasize clinical judgement, procedural confidence, or interdisciplinary escalation?" },
+          { label: "Module Leader", copy: "More emphasis on escalation and reasoning." },
+          { label: "AI", copy: "Understood. I will strengthen escalation-oriented decision-making outcomes without increasing assessment load." },
+          { label: "", copy: "Option A: Explicit escalation trigger verbs.\nOption B: Stronger diagnostic interpretation language.\nOption C: Escalation communication with time-critical rationale." }
+        ],
+        tradeoffs: "A/B improve measurability quickly. C improves team-readiness visibility but may require rubric updates."
+      },
+      content: {
+        title: "Content & Hours",
+        subtitle: "Re-sequence topics to reduce overload and protect high-value simulation learning.",
+        stage: "Design lane",
+        sectionLabel: "Content & Hours",
+        options: ["Reduce overload", "Shift to simulation", "Online/offline rebalance"],
+        selected: 0,
+        prompts: ["Trim low-value overlap", "Show week-by-week flow", "Check contact-hour cap"],
+        blocks: [
+          { label: "AI", copy: "Where is learner overload most visible now: diagnostics week, simulation week, or debrief consolidation?" },
+          { label: "Module Leader", copy: "Simulation prep and diagnostics week are overloaded." },
+          { label: "AI", copy: "I will spread diagnostics across two cycles and convert one prep segment into guided asynchronous review." },
+          { label: "", copy: "New sequence keeps total hours stable while opening more deliberate practice time before integrated simulation." }
+        ],
+        tradeoffs: "Lower overload improves depth retention. Asynchronous shift needs clearer quality guardrails for learner preparation."
+      },
+      teaching: {
+        title: "Teaching Strategy",
+        subtitle: "Refine facilitation and debrief rhythm so reasoning quality improves across the module.",
+        stage: "Design lane",
+        sectionLabel: "Teaching Strategy",
+        options: ["Debrief depth", "Simulation touchpoints", "Peer critique loops"],
+        selected: 1,
+        prompts: ["Add facilitator prompts", "Show cycle cadence", "Balance instructor load"],
+        blocks: [
+          { label: "AI", copy: "Should debriefs prioritize diagnostic justification, communication under pressure, or escalation timing decisions?" },
+          { label: "Module Leader", copy: "Escalation timing and justification." },
+          { label: "AI", copy: "I will reframe debrief prompts toward timing thresholds and defensible escalation triggers." },
+          { label: "", copy: "Adding short reasoning checkpoints between simulations can improve transfer without extending timetabled hours." }
+        ],
+        tradeoffs: "Higher debrief precision improves outcome evidence. More facilitator guidance may require staff calibration resources."
+      },
+      assessment: {
+        title: "Assessment Design",
+        subtitle: "Strengthen authenticity and AI-era validity without creating unmanageable marking burden.",
+        stage: "Critical lane",
+        sectionLabel: "Assessment Design",
+        options: ["Authentic evidence", "Workload balance", "AI-safe redesign"],
+        selected: 2,
+        prompts: ["Compare 3 patterns", "Show rubric impact", "Reduce marking overhead"],
+        blocks: [
+          { label: "AI", copy: "Which evidence should carry the heaviest weight: live simulation decisions, written reasoning, or interdisciplinary brief defence?" },
+          { label: "Module Leader", copy: "Live simulation plus concise written reasoning." },
+          { label: "AI", copy: "I will increase live decision evidence and keep written artefacts short but traceable for integrity." },
+          { label: "", copy: "Pattern 1: Simulation-heavy weighted stations.\nPattern 2: Mixed station + brief reasoning memo.\nPattern 3: Team escalation panel with individual defence." }
+        ],
+        tradeoffs: "Simulation-heavy design raises authenticity. Hybrid design may be easier to moderate across cohorts."
+      },
+      resources: {
+        title: "Learning Resources",
+        subtitle: "Prioritize resources that directly support escalation competency and current assessments.",
+        stage: "Enrichment lane",
+        sectionLabel: "Learning Resources",
+        options: ["Case libraries", "Journal sets", "Simulation templates"],
+        selected: 0,
+        prompts: ["Map to outcomes", "Shortlist local relevance", "Balance open/licensed"],
+        blocks: [
+          { label: "AI", copy: "Should resources optimize for exam preparation, simulation realism, or cross-disciplinary handover quality?" },
+          { label: "Module Leader", copy: "Simulation realism and handover quality." },
+          { label: "AI", copy: "I will shortlist resources tied to high-risk escalation scenarios and interdisciplinary communication rubrics." },
+          { label: "", copy: "Three resource bundles prepared: local case library, current journal digest, and simulation briefing templates." }
+        ],
+        tradeoffs: "Local relevance increases immediate utility. Broader benchmarking resources may improve long-term curriculum resilience."
+      },
+      alignment: {
+        title: "Alignment Review",
+        subtitle: "Validate systemic coherence across outcomes, delivery, assessment, and workload constraints.",
+        stage: "Review lane",
+        sectionLabel: "Alignment Review",
+        options: ["Outcome-to-assessment", "Hours-to-depth", "Resource fit"],
+        selected: 0,
+        prompts: ["Show misalignment risks", "Flag unresolved decisions", "Propose correction set"],
+        blocks: [
+          { label: "AI", copy: "Do you want alignment checking to prioritize accreditation evidence, learner workload, or competency depth first?" },
+          { label: "Module Leader", copy: "Competency depth first, then workload." },
+          { label: "AI", copy: "I will flag any section where depth is claimed but not evidenced through teaching sequence or assessment design." },
+          { label: "", copy: "Current pass indicates two strengths and one risk: resource mapping still lags the revised assessment changes." }
+        ],
+        tradeoffs: "Depth-first review prevents superficial alignment. Secondary workload checks protect feasibility before implementation."
+      },
+      integrity: {
+        title: "AI / Academic Integrity",
+        subtitle: "Define AI-use boundaries so learning remains authentic and reasoning evidence stays traceable.",
+        stage: "Policy lane",
+        sectionLabel: "AI / Academic Integrity",
+        options: ["Preventive policy", "Assessment safeguards", "Student transparency"],
+        selected: 1,
+        prompts: ["Draft policy language", "Insert in guide", "Create learner checklist"],
+        blocks: [
+          { label: "AI", copy: "Should this policy sound compliance-led, coaching-led, or scenario-led for student comprehension?" },
+          { label: "Module Leader", copy: "Coaching-led with clear boundaries." },
+          { label: "AI", copy: "I will keep standards explicit while framing AI use as guided support rather than hidden shortcut." },
+          { label: "", copy: "Draft includes permitted AI actions, prohibited substitutions, and mandatory reasoning trace annotations." }
+        ],
+        tradeoffs: "Coaching tone improves adoption. Strong enforcement clauses are still required in high-stakes assessment sections."
+      }
+    };
 
-    function setThreadModeActive(target) {
-      threadModes.forEach((button) => {
-        button.classList.toggle('active', button.getAttribute('data-thread-target') === target);
-      });
-    }
+    const threadButtons = Array.from(document.querySelectorAll(".thread-link[data-thread]"));
+    const navButtons = Array.from(document.querySelectorAll(".artifact-nav button[data-section]"));
+    const moduleSections = Array.from(document.querySelectorAll(".module-section"));
 
-    function activatePane(target, label) {
-      tabs.forEach((item) => {
-        item.classList.toggle('active', item.getAttribute('data-tab') === target);
-      });
+    const threadTitle = document.getElementById("threadTitle");
+    const threadSubtitle = document.getElementById("threadSubtitle");
+    const threadStage = document.getElementById("threadStage");
+    const threadCanvas = document.getElementById("threadCanvas");
+    const threadPromptRow = document.getElementById("threadPromptRow");
+    const activeSectionPill = document.getElementById("activeSectionPill");
+    const threadThinking = document.getElementById("threadThinking");
 
-      activeSectionLabels.forEach((node) => {
-        node.textContent = label;
-      });
+    function renderThread(key) {
+      const lane = threadData[key];
 
-      panes.forEach((pane) => {
-        pane.classList.toggle('active', pane.getAttribute('data-pane') === target);
-      });
-
-      if (docBody) {
-        docBody.scrollTop = 0;
+      if (!lane) {
+        return;
       }
 
-      setThreadModeActive(target);
+      threadTitle.textContent = lane.title;
+      threadSubtitle.textContent = lane.subtitle;
+      threadStage.textContent = lane.stage;
+      activeSectionPill.textContent = "Editing: " + lane.sectionLabel;
+
+      threadCanvas.innerHTML = "";
+
+      lane.blocks.forEach((block) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "lane-block";
+
+        const label = document.createElement("div");
+        label.className = "lane-label";
+        label.textContent = block.label;
+
+        const copy = document.createElement("div");
+        copy.className = "lane-copy";
+        copy.textContent = block.copy;
+
+        if (block.label) {
+          wrapper.appendChild(label);
+        }
+        wrapper.appendChild(copy);
+        threadCanvas.appendChild(wrapper);
+      });
+
+      const decision = document.createElement("div");
+      decision.className = "lane-decision";
+
+      const decisionLabel = document.createElement("div");
+      decisionLabel.className = "lane-label";
+      decisionLabel.textContent = "Current decision focus";
+      decision.appendChild(decisionLabel);
+
+      const options = document.createElement("div");
+      options.className = "lane-options";
+      lane.options.forEach((opt, idx) => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "lane-chip" + (idx === lane.selected ? " selected" : "");
+        chip.textContent = opt;
+        options.appendChild(chip);
+      });
+      decision.appendChild(options);
+
+      threadCanvas.appendChild(decision);
+
+      const tradeoffs = document.createElement("details");
+      tradeoffs.className = "lane-tradeoffs";
+      tradeoffs.innerHTML = "<summary>Tradeoffs considered</summary><div class=\"lane-tradeoffs-content\">" + lane.tradeoffs + "</div>";
+      threadCanvas.appendChild(tradeoffs);
+
+      const pending = document.createElement("div");
+      pending.className = "lane-pending";
+
+      const pendingLabel = document.createElement("div");
+      pendingLabel.className = "lane-label";
+      pendingLabel.textContent = "Pending refinement";
+
+      const pendingCopy = document.createElement("div");
+      pendingCopy.className = "lane-copy";
+      pendingCopy.textContent = "Confirm one direction and I will draft 2-3 variants with rationale and downstream impact.";
+
+      pending.appendChild(pendingLabel);
+      pending.appendChild(pendingCopy);
+      threadCanvas.appendChild(pending);
+
+      threadPromptRow.innerHTML = "";
+      lane.prompts.forEach((prompt) => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "lane-chip";
+        chip.textContent = prompt;
+        threadPromptRow.appendChild(chip);
+      });
     }
 
-    tabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        const target = tab.getAttribute('data-tab');
-        const label = tab.textContent.trim();
-        activatePane(target, label);
+    function setActiveSection(sectionId, scrollIntoView) {
+      navButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.section === sectionId);
       });
-    });
 
-    threadModes.forEach((modeButton) => {
-      modeButton.addEventListener('click', () => {
-        const target = modeButton.getAttribute('data-thread-target');
-        const matchingTab = document.querySelector(`.tab[data-tab="${target}"]`);
-
-        if (!matchingTab) {
-          return;
-        }
-
-        activatePane(target, matchingTab.textContent.trim());
+      moduleSections.forEach((section) => {
+        section.classList.toggle("active", section.id === sectionId);
       });
-    });
 
-    applyLinks.forEach((button) => {
-      button.addEventListener('click', () => {
-        const activeDocPane = document.querySelector('.doc-pane.active');
-
-        if (!activeDocPane) {
-          return;
+      if (scrollIntoView) {
+        const target = document.getElementById(sectionId);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
         }
+      }
+    }
 
-        activeDocPane.classList.remove('doc-sync-flash');
-        void activeDocPane.offsetWidth;
-        activeDocPane.classList.add('doc-sync-flash');
+    function activateThread(key, shouldScroll) {
+      threadButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.thread === key);
+      });
 
+      if (threadThinking) {
+        threadThinking.textContent = "Analyzing section implications...";
+        threadThinking.classList.add("show");
         window.setTimeout(() => {
-          activeDocPane.classList.remove('doc-sync-flash');
-        }, 320);
+          threadThinking.classList.remove("show");
+        }, 620);
+      }
+
+      renderThread(key);
+      setActiveSection(key, shouldScroll);
+    }
+
+    threadButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activateThread(button.dataset.thread, true);
       });
     });
+
+    navButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        setActiveSection(button.dataset.section, true);
+      });
+    });
+
+    renderThread("outcomes");
+    setActiveSection("outcomes", false);
   </script>
 </body>
 </html>
