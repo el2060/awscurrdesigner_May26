@@ -135,102 +135,98 @@
     .composer-input::placeholder {
       color: #8a9bac;
     }
-      <h1 class="page-title">AI Curriculum Designer</h1>
-      <p class="page-sub">
-        Start with a conversation. The AI helps you shape learning outcomes, assessments, teaching strategy,
-        AI integration, and curriculum alignment while the module draft updates live on the right.
-      </p>
+
+    :root {
+      --bg: #f6f7f4;
+      --paper: #ffffff;
+      --paper-soft: #f9fbfd;
+      --ink: #172230;
       --ink-mid: #4d5d70;
       --ink-soft: #7f8d9f;
-        <span class="session-chip">Live module draft ready</span>
+      --line: #dde3ea;
       --line-soft: #e9edf2;
       --brand: #183b61;
       --brand-soft: #eaf1f8;
       --accent: #c46a2a;
       --max: 1200px;
       --radius: 14px;
-          <div class="connected-kicker">Imported Inputs</div>
-          <h2 class="connected-title">Imported inputs are ready</h2>
+    }
+
     body {
-        <div class="connected-meta">Shared context for the conversation</div>
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
       background: radial-gradient(circle at 12% -20%, #eef4fb 0%, var(--bg) 38%), var(--bg);
       color: var(--ink);
       min-height: 100vh;
     }
 
     .topbar {
+      height: 56px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 40px;
       position: sticky;
-      <div class="connected-metrics">The AI will use these inputs to guide the first draft decisions and flag related updates when needed.</div>
+      top: 0;
       z-index: 20;
-        <button type="button" class="connected-btn primary" id="openContextSummary">Review Inputs</button>
-        <button type="button" class="connected-btn" id="changeInputs">Change Inputs</button>
       backdrop-filter: blur(8px);
     }
 
     .topbar-inner {
+      width: 100%;
       max-width: var(--max);
       margin: 0 auto;
-          <div class="workspace-strip-kicker">Module Draft</div>
       display: flex;
       align-items: center;
-        <div class="workspace-strip-meta">Live draft updates as the conversation progresses</div>
     }
 
-        <a class="workspace-strip-link" href="gather-context.html">Imported inputs</a>
-        <a class="workspace-strip-link" href="#artifactScroll">Module draft</a>
-        <a class="workspace-strip-link" href="generate-materials.html">Materials</a>
+    .topbar-brand {
+      display: flex;
+      align-items: center;
       gap: 10px;
       color: var(--ink);
       text-decoration: none;
       font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.01em;
-          <nav class="thread-rail" aria-label="Suggested actions">
-            <div class="thread-rail-kicker">Suggested Actions</div>
-            <button class="thread-link active" data-thread="welcome" type="button">Review existing module</button>
-            <button class="thread-link" data-thread="outcomes" type="button">Refine outcomes</button>
-            <button class="thread-link" data-thread="assessment" type="button">Improve assessments</button>
-            <button class="thread-link" data-thread="teaching" type="button">Improve teaching strategy</button>
-            <button class="thread-link" data-thread="resources" type="button">Add resources</button>
-            <button class="thread-link" data-thread="alignment" type="button">Check alignment</button>
-            <button class="thread-link" data-thread="integrity" type="button">Set AI guidance</button>
+    }
 
-            <details class="context-drawer">
-              <summary>Context</summary>
-              <div class="context-drawer-body">
-                <div class="thread-shared-title">Shared context</div>
-                <ul class="thread-shared-list">
-                  <li>Industry benchmarking</li>
-                  <li>Student insights</li>
-                  <li>Existing module materials</li>
-                  <li>Curriculum standards</li>
-                </ul>
-                <div class="thread-shared-time">Imported inputs are available when needed</div>
-              </div>
-            </details>
+    .t-div {
+      width: 1px;
+      height: 18px;
+      background: var(--line);
+    }
+
+    .brand-tag {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      color: var(--ink-soft);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 9px;
+    }
+
+    .topbar-right {
       margin-left: auto;
       display: flex;
       gap: 10px;
       align-items: center;
     }
-                <h2 class="thread-title" id="threadTitle">AI Curriculum Designer</h2>
-                <span class="thread-stage" id="threadStage">Getting started</span>
+
+    .topbar-pill {
       border: 1px solid #d6e2ef;
-              <p class="thread-sub" id="threadSubtitle">I’ve reviewed the imported module inputs. We can now co-design the next draft together.</p>
+      border-radius: 999px;
       font-size: 11px;
       font-weight: 700;
       color: var(--brand);
       background: var(--brand-soft);
       padding: 4px 10px;
-              <div class="thread-thinking" id="threadThinking">Thinking through the next draft step...</div>
-              <div class="thread-foot-title">Keep the conversation moving</div>
-              <div class="composer" aria-label="Start a new request">
-                <label class="composer-label" for="starterPrompt">Describe what you want to improve</label>
-                <div class="composer-row">
-                  <input class="composer-input" id="starterPrompt" type="text" placeholder="For example: refine learning outcomes, reduce workload, or improve assessment authenticity">
-                  <button class="btn-mini" type="button">Send</button>
-                </div>
-              </div>
+    }
+
     .topbar-link {
       color: var(--ink-soft);
       font-size: 12px;
@@ -241,11 +237,11 @@
       color: var(--ink);
     }
 
-              <div class="artifact-kicker">Module Draft</div>
+    .page {
       max-width: var(--max);
-              <p class="artifact-sub">The draft updates continuously while the conversation stays focused on the next decision.</p>
+      margin: 0 auto;
       padding: 44px 40px;
-            <div class="artifact-live" id="activeSectionPill">Current focus: Overview</div>
+      display: grid;
       gap: 18px;
     }
 
@@ -1276,8 +1272,8 @@
     }
 
     @media (max-width: 1280px) {
-      .topbar-inner {
-        padding: 14px 28px;
+      .topbar {
+        padding: 0 28px;
       }
 
       .page {
@@ -1299,8 +1295,8 @@
     }
 
     @media (max-width: 900px) {
-      .topbar-inner {
-        padding: 12px 18px;
+      .topbar {
+        padding: 0 18px;
       }
 
       .page {
