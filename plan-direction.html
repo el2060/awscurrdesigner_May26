@@ -29,6 +29,8 @@
   <title>AI Curriculum Designer</title>
   <link rel="stylesheet" href="styles.css">
   <style>
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap");
+
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -153,7 +155,7 @@
     }
 
     body {
-      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      font-family: "Manrope", "Segoe UI", sans-serif;
       background: radial-gradient(circle at 12% -20%, #eef4fb 0%, var(--bg) 38%), var(--bg);
       color: var(--ink);
       min-height: 100vh;
@@ -635,7 +637,7 @@
       display: flex;
       flex-direction: column;
       align-content: start;
-      gap: 6px;
+      gap: 8px;
     }
 
     .thread-rail-kicker {
@@ -702,15 +704,17 @@
       width: 100%;
       text-align: left;
       border: 1px solid #d8e6f4;
-      border-radius: 999px;
-      padding: 7px 10px;
+      border-radius: 10px;
+      padding: 8px 9px;
       background: #ffffff;
       color: #43607c;
-      font-size: 11px;
+      font-size: 12px;
       line-height: 1.2;
       font-weight: 700;
       cursor: pointer;
       transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+      display: grid;
+      gap: 4px;
     }
 
     .thread-link:hover {
@@ -720,9 +724,25 @@
     }
 
     .thread-link.active {
-      background: #1f344a;
+      background: #142a3d;
       color: #fff;
-      border-color: #1f344a;
+      border-color: #142a3d;
+    }
+
+    .thread-link-title {
+      display: block;
+      letter-spacing: -0.01em;
+    }
+
+    .thread-link-meta {
+      display: block;
+      font-size: 10px;
+      color: #6f8397;
+      font-weight: 600;
+    }
+
+    .thread-link.active .thread-link-meta {
+      color: #cde3f6;
     }
 
     .thread-link:disabled,
@@ -805,9 +825,11 @@
     }
 
     .thread-title {
-      font-size: 16px;
+      font-size: 19px;
       font-weight: 700;
       color: #123655;
+      font-family: "Fraunces", serif;
+      letter-spacing: -0.01em;
     }
 
     .thread-stage {
@@ -826,6 +848,23 @@
       font-size: 12px;
       color: #4d6a84;
       line-height: 1.5;
+    }
+
+    .thread-pulse {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-height: 24px;
+    }
+
+    .pulse-chip {
+      border: 1px solid #d4e3f1;
+      border-radius: 999px;
+      background: #fff;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #3f5d78;
     }
 
     .thread-specialist {
@@ -867,7 +906,7 @@
       overflow-y: auto;
       padding: 14px 16px 16px;
       display: grid;
-      gap: 12px;
+      gap: 10px;
       align-content: start;
     }
 
@@ -907,9 +946,8 @@
     }
 
     .chat-role {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      font-size: 11px;
+      letter-spacing: 0.01em;
       color: #5a7690;
       font-weight: 700;
     }
@@ -921,7 +959,7 @@
       padding: 10px 11px;
       font-size: 13px;
       color: #294863;
-      line-height: 1.5;
+      line-height: 1.45;
       box-shadow: 0 2px 0 rgba(19, 61, 97, 0.04);
     }
 
@@ -937,7 +975,13 @@
       background: #f7fbff;
       padding: 10px;
       display: grid;
-      gap: 8px;
+      gap: 6px;
+    }
+
+    .choice-intro {
+      font-size: 12px;
+      color: #3c5872;
+      line-height: 1.45;
     }
 
     .impact-pack {
@@ -950,10 +994,10 @@
     }
 
     .draft-update {
-      border: 1px solid #cde7d5;
+      border: 1px solid #f0d899;
       border-radius: 10px;
-      background: #f3fcf5;
-      color: #1e5b37;
+      background: #fff7e6;
+      color: #714f1e;
       font-size: 12px;
       font-weight: 700;
       padding: 8px 10px;
@@ -1119,7 +1163,7 @@
     .thread-footer {
       padding: 10px 16px 13px;
       display: grid;
-      gap: 8px;
+      gap: 7px;
       background: #f4f9ff;
       border-top: 1px solid #dde8f3;
     }
@@ -1142,7 +1186,7 @@
       background: #fff;
       padding: 9px;
       display: grid;
-      gap: 8px;
+      gap: 6px;
     }
 
     .composer-row {
@@ -1178,14 +1222,14 @@
     }
 
     .artifact {
-      border: 1px solid #d5dee8;
+      border: 1px solid #e4eaf0;
       border-radius: var(--radius);
       background: #ffffff;
       min-height: calc(100vh - 220px);
       display: grid;
       grid-template-rows: auto 1fr;
       overflow: hidden;
-      box-shadow: 0 10px 24px rgba(19, 38, 56, 0.06);
+      box-shadow: 0 12px 28px rgba(19, 38, 56, 0.05);
     }
 
     .artifact-head {
@@ -1208,15 +1252,23 @@
     }
 
     .artifact-title {
-      font-size: 20px;
+      font-size: 24px;
       font-weight: 700;
       letter-spacing: -0.01em;
       margin-bottom: 4px;
+      font-family: "Fraunces", serif;
     }
 
     .artifact-sub {
       font-size: 12px;
       color: #6a7d91;
+    }
+
+    .artifact-change-log {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #425f79;
+      line-height: 1.4;
     }
 
     .artifact-live {
@@ -1237,24 +1289,24 @@
 
     .artifact-nav {
       border-right: 1px solid var(--line-soft);
-      background: #fbfcfe;
-      padding: 10px;
+      background: #ffffff;
+      padding: 14px 10px;
       overflow-y: auto;
       display: grid;
       align-content: start;
-      gap: 4px;
+      gap: 6px;
     }
 
     .artifact-nav button {
       width: 100%;
       text-align: left;
       border: 1px solid transparent;
-      border-radius: 8px;
+      border-radius: 10px;
       background: transparent;
-      color: #7a8b9d;
-      font-size: 11px;
+      color: #6a7f93;
+      font-size: 12px;
       font-weight: 600;
-      padding: 6px 8px;
+      padding: 7px 8px;
       cursor: pointer;
     }
 
@@ -1265,9 +1317,9 @@
     }
 
     .artifact-nav button.active {
-      border-color: #d5e2ef;
-      background: #eef3f8;
-      color: #2e4862;
+      border-color: #d9e4ef;
+      background: #f5f8fb;
+      color: #263f57;
     }
 
     .artifact-nav button:disabled,
@@ -1296,9 +1348,9 @@
 
     .artifact-scroll {
       overflow-y: auto;
-      padding: 22px 26px;
+      padding: 26px 34px;
       display: grid;
-      gap: 18px;
+      gap: 22px;
       align-content: start;
     }
 
@@ -1347,18 +1399,35 @@
     }
 
     .module-section.just-updated {
-      animation: sectionPulse 1.2s ease;
+      animation: sectionPulse 1.3s ease;
     }
 
     @keyframes sectionPulse {
       0% {
-        box-shadow: inset 0 0 0 1px rgba(66, 140, 210, 0.2);
-        background: linear-gradient(180deg, #eefdff 0%, transparent 80%);
+        box-shadow: inset 0 0 0 1px rgba(222, 170, 63, 0.45);
+        background: linear-gradient(180deg, #fff7de 0%, transparent 80%);
       }
       100% {
         box-shadow: inset 0 0 0 0 rgba(66, 140, 210, 0);
         background: linear-gradient(180deg, #f7fbff 0%, transparent 72%);
       }
+    }
+
+    .line-updated {
+      border-radius: 6px;
+      background: linear-gradient(90deg, #fff5cf 0%, #fffdf3 100%);
+      transition: background 400ms ease;
+    }
+
+    .section-delta {
+      border: 1px solid #efd396;
+      background: #fff8ea;
+      border-radius: 8px;
+      padding: 8px 9px;
+      margin-top: 10px;
+      font-size: 11px;
+      line-height: 1.45;
+      color: #634817;
     }
 
     .section-label {
@@ -1697,17 +1766,16 @@
     <section class="workspace" id="coDesignWorkspace">
       <aside class="workspace-side" aria-label="Conversation workspace">
         <div class="thread-shell">
-          <nav class="thread-rail" aria-label="Module document sections">
-            <div class="thread-rail-kicker">Module sections</div>
-            <button class="thread-link active" data-thread="welcome" type="button">Module Overview</button>
-            <button class="thread-link" data-thread="synopsis" type="button">Synopsis &amp; Aims</button>
-            <button class="thread-link" data-thread="outcomes" type="button">Learning Outcomes</button>
-            <button class="thread-link" data-thread="content" type="button">Content &amp; Hours</button>
-            <button class="thread-link" data-thread="teaching" type="button">Teaching Strategy</button>
-            <button class="thread-link" data-thread="assessment" type="button">Assessment Design</button>
-            <button class="thread-link" data-thread="resources" type="button">Learning Resources</button>
-            <button class="thread-link" data-thread="alignment" type="button">Alignment Review</button>
-            <button class="thread-link" data-thread="integrity" type="button">Responsible AI &amp; Integrity</button>
+          <nav class="thread-rail" aria-label="Conversation threads">
+            <div class="thread-rail-kicker">Threads</div>
+            <button class="thread-link active" data-thread="welcome" type="button">Frame module direction</button>
+            <button class="thread-link" data-thread="outcomes" type="button">Outcomes &amp; Evidence</button>
+            <button class="thread-link" data-thread="content" type="button">Content &amp; Pacing</button>
+            <button class="thread-link" data-thread="teaching" type="button">Learning activities</button>
+            <button class="thread-link" data-thread="assessment" type="button">Assessment Pattern</button>
+            <button class="thread-link" data-thread="resources" type="button">Resource Signals</button>
+            <button class="thread-link" data-thread="alignment" type="button">Alignment Tensions</button>
+            <button class="thread-link" data-thread="integrity" type="button">AI &amp; Authenticity</button>
           </nav>
 
           <section class="thread-workspace" aria-live="polite">
@@ -1716,15 +1784,14 @@
                 <h2 class="thread-title" id="threadTitle">Curriculum Designer</h2>
               </div>
               <p class="thread-sub" id="threadSubtitle">Draft and refine your module section by section.</p>
+              <div class="thread-pulse" id="threadPulse"></div>
             </header>
 
             <div class="thread-canvas" id="threadCanvas"></div>
 
             <footer class="thread-footer">
               <div class="thread-thinking" id="threadThinking">Updating draft...</div>
-              <div class="thread-foot-prompts" id="threadPromptRow"></div>
               <form class="composer" id="threadComposer">
-                <label class="composer-label" for="threadInput">Ask AI to revise this section</label>
                 <div class="composer-row">
                   <input class="composer-input" id="threadInput" type="text" placeholder="e.g., Emphasize diagnostic reasoning with less content overload">
                   <button class="composer-send" type="submit">Send</button>
@@ -1742,6 +1809,7 @@
               <div class="artifact-kicker">Module Draft</div>
               <h2 class="artifact-title">Advanced Critical Care Nursing Science II</h2>
               <p class="artifact-sub">Update each section and review changes in the draft panel.</p>
+              <p class="artifact-change-log" id="artifactChangeLog">No draft mutations yet. Conversation updates will appear here.</p>
             </div>
             <div class="artifact-live" id="activeSectionPill">Editing: Module Overview</div>
           </header>
@@ -2131,14 +2199,49 @@
     const threadTitle = document.getElementById("threadTitle");
     const threadSubtitle = document.getElementById("threadSubtitle");
     const threadCanvas = document.getElementById("threadCanvas");
-    const threadPromptRow = document.getElementById("threadPromptRow");
+    const threadPulse = document.getElementById("threadPulse");
     const activeSectionPill = document.getElementById("activeSectionPill");
+    const artifactChangeLog = document.getElementById("artifactChangeLog");
     const threadThinking = document.getElementById("threadThinking");
     const threadComposer = document.getElementById("threadComposer");
     const threadInput = document.getElementById("threadInput");
 
     const threadState = {};
     let activeThreadKey = "welcome";
+
+    const railLabels = {
+      welcome: "Frame module direction",
+      outcomes: "Define learning outcomes",
+      content: "Plan content & pacing",
+      teaching: "Design learning activities",
+      assessment: "Design assessments",
+      resources: "Curate learning resources",
+      alignment: "Review curriculum alignment",
+      integrity: "Set AI & integrity guidance"
+    };
+
+    const threadOpeners = {
+      synopsis: "I can frame this two ways: tighter escalation scope, or broader interdisciplinary scope.",
+      outcomes: "I see two directions: heavier escalation reasoning, or balanced reasoning + communication evidence.",
+      content: "Let us choose the pacing model first: front-loaded diagnostics, or staggered diagnostics with simulation loops.",
+      teaching: "Should learning activities lean toward simulation intensity, or shorter cycles with structured debriefs?",
+      assessment: "Two viable patterns: simulation-heavy evidence, or hybrid simulation plus short memo.",
+      resources: "I can prioritize realism resources first, or balance realism with moderation-friendly resources.",
+      alignment: "I found one tension: claims of competency depth are stronger than current evidence in two sections.",
+      integrity: "We can keep AI guidance coaching-led, but still enforce traceable reasoning in high-stakes tasks."
+    };
+
+    const pulseSignals = {
+      welcome: ["Draft updated 2 mins ago", "3 alignment dependencies detected", "1 unresolved issue"],
+      synopsis: ["Direction influences 3 downstream sections", "Benchmark similarity 72%"],
+      outcomes: ["Outcome wording affects assessment rubric", "1 verb-level conflict detected"],
+      content: ["Pacing affects Week 9 load", "Sequencing conflict: 1 cluster"],
+      teaching: ["Debrief depth linked to Outcome 3 evidence", "Facilitator load: moderate"],
+      assessment: ["Authenticity gain: high", "Moderation risk: medium"],
+      resources: ["2 resources not mapped to evidence", "Local relevance signal: strong"],
+      alignment: ["3 dependencies currently synced", "1 unresolved alignment issue"],
+      integrity: ["Policy mapped to latest assessment pattern", "Reasoning-trace requirement active"]
+    };
 
     function createTurn(role, copy) {
       const turn = document.createElement("div");
@@ -2161,6 +2264,103 @@
       return threadKey === "welcome" ? "overview" : threadKey;
     }
 
+    function nowLabel() {
+      return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    }
+
+    function renderPulse(key) {
+      if (!threadPulse) {
+        return;
+      }
+      threadPulse.innerHTML = "";
+      (pulseSignals[key] || []).forEach((signal) => {
+        const chip = document.createElement("span");
+        chip.className = "pulse-chip";
+        chip.textContent = signal;
+        threadPulse.appendChild(chip);
+      });
+    }
+
+    function updateArtifactLog(text) {
+      if (!artifactChangeLog) {
+        return;
+      }
+      artifactChangeLog.textContent = text + " Updated at " + nowLabel() + ".";
+    }
+
+    function showDelta(section, beforeText, afterText) {
+      if (!section) {
+        return;
+      }
+
+      const existing = section.querySelector(".section-delta");
+      if (existing) {
+        existing.remove();
+      }
+
+      const delta = document.createElement("div");
+      delta.className = "section-delta";
+      delta.innerHTML = "<strong>Updated just now</strong><br>Before: " + beforeText + "<br>After: " + afterText;
+      section.appendChild(delta);
+    }
+
+    function mutationTarget(threadKey) {
+      const map = {
+        synopsis: "#synopsis .section-copy",
+        outcomes: "#outcomes .section-list li:nth-child(2)",
+        content: "#content tbody tr:nth-child(1) td:first-child",
+        teaching: "#teaching .section-list li:nth-child(1)",
+        assessment: "#assessment tbody tr:nth-child(1) td:first-child",
+        resources: "#resources .section-list li:nth-child(1)",
+        alignment: "#alignment .section-copy",
+        integrity: "#integrity .section-list li:nth-child(1)"
+      };
+      return map[threadKey] || "#synopsis .section-copy";
+    }
+
+    function buildUpdatedText(threadKey, driver) {
+      const d = driver.toLowerCase();
+      const byThread = {
+        synopsis: "This module strengthens escalation judgement through " + d + " while preserving interdisciplinary reasoning and practical progression.",
+        outcomes: "Justify escalation decisions using diagnostic evidence, risk thresholds, and " + d + " under time pressure.",
+        content: "Escalation reasoning and " + d + " sequence",
+        teaching: "Scenario cycles prioritize " + d + " with rapid debrief prompts on timing and justification.",
+        assessment: "Escalation simulation with " + d + " evidence brief",
+        resources: "Escalation case bank emphasizing " + d + " and interdisciplinary handover evidence.",
+        alignment: "Alignment now foregrounds " + d + " and checks evidence traceability across outcomes, teaching, and assessment.",
+        integrity: "AI-assisted drafting allowed only when " + d + " remains explicitly traceable in learner reasoning artifacts."
+      };
+      return byThread[threadKey] || ("Updated using " + d + ".");
+    }
+
+    function applyArtifactMutation(threadKey, driver) {
+      const selector = mutationTarget(threadKey);
+      const target = document.querySelector(selector);
+      const section = document.getElementById(sectionIdForThread(threadKey));
+
+      if (!target || !section) {
+        return {
+          before: "No previous line",
+          after: "No updated line",
+          summary: "Updated draft context"
+        };
+      }
+
+      const before = (target.textContent || "").trim();
+      const after = buildUpdatedText(threadKey, driver);
+      target.textContent = after;
+      target.classList.add("line-updated");
+      window.setTimeout(() => target.classList.remove("line-updated"), 1600);
+      showDelta(section, before, after);
+
+      const lane = threadData[threadKey] || { sectionLabel: "section" };
+      return {
+        before,
+        after,
+        summary: "Updated " + lane.sectionLabel + " to emphasize " + driver.toLowerCase()
+      };
+    }
+
     function triggerDraftUpdate(threadKey, note) {
       const sectionId = sectionIdForThread(threadKey);
       const section = document.getElementById(sectionId);
@@ -2170,51 +2370,71 @@
         threadThinking.classList.add("show");
         window.setTimeout(() => {
           threadThinking.classList.remove("show");
-        }, 1150);
+        }, 1200);
       }
 
       if (section) {
         section.classList.add("just-updated");
         window.setTimeout(() => {
           section.classList.remove("just-updated");
-        }, 1300);
+        }, 1450);
       }
+    }
+
+    function decorateRail() {
+      threadButtons.forEach((button) => {
+        const key = button.dataset.thread;
+        const state = threadState[key] || {};
+        const label = railLabels[key] || button.textContent;
+        const meta = state.updatedAt ? "Updated " + state.updatedAt : "Awaiting input";
+        button.innerHTML = "<span class=\"thread-link-title\">" + label + "</span><span class=\"thread-link-meta\">" + meta + "</span>";
+      });
     }
 
     function chooseDirection(threadKey, option) {
       const lane = threadData[threadKey];
-      if (!lane || threadKey === "welcome") {
+      if (!lane) {
         return;
       }
 
+      const mutation = applyArtifactMutation(threadKey, option);
       threadState[threadKey] = {
         ...(threadState[threadKey] || {}),
         choice: option,
-        aiReply: "I will reflect " + option.toLowerCase() + " more strongly in this section and keep it aligned with adjacent sections.",
-        updatedNote: "Draft updated: " + lane.sectionLabel + " now emphasizes " + option.toLowerCase() + "."
+        aiReply: mutation.summary + ".",
+        updatedNote: mutation.summary,
+        updatedAt: "just now",
+        lastAfter: mutation.after
       };
 
+      updateArtifactLog(mutation.summary);
+      decorateRail();
       renderThread(threadKey);
-      triggerDraftUpdate(threadKey, threadState[threadKey].updatedNote);
+      triggerDraftUpdate(threadKey, "Draft updated: " + mutation.summary + ".");
     }
 
     function captureFreeformInput(inputText) {
       const key = activeThreadKey;
       const lane = threadData[key];
 
-      if (!lane) {
+      if (!lane || key === "welcome") {
         return;
       }
 
+      const mutation = applyArtifactMutation(key, inputText);
       threadState[key] = {
         ...(threadState[key] || {}),
         freeform: inputText,
-        freeformReply: "I have applied that guidance and tightened this section while preserving coherence with the module structure.",
-        updatedNote: "Draft updated: " + lane.sectionLabel + " revised using your latest instruction."
+        freeformReply: mutation.summary + ".",
+        updatedNote: mutation.summary,
+        updatedAt: "just now",
+        lastAfter: mutation.after
       };
 
+      updateArtifactLog(mutation.summary);
+      decorateRail();
       renderThread(key);
-      triggerDraftUpdate(key, threadState[key].updatedNote);
+      triggerDraftUpdate(key, "Draft updated: " + mutation.summary + ".");
     }
 
     function renderThread(key) {
@@ -2228,26 +2448,28 @@
       threadSubtitle.textContent = lane.subtitle;
       activeSectionPill.textContent = "Editing: " + lane.sectionLabel;
       activeThreadKey = key;
+      renderPulse(key);
 
       if (threadInput) {
         threadInput.placeholder = lane.inputHint || "Tell AI what to adjust in this section";
       }
 
+      threadCanvas.innerHTML = "";
+
       if (key === "welcome") {
-        threadCanvas.innerHTML = "";
-
-        const welcomeCard = document.createElement("section");
-        welcomeCard.className = "welcome-card";
-
-        const welcomeHeading = document.createElement("h3");
-        welcomeHeading.textContent = lane.greeting;
-
-        const welcomeIntro = document.createElement("p");
-        welcomeIntro.textContent = lane.intro;
+        threadCanvas.appendChild(createTurn("AI", "Let us frame the module direction first. Which emphasis feels closest to your intent?"));
 
         const welcomeActions = document.createElement("div");
-        welcomeActions.className = "welcome-actions";
-        lane.actions.forEach((action) => {
+        welcomeActions.className = "direction-pack";
+
+        const intro = document.createElement("div");
+        intro.className = "choice-intro";
+        intro.textContent = "I can shape the opening draft around one of these starting directions:";
+        welcomeActions.appendChild(intro);
+
+        const options = document.createElement("div");
+        options.className = "lane-options";
+        lane.actions.slice(0, 4).forEach((action) => {
           const chip = document.createElement("button");
           chip.type = "button";
           chip.className = "lane-chip";
@@ -2255,76 +2477,39 @@
           chip.addEventListener("click", () => {
             threadState.welcome = {
               choice: action,
-              aiReply: "Great direction. I will anchor the module aims and synopsis around " + action.toLowerCase() + "."
+              aiReply: "Captured. I will carry this direction into outcomes and pacing.",
+              updatedAt: "just now"
             };
-            activateThread("synopsis", true);
-            triggerDraftUpdate("synopsis", "Draft updated: Synopsis & Aims now reflects " + action.toLowerCase() + ".");
+            decorateRail();
+            activateThread("outcomes", true);
           });
-          welcomeActions.appendChild(chip);
+          options.appendChild(chip);
         });
-
-        welcomeCard.appendChild(welcomeHeading);
-        if (lane.intro) {
-          welcomeCard.appendChild(welcomeIntro);
-        }
-        welcomeCard.appendChild(welcomeActions);
-        threadCanvas.appendChild(welcomeCard);
+        welcomeActions.appendChild(options);
+        threadCanvas.appendChild(welcomeActions);
 
         if (threadState.welcome && threadState.welcome.choice) {
           threadCanvas.appendChild(createTurn("You", threadState.welcome.choice));
           threadCanvas.appendChild(createTurn("AI", threadState.welcome.aiReply));
           const updated = document.createElement("div");
           updated.className = "draft-update";
-          updated.textContent = "Draft updated: Direction captured and propagated into Synopsis & Aims.";
+          updated.textContent = "Draft updated: Direction propagated into outcomes and pacing conversations.";
           threadCanvas.appendChild(updated);
         }
-
-        threadPromptRow.innerHTML = "";
-        lane.prompts.slice(0, 2).forEach((prompt) => {
-          const chip = document.createElement("button");
-          chip.type = "button";
-          chip.className = "lane-chip";
-          chip.textContent = prompt;
-          chip.addEventListener("click", () => {
-            threadState.welcome = {
-              choice: prompt,
-              aiReply: "Great direction. I will anchor the module aims and synopsis around " + prompt.toLowerCase() + "."
-            };
-            activateThread("synopsis", true);
-            triggerDraftUpdate("synopsis", "Draft updated: Synopsis & Aims now reflects " + prompt.toLowerCase() + ".");
-          });
-          threadPromptRow.appendChild(chip);
-        });
-
         return;
       }
 
-      threadCanvas.innerHTML = "";
-
-      const firstAiPrompt = lane.blocks.find((block) => block.label === "AI Co-Design");
-      if (firstAiPrompt) {
-        threadCanvas.appendChild(createTurn("AI", firstAiPrompt.copy));
-      }
+      const opener = threadOpeners[key] || "Let us refine this section.";
+      threadCanvas.appendChild(createTurn("AI", opener));
 
       const state = threadState[key] || {};
-
-      if (state.choice) {
-        threadCanvas.appendChild(createTurn("You", state.choice));
-        threadCanvas.appendChild(createTurn("AI", state.aiReply));
-      }
-
-      if (state.freeform) {
-        threadCanvas.appendChild(createTurn("You", state.freeform));
-        threadCanvas.appendChild(createTurn("AI", state.freeformReply));
-      }
-
       const directions = document.createElement("div");
       directions.className = "direction-pack";
 
-      const directionsLabel = document.createElement("div");
-      directionsLabel.className = "lane-label";
-      directionsLabel.textContent = "Suggested directions";
-      directions.appendChild(directionsLabel);
+      const intro = document.createElement("div");
+      intro.className = "choice-intro";
+      intro.textContent = "Which direction should I apply to the live draft now?";
+      directions.appendChild(intro);
 
       const options = document.createElement("div");
       options.className = "lane-options";
@@ -2336,37 +2521,42 @@
         chip.addEventListener("click", () => chooseDirection(key, opt));
         options.appendChild(chip);
       });
-      directions.appendChild(options);
-      threadCanvas.appendChild(directions);
 
-      const impact = document.createElement("div");
-      impact.className = "impact-pack";
-      const impactLabel = document.createElement("div");
-      impactLabel.className = "lane-label";
-      impactLabel.textContent = "Impact on module";
-      const impactCopy = document.createElement("div");
-      impactCopy.className = "lane-copy";
-      impactCopy.textContent = lane.signalSummary || lane.tradeoffs;
-      impact.appendChild(impactLabel);
-      impact.appendChild(impactCopy);
-      threadCanvas.appendChild(impact);
-
-      if (state.updatedNote) {
-        const updated = document.createElement("div");
-        updated.className = "draft-update";
-        updated.textContent = state.updatedNote;
-        threadCanvas.appendChild(updated);
-      }
-
-      threadPromptRow.innerHTML = "";
       lane.prompts.slice(0, 2).forEach((prompt) => {
         const chip = document.createElement("button");
         chip.type = "button";
         chip.className = "lane-chip";
         chip.textContent = prompt;
         chip.addEventListener("click", () => chooseDirection(key, prompt));
-        threadPromptRow.appendChild(chip);
+        options.appendChild(chip);
       });
+      directions.appendChild(options);
+      threadCanvas.appendChild(directions);
+
+      if (state.choice) {
+        threadCanvas.appendChild(createTurn("You", state.choice));
+        threadCanvas.appendChild(createTurn("AI", state.aiReply));
+      }
+
+      if (state.freeform) {
+        threadCanvas.appendChild(createTurn("You", state.freeform));
+        threadCanvas.appendChild(createTurn("AI", state.freeformReply));
+      }
+
+      const impact = document.createElement("div");
+      impact.className = "impact-pack";
+      const impactCopy = document.createElement("div");
+      impactCopy.className = "lane-copy";
+      impactCopy.textContent = lane.signalSummary || lane.tradeoffs;
+      impact.appendChild(impactCopy);
+      threadCanvas.appendChild(impact);
+
+      if (state.updatedNote) {
+        const updated = document.createElement("div");
+        updated.className = "draft-update";
+        updated.textContent = state.updatedNote + " (Draft updated just now)";
+        threadCanvas.appendChild(updated);
+      }
     }
 
     function setActiveSection(sectionId, scrollIntoView) {
@@ -2449,6 +2639,7 @@
       }
     });
 
+    decorateRail();
     renderThread("welcome");
     setActiveSection("overview", false);
   </script>
