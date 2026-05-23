@@ -81,34 +81,6 @@
       padding: 44px var(--pad) 56px;
     }
 
-    /* Eyebrow + step strip */
-    .page-eyebrow {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--amber-700);
-      margin-bottom: 12px;
-    }
-    .step-strip {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
-      margin: 14px 0 24px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--border);
-    }
-    .ss-step {
-      display: inline-flex; align-items: center; gap: 7px;
-      font-size: 12px; font-weight: 600; color: var(--muted);
-      letter-spacing: 0.02em; white-space: nowrap;
-    }
-    .ss-num {
-      width: 20px; height: 20px; border-radius: 50%;
-      background: #f1f1ee; color: var(--muted);
-      font-size: 10px; font-weight: 700;
-      display: inline-flex; align-items: center; justify-content: center;
-    }
-    .ss-step.active { color: var(--amber-700); }
-    .ss-step.active .ss-num { background: var(--amber-700); color: #fff; }
-    .ss-step.done { color: var(--emerald-700); }
-    .ss-step.done .ss-num { background: var(--emerald-50); color: var(--emerald-700); }
-    .ss-sep { width: 16px; height: 1px; background: var(--border); flex-shrink: 0; }
 
     .page-title {
       font-size: 32px; font-weight: 700; color: var(--text);
@@ -386,6 +358,16 @@
     .side-total-num { font-weight: 700; color: var(--amber-700); }
 
     /* ── Bottom bar ── */
+    .bb-done-state { display: flex; align-items: center; gap: 12px; }
+    .bb-ready-label {
+      font-size: 13px; font-weight: 600; color: var(--amber-700);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .bb-ready-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--amber-700); flex-shrink: 0;
+      box-shadow: 0 0 0 3px var(--amber-50);
+    }
     .bottom-bar {
       position: fixed; bottom: 0; left: 0; right: 0;
       height: 64px; background: #fff;
@@ -474,17 +456,6 @@
     Gather references and review the AI context summary before entering
     the co-design workspace.
   -->
-  <div class="page-eyebrow">Path A · Step 1 · Context</div>
-  <!-- Step strip orients the lecturer within the overall Path A flow -->
-  <nav class="step-strip" aria-label="Path A progress">
-    <span class="ss-step active"><span class="ss-num">1</span>Context</span>
-    <span class="ss-sep"></span>
-    <span class="ss-step"><span class="ss-num">2</span>Co-Design</span>
-    <span class="ss-sep"></span>
-    <span class="ss-step"><span class="ss-num">3</span>Materials</span>
-    <span class="ss-sep"></span>
-    <span class="ss-step"><span class="ss-num">4</span>Export</span>
-  </nav>
   <div class="page-title">Gather Curriculum Context</div>
   <div class="page-sub">Upload curriculum references and existing materials for AI review and synthesis.</div>
 
@@ -830,6 +801,11 @@
 <div class="bottom-bar">
   <div class="bottom-inner">
     <div class="bb-actions">
+      <div id="bb-done" class="bb-done-state" style="display:none;">
+        <span class="bb-ready-label"><span class="bb-ready-dot"></span>Summary ready</span>
+        <button class="btn-ghost" type="button">Export Summary</button>
+        <button class="btn-ghost" type="button" onclick="resetAnalysis()">← Start over</button>
+      </div>
       <button id="analyze-btn" class="btn-primary" type="button" onclick="runInlineAnalysis()">Review &amp; Synthesise Context</button>
     </div>
   </div>
@@ -862,6 +838,15 @@
     refreshInlineAnalysisStats();
     stampAnalysisTime();
     analysis.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('analyze-btn').style.display = 'none';
+    document.getElementById('bb-done').style.display = 'flex';
+  }
+
+  function resetAnalysis() {
+    document.getElementById('analysis-results').classList.add('hidden');
+    analysisVisible = false;
+    document.getElementById('analyze-btn').style.display = '';
+    document.getElementById('bb-done').style.display = 'none';
   }
 
   function updateTotals() {

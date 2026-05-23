@@ -622,9 +622,9 @@
       letter-spacing: -0.01em;
     }
 
-    .material-group-title.before::before,
-    .material-group-title.during::before,
-    .material-group-title.after::before {
+    .material-group-title.oal::before,
+    .material-group-title.ipl::before,
+    .material-group-title.followup::before {
       content: "";
       display: inline-block;
       width: 8px;
@@ -634,16 +634,24 @@
       vertical-align: middle;
     }
 
-    .material-group-title.before::before {
-      background: var(--brand);
+    .material-group-title.oal::before { background: var(--brand); }
+    .material-group-title.ipl::before { background: #2f7a52; }
+    .material-group-title.followup::before { background: #7a6a2f; }
+
+    .material-group-subtitle {
+      font-size: 11px;
+      color: #8496a9;
+      font-weight: 500;
+      margin-top: 2px;
+      margin-bottom: 6px;
+      padding-left: 16px;
     }
 
-    .material-group-title.during::before {
-      background: #2f7a52;
-    }
-
-    .material-group-title.after::before {
-      background: #7a6a2f;
+    .material-group-desc {
+      font-size: 12px;
+      color: #627389;
+      line-height: 1.5;
+      margin-bottom: 4px;
     }
 
     .material-output {
@@ -1129,7 +1137,7 @@
   <main class="page">
     <section>
       <h1 class="page-title">Generate Learning Materials</h1>
-      <p class="page-sub">Create aligned pre-class, in-class, and post-class learning materials.</p>
+      <p class="page-sub">Create aligned OAL and IPL learning materials from your module draft.</p>
     </section>
 
     <section class="setup-card analysis-setup" aria-label="Curriculum context">
@@ -1230,9 +1238,9 @@
         <div class="phase-toggle-wrap">
           <div class="generation-label">Generate Materials For</div>
           <div class="phase-toggle-grid">
-            <label class="phase-toggle"><input type="checkbox" checked> Before class</label>
-            <label class="phase-toggle"><input type="checkbox" checked> During class</label>
-            <label class="phase-toggle"><input type="checkbox" checked> After class</label>
+            <label class="phase-toggle"><input type="checkbox" checked> OAL</label>
+            <label class="phase-toggle"><input type="checkbox" checked> IPL</label>
+            <label class="phase-toggle"><input type="checkbox" checked> Follow-Up Learning</label>
           </div>
         </div>
       </div>
@@ -1245,17 +1253,23 @@
             <div class="sc-num">3</div>
             <div class="sc-title-wrap">
               <div class="sc-title">What would you like to generate?</div>
-              <div class="sc-desc">Group materials by learning phase so planning follows flipped-learning flow</div>
+              <div class="sc-desc">Select materials for each part of the Digital Flipped Learning cycle.</div>
             </div>
           </div>
           <div class="sc-body">
             <div class="material-groups">
               <div class="material-group">
-                <div class="material-group-title before">Before Class</div>
+                <div class="material-group-title oal">OAL</div>
+                <div class="material-group-subtitle">Online-Asynchronous Learning</div>
+                <p class="material-group-desc">Prepare students before IPL through guided learning and checks for understanding.</p>
                 <div class="check-grid">
                   <div class="check-item">
-                    <input id="pre-slides" type="checkbox" checked>
-                    <label for="pre-slides">Pre-learning slides</label>
+                    <input id="oal-slides" type="checkbox" checked>
+                    <label for="oal-slides">OAL slides</label>
+                  </div>
+                  <div class="check-item">
+                    <input id="guided-readings" type="checkbox" checked>
+                    <label for="guided-readings">Guided readings</label>
                   </div>
                   <div class="check-item">
                     <input id="pre-quiz" type="checkbox" checked>
@@ -1265,26 +1279,20 @@
                     <input id="explainer" type="checkbox">
                     <label for="explainer">Short explainer content</label>
                   </div>
-                  <div class="check-item material-extra" hidden>
-                    <input id="reading-summary" type="checkbox">
-                    <label for="reading-summary">Reading summary</label>
-                  </div>
-                </div>
-                <div class="material-output">
-                  <strong>Starter focus</strong>
-                  <p>Pre-learning slides and a quick pre-class quiz prepare students before in-class application.</p>
                 </div>
               </div>
 
               <div class="material-group">
-                <div class="material-group-title during">During Class</div>
+                <div class="material-group-title ipl">IPL</div>
+                <div class="material-group-subtitle">In-Person Learning</div>
+                <p class="material-group-desc">Support facilitated learning, discussion, and application during class.</p>
                 <div class="check-grid">
                   <div class="check-item">
                     <input id="activities" type="checkbox" checked>
                     <label for="activities">Learning activities</label>
                   </div>
-                  <div class="check-item material-extra" hidden>
-                    <input id="case-discussions" type="checkbox">
+                  <div class="check-item">
+                    <input id="case-discussions" type="checkbox" checked>
                     <label for="case-discussions">Case discussions</label>
                   </div>
                   <div class="check-item material-extra" hidden>
@@ -1296,38 +1304,34 @@
                     <label for="application-exercises">Application exercises</label>
                   </div>
                 </div>
-                <div class="material-output">
-                  <strong>Facilitation focus</strong>
-                  <p>In-class activities prompt application of pre-class concepts through guided facilitation.</p>
-                </div>
               </div>
 
               <div class="material-group">
-                <div class="material-group-title after">After Class</div>
+                <div class="material-group-title followup">Follow-Up Learning</div>
+                <p class="material-group-desc">Extend and consolidate learning after IPL where needed.</p>
                 <div class="check-grid">
-                  <div class="check-item material-extra" hidden>
-                    <input id="reflection" type="checkbox">
+                  <div class="check-item">
+                    <input id="reflection" type="checkbox" checked>
                     <label for="reflection">Reflection prompts</label>
+                  </div>
+                  <div class="check-item material-extra" hidden>
+                    <input id="practice-exercises" type="checkbox">
+                    <label for="practice-exercises">Practice exercises</label>
                   </div>
                   <div class="check-item material-extra" hidden>
                     <input id="reinforcement-quiz" type="checkbox">
                     <label for="reinforcement-quiz">Reinforcement quiz</label>
                   </div>
                   <div class="check-item material-extra" hidden>
-                    <input id="practice-exercises" type="checkbox">
-                    <label for="practice-exercises">Practice exercises</label>
+                    <input id="followup-activities" type="checkbox">
+                    <label for="followup-activities">Follow-up activities</label>
                   </div>
                 </div>
-                <div class="material-output">
-                  <strong>Reinforcement focus</strong>
-                  <p>After-class materials consolidate learning and support reflection, practice, and formative checks.</p>
-                </div>
-                <div class="phase-note">After-class materials are optional by default for faster module setup.</div>
               </div>
             </div>
 
             <button class="more-materials" id="toggle-materials" type="button" aria-expanded="false">Show More Materials</button>
-            <div class="essentials-hint">Essentials are selected first: slides, activities, and quiz. Expand when you are ready to add guides, handouts, rubrics, or extended resources.</div>
+            <div class="essentials-hint">Start with core OAL and IPL materials first, then expand Follow-Up materials where outcomes need extra support.</div>
 
             <div class="actions">
               <div class="hint">Curriculum priorities first, AI assistance second. Preview and refine before export.</div>
@@ -1345,17 +1349,11 @@
           <div class="side-title">Planning Snapshot</div>
           <div class="side-row"><span>Weeks supported</span><span class="side-count">Week 1 to Week 6</span></div>
           <div class="side-row"><span>Learning approach</span><span class="side-count">Blended / Flipped</span></div>
-          <div class="side-row"><span>Before class</span><span class="side-count">2 selected</span></div>
-          <div class="side-row"><span>During class</span><span class="side-count">1 selected</span></div>
-          <div class="side-row"><span>After class</span><span class="side-count">0 selected</span></div>
-          <div class="side-total"><span>Starter set</span><span class="side-total-num">3 essentials</span></div>
+          <div class="side-row"><span>OAL</span><span class="side-count">3 selected</span></div>
+          <div class="side-row"><span>IPL</span><span class="side-count">2 selected</span></div>
+          <div class="side-row"><span>Follow-Up</span><span class="side-count">1 selected</span></div>
+          <div class="side-total"><span>Materials selected</span><span class="side-total-num">6 total</span></div>
           <div class="side-trust-note">Your module draft controls what is generated. AI helps draft aligned materials rather than creating disconnected assets.</div>
-        </div>
-
-        <div class="side-next">
-          <div class="side-next-label">Next Step</div>
-          <div class="side-next-item">Generate the essentials first, then add advanced materials only where learning outcomes need extra support.</div>
-          <div class="side-next-item">This keeps setup lightweight while preserving flipped-learning alignment.</div>
         </div>
       </aside>
     </div>
