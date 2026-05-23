@@ -402,22 +402,26 @@
       resize: vertical;
     }
 
-    .setup-start {
-      justify-self: start;
-      border: 1px solid var(--brand);
-      border-radius: 8px;
-      background: var(--brand);
-      color: #fff;
-      padding: 10px 15px;
-      font-size: 12px;
-      font-weight: 700;
-      text-decoration: none;
+    .connector-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    .setup-start:hover {
-      background: #112d49;
-      color: #fff;
-      text-decoration: none;
+    .connector-note {
+      font-size: 13px;
+      color: #4f667e;
+      line-height: 1.55;
+    }
+
+    .connector-chip {
+      border: 1px solid #d8e6f4;
+      border-radius: 999px;
+      background: #f8fbff;
+      color: #35526f;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 700;
     }
 
     .connected-strip {
@@ -1477,68 +1481,29 @@
       </nav>
       <h1 class="page-title">Start Co-Design</h1>
       <p class="page-sub">
-        AI has reviewed and synthesised the uploaded curriculum context. Define the module direction to begin co-design.
+        Select background context to inform this draft.
       </p>
-      <div class="session-strip" aria-label="Session continuity">
-        <span class="session-chip">AI context summary available</span>
-        <span class="session-chip">Draft workspace ready</span>
-      </div>
     </section>
 
-    <section class="setup-card" aria-label="Module direction setup">
+    <section class="setup-card" aria-label="Context connector">
       <div class="setup-head">
         <div>
-          <div class="setup-kicker">Module Direction</div>
-          <h2 class="setup-title">Confirm the starting brief</h2>
+          <div class="setup-kicker">Context Connector</div>
+          <h2 class="setup-title">Select Background Context</h2>
         </div>
-        <p class="setup-note">These details set the starting direction. You can refine them in conversation as the module draft develops.</p>
+        <p class="setup-note">Use previous-step context or offline prework.</p>
       </div>
-      <div class="setup-fields">
-        <div class="setup-field">
-          <label for="moduleName">Module Name</label>
-          <input id="moduleName" type="text" value="Advanced Critical Care Nursing Science II">
-        </div>
-        <div class="setup-field">
-          <label for="programme">Programme</label>
-          <input id="programme" type="text" value="Diploma in Nursing">
-        </div>
-        <div class="setup-field">
-          <label for="learnerGroup">Learner Group</label>
-          <input id="learnerGroup" type="text" value="Year 3 nursing students">
-        </div>
-        <div class="setup-field">
-          <label for="designPriorities">Design Priorities</label>
-          <input id="designPriorities" type="text" value="Escalation judgement and interdisciplinary communication">
-        </div>
-      </div>
-      <a class="setup-start" href="#coDesignWorkspace">Open Co-Design Workspace →</a>
-    </section>
-
-    <section class="connected-strip" aria-label="AI context summary">
-      <div class="connected-top">
-        <div>
-          <div class="connected-kicker">AI Context Summary</div>
-          <h2 class="connected-title">Context summary ready</h2>
-        </div>
-        <div class="connected-meta">Used to guide design decisions</div>
-      </div>
-      <ul class="connected-list">
-        <li>Industry &amp; Benchmarking</li>
-        <li>Curriculum Standards</li>
-        <li>Student &amp; Module Insights</li>
-        <li>Existing Module Materials</li>
-      </ul>
-      <div class="connected-metrics">Key recommendations will be referenced as you shape learning outcomes, teaching activities, and assessment evidence.</div>
+      <p class="connector-note">Using: AI context summary, offline/external prework, and existing module materials.</p>
       <div class="connected-actions">
         <button type="button" class="connected-btn primary" id="openContextSummary">Review Summary</button>
-        <button type="button" class="connected-btn" id="changeInputs">Edit Context</button>
+        <a class="workspace-strip-link" href="gather-context.html">Edit Context</a>
       </div>
     </section>
 
     <section class="workspace-strip" aria-label="Current module">
       <div class="workspace-strip-top">
         <div>
-          <div class="workspace-strip-kicker">Current Module Direction</div>
+          <div class="workspace-strip-kicker">Current Module Draft</div>
           <div class="workspace-strip-title">Advanced Critical Care Nursing Science II</div>
         </div>
         <div class="workspace-strip-meta">Live draft updates as the conversation progresses</div>
@@ -1582,7 +1547,7 @@
                 <h2 class="thread-title" id="threadTitle">AI Curriculum Designer</h2>
                 <span class="thread-stage" id="threadStage">Current focus</span>
               </div>
-              <p class="thread-sub" id="threadSubtitle">I’ve reviewed the curriculum context. We can now shape the module direction and draft together.</p>
+              <p class="thread-sub" id="threadSubtitle">I’ve reviewed the curriculum context. We can now shape the module draft together.</p>
             </header>
 
             <div class="thread-canvas" id="threadCanvas"></div>
@@ -1758,7 +1723,7 @@
     const threadData = {
       welcome: {
         title: "AI Curriculum Designer",
-        subtitle: "I’ve reviewed the curriculum context. We can now shape the module direction and draft together.",
+        subtitle: "I’ve reviewed the curriculum context. We can now shape the module draft together.",
         stage: "Getting started",
         sectionLabel: "Overview",
         prompts: ["Learning outcomes", "Assessments", "Teaching strategy", "Review module brief"],
@@ -2302,7 +2267,7 @@
       <div class="context-modal-head">
         <div>
           <h3 class="context-modal-title" id="contextModalTitle">AI Context Summary</h3>
-          <p class="context-modal-sub">A summary of uploaded context used to guide the module direction and drafting decisions.</p>
+          <p class="context-modal-sub">A summary of uploaded context used to guide module drafting decisions.</p>
         </div>
         <button type="button" class="context-modal-close" data-close-context>Close</button>
       </div>

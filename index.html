@@ -380,6 +380,20 @@
       transition: all 150ms;
       background: #fff;
     }
+    .phase-skip-link {
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--hp-indigo-700);
+      text-decoration: none;
+      align-self: flex-start;
+      border-bottom: 1px dashed transparent;
+      transition: border-color 120ms;
+    }
+    .phase-skip-link:hover {
+      border-color: var(--hp-indigo-700);
+      text-decoration: none;
+    }
     .phase-prep .phase-cta {
       color: var(--hp-amber-700);
       border-color: var(--hp-amber-100);
@@ -488,6 +502,7 @@
         <span class="source-tag">Existing Module Materials</span>
       </div>
       <div class="phase-cta">Start Context →</div>
+      <a class="phase-skip-link" href="plan-direction.html">Skip context (prework done) → Start Co-Design</a>
     </a>
 
     <section class="next-step-card workflow-card" aria-label="AI Co-Design Workflow">
