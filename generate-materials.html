@@ -198,11 +198,118 @@
       font-weight: 700;
       letter-spacing: -0.01em;
     }
+.setup-note {
+  color: #63778a;
+  font-size: 13px;
+  line-height: 1.5;
+}
 
-    .setup-note {
-      color: #435e77;
-      font-size: 12px;
-      line-height: 1.55;
+.analysis-setup {
+  padding: 0;
+  overflow: hidden;
+  border-color: #d7e3ef;
+  background: #fcfeff;
+}
+
+.analysis-accordion > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  display: grid;
+  gap: 6px;
+}
+
+.analysis-accordion > summary::-webkit-details-marker {
+  display: none;
+}
+
+.analysis-accordion > summary::after {
+  content: "View Context Details";
+  justify-self: start;
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #5f748a;
+  border: 1px solid #d8e4ef;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #fff;
+}
+
+.analysis-accordion[open] > summary {
+  border-bottom: 1px solid #e3ecf4;
+  background: #fff;
+}
+
+.analysis-accordion[open] > summary::after {
+  content: "Hide Context Details";
+}
+
+.analysis-runs {
+  padding: 16px;
+  display: grid;
+  gap: 16px;
+  background: #f9fcff;
+}
+
+.analysis-run {
+  border: 1px solid #dce7f2;
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px 12px;
+  display: grid;
+  gap: 6px;
+  cursor: pointer;
+  transition: border-color 120ms, background 120ms;
+}
+
+.analysis-run:has(input:checked) {
+  border-color: #b6cee4;
+  background: #f3f8fd;
+}
+
+.analysis-run-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.analysis-run-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1f3d5a;
+}
+
+.analysis-run-time {
+  font-size: 11px;
+  color: #71869a;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.analysis-run-desc {
+  font-size: 12px;
+  color: #5c7489;
+  line-height: 1.45;
+}
+
+.analysis-run-pick {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #2d4e6e;
+  width: fit-content;
+}
+
+.analysis-run-pick input {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--brand);
+}
       max-width: 60ch;
     }
 
@@ -847,40 +954,46 @@
       <p class="page-sub">Generate aligned teaching and learning materials based on the approved module draft and curriculum direction.</p>
     </section>
 
-    <section class="setup-card context-card">
-      <div class="setup-kicker">Curriculum Context Loaded</div>
-      <h2 class="setup-title">Advanced Critical Care Nursing Science II</h2>
-      <p class="setup-note">The generated materials will automatically align with the approved curriculum structure.</p>
+    <section class="setup-card analysis-setup" aria-label="Curriculum context">
+      <details class="analysis-accordion">
+        <summary>
+          <div class="setup-kicker">Curriculum Context Loaded</div>
+          <h2 class="setup-title">Advanced Critical Care Nursing Science II</h2>
+          <p class="setup-note">The generated materials will automatically align with the approved curriculum structure.</p>
+        </summary>
 
-      <div class="setup-meta-grid">
-        <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> Module synopsis</div>
-        <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> Learning outcomes</div>
-        <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> Weekly sequencing</div>
-        <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> Assessment strategy</div>
-        <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> Clinical simulation emphasis</div>
-        <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> AI &amp; integrity guidance</div>
-      </div>
+        <div class="analysis-runs">
+          <label class="analysis-run">
+            <span class="analysis-run-top">
+              <span class="analysis-run-title">Approved Module Draft</span>
+              <span class="analysis-run-time">Completed just now</span>
+            </span>
+            <span class="analysis-run-desc">Includes synopsis, learning outcomes, weekly sequencing, assessment strategy, clinical simulation emphasis, and AI guidance.</span>
+            <span class="analysis-run-pick"><input type="checkbox" checked>Use as context</span>
+          </label>
 
-      <div class="setup-config">
-        <div class="setup-config-title">Lecturer Configuration</div>
-        <div class="setup-config-grid">
-          <div class="setup-config-field">
-            <label style="font-weight: 600;">Teaching Weeks:</label>
-            <select class="setup-select">
-              <option>All Weeks (1-15)</option>
-              <option>Week 1-5 Only</option>
-            </select>
-          </div>
-          <div class="setup-config-field">
-            <label style="font-weight: 600;">Delivery Mode Adaptation:</label>
-            <select class="setup-select">
-              <option>Blended learning</option>
-              <option>Classroom primarily</option>
-              <option>Simulation primarily</option>
-            </select>
+          <div class="setup-config" style="background: #fff; border: 1px solid #dce7f2; border-radius: 10px; padding: 14px 16px; margin: 0; border-top: 1px solid #dce7f2;">
+            <div class="setup-config-title" style="margin-bottom: 8px;">Lecturer Configuration</div>
+            <div class="setup-config-grid">
+              <div class="setup-config-field">
+                <label style="font-weight: 600; font-size: 11px;">Teaching Weeks:</label>
+                <select class="setup-select">
+                  <option>All Weeks (1-15)</option>
+                  <option>Week 1-5 Only</option>
+                </select>
+              </div>
+              <div class="setup-config-field">
+                <label style="font-weight: 600; font-size: 11px;">Delivery Mode Adaptation:</label>
+                <select class="setup-select">
+                  <option>Blended learning</option>
+                  <option>Classroom primarily</option>
+                  <option>Simulation primarily</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </details>
     </section>
 
     <div class="layout">
