@@ -4,10 +4,11 @@
   PATH B — Module Review and Refresh
   ═════════════════════════════════════════════════════════════════════════
   CONCEPT
-    Simple 3-step lecturer flow:
-      1. Add module materials (upload / paste / notes)
+    Simple 4-step lecturer flow:
+      1. Gather review context (upload / paste / notes)
       2. Select review focus areas (checkbox cards)
-      3. Optional review notes → Generate AI review suggestions
+      3. Review AI suggestions
+      4. Refine and export
 
     AI surfaces findings + potential gaps + suggested refresh actions per
     selected focus area. Quick-refine chips let the lecturer drill deeper.
@@ -810,7 +811,7 @@
       <span class="brand-tag">Concept Prototype</span>
     </a>
     <div class="topbar-right">
-      <span class="topbar-pill">Path B · Refresh</span>
+      <span class="topbar-pill">Path B · Review</span>
       <a href="index.html" class="topbar-link">← Home</a>
     </div>
   </div>
@@ -818,16 +819,18 @@
 
 <main class="page">
 
-  <div class="page-eyebrow">Path B · Module Review &amp; Refresh</div>
+  <div class="page-eyebrow">Path B · Review Existing Module</div>
   <nav class="step-strip" aria-label="Path B progress">
-    <span class="ss-step active"><span class="ss-num">1</span>Add Materials</span>
+    <span class="ss-step active"><span class="ss-num">1</span>Gather Review Context</span>
     <span class="ss-sep"></span>
-    <span class="ss-step"><span class="ss-num">2</span>Select Focus Areas</span>
+    <span class="ss-step"><span class="ss-num">2</span>Select Review Focus</span>
     <span class="ss-sep"></span>
-    <span class="ss-step"><span class="ss-num">3</span>AI Review Suggestions</span>
+    <span class="ss-step"><span class="ss-num">3</span>Review AI Suggestions</span>
+    <span class="ss-sep"></span>
+    <span class="ss-step"><span class="ss-num">4</span>Refine &amp; Export</span>
   </nav>
-  <h1 class="page-title">Module Review &amp; Refresh</h1>
-  <p class="page-sub">Add module materials, choose what you'd like AI to focus on, and generate review suggestions that integrate competency evidence directly into outcomes, assessment, and curriculum alignment.</p>
+  <h1 class="page-title">Review &amp; Refine Module</h1>
+  <p class="page-sub">Gather review context, select review focus, then review AI suggestions and refine toward an export-ready module update.</p>
 
   <div class="inst-strip" aria-label="Institutional references">
     <span class="inst-strip-label">Institutional references active</span>
@@ -840,12 +843,12 @@
 
     <div class="layout-main">
 
-      <!-- ── Section A: Add Module Materials ── -->
+      <!-- ── Section A: Gather Review Context ── -->
       <div class="section-card">
         <div class="sc-header">
           <div class="sc-num">1</div>
           <div class="sc-title-wrap">
-            <div class="sc-title">Add Module Materials</div>
+            <div class="sc-title">Gather Review Context</div>
             <div class="sc-desc">Module outlines, assessment briefs, rubrics, slides, or any reference material</div>
           </div>
         </div>
@@ -877,15 +880,15 @@
         </div>
       </div>
 
-      <!-- ── Context Sources for Review ── -->
+      <!-- ── Review Context Sources ── -->
       <div class="ctx-block">
         <div class="ctx-head">
           <div class="ctx-icon" aria-hidden="true">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
           </div>
-          <div class="ctx-title">Context Sources for Review</div>
+          <div class="ctx-title">Review Context Sources</div>
         </div>
-        <div class="ctx-sub">AI grounds its review in NP institutional frameworks and your module materials. Add optional external context to enrich the analysis.</div>
+        <div class="ctx-sub">AI grounds its review in NP institutional frameworks and your module materials. Add optional external context to enrich the recommendations.</div>
 
         <div class="ctx-group-label">Active Context</div>
         <ul class="ctx-active-list">
@@ -904,13 +907,13 @@
         </div>
       </div>
 
-      <!-- ── Section B: Review Dimensions ── -->
+      <!-- ── Section B: Review Focus ── -->
       <div class="section-card">
         <div class="sc-header">
           <div class="sc-num">2</div>
           <div class="sc-title-wrap">
-            <div class="sc-title">Review Dimensions</div>
-            <div class="sc-desc">Choose the areas the AI should analyse across your module materials</div>
+            <div class="sc-title">Select Review Focus</div>
+            <div class="sc-desc">Choose the areas AI should review across your module materials</div>
           </div>
         </div>
         <div class="sc-body">
@@ -1107,11 +1110,11 @@
 <div class="bottom-bar">
   <div class="bottom-inner">
     <div class="bb-left">
-      <div class="bb-note" id="bb-note">Add module materials and select review areas to generate AI suggestions.</div>
+      <div class="bb-note" id="bb-note">Gather review context and select review focus to generate AI suggestions.</div>
       <div class="bb-helper">You can refine focus areas and regenerate suggestions anytime.</div>
     </div>
     <div class="bb-actions">
-      <button class="btn-primary" id="generate-btn" type="button" onclick="runReview()">Generate Review Suggestions →</button>
+      <button class="btn-primary" id="generate-btn" type="button" onclick="runReview()">Review AI Suggestions →</button>
     </div>
   </div>
 </div>
@@ -1246,7 +1249,7 @@
     pill.classList.add('loaded');
     document.getElementById('sum-module').textContent = 'ICT1234 · Data Structures & Algorithms';
     document.getElementById('sum-module').classList.remove('empty');
-    document.getElementById('bb-note').textContent = 'Materials added. Confirm focus areas, then generate suggestions.';
+    document.getElementById('bb-note').textContent = 'Review context added. Confirm review focus, then review AI suggestions.';
   }
 
   // ─── Summary ───
@@ -1281,7 +1284,7 @@
 
     if (selected.length === 0) {
       panel.classList.add('show');
-      panels.innerHTML = '<div class="review-card"><div class="review-card-title">No focus area selected</div><div class="review-block-label">Next step</div><ul class="review-list"><li>Select at least one focus area, then generate suggestions again.</li></ul></div>';
+      panels.innerHTML = '<div class="review-card"><div class="review-card-title">No focus area selected</div><div class="review-block-label">Next step</div><ul class="review-list"><li>Select at least one focus area, then review AI suggestions again.</li></ul></div>';
       document.getElementById('metric-focus').textContent = '0';
       document.getElementById('metric-actions').textContent = '0';
       document.getElementById('metric-gaps').textContent = '0';
