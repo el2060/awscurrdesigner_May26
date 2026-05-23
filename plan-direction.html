@@ -722,6 +722,14 @@
       color: #fff;
     }
 
+    .thread-link:disabled,
+    .thread-link.locked {
+      color: #a1afbd;
+      cursor: not-allowed;
+      opacity: 0.66;
+      background: transparent;
+    }
+
     .thread-link small {
       display: block;
       font-size: 10px;
@@ -1147,6 +1155,15 @@
       color: #2e4862;
     }
 
+    .artifact-nav button:disabled,
+    .artifact-nav button.locked {
+      color: #9aa9b8;
+      cursor: not-allowed;
+      opacity: 0.68;
+      background: transparent;
+      border-color: transparent;
+    }
+
     .thread-thinking {
       font-size: 11px;
       color: #6f8498;
@@ -1463,10 +1480,10 @@
         <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
         <div class="t-div"></div>
         <span>AI Curriculum Designer</span>
-        <span class="brand-tag">Concept Prototype</span>
+        <span class="brand-tag">Curriculum Design Workspace</span>
       </a>
       <div class="topbar-right">
-        <span class="topbar-pill">Path A · Co-Design</span>
+        <span class="topbar-pill">Module Design</span>
         <a href="index.html" class="topbar-link">← Home</a>
       </div>
     </div>
@@ -1474,12 +1491,12 @@
 
   <main class="page">
     <section>
-      <div class="page-eyebrow">Path A · Step 2 · Co-Design</div>
+      <div class="page-eyebrow">Module Design Workspace</div>
       <!-- Step strip orients the lecturer within the overall Path A flow -->
-      <nav class="step-strip" aria-label="Path A progress">
-        <span class="ss-step done"><span class="ss-num">1</span>Context</span>
+      <nav class="step-strip" aria-label="Design progress">
+        <span class="ss-step done"><span class="ss-num">1</span>Analysis</span>
         <span class="ss-sep"></span>
-        <span class="ss-step active"><span class="ss-num">2</span>Co-Design</span>
+        <span class="ss-step active"><span class="ss-num">2</span>Draft</span>
         <span class="ss-sep"></span>
         <span class="ss-step"><span class="ss-num">3</span>Materials</span>
         <span class="ss-sep"></span>
@@ -1538,10 +1555,10 @@
           <div class="workspace-strip-kicker">Current Module Draft</div>
           <div class="workspace-strip-title">Advanced Critical Care Nursing Science II</div>
         </div>
-        <div class="workspace-strip-meta">Live draft updates as the conversation progresses</div>
+        <div class="workspace-strip-meta">Draft updates as you confirm each section</div>
       </div>
       <div class="workspace-strip-actions">
-        <a class="workspace-strip-link" href="gather-context.html">AI summary</a>
+        <a class="workspace-strip-link" href="gather-context.html">Analysis summary</a>
         <a class="workspace-strip-link" href="#artifactScroll">Module draft</a>
         <a class="workspace-strip-link" href="generate-materials.html">Materials</a>
       </div>
@@ -1550,33 +1567,33 @@
     <section class="workspace" id="coDesignWorkspace">
       <aside class="workspace-side" aria-label="Conversation workspace">
         <div class="thread-shell">
-          <nav class="thread-rail" aria-label="Suggested actions">
-            <div class="thread-rail-kicker">Conversation</div>
-            <div class="thread-rail-divider" aria-hidden="true"></div>
-            <div class="thread-rail-kicker">Suggested actions</div>
-            <button class="thread-link active" data-thread="welcome" type="button">Start module draft</button>
-            <button class="thread-link" data-thread="outcomes" type="button">Define outcomes</button>
-            <button class="thread-link" data-thread="assessment" type="button">Shape assessments</button>
-            <button class="thread-link" data-thread="teaching" type="button">Plan teaching strategy</button>
-            <button class="thread-link" data-thread="resources" type="button">Add resources</button>
-            <button class="thread-link" data-thread="alignment" type="button">Check alignment</button>
-            <button class="thread-link" data-thread="integrity" type="button">Set AI guidance</button>
+          <nav class="thread-rail" aria-label="Module workflow">
+            <div class="thread-rail-kicker">Module sections</div>
+            <button class="thread-link active" data-thread="welcome" type="button">Overview</button>
+            <button class="thread-link" data-thread="synopsis" type="button">Synopsis &amp; Aims</button>
+            <button class="thread-link" data-thread="outcomes" type="button">Learning Outcomes</button>
+            <button class="thread-link" data-thread="content" type="button">Content &amp; Hours</button>
+            <button class="thread-link" data-thread="teaching" type="button">Teaching Strategy</button>
+            <button class="thread-link" data-thread="assessment" type="button">Assessment Design</button>
+            <button class="thread-link" data-thread="resources" type="button">Learning Resources</button>
+            <button class="thread-link" data-thread="alignment" type="button">Curriculum Alignment</button>
+            <button class="thread-link" data-thread="integrity" type="button">Academic Integrity</button>
           </nav>
 
           <section class="thread-workspace" aria-live="polite">
             <header class="thread-head">
               <div class="thread-head-top">
-                <h2 class="thread-title" id="threadTitle">AI Curriculum Designer</h2>
+                <h2 class="thread-title" id="threadTitle">Curriculum Designer</h2>
                 <span class="thread-stage" id="threadStage">Current focus</span>
               </div>
-              <p class="thread-sub" id="threadSubtitle">I’ve reviewed the curriculum context. We can now shape the module draft together.</p>
+              <p class="thread-sub" id="threadSubtitle">Draft and refine your module section by section.</p>
             </header>
 
             <div class="thread-canvas" id="threadCanvas"></div>
 
             <footer class="thread-footer">
-              <div class="thread-thinking" id="threadThinking">Thinking through the next draft step...</div>
-              <div class="thread-foot-title">Keep the conversation moving</div>
+              <div class="thread-thinking" id="threadThinking">Updating draft...</div>
+              <div class="thread-foot-title">Suggested prompts</div>
               <div class="thread-foot-prompts" id="threadPromptRow"></div>
             </footer>
           </section>
@@ -1591,7 +1608,7 @@
               <h2 class="artifact-title">Advanced Critical Care Nursing Science II</h2>
               <p class="artifact-sub">The draft updates continuously while the conversation stays focused on the next decision.</p>
             </div>
-            <div class="artifact-live" id="activeSectionPill">Current focus: Learning Outcomes</div>
+            <div class="artifact-live" id="activeSectionPill">Editing: Learning Outcomes</div>
           </header>
 
           <div class="artifact-body">
@@ -1603,7 +1620,7 @@
               <button data-section="teaching" type="button">Teaching Strategy</button>
               <button data-section="assessment" type="button">Assessment Design</button>
               <button data-section="resources" type="button">Learning Resources</button>
-              <button data-section="alignment" type="button">Curriculum &amp; Competency Alignment</button>
+              <button data-section="alignment" type="button">Curriculum Alignment</button>
               <button data-section="integrity" type="button">Academic Integrity</button>
             </nav>
 
@@ -1634,7 +1651,7 @@
               <section class="module-section active" id="outcomes">
                 <div class="section-label">Outcomes</div>
                 <h3 class="section-title">Learning Outcomes</h3>
-                <div class="section-provenance">AI note: shaped by industry benchmarking and student insights</div>
+                <div class="section-provenance">Informed by industry benchmarking and student insights</div>
                 <ul class="section-list">
                   <li>Apply escalation frameworks to complex, time-sensitive patient deterioration scenarios.</li>
                   <li>Justify differential clinical decisions using diagnostic indicators and risk thresholds.</li>
@@ -1646,7 +1663,7 @@
               <section class="module-section" id="content">
                 <div class="section-label">Hours</div>
                 <h3 class="section-title">Content and Hours</h3>
-                <div class="section-provenance">AI note: informed by existing materials</div>
+                <div class="section-provenance">Informed by existing materials</div>
                 <table class="section-table">
                   <thead>
                     <tr><th>Topic Cluster</th><th>Hours</th></tr>
@@ -1663,7 +1680,7 @@
               <section class="module-section" id="teaching">
                 <div class="section-label">Teaching</div>
                 <h3 class="section-title">Teaching Strategy</h3>
-                <div class="section-provenance">AI note: informed by student insights</div>
+                <div class="section-provenance">Informed by student insights</div>
                 <ul class="section-list">
                   <li>Escalation drills with staged uncertainty and role handoffs.</li>
                   <li>Structured simulation debriefs focused on clinical reasoning traces.</li>
@@ -1675,7 +1692,7 @@
               <section class="module-section" id="assessment">
                 <div class="section-label">Assessment</div>
                 <h3 class="section-title">Assessment Design</h3>
-                <div class="section-provenance">AI note: aligned to benchmark review and student feedback</div>
+                <div class="section-provenance">Aligned to benchmark review and student feedback</div>
                 <table class="section-table">
                   <thead>
                     <tr><th>Assessment</th><th>Weight</th></tr>
@@ -1692,7 +1709,7 @@
               <section class="module-section" id="resources">
                 <div class="section-label">Resources</div>
                 <h3 class="section-title">Learning Resources</h3>
-                <div class="section-provenance">AI note: informed by industry signals</div>
+                <div class="section-provenance">Informed by industry signals</div>
                 <ul class="section-list">
                   <li>Critical care escalation case bank with local context variants.</li>
                   <li>Recent journal cluster on high-risk deterioration pathways.</li>
@@ -1703,8 +1720,8 @@
 
               <section class="module-section" id="alignment">
                 <div class="section-label">Alignment</div>
-                <h3 class="section-title">Curriculum and Competency Alignment</h3>
-                <div class="section-provenance">AI note: checked against the rest of the draft</div>
+                <h3 class="section-title">Curriculum Alignment</h3>
+                <div class="section-provenance">Checked against the rest of the draft</div>
                 <p class="section-copy">
                   Review coherence across learning outcomes, assessments, teaching strategies, NP Graduate Competencies,
                   industry relevance, workload, and AI-era assessment validity.
@@ -1726,7 +1743,7 @@
               <section class="module-section" id="integrity">
                 <div class="section-label">Integrity</div>
                 <h3 class="section-title">Academic Integrity and Responsible AI Use</h3>
-                <div class="section-provenance">AI note: aligned to standards and the assessment pattern</div>
+                <div class="section-provenance">Aligned to standards and the assessment pattern</div>
                 <ul class="section-list">
                   <li>AI-assisted drafting is allowed for outline generation, not final clinical claims.</li>
                   <li>Students must annotate where AI support influenced their reasoning artifacts.</li>
@@ -1744,16 +1761,40 @@
   <script>
     const threadData = {
       welcome: {
-        title: "AI Curriculum Designer",
-        subtitle: "I’ve reviewed the curriculum context. We can now shape the module draft together.",
+        title: "Curriculum Designer",
+        subtitle: "Draft and refine your module section by section.",
         stage: "Getting started",
         sectionLabel: "Overview",
-        prompts: ["Learning outcomes", "Assessments", "Teaching strategy", "Review module brief"],
-        actions: ["Review module brief", "Define outcomes", "Shape assessments", "Add resources"],
-        greeting: "Hi Sarah - let’s start your new module.",
-        intro: "We can scaffold learning outcomes, assessments, teaching strategy, AI integration, and curriculum alignment.",
-        question: "What would you like to build first?",
+        prompts: ["Learning Outcomes"],
+        actions: ["Learning Outcomes"],
+        greeting: "Start building your module draft.",
+        intro: "Work through the key curriculum sections progressively, from learning outcomes to assessment and alignment.",
+        question: "Start with learning outcomes.",
         inputHint: "Describe what you want to build"
+      },
+      synopsis: {
+        title: "Synopsis & Aims",
+        subtitle: "Refine a concise module synopsis and aims statement before drafting detailed sections.",
+        stage: "Current focus",
+        sectionLabel: "Synopsis & Aims",
+        contextUsed: [
+          "Programme intent and learner profile",
+          "Industry relevance from prior analysis",
+          "Existing module scope and level",
+          "Curriculum standards references"
+        ],
+        downstream: ["Learning Outcomes", "Content & Hours", "Assessment Design"],
+        systemSignal: "Synopsis updates should stay aligned with outcomes and assessment intent.",
+        options: ["Clinical focus", "Interdisciplinary focus", "Balanced focus"],
+        selected: 2,
+        prompts: ["Draft 2 synopsis options", "Refine aims statement", "Tighten scope"],
+        blocks: [
+          { label: "AI Co-Design", copy: "Should this module emphasize clinical escalation judgement, interdisciplinary coordination, or both equally?" },
+          { label: "Module Leader", copy: "Balanced focus with strong escalation judgement." },
+          { label: "AI Co-Design", copy: "Understood. I will keep the synopsis clinically grounded while preserving interdisciplinary relevance." },
+          { label: "", copy: "Draft option prepared with clear scope, learner intent, and progression into outcomes and assessment." }
+        ],
+        tradeoffs: "A narrower synopsis improves focus. A broader synopsis improves adaptability across cohorts."
       },
       outcomes: {
         title: "Learning Outcomes",
@@ -1888,10 +1929,10 @@
         tradeoffs: "Local relevance increases immediate utility. Broader benchmarking resources may improve long-term curriculum resilience."
       },
       alignment: {
-        title: "Curriculum & Competency Alignment",
+        title: "Curriculum Alignment",
         subtitle: "Review coherence across outcomes, assessments, teaching strategy, NP Graduate Competencies, and industry practice.",
         stage: "Review",
-        sectionLabel: "Curriculum & Competency Alignment",
+        sectionLabel: "Curriculum Alignment",
         contextUsed: [
           "Standards references from the context summary",
           "Outcome and rubric mapping generated in the conversation",
@@ -1972,7 +2013,7 @@
       threadTitle.textContent = lane.title;
       threadSubtitle.textContent = lane.subtitle;
       threadStage.textContent = lane.stage;
-      activeSectionPill.textContent = "Current focus: " + lane.sectionLabel;
+      activeSectionPill.textContent = "Editing: " + lane.sectionLabel;
 
       if (key === "welcome") {
         threadCanvas.innerHTML = "";
@@ -1996,12 +2037,13 @@
           chip.type = "button";
           chip.className = "lane-chip";
           chip.textContent = action;
+          chip.addEventListener("click", () => activateThread("outcomes", true));
           welcomeActions.appendChild(chip);
         });
 
         const welcomeNote = document.createElement("div");
         welcomeNote.className = "welcome-note";
-        welcomeNote.textContent = "Or type your own request in the box below.";
+        welcomeNote.textContent = "Progress through each section as the module draft develops.";
 
         welcomeCard.appendChild(welcomeHeading);
         welcomeCard.appendChild(welcomeIntro);
@@ -2016,6 +2058,7 @@
           chip.type = "button";
           chip.className = "lane-chip";
           chip.textContent = prompt;
+          chip.addEventListener("click", () => activateThread("outcomes", true));
           threadPromptRow.appendChild(chip);
         });
 
@@ -2030,13 +2073,18 @@
 
         const label = document.createElement("div");
         label.className = "lane-label";
-        label.textContent = block.label;
+        const labelText = block.label === "AI Co-Design"
+          ? "Assistant"
+          : block.label === "Module Leader"
+            ? "You"
+            : block.label;
+        label.textContent = labelText;
 
         const copy = document.createElement("div");
         copy.className = "lane-copy";
         copy.textContent = block.copy;
 
-        if (block.label) {
+        if (labelText) {
           wrapper.appendChild(label);
         }
         wrapper.appendChild(copy);
@@ -2048,7 +2096,7 @@
 
       const decisionLabel = document.createElement("div");
       decisionLabel.className = "lane-label";
-      decisionLabel.textContent = "Current decision focus";
+      decisionLabel.textContent = "Decision to confirm";
       decision.appendChild(decisionLabel);
 
       const options = document.createElement("div");
@@ -2066,7 +2114,7 @@
 
       const tradeoffs = document.createElement("details");
       tradeoffs.className = "lane-tradeoffs";
-      tradeoffs.innerHTML = "<summary>Tradeoffs considered</summary><div class=\"lane-tradeoffs-content\">" + lane.tradeoffs + "</div>";
+      tradeoffs.innerHTML = "<summary>Options summary</summary><div class=\"lane-tradeoffs-content\">" + lane.tradeoffs + "</div>";
       threadCanvas.appendChild(tradeoffs);
 
       const contextUsed = document.createElement("div");
@@ -2074,7 +2122,7 @@
 
       const contextLabel = document.createElement("div");
       contextLabel.className = "lane-label";
-      contextLabel.textContent = "Shared context in use";
+      contextLabel.textContent = "Context included";
       contextUsed.appendChild(contextLabel);
 
       const contextList = document.createElement("ul");
@@ -2092,7 +2140,7 @@
 
       const networkLabel = document.createElement("div");
       networkLabel.className = "lane-label";
-      networkLabel.textContent = "Related updates";
+      networkLabel.textContent = "Sections affected";
       network.appendChild(networkLabel);
 
       const networkList = document.createElement("ul");
@@ -2107,7 +2155,7 @@
 
       const laneImpact = document.createElement("div");
       laneImpact.className = "lane-impact";
-      laneImpact.textContent = lane.systemSignal;
+      laneImpact.textContent = (lane.systemSignal || "").replace(/^AI note:\s*/i, "");
       threadCanvas.appendChild(laneImpact);
 
       if (lane.competencySignals || lane.evidenceSnapshot || lane.signalSummary) {
@@ -2116,7 +2164,7 @@
 
         const competencyLabel = document.createElement("div");
         competencyLabel.className = "lane-label";
-        competencyLabel.textContent = "Competency coverage";
+        competencyLabel.textContent = "Competency check";
         competency.appendChild(competencyLabel);
 
         if (lane.competencySignals && lane.competencySignals.length > 0) {
@@ -2164,11 +2212,11 @@
 
       const pendingLabel = document.createElement("div");
       pendingLabel.className = "lane-label";
-      pendingLabel.textContent = "What to refine next";
+      pendingLabel.textContent = "Next step";
 
       const pendingCopy = document.createElement("div");
       pendingCopy.className = "lane-copy";
-      pendingCopy.textContent = "Confirm one direction and I will draft 2-3 variants with rationale and downstream impact.";
+      pendingCopy.textContent = "Confirm one direction to continue to the next section.";
 
       pending.appendChild(pendingLabel);
       pending.appendChild(pendingCopy);
@@ -2207,7 +2255,7 @@
       });
 
       if (threadThinking) {
-        threadThinking.textContent = "Updating related draft sections...";
+        threadThinking.textContent = "Updating draft...";
         threadThinking.classList.add("show");
         window.setTimeout(() => {
           threadThinking.classList.remove("show");
