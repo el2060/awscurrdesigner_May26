@@ -309,24 +309,6 @@
       margin-bottom: 8px;
     }
 
-    .session-strip {
-      margin-top: 12px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .session-chip {
-      border: 1px solid #d5e1ee;
-      border-radius: 999px;
-      background: #f6faff;
-      color: #31506e;
-      padding: 5px 11px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-    }
-
     .setup-card {
       border: 1px solid #c8daec;
       border-radius: 12px;
@@ -366,62 +348,109 @@
       max-width: 360px;
     }
 
-    .setup-fields {
+    .connector-picker {
+      border: 1px solid #dce6f1;
+      border-radius: 10px;
+      background: #f9fbfe;
+      padding: 8px;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .setup-field {
-      display: grid;
-      gap: 6px;
-    }
-
-    .setup-field label {
-      color: var(--ink-soft);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .setup-field input,
-    .setup-field textarea {
-      width: 100%;
-      border: 1px solid #d5e1ea;
-      border-radius: 8px;
-      background: #fbfdff;
-      color: #24394f;
-      font: inherit;
-      font-size: 13px;
-      padding: 10px 11px;
-    }
-
-    .setup-field textarea {
-      min-height: 42px;
-      resize: vertical;
-    }
-
-    .connector-row {
-      display: flex;
-      flex-wrap: wrap;
       gap: 8px;
     }
 
-    .connector-note {
-      font-size: 13px;
-      color: #4f667e;
-      line-height: 1.55;
+    .connector-option {
+      position: relative;
+      border: 1px solid #dce6f1;
+      border-radius: 8px;
+      background: #fff;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 50px;
+      cursor: pointer;
+      transition: border-color 120ms, background 120ms;
     }
 
-    .connector-chip {
-      border: 1px solid #d8e6f4;
-      border-radius: 999px;
-      background: #f8fbff;
-      color: #35526f;
-      padding: 5px 10px;
+    .connector-option:has(input:checked) {
+      border-color: #b8d0e6;
+      background: #f3f8fd;
+    }
+
+    .connector-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: #e7f0fa;
+      color: #2c5f93;
       font-size: 11px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .connector-copy {
+      display: grid;
+      gap: 1px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .connector-name {
+      font-size: 13px;
       font-weight: 700;
+      color: #1f3d5a;
+    }
+
+    .connector-sub {
+      font-size: 11px;
+      color: #607990;
+      line-height: 1.45;
+    }
+
+    .connector-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .connector-toggle {
+      width: 42px;
+      height: 24px;
+      border-radius: 999px;
+      background: #c7d4e2;
+      position: relative;
+      flex-shrink: 0;
+      transition: background 120ms;
+    }
+
+    .connector-toggle::after {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 120ms;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .connector-option input:checked + .connector-toggle {
+      background: #3f8ff2;
+    }
+
+    .connector-option input:checked + .connector-toggle::after {
+      transform: translateX(18px);
+    }
+
+    .connector-meta {
+      font-size: 11px;
+      color: #5d7389;
+      font-weight: 700;
+      letter-spacing: 0.02em;
     }
 
     .connected-strip {
@@ -496,12 +525,6 @@
       font-weight: 600;
     }
 
-    .connected-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
     .workspace-strip {
       border: 1px solid #d9e4ef;
       border-radius: 12px;
@@ -561,33 +584,6 @@
       border-color: #b5cce3;
       background: #eef5fb;
       text-decoration: none;
-    }
-
-    .connected-btn {
-      border: 1px solid #cfddea;
-      border-radius: 999px;
-      background: #fff;
-      color: #35526f;
-      padding: 6px 12px;
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .connected-btn:hover {
-      border-color: #b5cce3;
-      background: #f7fbff;
-    }
-
-    .connected-btn.primary {
-      border-color: var(--brand);
-      background: var(--brand);
-      color: #fff;
-    }
-
-    .connected-btn.primary:hover {
-      background: #003366;
-      border-color: #003366;
     }
 
     .workspace {
@@ -1416,10 +1412,6 @@
         font-size: 26px;
       }
 
-      .setup-fields {
-        grid-template-columns: 1fr;
-      }
-
       .thread-shell {
         grid-template-columns: 1fr;
       }
@@ -1493,11 +1485,45 @@
         </div>
         <p class="setup-note">Use previous-step context or offline prework.</p>
       </div>
-      <p class="connector-note">Using: AI context summary, offline/external prework, and existing module materials.</p>
-      <div class="connected-actions">
-        <button type="button" class="connected-btn primary" id="openContextSummary">Review Summary</button>
-        <a class="workspace-strip-link" href="gather-context.html">Edit Context</a>
+      <div class="connector-picker" aria-label="Available connectors">
+        <label class="connector-option">
+          <span class="connector-icon">AI</span>
+          <span class="connector-copy">
+            <span class="connector-name">AI Context Summary</span>
+            <span class="connector-sub">Carry forward synthesis from Step 1</span>
+          </span>
+          <input type="checkbox" checked>
+          <span class="connector-toggle" aria-hidden="true"></span>
+        </label>
+        <label class="connector-option">
+          <span class="connector-icon">OF</span>
+          <span class="connector-copy">
+            <span class="connector-name">Offline / External Prework</span>
+            <span class="connector-sub">Notes prepared outside this flow</span>
+          </span>
+          <input type="checkbox" checked>
+          <span class="connector-toggle" aria-hidden="true"></span>
+        </label>
+        <label class="connector-option">
+          <span class="connector-icon">MM</span>
+          <span class="connector-copy">
+            <span class="connector-name">Existing Module Materials</span>
+            <span class="connector-sub">Current module docs and assets</span>
+          </span>
+          <input type="checkbox" checked>
+          <span class="connector-toggle" aria-hidden="true"></span>
+        </label>
+        <label class="connector-option">
+          <span class="connector-icon">IN</span>
+          <span class="connector-copy">
+            <span class="connector-name">Industry Signals</span>
+            <span class="connector-sub">Optional benchmark and trend references</span>
+          </span>
+          <input type="checkbox">
+          <span class="connector-toggle" aria-hidden="true"></span>
+        </label>
       </div>
+      <div class="connector-meta">3 connectors selected for this draft</div>
     </section>
 
     <section class="workspace-strip" aria-label="Current module">
@@ -1939,8 +1965,6 @@
     const threadPromptRow = document.getElementById("threadPromptRow");
     const activeSectionPill = document.getElementById("activeSectionPill");
     const threadThinking = document.getElementById("threadThinking");
-    const openContextSummary = document.getElementById("openContextSummary");
-    const changeInputs = document.getElementById("changeInputs");
 
     function renderThread(key) {
       const lane = threadData[key];
@@ -2217,23 +2241,6 @@
         setActiveSection(section.id, false);
       });
     });
-
-    if (openContextSummary) {
-      openContextSummary.addEventListener("click", () => {
-        const modal = document.getElementById("contextModal");
-        if (modal) {
-          modal.classList.add("show");
-          modal.setAttribute("aria-hidden", "false");
-          document.body.style.overflow = "hidden";
-        }
-      });
-    }
-
-    if (changeInputs) {
-      changeInputs.addEventListener("click", () => {
-        window.location.href = "gather-context.html";
-      });
-    }
 
     document.querySelectorAll("[data-close-context]").forEach((element) => {
       element.addEventListener("click", () => {
