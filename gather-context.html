@@ -323,6 +323,35 @@
     }
     .ai-row-icon svg { width: 15px; height: 15px; }
     .ai-row-title { font-size: 14px; font-weight: 700; color: var(--text); }
+    /* ── Chat pane ── */
+    .chat-pane {
+      border-top: 1px solid var(--amber-100);
+      padding: 14px 24px 20px;
+      background: var(--bg);
+    }
+    .chat-prompts { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
+    .chat-prompt-btn {
+      border: 1px solid var(--border); background: #fff;
+      color: var(--body); font-size: 12px; font-weight: 500;
+      padding: 5px 12px; border-radius: 999px; cursor: pointer;
+      font-family: var(--font-sans);
+    }
+    .chat-prompt-btn:hover { border-color: var(--amber-600); color: var(--amber-700); background: var(--amber-50); }
+    .chat-input-row { display: flex; gap: 8px; }
+    .chat-input {
+      flex: 1; font-family: inherit; font-size: 13px; color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 12px; background: #fff; outline: none;
+    }
+    .chat-input:focus { border-color: var(--amber-600); box-shadow: 0 0 0 3px rgba(180,83,9,0.08); }
+    .chat-send {
+      background: var(--amber-700); border: 1px solid var(--amber-700);
+      color: #fff; border-radius: 8px; padding: 10px 16px;
+      font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap;
+      font-family: var(--font-sans);
+    }
+    .chat-send:hover { background: var(--amber-600); border-color: var(--amber-600); }
+
     /* Skeleton placeholder content */
     .skel-line { height: 9px; background: #d4e4f5; border-radius: 999px; margin-bottom: 7px; }
     .skel-line.w-full { width: 94%; }
@@ -759,6 +788,19 @@
             <div class="skel-line w-md"></div>
           </div>
         </div>
+
+        <div class="chat-pane">
+          <div class="chat-prompts">
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Make this more concise')">Make more concise</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Expand on learning outcome considerations')">Expand learning outcomes</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Focus on assessment and evaluation approaches')">Assessment focus</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Highlight gaps or missing coverage in the uploaded references')">Highlight gaps</button>
+          </div>
+          <div class="chat-input-row">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Ask a follow-up or request a specific refinement...">
+            <button class="chat-send" type="button">Send →</button>
+          </div>
+        </div>
       </section>
 
     </div>
@@ -789,7 +831,6 @@
   <div class="bottom-inner">
     <div class="bb-actions">
       <button id="analyze-btn" class="btn-primary" type="button" onclick="runInlineAnalysis()">Review &amp; Synthesise Context</button>
-      <a id="continue-btn" class="btn-primary" href="plan-direction.html" style="display:none; background:#004689; border-color:#004689;">Start Co-Design →</a>
     </div>
   </div>
 </div>
@@ -820,20 +861,6 @@
     analysisVisible = true;
     refreshInlineAnalysisStats();
     stampAnalysisTime();
-
-    // Once summarized, surface the next lecturer-facing step.
-    const analyzeBtn = document.getElementById('analyze-btn');
-    const continueBtn = document.getElementById('continue-btn');
-    if (analyzeBtn) {
-      analyzeBtn.textContent = 'Refresh Review & Synthesis';
-      analyzeBtn.classList.remove('btn-primary');
-      analyzeBtn.classList.add('btn-ghost');
-      analyzeBtn.style.background = '';
-      analyzeBtn.style.borderColor = '';
-      analyzeBtn.style.color = '';
-    }
-    if (continueBtn) continueBtn.style.display = 'inline-flex';
-
     analysis.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -914,6 +941,12 @@
     files.appendChild(row);
     counts[idx]++;
     updateTotals();
+  }
+
+  function fillChat(text) {
+    const input = document.getElementById('chat-input');
+    input.value = text;
+    input.focus();
   }
 
   updateTotals();
