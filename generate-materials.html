@@ -317,11 +317,11 @@
   background: linear-gradient(180deg, #f7fbff 0%, #ffffff 82%);
   padding: 12px;
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .flow-sequence-title {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -329,29 +329,20 @@
 }
 
 .flow-sequence-track {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
 .flow-sequence-item {
   border: 1px solid #dce8f4;
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 999px;
+  padding: 8px 12px;
   background: #fff;
   font-size: 12px;
-  line-height: 1.45;
-  color: #425b73;
-}
-
-.flow-sequence-item strong {
-  display: block;
-  color: #24394f;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 3px;
+  line-height: 1.2;
+  color: #324c66;
+  font-weight: 600;
 }
 
     .setup-meta-grid {
@@ -1109,9 +1100,7 @@
         grid-template-columns: 1fr;
       }
 
-      .flow-sequence-track {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+      .flow-sequence-track { justify-content: flex-start; }
     }
 
     @media (max-width: 1200px) {
@@ -1149,9 +1138,7 @@
         grid-template-columns: 1fr;
       }
 
-      .flow-sequence-track {
-        grid-template-columns: 1fr;
-      }
+      .flow-sequence-track { justify-content: flex-start; }
 
       .actions {
         padding-top: 14px;
@@ -1180,13 +1167,17 @@
     <section>
       <h1 class="page-title">Generate Learning Materials</h1>
       <p class="page-sub">Generate aligned pre-class, in-class, and post-class learning materials.</p>
-      <div class="flow-sequence" aria-label="Lecturer planning sequence">
-        <div class="flow-sequence-title">Typical lecturer sequence</div>
+      <div class="flow-sequence" aria-label="Material setup">
+        <div class="flow-sequence-title">Material setup</div>
         <div class="flow-sequence-track">
-          <div class="flow-sequence-item"><strong>1. Weeks &amp; Topics</strong>Identify which weeks and focus areas this material set supports.</div>
-          <div class="flow-sequence-item"><strong>2. Learning Experience</strong>Define before, during, and after class learning experiences.</div>
-          <div class="flow-sequence-item"><strong>3. Materials To Prepare</strong>Start with essential slides, activities, and quizzes.</div>
-          <div class="flow-sequence-item"><strong>4. AI Assist Level</strong>Decide what AI should draft versus what lecturers should author manually.</div>
+          <div class="flow-sequence-item">Teaching weeks</div>
+          <div class="flow-sequence-item">Learning activities</div>
+          <div class="flow-sequence-item">Materials to generate</div>
+          <div class="flow-sequence-item">Review outputs</div>
+          <div class="flow-sequence-item">Slides</div>
+          <div class="flow-sequence-item">Quizzes</div>
+          <div class="flow-sequence-item">Facilitator guide</div>
+          <div class="flow-sequence-item">Export package</div>
         </div>
       </div>
     </section>
