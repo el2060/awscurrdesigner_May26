@@ -619,8 +619,8 @@
     }
 
     .thread-shell {
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, #fcfdff 0%, #f9fbfd 100%);
+      border: 1px solid #c9d9e8;
+      background: linear-gradient(165deg, #eef5fc 0%, #f8fbff 58%, #f1f8ff 100%);
       border-radius: var(--radius);
       display: grid;
       grid-template-columns: 164px minmax(0, 1fr);
@@ -629,12 +629,13 @@
     }
 
     .thread-rail {
-      border-right: 1px solid var(--line-soft);
-      background: #f7fafd;
-      padding: 12px 8px;
-      display: grid;
+      border-right: 1px solid #dbe7f3;
+      background: rgba(242, 248, 255, 0.94);
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
       align-content: start;
-      gap: 4px;
+      gap: 6px;
     }
 
     .thread-rail-kicker {
@@ -700,26 +701,28 @@
     .thread-link {
       width: 100%;
       text-align: left;
-      border: 0;
-      border-radius: 10px;
-      padding: 9px 10px;
-      background: transparent;
-      color: #5f7084;
-      font-size: 12px;
-      line-height: 1.35;
-      font-weight: 600;
+      border: 1px solid #d8e6f4;
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: #ffffff;
+      color: #43607c;
+      font-size: 11px;
+      line-height: 1.2;
+      font-weight: 700;
       cursor: pointer;
-      transition: background 120ms ease, color 120ms ease;
+      transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
     }
 
     .thread-link:hover {
-      background: #edf3fa;
-      color: #1f344a;
+      border-color: #bfd6ec;
+      background: #f5faff;
+      color: #254866;
     }
 
     .thread-link.active {
       background: #1f344a;
       color: #fff;
+      border-color: #1f344a;
     }
 
     .thread-link:disabled,
@@ -787,8 +790,8 @@
 
     .thread-head {
       padding: 14px 16px 10px;
-      border-bottom: 1px solid var(--line-soft);
-      background: linear-gradient(180deg, #f8fbff 0%, transparent 100%);
+      border-bottom: 1px solid #dde8f3;
+      background: linear-gradient(180deg, #f6fbff 0%, rgba(246, 251, 255, 0) 100%);
       display: grid;
       gap: 8px;
     }
@@ -802,9 +805,9 @@
     }
 
     .thread-title {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
-      color: #1e3348;
+      color: #123655;
     }
 
     .thread-stage {
@@ -821,7 +824,7 @@
 
     .thread-sub {
       font-size: 12px;
-      color: #5f7084;
+      color: #4d6a84;
       line-height: 1.5;
     }
 
@@ -864,28 +867,96 @@
       overflow-y: auto;
       padding: 14px 16px 16px;
       display: grid;
-      gap: 14px;
+      gap: 12px;
       align-content: start;
     }
 
     .lane-block {
       display: grid;
-      gap: 8px;
+      gap: 6px;
     }
 
     .lane-label {
       font-size: 10px;
+      letter-spacing: 0.06em;
+      color: #5f7892;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #7e8fa0;
-      font-weight: 600;
     }
 
     .lane-copy {
-      color: #2f475f;
+      color: #2b4861;
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.55;
       white-space: pre-wrap;
+    }
+
+    .chat-turn {
+      display: grid;
+      gap: 6px;
+      max-width: 95%;
+    }
+
+    .chat-turn.you {
+      justify-self: end;
+      text-align: left;
+    }
+
+    .chat-turn.ai {
+      justify-self: start;
+    }
+
+    .chat-role {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #5a7690;
+      font-weight: 700;
+    }
+
+    .chat-bubble {
+      border-radius: 12px;
+      border: 1px solid #d4e4f4;
+      background: #ffffff;
+      padding: 10px 11px;
+      font-size: 13px;
+      color: #294863;
+      line-height: 1.5;
+      box-shadow: 0 2px 0 rgba(19, 61, 97, 0.04);
+    }
+
+    .chat-turn.you .chat-bubble {
+      background: #1f344a;
+      border-color: #1f344a;
+      color: #f2f8ff;
+    }
+
+    .direction-pack {
+      border: 1px solid #d7e7f6;
+      border-radius: 12px;
+      background: #f7fbff;
+      padding: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .impact-pack {
+      border: 1px solid #d8e6f3;
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 9px 10px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .draft-update {
+      border: 1px solid #cde7d5;
+      border-radius: 10px;
+      background: #f3fcf5;
+      color: #1e5b37;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 10px;
     }
 
     .lane-options,
@@ -904,6 +975,7 @@
       font-size: 11px;
       font-weight: 600;
       cursor: pointer;
+      transition: border-color 140ms ease, color 140ms ease, background 140ms ease;
     }
 
     .lane-chip.selected {
@@ -1048,7 +1120,8 @@
       padding: 10px 16px 13px;
       display: grid;
       gap: 8px;
-      background: #fcfdff;
+      background: #f4f9ff;
+      border-top: 1px solid #dde8f3;
     }
 
     .thread-foot-title {
@@ -1063,14 +1136,56 @@
       gap: 7px;
     }
 
+    .composer {
+      border: 1px solid #d4e4f3;
+      border-radius: 12px;
+      background: #fff;
+      padding: 9px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .composer-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .composer-input {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid #d2e0ed;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 13px;
+      color: #21425e;
+      background: #fbfdff;
+    }
+
+    .composer-send {
+      border: 1px solid #1f344a;
+      border-radius: 10px;
+      background: #1f344a;
+      color: #fff;
+      padding: 9px 11px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .composer-send:hover {
+      background: #173249;
+    }
+
     .artifact {
-      border: 1px solid var(--line);
+      border: 1px solid #d5dee8;
       border-radius: var(--radius);
-      background: var(--paper);
+      background: #ffffff;
       min-height: calc(100vh - 220px);
       display: grid;
       grid-template-rows: auto 1fr;
       overflow: hidden;
+      box-shadow: 0 10px 24px rgba(19, 38, 56, 0.06);
     }
 
     .artifact-head {
@@ -1122,7 +1237,7 @@
 
     .artifact-nav {
       border-right: 1px solid var(--line-soft);
-      background: var(--paper-soft);
+      background: #fbfcfe;
       padding: 10px;
       overflow-y: auto;
       display: grid;
@@ -1229,6 +1344,21 @@
       padding: 14px 12px 8px;
       margin: 0 -12px;
       cursor: default;
+    }
+
+    .module-section.just-updated {
+      animation: sectionPulse 1.2s ease;
+    }
+
+    @keyframes sectionPulse {
+      0% {
+        box-shadow: inset 0 0 0 1px rgba(66, 140, 210, 0.2);
+        background: linear-gradient(180deg, #eefdff 0%, transparent 80%);
+      }
+      100% {
+        box-shadow: inset 0 0 0 0 rgba(66, 140, 210, 0);
+        background: linear-gradient(180deg, #f7fbff 0%, transparent 72%);
+      }
     }
 
     .section-label {
@@ -1593,6 +1723,13 @@
             <footer class="thread-footer">
               <div class="thread-thinking" id="threadThinking">Updating draft...</div>
               <div class="thread-foot-prompts" id="threadPromptRow"></div>
+              <form class="composer" id="threadComposer">
+                <label class="composer-label" for="threadInput">Ask AI to revise this section</label>
+                <div class="composer-row">
+                  <input class="composer-input" id="threadInput" type="text" placeholder="e.g., Emphasize diagnostic reasoning with less content overload">
+                  <button class="composer-send" type="submit">Send</button>
+                </div>
+              </form>
             </footer>
           </section>
         </div>
@@ -1752,19 +1889,25 @@
   <script>
     const threadData = {
       welcome: {
-        title: "Curriculum Designer",
-        subtitle: "Draft and refine your module progressively.",
+        title: "AI Curriculum Co-Designer",
+        subtitle: "We will shape this module together while the draft updates live on the right.",
         stage: "Getting started",
         sectionLabel: "Module Overview",
-        prompts: ["Synopsis & Aims"],
-        actions: ["Synopsis & Aims"],
-        greeting: "Start building your module draft.",
-        intro: "Work through each module document section from overview and aims to alignment and integrity.",
+        prompts: ["Clinical judgement under pressure", "Balanced approach"],
+        actions: [
+          "Clinical judgement under pressure",
+          "Interdisciplinary coordination",
+          "Simulation-based decision making",
+          "Diagnostic reasoning",
+          "Balanced approach"
+        ],
+        greeting: "I have reviewed your selected analysis summaries and benchmark inputs.",
+        intro: "To begin, what kind of learning experience should this module emphasize most?",
         inputHint: "Describe what you want to build"
       },
       synopsis: {
         title: "Synopsis & Aims",
-        subtitle: "Refine a concise module synopsis and aims statement before drafting detailed sections.",
+        subtitle: "Let us shape the module purpose before locking downstream sections.",
         stage: "Current focus",
         sectionLabel: "Synopsis & Aims",
         contextUsed: [
@@ -1788,7 +1931,7 @@
       },
       outcomes: {
         title: "Learning Outcomes",
-        subtitle: "Sharpen measurable outcomes for escalation reasoning while preserving current assessment load.",
+        subtitle: "Let us sharpen measurable outcomes together and keep assessment load realistic.",
         stage: "Current focus",
         sectionLabel: "Learning Outcomes",
         contextUsed: [
@@ -1818,7 +1961,7 @@
       },
       content: {
         title: "Content & Hours",
-        subtitle: "Re-sequence topics to reduce overload and protect high-value simulation learning.",
+        subtitle: "Let us rebalance topic flow and contact-hour pressure points.",
         stage: "Drafting",
         sectionLabel: "Content & Hours",
         contextUsed: [
@@ -1842,7 +1985,7 @@
       },
       teaching: {
         title: "Teaching Strategy",
-        subtitle: "Refine facilitation and debrief rhythm so reasoning quality improves across the module.",
+        subtitle: "Let us tune facilitation rhythm and debrief depth for stronger reasoning quality.",
         stage: "Drafting",
         sectionLabel: "Teaching Strategy",
         contextUsed: [
@@ -1866,7 +2009,7 @@
       },
       assessment: {
         title: "Assessment Design",
-        subtitle: "Strengthen authenticity and AI-era validity without creating unmanageable marking burden.",
+        subtitle: "Let us shape authentic assessment evidence without creating unmanageable marking burden.",
         stage: "Priority",
         sectionLabel: "Assessment Design",
         contextUsed: [
@@ -1896,7 +2039,7 @@
       },
       resources: {
         title: "Learning Resources",
-        subtitle: "Prioritize resources that directly support escalation competency and current assessments.",
+        subtitle: "Let us prioritize resources that directly strengthen outcomes and assessment evidence.",
         stage: "Enrichment",
         sectionLabel: "Learning Resources",
         contextUsed: [
@@ -1920,7 +2063,7 @@
       },
       alignment: {
         title: "Alignment Review",
-        subtitle: "Review coherence across outcomes, assessments, teaching strategy, NP Graduate Competencies, and industry practice.",
+        subtitle: "Let us test coherence across outcomes, assessment, teaching strategy, and competency evidence.",
         stage: "Review",
         sectionLabel: "Alignment Review",
         contextUsed: [
@@ -1957,7 +2100,7 @@
       },
       integrity: {
         title: "Responsible AI & Integrity",
-        subtitle: "Define AI-use boundaries so learning remains authentic and reasoning evidence stays traceable.",
+        subtitle: "Let us define AI-use boundaries that protect authenticity while keeping support practical.",
         stage: "Policy",
         sectionLabel: "Responsible AI & Integrity",
         contextUsed: [
@@ -1991,6 +2134,88 @@
     const threadPromptRow = document.getElementById("threadPromptRow");
     const activeSectionPill = document.getElementById("activeSectionPill");
     const threadThinking = document.getElementById("threadThinking");
+    const threadComposer = document.getElementById("threadComposer");
+    const threadInput = document.getElementById("threadInput");
+
+    const threadState = {};
+    let activeThreadKey = "welcome";
+
+    function createTurn(role, copy) {
+      const turn = document.createElement("div");
+      turn.className = "chat-turn " + (role === "You" ? "you" : "ai");
+
+      const label = document.createElement("div");
+      label.className = "chat-role";
+      label.textContent = role;
+
+      const bubble = document.createElement("div");
+      bubble.className = "chat-bubble";
+      bubble.textContent = copy;
+
+      turn.appendChild(label);
+      turn.appendChild(bubble);
+      return turn;
+    }
+
+    function sectionIdForThread(threadKey) {
+      return threadKey === "welcome" ? "overview" : threadKey;
+    }
+
+    function triggerDraftUpdate(threadKey, note) {
+      const sectionId = sectionIdForThread(threadKey);
+      const section = document.getElementById(sectionId);
+
+      if (threadThinking) {
+        threadThinking.textContent = note || "Draft updated.";
+        threadThinking.classList.add("show");
+        window.setTimeout(() => {
+          threadThinking.classList.remove("show");
+        }, 1150);
+      }
+
+      if (section) {
+        section.classList.add("just-updated");
+        window.setTimeout(() => {
+          section.classList.remove("just-updated");
+        }, 1300);
+      }
+    }
+
+    function chooseDirection(threadKey, option) {
+      const lane = threadData[threadKey];
+      if (!lane || threadKey === "welcome") {
+        return;
+      }
+
+      threadState[threadKey] = {
+        ...(threadState[threadKey] || {}),
+        choice: option,
+        aiReply: "I will reflect " + option.toLowerCase() + " more strongly in this section and keep it aligned with adjacent sections.",
+        updatedNote: "Draft updated: " + lane.sectionLabel + " now emphasizes " + option.toLowerCase() + "."
+      };
+
+      renderThread(threadKey);
+      triggerDraftUpdate(threadKey, threadState[threadKey].updatedNote);
+    }
+
+    function captureFreeformInput(inputText) {
+      const key = activeThreadKey;
+      const lane = threadData[key];
+
+      if (!lane) {
+        return;
+      }
+
+      threadState[key] = {
+        ...(threadState[key] || {}),
+        freeform: inputText,
+        freeformReply: "I have applied that guidance and tightened this section while preserving coherence with the module structure.",
+        updatedNote: "Draft updated: " + lane.sectionLabel + " revised using your latest instruction."
+      };
+
+      renderThread(key);
+      triggerDraftUpdate(key, threadState[key].updatedNote);
+    }
 
     function renderThread(key) {
       const lane = threadData[key];
@@ -2002,6 +2227,11 @@
       threadTitle.textContent = lane.title;
       threadSubtitle.textContent = lane.subtitle;
       activeSectionPill.textContent = "Editing: " + lane.sectionLabel;
+      activeThreadKey = key;
+
+      if (threadInput) {
+        threadInput.placeholder = lane.inputHint || "Tell AI what to adjust in this section";
+      }
 
       if (key === "welcome") {
         threadCanvas.innerHTML = "";
@@ -2022,7 +2252,14 @@
           chip.type = "button";
           chip.className = "lane-chip";
           chip.textContent = action;
-          chip.addEventListener("click", () => activateThread("synopsis", true));
+          chip.addEventListener("click", () => {
+            threadState.welcome = {
+              choice: action,
+              aiReply: "Great direction. I will anchor the module aims and synopsis around " + action.toLowerCase() + "."
+            };
+            activateThread("synopsis", true);
+            triggerDraftUpdate("synopsis", "Draft updated: Synopsis & Aims now reflects " + action.toLowerCase() + ".");
+          });
           welcomeActions.appendChild(chip);
         });
 
@@ -2033,13 +2270,29 @@
         welcomeCard.appendChild(welcomeActions);
         threadCanvas.appendChild(welcomeCard);
 
+        if (threadState.welcome && threadState.welcome.choice) {
+          threadCanvas.appendChild(createTurn("You", threadState.welcome.choice));
+          threadCanvas.appendChild(createTurn("AI", threadState.welcome.aiReply));
+          const updated = document.createElement("div");
+          updated.className = "draft-update";
+          updated.textContent = "Draft updated: Direction captured and propagated into Synopsis & Aims.";
+          threadCanvas.appendChild(updated);
+        }
+
         threadPromptRow.innerHTML = "";
-        lane.prompts.slice(0, 1).forEach((prompt) => {
+        lane.prompts.slice(0, 2).forEach((prompt) => {
           const chip = document.createElement("button");
           chip.type = "button";
           chip.className = "lane-chip";
           chip.textContent = prompt;
-          chip.addEventListener("click", () => activateThread("synopsis", true));
+          chip.addEventListener("click", () => {
+            threadState.welcome = {
+              choice: prompt,
+              aiReply: "Great direction. I will anchor the module aims and synopsis around " + prompt.toLowerCase() + "."
+            };
+            activateThread("synopsis", true);
+            triggerDraftUpdate("synopsis", "Draft updated: Synopsis & Aims now reflects " + prompt.toLowerCase() + ".");
+          });
           threadPromptRow.appendChild(chip);
         });
 
@@ -2048,119 +2301,62 @@
 
       threadCanvas.innerHTML = "";
 
-      lane.blocks.forEach((block) => {
-        const wrapper = document.createElement("div");
-        wrapper.className = "lane-block";
+      const firstAiPrompt = lane.blocks.find((block) => block.label === "AI Co-Design");
+      if (firstAiPrompt) {
+        threadCanvas.appendChild(createTurn("AI", firstAiPrompt.copy));
+      }
 
-        const label = document.createElement("div");
-        label.className = "lane-label";
-        const labelText = block.label === "AI Co-Design"
-          ? "Assistant"
-          : block.label === "Module Leader"
-            ? "You"
-            : block.label;
-        label.textContent = labelText;
+      const state = threadState[key] || {};
 
-        const copy = document.createElement("div");
-        copy.className = "lane-copy";
-        copy.textContent = block.copy;
+      if (state.choice) {
+        threadCanvas.appendChild(createTurn("You", state.choice));
+        threadCanvas.appendChild(createTurn("AI", state.aiReply));
+      }
 
-        if (labelText) {
-          wrapper.appendChild(label);
-        }
-        wrapper.appendChild(copy);
-        threadCanvas.appendChild(wrapper);
-      });
+      if (state.freeform) {
+        threadCanvas.appendChild(createTurn("You", state.freeform));
+        threadCanvas.appendChild(createTurn("AI", state.freeformReply));
+      }
 
-      const decision = document.createElement("div");
-      decision.className = "lane-decision";
+      const directions = document.createElement("div");
+      directions.className = "direction-pack";
 
-      const decisionLabel = document.createElement("div");
-      decisionLabel.className = "lane-label";
-      decisionLabel.textContent = "Decision to confirm";
-      decision.appendChild(decisionLabel);
+      const directionsLabel = document.createElement("div");
+      directionsLabel.className = "lane-label";
+      directionsLabel.textContent = "Suggested directions";
+      directions.appendChild(directionsLabel);
 
       const options = document.createElement("div");
       options.className = "lane-options";
-      lane.options.forEach((opt, idx) => {
+      lane.options.forEach((opt) => {
         const chip = document.createElement("button");
         chip.type = "button";
-        chip.className = "lane-chip" + (idx === lane.selected ? " selected" : "");
+        chip.className = "lane-chip" + (state.choice === opt ? " selected" : "");
         chip.textContent = opt;
+        chip.addEventListener("click", () => chooseDirection(key, opt));
         options.appendChild(chip);
       });
-      decision.appendChild(options);
+      directions.appendChild(options);
+      threadCanvas.appendChild(directions);
 
-      threadCanvas.appendChild(decision);
+      const impact = document.createElement("div");
+      impact.className = "impact-pack";
+      const impactLabel = document.createElement("div");
+      impactLabel.className = "lane-label";
+      impactLabel.textContent = "Impact on module";
+      const impactCopy = document.createElement("div");
+      impactCopy.className = "lane-copy";
+      impactCopy.textContent = lane.signalSummary || lane.tradeoffs;
+      impact.appendChild(impactLabel);
+      impact.appendChild(impactCopy);
+      threadCanvas.appendChild(impact);
 
-      const tradeoffs = document.createElement("details");
-      tradeoffs.className = "lane-tradeoffs";
-      tradeoffs.innerHTML = "<summary>Options summary</summary><div class=\"lane-tradeoffs-content\">" + lane.tradeoffs + "</div>";
-      threadCanvas.appendChild(tradeoffs);
-
-      if (lane.competencySignals || lane.evidenceSnapshot || lane.signalSummary) {
-        const competency = document.createElement("div");
-        competency.className = "lane-competency";
-
-        const competencyLabel = document.createElement("div");
-        competencyLabel.className = "lane-label";
-        competencyLabel.textContent = "Competency check";
-        competency.appendChild(competencyLabel);
-
-        if (lane.competencySignals && lane.competencySignals.length > 0) {
-          const signalList = document.createElement("div");
-          signalList.className = "lane-signal-list";
-          lane.competencySignals.forEach((signal) => {
-            const pill = document.createElement("span");
-            pill.className = "lane-signal-pill";
-            pill.textContent = signal;
-            signalList.appendChild(pill);
-          });
-          competency.appendChild(signalList);
-        }
-
-        if (lane.evidenceSnapshot && lane.evidenceSnapshot.length > 0) {
-          const table = document.createElement("table");
-          table.className = "lane-snapshot-table";
-          table.innerHTML = "<thead><tr><th>Competency</th><th>Current evidence</th></tr></thead><tbody></tbody>";
-          const tbody = table.querySelector("tbody");
-          lane.evidenceSnapshot.forEach((row) => {
-            const tr = document.createElement("tr");
-            const c1 = document.createElement("td");
-            c1.textContent = row.competency;
-            const c2 = document.createElement("td");
-            c2.textContent = row.evidence;
-            tr.appendChild(c1);
-            tr.appendChild(c2);
-            tbody.appendChild(tr);
-          });
-          competency.appendChild(table);
-        }
-
-        if (lane.signalSummary) {
-          const summary = document.createElement("div");
-          summary.className = "lane-copy";
-          summary.textContent = lane.signalSummary;
-          competency.appendChild(summary);
-        }
-
-        threadCanvas.appendChild(competency);
+      if (state.updatedNote) {
+        const updated = document.createElement("div");
+        updated.className = "draft-update";
+        updated.textContent = state.updatedNote;
+        threadCanvas.appendChild(updated);
       }
-
-      const pending = document.createElement("div");
-      pending.className = "lane-pending";
-
-      const pendingLabel = document.createElement("div");
-      pendingLabel.className = "lane-label";
-      pendingLabel.textContent = "Next step";
-
-      const pendingCopy = document.createElement("div");
-      pendingCopy.className = "lane-copy";
-      pendingCopy.textContent = "Confirm one direction to continue to the next section.";
-
-      pending.appendChild(pendingLabel);
-      pending.appendChild(pendingCopy);
-      threadCanvas.appendChild(pending);
 
       threadPromptRow.innerHTML = "";
       lane.prompts.slice(0, 2).forEach((prompt) => {
@@ -2168,6 +2364,7 @@
         chip.type = "button";
         chip.className = "lane-chip";
         chip.textContent = prompt;
+        chip.addEventListener("click", () => chooseDirection(key, prompt));
         threadPromptRow.appendChild(chip);
       });
     }
@@ -2194,14 +2391,6 @@
         button.classList.toggle("active", button.dataset.thread === key);
       });
 
-      if (threadThinking) {
-        threadThinking.textContent = "Updating draft...";
-        threadThinking.classList.add("show");
-        window.setTimeout(() => {
-          threadThinking.classList.remove("show");
-        }, 620);
-      }
-
       renderThread(key);
       setActiveSection(key === "welcome" ? "overview" : key, shouldScroll);
     }
@@ -2217,6 +2406,18 @@
         setActiveSection(button.dataset.section, true);
       });
     });
+
+    if (threadComposer) {
+      threadComposer.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const text = (threadInput.value || "").trim();
+        if (!text) {
+          return;
+        }
+        captureFreeformInput(text);
+        threadInput.value = "";
+      });
+    }
 
     // Allow clicking a collapsed module-section to expand it inline
     moduleSections.forEach((section) => {
