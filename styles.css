@@ -1962,7 +1962,6 @@ tr:hover .row-actions { opacity: 1; }
 
 @media (max-width: 900px) {
   .topbar { padding: 0 16px; }
-  .topbar-pill { display: none; }
   .topbar-module-title { font-size: 14px; }
   .main-content { padding: 24px 16px 36px; }
   .page-title,
