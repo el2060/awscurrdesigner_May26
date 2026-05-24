@@ -407,6 +407,43 @@
       box-shadow: 0 4px 12px rgba(180,83,9,0.25);
     }
 
+    /* ── Tier section headers ── */
+    .tier-header {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted);
+      padding: 2px 4px;
+      margin-bottom: 6px;
+      margin-top: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .tier-header:first-child { margin-top: 0; }
+    .tier-header::after {
+      content: ''; flex: 1; height: 1px; background: var(--border-soft);
+    }
+
+    /* ── Detected Curriculum Signals (inside AI head) ── */
+    .ai-signals-bar {
+      padding: 14px 24px 16px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--amber-100);
+      display: grid; gap: 8px;
+    }
+    .signals-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--amber-700);
+    }
+    .signals-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .signal-chip {
+      font-size: 12px; font-weight: 600;
+      color: var(--amber-700);
+      background: #fff;
+      border: 1px solid var(--amber-100);
+      border-radius: 999px;
+      padding: 4px 11px;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 1280px) {
       :root { --pad: 28px; }
@@ -454,7 +491,7 @@
     the co-design workspace.
   -->
   <div class="page-title">Gather Curriculum Context</div>
-  <div class="page-sub">Upload curriculum references and existing materials for AI review and synthesis.</div>
+  <div class="page-sub">Upload references, insights, and existing materials to support curriculum review and module design.</div>
 
   <div class="layout">
 
@@ -462,16 +499,18 @@
     <div class="layout-main">
       <div class="upload-zone-stack">
 
-        <!-- 1. Industry & Benchmarking -->
+        <div class="tier-header">Core Design Inputs</div>
+
+        <!-- 1. Industry & Future Trends -->
         <div class="upload-zone" id="industry">
           <div class="uz-header">
             <div class="uz-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
             </div>
-            <div class="uz-title">Industry &amp; Benchmarking</div>
-            <div class="uz-badge">4 files</div>
+            <div class="uz-title">Industry &amp; Future Trends</div>
+            <div class="uz-badge">4 items</div>
           </div>
-          <div class="uz-desc">Industry reports, advisory discussions, and benchmark references.</div>
+          <div class="uz-desc">Industry reports, advisory inputs, workplace trends, and benchmarking references.</div>
             <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View references</button></div>
             <div class="uz-files">
               <div class="uz-file">
@@ -522,16 +561,16 @@
             </div>
         </div>
 
-        <!-- 2. Curriculum Standards -->
+        <!-- 2. Programme & Curriculum Alignment -->
         <div class="upload-zone" id="standards">
           <div class="uz-header">
             <div class="uz-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
             </div>
-            <div class="uz-title">Curriculum Standards</div>
-            <div class="uz-badge">2 files</div>
+            <div class="uz-title">Programme &amp; Curriculum Alignment</div>
+            <div class="uz-badge">2 items</div>
           </div>
-          <div class="uz-desc">Skills frameworks, accreditation references, and curriculum guidelines.</div>
+          <div class="uz-desc">Programme outcomes, NP Graduate Competencies, Skills Frameworks, curriculum maps, and accreditation references.</div>
           <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View references</button></div>
           <div class="uz-files">
             <div class="uz-file">
@@ -561,9 +600,9 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
             <div class="uz-title">Student &amp; Module Insights</div>
-            <div class="uz-badge">5 files</div>
+            <div class="uz-badge">5 items</div>
           </div>
-          <div class="uz-desc">Student feedback, module review notes, and graduate outcomes.</div>
+          <div class="uz-desc">Student feedback, learning analytics, graduate outcomes, and prior module review findings.</div>
           <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View references</button></div>
           <div class="uz-files">
             <div class="uz-file">
@@ -604,16 +643,18 @@
           </div>
         </div>
 
-        <!-- 4. Existing Module Materials -->
+        <div class="tier-header">Supporting References</div>
+
+        <!-- 4. Existing Module & Learning Materials -->
         <div class="upload-zone" id="materials">
           <div class="uz-header">
             <div class="uz-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
             </div>
-            <div class="uz-title">Existing Module Materials</div>
-            <div class="uz-badge">3 files</div>
+            <div class="uz-title">Existing Module &amp; Learning Materials</div>
+            <div class="uz-badge">3 items</div>
           </div>
-          <div class="uz-desc">Current MDDs, assessment briefs, slides, and learning materials.</div>
+          <div class="uz-desc">Current MDDs, assessments, learning activities, slides, and related teaching materials.</div>
           <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View references</button></div>
           <div class="uz-files">
             <div class="uz-file">
@@ -642,6 +683,36 @@
           </div>
         </div>
 
+        <!-- 5. Delivery & Operational Considerations (optional) -->
+        <div class="upload-zone" id="delivery">
+          <div class="uz-header">
+            <div class="uz-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="uz-title">Delivery &amp; Operational Considerations <span style="font-size:11px;font-weight:500;color:var(--muted);">(optional)</span></div>
+            <div class="uz-badge">2 items</div>
+          </div>
+          <div class="uz-desc">Teaching constraints, assessment load, scheduling, platform/tool availability, and staffing considerations.</div>
+          <div class="uz-controls"><button class="uz-toggle" type="button" onclick="toggleZone(this)">View references</button></div>
+          <div class="uz-files">
+            <div class="uz-note">
+              <span class="uz-note-icon">📝</span>
+              <span class="uz-note-text">Seminar rooms only — no wet lab access for this module. Max class size 30. Online sessions via Zoom for async weeks.</span>
+              <button class="uz-file-rm" onclick="removeEvidence(this, 'note')">×</button>
+            </div>
+            <div class="uz-note">
+              <span class="uz-note-icon">📝</span>
+              <span class="uz-note-text">Assessment load constraint: no more than 2 graded assessments per 15-week semester. Workload audit pending.</span>
+              <button class="uz-file-rm" onclick="removeEvidence(this, 'note')">×</button>
+            </div>
+          </div>
+          <div class="uz-actions">
+            <div class="uz-drop" onclick="addFile(this, 'PDF')">+ Add file</div>
+            <button class="uz-drop" onclick="promptAddLink(this)">+ Add link</button>
+            <button class="uz-drop" onclick="promptAddNote(this)">+ Add note</button>
+          </div>
+        </div>
+
       </div>
 
       <section id="analysis-results" class="analysis-inline hidden" aria-live="polite">
@@ -651,11 +722,22 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
             </div>
             <div class="ai-head-text">
-              <div class="ai-title">AI Context Summary</div>
-              <div class="ai-subtitle">A concise review and synthesis of your references to guide module direction and drafting.</div>
+              <div class="ai-title">Synthesised Curriculum Insights</div>
+              <div class="ai-subtitle">AI synthesis of your uploaded context to guide curriculum direction and module drafting.</div>
             </div>
           </div>
           <div class="ai-time" id="analysis-time">Not run yet</div>
+        </div>
+
+        <div class="ai-signals-bar">
+          <span class="signals-label">Detected Curriculum Signals</span>
+          <div class="signals-chips">
+            <span class="signal-chip">Strong employer demand for applied AI workflows</span>
+            <span class="signal-chip">Existing modules overlap with data visualisation topics</span>
+            <span class="signal-chip">Communication competency gaps identified</span>
+            <span class="signal-chip">Assessment-heavy semester detected</span>
+            <span class="signal-chip">Industry panel emphasised workplace collaboration skills</span>
+          </div>
         </div>
 
         <div class="ai-stat-strip">
@@ -776,16 +858,17 @@
     <!-- Sidebar -->
     <div class="layout-side">
       <div class="side-box">
-        <span class="side-title">Uploaded Context</span>
+        <span class="side-title">Context Items</span>
         <div class="side-box-body">
-          <div class="side-row"><span>Industry &amp; benchmarking</span><span class="side-count" id="cnt-0">4</span></div>
-          <div class="side-row"><span>Curriculum Standards</span><span class="side-count" id="cnt-1">2</span></div>
-          <div class="side-row"><span>Student Insights</span><span class="side-count" id="cnt-2">5</span></div>
+          <div class="side-row"><span>Industry &amp; Future Trends</span><span class="side-count" id="cnt-0">4</span></div>
+          <div class="side-row"><span>Programme &amp; Alignment</span><span class="side-count" id="cnt-1">2</span></div>
+          <div class="side-row"><span>Student &amp; Module Insights</span><span class="side-count" id="cnt-2">5</span></div>
           <div class="side-row"><span>Existing Materials</span><span class="side-count" id="cnt-3">3</span></div>
+          <div class="side-row"><span>Delivery &amp; Constraints</span><span class="side-count" id="cnt-4">2</span></div>
         </div>
         <div class="side-total">
           <span>Total</span>
-          <span class="side-total-num" id="cnt-total">14 files</span>
+          <span class="side-total-num" id="cnt-total">16 context items</span>
         </div>
       </div>
     </div>
@@ -809,9 +892,9 @@
 </div>
 
 <script>
-  // Track counts per zone (4 grouped source categories)
-  const counts = [4, 2, 5, 3];
-  const sideIds = ['cnt-0','cnt-1','cnt-2','cnt-3'];
+  // Track counts per zone (5 grouped source categories)
+  const counts = [4, 2, 5, 3, 2];
+  const sideIds = ['cnt-0','cnt-1','cnt-2','cnt-3','cnt-4'];
   let analysisVisible = false;
 
   function stampAnalysisTime() {
@@ -851,9 +934,9 @@
     sideIds.forEach((id, i) => {
       document.getElementById(id).textContent = counts[i];
     });
-    document.getElementById('cnt-total').textContent = total + ' files';
+    document.getElementById('cnt-total').textContent = total + ' context items';
     document.querySelectorAll('.upload-zone').forEach((zone, i) => {
-      zone.querySelector('.uz-badge').textContent = counts[i] + ' file' + (counts[i] !== 1 ? 's' : '');
+      zone.querySelector('.uz-badge').textContent = counts[i] + ' item' + (counts[i] !== 1 ? 's' : '');
     });
     if (analysisVisible) refreshInlineAnalysisStats();
   }
