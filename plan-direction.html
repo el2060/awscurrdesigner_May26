@@ -1974,36 +1974,36 @@
     <section class="setup-card analysis-setup" aria-label="Use previous analysis">
       <details class="analysis-accordion">
         <summary>
-          <div class="setup-kicker">Use Previous Analysis</div>
-          <h2 class="setup-title">Add selected analysis summaries as context for this draft.</h2>
+          <div class="setup-kicker">Use Existing Inputs</div>
+          <h2 class="setup-title">Select existing inputs to guide this draft.</h2>
         </summary>
 
         <div class="analysis-runs" aria-label="Previous analysis runs">
           <label class="analysis-run">
             <span class="analysis-run-top">
               <span class="analysis-run-title">ICU Curriculum Context Summary</span>
-              <span class="analysis-run-time">Completed 2 hrs ago</span>
+              <span class="analysis-run-time">Updated 2 hrs ago</span>
             </span>
             <span class="analysis-run-desc">Industry inputs, student insights, existing materials</span>
-            <span class="analysis-run-pick"><input type="checkbox" checked>Include in this draft</span>
+            <span class="analysis-run-pick"><input type="checkbox" checked>Use for this module</span>
           </label>
 
           <label class="analysis-run">
             <span class="analysis-run-top">
               <span class="analysis-run-title">Benchmark &amp; Standards Review</span>
-              <span class="analysis-run-time">Completed yesterday</span>
+              <span class="analysis-run-time">Updated yesterday</span>
             </span>
             <span class="analysis-run-desc">Curriculum frameworks and reference mapping</span>
-            <span class="analysis-run-pick"><input type="checkbox" checked>Include in this draft</span>
+            <span class="analysis-run-pick"><input type="checkbox" checked>Use for this module</span>
           </label>
 
           <label class="analysis-run">
             <span class="analysis-run-top">
               <span class="analysis-run-title">Existing Module Review</span>
-              <span class="analysis-run-time">Completed yesterday</span>
+              <span class="analysis-run-time">Updated yesterday</span>
             </span>
             <span class="analysis-run-desc">Assessment and content observations</span>
-            <span class="analysis-run-pick"><input type="checkbox">Include in this draft</span>
+            <span class="analysis-run-pick"><input type="checkbox">Use for this module</span>
           </label>
 
           <a class="analysis-cta" href="#coDesignWorkspace">Add Selected Context →</a>
@@ -2015,20 +2015,20 @@
       <aside class="workspace-side" aria-label="Conversation workspace">
         <div class="thread-shell">
           <nav class="thread-rail" aria-label="Design conversations">
-            <div class="thread-rail-kicker">Design Areas</div>
-            <button class="thread-link active" data-thread="welcome" type="button">Module Direction</button>
+            <div class="thread-rail-kicker">Module Areas</div>
+            <button class="thread-link active" data-thread="welcome" type="button">Module Focus</button>
             <button class="thread-link" data-thread="outcomes" type="button">Learning Outcomes</button>
-            <button class="thread-link" data-thread="content" type="button">Topics &amp; Learning Flow</button>
-            <button class="thread-link" data-thread="teaching" type="button">Teaching &amp; Learning</button>
-            <button class="thread-link" data-thread="assessment" type="button">Assessment Design</button>
-            <button class="thread-link" data-thread="integrity" type="button">AI &amp; Future Practice</button>
+            <button class="thread-link" data-thread="content" type="button">Topics &amp; Content</button>
+            <button class="thread-link" data-thread="teaching" type="button">Teaching Approach</button>
+            <button class="thread-link" data-thread="assessment" type="button">Assessment</button>
+            <button class="thread-link" data-thread="integrity" type="button">AI Use in Practice</button>
             <div class="thread-rail-divider"></div>
             <div class="design-intent">
-              <div class="design-intent-label">Current Focus</div>
+              <div class="design-intent-label">Current Priorities</div>
               <div class="design-intent-chips">
-                <span class="intent-chip">Clinical reasoning emphasis</span>
-                <span class="intent-chip">Reduced content overload</span>
-                <span class="intent-chip">Practice-ready assessment</span>
+                <span class="intent-chip">Stronger clinical reasoning</span>
+                <span class="intent-chip">Reduced content load</span>
+                <span class="intent-chip">Applied assessment</span>
               </div>
             </div>
           </nav>
@@ -2036,9 +2036,9 @@
           <section class="thread-workspace" aria-live="polite">
             <header class="thread-head">
               <div class="thread-head-top">
-                <h2 class="thread-title" id="threadTitle">AI Curriculum Workspace</h2>
+                <h2 class="thread-title" id="threadTitle">Curriculum Draft</h2>
               </div>
-              <p class="thread-sub" id="threadSubtitle">AI-assisted curriculum drafting.</p>
+              <p class="thread-sub" id="threadSubtitle">Build and refine your module draft with AI.</p>
               <div class="thread-pulse" id="threadPulse"></div>
             </header>
 
@@ -2101,10 +2101,10 @@
             <div class="artifact-toolbar">
               <div class="artifact-toolbar-left">
                 <div class="artifact-draft-info">
-                  <span class="artifact-draft-title">Live NP Module Draft</span>
+                  <span class="artifact-draft-title">NP Module Draft</span>
                   <span class="artifact-sync"><span class="sync-dot"></span><span id="syncLabel">Synced just now</span></span>
                 </div>
-                <div class="artifact-recent-update" id="artifactChangeLog">AI-assisted draft updates</div>
+                <div class="artifact-recent-update" id="artifactChangeLog">Latest draft changes</div>
               </div>
               <div class="artifact-toolbar-right">
                 <button class="artifact-btn-ghost" type="button">Open Full Draft ↗</button>
@@ -2141,7 +2141,7 @@
               <section class="module-section active" id="overview">
                 <div class="section-label np-sec-label">Module Overview</div>
                 <h3 class="section-title">Module Information</h3>
-                <p class="np-overview-note">AI-generated draft — review each section and refine before finalising.</p>
+                <p class="np-overview-note">AI-generated draft — review and refine before finalising.</p>
                 <div class="np-skel-rows">
                   <div class="np-skel-row"><div class="np-skel-lbl"></div><div class="np-skel-val"></div></div>
                   <div class="np-skel-row"><div class="np-skel-lbl"></div><div class="np-skel-val np-skel-short"></div></div>
@@ -2439,8 +2439,8 @@
   <script>
     const threadData = {
       welcome: {
-        title: "Module Direction",
-        subtitle: "Shape the graduate profile and module purpose before designing downstream.",
+        title: "Module Focus",
+        subtitle: "Set the overall focus and approach for this module.",
         stage: "Getting started",
         sectionLabel: "Module Overview",
         prompts: ["Strengthen escalation judgement", "Increase simulation-based practice"],
@@ -2481,7 +2481,7 @@
       },
       outcomes: {
         title: "Learning Outcomes",
-        subtitle: "What should students reliably do in clinical practice after this module?",
+        subtitle: "What should students be able to do by the end of this module?",
         stage: "Current focus",
         sectionLabel: "Learning Outcomes",
         contextUsed: [
@@ -2510,8 +2510,8 @@
         tradeoffs: "A/B improve measurability quickly. C improves team-readiness visibility but may require rubric updates."
       },
       content: {
-        title: "Topics & Learning Flow",
-        subtitle: "How should learning scaffold intentionally across the teaching weeks?",
+        title: "Topics & Content",
+        subtitle: "How should topics and hours be sequenced across the teaching weeks?",
         stage: "Drafting",
         sectionLabel: "Content & Hours",
         contextUsed: [
@@ -2534,8 +2534,8 @@
         tradeoffs: "Lower overload improves depth retention. Asynchronous shift needs clearer quality guardrails for learner preparation."
       },
       teaching: {
-        title: "Teaching & Learning",
-        subtitle: "Where do students struggle most, and what scaffolding supports real practice?",
+        title: "Teaching Approach",
+        subtitle: "How will content be taught and practiced in this module?",
         stage: "Drafting",
         sectionLabel: "Teaching Strategy",
         contextUsed: [
@@ -2558,8 +2558,8 @@
         tradeoffs: "Higher debrief precision improves outcome evidence. More facilitator guidance may require staff calibration resources."
       },
       assessment: {
-        title: "Assessment Design",
-        subtitle: "How do we evaluate meaningful capability rather than content recall?",
+        title: "Assessment",
+        subtitle: "How will students be assessed, and what does the evidence need to show?",
         stage: "Priority",
         sectionLabel: "Assessment Design",
         contextUsed: [
@@ -2649,8 +2649,8 @@
         tradeoffs: "Depth-first review prevents superficial alignment. Secondary workload checks protect feasibility before implementation."
       },
       integrity: {
-        title: "AI & Future Practice",
-        subtitle: "How should AI reshape what we teach, assess, and expect students to do?",
+        title: "AI Use in Practice",
+        subtitle: "How should students and lecturers use AI in this module?",
         stage: "Policy",
         sectionLabel: "Responsible AI & Integrity",
         contextUsed: [
@@ -2692,12 +2692,12 @@
     let activeThreadKey = "welcome";
 
     const railLabels = {
-      welcome: "Module Direction",
+      welcome: "Module Focus",
       outcomes: "Learning Outcomes",
-      content: "Topics & Learning Flow",
-      teaching: "Teaching & Learning",
-      assessment: "Assessment Design",
-      integrity: "AI & Future Practice"
+      content: "Topics & Content",
+      teaching: "Teaching Approach",
+      assessment: "Assessment",
+      integrity: "AI Use in Practice"
     };
 
     const threadOpeners = {
@@ -2891,16 +2891,16 @@
         const state = threadState[key] || {};
         const label = railLabels[key] || button.textContent;
         
-        let meta = "Not yet explored";
+        let meta = "Not yet started";
         if (state.updatedAt) {
-          meta = "✓ Decision captured";
+          meta = "✓ Updated";
         } else {
-          if (key === "welcome") meta = "Active — shaping intent";
-          else if (key === "outcomes") meta = "Outcome verbs to review";
-          else if (key === "content") meta = "Pacing decision open";
-          else if (key === "teaching") meta = "Debrief signals available";
-          else if (key === "assessment") meta = "Awaiting priority decision";
-          else if (key === "integrity") meta = "Pending design decisions";
+          if (key === "welcome") meta = "Active";
+          else if (key === "outcomes") meta = "Outcomes to review";
+          else if (key === "content") meta = "Content hours to check";
+          else if (key === "teaching") meta = "Teaching methods to confirm";
+          else if (key === "assessment") meta = "Assessment to confirm";
+          else if (key === "integrity") meta = "AI guidance to add";
         }
 
         button.innerHTML = "<span class=\"thread-link-title\">" + label + "</span><span class=\"thread-link-meta\">" + meta + "</span>";
