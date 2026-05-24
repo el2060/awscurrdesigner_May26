@@ -2555,35 +2555,34 @@
         sectionLabel: "Module Overview",
         prompts: ["Strengthen escalation judgement", "Increase applied simulation practice"],
         reviewed: [
-          "existing ICU curriculum materials",
-          "employer feedback",
-          "recent student reflections",
-          "prior nursing science modules"
+          "ICU curriculum materials",
+          "industry feedback",
+          "student reflections"
         ],
         reviewing: [
           "employer inputs",
           "prior module feedback",
           "ICU competency expectations"
         ],
-        synthesisLead: "Based on the inputs reviewed, here are some areas we could strengthen.",
+        synthesisLead: "Possible focus areas",
         patterns: [
-          "Current module emphasises content coverage over applied escalation judgement",
-          "Students report overload during diagnostics and simulation-heavy weeks",
-          "Clinical partners want stronger decision-making in deteriorating patient scenarios"
+          "Applied decision-making",
+          "Content load balance",
+          "Simulation-based practice"
         ],
-        workingStatus: "AI generating draft suggestions...",
-        draftStatus: "Drafting revised module focus...",
-        question: "Before drafting the module aims, which matters more for this run?",
+        workingStatus: "Synthesising focus areas...",
+        draftStatus: "Updating module focus...",
+        question: "For this draft, what matters most?",
         questionOptions: [
           "stronger clinical escalation judgement",
           "broader theory coverage",
           "smoother ICU transition readiness"
         ],
         nextHelp: [
-          "reshape the module aims",
-          "revise learning outcomes",
-          "rebalance content hours",
-          "propose more applied assessments"
+          "module aims",
+          "learning outcomes",
+          "content hours",
+          "assessment mix"
         ],
         actions: [
           "Strengthen escalation judgement",
@@ -2591,7 +2590,7 @@
           "Reduce overlapping theory content",
           "Prepare students for ICU transitions"
         ],
-        greeting: "Based on the inputs reviewed, here are some areas we could strengthen.",
+        greeting: "Possible focus areas",
         intro: "Which direction would you like to prioritise first?",
         inputHint: "Describe the module focus you want AI to draft..."
       },
@@ -2830,11 +2829,11 @@
     };
 
     const threadOpeners = {
-      outcomes: "Suggested refinements:\n• Strengthen escalation decision verbs\n• Reduce recall-focused wording\n• Align with applied practice benchmarks",
-      content: "Suggested refinements:\n• Spread diagnostics across two cycles\n• Convert prep segments to guided async review\n• Keep total contact hours stable",
-      teaching: "Suggested refinements:\n• Reframe debriefs around timing thresholds\n• Add short reasoning checkpoints between simulations\n• Reduce facilitator dependency in prep phases",
-      assessment: "Suggested refinements:\n• Shift from written recall to live decision evidence\n• Keep written artefacts short but traceable\n• Model 3 assessment patterns for review",
-      integrity: "Suggested refinements:\n• Frame AI as a support tool, not a replacement for reasoning\n• Add clear boundaries for high-stakes assessments\n• Include permitted and prohibited AI actions for students"
+      outcomes: "Areas to adjust:\n• Escalation verbs\n• Recall-heavy wording\n• Assessment alignment",
+      content: "Areas to adjust:\n• Topic overlap\n• Load balance\n• Hour distribution",
+      teaching: "Areas to adjust:\n• Debrief focus\n• Practice checkpoints\n• Staff effort",
+      assessment: "Areas to adjust:\n• Evidence type\n• Workload balance\n• Rubric fit",
+      integrity: "Areas to adjust:\n• Student guidance\n• Assessment boundaries\n• Attribution clarity"
     };
 
     const pulseSignals = {
@@ -2925,8 +2924,8 @@
     }
 
     function buildWelcomeSynthesis(lane) {
-      return "I've reviewed:\n" +
-        (lane.reviewed || []).map((item) => "• " + item).join("\n") +
+      return "Reviewed:\n" +
+        (lane.reviewed || []).map((item) => "✓ " + item).join("\n") +
         "\n\n" +
         lane.synthesisLead + "\n" +
         (lane.patterns || []).map((item) => "• " + item).join("\n");
@@ -2938,7 +2937,7 @@
 
       const heading = document.createElement("div");
       heading.className = "direction-heading";
-      heading.textContent = "Possible curriculum directions";
+      heading.textContent = "Possible focus areas";
 
       const intro = document.createElement("div");
       intro.className = "choice-intro conversational";
@@ -2991,7 +2990,7 @@
     }
 
     function createNextHelpTurn(lane) {
-      const copy = "If you'd like, I can next help:\n" +
+      const copy = "Next, I can help with:\n" +
         (lane.nextHelp || []).map((item) => "• " + item).join("\n");
       return createTurn("AI", copy);
     }
@@ -3033,13 +3032,13 @@
     function buildLaneChoiceReply(threadKey, option) {
       const phrase = option.toLowerCase();
       const replies = {
-        outcomes: "I will revise the outcomes around " + phrase + " and keep the wording measurable against assessment evidence.",
-        content: "I will reshape the weekly sequence around " + phrase + " while keeping total hours and learner load workable.",
-        teaching: "I will rework the teaching approach around " + phrase + " so the practice loop stays explicit.",
-        assessment: "I will draft the assessment pattern around " + phrase + " and keep the evidence burden manageable.",
-        resources: "I will shortlist resources around " + phrase + " so the materials support the revised module focus.",
-        alignment: "I will run the alignment check with " + phrase + " as the first priority before flagging residual gaps.",
-        integrity: "I will tighten the AI guidance around " + phrase + " so the boundaries are clearer in student-facing language."
+        outcomes: "Reframing the outcomes around " + phrase + ".",
+        content: "Rebalancing the sequence around " + phrase + ".",
+        teaching: "Refocusing the teaching approach around " + phrase + ".",
+        assessment: "Shaping the assessment pattern around " + phrase + ".",
+        resources: "Shortlisting resources around " + phrase + ".",
+        alignment: "Running alignment checks with " + phrase + " first.",
+        integrity: "Tightening the AI guidance around " + phrase + "."
       };
       return replies[threadKey] || ("I will carry " + phrase + " into the next draft revision.");
     }
@@ -3233,7 +3232,7 @@
       return {
         before,
         after,
-        summary: "Updated " + lane.sectionLabel + " to emphasize " + driver.toLowerCase()
+        summary: lane.sectionLabel + " updated for " + driver.toLowerCase()
       };
     }
 
@@ -3278,7 +3277,7 @@
       return {
         before,
         after,
-        summary: "Drafted revised module focus around " + welcomeFocusPhrase(driver)
+        summary: "Module focus updated for " + welcomeFocusPhrase(driver)
       };
     }
 
@@ -3301,7 +3300,7 @@
       threadState.welcome = {
         ...(threadState.welcome || {}),
         choice: option,
-        aiReply: "I've updated the draft focus to give more weight to " + welcomeFocusPhrase(option) + ". Next I can help turn that into aims, outcomes, hours, or assessment choices.",
+        aiReply: "Captured. Updating the draft around " + welcomeFocusPhrase(option) + ".",
         drafting: true,
         updatedAt: "just now",
         lastAfter: mutation.after
@@ -3319,7 +3318,7 @@
       threadState.welcome = {
         ...(threadState.welcome || {}),
         questionChoice: option,
-        questionReply: "Noted. I will use " + option + " as the main rationale thread when drafting the module aims.",
+        questionReply: "Noted. Using " + option + " as the main rationale.",
         questionDrafting: true,
         updatedAt: "just now",
         lastAfter: mutation.after
