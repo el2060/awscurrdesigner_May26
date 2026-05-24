@@ -3182,16 +3182,16 @@
 
     function mutationTarget(threadKey) {
       const map = {
-        synopsis: "#synopsis .section-copy",
-        outcomes: "#outcomes .section-list li:nth-child(2)",
-        content: "#content tbody tr:nth-child(1) td:first-child",
-        teaching: "#teaching .section-list li:nth-child(1)",
-        assessment: "#assessment tbody tr:nth-child(1) td:first-child",
-        resources: "#resources .section-list li:nth-child(1)",
-        alignment: "#alignment .section-copy",
-        integrity: "#integrity .section-list li:nth-child(1)"
+        synopsis: "#synopsis .np-body-italic",
+        outcomes: "#outcomes .np-skel-outcome .np-odesc",
+        content: "#content .np-skel-tr td:nth-child(2)",
+        teaching: "#teaching .np-skel-block",
+        assessment: "#assessment .np-skel-block",
+        resources: "#resources .np-skel-block",
+        alignment: "#alignment .np-skel-block",
+        integrity: "#integrity .np-ref-list li:nth-child(1)"
       };
-      return map[threadKey] || "#synopsis .section-copy";
+      return map[threadKey] || "#synopsis .np-body-italic";
     }
 
     function buildUpdatedText(threadKey, driver) {
