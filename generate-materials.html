@@ -1,34 +1,22 @@
 <!DOCTYPE html>
 <!--
   ═════════════════════════════════════════════════════════════════════════
-  PATH A · STEP 3 — Generate Teaching & Learning Materials
+  PATH A · STEP 3 — Plan & Prepare Teaching Materials
   ═════════════════════════════════════════════════════════════════════════
-  CONCEPT
-    Downstream continuation from Phase 2 (plan-direction.html). Picks up
-    the completed module draft as linked curriculum context and generates
-    aligned T&L materials (slides, activities, case studies, quizzes,
-    facilitator guides, rubrics).
-
-  COMPONENTS (for developer handoff)
-    1. Step strip            (MVP — orients lecturer in Path A flow)
-    2. Linked context strip  (MVP — shows which module draft feeds this)
-    3. Phase material picker (MVP — before/during/after class)
-    4. Generated preview     (MVP frame; preview snippets are DEMO FILLER)
-    5. Bottom actions        (MVP — back / generate / export)
+  REDESIGN: Lecturer-centric preparation workflow.
+  Flow: Context → Scope → Preferences → Plan Learning Experience → Generate
+  Phase structure: Before Class / During Class / After Class / Facilitation
+  OAL/IPL retained as delivery tags on individual items, not primary grouping.
   ═════════════════════════════════════════════════════════════════════════
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generate Teaching & Learning Materials — AI Curriculum Designer</title>
+  <title>Plan & Prepare Teaching Materials — AI Curriculum Designer</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg: #f6f7f4;
@@ -41,6 +29,20 @@
       --brand-soft: #f0f6fc;
       --max: 1200px;
       --radius: 12px;
+
+      /* Phase accent colours */
+      --before-accent: #b45309;
+      --before-bg: #fffbf2;
+      --before-border: #fde68a;
+      --during-accent: #1d6b45;
+      --during-bg: #f0faf5;
+      --during-border: #a7f3d0;
+      --after-accent: #4f46e5;
+      --after-bg: #f5f4ff;
+      --after-border: #c4b5fd;
+      --facil-accent: #004689;
+      --facil-bg: #f0f6fc;
+      --facil-border: #b8d0e6;
     }
 
     body {
@@ -50,32 +52,14 @@
       min-height: 100vh;
     }
 
+    /* ── Topbar ── */
     .topbar {
-      height: 56px;
-      border-bottom: 1px solid var(--line);
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 40px;
-      position: sticky;
-      top: 0;
-      z-index: 50;
+      height: 56px; border-bottom: 1px solid var(--line); background: #fff;
+      display: flex; align-items: center; padding: 0 40px;
+      position: sticky; top: 0; z-index: 50;
     }
-    .topbar-inner {
-      width: 100%;
-      max-width: var(--max);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-    }
-    .topbar-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: inherit;
-    }
+    .topbar-inner { width: 100%; max-width: var(--max); margin: 0 auto; display: flex; align-items: center; }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
     .t-div { width: 1px; height: 18px; background: var(--line); margin: 0 8px; }
     .brand-name { font-size: 13px; font-weight: 600; color: #111827; letter-spacing: -0.01em; }
     .brand-tag {
@@ -84,1102 +68,374 @@
       letter-spacing: 0.06em; margin-left: 4px;
       text-transform: uppercase; border-radius: 4px;
     }
-    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
-    .topbar-pill {
-      border: 1px solid #b8d0e6; background: var(--brand-soft);
-      color: var(--brand); border-radius: 999px;
-      padding: 4px 11px; font-size: 11px; font-weight: 600;
-    }
-    .topbar-link {
-      text-decoration: none;
-      font-size: 12px;
-      color: #6d7e91;
-    }
-    .topbar-link:hover { color: #2e445d; }
 
-    /* Step strip — orients lecturer within Path A */
+    /* ── Step strip ── */
     .step-strip {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      margin: 14px 0 4px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+      padding-bottom: 18px; border-bottom: 1px solid var(--line); margin-bottom: 4px;
     }
-    .step-strip .ss-step {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #97a3b3;
-      letter-spacing: 0.02em;
-      white-space: nowrap;
+    .ss-step {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 11px; font-weight: 600; color: #97a3b3;
+      letter-spacing: 0.02em; white-space: nowrap;
     }
-    .step-strip .ss-num {
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      background: #eef1f6;
-      color: #97a3b3;
-      font-size: 10px;
-      font-weight: 700;
+    .ss-num {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: #eef1f6; color: #97a3b3;
+      font-size: 10px; font-weight: 700;
       display: inline-flex; align-items: center; justify-content: center;
     }
-    .step-strip .ss-step.done { color: #2f7a52; }
-    .step-strip .ss-step.done .ss-num { background: #d6eede; color: #2f7a52; }
-    .step-strip .ss-step.active { color: var(--brand); }
-    .step-strip .ss-step.active .ss-num { background: var(--brand); color: #fff; }
-    .step-strip .ss-sep {
-      width: 16px; height: 1px;
-      background: #d8dde5;
-      flex-shrink: 0;
-    }
+    .ss-step.done { color: #2f7a52; }
+    .ss-step.done .ss-num { background: #d6eede; color: #2f7a52; }
+    .ss-step.active { color: var(--brand); }
+    .ss-step.active .ss-num { background: var(--brand); color: #fff; }
+    .ss-sep { width: 16px; height: 1px; background: #d8dde5; flex-shrink: 0; }
 
-    .page {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 44px 40px;
-      display: grid;
-      gap: 16px;
-    }
+    /* ── Page layout ── */
+    .page { max-width: var(--max); margin: 0 auto; padding: 44px 40px; display: grid; gap: 18px; }
+    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand); margin-bottom: 10px; }
+    .title { font-size: 30px; font-weight: 700; letter-spacing: -0.022em; line-height: 1.18; margin-bottom: 10px; }
+    .sub { font-size: 15px; line-height: 1.6; color: var(--ink-mid); max-width: 680px; }
 
-    .eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--brand);
-      margin-bottom: 12px;
-    }
-
-    .title {
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.022em;
-      line-height: 1.18;
-      margin-bottom: 12px;
-    }
-
-    .sub {
-      font-size: 16px;
-      line-height: 1.6;
-      color: var(--ink-mid);
-      max-width: 720px;
-      margin-bottom: 8px;
-    }
-
-    .setup-card {
-      border: 1px solid #c8daec;
-      border-radius: 12px;
-      background: #fff;
-      padding: 18px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .setup-card.context-card {
-      border-color: #d7e3ef;
-      background: linear-gradient(180deg, #f7fbff 0%, #ffffff 72%);
-    }
-
-    .setup-kicker {
-      color: var(--brand);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .setup-title {
-      color: #172a3d;
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-.setup-note {
-  color: #63778a;
-  font-size: 13px;
-  line-height: 1.5;
-  max-width: 60ch;
-}
-
-.analysis-setup {
-  padding: 0;
-  overflow: hidden;
-  border-color: #d7e3ef;
-  background: #fcfeff;
-}
-
-.analysis-accordion > summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  display: grid;
-  gap: 6px;
-}
-
-.analysis-accordion > summary::-webkit-details-marker {
-  display: none;
-}
-
-.analysis-accordion > summary::after {
-  content: "View Connected Drafts";
-  justify-self: start;
-  margin-top: 2px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #5f748a;
-  border: 1px solid #d8e4ef;
-  border-radius: 999px;
-  padding: 4px 10px;
-  background: #fff;
-}
-
-.analysis-accordion[open] > summary {
-  border-bottom: 1px solid #e3ecf4;
-  background: #fff;
-}
-
-.analysis-accordion[open] > summary::after {
-  content: "Hide Draft Options";
-}
-.analysis-runs {
-  padding: 16px;
-  display: grid;
-  gap: 16px;
-  background: #f9fcff;
-}
-
-.analysis-run {
-  border: 1px solid #dce7f2;
-  border-radius: 10px;
-  background: #fff;
-  padding: 10px 12px;
-  display: grid;
-  gap: 6px;
-  cursor: pointer;
-  transition: border-color 120ms, background 120ms;
-}
-
-.analysis-run:has(input:checked) {
-  border-color: #b6cee4;
-  background: #f3f8fd;
-}
-
-.analysis-run-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.analysis-run-title {
-  font-size: 13px;
-  font-weight: 700;
-  color: #1f3d5a;
-}
-
-.analysis-run-time {
-  font-size: 11px;
-  color: #71869a;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.analysis-run-desc {
-  font-size: 12px;
-  color: #5c7489;
-  line-height: 1.45;
-}
-
-.analysis-run-pick {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #2d4e6e;
-  width: fit-content;
-}
-
-.analysis-run-pick input {
-  width: 14px;
-  height: 14px;
-  accent-color: var(--brand);
-}
-
-    .setup-meta-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .setup-meta-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      color: #2e4459;
-      font-weight: 600;
-      line-height: 1.45;
-    }
-
-    .setup-connector-top {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .setup-connector-meta {
-      font-size: 12px;
-      color: #6b7f92;
-      font-weight: 600;
-      margin-top: 2px;
-    }
-
-    .setup-sections-block {
-      border-top: 1px solid #e1eaf2;
-      padding-top: 12px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .setup-sections-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: #5f748a;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .setup-draft-picker {
-      border-top: 1px dashed #d6e2ee;
-      padding-top: 12px;
-      display: grid;
-      gap: 8px;
-    }
-
-    .setup-draft-picker-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: #5f748a;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .setup-draft-action {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .generation-setup {
-      border: 1px solid var(--line);
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .generation-setup-body {
-      padding: 18px 20px;
-      display: grid;
-      gap: 16px;
-    }
-
-    .generation-setup-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .generation-field {
-      display: grid;
-      gap: 6px;
-    }
-
-    .generation-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #5f748a;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .phase-toggle-wrap {
-      border-top: 1px dashed #dbe6f0;
-      padding-top: 14px;
-      display: grid;
-      gap: 8px;
-    }
-
-    .phase-toggle-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .phase-toggle {
-      border: 1px solid #dce5ef;
-      border-radius: 10px;
-      padding: 10px;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: #334b62;
-      font-weight: 600;
-    }
-
-    .phase-toggle input {
-      accent-color: var(--brand);
-    }
-
-    .setup-config {
-      margin-top: 2px;
-      padding-top: 12px;
-      border-top: 1px solid #dae5f1;
-    }
-
-    .setup-config-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: #6f869e;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 12px;
-    }
-
-    .setup-config-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      font-size: 13px;
-      color: #3b5773;
-    }
-
-    .setup-config-field {
-      display: grid;
-      gap: 4px;
-    }
-
-    .setup-select {
-      border: 1px solid #c9ddec;
-      border-radius: 6px;
-      padding: 5px 9px;
-      font-size: 13px;
-      color: #233f5b;
-      background: #fff;
-      min-width: 164px;
-    }
-
-    .section-card {
-      border: 1px solid var(--line);
-      background: #fff;
-      border-radius: 12px;
-      margin-bottom: 14px;
-      overflow: hidden;
-    }
-
+    /* ── Shared section card ── */
+    .section-card { border: 1px solid var(--line); background: #fff; border-radius: var(--radius); overflow: hidden; }
     .sc-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--line-soft);
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 20px; border-bottom: 1px solid var(--line-soft);
+      background: linear-gradient(180deg, #fafbfc 0%, #fff 100%);
     }
-
     .sc-num {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: var(--brand);
-      color: #fff;
-      font-size: 13px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 2px 6px rgba(0, 70, 137, 0.18);
+      width: 30px; height: 30px; border-radius: 8px;
+      background: var(--brand); color: #fff;
+      font-size: 13px; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,70,137,0.18);
     }
+    .sc-title { font-size: 15px; font-weight: 700; color: #24394f; letter-spacing: -0.005em; }
+    .sc-desc { font-size: 12px; color: #7b8c9d; margin-top: 2px; }
+    .sc-body { padding: 20px; display: grid; gap: 16px; }
 
-    .sc-title-wrap {
-      display: grid;
-      gap: 2px;
-    }
-
-    .sc-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #24394f;
-      letter-spacing: -0.005em;
-    }
-
-    .sc-desc {
-      font-size: 12px;
-      color: #7b8c9d;
-    }
-
-    .sc-body {
-      padding: 20px;
-    }
-
-    .workspace-strip {
-      border: 1px solid #b8d0e6;
-      border-radius: 12px;
-      background: #fff;
-      padding: 12px 14px;
-      display: grid;
-      gap: 8px;
-    }
-
-    .workspace-strip-top {
+    /* ── Connected context strip ── */
+    .ctx-strip {
+      border: 1px solid #c8daec;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, #f7fbff 0%, #ffffff 70%);
+      padding: 16px 18px;
       display: flex;
-      flex-wrap: wrap;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .workspace-strip-kicker {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--brand);
-    }
-
-    .workspace-strip-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #243448;
-      letter-spacing: -0.01em;
-    }
-
-    .workspace-strip-meta {
-      font-size: 12px;
-      color: #627389;
-      font-weight: 600;
-    }
-
-    .workspace-strip-actions {
-      display: flex;
+      gap: 18px;
       flex-wrap: wrap;
-      gap: 8px;
+    }
+    .ctx-left { display: grid; gap: 6px; }
+    .ctx-kicker { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand); }
+    .ctx-module { font-size: 16px; font-weight: 700; color: #1d3148; letter-spacing: -0.01em; }
+    .ctx-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .ctx-tag {
+      font-size: 11px; font-weight: 600; color: #2f7a52;
+      background: #f0faf5; border: 1px solid #a7f3d0;
+      border-radius: 999px; padding: 3px 9px;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .ctx-tag::before { content: "✓"; font-size: 10px; }
+    .ctx-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
+    .ctx-meta { font-size: 12px; color: #6b7f92; font-weight: 600; }
+    .btn-ghost {
+      border: 1px solid #c8daec; border-radius: 999px; background: #fff;
+      color: #3d5a78; font-size: 11px; font-weight: 700;
+      padding: 6px 13px; cursor: pointer; text-decoration: none; white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-soft); }
+
+    /* ── Teaching scope ── */
+    .scope-wrap { display: grid; gap: 14px; }
+    .scope-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .scope-chip {
+      display: inline-flex; align-items: center; gap: 0;
+      cursor: pointer;
+    }
+    .scope-chip input { position: absolute; opacity: 0; pointer-events: none; }
+    .scope-chip-label {
+      border: 1.5px solid #c9d8e8; border-radius: 999px;
+      background: #fff; color: #3d5270;
+      font-size: 13px; font-weight: 600;
+      padding: 7px 16px; cursor: pointer;
+      transition: border-color 120ms, background 120ms, color 120ms;
+      user-select: none;
+    }
+    .scope-chip input:checked + .scope-chip-label {
+      border-color: var(--brand); background: var(--brand-soft); color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(0,70,137,0.08);
+    }
+    .scope-chip-label:hover { border-color: #a0b8cf; background: #f5f9ff; }
+    .scope-hint {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 11px 14px;
+      background: #f8fbff; border: 1px solid #d6e6f3; border-radius: 10px;
+      font-size: 13px; color: #3d5a78; line-height: 1.5;
     }
 
-    .workspace-strip-link {
-      border: 1px solid #b8d0e6;
-      border-radius: 999px;
-      background: #f8faff;
-      color: #465887;
-      padding: 6px 11px;
-      font-size: 11px;
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .workspace-strip-link:hover {
-      border-color: #b8c5e8;
-      background: #edf2ff;
-      text-decoration: none;
-    }
-
-    .pill {
-      border: 1px solid #b8d0e6;
-      background: #fff;
-      color: #465887;
-      border-radius: 999px;
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .material-groups {
+    /* ── Teaching preferences ── */
+    .pref-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      gap: 14px;
+    }
+    .pref-field { display: grid; gap: 5px; }
+    .pref-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5f748a; }
+    .setup-select {
+      border: 1px solid #c9ddec; border-radius: 8px;
+      padding: 8px 10px; font-size: 13px; color: #233f5b;
+      background: #fff; width: 100%;
     }
 
-    .material-group {
-      border: 1px solid #dfe5ec;
+    /* ── Phase blocks ── */
+    .phases { display: grid; gap: 14px; }
+
+    .phase-block {
+      border: 1px solid var(--line-soft);
       border-radius: 12px;
-      background: #fff;
-      display: grid;
-      gap: 0;
       overflow: hidden;
     }
-    .material-group.oal-card      { border-top: 3px solid var(--brand); }
-    .material-group.ipl-card      { border-top: 3px solid #2f7a52; }
-    .material-group.followup-card { border-top: 3px solid #b45309; }
+    .phase-block.before { border-top: 3px solid var(--before-accent); }
+    .phase-block.during { border-top: 3px solid var(--during-accent); }
+    .phase-block.after  { border-top: 3px solid var(--after-accent); }
+    .phase-block.facil  { border-top: 3px solid var(--facil-accent); }
 
-    .material-group-header {
-      padding: 12px 14px 10px;
-      background: #fafbfc;
-      border-bottom: 1px solid #e8eef4;
+    .phase-head {
+      display: flex; align-items: center; gap: 12px;
+      padding: 13px 16px; border-bottom: 1px solid var(--line-soft);
+    }
+    .phase-block.before .phase-head { background: var(--before-bg); }
+    .phase-block.during .phase-head { background: var(--during-bg); }
+    .phase-block.after  .phase-head { background: var(--after-bg); }
+    .phase-block.facil  .phase-head { background: var(--facil-bg); }
+
+    .phase-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .phase-block.before .phase-icon { background: #fde68a; }
+    .phase-block.during .phase-icon { background: #a7f3d0; }
+    .phase-block.after  .phase-icon { background: #c4b5fd; }
+    .phase-block.facil  .phase-icon { background: #b8d0e6; }
+
+    .phase-head-text { flex: 1; min-width: 0; }
+    .phase-title { font-size: 14px; font-weight: 700; letter-spacing: -0.005em; }
+    .phase-block.before .phase-title { color: var(--before-accent); }
+    .phase-block.during .phase-title { color: var(--during-accent); }
+    .phase-block.after  .phase-title { color: var(--after-accent); }
+    .phase-block.facil  .phase-title { color: var(--facil-accent); }
+
+    .phase-subtitle { font-size: 12px; color: #6d7f91; margin-top: 1px; }
+
+    .phase-count {
+      font-size: 11px; font-weight: 700; color: #7a8fa3;
+      background: #fff; border: 1px solid #d8e4ef;
+      border-radius: 999px; padding: 3px 10px; white-space: nowrap; flex-shrink: 0;
     }
 
-    .material-group-title {
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-    .material-group-title.oal      { color: var(--brand); }
-    .material-group-title.ipl      { color: #2f7a52; }
-    .material-group-title.followup { color: #b45309; }
-
-    .material-group-subtitle {
-      font-size: 11px;
-      color: #8496a9;
-      font-weight: 500;
-      margin-top: 2px;
-    }
-
-    .material-group-items {
-      padding: 14px;
+    .mat-grid {
       display: grid;
-      gap: 0;
-    }
-
-    .sc-helper {
-      font-size: 13px;
-      color: #6b7f92;
-      margin-top: 2px;
-    }
-
-    .material-output {
-      display: grid;
-      gap: 4px;
-      padding-top: 2px;
-    }
-
-    .material-output strong {
-      font-size: 12px;
-      color: #24394f;
-    }
-
-    .material-output p {
-      font-size: 12px;
-      line-height: 1.5;
-      color: #627389;
-    }
-
-    .material-preview {
-      border-left: 1px solid #dfe5ec;
-      padding-left: 12px;
-      color: #46586d;
-      font-size: 11px;
-      line-height: 1.45;
-    }
-
-    .phase-note {
-      border-top: 1px dashed #d9e4ef;
-      padding-top: 10px;
-      font-size: 12px;
-      color: #627389;
-      line-height: 1.5;
-    }
-
-    .essentials-hint {
-      margin-top: 12px;
-      border: 1px solid #d9e6f3;
-      border-radius: 10px;
-      padding: 10px 12px;
-      background: #f8fbff;
-      font-size: 12px;
-      color: #5d7389;
-      line-height: 1.45;
-    }
-
-    .material-extra[hidden] {
-      display: none;
-    }
-
-    .more-materials {
-      margin-top: 10px;
-      border: 1px solid #c4d9eb;
-      border-radius: 999px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      padding: 14px 16px;
       background: #fff;
-      color: #2f4d6f;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      padding: 8px 12px;
-      cursor: pointer;
-      width: fit-content;
     }
 
-    .more-materials:hover {
-      background: #f4f9ff;
-      border-color: #aac8df;
-    }
-
-    .section-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #24394f;
-      letter-spacing: -0.01em;
-    }
-
-    .check-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .check-item {
-      border: 1px solid #dfe5ec;
-      border-radius: 10px;
-      padding: 11px 12px;
-      display: flex;
-      gap: 9px;
-      align-items: center;
+    .mat-item {
+      display: flex; align-items: center; gap: 9px;
+      border: 1px solid #e0e8f0; border-radius: 9px;
+      padding: 10px 12px; cursor: pointer;
       background: #fff;
       transition: border-color 100ms, background 100ms;
     }
-    .check-item:hover { border-color: #b8d0e6; background: #f8fbff; }
+    .mat-item:hover { border-color: #b8d0e6; background: #f8fbff; }
+    .mat-item:has(input:checked) { border-color: #b8d0e6; background: #f5f9ff; }
 
-    .check-item input {
-      margin-top: 2px;
-      accent-color: var(--brand);
+    .mat-check {
+      width: 15px; height: 15px; flex-shrink: 0;
+      accent-color: var(--brand); cursor: pointer;
     }
-
-    .check-item label {
-      font-size: 13px;
-      color: #334b62;
-      line-height: 1.45;
-      cursor: pointer;
+    .mat-item-body { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0; flex-wrap: wrap; }
+    .mat-name { font-size: 12.5px; font-weight: 600; color: #2c4160; line-height: 1.3; }
+    .mat-tag {
+      font-size: 10px; font-weight: 700; border-radius: 4px;
+      padding: 2px 6px; white-space: nowrap; letter-spacing: 0.04em;
     }
+    .mat-tag.oal  { background: #e8f2fc; color: #1a5a8a; }
+    .mat-tag.ipl  { background: #e6f5ef; color: #1a5e3a; }
+    .mat-tag.both { background: #f0ecff; color: #4a3b9c; }
+    .mat-tag.facil { background: #fef3e2; color: #8a4f0a; }
 
+    /* ── Actions bar ── */
     .actions {
-      border-top: 1px solid var(--line-soft);
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      padding-top: 16px;
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      padding-top: 16px; border-top: 1px solid var(--line-soft);
     }
-
+    .action-tally { font-size: 13px; font-weight: 700; color: #3c5673; flex: 1; }
     .btn {
-      border: 1px solid #d2dcef;
-      border-radius: 8px;
-      background: #fff;
-      color: #344b61;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 9px 14px;
-      cursor: pointer;
-      text-decoration: none;
+      border: 1px solid #d2dcef; border-radius: 8px; background: #fff;
+      color: #344b61; font-size: 12px; font-weight: 700;
+      padding: 9px 16px; cursor: pointer; text-decoration: none;
+      font-family: var(--font-sans); white-space: nowrap;
     }
+    .btn.primary { border-color: var(--brand); background: var(--brand); color: #fff; }
+    .btn.primary:hover { background: #003366; border-color: #003366; }
+    .btn.secondary:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-soft); }
 
-    .btn.primary {
-      border-color: var(--brand);
-      background: var(--brand);
-      color: #fff;
-    }
-
-    .btn.primary:hover {
-      background: #003366;
-      border-color: #003366;
-    }
-
+    /* ── Layout: main + sidebar ── */
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 300px;
-      gap: 24px;
+      grid-template-columns: minmax(0, 1fr) 288px;
+      gap: 20px;
       align-items: start;
     }
+    .layout-main, .layout-side { min-width: 0; }
+    .layout-side { position: sticky; top: 76px; display: grid; gap: 12px; }
 
-    .layout-main,
-    .layout-side {
-      min-width: 0;
+    .side-box, .side-next {
+      border: 1px solid var(--line); border-radius: 12px;
+      background: #fff; padding: 18px; display: grid; gap: 10px;
     }
-
-    .layout-side {
-      position: sticky;
-      top: 76px;
-      display: grid;
-      gap: 12px;
+    .side-next { background: linear-gradient(180deg, #f8fbff 0%, #fff 78%); }
+    .side-title, .side-next-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #8b99ab;
     }
-
-    .side-box,
-    .side-next {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: #fff;
-      padding: 18px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .side-next {
-      background: linear-gradient(180deg, #f8fbff 0%, #fff 78%);
-    }
-
-    .side-title,
-    .side-next-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #8b99ab;
-    }
-
     .side-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--line-soft);
-      font-size: 13px;
-      color: var(--ink-mid);
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 7px 0; border-bottom: 1px solid var(--line-soft);
+      font-size: 13px; color: var(--ink-mid);
     }
-
-    .side-row:last-of-type {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .side-count,
-    .side-total-num {
-      font-weight: 700;
-      color: var(--ink);
-    }
-
+    .side-row:last-of-type { border-bottom: none; padding-bottom: 0; }
+    .side-count, .side-total-num { font-weight: 700; color: var(--ink); }
     .side-total {
-      padding-top: 12px;
-      border-top: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: 13px;
-      color: var(--ink-mid);
+      padding-top: 10px; border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; gap: 10px;
+      font-size: 13px; color: var(--ink-mid);
     }
-
-    .side-trust-note {
-      border-top: 1px dashed #d4dee9;
-      padding-top: 10px;
-      font-size: 12px;
-      line-height: 1.5;
-      color: #63788e;
-    }
-
     .side-next-item {
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--ink-mid);
+      font-size: 12.5px; line-height: 1.5; color: var(--ink-mid);
+      display: flex; align-items: flex-start; gap: 7px;
+    }
+    .side-next-item::before { content: "→"; color: var(--brand); flex-shrink: 0; font-size: 12px; margin-top: 1px; }
+    .side-scope-block { border-top: 1px dashed #d6e2ee; padding-top: 10px; display: grid; gap: 4px; }
+    .side-scope-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #8b99ab; }
+    .side-scope-val { font-size: 13px; font-weight: 700; color: var(--ink); }
+
+    /* ── Teaching Pack (Step 5) ── */
+    .pack-tabs {
+      display: flex; gap: 4px; flex-wrap: wrap;
+      border-bottom: 1px solid var(--line-soft); padding-bottom: 0; margin-bottom: 0;
+    }
+    .pack-tab {
+      border: 1px solid transparent; border-bottom: none;
+      border-radius: 8px 8px 0 0; background: none;
+      color: #6b7f92; font-size: 12.5px; font-weight: 600;
+      padding: 9px 16px; cursor: pointer; font-family: var(--font-sans);
+      position: relative; top: 1px;
+      transition: color 100ms, background 100ms, border-color 100ms;
+    }
+    .pack-tab:hover { color: var(--brand); background: #f5f9ff; }
+    .pack-tab.active {
+      border-color: var(--line-soft); border-bottom-color: #fff;
+      background: #fff; color: var(--brand); font-weight: 700;
     }
 
-    .preview-shell {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-      gap: 18px;
-      align-items: start;
-    }
+    .pack-panels { background: #fff; border: 1px solid var(--line-soft); border-top: none; border-radius: 0 0 10px 10px; }
+    .pack-panel { padding: 18px; display: none; }
+    .pack-panel.active { display: grid; gap: 14px; }
 
-    .preview-panel {
-      border: 1px solid var(--line-soft);
-      border-radius: 12px;
-      background: #fff;
-      overflow: hidden;
-      display: grid;
-      gap: 0;
+    .pack-doc {
+      border: 1px solid var(--line-soft); border-radius: 10px;
+      padding: 16px; background: linear-gradient(180deg, #fafcff 0%, #fff 100%);
+      display: grid; gap: 10px;
     }
+    .pack-doc-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand); }
+    .pack-doc-title { font-size: 14px; font-weight: 700; color: #1d3148; }
 
-    .preview-panel-head {
-      padding: 16px 18px;
-      border-bottom: 1px solid var(--line-soft);
-      display: grid;
-      gap: 4px;
-      background: linear-gradient(180deg, #f8fbff 0%, #fff 100%);
+    .skel-line {
+      height: 11px; border-radius: 999px;
+      background: linear-gradient(90deg, #dce8f3 25%, #eaf2fb 50%, #dce8f3 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.6s ease-in-out infinite;
     }
+    @keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+    .skel-line.w-full { width: 100%; }
+    .skel-line.w-80  { width: 80%; }
+    .skel-line.w-65  { width: 65%; }
+    .skel-line.w-50  { width: 50%; }
+    .skel-line.w-40  { width: 40%; }
 
-    .preview-panel-kicker {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--brand);
+    .pack-item-list { display: grid; gap: 8px; }
+    .pack-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 12px; border: 1px solid #e4edf6; border-radius: 9px; background: #fff;
     }
+    .pack-item-icon {
+      width: 28px; height: 28px; border-radius: 7px;
+      background: var(--brand-soft); color: var(--brand);
+      font-size: 13px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .pack-item-text { flex: 1; min-width: 0; }
+    .pack-item-name { font-size: 13px; font-weight: 700; color: #243448; margin-bottom: 3px; }
+    .pack-item-meta { font-size: 12px; color: #7a8fa3; }
+    .pack-item-tag { margin-left: auto; align-self: center; flex-shrink: 0; }
 
-    .preview-panel-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-    }
-
-    .preview-panel-sub {
-      font-size: 12px;
-      color: var(--ink-mid);
-      line-height: 1.5;
-    }
-
-    .preview-stage {
-      padding: 18px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .preview-canvas {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
-      padding: 16px;
-      min-height: 220px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .preview-canvas-line {
-      height: 12px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #d9e6f4 0%, #eef4fb 100%);
-    }
-
-    .preview-canvas-line.wide { width: 78%; }
-    .preview-canvas-line.mid { width: 58%; }
-    .preview-canvas-line.short { width: 38%; }
-    .preview-canvas-box {
-      border: 1px dashed #c8d6e7;
-      border-radius: 10px;
-      background: #fff;
-      padding: 14px;
-      display: grid;
-      gap: 8px;
-    }
-    .preview-canvas-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--brand);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .preview-canvas-text {
-      font-size: 13px;
-      color: var(--ink-mid);
-      line-height: 1.5;
-    }
-
-    .export-tools {
-      border: 1px solid var(--line-soft);
-      border-radius: 10px;
-      background: #fff;
-      padding: 14px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .export-tools-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink);
-    }
-
-    .export-tool-list {
-      display: grid;
-      gap: 8px;
-    }
-
-    .export-tool {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 10px 12px;
-      border: 1px solid var(--line-soft);
-      border-radius: 8px;
-      font-size: 13px;
-      color: var(--ink-mid);
-      background: #fafcff;
-    }
-
-    .export-tool strong {
-      color: var(--ink);
-      font-weight: 700;
-    }
-
-    .export-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    .btn.secondary {
-      border-color: var(--line);
-      color: var(--ink);
-      background: #fff;
-    }
-
-    .btn.secondary:hover {
-      border-color: var(--brand);
-      color: var(--brand);
-      background: #f7fbff;
-    }
-
-    .mini-status {
-      border: 1px solid #c8daec;
-      border-radius: 10px;
-      background: #fff;
-      padding: 14px 16px;
-      display: grid;
-      gap: 6px;
-    }
-
-    .mini-status-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--brand);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .mini-status-text {
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--ink-mid);
-    }
-
-    /* ── AI refinement chat pane ── */
-    .chat-pane {
-      border-top: 1px solid var(--line-soft);
-      margin-top: 20px;
-      padding-top: 18px;
-      display: grid;
-      gap: 10px;
-    }
-    .chat-pane-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #8b99ab;
-      margin-bottom: 2px;
-    }
-    .chat-prompts {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-    }
+    /* ── AI refinement chat ── */
+    .chat-pane { border-top: 1px solid var(--line-soft); padding-top: 18px; display: grid; gap: 10px; }
+    .chat-pane-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #8b99ab; }
+    .chat-prompts { display: flex; flex-wrap: wrap; gap: 7px; }
     .chat-prompt-btn {
-      border: 1px solid #b8d0e6;
-      border-radius: 999px;
-      background: var(--brand-soft);
-      color: var(--brand);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 6px 13px;
-      cursor: pointer;
-      font-family: var(--font-sans);
-      transition: all 100ms;
+      border: 1px solid #b8d0e6; border-radius: 999px;
+      background: var(--brand-soft); color: var(--brand);
+      font-size: 12px; font-weight: 600; padding: 6px 13px;
+      cursor: pointer; font-family: var(--font-sans); transition: all 100ms;
     }
-    .chat-prompt-btn:hover {
-      background: #ddeeff;
-      border-color: var(--brand);
-    }
-    .chat-input-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
+    .chat-prompt-btn:hover { background: #ddeeff; border-color: var(--brand); }
+    .chat-input-row { display: flex; gap: 8px; align-items: center; }
     .chat-input {
-      flex: 1;
-      border: 1px solid #c8daec;
-      border-radius: 8px;
-      padding: 9px 13px;
-      font-size: 13px;
-      color: var(--ink);
-      font-family: var(--font-sans);
-      background: #fff;
-      outline: none;
+      flex: 1; border: 1px solid #c8daec; border-radius: 8px;
+      padding: 9px 13px; font-size: 13px; color: var(--ink);
+      font-family: var(--font-sans); background: #fff; outline: none;
     }
-    .chat-input:focus {
-      border-color: var(--brand);
-      box-shadow: 0 0 0 3px rgba(0,70,137,0.08);
-    }
+    .chat-input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0,70,137,0.08); }
     .chat-send {
-      border: none;
-      background: var(--brand);
-      color: #fff;
-      font-size: 13px;
-      font-weight: 600;
-      padding: 9px 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: var(--font-sans);
-      white-space: nowrap;
+      border: none; background: var(--brand); color: #fff;
+      font-size: 13px; font-weight: 600; padding: 9px 18px;
+      border-radius: 8px; cursor: pointer; font-family: var(--font-sans); white-space: nowrap;
     }
     .chat-send:hover { background: #003366; }
 
+    /* ── Export panel ── */
+    .export-bar {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+      padding: 12px 14px; background: #f8fbff; border: 1px solid #d6e6f3; border-radius: 10px;
+    }
+    .export-bar-left { display: grid; gap: 2px; }
+    .export-bar-title { font-size: 13px; font-weight: 700; color: #1d3148; }
+    .export-bar-sub { font-size: 12px; color: #6b7f92; }
+    .export-bar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* ── Responsive ── */
     @media (max-width: 1080px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-
-      .layout-side {
-        position: static;
-      }
-
-      .material-groups {
-        grid-template-columns: 1fr;
-      }
-
-      .preview-shell {
-        grid-template-columns: 1fr;
-      }
-
-      .generation-setup-grid,
-      .phase-toggle-grid {
-        grid-template-columns: 1fr;
-      }
-
+      .layout { grid-template-columns: 1fr; }
+      .layout-side { position: static; }
+      .mat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pref-grid { grid-template-columns: 1fr; }
     }
-
-    @media (max-width: 1200px) {
-      .material-groups {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
     @media (max-width: 1280px) {
       .topbar { padding: 0 28px; }
       .page { padding: 40px 28px; }
-      .page-title { font-size: 30px; }
     }
-
     @media (max-width: 900px) {
       .topbar { padding: 0 18px; }
-      .topbar-pill { display: none; }
-      .brand-tag { display: none; }
       .page { padding: 32px 18px; }
-      .page-title {
-        font-size: 26px;
-      }
-
-      .page-sub { font-size: 14px; }
-
-      .setup-config-grid {
-        gap: 12px;
-      }
-
-      .setup-select {
-        min-width: 100%;
-      }
-
-      .check-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .actions {
-        padding-top: 14px;
-      }
+      .mat-grid { grid-template-columns: 1fr; }
+      .brand-tag { display: none; }
     }
   </style>
 </head>
@@ -1188,7 +444,7 @@
     <div class="topbar-inner">
       <a href="index.html" class="topbar-brand">
         <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
-             alt="Ngee Ann Polytechnic" style="height:28px; width:auto; display:block;">
+             alt="Ngee Ann Polytechnic" style="height:28px;width:auto;display:block;">
         <div class="t-div"></div>
         <span class="brand-name">AI Curriculum Designer</span>
         <span class="brand-tag">Updated concept direction prepared by NP for discussion with AWS</span>
@@ -1197,250 +453,600 @@
   </nav>
 
   <main class="page">
-    <section>
-      <h1 class="page-title">Generate Learning Materials</h1>
-      <p class="page-sub">Create aligned OAL and IPL learning materials from your module draft.</p>
-    </section>
 
-    <section class="setup-card analysis-setup" aria-label="Curriculum context">
-      <details class="analysis-accordion">
-        <summary style="padding-bottom: 14px;">
-          <div class="setup-kicker" style="color: #63778a;">Using Curriculum Design Context</div>
-          <div class="setup-connector-top">
-            <div>
-              <h2 class="setup-title" style="margin-bottom: 4px;">Advanced Critical Care Nursing Science II</h2>
-              <p class="setup-connector-meta">Connected draft · Completed 2 hrs ago</p>
-            </div>
-            <button class="workspace-strip-link" type="button">Change Connected Draft</button>
-          </div>
-        </summary>
-
-        <div class="analysis-runs" style="padding-top: 0;">
-          <div class="setup-sections-block" style="padding: 0 4px; border-top: 1px solid #e3ecf4; padding-top: 14px;">
-            <div class="setup-sections-title">Connected Sections</div>
-            <div class="setup-meta-grid">
-              <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> learning outcomes</div>
-              <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> weekly structure</div>
-              <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> teaching strategy</div>
-              <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> assessment approach</div>
-              <div class="setup-meta-item"><span style="color: #2f7a52;">✓</span> AI &amp; integrity guidance</div>
-            </div>
-          </div>
-
-          <div class="setup-draft-picker">
-            <div class="setup-draft-picker-title">Select From Completed Curriculum Design Runs</div>
-
-            <label class="analysis-run">
-              <div class="analysis-run-top">
-                <div class="analysis-run-title">ICU Nursing Draft v2</div>
-                <div class="analysis-run-time">Completed 2 hrs ago</div>
-              </div>
-              <div class="analysis-run-desc">Balanced flipped setup with pre-learning resources and in-class simulation activities.</div>
-              <span class="analysis-run-pick"><input type="radio" name="connected-draft" checked> Use this draft</span>
-            </label>
-
-            <label class="analysis-run">
-              <div class="analysis-run-top">
-                <div class="analysis-run-title">Benchmark &amp; Alignment Revision</div>
-                <div class="analysis-run-time">Completed yesterday</div>
-              </div>
-              <div class="analysis-run-desc">Focused on external benchmark mapping and assessment standardization.</div>
-              <span class="analysis-run-pick"><input type="radio" name="connected-draft"> Use this draft</span>
-            </label>
-
-            <label class="analysis-run">
-              <div class="analysis-run-top">
-                <div class="analysis-run-title">Simulation-Focused Curriculum Draft</div>
-                <div class="analysis-run-time">Completed 3 days ago</div>
-              </div>
-              <div class="analysis-run-desc">Scenario-heavy design run with stronger in-class facilitation and debrief emphasis.</div>
-              <span class="analysis-run-pick"><input type="radio" name="connected-draft"> Use this draft</span>
-            </label>
-
-            <div class="setup-draft-action">
-              <button class="btn secondary" type="button">Use Selected Draft</button>
-            </div>
-          </div>
-        </div>
-      </details>
-    </section>
-
-    <section class="generation-setup" aria-label="Material generation setup">
-      <div class="sc-header">
-        <div class="sc-num">2</div>
-        <div class="sc-title-wrap">
-          <div class="sc-title">Material Setup</div>
-        </div>
-      </div>
-      <div class="generation-setup-body">
-        <div class="generation-setup-grid">
-          <div class="generation-field">
-            <label class="generation-label" for="learning-approach">Learning Approach</label>
-            <select class="setup-select" id="learning-approach">
-              <option selected>Blended / Flipped Learning</option>
-              <option>Flipped Learning (High Async)</option>
-              <option>Blended with Applied Workshops</option>
-              <option>Face-to-Face with Digital Reinforcement</option>
-            </select>
-          </div>
-
-          <div class="generation-field">
-            <label class="generation-label" for="teaching-weeks">Teaching Weeks</label>
-            <select class="setup-select" id="teaching-weeks">
-              <option selected>All Weeks</option>
-              <option>Week 1 to Week 6</option>
-              <option>Week 7 to Week 12</option>
-              <option>Custom Week Range</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="phase-toggle-wrap">
-          <div class="generation-label">Generate Materials For</div>
-          <div class="phase-toggle-grid">
-            <label class="phase-toggle"><input type="checkbox" checked> OAL</label>
-            <label class="phase-toggle"><input type="checkbox" checked> IPL</label>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="layout">
-      <div class="layout-main">
-        <section class="section-card">
-          <div class="sc-header">
-            <div class="sc-num">3</div>
-            <div class="sc-title-wrap">
-              <div class="sc-title">Select Materials</div>
-              <div class="sc-helper">Choose the materials to generate for each learning phase.</div>
-            </div>
-          </div>
-          <div class="sc-body">
-            <div class="material-groups">
-
-              <div class="material-group oal-card">
-                <div class="material-group-header">
-                  <div class="material-group-title oal">OAL</div>
-                  <div class="material-group-subtitle">Online-Asynchronous Learning</div>
-                </div>
-                <div class="material-group-items">
-                  <div class="check-grid">
-                    <div class="check-item">
-                      <input id="oal-slides" type="checkbox" checked>
-                      <label for="oal-slides">E-lecture slides</label>
-                    </div>
-                    <div class="check-item">
-                      <input id="practice-quiz" type="checkbox" checked>
-                      <label for="practice-quiz">Practice quiz</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="material-group ipl-card">
-                <div class="material-group-header">
-                  <div class="material-group-title ipl">IPL</div>
-                  <div class="material-group-subtitle">In-Person Learning</div>
-                </div>
-                <div class="material-group-items">
-                  <div class="check-grid">
-                    <div class="check-item">
-                      <input id="learning-activities" type="checkbox" checked>
-                      <label for="learning-activities">Learning activities</label>
-                    </div>
-                    <div class="check-item">
-                      <input id="case-discussion" type="checkbox" checked>
-                      <label for="case-discussion">Case discussion</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="actions">
-              <button class="btn secondary" type="button">Preview</button>
-              <button class="btn primary" type="button">Generate</button>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <aside class="layout-side">
-        <div class="side-box">
-          <div class="side-title">Planning Snapshot</div>
-          <div class="side-row"><span>Weeks supported</span><span class="side-count">Week 1 to Week 6</span></div>
-          <div class="side-row"><span>Learning approach</span><span class="side-count">Blended / Flipped</span></div>
-          <div class="side-row"><span>OAL</span><span class="side-count">2 selected</span></div>
-          <div class="side-row"><span>IPL</span><span class="side-count">2 selected</span></div>
-          <div class="side-total"><span>Materials selected</span><span class="side-total-num">4 total</span></div>
-        </div>
-      </aside>
+    <!-- Step strip -->
+    <div class="step-strip">
+      <span class="ss-step done"><span class="ss-num">1</span>Gather Context</span>
+      <div class="ss-sep"></div>
+      <span class="ss-step done"><span class="ss-num">2</span>Design Module</span>
+      <div class="ss-sep"></div>
+      <span class="ss-step active"><span class="ss-num">3</span>Prepare Materials</span>
+      <div class="ss-sep"></div>
+      <span class="ss-step"><span class="ss-num">4</span>Review &amp; Export</span>
     </div>
 
-    <section class="section-card">
+    <!-- Page header -->
+    <section>
+      <div class="eyebrow">Path A · Step 3</div>
+      <h1 class="title">Plan &amp; Prepare Teaching Materials</h1>
+      <p class="sub">Plan your teaching sequence by week, select materials for each learning phase, and generate AI-supported resources aligned to your module design.</p>
+    </section>
+
+    <!-- ─── Step 1: Connected curriculum context ─── -->
+    <div class="ctx-strip" role="region" aria-label="Connected curriculum context">
+      <div class="ctx-left">
+        <div class="ctx-kicker">Step 1 · Using Curriculum Design Draft</div>
+        <div class="ctx-module">Advanced Critical Care Nursing Science II</div>
+        <div class="ctx-tags">
+          <span class="ctx-tag">Learning outcomes</span>
+          <span class="ctx-tag">Weekly structure</span>
+          <span class="ctx-tag">Teaching strategy</span>
+          <span class="ctx-tag">Assessment approach</span>
+          <span class="ctx-tag">AI &amp; integrity guidance</span>
+        </div>
+      </div>
+      <div class="ctx-right">
+        <span class="ctx-meta">ICU Nursing Draft v2 · Completed 2 hrs ago</span>
+        <button class="btn-ghost" type="button">Change Draft</button>
+      </div>
+    </div>
+
+    <!-- ─── Step 2: Teaching scope ─── -->
+    <section class="section-card" aria-label="Select teaching scope">
       <div class="sc-header">
-        <div class="sc-num">4</div>
-        <div class="sc-title-wrap">
-          <div class="sc-title">Preview & Refine</div>
+        <div class="sc-num">2</div>
+        <div>
+          <div class="sc-title">Select Teaching Scope</div>
+          <div class="sc-desc">Which weeks or topics are you preparing materials for?</div>
         </div>
       </div>
       <div class="sc-body">
-        <div class="preview-shell">
-          <div class="preview-panel">
-            <div class="preview-panel-head">
-              <div class="preview-panel-kicker">Generated Output</div>
-              <div class="preview-panel-title">Learning Materials Pack</div>
-            </div>
-            <div class="preview-stage">
-              <div class="preview-canvas">
-                <div class="preview-canvas-line wide"></div>
-                <div class="preview-canvas-line mid"></div>
-                <div class="preview-canvas-box">
-                  <div class="preview-canvas-label">Slide Preview</div>
-                  <div class="preview-canvas-line wide" style="margin-top:8px;"></div>
-                  <div class="preview-canvas-line mid"></div>
-                  <div class="preview-canvas-line short"></div>
-                </div>
-                <div class="preview-canvas-line short"></div>
-                <div class="preview-canvas-line wide"></div>
-              </div>
-              <div class="export-actions">
-                <button class="btn secondary" type="button">Refresh</button>
-                <button class="btn primary" type="button">Download PDF</button>
-              </div>
-            </div>
+        <div class="scope-wrap">
+          <div class="scope-chips">
+            <label class="scope-chip">
+              <input type="radio" name="scope" value="all">
+              <span class="scope-chip-label">Entire Module</span>
+            </label>
+            <label class="scope-chip">
+              <input type="radio" name="scope" value="w1-3">
+              <span class="scope-chip-label">Week 1–3</span>
+            </label>
+            <label class="scope-chip">
+              <input type="radio" name="scope" value="w1-6" checked>
+              <span class="scope-chip-label">Week 1–6</span>
+            </label>
+            <label class="scope-chip">
+              <input type="radio" name="scope" value="w4-6">
+              <span class="scope-chip-label">Week 4–6</span>
+            </label>
+            <label class="scope-chip">
+              <input type="radio" name="scope" value="w7-10">
+              <span class="scope-chip-label">Week 7–10</span>
+            </label>
+            <label class="scope-chip">
+              <input type="radio" name="scope" value="custom">
+              <span class="scope-chip-label">Selected Topics</span>
+            </label>
           </div>
-
-          <div class="export-tools">
-            <div class="export-tools-title">Export As</div>
-            <div class="export-tool-list">
-              <div class="export-tool"><strong>PDF</strong><span>Formatted handout bundle</span></div>
-              <div class="export-tool"><strong>PPTX</strong><span>Lecture deck</span></div>
-              <div class="export-tool"><strong>DOCX</strong><span>Facilitator notes</span></div>
-              <div class="export-tool"><strong>ZIP</strong><span>All outputs</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="chat-pane">
-          <div class="chat-pane-label">Refine with AI</div>
-          <div class="chat-prompts">
-            <button class="chat-prompt-btn" type="button" onclick="fillChat('Make the case discussion more scenario-based')">More scenario-based</button>
-            <button class="chat-prompt-btn" type="button" onclick="fillChat('Simplify language for Year 1 students')">Simplify for Year 1</button>
-            <button class="chat-prompt-btn" type="button" onclick="fillChat('Expand the facilitation guide with discussion prompts')">Expand facilitation guide</button>
-            <button class="chat-prompt-btn" type="button" onclick="fillChat('Align quiz questions to Week 1 learning outcomes')">Align to Week 1 outcomes</button>
-          </div>
-          <div class="chat-input-row">
-            <input type="text" id="chat-input" class="chat-input" placeholder="Request a refinement or ask a follow-up...">
-            <button class="chat-send" type="button">Send →</button>
+          <div class="scope-hint">
+            <span style="font-size:15px; flex-shrink:0;">📅</span>
+            <span><strong>Week 1–6</strong> · Introduction to Critical Care &amp; Haemodynamic Monitoring — 3 learning outcomes, 18 timetabled hours. Flipped learning with OAL pre-work and IPL simulation activities.</span>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- ─── Step 3: Teaching preferences ─── -->
+    <section class="section-card" aria-label="Teaching preferences">
+      <div class="sc-header">
+        <div class="sc-num">3</div>
+        <div>
+          <div class="sc-title">Teaching Preferences</div>
+          <div class="sc-desc">Set the tone, depth, and approach for all generated materials.</div>
+        </div>
+      </div>
+      <div class="sc-body">
+        <div class="pref-grid">
+          <div class="pref-field">
+            <label class="pref-label" for="pref-depth">Academic Depth</label>
+            <select class="setup-select" id="pref-depth">
+              <option selected>Applied (Diploma level)</option>
+              <option>Conceptual overview</option>
+              <option>Advanced / Specialist</option>
+            </select>
+          </div>
+          <div class="pref-field">
+            <label class="pref-label" for="pref-cohort">Student Cohort</label>
+            <select class="setup-select" id="pref-cohort">
+              <option selected>Year 2 · Advanced Diploma</option>
+              <option>Year 1 · Diploma</option>
+              <option>Year 3 · Specialist</option>
+            </select>
+          </div>
+          <div class="pref-field">
+            <label class="pref-label" for="pref-facil">Facilitation Intensity</label>
+            <select class="setup-select" id="pref-facil">
+              <option selected>Moderate (guided discussion)</option>
+              <option>Light (self-directed)</option>
+              <option>High (structured facilitation)</option>
+            </select>
+          </div>
+          <div class="pref-field">
+            <label class="pref-label" for="pref-mode">Learning Mode</label>
+            <select class="setup-select" id="pref-mode">
+              <option selected>Blended / Flipped Learning</option>
+              <option>Flipped (High Async)</option>
+              <option>Face-to-Face with Digital</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Step 4: Plan Learning Experience + Sidebar ─── -->
+    <div class="layout">
+      <div class="layout-main">
+        <section class="section-card" aria-label="Plan learning experience">
+          <div class="sc-header">
+            <div class="sc-num">4</div>
+            <div>
+              <div class="sc-title">Plan Learning Experience</div>
+              <div class="sc-desc">Select what to prepare for each phase of the student learning journey.</div>
+            </div>
+          </div>
+          <div class="sc-body">
+            <div class="phases">
+
+              <!-- Before Class -->
+              <div class="phase-block before">
+                <div class="phase-head">
+                  <div class="phase-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  </div>
+                  <div class="phase-head-text">
+                    <div class="phase-title">Before Class Preparation</div>
+                    <div class="phase-subtitle">Resources students engage with before the session — async and self-paced</div>
+                  </div>
+                  <div class="phase-count" id="before-count">4 selected</div>
+                </div>
+                <div class="mat-grid">
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check before-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Pre-reading summary</span><span class="mat-tag oal">OAL</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check before-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Explainer slide deck</span><span class="mat-tag oal">OAL</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check before-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">OAL video script</span><span class="mat-tag oal">OAL</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check before-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Readiness quiz</span><span class="mat-tag oal">OAL</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check before-chk">
+                    <div class="mat-item-body"><span class="mat-name">AI-supported study prompts</span><span class="mat-tag oal">OAL</span></div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- During Class -->
+              <div class="phase-block during">
+                <div class="phase-head">
+                  <div class="phase-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1d6b45" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="phase-head-text">
+                    <div class="phase-title">During Class Activities</div>
+                    <div class="phase-subtitle">In-session learning activities, interactions, and applied exercises</div>
+                  </div>
+                  <div class="phase-count" id="during-count">3 selected</div>
+                </div>
+                <div class="mat-grid">
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check during-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Facilitation slides</span><span class="mat-tag ipl">IPL</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check during-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Discussion prompts</span><span class="mat-tag ipl">IPL</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check during-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Applied case study</span><span class="mat-tag ipl">IPL</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check during-chk">
+                    <div class="mat-item-body"><span class="mat-name">Roleplay / simulation scenario</span><span class="mat-tag ipl">IPL</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check during-chk">
+                    <div class="mat-item-body"><span class="mat-name">Collaborative activity</span><span class="mat-tag ipl">IPL</span></div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- After Class -->
+              <div class="phase-block after">
+                <div class="phase-head">
+                  <div class="phase-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                  </div>
+                  <div class="phase-head-text">
+                    <div class="phase-title">After Class Reinforcement</div>
+                    <div class="phase-subtitle">Consolidation, reflection, and extension materials post-session</div>
+                  </div>
+                  <div class="phase-count" id="after-count">2 selected</div>
+                </div>
+                <div class="mat-grid">
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check after-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Recap summary</span><span class="mat-tag oal">OAL</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check after-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Reflective prompts</span><span class="mat-tag both">OAL / IPL</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check after-chk">
+                    <div class="mat-item-body"><span class="mat-name">Practice questions</span><span class="mat-tag oal">OAL</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check after-chk">
+                    <div class="mat-item-body"><span class="mat-name">Revision quiz</span><span class="mat-tag oal">OAL</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check after-chk">
+                    <div class="mat-item-body"><span class="mat-name">Extension activities</span><span class="mat-tag both">OAL / IPL</span></div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Facilitation Support -->
+              <div class="phase-block facil">
+                <div class="phase-head">
+                  <div class="phase-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#004689" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  </div>
+                  <div class="phase-head-text">
+                    <div class="phase-title">Lecturer Facilitation Support</div>
+                    <div class="phase-subtitle">Educator-facing guides, probing prompts, and classroom support materials</div>
+                  </div>
+                  <div class="phase-count" id="facil-count">2 selected</div>
+                </div>
+                <div class="mat-grid">
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check facil-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Facilitation guide</span><span class="mat-tag facil">Lecturer</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check facil-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Probing questions bank</span><span class="mat-tag facil">Lecturer</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check facil-chk">
+                    <div class="mat-item-body"><span class="mat-name">Debrief notes</span><span class="mat-tag facil">Lecturer</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check facil-chk">
+                    <div class="mat-item-body"><span class="mat-name">Common misconceptions</span><span class="mat-tag facil">Lecturer</span></div>
+                  </label>
+                  <label class="mat-item">
+                    <input type="checkbox" class="mat-check facil-chk">
+                    <div class="mat-item-body"><span class="mat-name">Pacing guide</span><span class="mat-tag facil">Lecturer</span></div>
+                  </label>
+                </div>
+              </div>
+
+            </div><!-- /phases -->
+
+            <div class="actions">
+              <span class="action-tally" id="action-tally">11 materials selected</span>
+              <button class="btn" type="button">Save Plan</button>
+              <button class="btn primary" type="button" onclick="runGenerate()">Generate Teaching Pack →</button>
+            </div>
+          </div>
+        </section>
+      </div><!-- /layout-main -->
+
+      <!-- Sidebar -->
+      <aside class="layout-side">
+        <div class="side-box">
+          <div class="side-title">Preparation Plan</div>
+          <div class="side-scope-block">
+            <div class="side-scope-label">Teaching Scope</div>
+            <div class="side-scope-val">Week 1–6 (18 hrs)</div>
+          </div>
+          <div class="side-row"><span>Before class</span><span class="side-count" id="sb-before">4 items</span></div>
+          <div class="side-row"><span>During class</span><span class="side-count" id="sb-during">3 items</span></div>
+          <div class="side-row"><span>After class</span><span class="side-count" id="sb-after">2 items</span></div>
+          <div class="side-row"><span>Facilitation support</span><span class="side-count" id="sb-facil">2 items</span></div>
+          <div class="side-total"><span>Total selected</span><span class="side-total-num" id="sb-total">11 items</span></div>
+        </div>
+        <div class="side-next">
+          <div class="side-next-label">What AI Will Generate</div>
+          <div class="side-next-item">Pre-reading summaries (Week 1–6)</div>
+          <div class="side-next-item">Facilitation slides per lesson</div>
+          <div class="side-next-item">ICU applied case study bank</div>
+          <div class="side-next-item">Readiness + revision quizzes</div>
+          <div class="side-next-item">Lecturer facilitation guide</div>
+          <div class="side-next-item">Probing questions bank</div>
+        </div>
+      </aside>
+    </div><!-- /layout -->
+
+    <!-- ─── Step 5: Generated Teaching Pack ─── -->
+    <section class="section-card" id="preview-section" style="display:none;" aria-label="Generated teaching pack">
+      <div class="sc-header">
+        <div class="sc-num">5</div>
+        <div style="flex:1;">
+          <div class="sc-title">Generated Teaching Pack</div>
+          <div class="sc-desc">Advanced Critical Care Nursing Science II · Week 1–6 · 11 materials</div>
+        </div>
+        <div style="display:flex; gap:8px; flex-shrink:0;">
+          <button class="btn" type="button">Export ZIP</button>
+          <button class="btn primary" type="button">Push to LMS</button>
+        </div>
+      </div>
+      <div class="sc-body">
+
+        <!-- Pack tabs -->
+        <div class="pack-tabs">
+          <button class="pack-tab active" onclick="showTab(this,'tab-slides')">Slides</button>
+          <button class="pack-tab" onclick="showTab(this,'tab-activities')">Activities</button>
+          <button class="pack-tab" onclick="showTab(this,'tab-facilitation')">Facilitation Notes</button>
+          <button class="pack-tab" onclick="showTab(this,'tab-student')">Student Tasks</button>
+          <button class="pack-tab" onclick="showTab(this,'tab-assess')">Assessments</button>
+        </div>
+
+        <div class="pack-panels">
+
+          <!-- Slides tab -->
+          <div class="pack-panel active" id="tab-slides">
+            <div class="pack-item-list">
+              <div class="pack-item">
+                <div class="pack-item-icon">📊</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">Week 1–2 Explainer Deck</div>
+                  <div class="pack-item-meta">Introduction to Critical Care Environments · 18 slides · OAL</div>
+                </div>
+                <span class="mat-tag oal pack-item-tag">OAL</span>
+              </div>
+              <div class="pack-item">
+                <div class="pack-item-icon">📊</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">Week 3–4 Facilitation Slides</div>
+                  <div class="pack-item-meta">Haemodynamic Monitoring Principles · 22 slides · IPL</div>
+                </div>
+                <span class="mat-tag ipl pack-item-tag">IPL</span>
+              </div>
+              <div class="pack-item">
+                <div class="pack-item-icon">📊</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">Week 5–6 Facilitation Slides</div>
+                  <div class="pack-item-meta">Ventilator Management &amp; Applied Cases · 20 slides · IPL</div>
+                </div>
+                <span class="mat-tag ipl pack-item-tag">IPL</span>
+              </div>
+            </div>
+            <div class="pack-doc">
+              <div class="pack-doc-label">Slide Preview · Week 1–2 Explainer Deck</div>
+              <div class="pack-doc-title">Introduction to Critical Care Environments</div>
+              <div style="display:grid; gap:7px; margin-top:4px;">
+                <div class="skel-line w-full"></div>
+                <div class="skel-line w-80"></div>
+                <div class="skel-line w-65"></div>
+                <div style="border:1px dashed #c8d6e7; border-radius:8px; padding:12px; display:grid; gap:6px; background:#fff; margin-top:4px;">
+                  <div class="skel-line w-50" style="height:9px;"></div>
+                  <div class="skel-line w-full" style="height:9px;"></div>
+                  <div class="skel-line w-80" style="height:9px;"></div>
+                  <div class="skel-line w-40" style="height:9px;"></div>
+                </div>
+                <div class="skel-line w-65"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activities tab -->
+          <div class="pack-panel" id="tab-activities">
+            <div class="pack-item-list">
+              <div class="pack-item">
+                <div class="pack-item-icon">🩺</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">ICU Case Study — Septic Shock Scenario</div>
+                  <div class="pack-item-meta">Applied group case · Week 3 · 45 mins · IPL</div>
+                </div>
+                <span class="mat-tag ipl pack-item-tag">IPL</span>
+              </div>
+              <div class="pack-item">
+                <div class="pack-item-icon">💬</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">Discussion Prompts — Ventilator Weaning Ethics</div>
+                  <div class="pack-item-meta">Structured discussion · Week 5–6 · IPL</div>
+                </div>
+                <span class="mat-tag ipl pack-item-tag">IPL</span>
+              </div>
+              <div class="pack-item">
+                <div class="pack-item-icon">📝</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">Reflective Prompts (Post-Session)</div>
+                  <div class="pack-item-meta">Weekly reflection · All weeks · OAL / IPL</div>
+                </div>
+                <span class="mat-tag both pack-item-tag">OAL / IPL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Facilitation Notes tab -->
+          <div class="pack-panel" id="tab-facilitation">
+            <div class="pack-item-list">
+              <div class="pack-item">
+                <div class="pack-item-icon">⭐</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">Facilitation Guide — Week 1–6</div>
+                  <div class="pack-item-meta">Session-by-session timing, transitions, and debrief notes · Lecturer</div>
+                </div>
+                <span class="mat-tag facil pack-item-tag">Lecturer</span>
+              </div>
+              <div class="pack-item">
+                <div class="pack-item-icon">❓</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">Probing Questions Bank</div>
+                  <div class="pack-item-meta">32 questions mapped to learning outcomes · Anticipates misconceptions · Lecturer</div>
+                </div>
+                <span class="mat-tag facil pack-item-tag">Lecturer</span>
+              </div>
+            </div>
+            <div class="pack-doc">
+              <div class="pack-doc-label">Preview · Facilitation Guide — Week 3</div>
+              <div class="pack-doc-title">Haemodynamic Monitoring — Session Plan</div>
+              <div style="display:grid; gap:7px; margin-top:6px;">
+                <div class="skel-line w-full"></div>
+                <div class="skel-line w-80"></div>
+                <div style="border:1px dashed #c8d6e7; border-radius:8px; padding:12px; display:grid; gap:6px; background:#fff; margin-top:4px;">
+                  <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#8b99ab; margin-bottom:4px;">Anticipated Misconceptions</div>
+                  <div class="skel-line w-full" style="height:9px;"></div>
+                  <div class="skel-line w-65" style="height:9px;"></div>
+                  <div class="skel-line w-80" style="height:9px;"></div>
+                </div>
+                <div class="skel-line w-50"></div>
+                <div class="skel-line w-full"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Student Tasks tab -->
+          <div class="pack-panel" id="tab-student">
+            <div class="pack-item-list">
+              <div class="pack-item">
+                <div class="pack-item-icon">📖</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">Pre-Reading Summaries (Week 1–6)</div>
+                  <div class="pack-item-meta">800–1000 words per week · Applied diploma level · OAL</div>
+                </div>
+                <span class="mat-tag oal pack-item-tag">OAL</span>
+              </div>
+              <div class="pack-item">
+                <div class="pack-item-icon">🎬</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">OAL Video Scripts (Week 1–4)</div>
+                  <div class="pack-item-meta">8–10 min explainer scripts · Narrator guide included · OAL</div>
+                </div>
+                <span class="mat-tag oal pack-item-tag">OAL</span>
+              </div>
+              <div class="pack-item">
+                <div class="pack-item-icon">📝</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">Recap Summaries (Post-Session)</div>
+                  <div class="pack-item-meta">One-page session recap · Week 1–6 · OAL</div>
+                </div>
+                <span class="mat-tag oal pack-item-tag">OAL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assessments tab -->
+          <div class="pack-panel" id="tab-assess">
+            <div class="pack-item-list">
+              <div class="pack-item">
+                <div class="pack-item-icon">✅</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">Readiness Quiz — Week 1 &amp; Week 3</div>
+                  <div class="pack-item-meta">10 MCQ · Mapped to pre-reading outcomes · Self-marking · OAL</div>
+                </div>
+                <span class="mat-tag oal pack-item-tag">OAL</span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /pack-panels -->
+
+        <!-- Export bar -->
+        <div class="export-bar">
+          <div class="export-bar-left">
+            <div class="export-bar-title">Export Teaching Pack</div>
+            <div class="export-bar-sub">Download individual files or the complete pack as a ZIP</div>
+          </div>
+          <div class="export-bar-actions">
+            <button class="btn" type="button">PDF</button>
+            <button class="btn" type="button">PPTX</button>
+            <button class="btn" type="button">DOCX</button>
+            <button class="btn primary" type="button">Download ZIP</button>
+          </div>
+        </div>
+
+        <!-- AI refinement chat -->
+        <div class="chat-pane">
+          <div class="chat-pane-label">Refine with AI</div>
+          <div class="chat-prompts">
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Add a clinical simulation scenario for Week 5')">Add simulation scenario — Week 5</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Expand the facilitation guide with debrief prompts')">Expand facilitation guide</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Simplify pre-reading summary language for Year 1')">Simplify for Year 1</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Generate a revision quiz aligned to Week 3 outcomes')">Add revision quiz — Week 3</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Add anticipated misconceptions to the facilitation notes')">Misconceptions for facilitation</button>
+          </div>
+          <div class="chat-input-row">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Ask AI to adjust, extend, or regenerate any part of your teaching pack...">
+            <button class="chat-send" type="button">Send →</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <script>
+    // ── Phase count tracking ──
+    function countChecked(cls) {
+      return document.querySelectorAll('.' + cls + ':checked').length;
+    }
+
+    function updateCounts() {
+      const b = countChecked('before-chk');
+      const d = countChecked('during-chk');
+      const a = countChecked('after-chk');
+      const f = countChecked('facil-chk');
+      const total = b + d + a + f;
+
+      document.getElementById('before-count').textContent = b + ' selected';
+      document.getElementById('during-count').textContent = d + ' selected';
+      document.getElementById('after-count').textContent  = a + ' selected';
+      document.getElementById('facil-count').textContent  = f + ' selected';
+
+      document.getElementById('sb-before').textContent = b + (b !== 1 ? ' items' : ' item');
+      document.getElementById('sb-during').textContent = d + (d !== 1 ? ' items' : ' item');
+      document.getElementById('sb-after').textContent  = a + (a !== 1 ? ' items' : ' item');
+      document.getElementById('sb-facil').textContent  = f + (f !== 1 ? ' items' : ' item');
+      document.getElementById('sb-total').textContent  = total + (total !== 1 ? ' items' : ' item');
+      document.getElementById('action-tally').textContent = total + ' material' + (total !== 1 ? 's' : '') + ' selected';
+    }
+
+    document.querySelectorAll('.mat-check').forEach(function(chk) {
+      chk.addEventListener('change', updateCounts);
+    });
+
+    updateCounts();
+
+    // ── Generate Teaching Pack ──
+    function runGenerate() {
+      const section = document.getElementById('preview-section');
+      section.style.display = '';
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ── Pack tab switching ──
+    function showTab(btn, tabId) {
+      document.querySelectorAll('.pack-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.pack-panel').forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    // ── Chat fill ──
     function fillChat(text) {
       const input = document.getElementById('chat-input');
       if (input) { input.value = text; input.focus(); }
