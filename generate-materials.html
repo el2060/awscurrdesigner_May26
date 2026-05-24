@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <!--
   ═════════════════════════════════════════════════════════════════════════
-  PATH A · STEP 3 — Plan & Prepare Teaching Materials
+  PATH A · STEP 3 — Select Teaching Materials
   ═════════════════════════════════════════════════════════════════════════
-  REDESIGN: Lecturer-centric preparation workflow.
-  Flow: Context → Scope → Preferences → Plan Learning Experience → Generate
-  Phase structure: Before Class / During Class / After Class / Facilitation
-  OAL/IPL retained as delivery tags on individual items, not primary grouping.
+  Sections: OAL Materials / IPL Materials / Lecturer Support
+  NP-authentic terminology. No Before/During/After framing.
   ═════════════════════════════════════════════════════════════════════════
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plan & Prepare Teaching Materials — AI Curriculum Designer</title>
+  <title>Select Teaching Materials — AI Curriculum Designer</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,18 +29,15 @@
       --radius: 12px;
 
       /* Phase accent colours */
-      --before-accent: #b45309;
-      --before-bg: #fffbf2;
-      --before-border: #fde68a;
-      --during-accent: #1d6b45;
-      --during-bg: #f0faf5;
-      --during-border: #a7f3d0;
-      --after-accent: #4f46e5;
-      --after-bg: #f5f4ff;
-      --after-border: #c4b5fd;
-      --facil-accent: #004689;
-      --facil-bg: #f0f6fc;
-      --facil-border: #b8d0e6;
+      --oal-accent: #b45309;
+      --oal-bg: #fffbf2;
+      --oal-border: #fde68a;
+      --ipl-accent: #1d6b45;
+      --ipl-bg: #f0faf5;
+      --ipl-border: #a7f3d0;
+      --lec-accent: #004689;
+      --lec-bg: #f0f6fc;
+      --lec-border: #b8d0e6;
     }
 
     body {
@@ -209,36 +204,32 @@
       border-radius: 12px;
       overflow: hidden;
     }
-    .phase-block.before { border-top: 3px solid var(--before-accent); }
-    .phase-block.during { border-top: 3px solid var(--during-accent); }
-    .phase-block.after  { border-top: 3px solid var(--after-accent); }
-    .phase-block.facil  { border-top: 3px solid var(--facil-accent); }
+    .phase-block.oal { border-top: 3px solid var(--oal-accent); }
+    .phase-block.ipl { border-top: 3px solid var(--ipl-accent); }
+    .phase-block.lec { border-top: 3px solid var(--lec-accent); }
 
     .phase-head {
       display: flex; align-items: center; gap: 12px;
       padding: 13px 16px; border-bottom: 1px solid var(--line-soft);
     }
-    .phase-block.before .phase-head { background: var(--before-bg); }
-    .phase-block.during .phase-head { background: var(--during-bg); }
-    .phase-block.after  .phase-head { background: var(--after-bg); }
-    .phase-block.facil  .phase-head { background: var(--facil-bg); }
+    .phase-block.oal .phase-head { background: var(--oal-bg); }
+    .phase-block.ipl .phase-head { background: var(--ipl-bg); }
+    .phase-block.lec .phase-head { background: var(--lec-bg); }
 
     .phase-icon {
       width: 32px; height: 32px; border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-    .phase-block.before .phase-icon { background: #fde68a; }
-    .phase-block.during .phase-icon { background: #a7f3d0; }
-    .phase-block.after  .phase-icon { background: #c4b5fd; }
-    .phase-block.facil  .phase-icon { background: #b8d0e6; }
+    .phase-block.oal .phase-icon { background: #fde68a; }
+    .phase-block.ipl .phase-icon { background: #a7f3d0; }
+    .phase-block.lec .phase-icon { background: #b8d0e6; }
 
     .phase-head-text { flex: 1; min-width: 0; }
     .phase-title { font-size: 14px; font-weight: 700; letter-spacing: -0.005em; }
-    .phase-block.before .phase-title { color: var(--before-accent); }
-    .phase-block.during .phase-title { color: var(--during-accent); }
-    .phase-block.after  .phase-title { color: var(--after-accent); }
-    .phase-block.facil  .phase-title { color: var(--facil-accent); }
+    .phase-block.oal .phase-title { color: var(--oal-accent); }
+    .phase-block.ipl .phase-title { color: var(--ipl-accent); }
+    .phase-block.lec .phase-title { color: var(--lec-accent); }
 
     .phase-subtitle { font-size: 12px; color: #6d7f91; margin-top: 1px; }
 
@@ -278,7 +269,6 @@
     }
     .mat-tag.oal  { background: #e8f2fc; color: #1a5a8a; }
     .mat-tag.ipl  { background: #e6f5ef; color: #1a5e3a; }
-    .mat-tag.both { background: #f0ecff; color: #4a3b9c; }
     .mat-tag.facil { background: #fef3e2; color: #8a4f0a; }
 
     /* ── Actions bar ── */
@@ -480,8 +470,8 @@
     <!-- Page header -->
     <section>
       <div class="eyebrow">Path A · Step 3</div>
-      <h1 class="title">Plan &amp; Prepare Teaching Materials</h1>
-      <p class="sub">Plan your teaching sequence by week, select materials for each learning phase, and generate AI-supported resources aligned to your module design.</p>
+      <h1 class="title">Select Teaching Materials</h1>
+      <p class="sub">Select the materials to generate for your OAL and IPL lessons.</p>
     </section>
 
     <!-- ─── Step 1: Connected curriculum context ─── -->
@@ -595,160 +585,108 @@
       </div>
     </section>
 
-    <!-- ─── Step 4: Plan Learning Experience + Sidebar ─── -->
+    <!-- ─── Step 4: Select Teaching Materials + Sidebar ─── -->
     <div class="layout">
       <div class="layout-main">
-        <section class="section-card" aria-label="Plan learning experience">
+        <section class="section-card" aria-label="Select teaching materials">
           <div class="sc-header">
             <div class="sc-num">4</div>
             <div>
-              <div class="sc-title">Plan Learning Experience</div>
-              <div class="sc-desc">Select what to prepare for each phase of the student learning journey.</div>
+              <div class="sc-title">Select Teaching Materials</div>
+              <div class="sc-desc">Choose materials for your OAL and IPL lessons.</div>
             </div>
           </div>
           <div class="sc-body">
             <div class="phases">
 
-              <!-- Before Class -->
-              <div class="phase-block before">
+              <!-- OAL Materials -->
+              <div class="phase-block oal">
                 <div class="phase-head">
                   <div class="phase-icon">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                   </div>
                   <div class="phase-head-text">
-                    <div class="phase-title">Before Class Preparation</div>
-                    <div class="phase-subtitle">Resources students engage with before the session — async and self-paced</div>
+                    <div class="phase-title">OAL Materials</div>
+                    <div class="phase-subtitle">Materials for OAL preparation before IPL sessions.</div>
                   </div>
-                  <div class="phase-count" id="before-count">4 selected</div>
+                  <div class="phase-count" id="oal-count">3 selected</div>
                 </div>
                 <div class="mat-grid">
                   <label class="mat-item">
-                    <input type="checkbox" class="mat-check before-chk" checked>
-                    <div class="mat-item-body"><span class="mat-name">Pre-reading summary</span><span class="mat-tag oal">OAL</span></div>
+                    <input type="checkbox" class="mat-check oal-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">E-Lecture Slides (PPTX)</span><span class="mat-tag oal">OAL</span></div>
                   </label>
                   <label class="mat-item">
-                    <input type="checkbox" class="mat-check before-chk" checked>
-                    <div class="mat-item-body"><span class="mat-name">Explainer slide deck</span><span class="mat-tag oal">OAL</span></div>
+                    <input type="checkbox" class="mat-check oal-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Understanding Check Quiz (Brightspace QTI)</span><span class="mat-tag oal">OAL</span></div>
                   </label>
                   <label class="mat-item">
-                    <input type="checkbox" class="mat-check before-chk" checked>
-                    <div class="mat-item-body"><span class="mat-name">OAL video script</span><span class="mat-tag oal">OAL</span></div>
+                    <input type="checkbox" class="mat-check oal-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Pre-Class Reading Notes</span><span class="mat-tag oal">OAL</span></div>
                   </label>
                   <label class="mat-item">
-                    <input type="checkbox" class="mat-check before-chk" checked>
-                    <div class="mat-item-body"><span class="mat-name">Readiness quiz</span><span class="mat-tag oal">OAL</span></div>
-                  </label>
-                  <label class="mat-item">
-                    <input type="checkbox" class="mat-check before-chk">
-                    <div class="mat-item-body"><span class="mat-name">AI-supported study prompts</span><span class="mat-tag oal">OAL</span></div>
+                    <input type="checkbox" class="mat-check oal-chk">
+                    <div class="mat-item-body"><span class="mat-name">Short Learning Activity</span><span class="mat-tag oal">OAL</span></div>
                   </label>
                 </div>
               </div>
 
-              <!-- During Class -->
-              <div class="phase-block during">
+              <!-- IPL Materials -->
+              <div class="phase-block ipl">
                 <div class="phase-head">
                   <div class="phase-icon">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1d6b45" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                   </div>
                   <div class="phase-head-text">
-                    <div class="phase-title">During Class Activities</div>
-                    <div class="phase-subtitle">In-session learning activities, interactions, and applied exercises</div>
+                    <div class="phase-title">IPL Materials</div>
+                    <div class="phase-subtitle">Materials used during IPL sessions.</div>
                   </div>
-                  <div class="phase-count" id="during-count">3 selected</div>
+                  <div class="phase-count" id="ipl-count">2 selected</div>
                 </div>
                 <div class="mat-grid">
                   <label class="mat-item">
-                    <input type="checkbox" class="mat-check during-chk" checked>
-                    <div class="mat-item-body"><span class="mat-name">Facilitation slides</span><span class="mat-tag ipl">IPL</span></div>
+                    <input type="checkbox" class="mat-check ipl-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Facilitation Slides (PPTX)</span><span class="mat-tag ipl">IPL</span></div>
                   </label>
                   <label class="mat-item">
-                    <input type="checkbox" class="mat-check during-chk" checked>
-                    <div class="mat-item-body"><span class="mat-name">Discussion prompts</span><span class="mat-tag ipl">IPL</span></div>
+                    <input type="checkbox" class="mat-check ipl-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Applied Case Activity</span><span class="mat-tag ipl">IPL</span></div>
                   </label>
                   <label class="mat-item">
-                    <input type="checkbox" class="mat-check during-chk" checked>
-                    <div class="mat-item-body"><span class="mat-name">Applied case study</span><span class="mat-tag ipl">IPL</span></div>
+                    <input type="checkbox" class="mat-check ipl-chk">
+                    <div class="mat-item-body"><span class="mat-name">Group Discussion Activity</span><span class="mat-tag ipl">IPL</span></div>
                   </label>
                   <label class="mat-item">
-                    <input type="checkbox" class="mat-check during-chk">
-                    <div class="mat-item-body"><span class="mat-name">Roleplay / simulation scenario</span><span class="mat-tag ipl">IPL</span></div>
-                  </label>
-                  <label class="mat-item">
-                    <input type="checkbox" class="mat-check during-chk">
-                    <div class="mat-item-body"><span class="mat-name">Collaborative activity</span><span class="mat-tag ipl">IPL</span></div>
+                    <input type="checkbox" class="mat-check ipl-chk">
+                    <div class="mat-item-body"><span class="mat-name">In-Class Worksheet</span><span class="mat-tag ipl">IPL</span></div>
                   </label>
                 </div>
               </div>
 
-              <!-- After Class -->
-              <div class="phase-block after">
-                <div class="phase-head">
-                  <div class="phase-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-                  </div>
-                  <div class="phase-head-text">
-                    <div class="phase-title">After Class Reinforcement</div>
-                    <div class="phase-subtitle">Consolidation, reflection, and extension materials post-session</div>
-                  </div>
-                  <div class="phase-count" id="after-count">2 selected</div>
-                </div>
-                <div class="mat-grid">
-                  <label class="mat-item">
-                    <input type="checkbox" class="mat-check after-chk" checked>
-                    <div class="mat-item-body"><span class="mat-name">Recap summary</span><span class="mat-tag oal">OAL</span></div>
-                  </label>
-                  <label class="mat-item">
-                    <input type="checkbox" class="mat-check after-chk" checked>
-                    <div class="mat-item-body"><span class="mat-name">Reflective prompts</span><span class="mat-tag both">OAL / IPL</span></div>
-                  </label>
-                  <label class="mat-item">
-                    <input type="checkbox" class="mat-check after-chk">
-                    <div class="mat-item-body"><span class="mat-name">Practice questions</span><span class="mat-tag oal">OAL</span></div>
-                  </label>
-                  <label class="mat-item">
-                    <input type="checkbox" class="mat-check after-chk">
-                    <div class="mat-item-body"><span class="mat-name">Revision quiz</span><span class="mat-tag oal">OAL</span></div>
-                  </label>
-                  <label class="mat-item">
-                    <input type="checkbox" class="mat-check after-chk">
-                    <div class="mat-item-body"><span class="mat-name">Extension activities</span><span class="mat-tag both">OAL / IPL</span></div>
-                  </label>
-                </div>
-              </div>
-
-              <!-- Facilitation Support -->
-              <div class="phase-block facil">
+              <!-- Lecturer Support -->
+              <div class="phase-block lec">
                 <div class="phase-head">
                   <div class="phase-icon">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#004689" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   </div>
                   <div class="phase-head-text">
-                    <div class="phase-title">Lecturer Facilitation Support</div>
-                    <div class="phase-subtitle">Educator-facing guides, probing prompts, and classroom support materials</div>
+                    <div class="phase-title">Lecturer Support</div>
+                    <div class="phase-subtitle">Lecturer facilitation and teaching support materials.</div>
                   </div>
-                  <div class="phase-count" id="facil-count">2 selected</div>
+                  <div class="phase-count" id="lec-count">2 selected</div>
                 </div>
                 <div class="mat-grid">
                   <label class="mat-item">
-                    <input type="checkbox" class="mat-check facil-chk" checked>
-                    <div class="mat-item-body"><span class="mat-name">Facilitation guide</span><span class="mat-tag facil">Lecturer</span></div>
+                    <input type="checkbox" class="mat-check lec-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Facilitation Guide</span><span class="mat-tag facil">Lecturer</span></div>
                   </label>
                   <label class="mat-item">
-                    <input type="checkbox" class="mat-check facil-chk" checked>
-                    <div class="mat-item-body"><span class="mat-name">Probing questions bank</span><span class="mat-tag facil">Lecturer</span></div>
+                    <input type="checkbox" class="mat-check lec-chk" checked>
+                    <div class="mat-item-body"><span class="mat-name">Suggested Discussion Questions</span><span class="mat-tag facil">Lecturer</span></div>
                   </label>
                   <label class="mat-item">
-                    <input type="checkbox" class="mat-check facil-chk">
-                    <div class="mat-item-body"><span class="mat-name">Debrief notes</span><span class="mat-tag facil">Lecturer</span></div>
-                  </label>
-                  <label class="mat-item">
-                    <input type="checkbox" class="mat-check facil-chk">
-                    <div class="mat-item-body"><span class="mat-name">Common misconceptions</span><span class="mat-tag facil">Lecturer</span></div>
-                  </label>
-                  <label class="mat-item">
-                    <input type="checkbox" class="mat-check facil-chk">
-                    <div class="mat-item-body"><span class="mat-name">Pacing guide</span><span class="mat-tag facil">Lecturer</span></div>
+                    <input type="checkbox" class="mat-check lec-chk">
+                    <div class="mat-item-body"><span class="mat-name">Suggested Answers / Notes</span><span class="mat-tag facil">Lecturer</span></div>
                   </label>
                 </div>
               </div>
@@ -756,7 +694,7 @@
             </div><!-- /phases -->
 
             <div class="actions">
-              <span class="action-tally" id="action-tally">11 materials selected</span>
+              <span class="action-tally" id="action-tally">7 materials selected</span>
               <button class="btn" type="button">Save Plan</button>
               <button class="btn primary" type="button" onclick="runGenerate()">Generate Teaching Pack →</button>
             </div>
@@ -772,20 +710,19 @@
             <div class="side-scope-label">Teaching Scope</div>
             <div class="side-scope-val">Week 1–6 (18 hrs)</div>
           </div>
-          <div class="side-row"><span>Before class</span><span class="side-count" id="sb-before">4 items</span></div>
-          <div class="side-row"><span>During class</span><span class="side-count" id="sb-during">3 items</span></div>
-          <div class="side-row"><span>After class</span><span class="side-count" id="sb-after">2 items</span></div>
-          <div class="side-row"><span>Facilitation support</span><span class="side-count" id="sb-facil">2 items</span></div>
-          <div class="side-total"><span>Total selected</span><span class="side-total-num" id="sb-total">11 items</span></div>
+          <div class="side-row"><span>OAL Materials</span><span class="side-count" id="sb-oal">3 items</span></div>
+          <div class="side-row"><span>IPL Materials</span><span class="side-count" id="sb-ipl">2 items</span></div>
+          <div class="side-row"><span>Lecturer Support</span><span class="side-count" id="sb-lec">2 items</span></div>
+          <div class="side-total"><span>Total selected</span><span class="side-total-num" id="sb-total">7 items</span></div>
         </div>
         <div class="side-next">
           <div class="side-next-label">What AI Will Generate</div>
-          <div class="side-next-item">Pre-reading summaries (Week 1–6)</div>
-          <div class="side-next-item">Facilitation slides per lesson</div>
-          <div class="side-next-item">ICU applied case study bank</div>
-          <div class="side-next-item">Readiness + revision quizzes</div>
-          <div class="side-next-item">Lecturer facilitation guide</div>
-          <div class="side-next-item">Probing questions bank</div>
+          <div class="side-next-item">E-Lecture Slides (Week 1–6)</div>
+          <div class="side-next-item">Understanding Check Quizzes (QTI)</div>
+          <div class="side-next-item">Pre-Class Reading Notes</div>
+          <div class="side-next-item">IPL Facilitation Slides</div>
+          <div class="side-next-item">Applied Case Activities</div>
+          <div class="side-next-item">Facilitation Guide + Discussion Questions</div>
         </div>
       </aside>
     </div><!-- /layout -->
@@ -796,10 +733,10 @@
         <div class="sc-num">5</div>
         <div style="flex:1;">
           <div class="sc-title">Generated Teaching Pack</div>
-          <div class="sc-desc">Advanced Critical Care Nursing Science II · Week 1–6 · 11 materials</div>
+          <div class="sc-desc">Advanced Critical Care Nursing Science II · Week 1–6 · 7 materials</div>
         </div>
         <div style="display:flex; gap:8px; flex-shrink:0;">
-          <button class="btn" type="button">Export ZIP</button>
+          <button class="btn" type="button">Download Teaching Pack</button>
           <button class="btn primary" type="button">Push to LMS</button>
         </div>
       </div>
@@ -807,22 +744,21 @@
 
         <!-- Pack tabs -->
         <div class="pack-tabs">
-          <button class="pack-tab active" onclick="showTab(this,'tab-slides')">Slides</button>
-          <button class="pack-tab" onclick="showTab(this,'tab-activities')">Activities</button>
-          <button class="pack-tab" onclick="showTab(this,'tab-facilitation')">Facilitation Notes</button>
-          <button class="pack-tab" onclick="showTab(this,'tab-student')">Student Tasks</button>
-          <button class="pack-tab" onclick="showTab(this,'tab-assess')">Assessments</button>
+          <button class="pack-tab active" onclick="showTab(this,'tab-oal')">OAL Materials</button>
+          <button class="pack-tab" onclick="showTab(this,'tab-ipl')">IPL Materials</button>
+          <button class="pack-tab" onclick="showTab(this,'tab-lecturer')">Lecturer Support</button>
+          <button class="pack-tab" onclick="showTab(this,'tab-quizzes')">Quizzes</button>
         </div>
 
         <div class="pack-panels">
 
-          <!-- Slides tab -->
-          <div class="pack-panel active" id="tab-slides">
+          <!-- OAL Materials tab -->
+          <div class="pack-panel active" id="tab-oal">
             <div class="pack-item-list">
               <div class="pack-item">
                 <div class="pack-item-icon">📊</div>
                 <div class="pack-item-text">
-                  <div class="pack-item-name">Week 1–2 Explainer Deck</div>
+                  <div class="pack-item-name">Week 1–2 E-Lecture Slides (PPTX)</div>
                   <div class="pack-item-meta">Introduction to Critical Care Environments · 18 slides · OAL</div>
                 </div>
                 <span class="mat-tag oal pack-item-tag">OAL</span>
@@ -830,22 +766,22 @@
               <div class="pack-item">
                 <div class="pack-item-icon">📊</div>
                 <div class="pack-item-text">
-                  <div class="pack-item-name">Week 3–4 Facilitation Slides</div>
-                  <div class="pack-item-meta">Haemodynamic Monitoring Principles · 22 slides · IPL</div>
+                  <div class="pack-item-name">Week 3–4 E-Lecture Slides (PPTX)</div>
+                  <div class="pack-item-meta">Haemodynamic Monitoring Principles · 16 slides · OAL</div>
                 </div>
-                <span class="mat-tag ipl pack-item-tag">IPL</span>
+                <span class="mat-tag oal pack-item-tag">OAL</span>
               </div>
               <div class="pack-item">
-                <div class="pack-item-icon">📊</div>
+                <div class="pack-item-icon">📖</div>
                 <div class="pack-item-text">
-                  <div class="pack-item-name">Week 5–6 Facilitation Slides</div>
-                  <div class="pack-item-meta">Ventilator Management &amp; Applied Cases · 20 slides · IPL</div>
+                  <div class="pack-item-name">Pre-Class Reading Notes (Week 1–6)</div>
+                  <div class="pack-item-meta">800–1000 words per week · Applied diploma level · OAL</div>
                 </div>
-                <span class="mat-tag ipl pack-item-tag">IPL</span>
+                <span class="mat-tag oal pack-item-tag">OAL</span>
               </div>
             </div>
             <div class="pack-doc">
-              <div class="pack-doc-label">Slide Preview · Week 1–2 Explainer Deck</div>
+              <div class="pack-doc-label">Slide Preview · Week 1–2 E-Lecture Slides</div>
               <div class="pack-doc-title">Introduction to Critical Care Environments</div>
               <div style="display:grid; gap:7px; margin-top:4px;">
                 <div class="skel-line w-full"></div>
@@ -862,52 +798,60 @@
             </div>
           </div>
 
-          <!-- Activities tab -->
-          <div class="pack-panel" id="tab-activities">
+          <!-- IPL Materials tab -->
+          <div class="pack-panel" id="tab-ipl">
             <div class="pack-item-list">
+              <div class="pack-item">
+                <div class="pack-item-icon">📊</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">Week 3–4 Facilitation Slides (PPTX)</div>
+                  <div class="pack-item-meta">Haemodynamic Monitoring · 22 slides · IPL</div>
+                </div>
+                <span class="mat-tag ipl pack-item-tag">IPL</span>
+              </div>
+              <div class="pack-item">
+                <div class="pack-item-icon">📊</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">Week 5–6 Facilitation Slides (PPTX)</div>
+                  <div class="pack-item-meta">Ventilator Management &amp; Applied Cases · 20 slides · IPL</div>
+                </div>
+                <span class="mat-tag ipl pack-item-tag">IPL</span>
+              </div>
               <div class="pack-item">
                 <div class="pack-item-icon">🩺</div>
                 <div class="pack-item-text">
-                  <div class="pack-item-name">ICU Case Study — Septic Shock Scenario</div>
-                  <div class="pack-item-meta">Applied group case · Week 3 · 45 mins · IPL</div>
+                  <div class="pack-item-name">Applied Case Activity — Septic Shock</div>
+                  <div class="pack-item-meta">Group case activity · Week 3 · 45 mins · IPL</div>
                 </div>
                 <span class="mat-tag ipl pack-item-tag">IPL</span>
               </div>
               <div class="pack-item">
-                <div class="pack-item-icon">💬</div>
+                <div class="pack-item-icon">🩺</div>
                 <div class="pack-item-text">
-                  <div class="pack-item-name">Discussion Prompts — Ventilator Weaning Ethics</div>
-                  <div class="pack-item-meta">Structured discussion · Week 5–6 · IPL</div>
+                  <div class="pack-item-name">Applied Case Activity — Ventilator Weaning</div>
+                  <div class="pack-item-meta">Group case activity · Week 5–6 · 40 mins · IPL</div>
                 </div>
                 <span class="mat-tag ipl pack-item-tag">IPL</span>
-              </div>
-              <div class="pack-item">
-                <div class="pack-item-icon">📝</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">Reflective Prompts (Post-Session)</div>
-                  <div class="pack-item-meta">Weekly reflection · All weeks · OAL / IPL</div>
-                </div>
-                <span class="mat-tag both pack-item-tag">OAL / IPL</span>
               </div>
             </div>
           </div>
 
-          <!-- Facilitation Notes tab -->
-          <div class="pack-panel" id="tab-facilitation">
+          <!-- Lecturer Support tab -->
+          <div class="pack-panel" id="tab-lecturer">
             <div class="pack-item-list">
               <div class="pack-item">
                 <div class="pack-item-icon">⭐</div>
                 <div class="pack-item-text">
                   <div class="pack-item-name">Facilitation Guide — Week 1–6</div>
-                  <div class="pack-item-meta">Session-by-session timing, transitions, and debrief notes · Lecturer</div>
+                  <div class="pack-item-meta">Session-by-session flow, timing, and transition notes · Lecturer</div>
                 </div>
                 <span class="mat-tag facil pack-item-tag">Lecturer</span>
               </div>
               <div class="pack-item">
-                <div class="pack-item-icon">❓</div>
+                <div class="pack-item-icon">💬</div>
                 <div class="pack-item-text">
-                  <div class="pack-item-name">Probing Questions Bank</div>
-                  <div class="pack-item-meta">32 questions mapped to learning outcomes · Anticipates misconceptions · Lecturer</div>
+                  <div class="pack-item-name">Suggested Discussion Questions</div>
+                  <div class="pack-item-meta">Mapped to learning outcomes · Week 1–6 · Lecturer</div>
                 </div>
                 <span class="mat-tag facil pack-item-tag">Lecturer</span>
               </div>
@@ -919,7 +863,7 @@
                 <div class="skel-line w-full"></div>
                 <div class="skel-line w-80"></div>
                 <div style="border:1px dashed #c8d6e7; border-radius:8px; padding:12px; display:grid; gap:6px; background:#fff; margin-top:4px;">
-                  <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#8b99ab; margin-bottom:4px;">Anticipated Misconceptions</div>
+                  <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#8b99ab; margin-bottom:4px;">Suggested Discussion Questions</div>
                   <div class="skel-line w-full" style="height:9px;"></div>
                   <div class="skel-line w-65" style="height:9px;"></div>
                   <div class="skel-line w-80" style="height:9px;"></div>
@@ -930,44 +874,22 @@
             </div>
           </div>
 
-          <!-- Student Tasks tab -->
-          <div class="pack-panel" id="tab-student">
-            <div class="pack-item-list">
-              <div class="pack-item">
-                <div class="pack-item-icon">📖</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">Pre-Reading Summaries (Week 1–6)</div>
-                  <div class="pack-item-meta">800–1000 words per week · Applied diploma level · OAL</div>
-                </div>
-                <span class="mat-tag oal pack-item-tag">OAL</span>
-              </div>
-              <div class="pack-item">
-                <div class="pack-item-icon">🎬</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">OAL Video Scripts (Week 1–4)</div>
-                  <div class="pack-item-meta">8–10 min explainer scripts · Narrator guide included · OAL</div>
-                </div>
-                <span class="mat-tag oal pack-item-tag">OAL</span>
-              </div>
-              <div class="pack-item">
-                <div class="pack-item-icon">📝</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">Recap Summaries (Post-Session)</div>
-                  <div class="pack-item-meta">One-page session recap · Week 1–6 · OAL</div>
-                </div>
-                <span class="mat-tag oal pack-item-tag">OAL</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Assessments tab -->
-          <div class="pack-panel" id="tab-assess">
+          <!-- Quizzes tab -->
+          <div class="pack-panel" id="tab-quizzes">
             <div class="pack-item-list">
               <div class="pack-item">
                 <div class="pack-item-icon">✅</div>
                 <div class="pack-item-text">
-                  <div class="pack-item-name">Readiness Quiz — Week 1 &amp; Week 3</div>
-                  <div class="pack-item-meta">10 MCQ · Mapped to pre-reading outcomes · Self-marking · OAL</div>
+                  <div class="pack-item-name">Understanding Check Quiz — Week 1 (QTI)</div>
+                  <div class="pack-item-meta">10 MCQ · Mapped to OAL learning outcomes · Brightspace QTI · OAL</div>
+                </div>
+                <span class="mat-tag oal pack-item-tag">OAL</span>
+              </div>
+              <div class="pack-item">
+                <div class="pack-item-icon">✅</div>
+                <div class="pack-item-text">
+                  <div class="pack-item-name">Understanding Check Quiz — Week 3 (QTI)</div>
+                  <div class="pack-item-meta">10 MCQ · Mapped to OAL learning outcomes · Brightspace QTI · OAL</div>
                 </div>
                 <span class="mat-tag oal pack-item-tag">OAL</span>
               </div>
@@ -980,13 +902,13 @@
         <div class="export-bar">
           <div class="export-bar-left">
             <div class="export-bar-title">Export Teaching Pack</div>
-            <div class="export-bar-sub">Download individual files or the complete pack as a ZIP</div>
+            <div class="export-bar-sub">Download individual files or the complete teaching pack</div>
           </div>
           <div class="export-bar-actions">
-            <button class="btn" type="button">PDF</button>
             <button class="btn" type="button">PPTX</button>
             <button class="btn" type="button">DOCX</button>
-            <button class="btn primary" type="button">Download ZIP</button>
+            <button class="btn" type="button">Brightspace Quiz (QTI)</button>
+            <button class="btn primary" type="button">Download Teaching Pack</button>
           </div>
         </div>
 
@@ -994,11 +916,10 @@
         <div class="chat-pane">
           <div class="chat-pane-label">Refine with AI</div>
           <div class="chat-prompts">
-            <button class="chat-prompt-btn" type="button" onclick="fillChat('Add a clinical simulation scenario for Week 5')">Add simulation scenario — Week 5</button>
-            <button class="chat-prompt-btn" type="button" onclick="fillChat('Expand the facilitation guide with debrief prompts')">Expand facilitation guide</button>
-            <button class="chat-prompt-btn" type="button" onclick="fillChat('Simplify pre-reading summary language for Year 1')">Simplify for Year 1</button>
-            <button class="chat-prompt-btn" type="button" onclick="fillChat('Generate a revision quiz aligned to Week 3 outcomes')">Add revision quiz — Week 3</button>
-            <button class="chat-prompt-btn" type="button" onclick="fillChat('Add anticipated misconceptions to the facilitation notes')">Misconceptions for facilitation</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Add a second applied case activity for Week 5')">Add case activity — Week 5</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Expand the facilitation guide with suggested discussion questions')">Expand facilitation guide</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Simplify pre-class reading notes for Year 1 students')">Simplify for Year 1</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Generate an understanding check quiz for Week 5')">Add quiz — Week 5</button>
           </div>
           <div class="chat-input-row">
             <input type="text" id="chat-input" class="chat-input" placeholder="Ask AI to adjust, extend, or regenerate any part of your teaching pack...">
@@ -1018,22 +939,19 @@
     }
 
     function updateCounts() {
-      const b = countChecked('before-chk');
-      const d = countChecked('during-chk');
-      const a = countChecked('after-chk');
-      const f = countChecked('facil-chk');
-      const total = b + d + a + f;
+      const o = countChecked('oal-chk');
+      const i = countChecked('ipl-chk');
+      const l = countChecked('lec-chk');
+      const total = o + i + l;
 
-      document.getElementById('before-count').textContent = b + ' selected';
-      document.getElementById('during-count').textContent = d + ' selected';
-      document.getElementById('after-count').textContent  = a + ' selected';
-      document.getElementById('facil-count').textContent  = f + ' selected';
+      document.getElementById('oal-count').textContent = o + ' selected';
+      document.getElementById('ipl-count').textContent = i + ' selected';
+      document.getElementById('lec-count').textContent = l + ' selected';
 
-      document.getElementById('sb-before').textContent = b + (b !== 1 ? ' items' : ' item');
-      document.getElementById('sb-during').textContent = d + (d !== 1 ? ' items' : ' item');
-      document.getElementById('sb-after').textContent  = a + (a !== 1 ? ' items' : ' item');
-      document.getElementById('sb-facil').textContent  = f + (f !== 1 ? ' items' : ' item');
-      document.getElementById('sb-total').textContent  = total + (total !== 1 ? ' items' : ' item');
+      document.getElementById('sb-oal').textContent = o + (o !== 1 ? ' items' : ' item');
+      document.getElementById('sb-ipl').textContent = i + (i !== 1 ? ' items' : ' item');
+      document.getElementById('sb-lec').textContent = l + (l !== 1 ? ' items' : ' item');
+      document.getElementById('sb-total').textContent = total + (total !== 1 ? ' items' : ' item');
       document.getElementById('action-tally').textContent = total + ' material' + (total !== 1 ? 's' : '') + ' selected';
     }
 

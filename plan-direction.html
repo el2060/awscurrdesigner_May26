@@ -967,6 +967,7 @@
       color: #294863;
       line-height: 1.45;
       box-shadow: 0 2px 0 rgba(19, 61, 97, 0.04);
+      white-space: pre-wrap;
     }
 
     .chat-turn.you .chat-bubble {
@@ -2014,7 +2015,7 @@
       <aside class="workspace-side" aria-label="Conversation workspace">
         <div class="thread-shell">
           <nav class="thread-rail" aria-label="Design conversations">
-            <div class="thread-rail-kicker">Design Conversations</div>
+            <div class="thread-rail-kicker">Design Areas</div>
             <button class="thread-link active" data-thread="welcome" type="button">Module Direction</button>
             <button class="thread-link" data-thread="outcomes" type="button">Learning Outcomes</button>
             <button class="thread-link" data-thread="content" type="button">Topics &amp; Learning Flow</button>
@@ -2023,7 +2024,7 @@
             <button class="thread-link" data-thread="integrity" type="button">AI &amp; Future Practice</button>
             <div class="thread-rail-divider"></div>
             <div class="design-intent">
-              <div class="design-intent-label">Design Intent</div>
+              <div class="design-intent-label">Current Focus</div>
               <div class="design-intent-chips">
                 <span class="intent-chip">Clinical reasoning emphasis</span>
                 <span class="intent-chip">Reduced content overload</span>
@@ -2035,9 +2036,9 @@
           <section class="thread-workspace" aria-live="polite">
             <header class="thread-head">
               <div class="thread-head-top">
-                <h2 class="thread-title" id="threadTitle">AI Curriculum Partner</h2>
+                <h2 class="thread-title" id="threadTitle">AI Curriculum Workspace</h2>
               </div>
-              <p class="thread-sub" id="threadSubtitle">Co-design in conversation — your decisions drive the draft.</p>
+              <p class="thread-sub" id="threadSubtitle">AI-assisted curriculum drafting.</p>
               <div class="thread-pulse" id="threadPulse"></div>
             </header>
 
@@ -2047,7 +2048,7 @@
               <div class="thread-thinking" id="threadThinking">Updating draft...</div>
               <form class="composer" id="threadComposer">
                 <div class="composer-row">
-                  <input class="composer-input" id="threadInput" type="text" placeholder="e.g., Emphasize diagnostic reasoning with less content overload">
+                  <input class="composer-input" id="threadInput" type="text" placeholder="Ask AI to refine this section...">
                   <button class="composer-send" type="submit">Send</button>
                 </div>
               </form>
@@ -2103,7 +2104,7 @@
                   <span class="artifact-draft-title">Live NP Module Draft</span>
                   <span class="artifact-sync"><span class="sync-dot"></span><span id="syncLabel">Synced just now</span></span>
                 </div>
-                <div class="artifact-recent-update" id="artifactChangeLog">Continuously updated from curriculum design discussions</div>
+                <div class="artifact-recent-update" id="artifactChangeLog">AI-assisted draft updates</div>
               </div>
               <div class="artifact-toolbar-right">
                 <button class="artifact-btn-ghost" type="button">Open Full Draft ↗</button>
@@ -2450,9 +2451,9 @@
           "Prepare for ICU clinical placements",
           "Improve interdisciplinary communication"
         ],
-        greeting: "I’ve reviewed the curriculum context — industry inputs, student insights, and existing materials. Before we design anything, I want to surface what I’m seeing.\n\nThree design tensions stand out:\n• The current module is weighted toward content coverage and theory recall\n• Employer inputs consistently emphasise applied clinical reasoning and escalation judgement\n• Student feedback signals overload during diagnostics and simulation weeks\n\nThese are the real design decisions. The draft structure will follow from here.",
-        intro: "What matters most to you for this redesign? I'll carry your priority into every downstream conversation.",
-        inputHint: "What should this module do better than it does today?"
+        greeting: "Three design tensions identified:\n• Module weighted toward content coverage, not applied reasoning\n• Employer inputs emphasise escalation judgement\n• Student feedback flags overload in diagnostics and simulation weeks",
+        intro: "Select a design priority to get started:",
+        inputHint: "Refine module direction..."
       },
       synopsis: {
         title: "Synopsis & Aims",
@@ -2700,11 +2701,11 @@
     };
 
     const threadOpeners = {
-      outcomes: "I've mapped current outcomes against employer inputs and benchmark institutions. The gap is clear: outcomes describe what students know, not what they can decide under pressure. Two directions are available — I'll show you both.",
-      content: "I've flagged two overload clusters: diagnostics week and simulation prep. Spreading these across cycles keeps total hours stable but opens more deliberate practice time. Which rebalancing principle matters most to you?",
-      teaching: "Student reflection data shows the same pattern across cohorts: debrief sessions end too quickly and don't push reasoning to a decision point. I can reframe facilitation around timing thresholds — want to see that approach?",
-      assessment: "Current assessment heavily weights written recall. Benchmark institutions with similar ICU modules have shifted toward live decision evidence with short written reasoning traces. I can model three patterns that keep marking manageable.",
-      integrity: "AI in critical care practice is already reshaping what nurses need to know versus what they need to judge. I can help draft guidance that frames AI as a reasoning support tool — with clear boundaries for high-stakes decisions."
+      outcomes: "Suggested refinements:\n• Strengthen escalation decision verbs\n• Reduce recall-focused wording\n• Align with applied practice benchmarks",
+      content: "Suggested refinements:\n• Spread diagnostics across two cycles\n• Convert prep segments to guided async review\n• Keep total contact hours stable",
+      teaching: "Suggested refinements:\n• Reframe debriefs around timing thresholds\n• Add short reasoning checkpoints between simulations\n• Reduce facilitator dependency in prep phases",
+      assessment: "Suggested refinements:\n• Shift from written recall to live decision evidence\n• Keep written artefacts short but traceable\n• Model 3 assessment patterns for review",
+      integrity: "Suggested additions:\n• Frame AI as reasoning support, not replacement\n• Add explicit boundaries for high-stakes decisions\n• Include permitted vs. prohibited AI actions"
     };
 
     const pulseSignals = {
@@ -2999,7 +3000,7 @@
           chip.addEventListener("click", () => {
             threadState.welcome = {
               choice: action,
-              aiReply: "Captured. I'll carry this orientation into every design conversation that follows — it's now your persistent design intent.",
+              aiReply: "Captured. Carrying this intent into the draft.",
               updatedAt: "just now"
             };
             decorateRail();
@@ -3015,7 +3016,7 @@
           threadCanvas.appendChild(createTurn("AI", threadState.welcome.aiReply));
           const updated = document.createElement("div");
           updated.className = "draft-update";
-          updated.textContent = "Design intent captured — draft synthesis will reflect this priority across all sections.";
+          updated.textContent = "Design intent captured.";
           threadCanvas.appendChild(updated);
         }
         return;
@@ -3030,7 +3031,7 @@
 
       const intro = document.createElement("div");
       intro.className = "choice-intro";
-      intro.textContent = "Which direction should I synthesise into the draft?";
+      intro.textContent = "Select a direction:";
       directions.appendChild(intro);
 
       const options = document.createElement("div");
@@ -3082,7 +3083,7 @@
       if (state.updatedNote) {
         const updated = document.createElement("div");
         updated.className = "draft-update";
-        updated.textContent = state.updatedNote + " (Draft updated just now)";
+        updated.textContent = "✓ " + state.updatedNote;
         threadCanvas.appendChild(updated);
       }
     }
