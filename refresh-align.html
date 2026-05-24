@@ -395,6 +395,26 @@
     }
     .detected-main { font-size: 13px; font-weight: 600; color: var(--hp-text); }
     .detected-sub { font-size: 12px; color: var(--hp-body); margin-top: 2px; }
+    .detected-opps {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--hp-emerald-100);
+    }
+    .detected-opps-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--hp-emerald-700);
+      margin-bottom: 7px;
+    }
+    .detected-opps-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .opp-chip {
+      font-size: 11.5px; font-weight: 600;
+      color: var(--hp-emerald-700);
+      background: #fff;
+      border: 1px solid var(--hp-emerald-100);
+      border-radius: 999px;
+      padding: 4px 10px;
+    }
 
     .loaded-list {
       display: none;
@@ -794,6 +814,15 @@
             <div class="detected-label">Detected Module Information</div>
             <div class="detected-main">ICT1234 · Data Structures &amp; Algorithms · AY25/26 S1</div>
             <div class="detected-sub">3 supporting documents identified</div>
+            <div class="detected-opps">
+              <div class="detected-opps-label">Detected Review Opportunities</div>
+              <div class="detected-opps-chips">
+                <span class="opp-chip">Assessment-heavy cluster in Weeks 7–10</span>
+                <span class="opp-chip">Presentation rubric identified</span>
+                <span class="opp-chip">AI integration opportunities</span>
+                <span class="opp-chip">High content density detected</span>
+              </div>
+            </div>
           </div>
 
           <div class="loaded-list" id="loaded-files">
@@ -895,7 +924,7 @@
               </span>
               <div class="focus-text">
                 <div class="focus-title">Communication &amp; Presentation</div>
-                <div class="focus-desc">Presentation, audience engagement, and communication skills</div>
+                <div class="focus-desc">Presentation delivery, audience engagement, and communication effectiveness</div>
               </div>
             </div>
 
@@ -926,24 +955,24 @@
         </div>
       </div>
 
-      <!-- ── Section C: Optional Review Notes ── -->
+      <!-- ── Section C: Review Priorities ── -->
       <div class="section-card">
         <div class="sc-header">
           <div class="sc-num">3</div>
           <div class="sc-title-wrap">
-            <div class="sc-title">Additional Review Notes <span style="font-weight:500;color:var(--hp-muted);">(optional)</span></div>
-            <div class="sc-desc">Add specific review questions or focus areas.</div>
+            <div class="sc-title">Review Priorities <span style="font-weight:500;color:var(--hp-muted);">(optional)</span></div>
+            <div class="sc-desc">Highlight any concerns, constraints, or areas for improvement</div>
           </div>
         </div>
         <div class="sc-body">
           <div class="field">
             <textarea id="review-notes" class="plan-textarea" style="min-height:120px;" placeholder="Examples:
 • Reduce content overload
-• Strengthen presentation skills
-• Improve assessment alignment
-• Review AI integration opportunities
+• Strengthen AI integration
+• Improve assessment authenticity
+• Refresh communication tasks
 • Improve flipped learning flow"></textarea>
-            <div class="field-hint">Add benchmarking references, accreditation considerations, curriculum constraints, or specific review requests.</div>
+            <div class="field-hint">What are your biggest concerns or constraints going into next run?</div>
           </div>
         </div>
       </div>
@@ -983,7 +1012,7 @@
     <aside class="layout-side">
 
       <div class="side-card">
-        <span class="side-label">Review Setup</span>
+        <span class="side-label">Review Summary</span>
         <div class="side-card-body">
           <div class="sum-row"><span class="sum-key">Module</span><span class="sum-val empty" id="sum-module">Not added</span></div>
           <div class="sum-row"><span class="sum-key">Focus areas</span><span class="sum-val" id="sum-focus">7 selected</span></div>
@@ -1073,9 +1102,9 @@
           '<span class="review-badge ' + (data.status === 'warn' ? 'warn' : 'ok') + '">' + (data.status === 'warn' ? 'Refresh suggested' : 'Aligned') + '</span>' +
         '</div>' +
         '<div class="informed-by"><span class="informed-label">Informed by</span>' + informedChips + '</div>' +
-        '<div class="skel-label">Observations</div>' +
+        '<div class="skel-label">Key Review Findings</div>' +
         '<div class="skel-line w-full"></div><div class="skel-line w-lg"></div><div class="skel-line w-full"></div><div class="skel-line w-md"></div>' +
-        '<div class="skel-label">Suggested Actions</div>' +
+        '<div class="skel-label">Suggested Refinements</div>' +
         '<div class="skel-line w-full"></div><div class="skel-line w-lg"></div><div class="skel-line w-sm"></div>';
       panels.appendChild(card);
     });
