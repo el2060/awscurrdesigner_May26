@@ -1,0 +1,190 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - link "Ngee Ann Polytechnic AI Curriculum Designer Updated concept direction prepared by NP following discussions with AWS on 15 May" [ref=e4] [cursor=pointer]:
+      - /url: index.html
+      - img "Ngee Ann Polytechnic" [ref=e5]
+      - generic [ref=e7]: AI Curriculum Designer
+      - generic [ref=e8]: Updated concept direction prepared by NP following discussions with AWS on 15 May
+  - main [ref=e9]:
+    - generic [ref=e10]:
+      - heading "AI Curriculum Co-Design" [level=1] [ref=e11]
+      - paragraph [ref=e12]: Work with AI to shape your module while the NP module draft updates live.
+    - region "Use previous analysis" [ref=e13]:
+      - group [ref=e14]:
+        - generic "Use Existing Inputs Select existing inputs to guide this draft. Browse Analysis Summaries" [ref=e15] [cursor=pointer]:
+          - generic [ref=e16]: Use Existing Inputs
+          - heading "Select existing inputs to guide this draft." [level=2] [ref=e17]
+          - text: Browse Analysis Summaries
+    - generic [ref=e18]:
+      - complementary "Conversation workspace" [ref=e19]:
+        - generic [ref=e20]:
+          - navigation "Design conversations" [ref=e21]:
+            - generic [ref=e22]: Module Areas
+            - button "Module Focus ✓ Updated" [ref=e194] [cursor=pointer]:
+              - generic [ref=e195]: Module Focus
+              - generic [ref=e196]: ✓ Updated
+            - button "Learning Outcomes Outcomes to review" [ref=e26] [cursor=pointer]:
+              - generic [ref=e197]: Learning Outcomes
+              - generic [ref=e198]: Outcomes to review
+            - button "Topics & Content Content hours to check" [ref=e29] [cursor=pointer]:
+              - generic [ref=e199]: Topics & Content
+              - generic [ref=e200]: Content hours to check
+            - button "Teaching Approach Teaching methods to confirm" [ref=e32] [cursor=pointer]:
+              - generic [ref=e201]: Teaching Approach
+              - generic [ref=e202]: Teaching methods to confirm
+            - button "Assessment Assessment to confirm" [ref=e35] [cursor=pointer]:
+              - generic [ref=e203]: Assessment
+              - generic [ref=e204]: Assessment to confirm
+            - button "AI Use in Practice AI guidance to add" [ref=e38] [cursor=pointer]:
+              - generic [ref=e205]: AI Use in Practice
+              - generic [ref=e206]: AI guidance to add
+            - generic [ref=e42]:
+              - generic [ref=e43]: Current Priorities
+              - generic [ref=e44]:
+                - generic [ref=e45]: → Stronger clinical reasoning
+                - generic [ref=e46]: → Reduced content load
+                - generic [ref=e47]: → Applied assessment
+          - generic [ref=e48]:
+            - generic [ref=e49]:
+              - heading "Module Focus" [level=2] [ref=e51]
+              - paragraph [ref=e52]: Set the overall focus and approach for this module.
+            - generic [ref=e53]:
+              - generic [ref=e207]:
+                - generic [ref=e208]: AI
+                - generic [ref=e209]: "I've reviewed: • existing ICU curriculum materials • employer feedback • recent student reflections • prior nursing science modules Based on the inputs reviewed, here are some areas we could strengthen. • Current module emphasises content coverage over applied escalation judgement • Students report overload during diagnostics and simulation-heavy weeks • Clinical partners want stronger decision-making in deteriorating patient scenarios"
+              - generic [ref=e210]:
+                - generic [ref=e211]: Possible curriculum directions
+                - generic [ref=e212]: Which direction would you like to prioritise first?
+                - generic [ref=e213]:
+                  - button "Strengthen escalation judgement" [ref=e214] [cursor=pointer]
+                  - button "Increase applied simulation practice" [ref=e215] [cursor=pointer]
+                  - button "Reduce overlapping theory content" [ref=e216] [cursor=pointer]
+                  - button "Prepare students for ICU transitions" [ref=e217] [cursor=pointer]
+              - generic [ref=e218]:
+                - generic [ref=e219]: You
+                - generic [ref=e220]: Strengthen escalation judgement
+              - generic [ref=e221]:
+                - generic [ref=e222]: AI
+                - generic [ref=e223]: I've updated the draft focus to give more weight to strengthen escalation judgement. Next I can help turn that into aims, outcomes, hours, or assessment choices.
+              - generic [ref=e224]:
+                - generic [ref=e225]: AI curriculum question
+                - generic [ref=e226]: Before drafting the module aims, which matters more for this run?
+                - generic [ref=e227]:
+                  - button "○stronger clinical escalation judgement" [ref=e228] [cursor=pointer]
+                  - button "○broader theory coverage" [ref=e229] [cursor=pointer]
+                  - button "○smoother ICU transition readiness" [ref=e230] [cursor=pointer]
+              - generic [ref=e231]:
+                - generic [ref=e232]: AI
+                - generic [ref=e233]: "If you'd like, I can next help: • reshape the module aims • revise learning outcomes • rebalance content hours • propose more applied assessments"
+            - generic [ref=e66]:
+              - generic [ref=e67]: Drafting revised module focus...
+              - generic [ref=e69]:
+                - textbox "Describe the module focus you want AI to draft..." [ref=e70]
+                - button "Send" [ref=e71] [cursor=pointer]
+      - region "Live module artifact" [ref=e72]:
+        - generic [ref=e73]:
+          - generic [ref=e74]:
+            - img "Ngee Ann Polytechnic" [ref=e77]
+            - generic [ref=e78]: ADVANCED DIPLOMA IN CRITICAL CARE NURSING – SPECIALTY MODULE 3
+            - table [ref=e79]:
+              - rowgroup [ref=e80]:
+                - 'row "Module name: Advanced Critical Care Nursing Science II" [ref=e81]':
+                  - cell "Module name:" [ref=e82]
+                  - cell "Advanced Critical Care Nursing Science II" [ref=e83]:
+                    - emphasis [ref=e84]: Advanced Critical Care Nursing Science II
+                - 'row "Module Catalogue and ID: 303ACNSII / 012148" [ref=e85]':
+                  - cell "Module Catalogue and ID:" [ref=e86]
+                  - cell "303ACNSII / 012148" [ref=e87]
+                - 'row "Pre-Requisite: Not applicable" [ref=e88]':
+                  - cell "Pre-Requisite:" [ref=e89]
+                  - cell "Not applicable" [ref=e90]
+                - 'row "Timetabled Hours: 60 hours" [ref=e91]':
+                  - cell "Timetabled Hours:" [ref=e92]
+                  - cell "60 hours" [ref=e93]
+                - 'row "Contact Hours: 60 hours" [ref=e94]':
+                  - cell "Contact Hours:" [ref=e95]
+                  - cell "60 hours" [ref=e96]
+                - 'row "Credit Units: 4" [ref=e97]':
+                  - cell "Credit Units:" [ref=e98]
+                  - cell "4" [ref=e99]
+                - 'row "Assessment Weightage: Continuous Assessment 100%" [ref=e100]':
+                  - cell "Assessment Weightage:" [ref=e101]
+                  - cell "Continuous Assessment 100%" [ref=e102]:
+                    - strong [ref=e103]: Continuous Assessment 100%
+            - generic [ref=e104]:
+              - generic [ref=e105]:
+                - generic [ref=e106]:
+                  - generic [ref=e107]: NP Module Draft
+                  - generic [ref=e110]: Synced just now
+                - generic [ref=e111]: Drafted revised module focus around strengthen escalation judgement · 07:30 PM
+              - generic [ref=e112]:
+                - button "Open Full Draft ↗" [ref=e113] [cursor=pointer]
+                - button "Export ▾" [ref=e115] [cursor=pointer]
+          - generic [ref=e116]:
+            - navigation "Module section navigation" [ref=e117]:
+              - generic [ref=e118]: Sections
+              - button "Module Info" [ref=e119] [cursor=pointer]
+              - button "1. Synopsis & Aims" [ref=e120] [cursor=pointer]
+              - button "2. Learning Outcomes" [ref=e121] [cursor=pointer]
+              - button "3. Content & Hours" [ref=e122] [cursor=pointer]
+              - button "4. Teaching Methods" [ref=e123] [cursor=pointer]
+              - button "5. Assessment" [ref=e124] [cursor=pointer]
+              - button "6. Plagiarism Policy" [ref=e125] [cursor=pointer]
+              - button "7. References" [ref=e126] [cursor=pointer]
+              - button "7.2 Journals" [ref=e127] [cursor=pointer]
+            - article [ref=e128]:
+              - generic [ref=e129] [cursor=pointer]:
+                - generic [ref=e130]: Module Overview
+                - heading "Module Information›" [level=3] [ref=e234]
+              - generic [ref=e146]:
+                - generic [ref=e147]: Section 1
+                - heading "1. SYNOPSIS AND AIMS" [level=3] [ref=e235]
+                - paragraph [ref=e236]: This module focuses students on applied ICU decision-making by strengthening strengthen escalation judgement, reducing avoidable theory overlap, and connecting diagnostics, simulation practice, and escalation rationale across the module.
+                - generic [ref=e243]:
+                  - strong [ref=e244]: Draft updated from design discussion
+                  - generic [ref=e245]: ✓ Module Focus
+                  - text: This module focuses students on applied ICU decision-making by strengthening strengthen escalation judgement, reducing avoidable theory overlap, and connecting diagnostics, simulation practice, and escalation rationale across the module.
+              - generic [ref=e149] [cursor=pointer]:
+                - generic [ref=e150]: Section 2
+                - heading "2. LEARNING OUTCOMES›" [level=3] [ref=e151]
+                - text: "- - - - - - - - - - - - - -"
+              - generic [ref=e152] [cursor=pointer]:
+                - generic [ref=e153]: Section 3
+                - heading "3. CONTENT›" [level=3] [ref=e154]
+              - generic [ref=e155] [cursor=pointer]:
+                - generic [ref=e156]: Section 4
+                - heading "4. TEACHING METHODOLOGY / TEACHING & LEARNING STRATEGIES›" [level=3] [ref=e157]
+              - generic [ref=e158] [cursor=pointer]:
+                - generic [ref=e159]: Section 5
+                - heading "5. ASSESSMENT STRATEGIES›" [level=3] [ref=e160]
+              - generic [ref=e161] [cursor=pointer]:
+                - generic [ref=e162]: Section 6
+                - heading "6. PLAGIARISM POLICY›" [level=3] [ref=e163]
+              - generic [ref=e164] [cursor=pointer]:
+                - generic [ref=e165]: Section 7
+                - heading "7. RECOMMENDED TEXTS / REFERENCES / LEARNING RESOURCES›" [level=3] [ref=e166]
+              - generic [ref=e167] [cursor=pointer]:
+                - generic [ref=e168]: Section 7.2
+                - heading "7.2 Journals›" [level=3] [ref=e169]
+    - generic "Proceed to teaching materials" [ref=e170]:
+      - generic [ref=e171]:
+        - generic [ref=e172]: Ready to prepare teaching materials
+        - generic [ref=e173]: Prepare Teaching Materials
+        - generic [ref=e174]:
+          - generic [ref=e175]:
+            - generic [ref=e176]: ✓
+            - text: Learning outcomes
+          - generic [ref=e177]:
+            - generic [ref=e178]: ✓
+            - text: Weekly sequencing
+          - generic [ref=e179]:
+            - generic [ref=e180]: ✓
+            - text: Assessment strategy
+          - generic [ref=e181]:
+            - generic [ref=e182]: ✓
+            - text: Teaching approach
+          - generic [ref=e183]:
+            - generic [ref=e184]: ✓
+            - text: AI guidance
+      - link "Plan Materials →" [ref=e185] [cursor=pointer]:
+        - /url: generate-materials.html

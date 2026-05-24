@@ -3050,9 +3050,22 @@
       };
     }
 
+    function welcomeFocusPhrase(driver) {
+      const phraseMap = {
+        "Strengthen escalation judgement": "escalation judgement",
+        "Increase applied simulation practice": "applied simulation practice",
+        "Reduce overlapping theory content": "leaner theory coverage",
+        "Prepare students for ICU transitions": "ICU transition readiness",
+        "stronger clinical escalation judgement": "clinical escalation judgement",
+        "broader theory coverage": "balanced theory coverage",
+        "smoother ICU transition readiness": "ICU transition readiness"
+      };
+      return phraseMap[driver] || driver.toLowerCase();
+    }
+
     function buildWelcomeFocusText(driver) {
-      const d = driver.toLowerCase();
-      return "This module focuses students on applied ICU decision-making by strengthening " + d +
+      const focusPhrase = welcomeFocusPhrase(driver);
+      return "This module focuses students on applied ICU decision-making by foregrounding " + focusPhrase +
         ", reducing avoidable theory overlap, and connecting diagnostics, simulation practice, and escalation rationale across the module.";
     }
 
@@ -3078,7 +3091,7 @@
       return {
         before,
         after,
-        summary: "Drafted revised module focus around " + driver.toLowerCase()
+        summary: "Drafted revised module focus around " + welcomeFocusPhrase(driver)
       };
     }
 
@@ -3101,7 +3114,7 @@
       threadState.welcome = {
         ...(threadState.welcome || {}),
         choice: option,
-        aiReply: "I've updated the draft focus to give more weight to " + option.toLowerCase() + ". Next I can help turn that into aims, outcomes, hours, or assessment choices.",
+        aiReply: "I've updated the draft focus to give more weight to " + welcomeFocusPhrase(option) + ". Next I can help turn that into aims, outcomes, hours, or assessment choices.",
         drafting: true,
         updatedAt: "just now",
         lastAfter: mutation.after
