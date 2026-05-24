@@ -1046,6 +1046,33 @@
       color: #fff;
     }
 
+    .working-checklist {
+      list-style: none;
+      display: grid;
+      gap: 3px;
+      color: #5a7084;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .working-checklist li::before {
+      content: "• ";
+      color: #7b91a6;
+    }
+
+    .support-actions {
+      display: grid;
+      gap: 7px;
+    }
+
+    .support-actions-label {
+      color: #6b8195;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
     .impact-pack {
       border: 1px solid #d8e6f3;
       border-radius: 12px;
@@ -1485,6 +1512,38 @@
       font-size: 11px;
       line-height: 1.45;
       color: #634817;
+    }
+
+    .section-delta-title {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .section-delta-copy {
+      display: block;
+      margin-top: 5px;
+    }
+
+    .section-delta-label {
+      display: block;
+      margin-top: 7px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8c6421;
+    }
+
+    .section-delta-list {
+      list-style: none;
+      display: grid;
+      gap: 3px;
+      margin-top: 5px;
+    }
+
+    .section-delta-list li::before {
+      content: "• ";
+      color: #b86d0f;
     }
 
     .section-label {
@@ -2066,7 +2125,7 @@
       <aside class="workspace-side" aria-label="Conversation workspace">
         <div class="thread-shell">
           <nav class="thread-rail" aria-label="Design conversations">
-            <div class="thread-rail-kicker">Module Areas</div>
+            <div class="thread-rail-kicker">Curriculum Areas</div>
             <button class="thread-link active" data-thread="welcome" type="button">Module Focus</button>
             <button class="thread-link" data-thread="outcomes" type="button">Learning Outcomes</button>
             <button class="thread-link" data-thread="content" type="button">Topics &amp; Content</button>
@@ -2075,7 +2134,7 @@
             <button class="thread-link" data-thread="integrity" type="button">AI Use in Practice</button>
             <div class="thread-rail-divider"></div>
             <div class="design-intent">
-              <div class="design-intent-label">Current Priorities</div>
+              <div class="design-intent-label">Design Priorities</div>
               <div class="design-intent-chips">
                 <span class="intent-chip">Stronger clinical reasoning</span>
                 <span class="intent-chip">Reduced content load</span>
@@ -2501,6 +2560,11 @@
           "recent student reflections",
           "prior nursing science modules"
         ],
+        reviewing: [
+          "employer inputs",
+          "prior module feedback",
+          "ICU competency expectations"
+        ],
         synthesisLead: "Based on the inputs reviewed, here are some areas we could strengthen.",
         patterns: [
           "Current module emphasises content coverage over applied escalation judgement",
@@ -2847,6 +2911,19 @@
       return block;
     }
 
+    function createReviewWorkingBlock(items) {
+      const block = createWorkingBlock("AI reviewing:");
+      const list = document.createElement("ul");
+      list.className = "working-checklist";
+      (items || []).forEach((item) => {
+        const entry = document.createElement("li");
+        entry.textContent = item;
+        list.appendChild(entry);
+      });
+      block.appendChild(list);
+      return block;
+    }
+
     function buildWelcomeSynthesis(lane) {
       return "I've reviewed:\n" +
         (lane.reviewed || []).map((item) => "• " + item).join("\n") +
@@ -2919,6 +2996,54 @@
       return createTurn("AI", copy);
     }
 
+    function laneQuestionText(lane) {
+      const questionBlock = (lane.blocks || []).find((block) => block.label === "AI Co-Design");
+      return questionBlock ? questionBlock.copy : "Which direction would you like to test first?";
+    }
+
+    function createLaneQuestion(lane, state, threadKey) {
+      const card = document.createElement("div");
+      card.className = "curriculum-question";
+
+      const label = document.createElement("div");
+      label.className = "curriculum-question-label";
+      label.textContent = "AI co-design question";
+
+      const copy = document.createElement("div");
+      copy.className = "curriculum-question-copy";
+      copy.textContent = laneQuestionText(lane);
+
+      const options = document.createElement("div");
+      options.className = "question-options";
+      lane.options.forEach((option) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "question-option" + (state.choice === option ? " selected" : "");
+        button.textContent = option;
+        button.addEventListener("click", () => chooseDirection(threadKey, option));
+        options.appendChild(button);
+      });
+
+      card.appendChild(label);
+      card.appendChild(copy);
+      card.appendChild(options);
+      return card;
+    }
+
+    function buildLaneChoiceReply(threadKey, option) {
+      const phrase = option.toLowerCase();
+      const replies = {
+        outcomes: "I will revise the outcomes around " + phrase + " and keep the wording measurable against assessment evidence.",
+        content: "I will reshape the weekly sequence around " + phrase + " while keeping total hours and learner load workable.",
+        teaching: "I will rework the teaching approach around " + phrase + " so the practice loop stays explicit.",
+        assessment: "I will draft the assessment pattern around " + phrase + " and keep the evidence burden manageable.",
+        resources: "I will shortlist resources around " + phrase + " so the materials support the revised module focus.",
+        alignment: "I will run the alignment check with " + phrase + " as the first priority before flagging residual gaps.",
+        integrity: "I will tighten the AI guidance around " + phrase + " so the boundaries are clearer in student-facing language."
+      };
+      return replies[threadKey] || ("I will carry " + phrase + " into the next draft revision.");
+    }
+
     function sectionIdForThread(threadKey) {
       return threadKey === "welcome" ? "overview" : threadKey;
     }
@@ -2975,7 +3100,63 @@
     }
     document.addEventListener("click", function() { closeExport(); });
 
-    function showDelta(section, beforeText, afterText) {
+    function buildImpactBullets(threadKey, driver) {
+      const phrase = driver.toLowerCase();
+      const byThread = {
+        welcome: [
+          "Module aims revised around " + welcomeFocusPhrase(driver),
+          "Downstream outcomes now lean more clearly toward applied decision-making",
+          "Later content sequencing flagged to reduce theory overlap"
+        ],
+        synopsis: [
+          "Synopsis wording tightened around " + phrase,
+          "Module purpose linked more directly to practice progression",
+          "Assessment intent kept visible in the aims statement"
+        ],
+        outcomes: [
+          "Outcome verbs shifted toward " + phrase,
+          "Recall-heavy wording reduced",
+          "Assessment evidence alignment highlighted for review"
+        ],
+        content: [
+          "Weekly content sequencing adjusted around " + phrase,
+          "Overlapping topics flagged for consolidation",
+          "Simulation and diagnostics load rebalanced"
+        ],
+        teaching: [
+          "Teaching activities reshaped around " + phrase,
+          "Debrief prompts refocused on reasoning quality",
+          "Practice checkpoints added without extending hours"
+        ],
+        assessment: [
+          "Assessment emphasis shifted toward " + phrase,
+          "Evidence expectations made more explicit",
+          "Marking load kept within the same overall pattern"
+        ],
+        resources: [
+          "Resource shortlist aligned to " + phrase,
+          "Case selection tied more closely to assessment use",
+          "Practice materials prioritized for transfer into simulation"
+        ],
+        alignment: [
+          "Alignment review now tests " + phrase + " first",
+          "Cross-section evidence gaps surfaced earlier",
+          "Workload and resource tradeoffs kept visible"
+        ],
+        integrity: [
+          "Student AI guidance clarified around " + phrase,
+          "Assessment boundaries made more explicit",
+          "Attribution expectations carried into module policy language"
+        ]
+      };
+      return byThread[threadKey] || [
+        "Draft revised around " + phrase,
+        "Related curriculum implications made visible",
+        "Downstream sections flagged for follow-up"
+      ];
+    }
+
+    function showDelta(section, threadKey, driver, afterText) {
       if (!section) {
         return;
       }
@@ -2987,9 +3168,15 @@
 
       const delta = document.createElement("div");
       delta.className = "section-delta";
-      const provLabel = railLabels[activeThreadKey] || "current conversation";
-      delta.innerHTML = "<strong>Draft updated from design discussion</strong><br>" +
-        "<span class=\"prov-chip\">✓ " + provLabel + "</span>" + afterText;
+      const provLabel = railLabels[threadKey] || railLabels[activeThreadKey] || "current conversation";
+      const impactBullets = buildImpactBullets(threadKey, driver)
+        .map((item) => "<li>" + item + "</li>")
+        .join("");
+      delta.innerHTML = "<strong class=\"section-delta-title\">Draft update caused by this decision</strong>" +
+        "<span class=\"prov-chip\">✓ " + provLabel + "</span>" +
+        "<span class=\"section-delta-copy\">" + afterText + "</span>" +
+        "<span class=\"section-delta-label\">Updated</span>" +
+        "<ul class=\"section-delta-list\">" + impactBullets + "</ul>";
       section.appendChild(delta);
     }
 
@@ -3040,7 +3227,7 @@
       target.textContent = after;
       target.classList.add("line-updated");
       window.setTimeout(() => target.classList.remove("line-updated"), 1600);
-      showDelta(section, before, after);
+      showDelta(section, threadKey, driver, after);
 
       const lane = threadData[threadKey] || { sectionLabel: "section" };
       return {
@@ -3086,7 +3273,7 @@
       target.textContent = after;
       target.classList.add("line-updated");
       window.setTimeout(() => target.classList.remove("line-updated"), 1600);
-      showDelta(section, before, after);
+      showDelta(section, "welcome", driver, after);
 
       return {
         before,
@@ -3197,7 +3384,7 @@
       threadState[threadKey] = {
         ...(threadState[threadKey] || {}),
         choice: option,
-        aiReply: mutation.summary + ".",
+        aiReply: buildLaneChoiceReply(threadKey, option),
         updatedNote: mutation.summary,
         updatedAt: "just now",
         lastAfter: mutation.after
@@ -3238,21 +3425,42 @@
 
     function renderWelcomeThread(lane) {
       const state = threadState.welcome || {};
-      threadCanvas.appendChild(createTurn("AI", buildWelcomeSynthesis(lane)));
 
-      if (!state.choice) {
-        const flowHost = document.createElement("div");
-        flowHost.className = "direction-pack";
-        const working = createWorkingBlock(lane.workingStatus);
-        flowHost.appendChild(working);
-        threadCanvas.appendChild(flowHost);
-
+      if (!state.synthesisReady) {
+        threadCanvas.appendChild(createReviewWorkingBlock(lane.reviewing));
         queueWelcomeFlow(() => {
-          if (activeThreadKey !== "welcome" || !threadCanvas.contains(flowHost)) {
+          if (activeThreadKey !== "welcome") {
             return;
           }
-          flowHost.appendChild(createWelcomeDirections(lane, state));
+          threadState.welcome = {
+            ...(threadState.welcome || {}),
+            synthesisReady: true
+          };
+          renderThread("welcome");
         }, 900);
+        return;
+      }
+
+      threadCanvas.appendChild(createTurn("AI", buildWelcomeSynthesis(lane)));
+
+      if (!state.choice && !state.directionsReady) {
+        threadCanvas.appendChild(createWorkingBlock(lane.workingStatus));
+        queueWelcomeFlow(() => {
+          if (activeThreadKey !== "welcome") {
+            return;
+          }
+          threadState.welcome = {
+            ...(threadState.welcome || {}),
+            synthesisReady: true,
+            directionsReady: true
+          };
+          renderThread("welcome");
+        }, 900);
+        return;
+      }
+
+      if (!state.choice) {
+        threadCanvas.appendChild(createWelcomeDirections(lane, state));
         return;
       }
 
@@ -3324,35 +3532,24 @@
       threadCanvas.appendChild(createTurn("AI", opener));
 
       const state = threadState[key] || {};
-      const directions = document.createElement("div");
-      directions.className = "direction-pack";
+      threadCanvas.appendChild(createLaneQuestion(lane, state, key));
 
-      const intro = document.createElement("div");
-      intro.className = "choice-intro";
-      intro.textContent = "Select a direction:";
-      directions.appendChild(intro);
+      const supportActions = document.createElement("div");
+      supportActions.className = "support-actions";
+      supportActions.innerHTML = "<div class=\"support-actions-label\">Other ways to steer this draft</div>";
 
-      const options = document.createElement("div");
-      options.className = "lane-options";
-      lane.options.forEach((opt) => {
-        const chip = document.createElement("button");
-        chip.type = "button";
-        chip.className = "lane-chip" + (state.choice === opt ? " selected" : "");
-        chip.textContent = opt;
-        chip.addEventListener("click", () => chooseDirection(key, opt));
-        options.appendChild(chip);
-      });
-
+      const prompts = document.createElement("div");
+      prompts.className = "lane-options";
       lane.prompts.slice(0, 2).forEach((prompt) => {
         const chip = document.createElement("button");
         chip.type = "button";
         chip.className = "lane-chip";
         chip.textContent = prompt;
         chip.addEventListener("click", () => chooseDirection(key, prompt));
-        options.appendChild(chip);
+        prompts.appendChild(chip);
       });
-      directions.appendChild(options);
-      threadCanvas.appendChild(directions);
+      supportActions.appendChild(prompts);
+      threadCanvas.appendChild(supportActions);
 
       if (state.choice) {
         threadCanvas.appendChild(createTurn("You", state.choice));
