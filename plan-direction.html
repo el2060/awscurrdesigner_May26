@@ -1806,6 +1806,67 @@
       flex-shrink: 0;
     }
 
+    /* ── Left-pane skeleton synth block ── */
+    .skel-synth-block {
+      border: 1px solid #dde8f2;
+      border-radius: 10px;
+      background: #f8fbff;
+      padding: 10px 11px;
+      display: grid;
+      gap: 8px;
+    }
+    .skel-synth-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .skel-role-chip {
+      border: 1px solid #c8d9ec;
+      border-radius: 999px;
+      background: #eef4fb;
+      color: #3d5e7c;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .skel-synth-status {
+      font-size: 11px;
+      font-weight: 600;
+      color: #7a8fa3;
+    }
+    .skel-lines {
+      display: grid;
+      gap: 6px;
+    }
+    .skel-l {
+      height: 9px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #e0e9f2 0%, #edf3f9 50%, #e0e9f2 100%);
+      background-size: 200% 100%;
+      animation: npSkelShimmer 1.8s ease-in-out infinite;
+    }
+    .skel-w-90 { width: 90%; }
+    .skel-w-75 { width: 75%; }
+    .skel-w-55 { width: 55%; }
+
+    /* ── Provenance chip inside section-delta ── */
+    .prov-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border: 1px solid #b8d8c4;
+      border-radius: 999px;
+      background: #edf7f2;
+      color: #1d6b45;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      margin-right: 4px;
+    }
+
     @media (max-width: 1280px) {
       .topbar {
         padding: 0 28px;
@@ -1899,7 +1960,7 @@
   <main class="page">
     <section>
       <h1 class="page-title">AI Curriculum Co-Design</h1>
-      <p class="page-sub">Design thinking on the left, formal NP module synthesis on the right. Your curriculum conversations drive the draft — not the other way around.</p>
+      <p class="page-sub">Work with AI to shape your module while the NP module draft updates live.</p>
     </section>
 
     <section class="setup-card analysis-setup" aria-label="Use previous analysis">
@@ -1947,13 +2008,11 @@
         <div class="thread-shell">
           <nav class="thread-rail" aria-label="Design conversations">
             <div class="thread-rail-kicker">Design Conversations</div>
-            <button class="thread-link active" data-thread="welcome" type="button">Curriculum Intent</button>
-            <button class="thread-link" data-thread="alignment" type="button">Industry &amp; Practice</button>
-            <button class="thread-link" data-thread="outcomes" type="button">Learning Priorities</button>
-            <button class="thread-link" data-thread="teaching" type="button">Student Challenges</button>
-            <button class="thread-link" data-thread="content" type="button">Learning Journey</button>
-            <button class="thread-link" data-thread="resources" type="button">Authentic Practice</button>
-            <button class="thread-link" data-thread="assessment" type="button">Assessment Strategy</button>
+            <button class="thread-link active" data-thread="welcome" type="button">Module Direction</button>
+            <button class="thread-link" data-thread="outcomes" type="button">Learning Outcomes</button>
+            <button class="thread-link" data-thread="content" type="button">Topics &amp; Learning Flow</button>
+            <button class="thread-link" data-thread="teaching" type="button">Teaching &amp; Learning</button>
+            <button class="thread-link" data-thread="assessment" type="button">Assessment Design</button>
             <button class="thread-link" data-thread="integrity" type="button">AI &amp; Future Practice</button>
             <div class="thread-rail-divider"></div>
             <div class="design-intent">
@@ -1961,7 +2020,6 @@
               <div class="design-intent-chips">
                 <span class="intent-chip">Clinical reasoning emphasis</span>
                 <span class="intent-chip">Reduced content overload</span>
-                <span class="intent-chip">Scenario-based learning</span>
                 <span class="intent-chip">Practice-ready assessment</span>
               </div>
             </div>
@@ -1970,7 +2028,7 @@
           <section class="thread-workspace" aria-live="polite">
             <header class="thread-head">
               <div class="thread-head-top">
-                <h2 class="thread-title" id="threadTitle">Curriculum Designer</h2>
+                <h2 class="thread-title" id="threadTitle">AI Curriculum Partner</h2>
               </div>
               <p class="thread-sub" id="threadSubtitle">Co-design in conversation — your decisions drive the draft.</p>
               <div class="thread-pulse" id="threadPulse"></div>
@@ -2373,7 +2431,7 @@
   <script>
     const threadData = {
       welcome: {
-        title: "Curriculum Intent",
+        title: "Module Direction",
         subtitle: "Shape the graduate profile and module purpose before designing downstream.",
         stage: "Getting started",
         sectionLabel: "Module Overview",
@@ -2414,7 +2472,7 @@
         tradeoffs: "A narrower synopsis improves focus. A broader synopsis improves adaptability across cohorts."
       },
       outcomes: {
-        title: "Learning Priorities",
+        title: "Learning Outcomes",
         subtitle: "What should students reliably do in clinical practice after this module?",
         stage: "Current focus",
         sectionLabel: "Learning Outcomes",
@@ -2444,7 +2502,7 @@
         tradeoffs: "A/B improve measurability quickly. C improves team-readiness visibility but may require rubric updates."
       },
       content: {
-        title: "Learning Journey",
+        title: "Topics & Learning Flow",
         subtitle: "How should learning scaffold intentionally across the teaching weeks?",
         stage: "Drafting",
         sectionLabel: "Content & Hours",
@@ -2468,7 +2526,7 @@
         tradeoffs: "Lower overload improves depth retention. Asynchronous shift needs clearer quality guardrails for learner preparation."
       },
       teaching: {
-        title: "Student Challenges",
+        title: "Teaching & Learning",
         subtitle: "Where do students struggle most, and what scaffolding supports real practice?",
         stage: "Drafting",
         sectionLabel: "Teaching Strategy",
@@ -2492,7 +2550,7 @@
         tradeoffs: "Higher debrief precision improves outcome evidence. More facilitator guidance may require staff calibration resources."
       },
       assessment: {
-        title: "Assessment Strategy",
+        title: "Assessment Design",
         subtitle: "How do we evaluate meaningful capability rather than content recall?",
         stage: "Priority",
         sectionLabel: "Assessment Design",
@@ -2626,36 +2684,28 @@
     let activeThreadKey = "welcome";
 
     const railLabels = {
-      welcome: "Curriculum Intent",
-      alignment: "Industry & Practice",
-      outcomes: "Learning Priorities",
-      teaching: "Student Challenges",
-      content: "Learning Journey",
-      resources: "Authentic Practice",
-      assessment: "Assessment Strategy",
+      welcome: "Module Direction",
+      outcomes: "Learning Outcomes",
+      content: "Topics & Learning Flow",
+      teaching: "Teaching & Learning",
+      assessment: "Assessment Design",
       integrity: "AI & Future Practice"
     };
 
     const threadOpeners = {
-      synopsis: "I can frame this two ways: tighter escalation scope, or broader interdisciplinary scope.",
       outcomes: "I've mapped current outcomes against employer inputs and benchmark institutions. The gap is clear: outcomes describe what students know, not what they can decide under pressure. Two directions are available — I'll show you both.",
       content: "I've flagged two overload clusters: diagnostics week and simulation prep. Spreading these across cycles keeps total hours stable but opens more deliberate practice time. Which rebalancing principle matters most to you?",
       teaching: "Student reflection data shows the same pattern across cohorts: debrief sessions end too quickly and don't push reasoning to a decision point. I can reframe facilitation around timing thresholds — want to see that approach?",
       assessment: "Current assessment heavily weights written recall. Benchmark institutions with similar ICU modules have shifted toward live decision evidence with short written reasoning traces. I can model three patterns that keep marking manageable.",
-      resources: "The existing resource set covers theory well but is thin on escalation scenarios and interdisciplinary handover examples. I've shortlisted three bundles that directly address the revised assessment direction.",
-      alignment: "I've reviewed the industry advisory inputs and benchmarked against comparable ICU nursing programmes. One signal is consistent: workplace supervisors value escalation speed and interprofessional communication above clinical knowledge coverage.",
       integrity: "AI in critical care practice is already reshaping what nurses need to know versus what they need to judge. I can help draft guidance that frames AI as a reasoning support tool — with clear boundaries for high-stakes decisions."
     };
 
     const pulseSignals = {
       welcome: ["3 design tensions identified", "Design intent not yet captured", "Downstream sections awaiting direction"],
-      synopsis: ["Influences 3 downstream sections", "Benchmark similarity 72%"],
       outcomes: ["Outcome verbs under-emphasise judgement", "Assessment rubric dependency detected"],
       content: ["Week 9 overload flagged", "Simulation prep cluster needs rebalancing"],
-      teaching: ["Student debrief feedback consistent across cohorts", "Facilitation depth: opportunity"],
+      teaching: ["Debrief depth: consistent gap across cohorts", "Facilitation scaffolding to review"],
       assessment: ["Recall-heavy weighting detected", "Benchmark shift toward applied evidence"],
-      resources: ["2 practice contexts not yet evidenced", "Escalation scenario gap identified"],
-      alignment: ["Industry inputs ready to synthesise", "Competency evidence: 1 gap remaining"],
       integrity: ["AI practice reshaping clinical assessment expectations", "Policy draft aligned to current assessment direction"]
     };
 
@@ -2744,7 +2794,9 @@
 
       const delta = document.createElement("div");
       delta.className = "section-delta";
-      delta.innerHTML = "<strong>Draft updated from design discussion</strong><br>Based on: ✓ " + (railLabels[activeThreadKey] || "current conversation") + " · " + afterText;
+      const provLabel = railLabels[activeThreadKey] || "current conversation";
+      delta.innerHTML = "<strong>Draft updated from design discussion</strong><br>" +
+        "<span class=\"prov-chip\">✓ " + provLabel + "</span>" + afterText;
       section.appendChild(delta);
     }
 
@@ -2836,12 +2888,11 @@
           meta = "✓ Decision captured";
         } else {
           if (key === "welcome") meta = "Active — shaping intent";
-          else if (key === "content") meta = "In progress — pacing open";
+          else if (key === "outcomes") meta = "Outcome verbs to review";
+          else if (key === "content") meta = "Pacing decision open";
+          else if (key === "teaching") meta = "Debrief signals available";
           else if (key === "assessment") meta = "Awaiting priority decision";
-          else if (key === "alignment") meta = "Industry signals ready";
           else if (key === "integrity") meta = "Pending design decisions";
-          else if (key === "teaching") meta = "Student insights available";
-          else if (key === "resources") meta = "Practice contexts to review";
         }
 
         button.innerHTML = "<span class=\"thread-link-title\">" + label + "</span><span class=\"thread-link-meta\">" + meta + "</span>";
@@ -3007,13 +3058,19 @@
         threadCanvas.appendChild(createTurn("AI", state.freeformReply));
       }
 
-      const impact = document.createElement("div");
-      impact.className = "impact-pack";
-      const impactCopy = document.createElement("div");
-      impactCopy.className = "lane-copy";
-      impactCopy.textContent = lane.signalSummary || lane.tradeoffs;
-      impact.appendChild(impactCopy);
-      threadCanvas.appendChild(impact);
+      const synthBlock = document.createElement("div");
+      synthBlock.className = "skel-synth-block";
+      synthBlock.innerHTML =
+        '<div class="skel-synth-header">' +
+          '<span class="skel-role-chip">AI</span>' +
+          '<span class="skel-synth-status">Synthesising into draft…</span>' +
+        '</div>' +
+        '<div class="skel-lines">' +
+          '<div class="skel-l skel-w-90"></div>' +
+          '<div class="skel-l skel-w-75"></div>' +
+          '<div class="skel-l skel-w-55"></div>' +
+        '</div>';
+      threadCanvas.appendChild(synthBlock);
 
       if (state.updatedNote) {
         const updated = document.createElement("div");
