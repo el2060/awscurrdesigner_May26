@@ -456,28 +456,17 @@
 
   <main class="page">
 
-    <!-- Step strip -->
-    <div class="step-strip">
-      <span class="ss-step done"><span class="ss-num">1</span>Gather Context</span>
-      <div class="ss-sep"></div>
-      <span class="ss-step done"><span class="ss-num">2</span>Design Module</span>
-      <div class="ss-sep"></div>
-      <span class="ss-step active"><span class="ss-num">3</span>Prepare Materials</span>
-      <div class="ss-sep"></div>
-      <span class="ss-step"><span class="ss-num">4</span>Review &amp; Export</span>
-    </div>
-
     <!-- Page header -->
     <section>
       <div class="eyebrow">Path A · Step 3</div>
       <h1 class="title">Select Teaching Materials</h1>
-      <p class="sub">Select the materials to generate for your OAL and IPL lessons.</p>
+      <p class="sub">Select materials to generate from your curriculum draft.</p>
     </section>
 
     <!-- ─── Step 1: Connected curriculum context ─── -->
     <div class="ctx-strip" role="region" aria-label="Connected curriculum context">
       <div class="ctx-left">
-        <div class="ctx-kicker">Step 1 · Using Curriculum Design Draft</div>
+        <div class="ctx-kicker">Using Curriculum Draft</div>
         <div class="ctx-module">Advanced Critical Care Nursing Science II</div>
         <div class="ctx-tags">
           <span class="ctx-tag">Learning outcomes</span>
@@ -493,13 +482,13 @@
       </div>
     </div>
 
-    <!-- ─── Step 2: Teaching scope ─── -->
+    <!-- ─── Step 1: Teaching scope ─── -->
     <section class="section-card" aria-label="Select teaching scope">
       <div class="sc-header">
-        <div class="sc-num">2</div>
+        <div class="sc-num">1</div>
         <div>
           <div class="sc-title">Select Teaching Scope</div>
-          <div class="sc-desc">Which weeks or topics are you preparing materials for?</div>
+          <div class="sc-desc">Select weeks or topics to generate materials for.</div>
         </div>
       </div>
       <div class="sc-body">
@@ -538,62 +527,15 @@
       </div>
     </section>
 
-    <!-- ─── Step 3: Teaching preferences ─── -->
-    <section class="section-card" aria-label="Teaching preferences">
-      <div class="sc-header">
-        <div class="sc-num">3</div>
-        <div>
-          <div class="sc-title">Teaching Preferences</div>
-          <div class="sc-desc">Set the tone, depth, and approach for all generated materials.</div>
-        </div>
-      </div>
-      <div class="sc-body">
-        <div class="pref-grid">
-          <div class="pref-field">
-            <label class="pref-label" for="pref-depth">Academic Depth</label>
-            <select class="setup-select" id="pref-depth">
-              <option selected>Applied (Diploma level)</option>
-              <option>Conceptual overview</option>
-              <option>Advanced / Specialist</option>
-            </select>
-          </div>
-          <div class="pref-field">
-            <label class="pref-label" for="pref-cohort">Student Cohort</label>
-            <select class="setup-select" id="pref-cohort">
-              <option selected>Year 2 · Advanced Diploma</option>
-              <option>Year 1 · Diploma</option>
-              <option>Year 3 · Specialist</option>
-            </select>
-          </div>
-          <div class="pref-field">
-            <label class="pref-label" for="pref-facil">Facilitation Intensity</label>
-            <select class="setup-select" id="pref-facil">
-              <option selected>Moderate (guided discussion)</option>
-              <option>Light (self-directed)</option>
-              <option>High (structured facilitation)</option>
-            </select>
-          </div>
-          <div class="pref-field">
-            <label class="pref-label" for="pref-mode">Learning Mode</label>
-            <select class="setup-select" id="pref-mode">
-              <option selected>Blended / Flipped Learning</option>
-              <option>Flipped (High Async)</option>
-              <option>Face-to-Face with Digital</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── Step 4: Select Teaching Materials + Sidebar ─── -->
+    <!-- ─── Step 2: Select Teaching Materials + Sidebar ─── -->
     <div class="layout">
       <div class="layout-main">
         <section class="section-card" aria-label="Select teaching materials">
           <div class="sc-header">
-            <div class="sc-num">4</div>
+            <div class="sc-num">2</div>
             <div>
               <div class="sc-title">Select Teaching Materials</div>
-              <div class="sc-desc">Choose materials for your OAL and IPL lessons.</div>
+              <div class="sc-desc">Choose what to generate from the selected curriculum draft.</div>
             </div>
           </div>
           <div class="sc-body">
@@ -607,7 +549,7 @@
                   </div>
                   <div class="phase-head-text">
                     <div class="phase-title">OAL Materials</div>
-                    <div class="phase-subtitle">Materials for OAL preparation before IPL sessions.</div>
+                    <div class="phase-subtitle">OAL lesson materials</div>
                   </div>
                   <div class="phase-count" id="oal-count">3 selected</div>
                 </div>
@@ -639,7 +581,7 @@
                   </div>
                   <div class="phase-head-text">
                     <div class="phase-title">IPL Materials</div>
-                    <div class="phase-subtitle">Materials used during IPL sessions.</div>
+                    <div class="phase-subtitle">IPL lesson materials</div>
                   </div>
                   <div class="phase-count" id="ipl-count">2 selected</div>
                 </div>
@@ -671,7 +613,7 @@
                   </div>
                   <div class="phase-head-text">
                     <div class="phase-title">Lecturer Support</div>
-                    <div class="phase-subtitle">Lecturer facilitation and teaching support materials.</div>
+                    <div class="phase-subtitle">Lecturer support materials</div>
                   </div>
                   <div class="phase-count" id="lec-count">2 selected</div>
                 </div>
@@ -695,7 +637,6 @@
 
             <div class="actions">
               <span class="action-tally" id="action-tally">7 materials selected</span>
-              <button class="btn" type="button">Save Plan</button>
               <button class="btn primary" type="button" onclick="runGenerate()">Generate Teaching Pack →</button>
             </div>
           </div>
@@ -705,7 +646,7 @@
       <!-- Sidebar -->
       <aside class="layout-side">
         <div class="side-box">
-          <div class="side-title">Preparation Plan</div>
+          <div class="side-title">Teaching Pack Summary</div>
           <div class="side-scope-block">
             <div class="side-scope-label">Teaching Scope</div>
             <div class="side-scope-val">Week 1–6 (18 hrs)</div>
@@ -716,7 +657,7 @@
           <div class="side-total"><span>Total selected</span><span class="side-total-num" id="sb-total">7 items</span></div>
         </div>
         <div class="side-next">
-          <div class="side-next-label">What AI Will Generate</div>
+          <div class="side-next-label">Selected Outputs</div>
           <div class="side-next-item">E-Lecture Slides (Week 1–6)</div>
           <div class="side-next-item">Understanding Check Quizzes (QTI)</div>
           <div class="side-next-item">Pre-Class Reading Notes</div>
@@ -727,10 +668,10 @@
       </aside>
     </div><!-- /layout -->
 
-    <!-- ─── Step 5: Generated Teaching Pack ─── -->
+    <!-- ─── Step 3: Generated Teaching Pack ─── -->
     <section class="section-card" id="preview-section" style="display:none;" aria-label="Generated teaching pack">
       <div class="sc-header">
-        <div class="sc-num">5</div>
+        <div class="sc-num">3</div>
         <div style="flex:1;">
           <div class="sc-title">Generated Teaching Pack</div>
           <div class="sc-desc">Advanced Critical Care Nursing Science II · Week 1–6 · 7 materials</div>
