@@ -1594,6 +1594,111 @@
       color: #314960;
     }
 
+    /* ── Design intent panel in thread rail ── */
+    .design-intent {
+      margin: 2px 8px 0;
+      padding: 8px;
+      border: 1px solid #dde7f1;
+      border-radius: 10px;
+      background: #fff;
+      display: grid;
+      gap: 7px;
+    }
+    .design-intent-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #61748a;
+      font-weight: 700;
+    }
+    .design-intent-chips {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .intent-chip {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #1d3f5a;
+      line-height: 1.3;
+    }
+    .intent-chip::before {
+      content: "→";
+      color: var(--brand);
+      font-size: 10px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Design decisions block inside thread canvas ── */
+    .design-decisions {
+      border: 1px solid #d8e6f2;
+      border-radius: 10px;
+      background: #f8fbff;
+      padding: 9px 11px;
+      display: grid;
+      gap: 8px;
+    }
+    .design-decisions-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #5f7892;
+    }
+    .design-decisions-list {
+      list-style: none;
+      display: grid;
+      gap: 4px;
+    }
+    .design-decisions-list li {
+      font-size: 11px;
+      color: #2f4d66;
+      font-weight: 600;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .design-decisions-list li::before {
+      content: "✓";
+      color: #2f7a52;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .design-questions {
+      border-top: 1px dashed #d4e3ef;
+      padding-top: 7px;
+      display: grid;
+      gap: 4px;
+    }
+    .design-questions-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #8a6a2a;
+    }
+    .design-questions-list {
+      list-style: none;
+      display: grid;
+      gap: 3px;
+    }
+    .design-questions-list li {
+      font-size: 11px;
+      color: #5a3e10;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .design-questions-list li::before {
+      content: "•";
+      color: #b45309;
+      flex-shrink: 0;
+    }
+
     @media (max-width: 1280px) {
       .topbar {
         padding: 0 28px;
@@ -1686,8 +1791,8 @@
 
   <main class="page">
     <section>
-      <h1 class="page-title">Design a New Module</h1>
-      <p class="page-sub">Build and refine your module draft section by section.</p>
+      <h1 class="page-title">AI Curriculum Co-Design</h1>
+      <p class="page-sub">Design thinking on the left, formal NP module synthesis on the right. Your curriculum conversations drive the draft — not the other way around.</p>
     </section>
 
     <section class="setup-card analysis-setup" aria-label="Use previous analysis">
@@ -1733,16 +1838,26 @@
     <section class="workspace" id="coDesignWorkspace">
       <aside class="workspace-side" aria-label="Conversation workspace">
         <div class="thread-shell">
-          <nav class="thread-rail" aria-label="Conversation threads">
-            <div class="thread-rail-kicker">Threads</div>
-            <button class="thread-link active" data-thread="welcome" type="button">Module Direction</button>
-            <button class="thread-link" data-thread="outcomes" type="button">Learning Outcomes</button>
-            <button class="thread-link" data-thread="content" type="button">Content &amp; Sequencing</button>
-            <button class="thread-link" data-thread="teaching" type="button">Learning Activities</button>
-            <button class="thread-link" data-thread="assessment" type="button">Assessment Design</button>
-            <button class="thread-link" data-thread="resources" type="button">Learning Resources</button>
-            <button class="thread-link" data-thread="alignment" type="button">Curriculum Alignment</button>
-            <button class="thread-link" data-thread="integrity" type="button">AI &amp; Academic Integrity</button>
+          <nav class="thread-rail" aria-label="Design conversations">
+            <div class="thread-rail-kicker">Design Conversations</div>
+            <button class="thread-link active" data-thread="welcome" type="button">Curriculum Intent</button>
+            <button class="thread-link" data-thread="alignment" type="button">Industry &amp; Practice</button>
+            <button class="thread-link" data-thread="outcomes" type="button">Learning Priorities</button>
+            <button class="thread-link" data-thread="teaching" type="button">Student Challenges</button>
+            <button class="thread-link" data-thread="content" type="button">Learning Journey</button>
+            <button class="thread-link" data-thread="resources" type="button">Authentic Practice</button>
+            <button class="thread-link" data-thread="assessment" type="button">Assessment Strategy</button>
+            <button class="thread-link" data-thread="integrity" type="button">AI &amp; Future Practice</button>
+            <div class="thread-rail-divider"></div>
+            <div class="design-intent">
+              <div class="design-intent-label">Design Intent</div>
+              <div class="design-intent-chips">
+                <span class="intent-chip">Clinical reasoning emphasis</span>
+                <span class="intent-chip">Reduced content overload</span>
+                <span class="intent-chip">Scenario-based learning</span>
+                <span class="intent-chip">Practice-ready assessment</span>
+              </div>
+            </div>
           </nav>
 
           <section class="thread-workspace" aria-live="polite">
@@ -1750,7 +1865,7 @@
               <div class="thread-head-top">
                 <h2 class="thread-title" id="threadTitle">Curriculum Designer</h2>
               </div>
-              <p class="thread-sub" id="threadSubtitle">Draft and refine your module section by section.</p>
+              <p class="thread-sub" id="threadSubtitle">Co-design in conversation — your decisions drive the draft.</p>
               <div class="thread-pulse" id="threadPulse"></div>
             </header>
 
@@ -1811,7 +1926,7 @@
               </tbody>
             </table>
             <div class="np-live-bar">
-              <div class="artifact-live" id="activeSectionPill">Editing: Module Overview</div>
+              <div class="artifact-live" id="activeSectionPill">AI-synthesised module draft</div>
               <p class="artifact-change-log" id="artifactChangeLog"></p>
             </div>
           </header>
@@ -2134,21 +2249,21 @@
   <script>
     const threadData = {
       welcome: {
-        title: "AI Curriculum Co-Designer",
-        subtitle: "We will shape this module together while the draft updates live on the right.",
+        title: "Curriculum Intent",
+        subtitle: "Shape the graduate profile and module purpose before designing downstream.",
         stage: "Getting started",
         sectionLabel: "Module Overview",
-        prompts: ["Build on prior nursing science modules", "Prepare for ICU clinical placements"],
+        prompts: ["Strengthen escalation judgement", "Increase simulation-based practice"],
         actions: [
-          "Build on prior nursing science modules",
           "Strengthen escalation judgement",
           "Increase simulation-based practice",
+          "Build on prior nursing science modules",
           "Prepare for ICU clinical placements",
           "Improve interdisciplinary communication"
         ],
-        greeting: "Hi Sarah — let’s shape the role of this module within the programme first.\n\nI’ve reviewed the earlier curriculum analysis, benchmarking inputs, and existing references.",
-        intro: "<strong>To start, tell me:</strong><ul style=\"margin-top: 6px; padding-left: 20px;\"><li>What should students be able to handle more confidently after this module?</li><li>Where does this module sit within the learner journey?</li><li>Are there particular industry or clinical practice gaps this module should address?</li></ul>",
-        inputHint: "Describe the module's role and purpose..."
+        greeting: "I’ve reviewed the curriculum context — industry inputs, student insights, and existing materials. Before we design anything, I want to surface what I’m seeing.\n\nThree design tensions stand out:\n• The current module is weighted toward content coverage and theory recall\n• Employer inputs consistently emphasise applied clinical reasoning and escalation judgement\n• Student feedback signals overload during diagnostics and simulation weeks\n\nThese are the real design decisions. The draft structure will follow from here.",
+        intro: "What matters most to you for this redesign? I'll carry your priority into every downstream conversation.",
+        inputHint: "What should this module do better than it does today?"
       },
       synopsis: {
         title: "Synopsis & Aims",
@@ -2175,8 +2290,8 @@
         tradeoffs: "A narrower synopsis improves focus. A broader synopsis improves adaptability across cohorts."
       },
       outcomes: {
-        title: "Learning Outcomes",
-        subtitle: "Let us sharpen measurable outcomes together and keep assessment load realistic.",
+        title: "Learning Priorities",
+        subtitle: "What should students reliably do in clinical practice after this module?",
         stage: "Current focus",
         sectionLabel: "Learning Outcomes",
         contextUsed: [
@@ -2205,8 +2320,8 @@
         tradeoffs: "A/B improve measurability quickly. C improves team-readiness visibility but may require rubric updates."
       },
       content: {
-        title: "Content & Hours",
-        subtitle: "Let us rebalance topic flow and contact-hour pressure points.",
+        title: "Learning Journey",
+        subtitle: "How should learning scaffold intentionally across the teaching weeks?",
         stage: "Drafting",
         sectionLabel: "Content & Hours",
         contextUsed: [
@@ -2229,8 +2344,8 @@
         tradeoffs: "Lower overload improves depth retention. Asynchronous shift needs clearer quality guardrails for learner preparation."
       },
       teaching: {
-        title: "Teaching Strategy",
-        subtitle: "Let us tune facilitation rhythm and debrief depth for stronger reasoning quality.",
+        title: "Student Challenges",
+        subtitle: "Where do students struggle most, and what scaffolding supports real practice?",
         stage: "Drafting",
         sectionLabel: "Teaching Strategy",
         contextUsed: [
@@ -2253,8 +2368,8 @@
         tradeoffs: "Higher debrief precision improves outcome evidence. More facilitator guidance may require staff calibration resources."
       },
       assessment: {
-        title: "Assessment Design",
-        subtitle: "Let us shape authentic assessment evidence without creating unmanageable marking burden.",
+        title: "Assessment Strategy",
+        subtitle: "How do we evaluate meaningful capability rather than content recall?",
         stage: "Priority",
         sectionLabel: "Assessment Design",
         contextUsed: [
@@ -2283,8 +2398,8 @@
         tradeoffs: "Simulation-heavy design raises authenticity. Hybrid design may be easier to moderate across cohorts."
       },
       resources: {
-        title: "Learning Resources",
-        subtitle: "Let us prioritize resources that directly strengthen outcomes and assessment evidence.",
+        title: "Authentic Practice",
+        subtitle: "What real-world tasks and practice contexts anchor this module?",
         stage: "Enrichment",
         sectionLabel: "Learning Resources",
         contextUsed: [
@@ -2307,8 +2422,8 @@
         tradeoffs: "Local relevance increases immediate utility. Broader benchmarking resources may improve long-term curriculum resilience."
       },
       alignment: {
-        title: "Alignment Review",
-        subtitle: "Let us test coherence across outcomes, assessment, teaching strategy, and competency evidence.",
+        title: "Industry & Practice",
+        subtitle: "What workplace shifts and benchmark evidence should shape this module?",
         stage: "Review",
         sectionLabel: "Alignment Review",
         contextUsed: [
@@ -2344,8 +2459,8 @@
         tradeoffs: "Depth-first review prevents superficial alignment. Secondary workload checks protect feasibility before implementation."
       },
       integrity: {
-        title: "Responsible AI & Integrity",
-        subtitle: "Let us define AI-use boundaries that protect authenticity while keeping support practical.",
+        title: "AI & Future Practice",
+        subtitle: "How should AI reshape what we teach, assess, and expect students to do?",
         stage: "Policy",
         sectionLabel: "Responsible AI & Integrity",
         contextUsed: [
@@ -2387,37 +2502,37 @@
     let activeThreadKey = "welcome";
 
     const railLabels = {
-      welcome: "Module Direction",
-      outcomes: "Learning Outcomes",
-      content: "Content & Sequencing",
-      teaching: "Learning Activities",
-      assessment: "Assessment Design",
-      resources: "Learning Resources",
-      alignment: "Curriculum Alignment",
-      integrity: "AI & Academic Integrity"
+      welcome: "Curriculum Intent",
+      alignment: "Industry & Practice",
+      outcomes: "Learning Priorities",
+      teaching: "Student Challenges",
+      content: "Learning Journey",
+      resources: "Authentic Practice",
+      assessment: "Assessment Strategy",
+      integrity: "AI & Future Practice"
     };
 
     const threadOpeners = {
       synopsis: "I can frame this two ways: tighter escalation scope, or broader interdisciplinary scope.",
-      outcomes: "I see two directions: heavier escalation reasoning, or balanced reasoning + communication evidence.",
-      content: "Let us choose the pacing model first: front-loaded diagnostics, or staggered diagnostics with simulation loops.",
-      teaching: "Should learning activities lean toward simulation intensity, or shorter cycles with structured debriefs?",
-      assessment: "Two viable patterns: simulation-heavy evidence, or hybrid simulation plus short memo.",
-      resources: "I can prioritize realism resources first, or balance realism with moderation-friendly resources.",
-      alignment: "I found one tension: claims of competency depth are stronger than current evidence in two sections.",
-      integrity: "We can keep AI guidance coaching-led, but still enforce traceable reasoning in high-stakes tasks."
+      outcomes: "I've mapped current outcomes against employer inputs and benchmark institutions. The gap is clear: outcomes describe what students know, not what they can decide under pressure. Two directions are available — I'll show you both.",
+      content: "I've flagged two overload clusters: diagnostics week and simulation prep. Spreading these across cycles keeps total hours stable but opens more deliberate practice time. Which rebalancing principle matters most to you?",
+      teaching: "Student reflection data shows the same pattern across cohorts: debrief sessions end too quickly and don't push reasoning to a decision point. I can reframe facilitation around timing thresholds — want to see that approach?",
+      assessment: "Current assessment heavily weights written recall. Benchmark institutions with similar ICU modules have shifted toward live decision evidence with short written reasoning traces. I can model three patterns that keep marking manageable.",
+      resources: "The existing resource set covers theory well but is thin on escalation scenarios and interdisciplinary handover examples. I've shortlisted three bundles that directly address the revised assessment direction.",
+      alignment: "I've reviewed the industry advisory inputs and benchmarked against comparable ICU nursing programmes. One signal is consistent: workplace supervisors value escalation speed and interprofessional communication above clinical knowledge coverage.",
+      integrity: "AI in critical care practice is already reshaping what nurses need to know versus what they need to judge. I can help draft guidance that frames AI as a reasoning support tool — with clear boundaries for high-stakes decisions."
     };
 
     const pulseSignals = {
-      welcome: ["Draft updated 2 mins ago", "3 alignment dependencies detected", "1 unresolved issue"],
-      synopsis: ["Direction influences 3 downstream sections", "Benchmark similarity 72%"],
-      outcomes: ["Outcome wording affects assessment rubric", "1 verb-level conflict detected"],
-      content: ["Pacing affects Week 9 load", "Sequencing conflict: 1 cluster"],
-      teaching: ["Debrief depth linked to Outcome 3 evidence", "Facilitator load: moderate"],
-      assessment: ["Authenticity gain: high", "Moderation risk: medium"],
-      resources: ["2 resources not mapped to evidence", "Local relevance signal: strong"],
-      alignment: ["3 dependencies currently synced", "1 unresolved alignment issue"],
-      integrity: ["Policy mapped to latest assessment pattern", "Reasoning-trace requirement active"]
+      welcome: ["3 design tensions identified", "Design intent not yet captured", "Downstream sections awaiting direction"],
+      synopsis: ["Influences 3 downstream sections", "Benchmark similarity 72%"],
+      outcomes: ["Outcome verbs under-emphasise judgement", "Assessment rubric dependency detected"],
+      content: ["Week 9 overload flagged", "Simulation prep cluster needs rebalancing"],
+      teaching: ["Student debrief feedback consistent across cohorts", "Facilitation depth: opportunity"],
+      assessment: ["Recall-heavy weighting detected", "Benchmark shift toward applied evidence"],
+      resources: ["2 practice contexts not yet evidenced", "Escalation scenario gap identified"],
+      alignment: ["Industry inputs ready to synthesise", "Competency evidence: 1 gap remaining"],
+      integrity: ["AI practice reshaping clinical assessment expectations", "Policy draft aligned to current assessment direction"]
     };
 
     function createTurn(role, copy) {
@@ -2477,7 +2592,7 @@
 
       const delta = document.createElement("div");
       delta.className = "section-delta";
-      delta.innerHTML = "<strong>Updated just now</strong><br>Before: " + beforeText + "<br>After: " + afterText;
+      delta.innerHTML = "<strong>Draft updated from design discussion</strong><br>Based on: ✓ " + (railLabels[activeThreadKey] || "current conversation") + " · " + afterText;
       section.appendChild(delta);
     }
 
@@ -2564,15 +2679,17 @@
         const state = threadState[key] || {};
         const label = railLabels[key] || button.textContent;
         
-        let meta = "Waiting for direction";
+        let meta = "Not yet explored";
         if (state.updatedAt) {
-          meta = "✓ Drafted";
+          meta = "✓ Decision captured";
         } else {
-          if (key === "welcome") meta = "Active — clarifying role";
-          else if (key === "content") meta = "In progress — hours unresolved";
-          else if (key === "assessment") meta = "Waiting for outcome confirmation";
-          else if (key === "alignment") meta = "Pending upstream decisions";
-          else if (key === "integrity") meta = "Pending upstream decisions";
+          if (key === "welcome") meta = "Active — shaping intent";
+          else if (key === "content") meta = "In progress — pacing open";
+          else if (key === "assessment") meta = "Awaiting priority decision";
+          else if (key === "alignment") meta = "Industry signals ready";
+          else if (key === "integrity") meta = "Pending design decisions";
+          else if (key === "teaching") meta = "Student insights available";
+          else if (key === "resources") meta = "Practice contexts to review";
         }
 
         button.innerHTML = "<span class=\"thread-link-title\">" + label + "</span><span class=\"thread-link-meta\">" + meta + "</span>";
@@ -2634,7 +2751,7 @@
 
       threadTitle.textContent = lane.title;
       threadSubtitle.textContent = lane.subtitle;
-      activeSectionPill.textContent = "Editing: " + lane.sectionLabel;
+      activeSectionPill.textContent = "Updating: " + lane.sectionLabel;
       activeThreadKey = key;
       renderPulse(key);
 
@@ -2665,7 +2782,7 @@
           chip.addEventListener("click", () => {
             threadState.welcome = {
               choice: action,
-              aiReply: "Captured. I will carry this direction into outcomes and pacing.",
+              aiReply: "Captured. I'll carry this orientation into every design conversation that follows — it's now your persistent design intent.",
               updatedAt: "just now"
             };
             decorateRail();
@@ -2681,7 +2798,7 @@
           threadCanvas.appendChild(createTurn("AI", threadState.welcome.aiReply));
           const updated = document.createElement("div");
           updated.className = "draft-update";
-          updated.textContent = "Draft updated: Direction propagated into outcomes and pacing conversations.";
+          updated.textContent = "Design intent captured — draft synthesis will reflect this priority across all sections.";
           threadCanvas.appendChild(updated);
         }
         return;
@@ -2696,7 +2813,7 @@
 
       const intro = document.createElement("div");
       intro.className = "choice-intro";
-      intro.textContent = "Which direction should I apply to the live draft now?";
+      intro.textContent = "Which direction should I synthesise into the draft?";
       directions.appendChild(intro);
 
       const options = document.createElement("div");
