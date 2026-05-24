@@ -552,10 +552,7 @@ img, svg { display: block; }
 .ai-chat-bubble.user { background: var(--color-accent); color: white; align-self: flex-end; border-radius: var(--radius-md) var(--radius-md) 4px var(--radius-md); }
 .ai-chat-bubble.assistant { background: var(--color-surface); color: var(--color-text-primary); border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4px; }
 .ai-typing-dots { display: flex; gap: 4px; align-items: center; padding: 10px 12px; background: var(--color-surface); border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4px; width: fit-content; }
-.ai-typing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-text-tertiary); animation: typing-bounce 1.2s infinite ease-in-out; }
-.ai-typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.ai-typing-dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typing-bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+.ai-typing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-text-tertiary); }
 
 /* --- AI FAB --- */
 .ai-fab {
@@ -999,10 +996,9 @@ tr:hover .row-actions { opacity: 1; }
 .npgc-checkbox input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--color-accent); cursor: pointer; }
 
 /* ============================================================
-   SHIMMER / SKELETON
+   SKELETON
    ============================================================ */
-.skeleton { background: linear-gradient(90deg, var(--color-border) 25%, var(--color-surface-hover) 50%, var(--color-border) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--radius-sm); }
-@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.skeleton { background: var(--color-border); border-radius: var(--radius-sm); }
 .skeleton-text { height: 14px; margin-bottom: 8px; }
 .skeleton-text:last-child { width: 60%; }
 .skeleton-block { height: 80px; }

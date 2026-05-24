@@ -1482,25 +1482,9 @@
       cursor: default;
     }
 
-    .module-section.just-updated {
-      animation: sectionPulse 1.3s ease;
-    }
-
-    @keyframes sectionPulse {
-      0% {
-        box-shadow: inset 0 0 0 1px rgba(222, 170, 63, 0.45);
-        background: linear-gradient(180deg, #fff7de 0%, transparent 80%);
-      }
-      100% {
-        box-shadow: inset 0 0 0 0 rgba(66, 140, 210, 0);
-        background: linear-gradient(180deg, #f7fbff 0%, transparent 72%);
-      }
-    }
-
     .line-updated {
       border-radius: 6px;
-      background: linear-gradient(90deg, #fff5cf 0%, #fffdf3 100%);
-      transition: background 400ms ease;
+      background: #fffbeb;
     }
 
     .section-delta {
@@ -1957,9 +1941,7 @@
     .skel-l {
       height: 9px;
       border-radius: 4px;
-      background: linear-gradient(90deg, #e0e9f2 0%, #edf3f9 50%, #e0e9f2 100%);
-      background-size: 200% 100%;
-      animation: npSkelShimmer 1.8s ease-in-out infinite;
+      background: #e0e9f2;
     }
     .skel-w-90 { width: 90%; }
     .skel-w-75 { width: 75%; }
@@ -2131,7 +2113,7 @@
             <button class="thread-link" data-thread="content" type="button">Topics &amp; Content</button>
             <button class="thread-link" data-thread="teaching" type="button">Teaching Approach</button>
             <button class="thread-link" data-thread="assessment" type="button">Assessment</button>
-            <button class="thread-link" data-thread="integrity" type="button">AI Use in Practice</button>
+            <button class="thread-link" data-thread="integrity" type="button">AI Guidance</button>
             <div class="thread-rail-divider"></div>
             <div class="design-intent">
               <div class="design-intent-label">Design Priorities</div>
@@ -2555,19 +2537,19 @@
         sectionLabel: "Module Overview",
         prompts: ["Strengthen escalation judgement", "Increase applied simulation practice"],
         reviewed: [
-          "ICU curriculum materials",
-          "industry feedback",
-          "student reflections"
+          "Existing module materials",
+          "Industry inputs",
+          "Student feedback"
         ],
         reviewing: [
-          "employer inputs",
-          "prior module feedback",
-          "ICU competency expectations"
+          "Existing module materials",
+          "Industry inputs",
+          "Student feedback"
         ],
-        synthesisLead: "Possible focus areas",
+        synthesisLead: "Based on the inputs reviewed, here are some areas we could strengthen.",
         patterns: [
-          "Applied decision-making",
-          "Content load balance",
+          "Applied clinical judgement",
+          "Reduced content overload",
           "Simulation-based practice"
         ],
         workingStatus: "Synthesising focus areas...",
@@ -2776,7 +2758,7 @@
         tradeoffs: "Depth-first review prevents superficial alignment. Secondary workload checks protect feasibility before implementation."
       },
       integrity: {
-        title: "AI Use in Practice",
+        title: "AI Guidance",
         subtitle: "How should students and lecturers use AI in this module?",
         stage: "Policy",
         sectionLabel: "Responsible AI & Integrity",
@@ -2825,7 +2807,7 @@
       content: "Topics & Content",
       teaching: "Teaching Approach",
       assessment: "Assessment",
-      integrity: "AI Use in Practice"
+      integrity: "AI Guidance"
     };
 
     const threadOpeners = {
@@ -2937,7 +2919,7 @@
 
       const heading = document.createElement("div");
       heading.className = "direction-heading";
-      heading.textContent = "Possible focus areas";
+      heading.textContent = "Possible curriculum directions";
 
       const intro = document.createElement("div");
       intro.className = "choice-intro conversational";
@@ -3224,8 +3206,6 @@
       const before = (target.textContent || "").trim();
       const after = buildUpdatedText(threadKey, driver);
       target.textContent = after;
-      target.classList.add("line-updated");
-      window.setTimeout(() => target.classList.remove("line-updated"), 1600);
       showDelta(section, threadKey, driver, after);
 
       const lane = threadData[threadKey] || { sectionLabel: "section" };
@@ -3270,8 +3250,6 @@
       const before = (target.textContent || "").trim();
       const after = buildWelcomeFocusText(driver);
       target.textContent = after;
-      target.classList.add("line-updated");
-      window.setTimeout(() => target.classList.remove("line-updated"), 1600);
       showDelta(section, "welcome", driver, after);
 
       return {
@@ -3332,22 +3310,12 @@
     }
 
     function triggerDraftUpdate(threadKey, note) {
-      const sectionId = sectionIdForThread(threadKey);
-      const section = document.getElementById(sectionId);
-
       if (threadThinking) {
         threadThinking.textContent = note || "Draft updated.";
         threadThinking.classList.add("show");
         window.setTimeout(() => {
           threadThinking.classList.remove("show");
         }, 1200);
-      }
-
-      if (section) {
-        section.classList.add("just-updated");
-        window.setTimeout(() => {
-          section.classList.remove("just-updated");
-        }, 1450);
       }
     }
 
@@ -3366,7 +3334,7 @@
           else if (key === "content") meta = "Content hours to check";
           else if (key === "teaching") meta = "Teaching methods to confirm";
           else if (key === "assessment") meta = "Assessment to confirm";
-          else if (key === "integrity") meta = "AI guidance to add";
+          else if (key === "integrity") meta = "AI guidance to confirm";
         }
 
         button.innerHTML = "<span class=\"thread-link-title\">" + label + "</span><span class=\"thread-link-meta\">" + meta + "</span>";
@@ -3981,14 +3949,7 @@
     .np-skel-line {
       height: 10px;
       border-radius: 4px;
-      background: linear-gradient(90deg, #e4eaf1 0%, #f0f4f8 50%, #e4eaf1 100%);
-      background-size: 200% 100%;
-      animation: npSkelShimmer 1.8s ease-in-out infinite;
-    }
-
-    @keyframes npSkelShimmer {
-      0%   { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
+      background: #e4eaf1;
     }
 
     .np-skel-w-full { width: 100%; }
@@ -4023,9 +3984,7 @@
     .np-skel-val {
       height: 10px;
       border-radius: 4px;
-      background: linear-gradient(90deg, #e4eaf1 0%, #f0f4f8 50%, #e4eaf1 100%);
-      background-size: 200% 100%;
-      animation: npSkelShimmer 1.8s ease-in-out infinite;
+      background: #e4eaf1;
     }
 
     .np-skel-val.np-skel-short { width: 60%; }
