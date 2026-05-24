@@ -1594,6 +1594,113 @@
       color: #314960;
     }
 
+    /* ── Artifact toolbar ── */
+    .artifact-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 10px 18px 12px;
+      border-top: 1px solid #e5ecf3;
+      background: #fafcff;
+    }
+    .artifact-toolbar-left { display: grid; gap: 4px; }
+    .artifact-draft-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .artifact-draft-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #1d3148;
+      letter-spacing: -0.005em;
+    }
+    .artifact-sync {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #1d6b45;
+    }
+    .sync-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 2.5px rgba(34,197,94,0.18);
+    }
+    .artifact-recent-update {
+      font-size: 11px;
+      color: #7a8fa3;
+      line-height: 1.4;
+    }
+    .artifact-toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .artifact-btn-ghost {
+      border: 1px solid #cddaec;
+      border-radius: 6px;
+      background: #fff;
+      color: #3d5a78;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 11px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: var(--font-sans);
+    }
+    .artifact-btn-ghost:hover { border-color: var(--brand); color: var(--brand); }
+    .artifact-btn-export {
+      border: 1px solid var(--brand);
+      border-radius: 6px;
+      background: var(--brand);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: var(--font-sans);
+    }
+    .artifact-btn-export:hover { background: #003366; border-color: #003366; }
+    .export-wrap { position: relative; }
+    .export-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: #fff;
+      border: 1px solid #c8daec;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(18,36,54,0.14);
+      z-index: 50;
+      min-width: 220px;
+      overflow: hidden;
+    }
+    .export-dropdown[hidden] { display: none; }
+    .export-opt {
+      display: block;
+      width: 100%;
+      border: none;
+      background: none;
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #243448;
+      cursor: pointer;
+      border-bottom: 1px solid #e8eef4;
+      font-family: var(--font-sans);
+    }
+    .export-opt:last-child { border-bottom: none; }
+    .export-opt:hover { background: #f4f8fd; color: var(--brand); }
+
     /* ── Design intent panel in thread rail ── */
     .design-intent {
       margin: 2px 8px 0;
@@ -1925,10 +2032,27 @@
                 </tr>
               </tbody>
             </table>
-            <div class="np-live-bar">
-              <div class="artifact-live" id="activeSectionPill">AI-synthesised module draft</div>
-              <p class="artifact-change-log" id="artifactChangeLog"></p>
+            <div class="artifact-toolbar">
+              <div class="artifact-toolbar-left">
+                <div class="artifact-draft-info">
+                  <span class="artifact-draft-title">Live NP Module Draft</span>
+                  <span class="artifact-sync"><span class="sync-dot"></span><span id="syncLabel">Synced just now</span></span>
+                </div>
+                <div class="artifact-recent-update" id="artifactChangeLog">Continuously updated from curriculum design discussions</div>
+              </div>
+              <div class="artifact-toolbar-right">
+                <button class="artifact-btn-ghost" type="button">Open Full Draft ↗</button>
+                <div class="export-wrap">
+                  <button class="artifact-btn-export" type="button" onclick="toggleExport(event)">Export ▾</button>
+                  <div class="export-dropdown" id="exportDropdown" hidden>
+                    <button class="export-opt" type="button" onclick="closeExport()">NP Module Design Doc (.docx)</button>
+                    <button class="export-opt" type="button" onclick="closeExport()">PDF Review Copy</button>
+                    <button class="export-opt" type="button" onclick="closeExport()">Teaching &amp; Assessment Summary</button>
+                  </div>
+                </div>
+              </div>
             </div>
+            <span id="activeSectionPill" style="display:none;"></span>
           </header>
 
           <div class="artifact-body">
@@ -2574,11 +2698,39 @@
     }
 
     function updateArtifactLog(text) {
-      if (!artifactChangeLog) {
-        return;
+      if (artifactChangeLog) {
+        artifactChangeLog.textContent = text + " · " + nowLabel();
       }
-      artifactChangeLog.textContent = text + " Updated at " + nowLabel() + ".";
+      const syncEl = document.getElementById("syncLabel");
+      if (syncEl) {
+        syncEl.textContent = "Synced just now";
+        syncSeconds = 0;
+      }
     }
+
+    let syncSeconds = 0;
+    window.setInterval(function() {
+      syncSeconds++;
+      const syncEl = document.getElementById("syncLabel");
+      if (!syncEl) return;
+      if (syncEl.textContent.startsWith("Updating")) return;
+      if (syncSeconds > 120) {
+        syncEl.textContent = "Synced " + Math.floor(syncSeconds / 60) + " mins ago";
+      } else if (syncSeconds > 65) {
+        syncEl.textContent = "Synced 1 min ago";
+      }
+    }, 1000);
+
+    function toggleExport(event) {
+      event.stopPropagation();
+      const dd = document.getElementById("exportDropdown");
+      if (dd) dd.hidden = !dd.hidden;
+    }
+    function closeExport() {
+      const dd = document.getElementById("exportDropdown");
+      if (dd) dd.hidden = true;
+    }
+    document.addEventListener("click", function() { closeExport(); });
 
     function showDelta(section, beforeText, afterText) {
       if (!section) {
@@ -2751,8 +2903,15 @@
 
       threadTitle.textContent = lane.title;
       threadSubtitle.textContent = lane.subtitle;
-      activeSectionPill.textContent = "Updating: " + lane.sectionLabel;
+      activeSectionPill.textContent = lane.sectionLabel;
       activeThreadKey = key;
+      const syncEl = document.getElementById("syncLabel");
+      if (syncEl && key !== "welcome") {
+        syncEl.textContent = "Reviewing " + lane.sectionLabel + "...";
+        window.setTimeout(function() {
+          if (syncEl.textContent.startsWith("Reviewing")) syncEl.textContent = "Synced just now";
+        }, 900);
+      }
       renderPulse(key);
 
       if (threadInput) {
