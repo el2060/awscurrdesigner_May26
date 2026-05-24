@@ -2036,7 +2036,7 @@
           <section class="thread-workspace" aria-live="polite">
             <header class="thread-head">
               <div class="thread-head-top">
-                <h2 class="thread-title" id="threadTitle">Curriculum Draft</h2>
+                <h2 class="thread-title" id="threadTitle">Module Design Workspace</h2>
               </div>
               <p class="thread-sub" id="threadSubtitle">Build and refine your module draft with AI.</p>
               <div class="thread-pulse" id="threadPulse"></div>
@@ -2451,7 +2451,7 @@
           "Prepare for ICU clinical placements",
           "Improve interdisciplinary communication"
         ],
-        greeting: "Three design tensions identified:\n• Module weighted toward content coverage, not applied reasoning\n• Employer inputs emphasise escalation judgement\n• Student feedback flags overload in diagnostics and simulation weeks",
+        greeting: "Three areas to consider:\n• Module currently weighted toward content coverage, not applied practice\n• Employers emphasise escalation judgement and clinical decision-making\n• Student feedback flags content overload in diagnostics and simulation weeks",
         intro: "Select a design priority to get started:",
         inputHint: "Refine module direction..."
       },
@@ -2492,15 +2492,9 @@
         ],
         downstream: ["Assessment Design", "Alignment Review", "Responsible AI & Integrity"],
         systemSignal: "AI note: escalation outcome verb updates will trigger rubric wording checks in Assessment Design.",
-        options: ["Clinical judgement", "Escalation reasoning", "Interdisciplinary response"],
+        options: ["Clinical decision-making", "Escalation and reasoning", "Interdisciplinary communication"],
         selected: 1,
-        competencySignals: [
-          "Critical Thinking & Problem Solving",
-          "Communication",
-          "Collaboration & Cross-Cultural Sensitivity"
-        ],
-        signalSummary: "Outcome wording strongly evidences Communication. Critical Thinking evidence is improving, but Collaboration is still weakly evidenced in current assessments.",
-        prompts: ["Generate 2 alternatives", "Check Bloom level", "Map to assessments", "Tighten verbs"],
+        prompts: ["Show alternatives", "Check outcome level", "Link to assessments", "Tighten wording"],
         blocks: [
           { label: "AI Co-Design", copy: "Before revising further: should this module emphasize clinical judgement, procedural confidence, or interdisciplinary escalation?" },
           { label: "Module Leader", copy: "More emphasis on escalation and reasoning." },
@@ -2522,9 +2516,9 @@
         ],
         downstream: ["Teaching Strategy", "Assessment Design"],
         systemSignal: "AI note: diagnostic-hour redistribution detected. Teaching Strategy will need a related update.",
-        options: ["Reduce overload", "Shift to simulation", "Online/offline rebalance"],
+        options: ["Reduce content load", "More simulation-based", "Rebalance OAL and IPL hours"],
         selected: 0,
-        prompts: ["Trim low-value overlap", "Show week-by-week flow", "Check contact-hour cap"],
+        prompts: ["Remove topic overlap", "Show weekly schedule", "Check total hours"],
         blocks: [
           { label: "AI Co-Design", copy: "Where is learner overload most visible now: diagnostics week, simulation week, or debrief consolidation?" },
           { label: "Module Leader", copy: "Simulation prep and diagnostics week are overloaded." },
@@ -2546,9 +2540,9 @@
         ],
         downstream: ["Learning Outcomes", "Alignment Review"],
         systemSignal: "AI note: debrief prompt revisions may require outcome evidence language alignment.",
-        options: ["Debrief depth", "Simulation touchpoints", "Peer critique loops"],
+        options: ["Deeper debriefs", "More simulation sessions", "Peer feedback activities"],
         selected: 1,
-        prompts: ["Add facilitator prompts", "Show cycle cadence", "Balance instructor load"],
+        prompts: ["Add facilitator notes", "Show weekly schedule", "Balance lecturer workload"],
         blocks: [
           { label: "AI Co-Design", copy: "Should debriefs prioritize diagnostic justification, communication under pressure, or escalation timing decisions?" },
           { label: "Module Leader", copy: "Escalation timing and justification." },
@@ -2570,15 +2564,9 @@
         ],
         downstream: ["Learning Outcomes", "Alignment Review", "Responsible AI & Integrity"],
         systemSignal: "AI note: assessment weighting changes will update the alignment review.",
-        options: ["Authentic evidence", "Workload balance", "AI-safe redesign"],
+        options: ["Applied scenarios", "Manageable workload", "AI-appropriate tasks"],
         selected: 2,
-        competencySignals: [
-          "Communication",
-          "Critical Thinking & Problem Solving",
-          "Digital Competence"
-        ],
-        signalSummary: "Current assessment pattern strongly evidences Communication and Critical Thinking, but Collaboration and Digital Competence remain under-evidenced.",
-        prompts: ["Compare 3 patterns", "Show rubric impact", "Reduce marking overhead"],
+        prompts: ["Show 3 options", "Check rubric fit", "Reduce marking load"],
         blocks: [
           { label: "AI Co-Design", copy: "Which evidence should carry the heaviest weight: live simulation decisions, written reasoning, or interdisciplinary brief defence?" },
           { label: "Module Leader", copy: "Live simulation plus concise written reasoning." },
@@ -2661,9 +2649,9 @@
         ],
         downstream: ["Assessment Design", "Learning Outcomes"],
         systemSignal: "AI note: policy guidance is aligned with the latest simulation-heavy assessment pattern.",
-        options: ["Preventive policy", "Assessment safeguards", "Student transparency"],
+        options: ["Clear guidelines", "Assessment boundaries", "Student guidance"],
         selected: 1,
-        prompts: ["Draft policy language", "Insert in guide", "Create learner checklist"],
+        prompts: ["Draft guidance", "Add to module guide", "Student checklist"],
         blocks: [
           { label: "AI Co-Design", copy: "Should this policy sound compliance-led, coaching-led, or scenario-led for student comprehension?" },
           { label: "Module Leader", copy: "Coaching-led with clear boundaries." },
@@ -2705,16 +2693,16 @@
       content: "Suggested refinements:\n• Spread diagnostics across two cycles\n• Convert prep segments to guided async review\n• Keep total contact hours stable",
       teaching: "Suggested refinements:\n• Reframe debriefs around timing thresholds\n• Add short reasoning checkpoints between simulations\n• Reduce facilitator dependency in prep phases",
       assessment: "Suggested refinements:\n• Shift from written recall to live decision evidence\n• Keep written artefacts short but traceable\n• Model 3 assessment patterns for review",
-      integrity: "Suggested additions:\n• Frame AI as reasoning support, not replacement\n• Add explicit boundaries for high-stakes decisions\n• Include permitted vs. prohibited AI actions"
+      integrity: "Suggested refinements:\n• Frame AI as a support tool, not a replacement for reasoning\n• Add clear boundaries for high-stakes assessments\n• Include permitted and prohibited AI actions for students"
     };
 
     const pulseSignals = {
-      welcome: ["3 design tensions identified", "Design intent not yet captured", "Downstream sections awaiting direction"],
-      outcomes: ["Outcome verbs under-emphasise judgement", "Assessment rubric dependency detected"],
-      content: ["Week 9 overload flagged", "Simulation prep cluster needs rebalancing"],
-      teaching: ["Debrief depth: consistent gap across cohorts", "Facilitation scaffolding to review"],
-      assessment: ["Recall-heavy weighting detected", "Benchmark shift toward applied evidence"],
-      integrity: ["AI practice reshaping clinical assessment expectations", "Policy draft aligned to current assessment direction"]
+      welcome: ["Module priorities not yet set", "Select a focus area to begin"],
+      outcomes: ["Outcome wording to review", "Assessment link to check"],
+      content: ["Week 9 content load flagged", "Simulation hours to rebalance"],
+      teaching: ["Debrief activities to confirm", "Facilitation notes to add"],
+      assessment: ["Assessment balance to review", "Applied evidence approach suggested"],
+      integrity: ["AI guidance not yet added", "AI guidelines to confirm"]
     };
 
     function createTurn(role, copy) {
