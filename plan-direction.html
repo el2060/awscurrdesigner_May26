@@ -2721,18 +2721,17 @@
         <div class="thread-shell">
           <nav class="thread-rail" aria-label="MDD section drafting">
             <div class="thread-rail-kicker">AI-Assisted Drafting</div>
-            <button class="thread-link active" data-thread="welcome" type="button"><span class="tl-num">1.</span><span class="tl-name">Synopsis</span></button>
+            <button class="thread-link active" data-thread="synopsis" type="button"><span class="tl-num">1.</span><span class="tl-name">Synopsis</span></button>
             <button class="thread-link" data-thread="skills" type="button"><span class="tl-num">2.</span><span class="tl-name">Skills Framework</span></button>
             <button class="thread-link" data-thread="outcomes" type="button"><span class="tl-num">3.</span><span class="tl-name">Module Learning Outcomes</span></button>
             <button class="thread-link" data-thread="co_outcomes" type="button"><span class="tl-num">4a.</span><span class="tl-name">Course Outcomes</span></button>
             <button class="thread-link" data-thread="mapping" type="button"><span class="tl-num">4b.</span><span class="tl-name">MLO Mapping to Course Outcomes</span></button>
-            <button class="thread-link" data-thread="gradskills" type="button"><span class="tl-num">5.</span><span class="tl-name">Graduate Skills Mapping</span></button>
-            <button class="thread-link" data-thread="content" type="button"><span class="tl-num">6.</span><span class="tl-name">Topics &amp; Teaching Schedule</span></button>
+            <button class="thread-link" data-thread="gradskills" type="button"><span class="tl-num">5.</span><span class="tl-name">MLO Mapping to NP Graduate Skills &amp; Competencies</span></button>
+            <button class="thread-link" data-thread="content" type="button"><span class="tl-num">6.</span><span class="tl-name">Module Topics &amp; Teaching Schedule</span></button>
             <button class="thread-link" data-thread="hours" type="button"><span class="tl-num">7.</span><span class="tl-name">Teaching Hours</span></button>
             <button class="thread-link" data-thread="teaching" type="button"><span class="tl-num">8.</span><span class="tl-name">Teaching &amp; Learning Strategies</span></button>
             <button class="thread-link" data-thread="assessment" type="button"><span class="tl-num">9.</span><span class="tl-name">Assessment</span></button>
             <button class="thread-link" data-thread="references" type="button"><span class="tl-num">10.</span><span class="tl-name">Recommended Texts / References</span></button>
-            <button class="thread-link" data-thread="integrity" type="button"><span class="tl-num">—</span><span class="tl-name">AI Use &amp; Guidance</span></button>
           </nav>
 
           <section class="thread-workspace" aria-live="polite">
@@ -2830,7 +2829,7 @@
               <button data-section="synopsis" type="button">1. Synopsis</button>
               <button data-section="skills" type="button">2. Skills Framework</button>
               <button data-section="outcomes" type="button">3. Module Learning Outcomes</button>
-              <button data-section="co-outcomes" type="button">4a. Course Outcomes</button>
+              <button data-section="co_outcomes" type="button">4a. Course Outcomes</button>
               <button data-section="mapping" type="button">4b. MLO Mapping to Course Outcomes</button>
               <button data-section="gradskills" type="button">5. MLO Mapping to NP Graduate Skills &amp; Competencies</button>
               <button data-section="content" type="button">6. Module Topics &amp; Teaching Schedule</button>
@@ -2838,7 +2837,6 @@
               <button data-section="teaching" type="button">8. Teaching &amp; Learning Strategies</button>
               <button data-section="assessment" type="button">9. Assessment</button>
               <button data-section="references" type="button">10. Recommended Texts / References</button>
-              <button data-section="integrity" type="button">AI Use &amp; Guidance</button>
             </nav>
 
             <article class="artifact-scroll" id="artifactScroll">
@@ -2944,7 +2942,7 @@
               </section>
 
               <!-- 4a. Course Outcomes -->
-              <section class="module-section" id="co-outcomes">
+              <section class="module-section" id="co_outcomes">
                 <div class="section-label np-sec-label">Section 4a</div>
                 <h3 class="section-title">4a. COURSE OUTCOMES</h3>
                 <table class="mdd-doc-table">
@@ -2966,7 +2964,7 @@
               <!-- 4b. MLO Mapping to Course Outcomes -->
               <section class="module-section" id="mapping">
                 <div class="section-label np-sec-label">Section 4b</div>
-                <h3 class="section-title">4b. MODULE LEARNING OUTCOMES MAPPING TO COURSE OUTCOMES</h3>
+                <h3 class="section-title">4b. MLO MAPPING TO COURSE OUTCOMES</h3>
                 <table class="mdd-matrix-table">
                   <thead>
                     <tr>
@@ -3023,7 +3021,7 @@
               <!-- 5. MLO Mapping to NP Graduate Skills & Competencies -->
               <section class="module-section" id="gradskills">
                 <div class="section-label np-sec-label">Section 5</div>
-                <h3 class="section-title">5. MAPPING OF MODULE LEARNING OUTCOMES TO NP GRADUATE SKILLS &amp; COMPETENCIES</h3>
+                <h3 class="section-title">5. MLO MAPPING TO NP GRADUATE SKILLS &amp; COMPETENCIES</h3>
                 <table class="mdd-doc-table">
                   <thead>
                     <tr>
@@ -3228,35 +3226,7 @@
                 </div>
               </section>
 
-              <!-- AI Use & Guidance (unnumbered) -->
-              <section class="module-section" id="integrity">
-                <div class="section-label np-sec-label">AI Guidance</div>
-                <h3 class="section-title">AI USE &amp; GUIDANCE</h3>
-                <table class="mdd-doc-table">
-                  <tbody>
-                    <tr>
-                      <td class="mdd-ai-category">Permitted</td>
-                      <td>AI for case research, scenario preparation, and reasoning drafts</td>
-                    </tr>
-                    <tr>
-                      <td class="mdd-ai-category mdd-ai-restricted">Restricted</td>
-                      <td>AI substitution of clinical judgement in live simulation tasks</td>
-                    </tr>
-                    <tr>
-                      <td class="mdd-ai-category mdd-ai-required">Required</td>
-                      <td>Reasoning trace annotation on all AI-assisted written work</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="np-skel-block" style="margin-top:8px">
-                  <div class="np-skel-line np-skel-w-full"></div>
-                  <div class="np-skel-line np-skel-w-75"></div>
-                </div>
-                <div class="mdd-inline-actions">
-                  <button class="mdd-inline-action" type="button">Refine</button>
-                  <button class="mdd-inline-action" type="button">Add guideline</button>
-                </div>
-              </section>
+
 
               <!-- 10. References -->
               <section class="module-section" id="references">
@@ -3670,7 +3640,7 @@
     };
 
     const sectionData = {
-      welcome: {
+      synopsis: {
         num: "1.",
         title: "Synopsis",
         focus: "Draft the module synopsis — purpose, scope, and learner context.",
@@ -3754,7 +3724,7 @@
       },
       gradskills: {
         num: "5.",
-        title: "Graduate Skills Mapping",
+        title: "MLO Mapping to NP Graduate Skills & Competencies",
         focus: "Map module learning outcomes to NP Graduate Skills and Competencies.",
         context: [
           "NP Graduate Skills framework (6 competencies)",
@@ -3834,23 +3804,6 @@
           "MO4 and MO5 are not yet covered by any assessment component"
         ],
         actions: ["Generate assessment plan", "Check weighting total", "Align to MLOs", "Review rubric fit"]
-      },
-      integrity: {
-        num: "—",
-        title: "AI Use & Guidance",
-        focus: "Draft the AI use and guidance policy for students and assessment boundaries.",
-        context: [
-          "Curriculum standards for responsible AI use",
-          "Assessment authenticity requirements",
-          "Benchmark policy language from peer institutions",
-          "NP AI policy guidelines"
-        ],
-        support: [
-          "Permitted AI section needs specifics — avoid generic 'approved tools' language",
-          "Assessment boundaries for simulation components not yet addressed",
-          "Student attribution requirements should reference NP academic integrity policy"
-        ],
-        actions: ["Draft guidance", "Add assessment boundaries", "Refine student guidance", "Review policy language"]
       },
       references: {
         num: "10.",
@@ -4846,75 +4799,56 @@
     }
 
     function renderThread(key) {
-      const lane = threadData[key];
-
-      if (!lane) {
-        return;
-      }
-
-      clearWelcomeFlowTimers();
-
-      threadTitle.textContent = lane.title;
-      threadSubtitle.textContent = lane.subtitle;
-      activeSectionPill.textContent = lane.sectionLabel;
+      const data = sectionData[key] || sectionData['synopsis']; // fallback
+      
+      threadTitle.textContent = data.title || "Module Section";
+      threadSubtitle.textContent = "AI Support for this section";
+      activeSectionPill.textContent = data.num + " " + data.title;
       activeThreadKey = key;
+
       const syncEl = document.getElementById("syncLabel");
-      if (syncEl && key !== "welcome") {
-        syncEl.textContent = "Reviewing " + lane.sectionLabel + "...";
+      if (syncEl) {
+        syncEl.textContent = "Reviewing " + data.title + "...";
         window.setTimeout(function() {
           if (syncEl.textContent.startsWith("Reviewing")) syncEl.textContent = "Synced just now";
         }, 900);
       }
-      renderPulse(key);
-
-      if (threadInput) {
-        threadInput.placeholder = lane.inputHint || "Tell AI what to adjust in this section";
-      }
 
       threadCanvas.innerHTML = "";
 
-      if (key === "welcome") {
-        renderWelcomeThread(lane);
-        return;
+      // Current drafting focus
+      if (data.focus) {
+        const focusSect = document.createElement("div");
+        focusSect.className = "mdd-panel-section";
+        focusSect.innerHTML = `<div class="mdd-panel-label">Current drafting focus</div><div class="mdd-panel-body">${data.focus}</div>`;
+        threadCanvas.appendChild(focusSect);
       }
 
-      const state = threadState[key] || {};
-
-      // AI recommendation — intelligent statement + signals, not a content dump
-      const recBlock = createAiRecommendation(lane, key);
-      if (recBlock) threadCanvas.appendChild(recBlock);
-
-      threadCanvas.appendChild(createLaneQuestion(lane, state, key));
-
-      if (state.choice) {
-        threadCanvas.appendChild(createTurn("You", state.choice));
-        threadCanvas.appendChild(createTurn("AI", state.aiReply));
+      // Connected context
+      if (data.context && data.context.length > 0) {
+        const ctxSect = document.createElement("div");
+        ctxSect.className = "mdd-panel-section";
+        let ctxList = data.context.map(c => `<li>${c}</li>`).join("");
+        ctxSect.innerHTML = `<div class="mdd-panel-label">Connected context</div><ul class="mdd-panel-list">${ctxList}</ul>`;
+        threadCanvas.appendChild(ctxSect);
       }
 
-      if (state.freeform) {
-        threadCanvas.appendChild(createTurn("You", state.freeform));
-        threadCanvas.appendChild(createTurn("AI", state.freeformReply));
+      // AI drafting support
+      if (data.support && data.support.length > 0) {
+        const supSect = document.createElement("div");
+        supSect.className = "mdd-panel-section";
+        let supList = data.support.map(s => `<li>${s}</li>`).join("");
+        supSect.innerHTML = `<div class="mdd-panel-label">AI drafting support</div><div class="mdd-panel-body" style="margin-bottom:6px">Suggested improvements:</div><ul class="mdd-support-list">${supList}</ul>`;
+        threadCanvas.appendChild(supSect);
       }
 
-      if (state.updatedNote) {
-        const updated = document.createElement("div");
-        updated.className = "draft-update";
-        updated.textContent = "✓ " + state.updatedNote;
-        threadCanvas.appendChild(updated);
-
-        const nextKeyMap = { skills: "outcomes", outcomes: "mapping", mapping: "gradskills", gradskills: "content", content: "teaching", teaching: "assessment", assessment: "integrity", integrity: "references" };
-        const nextKey = nextKeyMap[key];
-        if (nextKey && threadData[nextKey]) {
-          const nextLane = threadData[nextKey];
-          const progressCard = document.createElement("div");
-          progressCard.className = "next-step-card";
-          progressCard.innerHTML =
-            "<div class=\"next-step-label\">Recommended Next Step</div>" +
-            "<div class=\"next-step-title\">" + nextLane.title + "</div>" +
-            "<div style=\"font-size:12px;color:#4a6580;line-height:1.45\">AI will build on your approved direction to prepare draft " + nextLane.title.toLowerCase() + " considerations.</div>" +
-            "<button class=\"next-step-btn\" type=\"button\" onclick=\"activateThread('" + nextKey + "', true)\">Continue to " + nextLane.title + " →</button>";
-          threadCanvas.appendChild(progressCard);
-        }
+      // Quick actions
+      if (data.actions && data.actions.length > 0) {
+        const actSect = document.createElement("div");
+        actSect.className = "mdd-panel-section";
+        let actBtns = data.actions.map(a => `<button class="mdd-panel-action-btn" type="button" onclick="triggerDraftUpdate('${key}', 'Applying action: ${a}...')">${a}</button>`).join("");
+        actSect.innerHTML = `<div class="mdd-panel-label">Quick actions</div><div class="mdd-panel-actions">${actBtns}</div>`;
+        threadCanvas.appendChild(actSect);
       }
     }
 
