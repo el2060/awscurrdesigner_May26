@@ -2122,6 +2122,70 @@
     }
     .ctx-downstream-chip::before { content: "✓"; font-size: 10px; }
 
+    /* ── AI Signal Chips ──────────────────────────────────────── */
+    .ai-signal-block { margin-bottom: 10px; }
+    .ai-signal-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+    .ai-signal-chip {
+      font-size: 11px; font-weight: 600; color: #4a5980;
+      background: #eef2ff; border: 1px solid #c7d3f5;
+      border-radius: 999px; padding: 3px 9px;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .ai-signal-chip::before { content: "↑"; font-size: 10px; color: #7a8ec0; }
+
+    /* ── AI Proposal Card ─────────────────────────────────────── */
+    .ai-proposal-card {
+      border: 1px solid #dde8f5; border-radius: 10px;
+      background: #f7fbff; padding: 12px 14px;
+      display: grid; gap: 10px; margin-bottom: 10px;
+    }
+    .ai-proposal-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #5b78a0;
+    }
+    .ai-proposal-subtitle {
+      font-size: 12px; color: #4a6080; line-height: 1.45; margin-top: 2px;
+    }
+    .ai-proposal-body { display: grid; gap: 6px; }
+    .ai-proposal-line {
+      display: flex; align-items: baseline; gap: 8px;
+      font-size: 13px; color: #1e3a52; line-height: 1.5;
+    }
+    .ai-proposal-num {
+      font-size: 10px; font-weight: 700; color: #7a9ab5;
+      flex-shrink: 0; padding-top: 2px;
+    }
+
+    /* ── Provenance Strip ─────────────────────────────────────── */
+    .provenance-strip {
+      display: flex; align-items: center; flex-wrap: wrap; gap: 5px;
+      padding: 6px 0; border-top: 1px solid #e5eef7; margin-top: 4px;
+    }
+    .provenance-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: #7a9ab5; flex-shrink: 0;
+    }
+    .provenance-chip {
+      font-size: 10px; color: #3a7a5a; font-weight: 600;
+      background: #eaf5ef; border: 1px solid #b2d9c4;
+      border-radius: 999px; padding: 2px 7px;
+      display: inline-flex; align-items: center; gap: 3px;
+    }
+    .provenance-chip::before { content: "✓"; font-size: 9px; }
+
+    /* ── Proposal Actions ─────────────────────────────────────── */
+    .proposal-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+    .proposal-action-btn {
+      font-size: 12px; font-weight: 600; padding: 5px 12px;
+      border-radius: 6px; border: 1px solid #d0dce8;
+      background: #fff; color: #3a5570; cursor: pointer; line-height: 1.3;
+    }
+    .proposal-action-btn--primary {
+      background: var(--brand, #2563eb); color: #fff; border-color: transparent;
+    }
+    .proposal-action-btn:hover { background: #f0f5fa; }
+    .proposal-action-btn--primary:hover { opacity: 0.92; }
+
     @media (max-width: 1280px) {
       .topbar {
         padding: 0 28px;
@@ -2730,10 +2794,10 @@
         ],
         synthesisLead: "Based on the inputs reviewed, here are some areas we could strengthen.",
         patterns: [
-          "Escalation reasoning underweighted in current outcomes",
-          "Assessment-heavy Week 9 cluster detected",
-          "Student feedback highlights simulation depth gap",
-          "Benchmark institutions use simulation-led evidence"
+          "Escalation gap detected",
+          "Week 9 assessment overload",
+          "Simulation depth gap",
+          "Benchmark: simulation-led evidence"
         ],
         workingStatus: "Preparing suggested directions...",
         draftStatus: "Updating module direction...",
@@ -3101,7 +3165,7 @@
 
       const heading = document.createElement("div");
       heading.className = "direction-heading";
-      heading.textContent = "Possible curriculum directions";
+      heading.textContent = "AI-proposed directions";
 
       const intro = document.createElement("div");
       intro.className = "choice-intro conversational";
@@ -3159,7 +3223,146 @@
       return createTurn("AI", copy);
     }
 
-    function laneQuestionText(lane) {
+    function createSignalChips(patterns) {
+      const block = document.createElement("div");
+      block.className = "ai-signal-block";
+      const chips = document.createElement("div");
+      chips.className = "ai-signal-chips";
+      (patterns || []).forEach(function(p) {
+        const c = document.createElement("span");
+        c.className = "ai-signal-chip";
+        c.textContent = p;
+        chips.appendChild(c);
+      });
+      block.appendChild(chips);
+      return block;
+    }
+
+    function createProvenanceStrip(items) {
+      const strip = document.createElement("div");
+      strip.className = "provenance-strip";
+      const label = document.createElement("span");
+      label.className = "provenance-label";
+      label.textContent = "Generated from";
+      strip.appendChild(label);
+      (items || []).slice(0, 3).forEach(function(item) {
+        const chip = document.createElement("span");
+        chip.className = "provenance-chip";
+        chip.textContent = item;
+        strip.appendChild(chip);
+      });
+      return strip;
+    }
+
+    const draftProposals = {
+      outcomes: {
+        subtitle: "3 draft LOs — escalation focus, inheriting approved direction",
+        lines: [
+          "Identify and escalate early warning signs using structured clinical reasoning.",
+          "Apply critical care communication frameworks under high-acuity time pressure.",
+          "Demonstrate safe handover practice with traceable escalation rationale."
+        ]
+      },
+      content: {
+        subtitle: "13-week sequence — redistributed diagnostics load, simulation-led",
+        lines: [
+          "Wks 1–3: Foundation (pathophysiology, monitoring, normal ranges)",
+          "Wks 4–6: Diagnostics cycle 1 + guided asynchronous review",
+          "Wks 7–9: Simulation series — low-acuity to high-acuity progressive",
+          "Wks 10–12: Escalation communication + interdisciplinary handover",
+          "Wk 13: Integrated debrief + assessment preparation"
+        ]
+      },
+      teaching: {
+        subtitle: "Teaching approach — debrief-centred, reasoning checkpoints fortnightly",
+        lines: [
+          "Short-cycle simulation (30 min) + structured debrief (20 min) every fortnight",
+          "Peer reasoning checkpoints after each simulation round",
+          "Facilitator-guided escalation timing discussions with threshold criteria",
+          "Asynchronous case prep with structured reflection prompts"
+        ]
+      },
+      assessment: {
+        subtitle: "Assessment strategy — simulation-weighted, minimal written recall",
+        lines: [
+          "60% — Live simulation stations: escalation decision + communication",
+          "30% — Brief written reasoning memo (500 words, traceable rationale)",
+          "10% — Reflective peer assessment on escalation timing"
+        ]
+      },
+      integrity: {
+        subtitle: "AI use guidance — coaching-led, assessment boundaries explicit",
+        lines: [
+          "Permitted: AI for case research, scenario prep, and reasoning drafts",
+          "Restricted: AI substitution of clinical judgement in simulation tasks",
+          "Required: Reasoning trace annotation on all AI-assisted written work",
+          "Boundary: live assessment tasks are AI-restricted by design"
+        ]
+      }
+    };
+
+    function createAiProposalBlock(lane, key) {
+      const proposal = draftProposals[key];
+      if (!proposal) return null;
+
+      const card = document.createElement("div");
+      card.className = "ai-proposal-card";
+
+      const labelEl = document.createElement("div");
+      labelEl.className = "ai-proposal-label";
+      labelEl.textContent = "AI Draft — " + (lane.title || key);
+      card.appendChild(labelEl);
+
+      const subtitleEl = document.createElement("div");
+      subtitleEl.className = "ai-proposal-subtitle";
+      subtitleEl.textContent = proposal.subtitle;
+      card.appendChild(subtitleEl);
+
+      const body = document.createElement("div");
+      body.className = "ai-proposal-body";
+      proposal.lines.forEach(function(line, i) {
+        const row = document.createElement("div");
+        row.className = "ai-proposal-line";
+        const num = document.createElement("span");
+        num.className = "ai-proposal-num";
+        num.textContent = (i + 1) + ".";
+        const text = document.createElement("span");
+        text.textContent = line;
+        row.appendChild(num);
+        row.appendChild(text);
+        body.appendChild(row);
+      });
+      card.appendChild(body);
+
+      card.appendChild(createProvenanceStrip(lane.contextUsed));
+
+      const actions = document.createElement("div");
+      actions.className = "proposal-actions";
+      const refineBtn = document.createElement("button");
+      refineBtn.type = "button";
+      refineBtn.className = "proposal-action-btn";
+      refineBtn.textContent = "Refine with AI";
+      const acceptBtn = document.createElement("button");
+      acceptBtn.type = "button";
+      acceptBtn.className = "proposal-action-btn proposal-action-btn--primary";
+      acceptBtn.textContent = "Accept draft →";
+      actions.appendChild(refineBtn);
+      actions.appendChild(acceptBtn);
+      card.appendChild(actions);
+
+      return card;
+    }
+
+    const decisionPrompts = {
+      outcomes: "What should these outcomes prioritise?",
+      content: "Where should the sequence be adjusted?",
+      teaching: "What should the teaching approach emphasise?",
+      assessment: "What should the assessment evidence show?",
+      integrity: "What tone should the AI guidance take?"
+    };
+
+    function laneQuestionText(lane, key) {
+      if (key && decisionPrompts[key]) return decisionPrompts[key];
       const questionBlock = (lane.blocks || []).find((block) => block.label === "AI Co-Design");
       return questionBlock ? questionBlock.copy : "Which direction would you like to test first?";
     }
@@ -3170,11 +3373,11 @@
 
       const label = document.createElement("div");
       label.className = "curriculum-question-label";
-      label.textContent = "AI co-design question";
+      label.textContent = "Design Decision";
 
       const copy = document.createElement("div");
       copy.className = "curriculum-question-copy";
-      copy.textContent = laneQuestionText(lane);
+      copy.textContent = laneQuestionText(lane, threadKey);
 
       const options = document.createElement("div");
       options.className = "question-options";
@@ -3585,14 +3788,8 @@
         "<button class=\"ctx-applied-link\" type=\"button\" onclick=\"document.getElementById('contextModal').classList.add('show')\">View sources →</button>";
       threadCanvas.appendChild(ctxBlock);
 
-      // AI Insights — always shown immediately
-      const insightsBlock = document.createElement("div");
-      insightsBlock.className = "ai-insights";
-      const insightItems = (lane.patterns || []).map(item => "<li>" + item + "</li>").join("");
-      insightsBlock.innerHTML =
-        "<div class=\"ai-insights-label\">AI Insights</div>" +
-        "<ul class=\"ai-insights-list\">" + insightItems + "</ul>";
-      threadCanvas.appendChild(insightsBlock);
+      // AI signal chips — compact, shown immediately
+      threadCanvas.appendChild(createSignalChips(lane.patterns));
 
       // Brief delay before showing suggested directions (AI proposing, not reviewing)
       if (!state.choice && !state.directionsReady) {
@@ -3613,14 +3810,6 @@
       }
 
       if (!state.choice) {
-        const nextCard = document.createElement("div");
-        nextCard.className = "next-step-card";
-        const basisItems = (lane.nextHelp || []).map(item => "<li>" + item + "</li>").join("");
-        nextCard.innerHTML =
-          "<div class=\"next-step-label\">Recommended Next Step</div>" +
-          "<div class=\"next-step-title\">Select a direction to begin</div>" +
-          "<ul class=\"next-step-basis\">" + basisItems + "</ul>";
-        threadCanvas.appendChild(nextCard);
         threadCanvas.appendChild(createWelcomeDirections(lane, state));
         return;
       }
@@ -3707,24 +3896,9 @@
 
       const state = threadState[key] || {};
 
-      // Context Applied — show what AI reviewed for this section
-      if (lane.contextUsed && lane.contextUsed.length) {
-        const ctxBlock = document.createElement("div");
-        ctxBlock.className = "ctx-applied";
-        const ctxItems = lane.contextUsed.slice(0, 3).map(item => "<li>" + item + "</li>").join("");
-        ctxBlock.innerHTML =
-          "<div class=\"ctx-applied-label\">Context Applied</div>" +
-          "<ul class=\"ctx-applied-list\">" + ctxItems + "</ul>";
-        threadCanvas.appendChild(ctxBlock);
-      }
-
-      // Proactive next-step card
-      const nextCard = document.createElement("div");
-      nextCard.className = "next-step-card";
-      nextCard.innerHTML =
-        "<div class=\"next-step-label\">Suggested Design Step</div>" +
-        "<div class=\"next-step-title\">" + (lane.title || "Review this section") + " — select a direction to refine the draft</div>";
-      threadCanvas.appendChild(nextCard);
+      // AI proposal — actual draft content with provenance, shown immediately
+      const proposalBlock = createAiProposalBlock(lane, key);
+      if (proposalBlock) threadCanvas.appendChild(proposalBlock);
 
       threadCanvas.appendChild(createLaneQuestion(lane, state, key));
 
@@ -3737,21 +3911,6 @@
         threadCanvas.appendChild(createTurn("You", state.freeform));
         threadCanvas.appendChild(createTurn("AI", state.freeformReply));
       }
-
-      const synthBlock = document.createElement("div");
-      synthBlock.className = "skel-synth-block";
-      const workingStatus = sectionWorkingStatus[key] || "Synthesising into draft...";
-      synthBlock.innerHTML =
-        '<div class="skel-synth-header">' +
-          '<span class="skel-role-chip">AI</span>' +
-          '<span class="skel-synth-status">' + workingStatus + '</span>' +
-        '</div>' +
-        '<div class="skel-lines">' +
-          '<div class="skel-l skel-w-90"></div>' +
-          '<div class="skel-l skel-w-75"></div>' +
-          '<div class="skel-l skel-w-55"></div>' +
-        '</div>';
-      threadCanvas.appendChild(synthBlock);
 
       if (state.updatedNote) {
         const updated = document.createElement("div");
