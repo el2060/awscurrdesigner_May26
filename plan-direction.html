@@ -1453,33 +1453,53 @@
       padding-top: 0;
     }
 
-    /* Collapsed (non-active): keep header line only, hide body content */
+    /* Collapsed (non-active): document section divider — heading only */
     .module-section:not(.active) > *:not(.section-label):not(.section-title) {
       display: none;
     }
     .module-section:not(.active) {
-      opacity: 0.75;
+      opacity: 0.65;
+      padding: 6px 0;
+    }
+    .module-section:not(.active) .section-label {
+      display: none;
+    }
+    .module-section:not(.active) .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #5a7085;
+      margin-bottom: 0;
     }
     .module-section:not(.active):hover {
       opacity: 1;
-      background: #f7fbff;
-      border-radius: 8px;
+      background: transparent;
+      border-radius: 0;
     }
     .module-section:not(.active) .section-title::after {
-      content: "›";
-      margin-left: 8px;
-      color: #97a3b3;
+      content: " ›";
+      color: #9fb4c4;
       font-weight: 400;
     }
 
-    /* Active: emphasized, full content */
+    /* Active: flat document area — no gradient card */
     .module-section.active {
       opacity: 1;
-      background: linear-gradient(180deg, #f7fbff 0%, transparent 72%);
-      border-radius: 10px;
-      padding: 14px 12px 8px;
-      margin: 0 -12px;
+      background: transparent;
+      border-radius: 0;
+      padding: 16px 0 14px;
+      margin: 0;
       cursor: default;
+      border-top: 1.5px solid #b8cdd9;
+    }
+    .module-section.active:first-child {
+      border-top: 0;
+    }
+    .module-section.active .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a2e40;
+      letter-spacing: 0.03em;
+      margin-bottom: 10px;
     }
 
     .line-updated {
@@ -1487,42 +1507,32 @@
       background: #fffbeb;
     }
 
+    /* Delta: flat left-accent inline note — no yellow card */
     .section-delta {
-      border: 1px solid #efd396;
-      background: #fff8ea;
-      border-radius: 8px;
-      padding: 8px 9px;
-      margin-top: 10px;
+      border: none;
+      border-left: 2px solid #d0a43a;
+      background: transparent;
+      border-radius: 0;
+      padding: 3px 0 3px 8px;
+      margin-top: 8px;
       font-size: 11px;
-      line-height: 1.45;
-      color: #634817;
+      line-height: 1.5;
+      color: #8a7040;
     }
 
-    .section-delta-title {
-      display: block;
-      margin-bottom: 4px;
-    }
+    .section-delta-title { display: none; }
 
     .section-delta-copy {
       display: block;
-      margin-top: 5px;
+      color: #6a5830;
+      font-style: italic;
     }
 
-    .section-delta-label {
-      display: block;
-      margin-top: 7px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #8c6421;
-    }
+    .section-delta-label { display: none; }
 
     .section-delta-list {
       list-style: none;
-      display: grid;
-      gap: 3px;
-      margin-top: 5px;
+      display: none;
     }
 
     .section-delta-list li::before {
@@ -2680,8 +2690,8 @@
               <!-- Module Overview -->
               <section class="module-section active" id="overview">
                 <div class="section-label np-sec-label">Module Overview</div>
-                <h3 class="section-title">Module Information</h3>
-                <p class="np-overview-note">AI-assisted draft — review, refine, and approve before finalising.</p>
+                <h3 class="section-title">MODULE INFORMATION</h3>
+                <p class="np-overview-note">Draft — review and confirm before finalising.</p>
                 <div class="np-skel-rows">
                   <div class="np-skel-row"><div class="np-skel-lbl"></div><div class="np-skel-val"></div></div>
                   <div class="np-skel-row"><div class="np-skel-lbl"></div><div class="np-skel-val np-skel-short"></div></div>
@@ -5145,8 +5155,105 @@
     .mdd-ref-list { display: grid; gap: 7px; margin: 6px 0; }
     .mdd-ref-list-item {
       display: flex; gap: 8px; align-items: flex-start;
-      padding: 6px 9px; border: 1px solid #e5eef7; border-radius: 5px;
-      background: #f7fbff;
+      padding: 4px 0; border: none;
+      border-bottom: 1px solid #e8edf2; background: transparent;
+    }
+
+    /* ── Document-dominance overrides (~70% doc / 20% spreadsheet / 10% AI) ── */
+
+    /* Overview note: tiny italic, no box */
+    .np-overview-note {
+      font-size: 10.5px; color: #7a90a3; font-style: italic;
+      background: transparent; border: none; border-radius: 0;
+      padding: 0; margin-bottom: 10px;
+    }
+
+    /* Synopsis text area: left-bar only, no card frame */
+    .mdd-text-area {
+      border: none; border-left: 2px solid #dde8f0; border-radius: 0;
+      padding: 4px 0 4px 10px; background: transparent; margin-bottom: 8px;
+    }
+
+    /* All MDD tables: thin gridlines, no radius, spreadsheet-like */
+    .mdd-doc-table, .mdd-matrix-table, .mdd-schedule-table, .mdd-assess-matrix {
+      border-radius: 0; border-color: #cdd5dc;
+    }
+    .mdd-doc-table th, .mdd-doc-table td,
+    .mdd-matrix-table th, .mdd-matrix-table td,
+    .mdd-schedule-table th, .mdd-schedule-table td,
+    .mdd-assess-matrix th, .mdd-assess-matrix td {
+      border-color: #cdd5dc;
+    }
+    .mdd-doc-table th, .mdd-matrix-table th,
+    .mdd-schedule-table th, .mdd-assess-matrix th {
+      background: #f3f5f7; font-size: 10px;
+      text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600;
+    }
+
+    /* Y/N cells: plain, no heavy bold */
+    .mdd-y { font-size: 12px; font-weight: 600; }
+    .mdd-n { font-size: 11px; }
+
+    /* Assessment flag: flat italic metadata, no warning card */
+    .mdd-assess-flag {
+      font-size: 10.5px; font-style: italic; color: #7a8f9e;
+      background: transparent; border: none; border-radius: 0;
+      padding: 3px 0; margin-top: 4px; display: block;
+    }
+    .mdd-assess-flag::before { content: none; }
+
+    /* Provenance chip (in delta cards): tiny text only */
+    .prov-chip {
+      font-size: 10px; color: #9aabb8;
+      background: transparent; border: none;
+      padding: 0; margin-right: 4px; border-radius: 0;
+    }
+
+    /* KV rows: flat, no rounded card */
+    .mdd-kv-row {
+      border-radius: 0; border-color: #dde6ee;
+      background: transparent;
+    }
+
+    /* SF chips: quieter */
+    .mdd-sf-chip {
+      background: transparent; border-color: #c8d8e6;
+      font-size: 10px; color: #2b4a66;
+    }
+
+    /* Gap badge: smaller */
+    .mdd-gap-badge { font-size: 9.5px; }
+
+    /* Inline actions: even quieter */
+    .mdd-inline-actions { margin-top: 7px; gap: 5px; }
+    .mdd-inline-action {
+      font-size: 10.5px; padding: 2px 8px; color: #5a7a94;
+      border-color: #d0dce8;
+    }
+
+    /* AI rec card: flatter, less chrome */
+    .ai-rec-card {
+      border-radius: 4px; border-color: #dce7f0;
+      background: #fafcfe;
+    }
+    .ai-rec-label { font-size: 9.5px; letter-spacing: 0.09em; }
+    .ai-rec-statement { font-size: 12px; }
+    .ai-rec-signal { font-size: 11px; }
+
+    /* Next-step card: quieter */
+    .next-step-card { border-radius: 4px; }
+
+    /* Draft-update: tiny text */
+    .draft-update { font-size: 11px; }
+
+    /* Pulse chips: smaller */
+    .pulse-chip { font-size: 10px; padding: 2px 6px; }
+
+    /* Subsection label: more document-like */
+    .mdd-subsec-label {
+      font-size: 10.5px; font-weight: 700; color: #4a6070;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin: 8px 0 4px; border-bottom: 1px solid #e4ecf2; padding-bottom: 3px;
     }
 
   </style>
