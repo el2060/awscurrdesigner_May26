@@ -207,7 +207,7 @@
     /* ─── WORKSPACE MAIN ─── */
     .workspace-toolbar {
       display: flex; justify-content: space-between; align-items: flex-end;
-      padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 4px;
+      padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 16px;
     }
     .workspace-toolbar-title { font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.01em; }
     .workspace-toolbar-sub { font-size: 13px; color: #6b7280; margin-top: 3px; }
@@ -218,48 +218,6 @@
     .save-indicator {
       display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #10b981;
     }
-
-    /* Onboarding starting point banner */
-    .start-banner {
-      border: 1px solid #c8d9ed;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #eef6ff 0%, #f8fbff 100%);
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-    .start-banner-body { flex: 1; min-width: 0; }
-    .start-banner-label {
-      font-size: 10px; font-weight: 700; color: var(--brand);
-      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px;
-    }
-    .start-banner-title {
-      font-size: 14px; font-weight: 700; color: #1d3a5a; margin-bottom: 10px;
-    }
-    .start-banner-steps {
-      display: flex; flex-wrap: wrap; gap: 8px 20px;
-    }
-    .start-step {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 12px; color: #4b5563;
-    }
-    .step-num {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 17px; height: 17px; border-radius: 50%;
-      background: var(--brand); color: #fff;
-      font-size: 9px; font-weight: 700; flex-shrink: 0;
-    }
-    .start-banner-cta {
-      background: var(--brand); color: #fff;
-      border: none; border-radius: 7px;
-      padding: 9px 18px; font-size: 12.5px; font-weight: 700;
-      cursor: pointer; white-space: nowrap; flex-shrink: 0;
-    }
-    .start-banner-cta:hover { background: var(--brand-dark); }
 
     /* Table */
     .ta-table {
@@ -283,11 +241,14 @@
     }
 
     .ta-editable {
-      position: relative; padding: 6px 8px;
+      position: relative; padding: 8px 10px;
       border-radius: 6px; transition: background-color 0.2s, box-shadow 0.2s; cursor: pointer;
+      border: 1px solid transparent;
     }
     .ta-editable:hover { background: #f8fbff; box-shadow: inset 0 0 0 1px #d6e3f0; }
     .ta-editable:hover .ta-inline-actions { opacity: 1; visibility: visible; }
+    .ta-editable.ai-highlight { background: #f4f8fe; border: 1px dashed #b8d0e6; }
+    .ta-editable.ai-highlight:hover { border-color: var(--brand); }
 
     .ta-inline-actions {
       position: absolute; top: -12px; right: 4px;
@@ -307,50 +268,27 @@
 
     /* Inline AI suggestion inside a cell */
     .cell-ai-suggest {
-      margin-top: 7px;
-      display: flex; align-items: flex-start; gap: 5px;
+      margin-top: 6px;
+      display: inline-flex; align-items: center; gap: 4px;
       font-size: 11px; color: var(--brand); font-weight: 500;
-      border-left: 2px solid var(--brand);
-      padding-left: 7px; cursor: pointer;
+      background: #eef6ff; padding: 3px 8px; border-radius: 4px;
+      cursor: pointer;
     }
-    .cell-ai-suggest::before { content: "✦"; font-size: 9px; margin-top: 2px; flex-shrink: 0; }
-    .cell-ai-suggest:hover { text-decoration: underline; }
+    .cell-ai-suggest:hover { background: #dce8f5; }
 
-    /* Inline warning AI suggestion */
-    .cell-warn-suggest {
-      margin-top: 7px;
-      display: flex; align-items: flex-start; gap: 5px;
-      font-size: 11px; color: #b45309; font-weight: 500;
-      border-left: 2px solid #d97706;
-      padding-left: 7px; cursor: pointer;
-    }
-    .cell-warn-suggest:hover { text-decoration: underline; }
-
-    /* Generate slot — empty state with AI prompt */
-    .cell-generate {
+    .add-cell-btn {
+      font-size: 12px; font-weight: 500; color: #9ca3af;
+      border: 1px dashed transparent; border-radius: 6px;
+      padding: 6px 10px; cursor: pointer; background: transparent;
+      transition: all 0.15s; width: 100%; text-align: left;
       display: flex; align-items: center; gap: 6px;
-      font-size: 11px; font-weight: 500; color: #9ca3af;
-      border: 1px dashed #d1d5db; border-radius: 5px;
-      padding: 6px 10px; cursor: pointer;
-      background: transparent;
-      transition: border-color 0.15s, color 0.15s;
-      width: 100%;
-      text-align: left;
     }
-    .cell-generate:hover { border-color: var(--brand); color: var(--brand); background: #f8fbff; }
-    .cell-generate .gen-icon { font-size: 12px; }
+    td:hover .add-cell-btn { border-color: #d1d5db; }
+    .add-cell-btn:hover { border-color: var(--brand) !important; color: var(--brand); background: #f8fbff; }
 
-    .ta-add-btn {
-      font-size: 11px; color: #9ca3af; background: transparent;
-      border: 1px dashed #d1d5db; border-radius: 4px;
-      padding: 5px 10px; margin-top: 8px; cursor: pointer;
-      display: block; width: 100%; text-align: left;
-    }
-    .ta-add-btn:hover { background: #f9fafb; color: #4b5563; border-color: #9ca3af; }
-
-    .ta-special-row td { background: #f3f4f6; padding: 12px 16px; }
+    .ta-special-row td { background: #f9fafb; padding: 14px 16px; border-bottom: 1px solid #e5e7eb; }
     .ta-special-content {
-      font-size: 12px; font-weight: 600; color: #6b7280;
+      font-size: 12px; font-weight: 700; color: #6b7280;
       text-transform: uppercase; letter-spacing: 0.05em;
     }
 
@@ -443,6 +381,36 @@
       0%, 100% { opacity: 1; }
       50% { opacity: 0.55; }
     }
+
+    /* Co-Drafting Prompt Field */
+    .prompt-section {
+      border: 1px solid #c8daec; border-radius: 10px; background: #fff;
+      padding: 18px 22px; display: grid; gap: 12px; margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(0,70,137,0.03);
+    }
+    .prompt-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--brand); margin-bottom: 2px; }
+    .prompt-desc { font-size: 13px; color: #4b5563; line-height: 1.5; }
+    .prompt-input-row { display: flex; gap: 10px; align-items: flex-start; }
+    .prompt-input {
+      flex: 1; border: 1px solid #d1d5db; border-radius: 8px; padding: 10px 14px;
+      font-size: 13px; color: var(--text); font-family: var(--font-sans, system-ui);
+      background: #fafaf9; outline: none; line-height: 1.5; resize: vertical; min-height: 44px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .prompt-input:focus { border-color: var(--brand); background: #fff; box-shadow: 0 0 0 3px rgba(0,70,137,0.08); }
+    .prompt-send {
+      border: none; background: var(--brand); color: #fff; font-size: 13px; font-weight: 700;
+      padding: 10px 20px; border-radius: 8px; cursor: pointer; white-space: nowrap; height: 44px;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .prompt-send:hover { background: var(--brand-dark); }
+    .prompt-suggestions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 2px; }
+    .prompt-sug-label { font-size: 11px; color: #9ca3af; margin-right: 2px; }
+    .prompt-sug-btn {
+      border: 1px solid #d8e5f2; border-radius: 999px; background: #f8fbff; color: #3a6a9e;
+      font-size: 11px; font-weight: 500; padding: 4px 10px; cursor: pointer; transition: 0.12s;
+    }
+    .prompt-sug-btn:hover { background: var(--brand-soft); border-color: var(--brand-border); color: var(--brand); }
   </style>
 </head>
 <body>
@@ -466,16 +434,6 @@
     <p class="page-sub" style="margin-bottom: 28px;">Refine the weekly teaching plan before generating materials.</p>
   </section>
 
-  <!-- PLANNING DIRECTION -->
-  <div class="direction-strip">
-    <div class="direction-label">Module Leader Direction</div>
-    <div class="direction-chips">
-      <span class="dir-chip">Combine content from retired modules</span>
-      <span class="dir-chip">Reduce lecture-heavy delivery</span>
-      <span class="dir-chip">Simulation-led approach</span>
-      <button class="dir-add-btn">+ Add direction</button>
-    </div>
-  </div>
 
   <!-- TOP CONNECTOR -->
   <section class="setup-card analysis-setup" aria-label="Connected module design context">
@@ -526,13 +484,12 @@
             </div>
           </div>
           <div class="assistant-context">
-            AI has drafted a weekly teaching flow based on your:
+            Plan drafted based on module context and your explicit directions.
             <div class="assistant-sources" style="margin-top: 7px;">
-              <span class="source-chip">Approved MLOs</span>
-              <span class="source-chip">Assessment structure</span>
-              <span class="source-chip">Skills Framework</span>
+              <span class="source-chip">Module Context</span>
+              <span class="source-chip">Your Directions</span>
             </div>
-            <div style="margin-top: 8px; color: #4b5563;">Review and refine the plan below.</div>
+            <div style="margin-top: 8px; color: #4b5563;">Use the prompt field to restyle the whole plan, or edit cells directly.</div>
           </div>
         </div>
 
@@ -563,17 +520,17 @@
         <div class="rail-block">
           <div class="rail-title">AI Observations</div>
           <div class="rail-suggest-list">
-            <div class="rail-suggest-item warn">
-              <div class="rail-suggest-label">Assessment clustering detected in Weeks 7–9</div>
-              <button class="rail-apply-btn warn-action">Review</button>
-            </div>
             <div class="rail-suggest-item">
-              <div class="rail-suggest-label">MLO2 under-emphasised in Weeks 3–5</div>
+              <div class="rail-suggest-label">Wk 3: Add retrieval practice for Chapter 3</div>
               <button class="rail-apply-btn">Apply</button>
             </div>
             <div class="rail-suggest-item">
-              <div class="rail-suggest-label">Add retrieval activity before CA1</div>
-              <button class="rail-apply-btn">Insert</button>
+              <div class="rail-suggest-label">Wk 9: Assessment clustering detected</div>
+              <button class="rail-apply-btn">Review</button>
+            </div>
+            <div class="rail-suggest-item">
+              <div class="rail-suggest-label">Wk 12: MLO2 under-emphasised in practicals</div>
+              <button class="rail-apply-btn">Refine</button>
             </div>
           </div>
         </div>
@@ -584,28 +541,33 @@
     <!-- CORE WORKSPACE -->
     <div class="workspace-main">
 
-      <!-- ONBOARDING: Suggested starting point -->
-      <div class="start-banner">
-        <div class="start-banner-body">
-          <div class="start-banner-label">✦ Suggested starting point</div>
-          <div class="start-banner-title">Where to begin:</div>
-          <div class="start-banner-steps">
-            <div class="start-step"><span class="step-num">1</span> Review assessment timing</div>
-            <div class="start-step"><span class="step-num">2</span> Refine weekly T&amp;L activities</div>
-            <div class="start-step"><span class="step-num">3</span> Check workload balance</div>
-          </div>
+      <!-- MODULE LEADER PROMPT / DIRECTION -->
+      <div class="prompt-section">
+        <div>
+          <div class="prompt-label">Step 1: Steer the AI Draft</div>
+          <div class="prompt-desc">Provide specific instructions on how you want to structure the 15-week flow beyond the upstream module context.</div>
         </div>
-        <button class="start-banner-cta">Review Flagged Areas</button>
+        <div class="prompt-input-row">
+          <textarea class="prompt-input" placeholder="E.g., Front-load theoretical concepts in Weeks 1-4, leave Weeks 12-14 for project work, and ensure practicals are aligned with equipment availability..."></textarea>
+          <button class="prompt-send">✦ Update Plan</button>
+        </div>
+        <div class="prompt-suggestions">
+          <span class="prompt-sug-label">Suggested:</span>
+          <button class="prompt-sug-btn">Focus on active learning in tutorials</button>
+          <button class="prompt-sug-btn">Ensure CA2 falls in Week 10</button>
+          <button class="prompt-sug-btn">Shift heavy theory to OAL</button>
+        </div>
       </div>
 
       <!-- TEACHING PLAN TABLE -->
       <table class="ta-table">
         <thead>
           <tr>
-            <th style="width: 54px; text-align: center;">Week</th>
-            <th style="width: 28%;">Pre-Class / OAL</th>
-            <th style="width: 40%;">T&amp;L Activities</th>
-            <th style="width: 32%;">Assessment &amp; Feedback</th>
+            <th style="width: 50px; text-align: center;">Wk</th>
+            <th style="width: 22%;">Topic</th>
+            <th style="width: 25%;">Online Asynchronous (OAL)</th>
+            <th style="width: 25%;">In-Person Lesson (IPL)</th>
+            <th style="width: 23%;">Assessment &amp; Remarks</th>
           </tr>
         </thead>
         <tbody>
@@ -615,27 +577,30 @@
             <td class="ta-week-cell">1</td>
             <td>
               <div class="ta-editable">
-                <div>Intro to Course &amp; Tooling</div>
-                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Read Chapter 1 before class</div>
-                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
+                <div style="font-weight: 600; color: #111827;">Chapter 1: Introduction</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
               </div>
-              <button class="ta-add-btn">+ Add pre-class activity</button>
             </td>
             <td>
               <div class="ta-editable">
-                <div>Lecture: Core Concepts</div>
-                <div class="cell-ai-suggest">AI suggests adding a collaborative discussion or retrieval activity</div>
-                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
+                <div>Module Briefing &amp; E-Learning</div>
+                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Watch Intro Video (30 mins)</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
               </div>
-              <button class="cell-generate"><span class="gen-icon">✦</span> Generate in-class activity</button>
             </td>
             <td>
               <div class="ta-editable">
-                <div style="font-style: italic; color: #9ca3af;">No assessment this week</div>
-                <div class="cell-ai-suggest">No formative feedback opportunity before CA1 — consider a low-stakes check</div>
-                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
+                <div>Tutorial: Chapter 1</div>
+                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">F2F Discussion</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
               </div>
-              <button class="cell-generate"><span class="gen-icon">✦</span> Generate formative activity</button>
+              <div class="ta-editable" style="margin-top: 6px;">
+                <div style="color: #9ca3af; font-style: italic;">No practical in Week 1</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
+              </div>
+            </td>
+            <td>
+              <button class="add-cell-btn"><span>+</span> Add assessment / remark</button>
             </td>
           </tr>
 
@@ -643,24 +608,36 @@
           <tr>
             <td class="ta-week-cell">2</td>
             <td>
-              <button class="cell-generate" style="margin-bottom: 6px;"><span class="gen-icon">✦</span> Generate pre-class activity</button>
-              <button class="ta-add-btn">+ Add manually</button>
+              <div class="ta-editable">
+                <div style="font-weight: 600; color: #111827;">Chapter 2: 1st Law of Thermodynamics</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
+              </div>
             </td>
             <td>
               <div class="ta-editable">
-                <div>Diagnostic practice</div>
-                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Case study analysis</div>
-                <div class="cell-ai-suggest">Suggest introducing retrieval activity after Week 2</div>
-                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
+                <div>Self-directed learning</div>
+                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Interactive Simulation (OAL)</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
               </div>
-              <button class="ta-add-btn">+ Add activity</button>
             </td>
             <td>
               <div class="ta-editable">
-                <div>Formative checkpoint</div>
-                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
+                <div>Tutorial: Chapter 2</div>
+                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Problem Solving</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
               </div>
-              <button class="ta-add-btn">+ Add feedback note</button>
+              <div class="ta-editable" style="margin-top: 6px;">
+                <div>Practical: Temp &amp; Pressure</div>
+                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Lab P02 (Whole Class)</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
+              </div>
+            </td>
+            <td>
+              <div class="ta-editable">
+                <div style="font-size: 11px; color: #6b7280;">Public Holiday</div>
+                <div>Labour Day (1 May)</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
+              </div>
             </td>
           </tr>
 
@@ -668,73 +645,120 @@
           <tr>
             <td class="ta-week-cell">3</td>
             <td>
-              <div style="padding: 6px 8px;">
-                <div class="skel-bar" style="width: 80%;"></div>
-                <div class="skel-bar short"></div>
+              <div class="ta-editable">
+                <div style="font-weight: 600; color: #111827;">Chapter 3: Steam Tables</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
               </div>
-              <button class="cell-generate"><span class="gen-icon">✦</span> Generate pre-class / OAL</button>
+            </td>
+            <td>
+              <div class="ta-editable ai-highlight">
+                <div>Reading &amp; Video Quiz</div>
+                <div class="cell-ai-suggest">✦ Suggest adding retrieval practice</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
+              </div>
             </td>
             <td>
               <div class="ta-editable">
-                <div>Lab: Implementation</div>
-                <div class="cell-ai-suggest">MLO2 under-represented — AI suggests an application exercise here</div>
-                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
+                <div>Tutorial: Chapter 3</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
               </div>
-              <button class="cell-generate"><span class="gen-icon">✦</span> Generate MLO2 activity</button>
+              <div class="ta-editable" style="margin-top: 6px;">
+                <div>Practical: Steam Quality</div>
+                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Lab P01 (Whole Class)</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
+              </div>
             </td>
             <td>
-              <button class="cell-generate" style="margin-bottom: 6px;"><span class="gen-icon">✦</span> Generate assessment checkpoint</button>
-              <button class="ta-add-btn">+ Add manually</button>
+              <button class="add-cell-btn"><span>+</span> Add assessment / remark</button>
             </td>
           </tr>
 
-          <!-- Collapsed Weeks 4–7 -->
+          <!-- Collapsed Weeks 4–5 -->
           <tr class="ta-collapsed-row">
-            <td colspan="4">
-              <div class="ta-collapsed-content">Weeks 4–7 &mdash; AI has scaffolded, click to review &amp; refine</div>
+            <td colspan="5">
+              <div class="ta-collapsed-content">Weeks 4–5 &mdash; Scaffolded by AI, click to expand</div>
             </td>
           </tr>
 
-          <!-- Week 8 — Special -->
+          <!-- Week 6 -->
+          <tr>
+            <td class="ta-week-cell">6</td>
+            <td>
+              <div class="ta-editable">
+                <div style="font-weight: 600; color: #111827;">Chapter 5: Non-flow Processes</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
+              </div>
+            </td>
+            <td>
+              <div class="ta-editable">
+                <div>Practical Quiz (OAL)</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
+              </div>
+            </td>
+            <td>
+              <div class="ta-editable" style="background: #fffbeb; border: 1px solid #fde6b8; border-radius: 6px;">
+                <div style="font-weight: 600; color: #92400e;">Class Test 1 Revision</div>
+                <div style="font-size: 11px; color: #92400e; margin-top: 4px;">Feedback to Assignments</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
+              </div>
+            </td>
+            <td>
+              <div class="ta-editable">
+                <div style="font-size: 11px; color: #6b7280;">Public Holidays</div>
+                <div>Hari Raya Haji &amp; Vesak Day</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Week 7 -->
+          <tr class="ta-special-row">
+            <td class="ta-week-cell">7</td>
+            <td colspan="4">
+              <div class="ta-special-content" style="color: #1d3a5a; text-align: center;">CLASS TEST 1 WEEK</div>
+              <div style="font-size: 11px; color: #6b7280; text-align: center; margin-top: 4px;">03 Jun, 2-4pm at LT 78</div>
+            </td>
+          </tr>
+
+          <!-- Week 8 -->
           <tr class="ta-special-row">
             <td class="ta-week-cell">8</td>
-            <td colspan="3">
-              <div class="ta-special-content">Common Test Week — White Space / Revision</div>
+            <td colspan="4">
+              <div class="ta-special-content" style="text-align: center;">COMMON TEST WEEK (NO CLASSES)</div>
             </td>
           </tr>
 
-          <!-- Week 9 — Warning -->
+          <!-- Week 9 -->
           <tr>
-            <td class="ta-week-cell" style="background: #fdfaf5; border-left: 2px solid #d97706;">9</td>
-            <td style="background: #fdfaf5;">
+            <td class="ta-week-cell">9</td>
+            <td>
               <div class="ta-editable">
-                <div>Advanced module reading</div>
-                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Self-directed prep (2 hrs)</div>
-                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
+                <div style="font-weight: 600; color: #111827;">Chapter 6: Steady Flow Processes</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
               </div>
-              <button class="ta-add-btn">+ Add pre-class activity</button>
             </td>
-            <td style="background: #fdfaf5;">
+            <td>
+              <button class="add-cell-btn"><span>+</span> Add OAL activity</button>
+            </td>
+            <td>
               <div class="ta-editable">
-                <div>Lab Submission Prep</div>
-                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
+                <div>Tutorial: Chapter 6</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
               </div>
-              <button class="ta-add-btn">+ Add activity</button>
             </td>
-            <td style="background: #fdfaf5;">
-              <div class="ta-editable" style="border: 1px solid #fde6b8; background: #fffbeb;">
-                <div style="font-weight: 600; color: #92400e;">CA2 Submission</div>
-                <div class="cell-warn-suggest">⚠ Assessment clustering detected in Weeks 7–9 — consider redistributing</div>
-                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
+            <td>
+              <div class="ta-editable ai-highlight">
+                <div style="font-weight: 600;">CA2 Submission</div>
+                <div class="cell-ai-suggest" style="margin-top: 4px; background: #fffbeb; color: #b45309;">⚠ Suggest moving to Wk 10 to balance workload</div>
+                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI</span></div>
               </div>
-              <button class="ta-add-btn">+ Add feedback note</button>
             </td>
           </tr>
 
           <!-- Collapsed Weeks 10–15 -->
           <tr class="ta-collapsed-row">
-            <td colspan="4">
-              <div class="ta-collapsed-content">Weeks 10–15 &mdash; AI has scaffolded, click to review &amp; refine</div>
+            <td colspan="5">
+              <div class="ta-collapsed-content">Weeks 10–15 &mdash; Scaffolded by AI, click to expand</div>
             </td>
           </tr>
 
