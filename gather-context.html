@@ -456,6 +456,112 @@
       padding: 4px 11px;
     }
 
+    /* ── Refinement Pane ── */
+    .refinement-pane {
+      border-top: 2px solid var(--border);
+      background: #f7f9ff;
+    }
+    .ref-head {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 16px; padding: 20px 24px;
+      background: linear-gradient(180deg, #eef3ff 0%, #f7f9ff 100%);
+      border-bottom: 1px solid #dde5f5;
+    }
+    .ref-head-copy { display: flex; align-items: center; gap: 14px; }
+    .ref-head-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: var(--indigo-700); color: #fff;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,70,137,0.18);
+    }
+    .ref-head-icon svg { width: 22px; height: 22px; }
+    .ref-head-text { display: grid; gap: 3px; }
+    .ref-title { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+    .ref-subtitle { font-size: 13px; color: var(--body); line-height: 1.5; max-width: 520px; }
+    .ref-progress {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; color: var(--indigo-700);
+      background: #fff; border: 1px solid #dde5f5;
+      padding: 6px 14px; border-radius: 999px; white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ref-body { padding: 14px; display: flex; flex-direction: column; gap: 8px; background: var(--bg); }
+    .ref-row {
+      padding: 14px 18px;
+      border: 1px solid var(--border); border-radius: 10px;
+      background: #fff; transition: border-color 150ms;
+    }
+    .ref-row--approved {
+      border-color: #a7f3d0;
+      background: var(--emerald-50);
+    }
+    .ref-row-head {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 0; flex-wrap: wrap;
+    }
+    .ref-row-head + .ref-annotation,
+    .ref-row-head + .ref-actions { margin-top: 10px; }
+    .ref-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 3px 9px; border-radius: 999px; flex-shrink: 0;
+    }
+    .ref-badge--ai {
+      color: var(--amber-700); background: var(--amber-50); border: 1px solid var(--amber-100);
+    }
+    .ref-badge--faculty {
+      color: var(--emerald-700); background: var(--emerald-50); border: 1px solid #a7f3d0;
+    }
+    .ref-row-title { font-size: 13.5px; font-weight: 600; color: var(--text); flex: 1; }
+    .ref-approved-mark {
+      font-size: 12px; font-weight: 600; color: var(--emerald-700);
+      display: flex; align-items: center; gap: 6px; margin-left: auto; white-space: nowrap;
+    }
+    .ref-approved-mark::before {
+      content: '';
+      display: inline-block; width: 16px; height: 16px;
+      background: var(--emerald-700); border-radius: 50%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='2 6 5 9 10 3'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: center; background-size: 10px;
+    }
+    .ref-annotation {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 9px 12px;
+      background: #fffbeb; border: 1px solid #fde68a;
+      border-radius: 7px; font-size: 13px; color: #92400e; line-height: 1.5;
+    }
+    .ref-annotation + .ref-actions { margin-top: 8px; }
+    .ref-annotation-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .ref-annotation-text { flex: 1; }
+    .ref-actions {
+      display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+    }
+    .ref-btn {
+      font-size: 12px; font-weight: 500;
+      border: 1px solid var(--border); background: #fff; color: var(--body);
+      padding: 5px 11px; border-radius: 6px;
+      cursor: pointer; font-family: var(--font-sans);
+      transition: all 120ms;
+    }
+    .ref-btn--keep:hover    { border-color: #6ee7b7; color: var(--emerald-700); background: var(--emerald-50); }
+    .ref-btn--rewrite:hover { border-color: #93c5fd; color: #1d4ed8; background: #eff6ff; }
+    .ref-btn--remove:hover  { border-color: #fca5a5; color: #dc2626; background: #fef2f2; }
+    .ref-btn--annotate { color: var(--muted); border-style: dashed; }
+    .ref-btn--annotate:hover { border-color: #93c5fd; color: #1d4ed8; background: #eff6ff; border-style: dashed; }
+    .ref-btn--approve {
+      margin-left: auto; font-weight: 600;
+      color: var(--indigo-700); background: #eef3ff; border-color: #c7d7f5;
+    }
+    .ref-btn--approve:hover { background: #dbeafe; border-color: #93c5fd; }
+
+    /* ── Chat pane label ── */
+    .chat-pane-label {
+      display: block;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--amber-700); margin-bottom: 10px;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 1280px) {
       :root { --pad: 28px; }
@@ -735,7 +841,7 @@
             </div>
             <div class="ai-head-text">
               <div class="ai-title">Synthesised Curriculum Insights</div>
-              <div class="ai-subtitle">AI synthesis of your uploaded context to guide curriculum direction and module drafting.</div>
+              <div class="ai-subtitle">AI-assisted synthesis of your uploaded context, surfacing suggested considerations for module design.</div>
             </div>
           </div>
           <div class="ai-time" id="analysis-time">Not run yet</div>
@@ -851,15 +957,114 @@
           </div>
         </div>
 
+        <!-- Module Leader Refinement -->
+        <div class="refinement-pane">
+          <div class="ref-head">
+            <div class="ref-head-copy">
+              <div class="ref-head-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </div>
+              <div class="ref-head-text">
+                <div class="ref-title">Module Leader Refinement</div>
+                <div class="ref-subtitle">Review each AI-suggested insight, apply faculty judgement, and approve directions before proceeding to module design.</div>
+              </div>
+            </div>
+            <div class="ref-progress">1 / 5 approved</div>
+          </div>
+
+          <div class="ref-body">
+
+            <!-- Row 1: Faculty Refined + Approved -->
+            <div class="ref-row ref-row--approved">
+              <div class="ref-row-head">
+                <span class="ref-badge ref-badge--faculty">Faculty Refined</span>
+                <div class="ref-row-title">Common themes across uploaded references</div>
+                <div class="ref-approved-mark">Approved</div>
+              </div>
+              <div class="ref-annotation">
+                <span class="ref-annotation-icon">✎</span>
+                <span class="ref-annotation-text">Faculty note: Prioritise applied AI workflows over theoretical ML — aligns with Jan 2025 advisory panel feedback and existing Year 1 coverage.</span>
+              </div>
+            </div>
+
+            <!-- Row 2: AI Suggested, annotated, not yet approved -->
+            <div class="ref-row">
+              <div class="ref-row-head">
+                <span class="ref-badge ref-badge--ai">AI Suggested</span>
+                <div class="ref-row-title">Draft learning outcome considerations</div>
+              </div>
+              <div class="ref-annotation">
+                <span class="ref-annotation-icon">📝</span>
+                <span class="ref-annotation-text">Faculty note: Reduce scope — 4 outcomes max for 15 credit units. De-emphasise theoretical foundations; focus on applied and transferable skills.</span>
+              </div>
+              <div class="ref-actions">
+                <button class="ref-btn ref-btn--keep" type="button">Keep</button>
+                <button class="ref-btn ref-btn--rewrite" type="button">Rewrite</button>
+                <button class="ref-btn ref-btn--remove" type="button">Remove</button>
+                <button class="ref-btn ref-btn--annotate" type="button">+ Add faculty consideration</button>
+                <button class="ref-btn ref-btn--approve" type="button">Approve direction →</button>
+              </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="ref-row">
+              <div class="ref-row-head">
+                <span class="ref-badge ref-badge--ai">AI Suggested</span>
+                <div class="ref-row-title">Suggested content emphases</div>
+              </div>
+              <div class="ref-actions">
+                <button class="ref-btn ref-btn--keep" type="button">Keep</button>
+                <button class="ref-btn ref-btn--rewrite" type="button">Rewrite</button>
+                <button class="ref-btn ref-btn--remove" type="button">Remove</button>
+                <button class="ref-btn ref-btn--annotate" type="button">+ Add faculty consideration</button>
+                <button class="ref-btn ref-btn--approve" type="button">Approve direction →</button>
+              </div>
+            </div>
+
+            <!-- Row 4 -->
+            <div class="ref-row">
+              <div class="ref-row-head">
+                <span class="ref-badge ref-badge--ai">AI Suggested</span>
+                <div class="ref-row-title">Suggested teaching &amp; learning approaches</div>
+              </div>
+              <div class="ref-actions">
+                <button class="ref-btn ref-btn--keep" type="button">Keep</button>
+                <button class="ref-btn ref-btn--rewrite" type="button">Rewrite</button>
+                <button class="ref-btn ref-btn--remove" type="button">Remove</button>
+                <button class="ref-btn ref-btn--annotate" type="button">+ Add faculty consideration</button>
+                <button class="ref-btn ref-btn--approve" type="button">Approve direction →</button>
+              </div>
+            </div>
+
+            <!-- Row 5 -->
+            <div class="ref-row">
+              <div class="ref-row-head">
+                <span class="ref-badge ref-badge--ai">AI Suggested</span>
+                <div class="ref-row-title">Suggested assessment considerations</div>
+              </div>
+              <div class="ref-actions">
+                <button class="ref-btn ref-btn--keep" type="button">Keep</button>
+                <button class="ref-btn ref-btn--rewrite" type="button">Rewrite</button>
+                <button class="ref-btn ref-btn--remove" type="button">Remove</button>
+                <button class="ref-btn ref-btn--annotate" type="button">+ Add faculty consideration</button>
+                <button class="ref-btn ref-btn--approve" type="button">Approve direction →</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Refine with AI -->
         <div class="chat-pane">
+          <span class="chat-pane-label">Refine with AI</span>
           <div class="chat-prompts">
-            <button class="chat-prompt-btn" type="button" onclick="fillChat('Make this more concise')">Make more concise</button>
-            <button class="chat-prompt-btn" type="button" onclick="fillChat('Expand on learning outcome considerations')">Expand learning outcomes</button>
-            <button class="chat-prompt-btn" type="button" onclick="fillChat('Focus on assessment and evaluation approaches')">Assessment focus</button>
-            <button class="chat-prompt-btn" type="button" onclick="fillChat('Highlight gaps or missing coverage in the uploaded references')">Highlight gaps</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Condense the draft learning outcomes into 3 clear statements')">Condense to 3 outcomes</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Suggest lighter assessment approaches for a 15-week module')">Suggest lighter assessments</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Align content emphases more closely to the SSG Skills Framework')">Align to Skills Framework</button>
+            <button class="chat-prompt-btn" type="button" onclick="fillChat('Identify and reduce overlap with Year 1 module content')">Reduce Year 1 overlap</button>
           </div>
           <div class="chat-input-row">
-            <input type="text" id="chat-input" class="chat-input" placeholder="Ask a follow-up or request a specific refinement...">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Ask AI to refine a specific section or direction...">
             <button class="chat-send" type="button">Send →</button>
           </div>
         </div>
@@ -894,9 +1099,11 @@
   <div class="bottom-inner">
     <div class="bb-actions">
       <div id="bb-done" class="bb-done-state" style="display:none;">
-        <span class="bb-ready-label"><span class="bb-ready-dot"></span>Summary ready</span>
+        <span class="bb-ready-label"><span class="bb-ready-dot"></span>Ready to progress</span>
+        <button class="btn-ghost" type="button">Save Workspace</button>
         <button class="btn-ghost" type="button">Export Summary</button>
         <button class="btn-ghost" type="button" onclick="resetAnalysis()">← Start over</button>
+        <a class="btn-primary" href="#">Continue to Module Design →</a>
       </div>
       <button id="analyze-btn" class="btn-primary" type="button" onclick="runInlineAnalysis()">Review &amp; Synthesise Context</button>
     </div>
