@@ -5068,6 +5068,12 @@
         }, 900);
       }
 
+      const skelLine = (w) => `<div style="height:9px;width:${w};border-radius:4px;background:linear-gradient(90deg,#edf2f7 0%,#f5f8fc 50%,#edf2f7 100%);"></div>`;
+      const skelObsRow = `<div style="${S.obsRow}opacity:0.55;">
+        <div style="flex:1;display:grid;gap:5px;padding-top:2px;">${skelLine("88%")}${skelLine("65%")}</div>
+        <div style="width:36px;height:22px;border-radius:4px;background:#edf2f8;flex-shrink:0;"></div>
+      </div>`;
+
       let html = "";
 
       // 1. Focus callout
@@ -5075,28 +5081,28 @@
         html += `<div style="${S.focusBlock}"><span style="color:#004689;font-size:11px;flex-shrink:0;margin-top:1px;">✦</span><span>${data.focus}</span></div>`;
       }
 
-      // 2. Connected context — list items with dot prefix
+      // 2. Connected context — first item real, rest skeleton
       if (data.context && data.context.length > 0) {
-        const items = data.context.map(c =>
-          `<div style="${S.ctxItem}"><span style="${S.ctxIcon}">·</span><span>${c}</span></div>`
-        ).join("");
+        const firstItem = `<div style="${S.ctxItem}"><span style="${S.ctxIcon}">·</span><span>${data.context[0]}</span></div>`;
+        const skelItems = data.context.length > 1
+          ? `<div style="display:grid;gap:5px;padding-top:2px;opacity:0.55;">${skelLine("80%")}${skelLine("60%")}</div>`
+          : "";
         html += `<div style="${S.card}">
           <div style="${S.cardHead}">Connected context</div>
-          <div style="${S.cardBody}${S.grid("6px")}">${items}</div>
+          <div style="${S.cardBody}${S.grid("8px")}">${firstItem}${skelItems}</div>
         </div>`;
       }
 
-      // 3. AI Observations — items with ✦ icon and Apply button
+      // 3. AI Observations — first item real with Apply, rest skeleton
       if (data.support && data.support.length > 0) {
-        const items = data.support.map((s, i) =>
-          `<div style="${S.obsRow}">
-            <div style="${S.obsLabel}"><span style="${S.obsIcon}">✦</span><span>${s}</span></div>
-            <button type="button" data-obs="${i}" style="${S.applyBtn}">Apply</button>
-          </div>`
-        ).join("");
+        const firstObs = `<div style="${S.obsRow}">
+          <div style="${S.obsLabel}"><span style="${S.obsIcon}">✦</span><span>${data.support[0]}</span></div>
+          <button type="button" data-obs="0" style="${S.applyBtn}">Apply</button>
+        </div>`;
+        const skelObs = data.support.length > 1 ? skelObsRow + skelObsRow : "";
         html += `<div style="${S.card}">
           <div style="${S.cardHead}">AI Observations</div>
-          <div style="${S.cardBody}${S.grid("10px")}">${items}</div>
+          <div style="${S.cardBody}${S.grid("10px")}">${firstObs}${skelObs}</div>
         </div>`;
       }
 
