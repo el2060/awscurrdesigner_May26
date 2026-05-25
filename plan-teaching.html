@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan Teaching & Assessment — AI Curriculum Designer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --brand:        #004689;
+      --brand-dark:   #003366;
+      --brand-soft:   #f0f6fc;
+      --brand-border: #b8d0e6;
+      --text:   #111827;
+      --body:   #4b5563;
+      --muted:  #9ca3af;
+      --border: #e5e7eb;
+      --bg:     #fafaf9;
+    }
+
+    body {
+      font-family: var(--font-sans, system-ui, sans-serif);
+      background: #f6f7f4;
+      background: radial-gradient(circle at 12% -20%, #eef4fb 0%, #f6f7f4 38%), #f6f7f4;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .topbar {
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 40px;
+      background: rgba(255, 255, 255, 0.94);
+      position: sticky;
+      top: 0; z-index: 20;
+      backdrop-filter: blur(8px);
+    }
+    .topbar-inner { width: 100%; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .t-div { width: 1px; height: 18px; background: var(--border); }
+    .brand-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+    .brand-tag {
+      display: inline-block; font-size: 10px; font-weight: 500; font-style: italic;
+      color: #5c430c; background: #fefce8; border: 1px solid #d9bc3c; border-radius: 3px;
+      padding: 5px 10px; max-width: 220px; white-space: normal;
+    }
+
+    .page {
+      max-width: 1200px; margin: 0 auto; padding: 44px 40px 96px;
+    }
+
+    .page-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--brand); margin-bottom: 12px;
+    }
+    .page-title {
+      font-size: 32px; font-weight: 700; color: #111827;
+      letter-spacing: -0.022em; line-height: 1.18; margin-bottom: 12px;
+    }
+    .page-sub {
+      font-size: 16px; color: #4d5d70; line-height: 1.6; margin-bottom: 24px; max-width: 720px;
+    }
+
+    /* Top Connector */
+    .setup-card {
+      border: 1px solid #c8daec; border-radius: 12px; background: #fff;
+      padding: 20px; display: grid; gap: 12px; margin-bottom: 24px;
+    }
+    .setup-kicker {
+      color: var(--brand); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .setup-title { color: #111827; font-size: 17px; font-weight: 700; }
+    .setup-note { color: #4d5d70; font-size: 13px; line-height: 1.5; }
+
+    /* Connected Strip */
+    .connected-strip {
+      border: 1px solid #d8e5f2; border-radius: 12px;
+      background: linear-gradient(180deg, #f8fbff 0%, #f5f9fe 100%);
+      padding: 16px 20px; display: grid; gap: 16px; margin-bottom: 32px;
+    }
+    .connected-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .connected-kicker { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #4a6783; font-weight: 700; }
+    .connected-title { font-size: 18px; font-weight: 700; color: #1f3d5a; margin-top: 4px; }
+    .connected-meta {
+      border: 1px solid #d8e6f4; border-radius: 999px; background: #fff;
+      color: #4d6782; padding: 5px 12px; font-size: 11px; font-weight: 700; white-space: nowrap;
+    }
+    
+    .ctx-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .ctx-flow-step {
+      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px;
+      color: #5a6e82; background: #eef3f8; border: 1px solid #d6e2ef;
+    }
+    .ctx-flow-step--done { color: #2f7a52; background: #ecf7f1; border-color: #aed4bc; }
+    .ctx-flow-step--active { color: var(--brand); background: var(--brand-soft); border-color: #a8c4df; }
+    .ctx-flow-arrow { color: #97a3b3; font-size: 12px; font-weight: 700; }
+
+    .ctx-downstream { border-top: 1px dashed #dce7f2; padding-top: 12px; display: grid; gap: 10px; }
+    .ctx-downstream-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #4d6580; }
+    .ctx-downstream-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ctx-downstream-chip {
+      font-size: 11px; font-weight: 700; color: #2f7a52;
+      background: #ecf7f1; border: 1px solid #aed4bc;
+      border-radius: 999px; padding: 4px 10px; display: inline-flex; align-items: center; gap: 4px;
+    }
+    .ctx-downstream-chip::before { content: "✓"; font-size: 10px; }
+
+    /* Workspace Layout */
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* Module Snapshot */
+    .module-snapshot {
+      border: 1px solid #e5e7eb; border-radius: 12px; background: #fff;
+      padding: 20px; display: grid; gap: 16px; margin-bottom: 24px;
+    }
+    .module-snapshot-header { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #4b5563; }
+    .snapshot-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; }
+    .metric-card { background: #f9fafb; border: 1px solid #f3f4f6; border-radius: 8px; padding: 12px; }
+    .metric-val { font-size: 18px; font-weight: 700; color: #111827; margin-bottom: 4px; }
+    .metric-lbl { font-size: 11px; color: #6b7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    
+    /* Core Workspace - Week Cards */
+    .workspace-toolbar {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+    }
+    .workspace-toolbar-title { font-size: 18px; font-weight: 700; color: #111827; }
+    .view-toggle { display: flex; gap: 4px; background: #f3f4f6; padding: 4px; border-radius: 8px; border: 1px solid #e5e7eb; }
+    .view-btn {
+      font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 6px; cursor: pointer; border: none; background: transparent; color: #4b5563;
+    }
+    .view-btn.active { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); color: #111827; }
+
+    .week-cards { display: grid; gap: 16px; }
+    .week-card {
+      border: 1px solid #e5e7eb; border-radius: 12px; background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05); overflow: hidden;
+    }
+    .week-header {
+      background: #f9fafb; padding: 12px 16px; border-bottom: 1px solid #e5e7eb;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .week-title { font-size: 14px; font-weight: 700; color: #111827; }
+    .week-meta { font-size: 11px; color: #6b7280; font-weight: 600; background: #f3f4f6; padding: 4px 8px; border-radius: 4px; }
+    
+    .week-body { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 16px; }
+    .week-col-title { font-size: 11px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; border-bottom: 1px solid #f3f4f6; padding-bottom: 4px; }
+    .week-item-list { list-style: none; display: grid; gap: 6px; }
+    .week-item { font-size: 12px; color: #374151; display: flex; align-items: flex-start; gap: 6px; }
+    .week-item::before { content: "•"; color: #9ca3af; }
+
+    .ai-suggest-bar {
+      background: #f5f3ff; padding: 10px 16px; border-top: 1px solid #ede9fe;
+      display: flex; gap: 8px; align-items: center; font-size: 12px; color: #5b21b6;
+    }
+    .ai-suggest-icon { font-weight: 700; }
+    .ai-action-btn {
+      margin-left: auto; font-size: 11px; font-weight: 600; background: #fff; border: 1px solid #ddd6fe;
+      padding: 4px 10px; border-radius: 999px; color: #6d28d9; cursor: pointer;
+    }
+
+    /* Special Event Week */
+    .week-card.special { border-color: #fde6b8; }
+    .week-card.special .week-header { background: #fffbeb; border-color: #fde6b8; }
+    .week-card.special .week-title { color: #b45309; }
+
+    /* AI Sidebar */
+    .ai-sidebar {
+      position: sticky; top: 76px; display: grid; gap: 16px;
+    }
+    .ai-panel {
+      border: 1px solid #e0eaf5; border-radius: 12px; background: #f8fbff;
+      padding: 16px; display: grid; gap: 12px; box-shadow: 0 4px 12px rgba(18,36,54,0.04);
+    }
+    .ai-panel-title { font-size: 13px; font-weight: 700; color: #1e3a5a; display: flex; align-items: center; gap: 6px; }
+    .ai-panel-title::before { content: "✦"; color: #7a9ab5; font-size: 14px; }
+    
+    .ai-insight {
+      background: #fff; border: 1px solid #d6e3f0; border-radius: 8px; padding: 12px;
+    }
+    .ai-insight-type { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5b78a0; margin-bottom: 6px; }
+    .ai-insight-text { font-size: 12px; color: #374151; line-height: 1.45; }
+    .ai-insight-action {
+      display: inline-block; margin-top: 8px; font-size: 11px; font-weight: 600; color: var(--brand);
+      border: 1px solid var(--brand-border); padding: 4px 10px; border-radius: 4px; cursor: pointer;
+    }
+    .ai-insight-action:hover { background: var(--brand-soft); }
+
+    .ai-action-list { display: grid; gap: 8px; margin-top: 8px; }
+    .ai-action-btn-main {
+      width: 100%; text-align: left; background: #fff; border: 1px solid #dce4ec; border-radius: 8px;
+      padding: 10px; font-size: 12px; font-weight: 600; color: #1e3a5a; cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ai-action-btn-main::before { content: "→"; color: #7a9ab5; }
+    .ai-action-btn-main:hover { border-color: #b8cdd9; background: #f0f6fc; }
+
+    /* Bottom Connector */
+    .next-step-card {
+      border: 1px solid #c4d8ed; border-radius: 12px;
+      background: linear-gradient(180deg, #eef6ff 0%, #fafcff 100%);
+      padding: 24px; display: grid; gap: 12px; margin-top: 40px;
+    }
+    .next-step-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--brand); }
+    .next-step-title { font-size: 18px; font-weight: 700; color: #1d3a5a; }
+    .next-step-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--brand); color: #fff; border: 1px solid var(--brand);
+      border-radius: 8px; padding: 10px 20px; font-size: 13px; font-weight: 700;
+      cursor: pointer; width: fit-content; margin-top: 8px; text-decoration: none;
+    }
+    .next-step-btn:hover { background: #003366; }
+
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="topbar-brand">
+      <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
+           alt="Ngee Ann Polytechnic" style="height:28px; width:auto; display:block;">
+      <div class="t-div"></div>
+      <span class="brand-name">AI Curriculum Designer</span>
+    </a>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="page-eyebrow">Teaching & Assessment Planning</div>
+  <h1 class="page-title">Plan Weekly Learning Delivery</h1>
+  <p class="page-sub">Design the semester teaching flow, learning activities, assessment timing, OAL/IPL structure, and student learning progression.</p>
+
+  <!-- 1. TOP CONNECTOR -->
+  <div class="setup-card">
+    <div class="setup-kicker">Continue From Approved Module Design</div>
+    <div class="setup-title">Build the semester teaching and assessment plan</div>
+    <div class="setup-note">The approved module direction, learning outcomes, competency priorities, and assessment structure have been carried forward into this planning workspace. You are now operationalising the approved curriculum direction into semester teaching delivery.</div>
+  </div>
+
+  <div class="connected-strip">
+    <div class="connected-top">
+      <div>
+        <div class="connected-kicker">Connected Module Design</div>
+        <div class="connected-title">Healthcare AI & Respiratory Care</div>
+      </div>
+      <div class="connected-meta">Approved yesterday</div>
+    </div>
+    
+    <div class="ctx-flow">
+      <div class="ctx-flow-step ctx-flow-step--done">Discovery Analysis</div>
+      <div class="ctx-flow-arrow">→</div>
+      <div class="ctx-flow-step ctx-flow-step--done">Module Design</div>
+      <div class="ctx-flow-arrow">→</div>
+      <div class="ctx-flow-step ctx-flow-step--active">Teaching & Assessment Planning</div>
+      <div class="ctx-flow-arrow">→</div>
+      <div class="ctx-flow-step">Generate Materials</div>
+    </div>
+
+    <div class="ctx-downstream">
+      <div class="ctx-downstream-label">Context Available in This Workspace</div>
+      <div class="ctx-downstream-chips">
+        <div class="ctx-downstream-chip">Module synopsis</div>
+        <div class="ctx-downstream-chip">MLOs</div>
+        <div class="ctx-downstream-chip">CO mappings</div>
+        <div class="ctx-downstream-chip">Assessment structure</div>
+        <div class="ctx-downstream-chip">Graduate skills</div>
+        <div class="ctx-downstream-chip">AI literacy goals</div>
+        <div class="ctx-downstream-chip">Skills Framework priorities</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="workspace">
+    <div class="workspace-main">
+      
+      <!-- 2. MODULE SNAPSHOT PANEL -->
+      <div class="module-snapshot">
+        <div class="module-snapshot-header">Module Snapshot</div>
+        <div class="snapshot-metrics">
+          <div class="metric-card">
+            <div class="metric-val">15</div>
+            <div class="metric-lbl">Semester Weeks</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">4 hrs</div>
+            <div class="metric-lbl">Weekly Hours</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">60/40</div>
+            <div class="metric-lbl">IPL / OAL Split</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">3</div>
+            <div class="metric-lbl">Major Assessments</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. CORE WORKSPACE -->
+      <div class="workspace-toolbar">
+        <div class="workspace-toolbar-title">Semester Orchestration Canvas</div>
+        <div class="view-toggle">
+          <button class="view-btn active">Cards View</button>
+          <button class="view-btn">Table Export</button>
+        </div>
+      </div>
+
+      <div class="week-cards">
+        
+        <!-- Week 1 -->
+        <div class="week-card">
+          <div class="week-header">
+            <div class="week-title">Week 1: Introduction to Respiratory Care</div>
+            <div class="week-meta">4 hrs (2 OAL / 2 IPL)</div>
+          </div>
+          <div class="week-body">
+            <div>
+              <div class="week-col-title">OAL (Prep)</div>
+              <ul class="week-item-list">
+                <li class="week-item">Intro videos on foundational anatomy</li>
+                <li class="week-item">Readings: Chapter 1 & 2</li>
+                <li class="week-item">Pre-class knowledge check quiz</li>
+              </ul>
+            </div>
+            <div>
+              <div class="week-col-title">IPL (Application)</div>
+              <ul class="week-item-list">
+                <li class="week-item">Module briefing and expectations</li>
+                <li class="week-item">Group activity: Case study introduction</li>
+                <li class="week-item">Tutorial discussion: Physiology review</li>
+              </ul>
+            </div>
+            <div>
+              <div class="week-col-title">Assessments & Milestones</div>
+              <ul class="week-item-list">
+                <li class="week-item">Assignment 1 Briefing</li>
+                <li class="week-item">Formative: Pre-class quiz</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Week 2 -->
+        <div class="week-card">
+          <div class="week-header">
+            <div class="week-title">Week 2: Advanced Diagnostics & AI Tools</div>
+            <div class="week-meta">4 hrs (2 OAL / 2 IPL)</div>
+          </div>
+          <div class="week-body">
+            <div>
+              <div class="week-col-title">OAL (Prep)</div>
+              <ul class="week-item-list">
+                <li class="week-item">Interactive diagnostics simulation</li>
+                <li class="week-item">AI tool demonstration video</li>
+              </ul>
+            </div>
+            <div>
+              <div class="week-col-title">IPL (Application)</div>
+              <ul class="week-item-list">
+                <li class="week-item">Hands-on diagnostic practice</li>
+                <li class="week-item">Peer review: Interpretation of results</li>
+              </ul>
+            </div>
+            <div>
+              <div class="week-col-title">Assessments & Milestones</div>
+              <ul class="week-item-list">
+                <li class="week-item">Formative feedback on diagnostic practice</li>
+              </ul>
+            </div>
+          </div>
+          <div class="ai-suggest-bar">
+            <span class="ai-suggest-icon">✦</span>
+            <span>AI Suggestion: Consider adding retrieval practice before the IPL session.</span>
+            <button class="ai-action-btn">Add Retrieval Activity</button>
+          </div>
+        </div>
+
+        <!-- Special Week -->
+        <div class="week-card special">
+          <div class="week-header">
+            <div class="week-title">Week 8: Common Test Week</div>
+            <div class="week-meta">No regular classes</div>
+          </div>
+          <div class="week-body" style="grid-template-columns: 1fr;">
+            <div style="text-align: center; color: #92400e; font-size: 13px; font-weight: 500;">
+              White Space / Revision Week. No new content scheduled.
+            </div>
+          </div>
+        </div>
+
+        <!-- Week 9 -->
+        <div class="week-card">
+          <div class="week-header">
+            <div class="week-title">Week 9: Escalation Protocols & Simulation</div>
+            <div class="week-meta">4 hrs (1 OAL / 3 IPL)</div>
+          </div>
+          <div class="week-body">
+            <div>
+              <div class="week-col-title">OAL (Prep)</div>
+              <ul class="week-item-list">
+                <li class="week-item">Review escalation guidelines</li>
+              </ul>
+            </div>
+            <div>
+              <div class="week-col-title">IPL (Application)</div>
+              <ul class="week-item-list">
+                <li class="week-item">High-fidelity simulation (Stations)</li>
+                <li class="week-item">Debrief and recap</li>
+              </ul>
+            </div>
+            <div>
+              <div class="week-col-title">Assessments & Milestones</div>
+              <ul class="week-item-list">
+                <li class="week-item"><strong>CA2 Submission: Live Simulation</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 7. BOTTOM CONNECTOR -->
+      <div class="next-step-card">
+        <div class="next-step-label">Next Workflow Stage</div>
+        <div class="next-step-title">Generate Teaching Materials</div>
+        <div class="setup-note">Generate aligned OAL materials, IPL activities, quizzes, facilitation guides, assessment resources, and learner support materials based on the approved teaching plan.</div>
+        
+        <div class="ctx-flow" style="margin-top: 12px; margin-bottom: 12px;">
+          <div class="ctx-flow-step ctx-flow-step--done">Discovery Analysis</div>
+          <div class="ctx-flow-arrow">→</div>
+          <div class="ctx-flow-step ctx-flow-step--done">Module Design</div>
+          <div class="ctx-flow-arrow">→</div>
+          <div class="ctx-flow-step ctx-flow-step--done">Teaching & Assessment Planning</div>
+          <div class="ctx-flow-arrow">→</div>
+          <div class="ctx-flow-step ctx-flow-step--active">Generate Materials</div>
+        </div>
+
+        <div class="ctx-downstream">
+          <div class="ctx-downstream-label">Will Carry Forward</div>
+          <div class="ctx-downstream-chips">
+            <div class="ctx-downstream-chip">Weekly lesson flow</div>
+            <div class="ctx-downstream-chip">OAL activities</div>
+            <div class="ctx-downstream-chip">IPL activities</div>
+            <div class="ctx-downstream-chip">Assessment milestones</div>
+            <div class="ctx-downstream-chip">TBL activities</div>
+            <div class="ctx-downstream-chip">Quiz structure</div>
+            <div class="ctx-downstream-chip">AI-enabled activities</div>
+          </div>
+        </div>
+
+        <a class="next-step-btn" href="generate-materials.html">Continue to Generate Materials →</a>
+      </div>
+
+    </div>
+
+    <!-- 4. SMART PEDAGOGY ASSIST LAYER (SIDEBAR) -->
+    <div class="workspace-side">
+      <div class="ai-sidebar">
+        <div class="ai-panel">
+          <div class="ai-panel-title">AI Planning Suggestions</div>
+          <div style="font-size: 12px; color: #4b5563; margin-bottom: 8px;">Curriculum intelligence to help you orchestrate learning.</div>
+          
+          <div class="ai-insight">
+            <div class="ai-insight-type">Pedagogical Balance</div>
+            <div class="ai-insight-text">Heavy content clustering detected in Weeks 5–6. Consider adding recap/revision activities.</div>
+            <button class="ai-insight-action">Add Revision Block</button>
+          </div>
+          
+          <div class="ai-insight">
+            <div class="ai-insight-type">Assessment Load</div>
+            <div class="ai-insight-text">Two major submissions currently overlap in Week 9.</div>
+            <button class="ai-insight-action">Review Timeline</button>
+          </div>
+
+          <div class="ai-insight">
+            <div class="ai-insight-type">OAL/IPL Balance</div>
+            <div class="ai-insight-text">Weeks 1–4 rely heavily on IPL. Consider adding pre-class retrieval or microlearning activities.</div>
+            <button class="ai-insight-action">Suggest OAL Split</button>
+          </div>
+
+          <div class="ai-insight">
+            <div class="ai-insight-type">Learning Progression</div>
+            <div class="ai-insight-text">No formative checkpoint detected before Common Test.</div>
+            <button class="ai-insight-action">Add Checkpoint</button>
+          </div>
+        </div>
+
+        <div class="ai-panel">
+          <div class="ai-panel-title">Planning Accelerators</div>
+          <div class="ai-action-list">
+            <button class="ai-action-btn-main">Generate a suggested 15-week teaching sequence</button>
+            <button class="ai-action-btn-main">Distribute formative checkpoints</button>
+            <button class="ai-action-btn-main">Recommend asynchronous prep</button>
+            <button class="ai-action-btn-main">Suggest AI-supported activities</button>
+            <button class="ai-action-btn-main">Review pacing & intensity</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>
