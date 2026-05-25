@@ -367,7 +367,7 @@
     }
 
     .analysis-accordion > summary::after {
-      content: "View connected analysis";
+      content: "Review handoff";
       justify-self: start;
       margin-top: 2px;
       font-size: 11px;
@@ -385,7 +385,7 @@
     }
 
     .analysis-accordion[open] > summary::after {
-      content: "Hide connected analysis";
+      content: "Hide handoff";
     }
 
     .analysis-runs {
@@ -474,6 +474,47 @@
       background: #f2f8fe;
     }
 
+    .analysis-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .analysis-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--brand);
+      border-radius: 999px;
+      background: var(--brand);
+      color: #fff;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+      font-family: var(--font-sans);
+    }
+
+    .analysis-primary:hover {
+      background: #003366;
+      border-color: #003366;
+    }
+
+    .analysis-text-link {
+      color: #5f748a;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .analysis-text-link:hover {
+      color: var(--brand);
+      text-decoration: underline;
+      text-decoration-color: #b9cfdf;
+    }
+
     .connected-strip {
       border: 1px solid #d8e5f2;
       border-radius: 12px;
@@ -544,6 +585,22 @@
       color: #4f667e;
       font-size: 12px;
       font-weight: 600;
+    }
+
+    .connected-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .connected-chip {
+      border: 1px solid #d6e2ef;
+      border-radius: 999px;
+      background: #fff;
+      color: #365872;
+      padding: 4px 9px;
+      font-size: 11px;
+      font-weight: 700;
     }
 
     .workspace-strip {
@@ -2651,81 +2708,85 @@
       <p class="page-sub">Work with AI to shape your module while the NP module draft updates live.</p>
     </section>
 
-    <section class="setup-card" aria-label="Continue from previous analysis">
-      <div>
-        <div class="setup-kicker">Continue From Previous Analysis</div>
+    <section class="setup-card analysis-setup" aria-label="Connected discovery analysis">
+      <details class="analysis-accordion">
+        <summary>
+          <div class="setup-kicker">Continue from Discovery Analysis</div>
 
-        <div class="setup-title">
-          Select a completed discovery or benchmarking analysis
-        </div>
+          <div class="setup-title">
+            Choose an analysis to continue from
+          </div>
 
-        <div class="setup-note">
-          Use a previously completed analysis as the foundation for curriculum and module design. Connected insights, benchmarking findings, Skills Framework priorities, and identified competency gaps will carry forward into this workflow.
-        </div>
-      </div>
+          <div class="setup-note">
+            Connected curriculum signals and benchmarking insights will carry into module design.
+          </div>
+        </summary>
 
-      <div class="connected-strip">
+        <div class="analysis-runs">
+          <div class="connected-strip">
 
-        <div class="connected-top">
-          <div>
-            <div class="connected-kicker">
-              Connected Upstream Analysis
+            <div class="connected-top">
+              <div>
+                <div class="connected-kicker">
+                  Connected Discovery Analysis
+                </div>
+
+                <div class="connected-title">
+                  Healthcare AI &amp; Respiratory Care Benchmarking
+                </div>
+              </div>
+
+              <div class="connected-meta">
+                Completed 2h ago
+              </div>
             </div>
 
-            <div class="connected-title">
-              Healthcare AI &amp; Respiratory Care Benchmarking
+            <div class="ctx-flow">
+              <div class="ctx-flow-step ctx-flow-step--done">
+                Discovery
+              </div>
+
+              <div class="ctx-flow-arrow">→</div>
+
+              <div class="ctx-flow-step ctx-flow-step--active">
+                Module Design
+              </div>
+
+              <div class="ctx-flow-arrow">→</div>
+
+              <div class="ctx-flow-step">
+                Teaching Plan
+              </div>
             </div>
-          </div>
 
-          <div class="connected-meta">
-            Completed 2 hours ago
+            <div class="connected-metrics">
+              Connected analysis context available
+            </div>
+
+            <div class="connected-chips">
+              <div class="connected-chip">Industry Signals</div>
+              <div class="connected-chip">Benchmarking</div>
+              <div class="connected-chip">Skills Framework</div>
+              <div class="connected-chip">Competency Gaps</div>
+            </div>
+
+            <div class="analysis-actions">
+              <button class="analysis-primary" type="button">
+                Continue
+              </button>
+
+              <a class="analysis-cta" href="#">
+                View Summary
+              </a>
+
+              <a class="analysis-text-link" href="#">
+                Change Analysis
+              </a>
+            </div>
+
           </div>
         </div>
-
-        <div class="setup-note" style="margin-top:-2px;">
-          Includes industry signals, Skills Framework mapping, benchmarked programmes, curriculum gaps, and recommended competency priorities.
-        </div>
-
-        <div class="ctx-flow">
-          <div class="ctx-flow-step ctx-flow-step--done">
-            Discovery Analysis
-          </div>
-
-          <div class="ctx-flow-arrow">→</div>
-
-          <div class="ctx-flow-step ctx-flow-step--active">
-            Module Design
-          </div>
-
-          <div class="ctx-flow-arrow">→</div>
-
-          <div class="ctx-flow-step">
-            Teaching &amp; Assessment Planning
-          </div>
-        </div>
-
-        <ul class="connected-list">
-          <li>Industry and future skills signals connected</li>
-          <li>Skills Framework priorities referenced</li>
-          <li>Benchmark programme comparisons available</li>
-          <li>Identified curriculum gaps carried forward</li>
-        </ul>
-
-        <div class="connected-metrics">
-          Using completed discovery analysis and approved reference inputs
-        </div>
-
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <a class="analysis-cta" href="#">
-            Change Analysis
-          </a>
-
-          <a class="analysis-cta" href="#">
-            View Analysis Summary
-          </a>
-        </div>
-
-      </div>
+      </details>
     </section>
 
     <section class="workspace" id="coDesignWorkspace">
