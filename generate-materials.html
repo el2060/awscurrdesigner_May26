@@ -48,17 +48,17 @@
     .page-sub { font-size: 15px; color: #4d5d70; line-height: 1.5; max-width: 720px; }
 
     /* Top Connector */
-    .setup-card { border: 1px solid #c8daec; border-radius: 12px; background: #fff; padding: 18px; display: grid; gap: 16px; margin-bottom: 40px; }
+    .setup-card { border: 1px solid #c8daec; border-radius: 12px; background: #fff; padding: 16px; display: grid; gap: 12px; margin-bottom: 24px; }
     .setup-kicker { color: var(--brand); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
-    .setup-title { color: #111827; font-size: 17px; font-weight: 700; }
+    .setup-title { color: #111827; font-size: 16px; font-weight: 700; }
     .analysis-setup { padding: 0; overflow: hidden; border-color: #d7e3ef; background: #fcfeff; }
-    .analysis-accordion > summary { list-style: none; cursor: pointer; padding: 14px 16px; display: grid; gap: 6px; }
+    .analysis-accordion > summary { list-style: none; cursor: pointer; padding: 12px 16px; display: grid; gap: 4px; }
     .analysis-accordion > summary::-webkit-details-marker { display: none; }
     .analysis-runs { padding: 10px 12px 14px; display: grid; gap: 8px; background: #f9fcff; }
-    .connected-strip { border: 1px solid #d8e5f2; border-radius: 12px; background: linear-gradient(180deg, #f8fbff 0%, #f5f9fe 100%); padding: 14px 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .connected-strip { border: 1px solid #d8e5f2; border-radius: 10px; background: linear-gradient(180deg, #f8fbff 0%, #f5f9fe 100%); padding: 12px 14px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     .ctx-downstream-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-    .ctx-downstream-chip { font-size: 11px; font-weight: 600; color: #365872; background: #fff; border: 1px solid #d6e2ef; border-radius: 999px; padding: 4px 10px; }
-    .ctx-more-chip { font-size: 11px; font-weight: 500; color: #6b7280; padding: 4px 6px; }
+    .ctx-downstream-chip { font-size: 11px; font-weight: 600; color: #365872; background: #fff; border: 1px solid #d6e2ef; border-radius: 999px; padding: 3px 10px; }
+    .ctx-more-chip { font-size: 11px; font-weight: 500; color: #6b7280; padding: 3px 6px; }
 
     /* Workspace */
     .workspace { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 32px; align-items: start; }
@@ -70,31 +70,33 @@
       position: sticky; top: 76px; display: grid; gap: 0;
       background: #fff; border: 1px solid #dce8f5; border-radius: 12px; overflow: hidden;
     }
-    .assistant-header-block { padding: 18px 16px 14px; border-bottom: 1px solid #edf2f8; background: linear-gradient(180deg, #f6faff 0%, #fff 100%); }
-    .assistant-name { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 8px; }
-    .rail-sub { font-size: 12px; color: #4b5563; line-height: 1.5; }
+    .assistant-header-block { padding: 16px 16px 12px; border-bottom: 1px solid #edf2f8; background: linear-gradient(180deg, #f6faff 0%, #fff 100%); }
+    .assistant-name { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+    .rail-sub { font-size: 12px; color: #4b5563; line-height: 1.4; }
 
-    .rail-block { padding: 16px; border-bottom: 1px solid #edf2f8; display: grid; gap: 8px; }
+    .rail-block { padding: 14px 16px; border-bottom: 1px solid #edf2f8; display: grid; gap: 6px; }
     .rail-block:last-child { border-bottom: none; }
-    .rail-title { font-size: 11px; font-weight: 700; color: #111827; }
+    .rail-title { font-size: 11px; font-weight: 700; color: #111827; margin-bottom: 2px; }
 
     /* Scope in rail */
-    .scope-chips-rail { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
-    .scope-chip-rail { cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 12px; color: #374151; }
-    .rec-pill { font-size: 10px; font-weight: 600; color: #1d6b45; background: #f0faf5; padding: 3px 8px; border-radius: 4px; margin-top: 6px; display: inline-block; }
+    .scope-chips-rail { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
+    .scope-chip-rail { cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 11.5px; color: #374151; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px; transition: 0.15s; }
+    .scope-chip-rail:has(input:checked) { background: var(--brand-soft); border-color: var(--brand-border); color: var(--brand-dark); font-weight: 600; }
+    .scope-chip-rail input { display: none; }
+    .rec-pill { font-size: 10px; font-weight: 600; color: #1d6b45; background: #f0faf5; padding: 3px 8px; border-radius: 4px; margin-top: 4px; display: inline-block; }
 
     /* Material Checkboxes */
-    .rail-check-list { display: grid; gap: 6px; margin-top: 4px; margin-bottom: 8px; }
-    .rail-check-item { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #374151; cursor: pointer; }
-    .rail-check-item input { accent-color: var(--brand); cursor: pointer; width: 14px; height: 14px; }
+    .rail-check-list { display: grid; gap: 4px; margin-bottom: 6px; }
+    .rail-check-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #374151; cursor: pointer; padding: 2px 0; }
+    .rail-check-item input { accent-color: var(--brand); cursor: pointer; width: 13px; height: 13px; }
 
     /* Suggested by plan */
-    .rail-rec-item { font-size: 11.5px; color: #4b5563; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; margin-bottom: 6px; }
+    .rail-rec-item { font-size: 11.5px; color: #4b5563; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; margin-bottom: 4px; }
     .rail-rec-item::before { content: "✓"; color: #1d6b45; font-weight: 700; flex-shrink: 0; }
 
-    .primary-cta { width: 100%; background: var(--brand); color: #fff; border: 1px solid var(--brand); border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 6px; transition: 0.15s; }
+    .primary-cta { width: 100%; background: var(--brand); color: #fff; border: 1px solid var(--brand); border-radius: 8px; padding: 9px; font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 4px; transition: 0.15s; }
     .primary-cta:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
-    .cta-sub { font-size: 10.5px; color: #6b7280; line-height: 1.4; text-align: center; }
+    .cta-sub { font-size: 10.5px; color: #6b7280; line-height: 1.3; text-align: center; }
 
     /* ─── WORKSPACE MAIN ─── */
     .workspace-toolbar { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 4px; }
@@ -102,10 +104,10 @@
     .workspace-toolbar-sub { font-size: 13px; color: #6b7280; }
 
     /* Empty State */
-    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; text-align: center; background: #fff; border: 1px dashed #c8daec; border-radius: 12px; margin-top: 20px; }
-    .empty-icon { font-size: 32px; margin-bottom: 16px; opacity: 0.8; }
-    .empty-title { font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 8px; }
-    .empty-desc { font-size: 13px; color: #6b7280; max-width: 340px; line-height: 1.5; }
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: linear-gradient(180deg, #f8fbff 0%, #fff 100%); border: 1px solid #e0e8f0; border-radius: 12px; margin-top: 0; min-height: 400px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+    .empty-icon { font-size: 32px; margin-bottom: 16px; opacity: 0.8; background: #eef6ff; width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 1px solid #dce8f5; }
+    .empty-title { font-size: 17px; font-weight: 700; color: #111827; margin-bottom: 8px; }
+    .empty-desc { font-size: 13.5px; color: #6b7280; max-width: 360px; line-height: 1.5; }
 
     /* Generated State */
     .generated-state { display: none; }
@@ -189,27 +191,6 @@
     <p class="page-sub" style="margin-bottom: 28px;">Prepare teaching materials from your approved teaching and assessment plan.</p>
   </section>
 
-  <!-- TOP CONNECTOR -->
-  <section class="setup-card analysis-setup" aria-label="Connected teaching plan context">
-    <details class="analysis-accordion">
-      <summary>
-        <div class="setup-kicker">Continue From Teaching &amp; Assessment Planning</div>
-        <div class="setup-title">Approved weekly teaching flow, OAL/IPL activities, and assessment plans carried forward.</div>
-      </summary>
-      <div class="analysis-runs">
-        <div class="connected-strip">
-          <div class="ctx-downstream-chips">
-            <div class="ctx-downstream-chip">Weekly Activities</div>
-            <div class="ctx-downstream-chip">OAL / IPL Flow</div>
-            <div class="ctx-downstream-chip">Assessment Schedule</div>
-            <div class="ctx-downstream-chip">Teaching Strategies</div>
-            <div class="ctx-more-chip">+2 more</div>
-          </div>
-        </div>
-      </div>
-    </details>
-  </section>
-
   <div class="workspace">
 
     <!-- LEFT RAIL: TEACHING PACK ASSISTANT -->
@@ -226,32 +207,32 @@
 
         <div class="rail-block">
           <div class="rail-title">What would you like to prepare?</div>
-          <div class="scope-chips-rail" style="flex-direction: column;">
-            <label class="scope-chip-rail"><input type="radio" name="scope" value="all"> Entire module</label>
-            <label class="scope-chip-rail"><input type="radio" name="scope" value="w1-6" checked> Weeks 1–6</label>
-            <label class="scope-chip-rail"><input type="radio" name="scope" value="w7-12"> Weeks 7–12</label>
-            <label class="scope-chip-rail"><input type="radio" name="scope" value="custom"> Selected weeks</label>
+          <div class="scope-chips-rail">
+            <label class="scope-chip-rail"><input type="radio" name="scope" value="all"> Module</label>
+            <label class="scope-chip-rail"><input type="radio" name="scope" value="w1-6" checked> Wks 1–6</label>
+            <label class="scope-chip-rail"><input type="radio" name="scope" value="w7-12"> Wks 7–12</label>
+            <label class="scope-chip-rail"><input type="radio" name="scope" value="custom"> Custom</label>
           </div>
-          <div class="rec-pill">Recommended: Weeks 1–3 (based on upcoming teaching schedule)</div>
+          <div class="rec-pill">Recommended: Wks 1–3</div>
         </div>
 
         <div class="rail-block">
-          <div class="rail-title" style="margin-bottom: 4px;">OAL / Pre-Class</div>
+          <div class="rail-title">OAL / Pre-Class</div>
           <div class="rail-check-list">
             <label class="rail-check-item"><input type="checkbox" checked> E-Lecture Slides (PPTX)</label>
             <label class="rail-check-item"><input type="checkbox" checked> Understanding Check Quiz</label>
             <label class="rail-check-item"><input type="checkbox" checked> Reading Notes</label>
           </div>
 
-          <div class="rail-title" style="margin-bottom: 4px; margin-top: 8px;">IPL / In-Class</div>
+          <div class="rail-title" style="margin-top: 4px;">IPL / In-Class</div>
           <div class="rail-check-list">
             <label class="rail-check-item"><input type="checkbox" checked> Facilitation Slides</label>
             <label class="rail-check-item"><input type="checkbox" checked> Applied Activity</label>
             <label class="rail-check-item"><input type="checkbox"> Discussion Prompts</label>
           </div>
 
-          <div class="rail-title" style="margin-bottom: 4px; margin-top: 8px;">Lecturer Support</div>
-          <div class="rail-check-list">
+          <div class="rail-title" style="margin-top: 4px;">Lecturer Support</div>
+          <div class="rail-check-list" style="margin-bottom: 0;">
             <label class="rail-check-item"><input type="checkbox" checked> Facilitation Guide</label>
             <label class="rail-check-item"><input type="checkbox" checked> Suggested Answers</label>
             <label class="rail-check-item"><input type="checkbox"> Assessment Support</label>
@@ -259,13 +240,13 @@
         </div>
 
         <div class="rail-block">
-          <div class="rail-title" style="margin-bottom: 8px;">Recommended From Teaching Plan</div>
+          <div class="rail-title" style="margin-bottom: 6px;">Recommended From Plan</div>
           <div class="rail-rec-item">Quiz recommended before CA1</div>
-          <div class="rail-rec-item">Facilitation guide suggested for Week 4 simulation</div>
-          <div class="rail-rec-item">OAL slides recommended for Weeks 1–2</div>
+          <div class="rail-rec-item">Facilitation guide for Wk 4 sim</div>
+          <div class="rail-rec-item">OAL slides for Wks 1–2</div>
         </div>
 
-        <div class="rail-block" style="border-bottom: none; padding-top: 20px;">
+        <div class="rail-block" style="border-bottom: none; padding-top: 16px;">
           <button class="primary-cta" onclick="generateMaterials()">Generate Draft Materials</button>
           <div class="cta-sub">AI will draft materials based on your approved teaching plan and selected scope.</div>
         </div>
@@ -276,11 +257,32 @@
     <!-- MAIN WORKSPACE -->
     <div class="workspace-main">
 
+      <!-- TOP CONNECTOR MOVED INSIDE WORKSPACE MAIN -->
+      <section class="setup-card analysis-setup" aria-label="Connected teaching plan context">
+        <details class="analysis-accordion" open>
+          <summary>
+            <div class="setup-kicker">Continue From Teaching &amp; Assessment Planning</div>
+            <div class="setup-title">Approved weekly teaching flow, OAL/IPL activities, and assessment plans carried forward.</div>
+          </summary>
+          <div class="analysis-runs">
+            <div class="connected-strip">
+              <div class="ctx-downstream-chips">
+                <div class="ctx-downstream-chip">Weekly Activities</div>
+                <div class="ctx-downstream-chip">OAL / IPL Flow</div>
+                <div class="ctx-downstream-chip">Assessment Schedule</div>
+                <div class="ctx-downstream-chip">Teaching Strategies</div>
+                <div class="ctx-more-chip">+2 more</div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </section>
+
       <!-- INITIAL STATE -->
       <div id="initial-state" class="empty-state">
         <div class="empty-icon">📑</div>
         <div class="empty-title">Ready to Generate</div>
-        <div class="empty-desc">Select your scope and materials in the assistant, then click "Generate Draft Materials" to begin.</div>
+        <div class="empty-desc">Select your scope and materials in the assistant, then click "Generate Draft Materials" to begin drafting your teaching pack.</div>
       </div>
 
       <!-- GENERATED STATE -->
