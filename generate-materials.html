@@ -19,13 +19,6 @@
       --muted:  #9ca3af;
       --border: #e5e7eb;
       --bg:     #fafaf9;
-
-      --oal-accent: #b45309;
-      --oal-bg: #fffbf2;
-      --ipl-accent: #1d6b45;
-      --ipl-bg: #f0faf5;
-      --lec-accent: #004689;
-      --lec-bg: #f0f6fc;
     }
 
     body {
@@ -58,13 +51,9 @@
     .setup-card { border: 1px solid #c8daec; border-radius: 12px; background: #fff; padding: 18px; display: grid; gap: 16px; margin-bottom: 40px; }
     .setup-kicker { color: var(--brand); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
     .setup-title { color: #111827; font-size: 17px; font-weight: 700; }
-    .setup-note { color: #4b5563; font-size: 12px; line-height: 1.5; }
     .analysis-setup { padding: 0; overflow: hidden; border-color: #d7e3ef; background: #fcfeff; }
     .analysis-accordion > summary { list-style: none; cursor: pointer; padding: 14px 16px; display: grid; gap: 6px; }
     .analysis-accordion > summary::-webkit-details-marker { display: none; }
-    .analysis-accordion > summary::after { content: "Review handoff"; justify-self: start; margin-top: 2px; font-size: 11px; font-weight: 700; color: #5f748a; border: 1px solid #d8e4ef; border-radius: 999px; padding: 4px 10px; background: #fff; }
-    .analysis-accordion[open] > summary { border-bottom: 1px solid #e3ecf4; background: #fff; }
-    .analysis-accordion[open] > summary::after { content: "Hide handoff"; }
     .analysis-runs { padding: 10px 12px 14px; display: grid; gap: 8px; background: #f9fcff; }
     .connected-strip { border: 1px solid #d8e5f2; border-radius: 12px; background: linear-gradient(180deg, #f8fbff 0%, #f5f9fe 100%); padding: 14px 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
     .ctx-downstream-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
@@ -81,196 +70,89 @@
       position: sticky; top: 76px; display: grid; gap: 0;
       background: #fff; border: 1px solid #dce8f5; border-radius: 12px; overflow: hidden;
     }
-    .assistant-header-block { padding: 14px 16px 12px; border-bottom: 1px solid #edf2f8; background: linear-gradient(180deg, #f6faff 0%, #fff 100%); }
-    .assistant-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .assistant-icon { width: 30px; height: 30px; border-radius: 7px; background: var(--brand); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
-    .assistant-name { font-size: 13px; font-weight: 700; color: #111827; }
-    .assistant-status { font-size: 10px; color: #6b7280; font-weight: 500; margin-top: 1px; }
-    .assistant-context { font-size: 12px; color: #4b5563; line-height: 1.55; background: #f0f6fc; border: 1px solid #d6e6f5; border-radius: 7px; padding: 9px 11px; }
-    .assistant-sources { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
-    .source-chip { font-size: 10px; font-weight: 600; color: #3a6a9e; background: #ddeaf8; border-radius: 4px; padding: 2px 7px; }
+    .assistant-header-block { padding: 18px 16px 14px; border-bottom: 1px solid #edf2f8; background: linear-gradient(180deg, #f6faff 0%, #fff 100%); }
+    .assistant-name { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 8px; }
+    .rail-sub { font-size: 12px; color: #4b5563; line-height: 1.5; }
 
-    .rail-block { padding: 14px 16px; border-bottom: 1px solid #edf2f8; display: grid; gap: 10px; }
+    .rail-block { padding: 16px; border-bottom: 1px solid #edf2f8; display: grid; gap: 8px; }
     .rail-block:last-child { border-bottom: none; }
-    .rail-title { font-size: 9.5px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.09em; }
+    .rail-title { font-size: 11px; font-weight: 700; color: #111827; }
 
     /* Scope in rail */
-    .scope-chips-rail { display: flex; flex-wrap: wrap; gap: 5px; }
-    .scope-chip-rail { cursor: pointer; }
-    .scope-chip-rail input { position: absolute; opacity: 0; pointer-events: none; }
-    .scope-chip-rail span { font-size: 11.5px; font-weight: 600; color: #4b5563; border: 1px solid #e5e7eb; border-radius: 6px; background: #f9fafb; padding: 4px 10px; cursor: pointer; display: block; }
-    .scope-chip-rail input:checked + span { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); }
-    .scope-chip-rail span:hover { border-color: #b8d0e6; }
-    .scope-summary { font-size: 11px; color: #6b7280; line-height: 1.4; padding: 6px 9px; background: #f8fbff; border: 1px solid #dce8f5; border-radius: 6px; }
+    .scope-chips-rail { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+    .scope-chip-rail { cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 12px; color: #374151; }
+    .rec-pill { font-size: 10px; font-weight: 600; color: #1d6b45; background: #f0faf5; padding: 3px 8px; border-radius: 4px; margin-top: 6px; display: inline-block; }
 
-    /* Rail actions */
-    .rail-action-list { display: grid; gap: 5px; }
-    .rail-action-btn {
-      text-align: left; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 7px;
-      padding: 8px 11px; font-size: 12px; font-weight: 500; color: #374151; cursor: pointer;
-      display: flex; align-items: center; gap: 8px; width: 100%;
-      transition: border-color 0.15s, background 0.15s, color 0.15s;
-    }
-    .rail-action-btn:hover { border-color: var(--brand); color: var(--brand); background: #f0f6fc; }
-    .rail-action-btn .btn-icon { width: 18px; height: 18px; border-radius: 4px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; color: #6b7280; }
-    .rail-action-btn:hover .btn-icon { background: var(--brand-soft); color: var(--brand); }
-    .rail-action-btn.generate { background: var(--brand); color: #fff; border-color: var(--brand); font-weight: 600; }
-    .rail-action-btn.generate:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
-    .rail-action-btn.generate .btn-icon { background: rgba(255,255,255,0.2); color: #fff; }
+    /* Material Checkboxes */
+    .rail-check-list { display: grid; gap: 6px; margin-top: 4px; margin-bottom: 8px; }
+    .rail-check-item { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #374151; cursor: pointer; }
+    .rail-check-item input { accent-color: var(--brand); cursor: pointer; width: 14px; height: 14px; }
 
-    /* Rail observations */
-    .rail-suggest-list { display: grid; gap: 8px; }
-    .rail-suggest-item { font-size: 11.5px; color: #374151; display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
-    .rail-suggest-label { display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; flex: 1; }
-    .rail-suggest-label::before { content: "✦"; color: var(--brand); font-size: 10px; margin-top: 2px; flex-shrink: 0; }
-    .rail-suggest-item.warn .rail-suggest-label::before { content: "⚠"; color: #b45309; }
-    .rail-apply-btn { font-size: 10px; font-weight: 600; color: var(--brand); background: #f0f6fc; border: 1px solid #d8e6f4; border-radius: 4px; padding: 3px 8px; cursor: pointer; flex-shrink: 0; white-space: nowrap; }
-    .rail-apply-btn:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
-    .rail-apply-btn.warn-action { color: #b45309; background: #fffbeb; border-color: #fde6b8; }
-    .rail-apply-btn.warn-action:hover { background: #b45309; color: #fff; border-color: #b45309; }
+    /* Suggested by plan */
+    .rail-rec-item { font-size: 11.5px; color: #4b5563; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; margin-bottom: 6px; }
+    .rail-rec-item::before { content: "✓"; color: #1d6b45; font-weight: 700; flex-shrink: 0; }
+
+    .primary-cta { width: 100%; background: var(--brand); color: #fff; border: 1px solid var(--brand); border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 6px; transition: 0.15s; }
+    .primary-cta:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
+    .cta-sub { font-size: 10.5px; color: #6b7280; line-height: 1.4; text-align: center; }
 
     /* ─── WORKSPACE MAIN ─── */
     .workspace-toolbar { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 4px; }
-    .workspace-toolbar-title { font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.01em; }
-    .workspace-toolbar-sub { font-size: 13px; color: #6b7280; margin-top: 3px; }
-    .save-state { font-size: 11px; color: #6b7280; font-weight: 500; display: flex; align-items: center; gap: 6px; }
-    .save-indicator { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #10b981; }
+    .workspace-toolbar-title { font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.01em; margin-bottom: 4px; }
+    .workspace-toolbar-sub { font-size: 13px; color: #6b7280; }
 
-    /* Material components section */
-    .comp-section { border: 1px solid var(--border); border-radius: 10px; background: #fff; overflow: hidden; margin-bottom: 32px; }
-    .comp-header { padding: 14px 18px; border-bottom: 1px solid #f3f4f6; background: linear-gradient(180deg, #fafbfc 0%, #fff 100%); }
-    .comp-header-title { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 3px; }
-    .comp-header-sub { font-size: 12px; color: #6b7280; }
-    .comp-body { padding: 16px 18px; display: grid; gap: 12px; }
+    /* Empty State */
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; text-align: center; background: #fff; border: 1px dashed #c8daec; border-radius: 12px; margin-top: 20px; }
+    .empty-icon { font-size: 32px; margin-bottom: 16px; opacity: 0.8; }
+    .empty-title { font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 8px; }
+    .empty-desc { font-size: 13px; color: #6b7280; max-width: 340px; line-height: 1.5; }
 
-    /* Phase blocks */
-    .phase-block { border: 1px solid #e9edf2; border-radius: 10px; overflow: hidden; }
-    .phase-block.oal { border-top: 3px solid var(--oal-accent); }
-    .phase-block.ipl { border-top: 3px solid var(--ipl-accent); }
-    .phase-block.lec { border-top: 3px solid var(--lec-accent); }
-    .phase-head { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid #f0f3f6; }
-    .phase-block.oal .phase-head { background: var(--oal-bg); }
-    .phase-block.ipl .phase-head { background: var(--ipl-bg); }
-    .phase-block.lec .phase-head { background: var(--lec-bg); }
-    .phase-icon { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .phase-block.oal .phase-icon { background: #fde68a; }
-    .phase-block.ipl .phase-icon { background: #a7f3d0; }
-    .phase-block.lec .phase-icon { background: #b8d0e6; }
-    .phase-title { font-size: 13px; font-weight: 700; flex: 1; }
-    .phase-block.oal .phase-title { color: var(--oal-accent); }
-    .phase-block.ipl .phase-title { color: var(--ipl-accent); }
-    .phase-block.lec .phase-title { color: var(--lec-accent); }
-    .phase-count { font-size: 10px; font-weight: 700; color: #7a8fa3; background: #fff; border: 1px solid #d8e4ef; border-radius: 999px; padding: 2px 9px; }
+    /* Generated State */
+    .generated-state { display: none; }
 
-    .mat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 12px 14px; background: #fff; }
-    .mat-item { display: flex; align-items: center; gap: 8px; border: 1px solid #e0e8f0; border-radius: 8px; padding: 9px 11px; cursor: pointer; background: #fff; transition: border-color 0.1s, background 0.1s; }
-    .mat-item:hover { border-color: #b8d0e6; background: #f8fbff; }
-    .mat-item:has(input:checked) { border-color: var(--brand-border); background: #f5f9ff; }
-    .mat-check { width: 14px; height: 14px; flex-shrink: 0; accent-color: var(--brand); cursor: pointer; }
-    .mat-item-body { display: flex; align-items: center; gap: 5px; flex: 1; min-width: 0; flex-wrap: wrap; }
-    .mat-name { font-size: 12px; font-weight: 600; color: #2c4160; line-height: 1.3; }
-    .mat-tag { font-size: 10px; font-weight: 700; border-radius: 4px; padding: 2px 6px; white-space: nowrap; }
-    .mat-tag.oal { background: #e8f2fc; color: #1a5a8a; }
-    .mat-tag.ipl { background: #e6f5ef; color: #1a5e3a; }
-    .mat-tag.facil { background: #fef3e2; color: #8a4f0a; }
-    .mat-tag.ai-rec { background: #eef6ff; color: var(--brand); font-size: 9px; padding: 2px 5px; }
-
-    /* Actions bar */
-    .comp-actions { display: flex; align-items: center; gap: 10px; padding: 12px 18px; border-top: 1px solid #f3f4f6; background: #fafbfc; }
-    .action-tally { font-size: 13px; font-weight: 700; color: #3c5673; flex: 1; }
-    .btn { border: 1px solid #d2dcef; border-radius: 8px; background: #fff; color: #344b61; font-size: 12px; font-weight: 700; padding: 8px 16px; cursor: pointer; font-family: var(--font-sans, system-ui); white-space: nowrap; }
+    /* Material Cards */
+    .mat-card-list { display: grid; gap: 16px; margin-top: 20px; }
+    .mc-card { border: 1px solid #dce8f5; border-radius: 10px; background: #fff; overflow: hidden; }
+    .mc-header { padding: 20px; display: grid; gap: 12px; }
+    .mc-title { font-size: 16px; font-weight: 700; color: #111827; }
+    .mc-meta { font-size: 13px; color: #4b5563; line-height: 1.5; }
+    .mc-meta ul { padding-left: 20px; margin-top: 4px; color: #6b7280; list-style: disc; }
+    
+    .mc-inline-actions { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: #9ca3af; margin-top: 4px; }
+    .mc-btn-inline { background: none; border: none; font-size: 12px; font-weight: 500; color: #6b7280; cursor: pointer; padding: 0; }
+    .mc-btn-inline:hover { color: var(--brand); text-decoration: underline; }
+    
+    .btn { border: 1px solid #d2dcef; border-radius: 8px; background: #fff; color: #344b61; font-size: 12px; font-weight: 700; padding: 8px 16px; cursor: pointer; font-family: var(--font-sans, system-ui); white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; }
+    .btn:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-soft); }
     .btn.primary { border-color: var(--brand); background: var(--brand); color: #fff; }
     .btn.primary:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
-    .btn.secondary:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-soft); }
+    .mc-open-btn { justify-self: start; margin-top: 4px; }
+    
+    .mc-preview { padding: 20px; border-top: 1px solid #f0f3f6; background: #fafbfc; display: none; }
+    .mc-card.open .mc-preview { display: block; }
+    .mc-card.open .mc-open-btn { display: none; }
 
-    /* Generated pack preview */
-    .pack-preview { border: 1px solid var(--border); border-radius: 10px; background: #fff; overflow: hidden; margin-bottom: 24px; }
-    .pack-preview-header { display: flex; align-items: center; justify-content: space-between; padding: 13px 18px; border-bottom: 1px solid #f3f4f6; background: linear-gradient(180deg, #fafbfc 0%, #fff 100%); }
-    .pack-preview-title { font-size: 14px; font-weight: 700; color: #111827; }
-    .pack-preview-meta { font-size: 11.5px; color: #6b7280; margin-top: 2px; }
-    .pack-status-chip { font-size: 10px; font-weight: 700; color: var(--brand); background: var(--brand-soft); border: 1px solid var(--brand-border); border-radius: 4px; padding: 3px 9px; animation: pulse 1.8s ease-in-out infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+    /* AI Refine Box */
+    .ai-refine-box { border: 1px solid #d6e6f3; border-radius: 8px; background: #f8fbff; padding: 14px 16px; margin-bottom: 20px; }
+    .ai-refine-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--brand); margin-bottom: 10px; }
+    .ai-refine-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .refine-chip { font-size: 11.5px; font-weight: 600; color: var(--brand); background: #fff; border: 1px solid #b8d0e6; border-radius: 999px; padding: 5px 12px; cursor: pointer; transition: 0.15s; }
+    .refine-chip:hover { background: var(--brand-soft); border-color: var(--brand); }
 
-    /* Pack tabs */
-    .pack-tabs { display: flex; gap: 4px; border-bottom: 1px solid #e9ecf0; padding: 0 18px; }
-    .pack-tab { border: 1px solid transparent; border-bottom: none; border-radius: 7px 7px 0 0; background: none; color: #6b7f92; font-size: 12px; font-weight: 600; padding: 9px 14px; cursor: pointer; font-family: var(--font-sans, system-ui); position: relative; top: 1px; transition: color 0.1s, background 0.1s; }
-    .pack-tab:hover { color: var(--brand); background: #f5f9ff; }
-    .pack-tab.active { border-color: #e9ecf0; border-bottom-color: #fff; background: #fff; color: var(--brand); font-weight: 700; }
-
-    .pack-panels { background: #fff; }
-    .pack-panel { padding: 16px 18px; display: none; gap: 12px; }
-    .pack-panel.active { display: grid; }
-
-    /* Pack items with inline actions */
-    .pack-item-list { display: grid; gap: 7px; }
-    .pack-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px; border: 1px solid #e4edf6; border-radius: 9px; background: #fff;
-      position: relative; transition: border-color 0.15s;
-    }
-    .pack-item:hover { border-color: #c8d9ed; }
-    .pack-item:hover .pack-item-actions { opacity: 1; visibility: visible; }
-    .pack-item.generating { border-style: dashed; border-color: #d1d9e5; background: #fafcff; }
-    .pack-item-icon { width: 28px; height: 28px; border-radius: 7px; background: var(--brand-soft); color: var(--brand); font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .pack-item.generating .pack-item-icon { background: #f0f3f7; color: #9ca3af; }
-    .pack-item-text { flex: 1; min-width: 0; }
-    .pack-item-name { font-size: 13px; font-weight: 700; color: #243448; margin-bottom: 3px; }
-    .pack-item.generating .pack-item-name { color: #9ca3af; }
-    .pack-item-meta { font-size: 11.5px; color: #7a8fa3; }
-    .generating-badge { font-size: 10px; font-weight: 600; color: var(--brand); background: var(--brand-soft); border: 1px solid var(--brand-border); border-radius: 4px; padding: 2px 8px; white-space: nowrap; flex-shrink: 0; animation: pulse 1.8s ease-in-out infinite; }
-    .pack-item-actions {
-      position: absolute; top: -11px; right: 8px;
-      background: #fff; border: 1px solid #d1d5db; border-radius: 4px;
-      padding: 2px 8px; font-size: 10px; font-weight: 500;
-      display: flex; gap: 8px; align-items: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
-      opacity: 0; visibility: hidden;
-      transition: opacity 0.15s, visibility 0.15s;
-      white-space: nowrap; z-index: 10;
-    }
-    .pack-item-actions span { color: #6b7280; cursor: pointer; }
-    .pack-item-actions span:hover { color: #111827; }
-    .pack-item-actions .ai { color: var(--brand); font-weight: 600; cursor: pointer; }
-    .pack-item-actions .divider { color: #d1d5db; cursor: default; }
-
-    /* Skeleton lines */
-    .skel-line { height: 11px; border-radius: 999px; background: #dce8f3; }
+    /* Skeleton content */
+    .skel-preview { display: grid; gap: 10px; }
+    .skel-line { height: 10px; border-radius: 999px; background: #e5eaf0; }
     .skel-line.w-full { width: 100%; }
     .skel-line.w-80 { width: 80%; }
-    .skel-line.w-65 { width: 65%; }
-    .skel-line.w-50 { width: 50%; }
+    .skel-line.w-60 { width: 60%; }
     .skel-line.w-40 { width: 40%; }
+    .skel-box { height: 120px; border-radius: 8px; background: #e5eaf0; margin-top: 8px; border: 1px dashed #dce8f5; }
 
-    /* Pack doc preview */
-    .pack-doc { border: 1px solid #e8edf5; border-radius: 9px; padding: 14px 16px; background: linear-gradient(180deg, #fafcff 0%, #fff 100%); display: grid; gap: 9px; }
-    .pack-doc-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand); }
-    .pack-doc-title { font-size: 13.5px; font-weight: 700; color: #1d3148; }
-
-    /* AI Refinement chat */
-    .chat-section { border: 1px solid #d6e6f3; border-radius: 10px; background: #f8fbff; padding: 16px 18px; display: grid; gap: 12px; margin-bottom: 20px; }
-    .chat-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: #7a8fa3; }
-    .chat-prompts { display: flex; flex-wrap: wrap; gap: 7px; }
-    .chat-prompt-btn { border: 1px solid #b8d0e6; border-radius: 999px; background: #fff; color: var(--brand); font-size: 12px; font-weight: 600; padding: 6px 13px; cursor: pointer; font-family: var(--font-sans, system-ui); transition: all 0.1s; }
-    .chat-prompt-btn:hover { background: var(--brand-soft); border-color: var(--brand); }
-    .chat-input-row { display: flex; gap: 8px; }
-    .chat-input { flex: 1; border: 1px solid #c8daec; border-radius: 8px; padding: 9px 13px; font-size: 13px; color: var(--text); font-family: var(--font-sans, system-ui); background: #fff; outline: none; }
-    .chat-input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0,70,137,0.08); }
-    .chat-send { border: none; background: var(--brand); color: #fff; font-size: 13px; font-weight: 600; padding: 9px 18px; border-radius: 8px; cursor: pointer; font-family: var(--font-sans, system-ui); white-space: nowrap; }
-    .chat-send:hover { background: var(--brand-dark); }
-
-    /* Export — secondary */
-    .export-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 12px 16px; border: 1px solid #e5e7eb; border-radius: 9px; background: #fafbfc; }
-    .export-bar-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; margin-bottom: 2px; }
-    .export-bar-sub { font-size: 12px; color: #6b7280; }
-    .export-bar-actions { display: flex; gap: 6px; flex-wrap: wrap; }
-
-    /* Bottom connector */
-    .next-step-card { border: 1px solid #c4d8ed; border-radius: 10px; background: linear-gradient(180deg, #eef6ff 0%, #fafcff 100%); padding: 20px 24px; display: grid; gap: 12px; margin-top: 48px; }
-    .next-step-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--brand); }
-    .next-step-title { font-size: 15px; font-weight: 700; color: #1d3a5a; line-height: 1.35; }
-    .next-step-sub { font-size: 13px; color: #4a6580; margin-top: -4px; line-height: 1.5; }
-    .next-step-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: var(--brand); color: #fff; border: 1px solid var(--brand); border-radius: 7px; padding: 8px 16px; font-size: 12.5px; font-weight: 700; cursor: pointer; text-decoration: none; width: fit-content; margin-top: 8px; }
-    .next-step-btn:hover { background: #003366; border-color: #003366; color: #fff; }
+    /* Export Section */
+    .export-section { border: 1px solid #c4d8ed; border-radius: 10px; background: linear-gradient(180deg, #eef6ff 0%, #fafcff 100%); padding: 24px; display: grid; gap: 12px; margin-top: 48px; }
+    .export-title { font-size: 16px; font-weight: 700; color: #1d3a5a; }
+    .export-sub { font-size: 13.5px; color: #4a6580; margin-top: -4px; line-height: 1.5; }
+    .export-actions { display: flex; gap: 10px; margin-top: 8px; }
 
     @media (max-width: 1280px) {
       .page { padding: 40px 28px !important; }
@@ -279,13 +161,10 @@
     @media (max-width: 1080px) {
       .workspace { grid-template-columns: 1fr; }
       .workspace-sidebar { position: static; }
-      .mat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 900px) {
       .page { padding: 32px 18px !important; }
       .topbar-inner { padding: 0 18px !important; }
-      .mat-grid { grid-template-columns: 1fr; }
-      .brand-tag { display: none; }
     }
   </style>
 </head>
@@ -305,9 +184,9 @@
 <main class="page">
 
   <section>
-    <div class="page-eyebrow">Material Generation</div>
-    <h1 class="page-title">Generate &amp; Refine Teaching Materials</h1>
-    <p class="page-sub" style="margin-bottom: 28px;">Review, refine, and regenerate AI-drafted materials before downloading for delivery.</p>
+    <div class="page-eyebrow">Generate Teaching Materials</div>
+    <h1 class="page-title">Generate Teaching Materials</h1>
+    <p class="page-sub" style="margin-bottom: 28px;">Prepare teaching materials from your approved teaching and assessment plan.</p>
   </section>
 
   <!-- TOP CONNECTOR -->
@@ -315,33 +194,21 @@
     <details class="analysis-accordion">
       <summary>
         <div class="setup-kicker">Continue From Teaching &amp; Assessment Planning</div>
-        <div class="setup-title">Approved weekly teaching flow carried into material generation</div>
-        <div class="setup-note">Teaching activities, assessment schedule, and OAL plan carried into this workspace.</div>
+        <div class="setup-title">Approved weekly teaching flow, OAL/IPL activities, and assessment plans carried forward.</div>
       </summary>
       <div class="analysis-runs">
         <div class="connected-strip">
           <div class="ctx-downstream-chips">
-            <div class="ctx-downstream-chip">Weekly teaching flow</div>
-            <div class="ctx-downstream-chip">OAL / IPL activities</div>
-            <div class="ctx-downstream-chip">Assessment schedule</div>
-            <div class="ctx-downstream-chip">Teaching strategies</div>
-            <div class="ctx-more-chip">+2 connected inputs</div>
+            <div class="ctx-downstream-chip">Weekly Activities</div>
+            <div class="ctx-downstream-chip">OAL / IPL Flow</div>
+            <div class="ctx-downstream-chip">Assessment Schedule</div>
+            <div class="ctx-downstream-chip">Teaching Strategies</div>
+            <div class="ctx-more-chip">+2 more</div>
           </div>
         </div>
       </div>
     </details>
   </section>
-
-  <!-- WORKSPACE TOOLBAR: spans full width above both panes -->
-  <div class="workspace-toolbar">
-    <div>
-      <div class="workspace-toolbar-title">Teaching Pack — Week 1–6</div>
-      <div class="workspace-toolbar-sub">AI is generating materials from your approved teaching flow. Review and refine each component.</div>
-    </div>
-    <div class="save-state">
-      <span class="save-indicator"></span> Draft auto-saved just now
-    </div>
-  </div>
 
   <div class="workspace">
 
@@ -349,77 +216,58 @@
     <div class="workspace-side">
       <div class="workspace-sidebar">
 
-        <!-- Identity -->
         <div class="assistant-header-block">
-          <div class="assistant-header">
-            <div class="assistant-icon">✦</div>
-            <div>
-              <div class="assistant-name">Teaching Pack Assistant</div>
-              <div class="assistant-status">Generating · Week 1–6 · 7 materials</div>
-            </div>
-          </div>
-          <div class="assistant-context">
-            AI is drafting materials from your approved teaching flow.
-            <div class="assistant-sources" style="margin-top: 7px;">
-              <span class="source-chip">Weekly flow</span>
-              <span class="source-chip">OAL plan</span>
-              <span class="source-chip">Assessment schedule</span>
-            </div>
-            <div style="margin-top: 8px; color: #4b5563;">Review and refine each component below.</div>
+          <div class="assistant-name">Teaching Pack Assistant</div>
+          <div class="rail-sub">
+            AI can draft teaching materials based on your approved weekly teaching plan.<br><br>
+            Select what you would like to prepare, then review and refine the generated drafts.
           </div>
         </div>
 
-        <!-- Scope -->
         <div class="rail-block">
-          <div class="rail-title">Teaching Scope</div>
-          <div class="scope-chips-rail">
-            <label class="scope-chip-rail"><input type="radio" name="scope" value="w1-3"><span>Weeks 1–3</span></label>
-            <label class="scope-chip-rail"><input type="radio" name="scope" value="w1-6" checked><span>Weeks 1–6</span></label>
-            <label class="scope-chip-rail"><input type="radio" name="scope" value="all"><span>Entire module</span></label>
+          <div class="rail-title">What would you like to prepare?</div>
+          <div class="scope-chips-rail" style="flex-direction: column;">
+            <label class="scope-chip-rail"><input type="radio" name="scope" value="all"> Entire module</label>
+            <label class="scope-chip-rail"><input type="radio" name="scope" value="w1-6" checked> Weeks 1–6</label>
+            <label class="scope-chip-rail"><input type="radio" name="scope" value="w7-12"> Weeks 7–12</label>
+            <label class="scope-chip-rail"><input type="radio" name="scope" value="custom"> Selected weeks</label>
           </div>
-          <div class="scope-summary">Weeks 1–6 &middot; 18 timetabled hours &middot; 3 learning outcomes</div>
+          <div class="rec-pill">Recommended: Weeks 1–3 (based on upcoming teaching schedule)</div>
         </div>
 
-        <!-- Suggested Actions -->
         <div class="rail-block">
-          <div class="rail-title">Suggested Actions</div>
-          <div class="rail-action-list">
-            <button class="rail-action-btn generate">
-              <span class="btn-icon">↺</span>
-              Regenerate full teaching pack
-            </button>
-            <button class="rail-action-btn">
-              <span class="btn-icon">+</span>
-              Add formative quiz (Week 5)
-            </button>
-            <button class="rail-action-btn">
-              <span class="btn-icon">↗</span>
-              Expand facilitation guide
-            </button>
-            <button class="rail-action-btn">
-              <span class="btn-icon">✎</span>
-              Simplify for Year 1 level
-            </button>
+          <div class="rail-title" style="margin-bottom: 4px;">OAL / Pre-Class</div>
+          <div class="rail-check-list">
+            <label class="rail-check-item"><input type="checkbox" checked> E-Lecture Slides (PPTX)</label>
+            <label class="rail-check-item"><input type="checkbox" checked> Understanding Check Quiz</label>
+            <label class="rail-check-item"><input type="checkbox" checked> Reading Notes</label>
+          </div>
+
+          <div class="rail-title" style="margin-bottom: 4px; margin-top: 8px;">IPL / In-Class</div>
+          <div class="rail-check-list">
+            <label class="rail-check-item"><input type="checkbox" checked> Facilitation Slides</label>
+            <label class="rail-check-item"><input type="checkbox" checked> Applied Activity</label>
+            <label class="rail-check-item"><input type="checkbox"> Discussion Prompts</label>
+          </div>
+
+          <div class="rail-title" style="margin-bottom: 4px; margin-top: 8px;">Lecturer Support</div>
+          <div class="rail-check-list">
+            <label class="rail-check-item"><input type="checkbox" checked> Facilitation Guide</label>
+            <label class="rail-check-item"><input type="checkbox" checked> Suggested Answers</label>
+            <label class="rail-check-item"><input type="checkbox"> Assessment Support</label>
           </div>
         </div>
 
-        <!-- AI Observations -->
         <div class="rail-block">
-          <div class="rail-title">AI Observations</div>
-          <div class="rail-suggest-list">
-            <div class="rail-suggest-item warn">
-              <div class="rail-suggest-label">Week 5 has no OAL activity scheduled</div>
-              <button class="rail-apply-btn warn-action">Add</button>
-            </div>
-            <div class="rail-suggest-item">
-              <div class="rail-suggest-label">Facilitation slides recommended for Wk 3–4 simulation</div>
-              <button class="rail-apply-btn">Insert</button>
-            </div>
-            <div class="rail-suggest-item">
-              <div class="rail-suggest-label">Consider adding quiz before CA1 (Week 7)</div>
-              <button class="rail-apply-btn">Generate</button>
-            </div>
-          </div>
+          <div class="rail-title" style="margin-bottom: 8px;">Recommended From Teaching Plan</div>
+          <div class="rail-rec-item">Quiz recommended before CA1</div>
+          <div class="rail-rec-item">Facilitation guide suggested for Week 4 simulation</div>
+          <div class="rail-rec-item">OAL slides recommended for Weeks 1–2</div>
+        </div>
+
+        <div class="rail-block" style="border-bottom: none; padding-top: 20px;">
+          <button class="primary-cta" onclick="generateMaterials()">Generate Draft Materials</button>
+          <div class="cta-sub">AI will draft materials based on your approved teaching plan and selected scope.</div>
         </div>
 
       </div>
@@ -428,310 +276,150 @@
     <!-- MAIN WORKSPACE -->
     <div class="workspace-main">
 
-      <!-- TEACHING PACK COMPONENTS -->
-      <div class="comp-section">
-        <div class="comp-header">
-          <div class="comp-header-title">Teaching Pack Components</div>
-          <div class="comp-header-sub">AI recommends materials based on your teaching plan. Select, remove, or regenerate as needed.</div>
-        </div>
-        <div class="comp-body">
-
-          <!-- OAL Materials -->
-          <div class="phase-block oal">
-            <div class="phase-head">
-              <div class="phase-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              </div>
-              <div class="phase-title">OAL Materials</div>
-              <div class="phase-count" id="oal-count">3 selected</div>
-            </div>
-            <div class="mat-grid">
-              <label class="mat-item">
-                <input type="checkbox" class="mat-check oal-chk" checked>
-                <div class="mat-item-body"><span class="mat-name">E-Lecture Slides (PPTX)</span><span class="mat-tag ai-rec">AI</span><span class="mat-tag oal">OAL</span></div>
-              </label>
-              <label class="mat-item">
-                <input type="checkbox" class="mat-check oal-chk" checked>
-                <div class="mat-item-body"><span class="mat-name">Understanding Check Quiz (Brightspace)</span><span class="mat-tag ai-rec">AI</span><span class="mat-tag oal">OAL</span></div>
-              </label>
-              <label class="mat-item">
-                <input type="checkbox" class="mat-check oal-chk" checked>
-                <div class="mat-item-body"><span class="mat-name">Pre-Class Reading Notes</span><span class="mat-tag ai-rec">AI</span><span class="mat-tag oal">OAL</span></div>
-              </label>
-              <label class="mat-item">
-                <input type="checkbox" class="mat-check oal-chk">
-                <div class="mat-item-body"><span class="mat-name">Short Learning Activity</span><span class="mat-tag oal">OAL</span></div>
-              </label>
-            </div>
-          </div>
-
-          <!-- IPL Materials -->
-          <div class="phase-block ipl">
-            <div class="phase-head">
-              <div class="phase-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1d6b45" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-              <div class="phase-title">IPL Materials</div>
-              <div class="phase-count" id="ipl-count">2 selected</div>
-            </div>
-            <div class="mat-grid">
-              <label class="mat-item">
-                <input type="checkbox" class="mat-check ipl-chk" checked>
-                <div class="mat-item-body"><span class="mat-name">Facilitation Slides (PPTX)</span><span class="mat-tag ai-rec">AI</span><span class="mat-tag ipl">IPL</span></div>
-              </label>
-              <label class="mat-item">
-                <input type="checkbox" class="mat-check ipl-chk" checked>
-                <div class="mat-item-body"><span class="mat-name">Applied Case Activity</span><span class="mat-tag ai-rec">AI</span><span class="mat-tag ipl">IPL</span></div>
-              </label>
-              <label class="mat-item">
-                <input type="checkbox" class="mat-check ipl-chk">
-                <div class="mat-item-body"><span class="mat-name">Group Discussion Activity</span><span class="mat-tag ipl">IPL</span></div>
-              </label>
-              <label class="mat-item">
-                <input type="checkbox" class="mat-check ipl-chk">
-                <div class="mat-item-body"><span class="mat-name">In-Class Worksheet</span><span class="mat-tag ipl">IPL</span></div>
-              </label>
-            </div>
-          </div>
-
-          <!-- Lecturer Support -->
-          <div class="phase-block lec">
-            <div class="phase-head">
-              <div class="phase-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#004689" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              </div>
-              <div class="phase-title">Lecturer Support</div>
-              <div class="phase-count" id="lec-count">2 selected</div>
-            </div>
-            <div class="mat-grid">
-              <label class="mat-item">
-                <input type="checkbox" class="mat-check lec-chk" checked>
-                <div class="mat-item-body"><span class="mat-name">Facilitation Guide</span><span class="mat-tag ai-rec">AI</span><span class="mat-tag facil">Lecturer</span></div>
-              </label>
-              <label class="mat-item">
-                <input type="checkbox" class="mat-check lec-chk" checked>
-                <div class="mat-item-body"><span class="mat-name">Suggested Discussion Questions</span><span class="mat-tag ai-rec">AI</span><span class="mat-tag facil">Lecturer</span></div>
-              </label>
-              <label class="mat-item">
-                <input type="checkbox" class="mat-check lec-chk">
-                <div class="mat-item-body"><span class="mat-name">Suggested Answers / Notes</span><span class="mat-tag facil">Lecturer</span></div>
-              </label>
-            </div>
-          </div>
-
-        </div>
-        <div class="comp-actions">
-          <span class="action-tally" id="action-tally">7 materials selected</span>
-          <button class="btn secondary" type="button">Reset to AI recommendations</button>
-          <button class="btn primary" type="button">Regenerate Pack →</button>
-        </div>
+      <!-- INITIAL STATE -->
+      <div id="initial-state" class="empty-state">
+        <div class="empty-icon">📑</div>
+        <div class="empty-title">Ready to Generate</div>
+        <div class="empty-desc">Select your scope and materials in the assistant, then click "Generate Draft Materials" to begin.</div>
       </div>
 
-      <!-- GENERATED TEACHING PACK PREVIEW -->
-      <div class="pack-preview">
-        <div class="pack-preview-header">
+      <!-- GENERATED STATE -->
+      <div id="generated-state" class="generated-state">
+        
+        <div class="workspace-toolbar">
           <div>
-            <div class="pack-preview-title">Generated Teaching Pack</div>
-            <div class="pack-preview-meta">Week 1–6 &middot; 7 materials &middot; Advanced Critical Care Nursing Science II</div>
+            <div class="workspace-toolbar-title">Draft Teaching Pack</div>
+            <div class="workspace-toolbar-sub">AI-generated materials are ready for review and refinement.</div>
           </div>
-          <span class="pack-status-chip">Generating…</span>
         </div>
 
-        <div class="pack-tabs">
-          <button class="pack-tab active" onclick="showTab(this,'tab-oal')">OAL Materials</button>
-          <button class="pack-tab" onclick="showTab(this,'tab-ipl')">IPL Materials</button>
-          <button class="pack-tab" onclick="showTab(this,'tab-lecturer')">Lecturer Support</button>
-          <button class="pack-tab" onclick="showTab(this,'tab-quizzes')">Quizzes</button>
-        </div>
-
-        <div class="pack-panels">
-
-          <!-- OAL Materials -->
-          <div class="pack-panel active" id="tab-oal">
-            <div class="pack-item-list">
-              <div class="pack-item">
-                <div class="pack-item-icon">📊</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">Week 1–2 E-Lecture Slides (PPTX)</div>
-                  <div class="pack-item-meta">Introduction to Critical Care Environments · 18 slides · OAL</div>
-                </div>
-                <div class="pack-item-actions"><span>Edit</span><span class="divider">|</span><span>Regenerate</span><span class="divider">|</span><span>Simplify</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
-                <span class="mat-tag oal">OAL</span>
+        <div class="mat-card-list">
+          
+          <!-- Card 1 -->
+          <div class="mc-card" id="card-1">
+            <div class="mc-header">
+              <div class="mc-title">Week 1–2 E-Lecture Slides</div>
+              <div class="mc-meta">
+                Generated from:
+                <ul>
+                  <li>Week 1 OAL activities</li>
+                  <li>MLO 1–2</li>
+                  <li>Introductory concepts</li>
+                </ul>
               </div>
-              <div class="pack-item">
-                <div class="pack-item-icon">📊</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">Week 3–4 E-Lecture Slides (PPTX)</div>
-                  <div class="pack-item-meta">Haemodynamic Monitoring Principles · 16 slides · OAL</div>
-                </div>
-                <div class="pack-item-actions"><span>Edit</span><span class="divider">|</span><span>Regenerate</span><span class="divider">|</span><span>Simplify</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
-                <span class="mat-tag oal">OAL</span>
+              <div class="mc-inline-actions">
+                <button class="mc-btn-inline">Edit</button> &middot; 
+                <button class="mc-btn-inline">Refine with AI</button> &middot; 
+                <button class="mc-btn-inline">Regenerate</button>
               </div>
-              <div class="pack-item generating">
-                <div class="pack-item-icon">📖</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">Pre-Class Reading Notes (Week 1–6)</div>
-                  <div style="display:grid; gap:4px; margin-top:6px;">
-                    <div class="skel-line w-80" style="height:9px;"></div>
-                    <div class="skel-line w-50" style="height:9px;"></div>
-                  </div>
+              <button class="btn mc-open-btn" onclick="openPreview('card-1')">Open Preview</button>
+            </div>
+            <div class="mc-preview">
+              <div class="ai-refine-box">
+                <div class="ai-refine-label">Ask AI to refine this material...</div>
+                <div class="ai-refine-chips">
+                  <span class="refine-chip">+ Simplify explanations</span>
+                  <span class="refine-chip">+ Add applied example</span>
+                  <span class="refine-chip">+ Add retrieval questions</span>
+                  <span class="refine-chip">+ Reduce slide density</span>
                 </div>
-                <span class="generating-badge">Generating…</span>
+              </div>
+              <div class="skel-preview">
+                <div class="skel-line w-80"></div>
+                <div class="skel-line w-full"></div>
+                <div class="skel-line w-60"></div>
+                <div class="skel-box"></div>
+                <div class="skel-line w-40" style="margin-top: 8px;"></div>
               </div>
             </div>
+          </div>
 
-            <div class="pack-doc">
-              <div class="pack-doc-label">Draft Preview · Week 1–2 E-Lecture Slides</div>
-              <div class="pack-doc-title">Introduction to Critical Care Environments</div>
-              <div style="display:grid; gap:7px; margin-top:4px;">
+          <!-- Card 2 -->
+          <div class="mc-card" id="card-2">
+            <div class="mc-header">
+              <div class="mc-title">Week 3–4 Facilitation Slides</div>
+              <div class="mc-meta">
+                Generated from:
+                <ul>
+                  <li>Week 3–4 IPL session plan</li>
+                  <li>Group case activity requirements</li>
+                </ul>
+              </div>
+              <div class="mc-inline-actions">
+                <button class="mc-btn-inline">Edit</button> &middot; 
+                <button class="mc-btn-inline">Refine with AI</button> &middot; 
+                <button class="mc-btn-inline">Regenerate</button>
+              </div>
+              <button class="btn mc-open-btn" onclick="openPreview('card-2')">Open Preview</button>
+            </div>
+            <div class="mc-preview">
+              <div class="ai-refine-box">
+                <div class="ai-refine-label">Ask AI to refine this material...</div>
+                <div class="ai-refine-chips">
+                  <span class="refine-chip">+ Add discussion prompts</span>
+                  <span class="refine-chip">+ Include timing markers</span>
+                </div>
+              </div>
+              <div class="skel-preview">
+                <div class="skel-line w-full"></div>
+                <div class="skel-line w-60"></div>
+                <div class="skel-box" style="height: 160px;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="mc-card" id="card-3">
+            <div class="mc-header">
+              <div class="mc-title">Facilitation Guide (Weeks 1–6)</div>
+              <div class="mc-meta">
+                Generated from:
+                <ul>
+                  <li>Full teaching flow</li>
+                  <li>Assessment schedule</li>
+                  <li>Recommended simulation scenarios</li>
+                </ul>
+              </div>
+              <div class="mc-inline-actions">
+                <button class="mc-btn-inline">Edit</button> &middot; 
+                <button class="mc-btn-inline">Refine with AI</button> &middot; 
+                <button class="mc-btn-inline">Regenerate</button>
+              </div>
+              <button class="btn mc-open-btn" onclick="openPreview('card-3')">Open Preview</button>
+            </div>
+            <div class="mc-preview">
+              <div class="ai-refine-box">
+                <div class="ai-refine-label">Ask AI to refine this material...</div>
+                <div class="ai-refine-chips">
+                  <span class="refine-chip">+ Expand Week 4 simulation notes</span>
+                  <span class="refine-chip">+ Add common student misconceptions</span>
+                  <span class="refine-chip">+ Shorten introduction</span>
+                </div>
+              </div>
+              <div class="skel-preview">
+                <div class="skel-line w-40"></div>
                 <div class="skel-line w-full"></div>
                 <div class="skel-line w-80"></div>
-                <div class="skel-line w-65"></div>
-                <div style="border:1px dashed #c8d6e7; border-radius:8px; padding:12px; display:grid; gap:6px; background:#fff; margin-top:4px;">
-                  <div class="skel-line w-50" style="height:9px;"></div>
-                  <div class="skel-line w-full" style="height:9px;"></div>
-                  <div class="skel-line w-80" style="height:9px;"></div>
-                  <div class="skel-line w-40" style="height:9px;"></div>
-                </div>
-                <div class="skel-line w-65"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- IPL Materials -->
-          <div class="pack-panel" id="tab-ipl">
-            <div class="pack-item-list">
-              <div class="pack-item">
-                <div class="pack-item-icon">📊</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">Week 3–4 Facilitation Slides (PPTX)</div>
-                  <div class="pack-item-meta">Haemodynamic Monitoring · 22 slides · IPL</div>
-                </div>
-                <div class="pack-item-actions"><span>Edit</span><span class="divider">|</span><span>Regenerate</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
-                <span class="mat-tag ipl">IPL</span>
-              </div>
-              <div class="pack-item generating">
-                <div class="pack-item-icon">📊</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">Week 5–6 Facilitation Slides (PPTX)</div>
-                  <div style="display:grid; gap:4px; margin-top:6px;">
-                    <div class="skel-line w-80" style="height:9px;"></div>
-                    <div class="skel-line w-50" style="height:9px;"></div>
-                  </div>
-                </div>
-                <span class="generating-badge">Generating…</span>
-              </div>
-              <div class="pack-item">
-                <div class="pack-item-icon">🩺</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">Applied Case Activity — Septic Shock</div>
-                  <div class="pack-item-meta">Group case activity · Week 3 · 45 mins · IPL</div>
-                </div>
-                <div class="pack-item-actions"><span>Edit</span><span class="divider">|</span><span>Regenerate</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
-                <span class="mat-tag ipl">IPL</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Lecturer Support -->
-          <div class="pack-panel" id="tab-lecturer">
-            <div class="pack-item-list">
-              <div class="pack-item">
-                <div class="pack-item-icon">⭐</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">Facilitation Guide — Week 1–6</div>
-                  <div class="pack-item-meta">Session-by-session flow, timing, and transition notes · Lecturer</div>
-                </div>
-                <div class="pack-item-actions"><span>Edit</span><span class="divider">|</span><span>Expand</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
-                <span class="mat-tag facil">Lecturer</span>
-              </div>
-              <div class="pack-item generating">
-                <div class="pack-item-icon">💬</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">Suggested Discussion Questions</div>
-                  <div style="display:grid; gap:4px; margin-top:6px;">
-                    <div class="skel-line w-full" style="height:9px;"></div>
-                    <div class="skel-line w-65" style="height:9px;"></div>
-                  </div>
-                </div>
-                <span class="generating-badge">Generating…</span>
-              </div>
-            </div>
-            <div class="pack-doc">
-              <div class="pack-doc-label">Draft Preview · Facilitation Guide — Week 3</div>
-              <div class="pack-doc-title">Haemodynamic Monitoring — Session Plan</div>
-              <div style="display:grid; gap:7px; margin-top:6px;">
                 <div class="skel-line w-full"></div>
-                <div class="skel-line w-80"></div>
-                <div style="border:1px dashed #c8d6e7; border-radius:8px; padding:12px; display:grid; gap:6px; background:#fff; margin-top:4px;">
-                  <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#8b99ab; margin-bottom:4px;">Suggested Discussion Questions</div>
-                  <div class="skel-line w-full" style="height:9px;"></div>
-                  <div class="skel-line w-65" style="height:9px;"></div>
-                  <div class="skel-line w-80" style="height:9px;"></div>
-                </div>
-                <div class="skel-line w-50"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Quizzes -->
-          <div class="pack-panel" id="tab-quizzes">
-            <div class="pack-item-list">
-              <div class="pack-item">
-                <div class="pack-item-icon">✅</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">Understanding Check — Week 1 (Brightspace QTI)</div>
-                  <div class="pack-item-meta">10 MCQ · Mapped to OAL learning outcomes · OAL</div>
-                </div>
-                <div class="pack-item-actions"><span>Edit</span><span class="divider">|</span><span>Regenerate</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
-                <span class="mat-tag oal">OAL</span>
-              </div>
-              <div class="pack-item generating">
-                <div class="pack-item-icon">✅</div>
-                <div class="pack-item-text">
-                  <div class="pack-item-name">Understanding Check — Week 3 (Brightspace QTI)</div>
-                  <div style="display:grid; gap:4px; margin-top:6px;">
-                    <div class="skel-line w-80" style="height:9px;"></div>
-                    <div class="skel-line w-50" style="height:9px;"></div>
-                  </div>
-                </div>
-                <span class="generating-badge">Generating…</span>
+                <div class="skel-line w-60"></div>
+                <div class="skel-box"></div>
               </div>
             </div>
           </div>
 
         </div>
-      </div>
 
-      <!-- REFINE WITH AI (PRIMARY) -->
-      <div class="chat-section">
-        <div class="chat-section-label">Refine with AI</div>
-        <div class="chat-prompts">
-          <button class="chat-prompt-btn" type="button" onclick="fillChat('Add a second applied case activity for Week 5')">Add case activity — Week 5</button>
-          <button class="chat-prompt-btn" type="button" onclick="fillChat('Expand the facilitation guide with suggested discussion questions')">Expand facilitation guide</button>
-          <button class="chat-prompt-btn" type="button" onclick="fillChat('Simplify pre-class reading notes for Year 1 students')">Simplify for Year 1</button>
-          <button class="chat-prompt-btn" type="button" onclick="fillChat('Generate an understanding check quiz for Week 5')">Add quiz — Week 5</button>
+        <!-- EXPORT SECTION -->
+        <div class="export-section">
+          <div class="export-title">Teaching Pack Ready for Export</div>
+          <div class="export-sub">Review, refine, and export materials for teaching delivery.</div>
+          <div class="export-actions">
+            <button class="btn primary">Download Teaching Pack</button>
+            <button class="btn">Continue Refining</button>
+          </div>
         </div>
-        <div class="chat-input-row">
-          <input type="text" id="chat-input" class="chat-input" placeholder="Ask AI to adjust, extend, or regenerate any part of your teaching pack…">
-          <button class="chat-send" type="button">Send →</button>
-        </div>
-      </div>
 
-      <!-- EXPORT (SECONDARY) -->
-      <div class="export-bar">
-        <div>
-          <div class="export-bar-label">Export teaching pack</div>
-          <div class="export-bar-sub">Download individual files or the complete teaching pack</div>
-        </div>
-        <div class="export-bar-actions">
-          <button class="btn" type="button">PPTX</button>
-          <button class="btn" type="button">DOCX</button>
-          <button class="btn" type="button">Brightspace (QTI)</button>
-          <button class="btn primary" type="button">Download Pack</button>
-        </div>
       </div>
-
 
     </div>
   </div>
@@ -739,32 +427,15 @@
 </main>
 
 <script>
-  // Checkbox counts
-  function countChecked(cls) { return document.querySelectorAll('.' + cls + ':checked').length; }
-  function updateCounts() {
-    const o = countChecked('oal-chk'), i = countChecked('ipl-chk'), l = countChecked('lec-chk');
-    const total = o + i + l;
-    document.getElementById('oal-count').textContent = o + ' selected';
-    document.getElementById('ipl-count').textContent = i + ' selected';
-    document.getElementById('lec-count').textContent = l + ' selected';
-    document.getElementById('action-tally').textContent = total + ' material' + (total !== 1 ? 's' : '') + ' selected';
-  }
-  document.querySelectorAll('.mat-check').forEach(function(chk) { chk.addEventListener('change', updateCounts); });
-  updateCounts();
-
-  // Tab switching
-  function showTab(btn, tabId) {
-    document.querySelectorAll('.pack-tab').forEach(function(t) { t.classList.remove('active'); });
-    document.querySelectorAll('.pack-panel').forEach(function(p) { p.classList.remove('active'); });
-    btn.classList.add('active');
-    document.getElementById(tabId).classList.add('active');
+  function generateMaterials() {
+    document.getElementById('initial-state').style.display = 'none';
+    document.getElementById('generated-state').style.display = 'block';
   }
 
-  // Chat fill
-  function fillChat(text) {
-    const input = document.getElementById('chat-input');
-    if (input) { input.value = text; input.focus(); }
+  function openPreview(cardId) {
+    document.getElementById(cardId).classList.add('open');
   }
 </script>
+
 </body>
 </html>
