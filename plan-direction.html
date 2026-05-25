@@ -2470,6 +2470,167 @@
         padding: 16px;
       }
     }
+
+    /* ── Thread-link: three-part layout (num / name / status) ── */
+    .thread-link {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0;
+      padding: 7px 10px;
+    }
+    .tl-num {
+      font-size: 10px;
+      font-weight: 700;
+      color: #8fa8bb;
+      min-width: 24px;
+      flex-shrink: 0;
+      letter-spacing: 0.01em;
+    }
+    .tl-name {
+      flex: 1;
+      font-size: 12px;
+      font-weight: 600;
+      color: inherit;
+      line-height: 1.3;
+    }
+    .tl-status {
+      font-size: 10px;
+      font-weight: 600;
+      color: #8fa8bb;
+      margin-left: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .thread-link.active .tl-num { color: #9ec8e8; }
+    .thread-link.active .tl-status { color: #9ec8e8; }
+    .tl-status.tl-done { color: #2d8a4e; }
+    .thread-link.active .tl-status.tl-done { color: #6dd89a; }
+    .tl-status.tl-attn { color: #8f5615; }
+    .thread-link.active .tl-status.tl-attn { color: #ffd79f; }
+    .tl-status.tl-progress { color: #3a6ea0; }
+
+    /* ── Left panel: section-centric MDD drafting support ── */
+    .mdd-panel-section { margin-bottom: 14px; }
+    .mdd-panel-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: #7a90a3;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 5px;
+    }
+    .mdd-panel-body {
+      font-size: 12.5px;
+      color: #344c5f;
+      line-height: 1.5;
+    }
+    .mdd-panel-list {
+      list-style: none;
+      display: grid;
+      gap: 3px;
+      font-size: 12px;
+      color: #3d5668;
+      line-height: 1.45;
+    }
+    .mdd-panel-list li::before {
+      content: "·  ";
+      color: #8fa8bb;
+    }
+    .mdd-support-list {
+      list-style: none;
+      display: grid;
+      gap: 5px;
+      font-size: 12px;
+      color: #344c5f;
+      line-height: 1.45;
+    }
+    .mdd-support-list li {
+      padding-left: 16px;
+      position: relative;
+    }
+    .mdd-support-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #5d9abf;
+      font-size: 11px;
+    }
+    .mdd-panel-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 4px;
+    }
+    .mdd-panel-action-btn {
+      font-size: 11px;
+      font-weight: 600;
+      color: #2f5a7a;
+      background: #f0f7fd;
+      border: 1px solid #c0d8ec;
+      border-radius: 5px;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: background 100ms ease;
+    }
+    .mdd-panel-action-btn:hover { background: #daedf8; }
+    .mdd-panel-action-btn.applied {
+      color: #1a5e36;
+      background: #e8f7ee;
+      border-color: #9ed4b3;
+    }
+    .mdd-panel-result {
+      font-size: 12px;
+      color: #1a5e36;
+      background: #eef8f2;
+      border-left: 2px solid #5abf8a;
+      padding: 5px 0 5px 10px;
+      border-radius: 0;
+      margin-top: 6px;
+    }
+    .mdd-panel-divider {
+      border: none;
+      border-top: 1px solid #e4edf5;
+      margin: 12px 0;
+    }
+    .mdd-panel-next {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .mdd-panel-next-btn {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #1a3a52;
+      background: transparent;
+      border: 1px solid #b0c9de;
+      border-radius: 5px;
+      padding: 5px 12px;
+      cursor: pointer;
+    }
+    .mdd-panel-next-btn:hover { background: #f0f7fd; }
+    /* Context drawer inside panel */
+    .mdd-ctx-drawer {
+      border: 1px solid #e0eaf3;
+      border-radius: 6px;
+      background: #f8fbfe;
+      overflow: hidden;
+    }
+    .mdd-ctx-drawer summary {
+      list-style: none;
+      cursor: pointer;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #5d7a90;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 6px 10px;
+    }
+    .mdd-ctx-drawer summary::-webkit-details-marker { display: none; }
+    .mdd-ctx-body {
+      padding: 2px 10px 8px;
+    }
   </style>
 </head>
 <body>
@@ -2558,27 +2719,20 @@
     <section class="workspace" id="coDesignWorkspace">
       <aside class="workspace-side" aria-label="Conversation workspace">
         <div class="thread-shell">
-          <nav class="thread-rail" aria-label="Design conversations">
-            <div class="thread-rail-kicker">MDD Sections</div>
-            <button class="thread-link active" data-thread="welcome" type="button">Synopsis</button>
-            <button class="thread-link" data-thread="skills" type="button">Skills Framework</button>
-            <button class="thread-link" data-thread="outcomes" type="button">Module Learning Outcomes</button>
-            <button class="thread-link" data-thread="mapping" type="button">Course Outcomes Mapping</button>
-            <button class="thread-link" data-thread="gradskills" type="button">Graduate Skills Mapping</button>
-            <button class="thread-link" data-thread="content" type="button">Topics &amp; Teaching Schedule</button>
-            <button class="thread-link" data-thread="teaching" type="button">Teaching &amp; Learning Strategies</button>
-            <button class="thread-link" data-thread="assessment" type="button">Assessment</button>
-            <button class="thread-link" data-thread="integrity" type="button">AI Use &amp; Guidance</button>
-            <button class="thread-link" data-thread="references" type="button">References</button>
-            <div class="thread-rail-divider"></div>
-            <div class="design-intent">
-              <div class="design-intent-label">Design Priorities</div>
-              <div class="design-intent-chips">
-                <span class="intent-chip">Stronger clinical reasoning</span>
-                <span class="intent-chip">Reduced content load</span>
-                <span class="intent-chip">Applied assessment</span>
-              </div>
-            </div>
+          <nav class="thread-rail" aria-label="MDD section drafting">
+            <div class="thread-rail-kicker">AI-Assisted Drafting</div>
+            <button class="thread-link active" data-thread="welcome" type="button"><span class="tl-num">1.</span><span class="tl-name">Synopsis</span></button>
+            <button class="thread-link" data-thread="skills" type="button"><span class="tl-num">2.</span><span class="tl-name">Skills Framework</span></button>
+            <button class="thread-link" data-thread="outcomes" type="button"><span class="tl-num">3.</span><span class="tl-name">Module Learning Outcomes</span></button>
+            <button class="thread-link" data-thread="co_outcomes" type="button"><span class="tl-num">4a.</span><span class="tl-name">Course Outcomes</span></button>
+            <button class="thread-link" data-thread="mapping" type="button"><span class="tl-num">4b.</span><span class="tl-name">MLO Mapping to Course Outcomes</span></button>
+            <button class="thread-link" data-thread="gradskills" type="button"><span class="tl-num">5.</span><span class="tl-name">Graduate Skills Mapping</span></button>
+            <button class="thread-link" data-thread="content" type="button"><span class="tl-num">6.</span><span class="tl-name">Topics &amp; Teaching Schedule</span></button>
+            <button class="thread-link" data-thread="hours" type="button"><span class="tl-num">7.</span><span class="tl-name">Teaching Hours</span></button>
+            <button class="thread-link" data-thread="teaching" type="button"><span class="tl-num">8.</span><span class="tl-name">Teaching &amp; Learning Strategies</span></button>
+            <button class="thread-link" data-thread="assessment" type="button"><span class="tl-num">9.</span><span class="tl-name">Assessment</span></button>
+            <button class="thread-link" data-thread="references" type="button"><span class="tl-num">10.</span><span class="tl-name">Recommended Texts / References</span></button>
+            <button class="thread-link" data-thread="integrity" type="button"><span class="tl-num">—</span><span class="tl-name">AI Use &amp; Guidance</span></button>
           </nav>
 
           <section class="thread-workspace" aria-live="polite">
@@ -2675,14 +2829,16 @@
               <button class="active" data-section="overview" type="button">Module Info</button>
               <button data-section="synopsis" type="button">1. Synopsis</button>
               <button data-section="skills" type="button">2. Skills Framework</button>
-              <button data-section="outcomes" type="button">3. Learning Outcomes</button>
-              <button data-section="mapping" type="button">4. CO Mapping</button>
-              <button data-section="gradskills" type="button">5. Graduate Skills</button>
-              <button data-section="content" type="button">6. Topics &amp; Schedule</button>
-              <button data-section="teaching" type="button">8. T&amp;L Strategies</button>
+              <button data-section="outcomes" type="button">3. Module Learning Outcomes</button>
+              <button data-section="co-outcomes" type="button">4a. Course Outcomes</button>
+              <button data-section="mapping" type="button">4b. MLO Mapping to Course Outcomes</button>
+              <button data-section="gradskills" type="button">5. MLO Mapping to NP Graduate Skills &amp; Competencies</button>
+              <button data-section="content" type="button">6. Module Topics &amp; Teaching Schedule</button>
+              <button data-section="hours" type="button">7. Teaching Hours</button>
+              <button data-section="teaching" type="button">8. Teaching &amp; Learning Strategies</button>
               <button data-section="assessment" type="button">9. Assessment</button>
+              <button data-section="references" type="button">10. Recommended Texts / References</button>
               <button data-section="integrity" type="button">AI Use &amp; Guidance</button>
-              <button data-section="references" type="button">10. References</button>
             </nav>
 
             <article class="artifact-scroll" id="artifactScroll">
@@ -2787,38 +2943,30 @@
                 </div>
               </section>
 
-              <!-- 4. Course Outcomes Mapping -->
-              <section class="module-section" id="mapping">
-                <div class="section-label np-sec-label">Section 4</div>
-                <h3 class="section-title">4. COURSE OUTCOMES MAPPING</h3>
-
-                <div class="mdd-subsec-label">4a. Course Outcomes</div>
+              <!-- 4a. Course Outcomes -->
+              <section class="module-section" id="co-outcomes">
+                <div class="section-label np-sec-label">Section 4a</div>
+                <h3 class="section-title">4a. COURSE OUTCOMES</h3>
                 <table class="mdd-doc-table">
                   <tbody>
-                    <tr>
-                      <td class="mdd-mo-tag">CO1</td>
-                      <td>Demonstrate clinical decision-making in critical care contexts.</td>
-                    </tr>
-                    <tr>
-                      <td class="mdd-mo-tag">CO2</td>
-                      <td>Apply escalation protocols using structured clinical communication.</td>
-                    </tr>
-                    <tr>
-                      <td class="mdd-mo-tag">CO3</td>
-                      <td>Evaluate patient data to justify interdisciplinary escalation decisions.</td>
-                    </tr>
-                    <tr class="np-skel-tr">
-                      <td class="mdd-mo-tag">CO4</td>
-                      <td><div class="np-skel-line np-skel-w-70"></div></td>
-                    </tr>
-                    <tr class="np-skel-tr">
-                      <td class="mdd-mo-tag">CO5</td>
-                      <td><div class="np-skel-line np-skel-w-55"></div></td>
-                    </tr>
+                    <tr><td class="mdd-mo-tag">CO1</td><td>Demonstrate clinical decision-making in critical care contexts.</td></tr>
+                    <tr><td class="mdd-mo-tag">CO2</td><td>Apply escalation protocols using structured clinical communication.</td></tr>
+                    <tr><td class="mdd-mo-tag">CO3</td><td>Evaluate patient data to justify interdisciplinary escalation decisions.</td></tr>
+                    <tr class="np-skel-tr"><td class="mdd-mo-tag">CO4</td><td><div class="np-skel-line np-skel-w-70"></div></td></tr>
+                    <tr class="np-skel-tr"><td class="mdd-mo-tag">CO5</td><td><div class="np-skel-line np-skel-w-55"></div></td></tr>
                   </tbody>
                 </table>
+                <div class="mdd-inline-actions">
+                  <button class="mdd-inline-action" type="button">Generate COs</button>
+                  <button class="mdd-inline-action" type="button">Align to programme</button>
+                  <button class="mdd-inline-action" type="button">Flag unresolved</button>
+                </div>
+              </section>
 
-                <div class="mdd-subsec-label">4b. MLO → CO Mapping</div>
+              <!-- 4b. MLO Mapping to Course Outcomes -->
+              <section class="module-section" id="mapping">
+                <div class="section-label np-sec-label">Section 4b</div>
+                <h3 class="section-title">4b. MODULE LEARNING OUTCOMES MAPPING TO COURSE OUTCOMES</h3>
                 <table class="mdd-matrix-table">
                   <thead>
                     <tr>
@@ -2857,53 +3005,36 @@
                     </tr>
                     <tr class="np-skel-tr">
                       <td class="mdd-mo-tag">MO4</td>
-                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
-                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
-                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
-                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
-                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td><td class="mdd-dot-cell"><span class="mdd-n">–</span></td><td class="mdd-dot-cell"><span class="mdd-n">–</span></td><td class="mdd-dot-cell"><span class="mdd-n">–</span></td><td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
                     </tr>
                     <tr class="np-skel-tr">
                       <td class="mdd-mo-tag">MO5</td>
-                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
-                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
-                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
-                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
-                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td><td class="mdd-dot-cell"><span class="mdd-n">–</span></td><td class="mdd-dot-cell"><span class="mdd-n">–</span></td><td class="mdd-dot-cell"><span class="mdd-n">–</span></td><td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
                     </tr>
                   </tbody>
                 </table>
                 <div class="mdd-inline-actions">
+                  <button class="mdd-inline-action" type="button">Auto-map</button>
                   <button class="mdd-inline-action" type="button">Suggest mapping</button>
-                  <button class="mdd-inline-action" type="button">Check alignment</button>
                   <button class="mdd-inline-action" type="button">Flag unresolved</button>
                 </div>
               </section>
 
-              <!-- 5. Graduate Skills Mapping -->
+              <!-- 5. MLO Mapping to NP Graduate Skills & Competencies -->
               <section class="module-section" id="gradskills">
                 <div class="section-label np-sec-label">Section 5</div>
-                <h3 class="section-title">5. NP GRADUATE SKILLS &amp; COMPETENCIES</h3>
+                <h3 class="section-title">5. MAPPING OF MODULE LEARNING OUTCOMES TO NP GRADUATE SKILLS &amp; COMPETENCIES</h3>
                 <table class="mdd-doc-table">
                   <thead>
                     <tr>
-                      <th>Graduate Skills &amp; Competencies</th>
+                      <th>NP Graduate Skills &amp; Competencies</th>
                       <th>Module Learning Outcomes</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Communication</td>
-                      <td>MO1, MO2, MO3</td>
-                    </tr>
-                    <tr>
-                      <td>Critical Thinking &amp; Problem Solving</td>
-                      <td>MO1, MO3</td>
-                    </tr>
-                    <tr>
-                      <td>Collaboration &amp; Cross-cultural Sensitivity</td>
-                      <td>MO2, MO3</td>
-                    </tr>
+                    <tr><td>Communication</td><td>MO1, MO2, MO3</td></tr>
+                    <tr><td>Critical Thinking &amp; Problem Solving</td><td>MO1, MO3</td></tr>
+                    <tr><td>Collaboration &amp; Cross-cultural Sensitivity</td><td>MO2, MO3</td></tr>
                     <tr class="mdd-gap-row">
                       <td>Digital Competence</td>
                       <td><span class="mdd-gap-badge">Gap</span> No current MLO addresses this</td>
@@ -2911,21 +3042,21 @@
                   </tbody>
                 </table>
                 <div class="mdd-inline-actions">
-                  <button class="mdd-inline-action" type="button">Align to SF</button>
+                  <button class="mdd-inline-action" type="button">Accept alignment</button>
                   <button class="mdd-inline-action" type="button">Address gap</button>
-                  <button class="mdd-inline-action" type="button">Check alignment</button>
+                  <button class="mdd-inline-action" type="button">Check coverage</button>
                 </div>
               </section>
 
-              <!-- 6–7. Module Topics & Teaching Schedule + Teaching Hours -->
+              <!-- 6. Module Topics & Teaching Schedule -->
               <section class="module-section" id="content">
-                <div class="section-label np-sec-label">Sections 6 &amp; 7</div>
+                <div class="section-label np-sec-label">Section 6</div>
                 <h3 class="section-title">6. MODULE TOPICS &amp; TEACHING SCHEDULE</h3>
                 <table class="mdd-schedule-table">
                   <thead>
                     <tr>
                       <th class="mdd-week-col">Week</th>
-                      <th>Topics / Sub-topics</th>
+                      <th>Module Topics / Sub-topics</th>
                       <th class="mdd-hrs-col">Hrs</th>
                     </tr>
                   </thead>
@@ -2963,26 +3094,38 @@
                     </tr>
                   </tfoot>
                 </table>
-
-                <div class="mdd-sec-heading">7. TEACHING HOURS</div>
-                <div class="mdd-kv-list">
-                  <div class="mdd-kv-row">
-                    <span class="mdd-kv-label">Contact hours (IPL)</span>
-                    <span class="mdd-kv-value">26</span>
-                  </div>
-                  <div class="mdd-kv-row">
-                    <span class="mdd-kv-label">Online asynchronous learning (OAL)</span>
-                    <span class="mdd-kv-value">13</span>
-                  </div>
-                  <div class="mdd-kv-row">
-                    <span class="mdd-kv-label">Total student learning time</span>
-                    <span class="mdd-kv-value">39</span>
-                  </div>
-                </div>
                 <div class="mdd-inline-actions">
                   <button class="mdd-inline-action" type="button">Rebalance</button>
                   <button class="mdd-inline-action" type="button">Add week</button>
                   <button class="mdd-inline-action" type="button">Check hours</button>
+                </div>
+              </section>
+
+              <!-- 7. Teaching Hours -->
+              <section class="module-section" id="hours">
+                <div class="section-label np-sec-label">Section 7</div>
+                <h3 class="section-title">7. TEACHING HOURS</h3>
+                <div class="mdd-kv-list">
+                  <div class="mdd-kv-row">
+                    <span class="mdd-kv-label">Contact hours per week (IPL)</span>
+                    <span class="mdd-kv-value">2 hrs/wk</span>
+                  </div>
+                  <div class="mdd-kv-row">
+                    <span class="mdd-kv-label">Total contact hours</span>
+                    <span class="mdd-kv-value">26 hrs</span>
+                  </div>
+                  <div class="mdd-kv-row">
+                    <span class="mdd-kv-label">Online asynchronous learning (OAL)</span>
+                    <span class="mdd-kv-value">13 hrs</span>
+                  </div>
+                  <div class="mdd-kv-row">
+                    <span class="mdd-kv-label">Total student learning time</span>
+                    <span class="mdd-kv-value">39 hrs</span>
+                  </div>
+                </div>
+                <div class="mdd-inline-actions">
+                  <button class="mdd-inline-action" type="button">Adjust hours</button>
+                  <button class="mdd-inline-action" type="button">Check allocation</button>
                 </div>
               </section>
 
@@ -3512,16 +3655,219 @@
     let welcomeFlowTimers = [];
 
     const railLabels = {
-      welcome: "Synopsis",
-      skills: "Skills Framework",
-      outcomes: "Module Learning Outcomes",
-      mapping: "Course Outcomes Mapping",
-      gradskills: "Graduate Skills Mapping",
-      content: "Topics & Teaching Schedule",
-      teaching: "Teaching & Learning Strategies",
-      assessment: "Assessment",
-      integrity: "AI Use & Guidance",
-      references: "References"
+      welcome:      "Synopsis",
+      skills:       "Skills Framework",
+      outcomes:     "Module Learning Outcomes",
+      co_outcomes:  "Course Outcomes",
+      mapping:      "MLO Mapping to Course Outcomes",
+      gradskills:   "Graduate Skills Mapping",
+      content:      "Topics & Teaching Schedule",
+      hours:        "Teaching Hours",
+      teaching:     "Teaching & Learning Strategies",
+      assessment:   "Assessment",
+      integrity:    "AI Use & Guidance",
+      references:   "Recommended Texts / References"
+    };
+
+    const sectionData = {
+      welcome: {
+        num: "1.",
+        title: "Synopsis",
+        focus: "Draft the module synopsis — purpose, scope, and learner context.",
+        context: [
+          "Programme intent and learner profile (from connected context)",
+          "Industry relevance notes from prior analysis",
+          "Existing module scope and level descriptors",
+          "Curriculum standards references"
+        ],
+        support: [
+          "Synopsis reads broadly — tighten scope to ICU-specific escalation contexts",
+          "Opening clause does not signal progression level clearly",
+          "Aims statement could reference graduate outcome more explicitly"
+        ],
+        actions: ["Draft synopsis", "Refine scope", "Simplify language", "Check level descriptors"]
+      },
+      skills: {
+        num: "2.",
+        title: "Skills Framework",
+        focus: "Select Skills Framework codes and confirm proficiency levels for this module.",
+        context: [
+          "SkillsFuture Singapore SSG framework",
+          "Industry benchmark proficiency levels for critical care",
+          "Existing module SF mapping from prior year"
+        ],
+        support: [
+          "ICU-TSC-03 mapped at Intermediate — benchmark suggests Advanced for this cohort",
+          "CCS codes not yet confirmed — 2 pending entries",
+          "Consider adding a second CCS code for Communication under pressure"
+        ],
+        actions: ["Suggest SF codes", "Align to benchmark", "Confirm levels", "Check coverage"]
+      },
+      outcomes: {
+        num: "3.",
+        title: "Module Learning Outcomes",
+        focus: "Write 4–6 measurable module learning outcomes aligned to course outcomes.",
+        context: [
+          "Employer emphasis on escalation judgement (from industry inputs)",
+          "Benchmark: simulation-led outcomes use active action verbs",
+          "Student feedback: more clarity on assessment expectations needed",
+          "Prior year MLOs — available for reference"
+        ],
+        support: [
+          "MO1 verb 'Identify' is below expected Bloom's level — consider 'Analyse' or 'Justify'",
+          "MO2 and MO3 overlap on communication — consider consolidating",
+          "MO4 and MO5 pending — need to address simulation and documentation skills"
+        ],
+        actions: ["Generate draft MLOs", "Suggest stronger verbs", "Check Bloom's level", "Check assessment alignment"]
+      },
+      co_outcomes: {
+        num: "4a.",
+        title: "Course Outcomes",
+        focus: "Confirm the course outcomes this module contributes to.",
+        context: [
+          "Programme-level course outcomes document",
+          "Module position in programme sequence",
+          "Contribution weight from prior intake data"
+        ],
+        support: [
+          "CO4 and CO5 not yet confirmed — pending programme coordinator review",
+          "Confirm whether CO3 (Evaluate) is fully addressed by current MLOs",
+          "CO1 appears strongly addressed by MO1 and MO3"
+        ],
+        actions: ["Import COs from programme", "Map to MLOs", "Flag unresolved", "Check coverage"]
+      },
+      mapping: {
+        num: "4b.",
+        title: "MLO Mapping to Course Outcomes",
+        focus: "Map each module learning outcome to the relevant course outcomes.",
+        context: [
+          "Confirmed MLOs from Section 3",
+          "Confirmed Course Outcomes from Section 4a",
+          "Prior year mapping available for reference"
+        ],
+        support: [
+          "MO2 only maps to CO1 — review whether CO2 or CO5 is also relevant",
+          "CO3 is currently unmapped — check whether MO4 or MO5 should address it",
+          "MO4 and MO5 rows are incomplete — complete MLO drafting first"
+        ],
+        actions: ["Auto-map", "Suggest mappings", "Flag gaps", "Check completeness"]
+      },
+      gradskills: {
+        num: "5.",
+        title: "Graduate Skills Mapping",
+        focus: "Map module learning outcomes to NP Graduate Skills and Competencies.",
+        context: [
+          "NP Graduate Skills framework (6 competencies)",
+          "Confirmed MLOs from Section 3",
+          "Existing module graduate skills mapping from prior year"
+        ],
+        support: [
+          "Digital Competence has no current MLO addressing it — gap flagged",
+          "Communication competency is well covered by MO1, MO2, MO3",
+          "Collaboration coverage is moderate — MO4 or MO5 may be able to address this"
+        ],
+        actions: ["Accept alignment", "Address Digital Competence gap", "Review coverage", "Flag unresolved"]
+      },
+      content: {
+        num: "6.",
+        title: "Module Topics & Teaching Schedule",
+        focus: "Sequence topics across teaching weeks and confirm hour allocation.",
+        context: [
+          "Assessment-heavy Week 9 cluster flagged from workload analysis",
+          "Overlapping content in Weeks 4–6 from existing materials",
+          "Standards mapping: under-emphasis on simulation transfer noted",
+          "Student feedback: prep-week overload reported"
+        ],
+        support: [
+          "Weeks 10–13 topics not yet drafted — needs input before this section is complete",
+          "Current confirmed total: 18 hrs — 21 hrs still pending",
+          "Simulation series (Weeks 7–9) strong — consider extending into Week 10"
+        ],
+        actions: ["Draft remaining weeks", "Rebalance hours", "Check topic overlap", "Align to MLOs"]
+      },
+      hours: {
+        num: "7.",
+        title: "Teaching Hours",
+        focus: "Confirm contact hours, OAL allocation, and total student learning time.",
+        context: [
+          "Programme credit unit formula (NP standard)",
+          "Timetabling constraints from faculty office",
+          "Prior year teaching hours breakdown"
+        ],
+        support: [
+          "Total contact hours (26 hrs) may be low for 4 credit units — verify against formula",
+          "OAL at 50% of contact hours — confirm this meets programme requirements",
+          "Cross-check total student learning time against assessment workload estimates"
+        ],
+        actions: ["Check credit formula", "Adjust allocation", "Confirm with faculty", "Check workload"]
+      },
+      teaching: {
+        num: "8.",
+        title: "Teaching & Learning Strategies",
+        focus: "Select teaching and learning strategies and confirm percentage allocation.",
+        context: [
+          "Approved module topics and teaching schedule",
+          "Student reflections on debrief quality from prior intake",
+          "Benchmark facilitation models for simulation-based learning",
+          "Industry partner notes on communication gaps under pressure"
+        ],
+        support: [
+          "Scenario-based Learning at 40% — confirm debrief time is separately accounted",
+          "Self-directed Study at 10% appears low relative to OAL hour allocation",
+          "Facilitation notes for simulation sessions not yet added"
+        ],
+        actions: ["Adjust % allocation", "Add strategy", "Add facilitation notes", "Align to MLOs"]
+      },
+      assessment: {
+        num: "9.",
+        title: "Assessment",
+        focus: "Design the assessment strategy — components, weightings, and MLO alignment.",
+        context: [
+          "Benchmark institutions prioritise simulation-led evidence",
+          "Industry: live escalation decisions should carry strongest weight",
+          "Student feedback: clearer rubric expectations needed",
+          "Context summary: over-reliance on written recall flagged"
+        ],
+        support: [
+          "CA2 component and weighting not yet confirmed",
+          "Assessment weightings do not yet sum to 100% — check and adjust",
+          "MO4 and MO5 are not yet covered by any assessment component"
+        ],
+        actions: ["Generate assessment plan", "Check weighting total", "Align to MLOs", "Review rubric fit"]
+      },
+      integrity: {
+        num: "—",
+        title: "AI Use & Guidance",
+        focus: "Draft the AI use and guidance policy for students and assessment boundaries.",
+        context: [
+          "Curriculum standards for responsible AI use",
+          "Assessment authenticity requirements",
+          "Benchmark policy language from peer institutions",
+          "NP AI policy guidelines"
+        ],
+        support: [
+          "Permitted AI section needs specifics — avoid generic 'approved tools' language",
+          "Assessment boundaries for simulation components not yet addressed",
+          "Student attribution requirements should reference NP academic integrity policy"
+        ],
+        actions: ["Draft guidance", "Add assessment boundaries", "Refine student guidance", "Review policy language"]
+      },
+      references: {
+        num: "10.",
+        title: "Recommended Texts / References",
+        focus: "Compile and confirm the recommended texts and references for this module.",
+        context: [
+          "Module topics and teaching schedule",
+          "Benchmark institution reference lists for critical care",
+          "NP library holdings and open-access journals"
+        ],
+        support: [
+          "Current list has 3 confirmed texts — benchmark suggests 6–8 total",
+          "No OAL reading materials listed — add 2–3 targeted journal articles",
+          "APA formatting not yet applied consistently across all entries"
+        ],
+        actions: ["Shortlist resources", "Add journal articles", "Check NP library access", "Format in APA"]
+      }
     };
 
     const threadOpeners = {
