@@ -974,43 +974,38 @@
       white-space: pre-wrap;
     }
 
-    .chat-turn {
-      display: grid;
-      gap: 4px;
-      max-width: 95%;
+    .decision-log-entry {
+      border: 1px solid #d9e4ef;
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: #fbfdff;
+      margin-bottom: 8px;
     }
 
-    .chat-turn.you {
-      justify-self: end;
-      text-align: left;
+    .decision-log-entry.ai {
+      border-left: 3px solid var(--brand);
     }
 
-    .chat-turn.ai {
-      justify-self: start;
+    .decision-log-entry.user {
+      border-left: 3px solid #1a7a4a;
+      background: #f4fbf7;
     }
 
-    .chat-role {
-      font-size: 11px;
-      letter-spacing: 0.01em;
-      color: #5a7690;
+    .decision-log-label {
+      font-size: 10px;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
     }
 
-    .chat-bubble {
-      padding: 2px 0;
-      font-size: 13px;
-      color: #294863;
-      line-height: 1.55;
-      white-space: pre-wrap;
-    }
+    .decision-log-entry.ai .decision-log-label { color: var(--brand); }
+    .decision-log-entry.user .decision-log-label { color: #1a7a4a; }
 
-    .chat-turn.you .chat-bubble {
-      border-radius: 12px;
-      border: 1px solid #1f344a;
-      background: #1f344a;
-      color: #f2f8ff;
-      padding: 9px 11px;
-      box-shadow: none;
+    .decision-log-copy {
+      font-size: 12.5px;
+      color: #344c5f;
+      line-height: 1.5;
     }
 
     .direction-pack {
@@ -2685,9 +2680,48 @@
       padding: 6px 10px;
     }
     .mdd-ctx-drawer summary::-webkit-details-marker { display: none; }
+    
     .mdd-ctx-body {
       padding: 2px 10px 8px;
     }
+    .inline-sync-label {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #fffbeb;
+      border: 1px solid #f0d899;
+      color: #8f5615;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      display: none;
+      z-index: 10;
+    }
+    @keyframes flashHighlight {
+      0% { background-color: transparent; }
+      20% { background-color: #fff9e6; outline: 2px solid #f0d899; }
+      100% { background-color: transparent; outline: 2px solid transparent; }
+    }
+    .module-section.syncing {
+      animation: flashHighlight 1.5s ease-out;
+    }
+    [contenteditable="true"] {
+      cursor: text;
+      transition: background-color 0.2s, box-shadow 0.2s;
+    }
+    [contenteditable="true"]:hover {
+      background-color: #f8fbff;
+      box-shadow: inset 0 0 0 1px #d6e3f0;
+      border-radius: 4px;
+    }
+    [contenteditable="true"]:focus {
+      outline: none;
+      background-color: #fff;
+      box-shadow: inset 0 0 0 1.5px var(--brand);
+      border-radius: 4px;
+    }
+
   </style>
 </head>
 <body>
@@ -2711,14 +2745,14 @@
     <section class="setup-card analysis-setup" aria-label="Connected discovery analysis">
       <details class="analysis-accordion">
         <summary>
-          <div class="setup-kicker">Continue from Discovery Analysis</div>
+          <div class="setup-kicker">Continue From Discovery Analysis</div>
 
           <div class="setup-title">
             Choose an analysis to continue from
           </div>
 
           <div class="setup-note">
-            Connected curriculum signals and benchmarking insights will carry into module design.
+            Connected curriculum signals and benchmarking insights carried into this workspace.
           </div>
         </summary>
 
@@ -2798,8 +2832,8 @@
             <button class="thread-link" data-thread="skills" type="button"><span class="tl-num">2.</span><span class="tl-name">Skills Framework</span></button>
             <button class="thread-link" data-thread="outcomes" type="button"><span class="tl-num">3.</span><span class="tl-name">Module Learning Outcomes</span></button>
             <button class="thread-link" data-thread="co_outcomes" type="button"><span class="tl-num">4a.</span><span class="tl-name">Course Outcomes</span></button>
-            <button class="thread-link" data-thread="mapping" type="button"><span class="tl-num">4b.</span><span class="tl-name">MLO Mapping to Course Outcomes</span></button>
-            <button class="thread-link" data-thread="gradskills" type="button"><span class="tl-num">5.</span><span class="tl-name">MLO Mapping to NP Graduate Skills &amp; Competencies</span></button>
+            <button class="thread-link" data-thread="mapping" type="button"><span class="tl-num">4b.</span><span class="tl-name">Module Learning Outcomes Mapping to Course Outcomes</span></button>
+            <button class="thread-link" data-thread="gradskills" type="button"><span class="tl-num">5.</span><span class="tl-name">Mapping Module Learning Outcome to NP Graduate Skills &amp; Competencies</span></button>
             <button class="thread-link" data-thread="content" type="button"><span class="tl-num">6.</span><span class="tl-name">Module Topics &amp; Teaching Schedule</span></button>
             <button class="thread-link" data-thread="hours" type="button"><span class="tl-num">7.</span><span class="tl-name">Teaching Hours</span></button>
             <button class="thread-link" data-thread="teaching" type="button"><span class="tl-num">8.</span><span class="tl-name">Teaching &amp; Learning Strategies</span></button>
@@ -2903,8 +2937,8 @@
               <button data-section="skills" type="button">2. Skills Framework</button>
               <button data-section="outcomes" type="button">3. Module Learning Outcomes</button>
               <button data-section="co_outcomes" type="button">4a. Course Outcomes</button>
-              <button data-section="mapping" type="button">4b. MLO Mapping to Course Outcomes</button>
-              <button data-section="gradskills" type="button">5. MLO Mapping to NP Graduate Skills &amp; Competencies</button>
+              <button data-section="mapping" type="button">4b. Module Learning Outcomes Mapping to Course Outcomes</button>
+              <button data-section="gradskills" type="button">5. Mapping Module Learning Outcome to NP Graduate Skills &amp; Competencies</button>
               <button data-section="content" type="button">6. Module Topics &amp; Teaching Schedule</button>
               <button data-section="hours" type="button">7. Teaching Hours</button>
               <button data-section="teaching" type="button">8. Teaching &amp; Learning Strategies</button>
@@ -2932,7 +2966,7 @@
                 <div class="section-label np-sec-label">Section 1</div>
                 <h3 class="section-title">1. SYNOPSIS</h3>
                 <div class="mdd-text-area" contenteditable="true">
-                  <p class="np-body-italic">This module prepares students to manage critically ill patients across major body systems, integrating pathophysiology, clinical reasoning, and advanced nursing practice in the critical care setting.</p>
+                  <p class="np-body-italic">████████████████████████████████████████████████████████████████████████</p>
                   <div class="np-skel-block" style="margin-top:8px">
                     <div class="np-skel-line np-skel-w-full"></div>
                     <div class="np-skel-line np-skel-w-85"></div>
@@ -2991,15 +3025,15 @@
                   <tbody>
                     <tr>
                       <td contenteditable="true" class="mdd-mo-tag">MO1</td>
-                      <td contenteditable="true">Identify and escalate early warning signs using structured clinical reasoning frameworks.</td>
+                      <td contenteditable="true">████████████████████████████████████████████████████</td>
                     </tr>
                     <tr>
                       <td contenteditable="true" class="mdd-mo-tag">MO2</td>
-                      <td contenteditable="true">Apply critical care communication protocols under high-acuity time pressure.</td>
+                      <td contenteditable="true">████████████████████████████████████████████████</td>
                     </tr>
                     <tr>
                       <td contenteditable="true" class="mdd-mo-tag">MO3</td>
-                      <td contenteditable="true">Demonstrate safe handover practice with traceable escalation rationale.</td>
+                      <td contenteditable="true">████████████████████████████████████████████</td>
                     </tr>
                     <tr class="np-skel-tr">
                       <td contenteditable="true" class="mdd-mo-tag">MO4</td>
@@ -3026,9 +3060,9 @@
                 <h3 class="section-title">4a. COURSE OUTCOMES</h3>
                 <table class="mdd-doc-table">
                   <tbody>
-                    <tr><td contenteditable="true" class="mdd-mo-tag">CO1</td><td contenteditable="true">Demonstrate clinical decision-making in critical care contexts.</td></tr>
-                    <tr><td contenteditable="true" class="mdd-mo-tag">CO2</td><td contenteditable="true">Apply escalation protocols using structured clinical communication.</td></tr>
-                    <tr><td contenteditable="true" class="mdd-mo-tag">CO3</td><td contenteditable="true">Evaluate patient data to justify interdisciplinary escalation decisions.</td></tr>
+                    <tr><td contenteditable="true" class="mdd-mo-tag">CO1</td><td contenteditable="true">████████████████████████████████████████</td></tr>
+                    <tr><td contenteditable="true" class="mdd-mo-tag">CO2</td><td contenteditable="true">████████████████████████████████████████████████</td></tr>
+                    <tr><td contenteditable="true" class="mdd-mo-tag">CO3</td><td contenteditable="true">████████████████████████████████████████████</td></tr>
                     <tr class="np-skel-tr"><td contenteditable="true" class="mdd-mo-tag">CO4</td><td contenteditable="true"><div class="np-skel-line np-skel-w-70"></div></td></tr>
                     <tr class="np-skel-tr"><td contenteditable="true" class="mdd-mo-tag">CO5</td><td contenteditable="true"><div class="np-skel-line np-skel-w-55"></div></td></tr>
                   </tbody>
@@ -3045,7 +3079,7 @@
               <!-- 4b. MLO Mapping to Course Outcomes -->
               <section class="module-section" id="mapping">
                 <div class="section-label np-sec-label">Section 4b</div>
-                <h3 class="section-title">4b. MLO MAPPING TO COURSE OUTCOMES</h3>
+                <h3 class="section-title">4b. MODULE LEARNING OUTCOMES MAPPING TO COURSE OUTCOMES</h3>
                 <table class="mdd-matrix-table">
                   <thead>
                     <tr>
@@ -3104,7 +3138,7 @@
               <!-- 5. MLO Mapping to NP Graduate Skills & Competencies -->
               <section class="module-section" id="gradskills">
                 <div class="section-label np-sec-label">Section 5</div>
-                <h3 class="section-title">5. MLO MAPPING TO NP GRADUATE SKILLS &amp; COMPETENCIES</h3>
+                <h3 class="section-title">5. MAPPING MODULE LEARNING OUTCOME TO NP GRADUATE SKILLS &amp; COMPETENCIES</h3>
                 <table class="mdd-doc-table">
                   <thead>
                     <tr>
@@ -3146,17 +3180,17 @@
                   <tbody>
                     <tr>
                       <td contenteditable="true" class="mdd-week-num">1–3</td>
-                      <td contenteditable="true">Foundations — Pathophysiology, Monitoring &amp; Normal Ranges</td>
+                      <td contenteditable="true">████████████████████████████████████████</td>
                       <td contenteditable="true" class="mdd-hrs-num">6</td>
                     </tr>
                     <tr>
                       <td contenteditable="true" class="mdd-week-num">4–6</td>
-                      <td contenteditable="true">Diagnostics Cycle 1 + Guided Asynchronous Review</td>
+                      <td contenteditable="true">████████████████████████████████████████████████</td>
                       <td contenteditable="true" class="mdd-hrs-num">6</td>
                     </tr>
                     <tr>
                       <td contenteditable="true" class="mdd-week-num">7–9</td>
-                      <td contenteditable="true">Simulation Series — Low-acuity to High-acuity Progressive</td>
+                      <td contenteditable="true">████████████████████████████████████████████</td>
                       <td contenteditable="true" class="mdd-hrs-num">6</td>
                     </tr>
                     <tr class="np-skel-tr">
@@ -3279,7 +3313,7 @@
                     <tr>
                       <td contenteditable="true">CA1</td>
                       <td contenteditable="true"><span class="mdd-strategy-code">SIM</span></td>
-                      <td contenteditable="true">Live Simulation Stations</td>
+                      <td contenteditable="true">████████████████████████████████</td>
                       <td contenteditable="true" class="mdd-pct-col">60%</td>
                       <td contenteditable="true" class="mdd-dot-cell"><span class="mdd-y">Y</span></td>
                       <td contenteditable="true" class="mdd-dot-cell"><span class="mdd-y">Y</span></td>
@@ -3290,7 +3324,7 @@
                     <tr>
                       <td contenteditable="true">CA2</td>
                       <td contenteditable="true"><span class="mdd-strategy-code">WR</span></td>
-                      <td contenteditable="true">Written Reasoning Memo</td>
+                      <td contenteditable="true">████████████████████████████</td>
                       <td contenteditable="true" class="mdd-pct-col">30%</td>
                       <td contenteditable="true" class="mdd-dot-cell"><span class="mdd-n">–</span></td>
                       <td contenteditable="true" class="mdd-dot-cell"><span class="mdd-n">–</span></td>
@@ -3776,9 +3810,9 @@
       skills:       "Skills Framework",
       outcomes:     "Module Learning Outcomes",
       co_outcomes:  "Course Outcomes",
-      mapping:      "MLO Mapping to Course Outcomes",
-      gradskills:   "Graduate Skills Mapping",
-      content:      "Topics & Teaching Schedule",
+      mapping:      "Module Learning Outcomes Mapping to Course Outcomes",
+      gradskills:   "Mapping Module Learning Outcome to NP Graduate Skills & Competencies",
+      content:      "Module Topics & Teaching Schedule",
       hours:        "Teaching Hours",
       teaching:     "Teaching & Learning Strategies",
       assessment:   "Assessment",
@@ -3855,7 +3889,7 @@
       },
       mapping: {
         num: "4b.",
-        title: "MLO Mapping to Course Outcomes",
+        title: "Module Learning Outcomes Mapping to Course Outcomes",
         focus: "Map each module learning outcome to the relevant course outcomes.",
         context: [
           "Confirmed MLOs from Section 3",
@@ -3871,7 +3905,7 @@
       },
       gradskills: {
         num: "5.",
-        title: "MLO Mapping to NP Graduate Skills & Competencies",
+        title: "Mapping Module Learning Outcome to NP Graduate Skills & Competencies",
         focus: "Map module learning outcomes to NP Graduate Skills and Competencies.",
         context: [
           "NP Graduate Skills framework (6 competencies)",
@@ -4005,21 +4039,41 @@
       welcomeFlowTimers.push(timer);
     }
 
-    function createTurn(role, copy) {
-      const turn = document.createElement("div");
-      turn.className = "chat-turn " + (role === "You" ? "you" : "ai");
+    function createTurn(role, copy, threadKey) {
+      const entry = document.createElement("div");
+      entry.className = "decision-log-entry " + (role === "You" ? "user" : "ai");
 
       const label = document.createElement("div");
-      label.className = "chat-role";
-      label.textContent = role;
+      label.className = "decision-log-label";
+
+      if (role === "You") {
+        label.textContent = "Decision Applied";
+      } else {
+        const labels = {
+          welcome: "Recommended Curriculum Direction",
+          synopsis: "Synopsis Guidance",
+          skills: "Proposed Skills Alignment",
+          outcomes: "Suggested Outcome Scaffolding",
+          co_outcomes: "Course Alignment Insight",
+          mapping: "Mapping Rationale",
+          gradskills: "Graduate Skills Coverage",
+          content: "Teaching Schedule Implications",
+          hours: "Workload Analysis",
+          teaching: "Teaching Strategy Implications",
+          assessment: "Suggested Assessment Pattern",
+          integrity: "AI Policy Guidance",
+          references: "Recommended Resources"
+        };
+        label.textContent = labels[threadKey] || "Design Recommendation";
+      }
 
       const bubble = document.createElement("div");
-      bubble.className = "chat-bubble";
+      bubble.className = "decision-log-copy";
       bubble.textContent = copy;
 
-      turn.appendChild(label);
-      turn.appendChild(bubble);
-      return turn;
+      entry.appendChild(label);
+      entry.appendChild(bubble);
+      return entry;
     }
 
     function createWorkingBlock(status) {
@@ -4134,7 +4188,7 @@
     function createNextHelpTurn(lane) {
       const copy = "Next, I can help with:\n" +
         (lane.nextHelp || []).map((item) => "• " + item).join("\n");
-      return createTurn("AI", copy);
+      return createTurn("AI", copy, activeThreadKey);
     }
 
     function createSignalChips(patterns) {
@@ -4752,6 +4806,26 @@
           threadThinking.classList.remove("show");
         }, 1200);
       }
+      
+      const secId = sectionIdForThread(threadKey);
+      const section = document.getElementById(secId);
+      if (section) {
+        section.classList.add("syncing");
+        
+        let updateLabel = section.querySelector(".inline-sync-label");
+        if (!updateLabel) {
+           updateLabel = document.createElement("div");
+           updateLabel.className = "inline-sync-label";
+           section.insertBefore(updateLabel, section.firstChild);
+        }
+        updateLabel.textContent = "Updating " + (sectionData[secId] ? sectionData[secId].title : "Section") + "...";
+        updateLabel.style.display = "block";
+        
+        window.setTimeout(() => {
+          section.classList.remove("syncing");
+          if (updateLabel) updateLabel.style.display = "none";
+        }, 1500);
+      }
     }
 
     function decorateRail() {
@@ -4868,7 +4942,7 @@
 
       // After direction chosen
       
-      threadCanvas.appendChild(createTurn("You", state.choice));
+      threadCanvas.appendChild(createTurn("You", state.choice, "welcome"));
 
       if (state.drafting) {
         threadCanvas.appendChild(createWorkingBlock(lane.draftStatus));
@@ -4876,11 +4950,11 @@
         return;
       }
 
-      threadCanvas.appendChild(createTurn("AI", state.aiReply));
+      threadCanvas.appendChild(createTurn("AI", state.aiReply, "welcome"));
       threadCanvas.appendChild(createWelcomeQuestion(lane, state));
 
       if (state.questionChoice) {
-        threadCanvas.appendChild(createTurn("You", state.questionChoice));
+        threadCanvas.appendChild(createTurn("You", state.questionChoice, "welcome"));
 
         if (state.questionDrafting) {
           threadCanvas.appendChild(createWorkingBlock("Updating draft alignment..."));
@@ -4888,7 +4962,7 @@
           return;
         }
 
-        threadCanvas.appendChild(createTurn("AI", state.questionReply));
+        threadCanvas.appendChild(createTurn("AI", state.questionReply, "welcome"));
         const updated = document.createElement("div");
         updated.className = "draft-update";
         updated.textContent = "Draft direction updated.";
