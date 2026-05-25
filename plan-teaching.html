@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    
+
     :root {
       --brand:        #004689;
       --max: 1200px;
@@ -33,18 +33,18 @@
       height: 56px;
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
-      
       background: rgba(255, 255, 255, 0.94);
       position: sticky;
       top: 0; z-index: 20;
       backdrop-filter: blur(8px);
     }
-    .topbar-inner { width: 100%; max-width: var(--max); margin: 0 auto; display: flex; align-items: center;  padding: 0 40px;}
+    .topbar-inner { width: 100%; max-width: var(--max); margin: 0 auto; display: flex; align-items: center; padding: 0 40px; }
     .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
     .t-div { width: 1px; height: 18px; background: var(--border); }
     .brand-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
 
-    .page { width: 100%;
+    .page {
+      width: 100%;
       max-width: var(--max);
       margin: 0 auto;
       padding: 44px 40px;
@@ -64,7 +64,7 @@
       font-size: 15px; color: #4d5d70; line-height: 1.5; margin-bottom: 32px; max-width: 720px;
     }
 
-    /* Top Connector - Consistent with plan-direction */
+    /* Top Connector */
     .setup-card {
       border: 1px solid #c8daec;
       border-radius: 12px;
@@ -74,7 +74,6 @@
       gap: 16px;
       margin-bottom: 40px;
     }
-
     .setup-kicker {
       color: var(--brand);
       font-size: 10px;
@@ -83,104 +82,139 @@
       text-transform: uppercase;
       margin-bottom: 4px;
     }
-
-    .setup-title {
-      color: #111827;
-      font-size: 17px;
-      font-weight: 700;
-    }
-
-    .setup-note {
-      color: #4b5563;
-      font-size: 12px;
-      line-height: 1.5;
-      max-width: none;
-    }
-
-    .analysis-setup {
-      padding: 0;
-      overflow: hidden;
-      border-color: #d7e3ef;
-      background: #fcfeff;
-    }
-
+    .setup-title { color: #111827; font-size: 17px; font-weight: 700; }
+    .setup-note { color: #4b5563; font-size: 12px; line-height: 1.5; }
+    .analysis-setup { padding: 0; overflow: hidden; border-color: #d7e3ef; background: #fcfeff; }
     .analysis-accordion > summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 14px 16px;
-      display: grid;
-      gap: 6px;
+      list-style: none; cursor: pointer; padding: 14px 16px; display: grid; gap: 6px;
     }
-
-    .analysis-accordion > summary::-webkit-details-marker {
-      display: none;
-    }
-
+    .analysis-accordion > summary::-webkit-details-marker { display: none; }
     .analysis-accordion > summary::after {
-      content: "Review handoff";
-      justify-self: start;
-      margin-top: 2px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #5f748a;
-      border: 1px solid #d8e4ef;
-      border-radius: 999px;
-      padding: 4px 10px;
-      background: #fff;
+      content: "Review handoff"; justify-self: start; margin-top: 2px;
+      font-size: 11px; font-weight: 700; color: #5f748a;
+      border: 1px solid #d8e4ef; border-radius: 999px; padding: 4px 10px; background: #fff;
     }
-
-    .analysis-accordion[open] > summary {
-      border-bottom: 1px solid #e3ecf4;
-      background: #fff;
-    }
-
-    .analysis-accordion[open] > summary::after {
-      content: "Hide handoff";
-    }
-
-    .analysis-runs {
-      padding: 10px 12px 14px;
-      display: grid;
-      gap: 8px;
-      background: #f9fcff;
-    }
-    
+    .analysis-accordion[open] > summary { border-bottom: 1px solid #e3ecf4; background: #fff; }
+    .analysis-accordion[open] > summary::after { content: "Hide handoff"; }
+    .analysis-runs { padding: 10px 12px 14px; display: grid; gap: 8px; background: #f9fcff; }
     .connected-strip {
-      border: 1px solid #d8e5f2;
-      border-radius: 12px;
+      border: 1px solid #d8e5f2; border-radius: 12px;
       background: linear-gradient(180deg, #f8fbff 0%, #f5f9fe 100%);
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
+      padding: 14px 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
     }
-    
     .ctx-downstream-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
     .ctx-downstream-chip {
       font-size: 11px; font-weight: 600; color: #365872;
-      background: #fff; border: 1px solid #d6e2ef;
-      border-radius: 999px; padding: 4px 10px;
+      background: #fff; border: 1px solid #d6e2ef; border-radius: 999px; padding: 4px 10px;
     }
-    .ctx-more-chip {
-      font-size: 11px; font-weight: 500; color: #6b7280;
-      padding: 4px 6px;
-    }
+    .ctx-more-chip { font-size: 11px; font-weight: 500; color: #6b7280; padding: 4px 6px; }
 
     /* Workspace Layout */
     .workspace {
       display: grid;
-      grid-template-columns: 280px minmax(0, 1fr);
+      grid-template-columns: 272px minmax(0, 1fr);
       gap: 32px;
       align-items: start;
     }
 
-    /* Core Workspace */
-    .workspace-toolbar {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;
+    /* ─── PLANNING ASSISTANT (LEFT RAIL) ─── */
+    .ai-sidebar {
+      position: sticky; top: 76px; display: grid; gap: 0;
+      background: #fff;
+      border: 1px solid #dce8f5;
+      border-radius: 12px;
+      overflow: hidden;
     }
-    .workspace-toolbar-title { font-size: 16px; font-weight: 600; color: #111827; }
-    
+
+    .assistant-header-block {
+      padding: 14px 16px 12px;
+      border-bottom: 1px solid #edf2f8;
+      background: linear-gradient(180deg, #f6faff 0%, #fff 100%);
+    }
+    .assistant-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+    }
+    .assistant-icon {
+      width: 30px; height: 30px; border-radius: 7px;
+      background: var(--brand); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0; letter-spacing: 0;
+    }
+    .assistant-name { font-size: 13px; font-weight: 700; color: #111827; }
+    .assistant-status { font-size: 10px; color: #6b7280; font-weight: 500; margin-top: 1px; }
+    .assistant-context {
+      font-size: 12px; color: #4b5563; line-height: 1.55;
+      background: #f0f6fc; border: 1px solid #d6e6f5;
+      border-radius: 7px; padding: 9px 11px;
+    }
+    .assistant-context strong { color: #1d3a5a; }
+    .assistant-sources {
+      display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px;
+    }
+    .source-chip {
+      font-size: 10px; font-weight: 600; color: #3a6a9e;
+      background: #ddeaf8; border-radius: 4px; padding: 2px 7px;
+    }
+
+    /* Rail sections */
+    .rail-block { padding: 14px 16px; border-bottom: 1px solid #edf2f8; display: grid; gap: 10px; }
+    .rail-block:last-child { border-bottom: none; }
+    .rail-title {
+      font-size: 9.5px; font-weight: 700; color: #9ca3af;
+      text-transform: uppercase; letter-spacing: 0.09em;
+    }
+
+    /* Action Buttons — proper interactive buttons */
+    .rail-action-list { display: grid; gap: 5px; }
+    .rail-action-btn {
+      text-align: left; background: #f9fafb;
+      border: 1px solid #e5e7eb; border-radius: 7px;
+      padding: 8px 11px;
+      font-size: 12px; font-weight: 500; color: #374151; cursor: pointer;
+      display: flex; align-items: center; gap: 8px; width: 100%;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .rail-action-btn:hover { border-color: var(--brand); color: var(--brand); background: #f0f6fc; }
+    .rail-action-btn .btn-icon {
+      width: 18px; height: 18px; border-radius: 4px;
+      background: #e5e7eb; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; flex-shrink: 0; color: #6b7280;
+    }
+    .rail-action-btn:hover .btn-icon { background: var(--brand-soft); color: var(--brand); }
+    .rail-action-btn.generate {
+      background: var(--brand); color: #fff; border-color: var(--brand); font-weight: 600;
+    }
+    .rail-action-btn.generate:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
+    .rail-action-btn.generate .btn-icon { background: rgba(255,255,255,0.2); color: #fff; }
+
+    /* AI Observations */
+    .rail-suggest-list { display: grid; gap: 8px; }
+    .rail-suggest-item {
+      font-size: 11.5px; color: #374151;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 6px;
+    }
+    .rail-suggest-label {
+      display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; flex: 1;
+    }
+    .rail-suggest-label::before { content: "✦"; color: var(--brand); font-size: 10px; margin-top: 2px; flex-shrink: 0; }
+    .rail-suggest-item.warn .rail-suggest-label::before {
+      content: "⚠"; color: #b45309; font-size: 10px; margin-left: 0; margin-right: 0;
+    }
+    .rail-apply-btn {
+      font-size: 10px; font-weight: 600; color: var(--brand);
+      background: #f0f6fc; border: 1px solid #d8e6f4; border-radius: 4px;
+      padding: 3px 8px; cursor: pointer; flex-shrink: 0; white-space: nowrap;
+    }
+    .rail-apply-btn:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+    .rail-apply-btn.warn-action { color: #b45309; background: #fffbeb; border-color: #fde6b8; }
+    .rail-apply-btn.warn-action:hover { background: #b45309; color: #fff; border-color: #b45309; }
+
+    /* ─── WORKSPACE MAIN ─── */
+    .workspace-toolbar {
+      display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;
+    }
+    .workspace-toolbar-title { font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.01em; }
+    .workspace-toolbar-sub { font-size: 13px; color: #6b7280; margin-top: 3px; }
     .save-state {
       font-size: 11px; color: #6b7280; font-weight: 500;
       display: flex; align-items: center; gap: 6px;
@@ -189,130 +223,165 @@
       display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #10b981;
     }
 
-    .week-cards { display: grid; gap: 24px; }
-    .week-card {
-      border: 1px solid #e5e7eb; border-radius: 8px; background: #fff;
-    }
-    .week-header {
-      padding: 10px 16px; border-bottom: 1px solid #f3f4f6;
-    }
-    .week-header-top {
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .week-title { font-size: 13px; font-weight: 600; color: #111827; }
-    .week-meta { font-size: 11px; color: #6b7280; font-weight: 500; }
-    
-    /* Provenance / Micro Context */
-    .prov-traces {
-      display: flex; gap: 4px; align-items: center; margin-top: 6px;
-    }
-    .prov-label { font-size: 10px; color: #9ca3af; }
-    .prov-chip { 
-      font-size: 9px; font-weight: 600; color: #6b7280; background: #f3f4f6;
-      padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;
-    }
-
-    .week-body { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 16px; }
-    
-    .week-col { display: grid; gap: 8px; align-content: start; position: relative; }
-    .week-col-header { 
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 4px;
-    }
-    .week-col-title { font-size: 10px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; }
-    
-    /* Inline Action Buttons */
-    .inline-actions { display: flex; gap: 2px; }
-    .inline-btn {
-      font-size: 10px; font-weight: 500; background: transparent; border: none;
-      cursor: pointer; padding: 2px 4px; color: #6b7280; border-radius: 4px;
-    }
-    .inline-btn.ai { color: var(--brand); }
-    .inline-btn:hover { background: #f3f4f6; }
-    .inline-btn.ai:hover { background: var(--brand-soft); }
-    
-    /* Skeleton placeholders */
-    .skel-list { display: grid; gap: 6px; }
-    .skel-pill {
-      font-size: 11px; color: #4b5563; background: #fafafa;
-      border: 1px dashed #d1d5db; border-radius: 4px; padding: 5px 8px;
-      font-weight: 500; display: inline-block; width: fit-content;
-      line-height: 1.2;
-    }
-
-    /* Ambient Suggestion */
-    .ambient-suggest {
-      font-size: 10px; color: #92400e;
-      display: flex; flex-direction: column; gap: 6px;
-      margin-top: 4px; padding: 6px 8px; background: #fffbeb; border: 1px solid #fde6b8; border-radius: 6px;
-    }
-    .ambient-actions { display: flex; gap: 6px; }
-    .ambient-action {
-      background: transparent; border: 1px solid #fcd34d; font-size: 10px; font-weight: 500;
-      color: #92400e; cursor: pointer; padding: 2px 8px; border-radius: 4px;
-    }
-    .ambient-action:hover { background: #fde6b8; }
-    .ambient-action.primary { background: #d97706; border-color: #d97706; color: #fff; }
-    .ambient-action.primary:hover { background: #b45309; border-color: #b45309; }
-
-    /* Special Event Week */
-    .week-card.special { border: none; background: transparent; }
-    .week-card.special .week-header { border: none; background: transparent; padding: 8px 0; }
-    .week-card.special .week-title { font-size: 12px; color: #6b7280; font-weight: 500; }
-
-    /* AI Sidebar - Accelerator Rail */
-    .ai-sidebar {
-      position: sticky; top: 76px; display: grid; gap: 32px;
-    }
-    
-    .rail-section { display: grid; gap: 12px; }
-    .rail-title { font-size: 10px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; }
-    
-    .rail-suggest-list { display: grid; gap: 8px; }
-    .rail-suggest-item {
-      font-size: 12px; color: #374151; background: transparent;
-      font-weight: 500; 
-      display: flex; align-items: center; justify-content: space-between; gap: 6px;
-      border: none; text-align: left;
-    }
-    .rail-suggest-label { display: flex; align-items: flex-start; gap: 6px; }
-    .rail-suggest-label::before { content: "✦"; color: var(--brand); font-size: 11px; margin-top: 1px; }
-    .rail-suggest-item.warn .rail-suggest-label::before { content: "!"; color: #b45309; font-weight: 700; margin-left: 2px; margin-right: 2px;}
-
-    .rail-apply-btn {
-      font-size: 10px; font-weight: 600; color: var(--brand);
-      background: #f0f6fc; border: 1px solid #d8e6f4; border-radius: 4px;
-      padding: 3px 8px; cursor: pointer; flex-shrink: 0;
-    }
-    .rail-apply-btn:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
-    .rail-apply-btn.warn-action { color: #b45309; background: #fffbeb; border-color: #fde6b8; }
-    .rail-apply-btn.warn-action:hover { background: #b45309; color: #fff; border-color: #b45309; }
-
-    .rail-action-list { display: grid; gap: 4px; }
-    .rail-action-btn {
-      text-align: left; background: transparent; border: none;
-      padding: 6px 0; font-size: 12px; font-weight: 500; color: #4b5563; cursor: pointer;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .rail-action-btn:hover { color: #111827; }
-
-    /* Bottom Connector - Consistent */
-    .next-step-card {
-      border: 1px solid #c4d8ed;
+    /* Onboarding starting point banner */
+    .start-banner {
+      border: 1px solid #c8d9ed;
       border-radius: 10px;
+      background: linear-gradient(135deg, #eef6ff 0%, #f8fbff 100%);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .start-banner-body { flex: 1; min-width: 0; }
+    .start-banner-label {
+      font-size: 10px; font-weight: 700; color: var(--brand);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px;
+    }
+    .start-banner-title {
+      font-size: 14px; font-weight: 700; color: #1d3a5a; margin-bottom: 10px;
+    }
+    .start-banner-steps {
+      display: flex; flex-wrap: wrap; gap: 8px 20px;
+    }
+    .start-step {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: #4b5563;
+    }
+    .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 17px; height: 17px; border-radius: 50%;
+      background: var(--brand); color: #fff;
+      font-size: 9px; font-weight: 700; flex-shrink: 0;
+    }
+    .start-banner-cta {
+      background: var(--brand); color: #fff;
+      border: none; border-radius: 7px;
+      padding: 9px 18px; font-size: 12.5px; font-weight: 700;
+      cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    }
+    .start-banner-cta:hover { background: var(--brand-dark); }
+
+    /* Table */
+    .ta-table {
+      width: 100%; border-collapse: collapse;
+      background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .ta-table th {
+      background: #f9fafb; font-size: 11px; font-weight: 600; color: #6b7280;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 11px 16px; text-align: left; border-bottom: 1px solid #e5e7eb;
+    }
+    .ta-table td {
+      padding: 14px 16px; border-bottom: 1px solid #f3f4f6;
+      vertical-align: top; font-size: 13px; color: #4b5563; line-height: 1.5;
+    }
+    .ta-table tr:last-child td { border-bottom: none; }
+    .ta-week-cell {
+      font-weight: 600; color: #111827; text-align: center; width: 54px;
+    }
+
+    .ta-editable {
+      position: relative; padding: 6px 8px;
+      border-radius: 6px; transition: background-color 0.2s, box-shadow 0.2s; cursor: pointer;
+    }
+    .ta-editable:hover { background: #f8fbff; box-shadow: inset 0 0 0 1px #d6e3f0; }
+    .ta-editable:hover .ta-inline-actions { opacity: 1; visibility: visible; }
+
+    .ta-inline-actions {
+      position: absolute; top: -12px; right: 4px;
+      background: #fff; border: 1px solid #d1d5db; border-radius: 4px;
+      padding: 2px 6px; font-size: 10px; font-weight: 500;
+      display: flex; gap: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.15s, visibility 0.15s;
+      white-space: nowrap; z-index: 10;
+    }
+    .ta-inline-actions span { color: #6b7280; cursor: pointer; }
+    .ta-inline-actions span:hover { color: #111827; }
+    .ta-inline-actions .ai { color: var(--brand); font-weight: 600; cursor: pointer; }
+    .ta-inline-actions .ai:hover { color: var(--brand-dark); }
+    .ta-inline-actions .divider { color: #d1d5db; cursor: default; }
+
+    /* Inline AI suggestion inside a cell */
+    .cell-ai-suggest {
+      margin-top: 7px;
+      display: flex; align-items: flex-start; gap: 5px;
+      font-size: 11px; color: var(--brand); font-weight: 500;
+      border-left: 2px solid var(--brand);
+      padding-left: 7px; cursor: pointer;
+    }
+    .cell-ai-suggest::before { content: "✦"; font-size: 9px; margin-top: 2px; flex-shrink: 0; }
+    .cell-ai-suggest:hover { text-decoration: underline; }
+
+    /* Inline warning AI suggestion */
+    .cell-warn-suggest {
+      margin-top: 7px;
+      display: flex; align-items: flex-start; gap: 5px;
+      font-size: 11px; color: #b45309; font-weight: 500;
+      border-left: 2px solid #d97706;
+      padding-left: 7px; cursor: pointer;
+    }
+    .cell-warn-suggest:hover { text-decoration: underline; }
+
+    /* Generate slot — empty state with AI prompt */
+    .cell-generate {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 500; color: #9ca3af;
+      border: 1px dashed #d1d5db; border-radius: 5px;
+      padding: 6px 10px; cursor: pointer;
+      background: transparent;
+      transition: border-color 0.15s, color 0.15s;
+      width: 100%;
+      text-align: left;
+    }
+    .cell-generate:hover { border-color: var(--brand); color: var(--brand); background: #f8fbff; }
+    .cell-generate .gen-icon { font-size: 12px; }
+
+    .ta-add-btn {
+      font-size: 11px; color: #9ca3af; background: transparent;
+      border: 1px dashed #d1d5db; border-radius: 4px;
+      padding: 5px 10px; margin-top: 8px; cursor: pointer;
+      display: block; width: 100%; text-align: left;
+    }
+    .ta-add-btn:hover { background: #f9fafb; color: #4b5563; border-color: #9ca3af; }
+
+    .ta-special-row td { background: #f3f4f6; padding: 12px 16px; }
+    .ta-special-content {
+      font-size: 12px; font-weight: 600; color: #6b7280;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    .ta-collapsed-row td {
+      background: #fdfdfd; padding: 10px 16px; text-align: center;
+      border-top: 1px dashed #e5e7eb; border-bottom: 1px dashed #e5e7eb;
+    }
+    .ta-collapsed-content {
+      font-size: 12px; font-weight: 500; color: #9ca3af;
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+    }
+    .ta-collapsed-content:hover { color: #4b5563; }
+    .ta-collapsed-content::before, .ta-collapsed-content::after {
+      content: ""; display: inline-block; width: 40px; height: 1px; background: #e5e7eb;
+    }
+
+    /* Bottom Connector */
+    .next-step-card {
+      border: 1px solid #c4d8ed; border-radius: 10px;
       background: linear-gradient(180deg, #eef6ff 0%, #fafcff 100%);
-      padding: 20px 24px;
-      display: grid;
-      gap: 12px;
-      margin-top: 48px;
+      padding: 20px 24px; display: grid; gap: 12px; margin-top: 48px;
     }
     .next-step-label {
       font-size: 10px; font-weight: 700; text-transform: uppercase;
       letter-spacing: 0.08em; color: var(--brand);
     }
-    .next-step-title {
-      font-size: 15px; font-weight: 700; color: #1d3a5a; line-height: 1.35;
-    }
+    .next-step-title { font-size: 15px; font-weight: 700; color: #1d3a5a; line-height: 1.35; }
     .next-step-sub { font-size: 13px; color: #4a6580; margin-top: -4px; line-height: 1.5; }
     .next-step-btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 6px;
@@ -321,161 +390,6 @@
       cursor: pointer; text-decoration: none; width: fit-content; margin-top: 8px;
     }
     .next-step-btn:hover { background: #003366; border-color: #003366; color: #fff; }
-
-  
-    /* TA Table Structure */
-    .ta-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-    .ta-table th {
-      background: #f9fafb;
-      font-size: 11px;
-      font-weight: 600;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 12px 16px;
-      text-align: left;
-      border-bottom: 1px solid #e5e7eb;
-    }
-    .ta-table td {
-      padding: 16px;
-      border-bottom: 1px solid #f3f4f6;
-      vertical-align: top;
-      font-size: 13px;
-      color: #4b5563;
-      line-height: 1.5;
-    }
-    .ta-table tr:last-child td {
-      border-bottom: none;
-    }
-    .ta-week-cell {
-      font-weight: 600;
-      color: #111827;
-      text-align: center;
-      width: 60px;
-    }
-    
-    .skel-bar {
-      height: 12px;
-      background: #e5e7eb;
-      border-radius: 4px;
-      margin-bottom: 8px;
-    }
-    
-    .ta-editable {
-      position: relative;
-      padding: 6px 8px;
-      border-radius: 6px;
-      transition: background-color 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-    }
-    .ta-editable:hover {
-      background: #f8fbff;
-      box-shadow: inset 0 0 0 1px #d6e3f0;
-    }
-    .ta-editable:hover .ta-inline-actions {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .ta-inline-actions {
-      position: absolute;
-      top: -12px;
-      right: 4px;
-      background: #fff;
-      border: 1px solid #d1d5db;
-      border-radius: 4px;
-      padding: 2px 6px;
-      font-size: 10px;
-      font-weight: 500;
-      display: flex;
-      gap: 6px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.15s, visibility 0.15s;
-      white-space: nowrap;
-      z-index: 10;
-    }
-    .ta-inline-actions span { color: #6b7280; }
-    .ta-inline-actions span:hover { color: #111827; }
-    .ta-inline-actions .ai { color: var(--brand); font-weight: 600; }
-    .ta-inline-actions .ai:hover { color: var(--brand-dark); }
-    .ta-inline-actions .divider { color: #d1d5db; }
-
-    .ambient-intervention {
-      margin-top: 8px;
-      padding-left: 8px;
-      border-left: 2px solid var(--brand);
-    }
-    .ambient-text {
-      font-size: 11px;
-      color: var(--brand);
-      font-weight: 500;
-      cursor: pointer;
-    }
-    .ambient-text:hover { text-decoration: underline; }
-
-    .ta-special-row td {
-      background: #f3f4f6;
-      padding: 12px 16px;
-    }
-    .ta-special-content {
-      font-size: 12px;
-      font-weight: 600;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .ta-add-btn {
-      font-size: 11px;
-      color: #9ca3af;
-      background: transparent;
-      border: 1px dashed #d1d5db;
-      border-radius: 4px;
-      padding: 6px 10px;
-      margin-top: 12px;
-      cursor: pointer;
-      display: inline-block;
-      width: 100%;
-      text-align: left;
-    }
-    .ta-add-btn:hover {
-      background: #f9fafb;
-      color: #4b5563;
-      border-color: #9ca3af;
-    }
-    .ta-collapsed-row td {
-      background: #fdfdfd;
-      padding: 12px 16px;
-      text-align: center;
-      border-top: 1px dashed #e5e7eb;
-      border-bottom: 1px dashed #e5e7eb;
-    }
-    .ta-collapsed-content {
-      font-size: 12px;
-      font-weight: 500;
-      color: #9ca3af;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-    }
-    .ta-collapsed-content:hover { color: #4b5563; }
-    .ta-collapsed-content::before, .ta-collapsed-content::after {
-      content: "";
-      display: inline-block;
-      width: 40px;
-      height: 1px;
-      background: #e5e7eb;
-    }
   </style>
 </head>
 <body>
@@ -495,15 +409,11 @@
 
   <section>
     <div class="page-eyebrow">Teaching Plan</div>
-    <h1 class="page-title">Plan Weekly Activities &amp; Assessments</h1>
-    <p class="page-sub" style="margin-bottom: 20px;">Map out your weekly topics, learning activities, and assessment checkpoints. Use AI to suggest activities and check student workload.</p>
-    <div class="draft-notice" style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid var(--brand, #004689); padding: 14px 18px; margin-bottom: 36px; font-size: 13px; color: #475569; border-radius: 6px; max-width: 720px; line-height: 1.5; display: flex; align-items: flex-start; gap: 10px;">
-      <span style="font-size: 16px; line-height: 1.2; color: var(--brand, #004689);">✦</span>
-      <div><strong>AI Draft Schedule:</strong> Generated from your approved module direction. Refine the pacing and activities before creating your materials.</div>
-    </div>
+    <h1 class="page-title">Review &amp; Refine Weekly Teaching Plan</h1>
+    <p class="page-sub" style="margin-bottom: 28px;">AI has drafted a weekly teaching flow from your approved module direction. Review, edit, and refine the plan — then use it as the basis for material generation.</p>
   </section>
 
-  <!-- 1. TOP CONNECTOR -->
+  <!-- TOP CONNECTOR -->
   <section class="setup-card analysis-setup" aria-label="Connected module design context">
     <details class="analysis-accordion">
       <summary>
@@ -526,49 +436,69 @@
   </section>
 
   <div class="workspace">
-    <!-- 4. SMART PEDAGOGY ASSIST LAYER (SIDEBAR) NOW ON THE LEFT -->
+
+    <!-- LEFT RAIL: PLANNING ASSISTANT -->
     <div class="workspace-side">
       <div class="ai-sidebar">
-        
-        <div class="rail-section">
-          <div class="rail-title" style="font-size: 14px; font-weight: 700; color: #111827; letter-spacing: 0; text-transform: none; margin-bottom: -4px;">Planning Workspace</div>
-          <div style="font-size: 12px; color: #4b5563; line-height: 1.5;">
-            Build and refine the weekly teaching plan for this module.
-            <br><br>
-            You can:
-            <ul style="margin-left: 16px; margin-top: 4px; display: grid; gap: 2px;">
-              <li>organise weekly learning activities</li>
-              <li>sequence assessments and checkpoints</li>
-              <li>balance workload across the semester</li>
-              <li>refine activities manually or with AI support</li>
-            </ul>
+
+        <!-- Identity & Context -->
+        <div class="assistant-header-block">
+          <div class="assistant-header">
+            <div class="assistant-icon">✦</div>
+            <div>
+              <div class="assistant-name">Teaching Plan Assistant</div>
+              <div class="assistant-status">Draft ready &middot; 15-week flow</div>
+            </div>
+          </div>
+          <div class="assistant-context">
+            AI has drafted a weekly teaching flow based on your:
+            <div class="assistant-sources" style="margin-top: 7px;">
+              <span class="source-chip">Approved MLOs</span>
+              <span class="source-chip">Assessment structure</span>
+              <span class="source-chip">Skills Framework</span>
+            </div>
+            <div style="margin-top: 8px; color: #4b5563;">Review and refine the plan below.</div>
           </div>
         </div>
 
-        <div class="rail-section">
-          <div class="rail-title">Suggested Starting Points</div>
+        <!-- Suggested Actions -->
+        <div class="rail-block">
+          <div class="rail-title">Suggested Actions</div>
           <div class="rail-action-list">
-            <button class="rail-action-btn">Generate initial 15-week draft</button>
-            <button class="rail-action-btn">Insert assessment milestones</button>
-            <button class="rail-action-btn">Suggest OAL / pre-class activities</button>
-            <button class="rail-action-btn">Review workload balance</button>
+            <button class="rail-action-btn generate">
+              <span class="btn-icon">↺</span>
+              Regenerate weekly draft
+            </button>
+            <button class="rail-action-btn">
+              <span class="btn-icon">+</span>
+              Insert assessment milestones
+            </button>
+            <button class="rail-action-btn">
+              <span class="btn-icon">⚖</span>
+              Balance workload across weeks
+            </button>
+            <button class="rail-action-btn">
+              <span class="btn-icon">+</span>
+              Add OAL activities
+            </button>
           </div>
         </div>
 
-        <div class="rail-section" style="margin-top: 16px; padding-top: 24px; border-top: 1px solid #e5e7eb;">
-          <div class="rail-title">Week 9 observations</div>
+        <!-- AI Observations -->
+        <div class="rail-block">
+          <div class="rail-title">AI Observations</div>
           <div class="rail-suggest-list">
             <div class="rail-suggest-item warn">
-              <div class="rail-suggest-label">CA2 overlaps with lab submission</div>
-              <button class="rail-apply-btn warn-action">Resolve</button>
-            </div>
-            <div class="rail-suggest-item warn">
-              <div class="rail-suggest-label">Workload spike detected</div>
+              <div class="rail-suggest-label">Assessment clustering detected in Weeks 7–9</div>
               <button class="rail-apply-btn warn-action">Review</button>
             </div>
             <div class="rail-suggest-item">
-              <div class="rail-suggest-label">Suggest lighter pre-class activity</div>
+              <div class="rail-suggest-label">MLO2 under-emphasised in Weeks 3–5</div>
               <button class="rail-apply-btn">Apply</button>
+            </div>
+            <div class="rail-suggest-item">
+              <div class="rail-suggest-label">Add retrieval activity before CA1</div>
+              <button class="rail-apply-btn">Insert</button>
             </div>
           </div>
         </div>
@@ -576,88 +506,101 @@
       </div>
     </div>
 
-    <!-- 3. CORE WORKSPACE NOW ON THE RIGHT -->
+    <!-- CORE WORKSPACE -->
     <div class="workspace-main">
-      
-      <div class="workspace-toolbar" style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end;">
-        <div style="display: flex; flex-direction: column; gap: 4px;">
-          <div class="workspace-toolbar-title" style="font-size: 18px;">Plan Weekly Learning Flow</div>
-          <div style="font-size: 13px; color: #6b7280;">Edit any section directly, or use AI to suggest and refine activities, assessments, and weekly sequencing.</div>
+
+      <!-- Toolbar -->
+      <div class="workspace-toolbar">
+        <div>
+          <div class="workspace-toolbar-title">Weekly Teaching Flow</div>
+          <div class="workspace-toolbar-sub">Edit any cell directly, or use AI to suggest and refine activities inline.</div>
         </div>
         <div class="save-state">
           <span class="save-indicator"></span> Draft auto-saved just now
         </div>
       </div>
 
+      <!-- ONBOARDING: Suggested starting point -->
+      <div class="start-banner">
+        <div class="start-banner-body">
+          <div class="start-banner-label">✦ Suggested starting point</div>
+          <div class="start-banner-title">AI has prepared a draft teaching flow — where to begin:</div>
+          <div class="start-banner-steps">
+            <div class="start-step"><span class="step-num">1</span> Review assessment timing</div>
+            <div class="start-step"><span class="step-num">2</span> Refine weekly T&amp;L activities</div>
+            <div class="start-step"><span class="step-num">3</span> Check workload balance</div>
+          </div>
+        </div>
+        <button class="start-banner-cta">Review AI Draft</button>
+      </div>
+
+      <!-- TEACHING PLAN TABLE -->
       <table class="ta-table">
         <thead>
           <tr>
-            <th style="width: 50px; text-align: center;">Week</th>
-            <th style="width: 30%;">OAL / Pre-Class</th>
-            <th style="width: 40%;">In-Class Activities</th>
-            <th style="width: 30%;">Assessment / Notes</th>
+            <th style="width: 54px; text-align: center;">Week</th>
+            <th style="width: 28%;">Pre-Class / OAL</th>
+            <th style="width: 40%;">T&amp;L Activities</th>
+            <th style="width: 32%;">Assessment &amp; Feedback</th>
           </tr>
         </thead>
         <tbody>
+
           <!-- Week 1 -->
           <tr>
             <td class="ta-week-cell">1</td>
             <td>
               <div class="ta-editable">
-                <div>Intro to Course & Tooling</div>
+                <div>Intro to Course &amp; Tooling</div>
                 <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Read Chapter 1 before class</div>
-                <button class="ta-add-btn">+ Add activity</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
+              <button class="ta-add-btn">+ Add pre-class activity</button>
             </td>
             <td>
               <div class="ta-editable">
                 <div>Lecture: Core Concepts</div>
                 <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Group discussion (20 mins)</div>
-                <button class="ta-add-btn">+ Add activity</button>
+                <div class="cell-ai-suggest">AI suggests adding a short retrieval prompt to close class</div>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
+              <button class="ta-add-btn">+ Add activity</button>
             </td>
             <td>
               <div class="ta-editable">
-                <div style="font-style: italic; color: #9ca3af;">No assessment</div>
-                <button class="ta-add-btn">+ Add assessment note</button>
+                <div style="font-style: italic; color: #9ca3af;">No assessment this week</div>
+                <div class="cell-ai-suggest">No formative feedback opportunity before CA1 — consider a low-stakes check</div>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
-              <div class="ambient-intervention">
-                <div class="ambient-text">✦ No formative feedback opportunity before CA1</div>
-              </div>
+              <button class="cell-generate"><span class="gen-icon">✦</span> Generate formative activity</button>
             </td>
           </tr>
-          
+
           <!-- Week 2 -->
           <tr>
             <td class="ta-week-cell">2</td>
             <td>
               <div class="ta-editable">
                 <div>Interactive simulation intro</div>
-                <button class="ta-add-btn">+ Add activity</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
+              <button class="ta-add-btn">+ Add pre-class activity</button>
             </td>
             <td>
               <div class="ta-editable">
                 <div>Diagnostic practice</div>
                 <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Case study analysis</div>
-                <button class="ta-add-btn">+ Add activity</button>
+                <div class="cell-ai-suggest">Suggest introducing retrieval activity after Week 2</div>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
-                
-                <div class="ambient-intervention">
-                  <div class="ambient-text">✦ Suggest introducing retrieval activity after Week 2</div>
-                </div>
               </div>
+              <button class="ta-add-btn">+ Add activity</button>
             </td>
             <td>
               <div class="ta-editable">
                 <div>Formative checkpoint</div>
-                <button class="ta-add-btn">+ Add assessment note</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
+              <button class="ta-add-btn">+ Add feedback note</button>
             </td>
           </tr>
 
@@ -667,92 +610,85 @@
             <td>
               <div class="ta-editable">
                 <div>Pre-recorded concept video</div>
-                <button class="ta-add-btn">+ Add activity</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
+              <button class="ta-add-btn">+ Add pre-class activity</button>
             </td>
             <td>
               <div class="ta-editable">
                 <div>Lab: Implementation</div>
-                <button class="ta-add-btn">+ Add activity</button>
+                <div class="cell-ai-suggest">MLO2 under-represented — AI suggests an application exercise here</div>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
+              <button class="cell-generate"><span class="gen-icon">✦</span> Generate MLO2 activity</button>
             </td>
             <td>
               <div class="ta-editable">
                 <div>Short Quiz 1</div>
-                <button class="ta-add-btn">+ Add assessment note</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
-            </td>
-          </tr>
-          
-          <!-- Collapsed Weeks 4-7 -->
-          <tr class="ta-collapsed-row">
-            <td colspan="4">
-              <div class="ta-collapsed-content">
-                Weeks 4–7 collapsed
-              </div>
+              <button class="ta-add-btn">+ Add feedback note</button>
             </td>
           </tr>
 
-          <!-- Special Week -->
+          <!-- Collapsed Weeks 4–7 -->
+          <tr class="ta-collapsed-row">
+            <td colspan="4">
+              <div class="ta-collapsed-content">Weeks 4–7 collapsed &mdash; click to expand</div>
+            </td>
+          </tr>
+
+          <!-- Week 8 — Special -->
           <tr class="ta-special-row">
             <td class="ta-week-cell">8</td>
             <td colspan="3">
-              <div class="ta-special-content">
-                Common Test Week — White Space / Revision
-              </div>
+              <div class="ta-special-content">Common Test Week — White Space / Revision</div>
             </td>
           </tr>
 
-          <!-- Week 9 -->
+          <!-- Week 9 — Warning -->
           <tr>
             <td class="ta-week-cell" style="background: #fdfaf5; border-left: 2px solid #d97706;">9</td>
             <td style="background: #fdfaf5;">
               <div class="ta-editable">
-                <div>Advanced Module reading</div>
-                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Self-directed prep (2 hours)</div>
-                <button class="ta-add-btn">+ Add activity</button>
+                <div>Advanced module reading</div>
+                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Self-directed prep (2 hrs)</div>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
+              <button class="ta-add-btn">+ Add pre-class activity</button>
             </td>
             <td style="background: #fdfaf5;">
               <div class="ta-editable">
                 <div>Lab Submission Prep</div>
-                <button class="ta-add-btn">+ Add activity</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
+              <button class="ta-add-btn">+ Add activity</button>
             </td>
             <td style="background: #fdfaf5;">
               <div class="ta-editable" style="border: 1px solid #fde6b8; background: #fffbeb;">
                 <div style="font-weight: 600; color: #92400e;">CA2 Submission</div>
-                <button class="ta-add-btn">+ Add assessment note</button>
+                <div class="cell-warn-suggest">⚠ Assessment clustering detected in Weeks 7–9 — consider redistributing</div>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
-              <div class="ambient-intervention">
-                <div class="ambient-text" style="color: #b45309;">! Assessment clustering detected in Weeks 7–9</div>
-              </div>
+              <button class="ta-add-btn">+ Add feedback note</button>
             </td>
           </tr>
-          
-          <!-- Collapsed Weeks 10-15 -->
+
+          <!-- Collapsed Weeks 10–15 -->
           <tr class="ta-collapsed-row">
             <td colspan="4">
-              <div class="ta-collapsed-content">
-                Weeks 10–15 collapsed
-              </div>
+              <div class="ta-collapsed-content">Weeks 10–15 collapsed &mdash; click to expand</div>
             </td>
           </tr>
+
         </tbody>
       </table>
 
-      <!-- 7. BOTTOM CONNECTOR -->
+      <!-- BOTTOM CONNECTOR -->
       <section class="next-step-card" aria-label="Next workflow stage">
         <div class="next-step-label">Next Workflow Stage</div>
         <div class="next-step-title">Generate Learning Materials</div>
         <div class="next-step-sub">Approved teaching flow, assessments, and weekly activities will carry into lesson and material generation.</div>
-        
         <a class="next-step-btn" href="generate-materials.html">
           Continue to Material Generation
         </a>
