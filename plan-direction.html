@@ -2651,70 +2651,7 @@
       <p class="page-sub">Work with AI to shape your module while the NP module draft updates live.</p>
     </section>
 
-    <section class="setup-card analysis-setup" aria-label="Connected context layer">
-      <details class="analysis-accordion">
-        <summary>
-          <div class="setup-kicker">Connected Context</div>
-          <h2 class="setup-title">This workspace is linked to prior AI analysis runs.</h2>
-          <div class="ctx-flow">
-            <span class="ctx-flow-step ctx-flow-step--done">Gather Context</span>
-            <span class="ctx-flow-arrow">→</span>
-            <span class="ctx-flow-step ctx-flow-step--done">AI Analysis</span>
-            <span class="ctx-flow-arrow">→</span>
-            <span class="ctx-flow-step ctx-flow-step--active">▶ Curriculum Draft</span>
-          </div>
-        </summary>
-
-        <div class="analysis-runs" aria-label="Connected analysis contexts">
-
-          <div class="ctx-pipeline-card ctx-pipeline-card--connected">
-            <div class="ctx-pipeline-card-top">
-              <div class="ctx-pipeline-card-title">ICU Curriculum Context Summary</div>
-              <div class="ctx-pipeline-card-time">AI synthesis completed 2 hrs ago</div>
-            </div>
-            <div class="ctx-pipeline-sources">Industry inputs &bull; Student insights &bull; Existing materials</div>
-            <div class="ctx-pipeline-status">
-              <span class="ctx-pipeline-connected">Connected to this workspace</span>
-            </div>
-          </div>
-
-          <div class="ctx-pipeline-card ctx-pipeline-card--connected">
-            <div class="ctx-pipeline-card-top">
-              <div class="ctx-pipeline-card-title">Benchmark &amp; Standards Review</div>
-              <div class="ctx-pipeline-card-time">AI synthesis completed yesterday</div>
-            </div>
-            <div class="ctx-pipeline-sources">Curriculum frameworks &bull; Benchmark analysis &bull; Reference mapping</div>
-            <div class="ctx-pipeline-status">
-              <span class="ctx-pipeline-connected">Connected to this workspace</span>
-            </div>
-          </div>
-
-          <div class="ctx-pipeline-card ctx-pipeline-card--pending">
-            <div class="ctx-pipeline-card-top">
-              <div class="ctx-pipeline-card-title">Existing Module Review</div>
-              <div class="ctx-pipeline-card-time">Completed yesterday</div>
-            </div>
-            <div class="ctx-pipeline-sources">Assessment observations &bull; Overlap analysis &bull; Content review</div>
-            <div class="ctx-pipeline-status">
-              <span class="ctx-pipeline-pending">Not yet connected</span>
-              <button class="ctx-pipeline-connect-btn" type="button">Connect Analysis</button>
-            </div>
-          </div>
-
-          <div class="ctx-downstream">
-            <div class="ctx-downstream-label">Connected context will be used to</div>
-            <div class="ctx-downstream-chips">
-              <span class="ctx-downstream-chip">Propose learning outcomes</span>
-              <span class="ctx-downstream-chip">Recommend topic clusters</span>
-              <span class="ctx-downstream-chip">Suggest assessment directions</span>
-              <span class="ctx-downstream-chip">Align to Skills Framework</span>
-            </div>
-          </div>
-
-          <a class="analysis-cta" href="#coDesignWorkspace">Apply Connected Context →</a>
-        </div>
-      </details>
-    </section>
+    
 
     <section class="workspace" id="coDesignWorkspace">
       <aside class="workspace-side" aria-label="Conversation workspace">
@@ -4153,7 +4090,7 @@
       });
       card.appendChild(body);
 
-      card.appendChild(createProvenanceStrip(lane.contextUsed));
+      // removed provenance strip
 
       const actions = document.createElement("div");
       actions.className = "proposal-actions";
@@ -4725,33 +4662,11 @@
         "<button class=\"ai-context-link\" type=\"button\" onclick=\"document.getElementById('contextModal').classList.add('show')\">View sources →</button>";
       threadCanvas.appendChild(ctxBlock);
 
-      // AI Design Signals block — current module vs benchmark trends
-      const signalsBlock = document.createElement("div");
-      signalsBlock.className = "ai-signals-block";
-      signalsBlock.innerHTML =
-        "<div class=\"ai-signals-section\">" +
-          "<div class=\"ai-signals-label\">Current module</div>" +
-          "<div class=\"ai-signals-item\">Over-indexes on theory recall</div>" +
-          "<div class=\"ai-signals-item\">Assessment load clusters around Week 9</div>" +
-          "<div class=\"ai-signals-item\">Limited simulation-based practice</div>" +
-        "</div>" +
-        "<div class=\"ai-signals-section\">" +
-          "<div class=\"ai-signals-label\">Benchmark trends</div>" +
-          "<div class=\"ai-signals-item\">Simulation-led assessment</div>" +
-          "<div class=\"ai-signals-item\">Escalation-focused clinical reasoning</div>" +
-        "</div>";
-      threadCanvas.appendChild(signalsBlock);
+      
 
       // Brief delay before showing suggested directions (AI proposing, not reviewing)
       if (!state.choice && !state.directionsReady) {
-        const loadCard = document.createElement("div");
-        loadCard.className = "next-step-card";
-        loadCard.innerHTML =
-          "<div class=\"next-step-label\">Recommended Next Step</div>" +
-          "<div class=\"next-step-title\">Propose module direction based on context</div>" +
-          "<div class=\"skel-synth-header\" style=\"margin-top:2px\"><span class=\"skel-role-chip\">AI</span><span class=\"skel-synth-status\">" + lane.workingStatus + "</span></div>" +
-          "<div class=\"skel-lines\" style=\"margin-top:6px\"><div class=\"skel-l skel-w-90\"></div><div class=\"skel-l skel-w-75\"></div></div>";
-        threadCanvas.appendChild(loadCard);
+        
         queueWelcomeFlow(() => {
           if (activeThreadKey !== "welcome") return;
           threadState.welcome = { ...(threadState.welcome || {}), directionsReady: true };
@@ -4761,28 +4676,13 @@
       }
 
       if (!state.choice) {
-        const recMove = document.createElement("div");
-        recMove.className = "ai-rec-move";
-        recMove.innerHTML =
-          "<div class=\"ai-rec-move-label\">Recommended next move</div>" +
-          "<div class=\"ai-rec-move-items\">" +
-            "<div class=\"ai-rec-move-item\">Strengthen escalation judgement</div>" +
-            "<div class=\"ai-rec-move-item\">Reduce content-heavy sequencing</div>" +
-            "<div class=\"ai-rec-move-item\">Increase applied simulation practice</div>" +
-          "</div>" +
-          "<div class=\"ai-rec-move-note\">This will influence: MLOs · T&amp;L Strategies · Assessment · Teaching Schedule</div>";
-        threadCanvas.appendChild(recMove);
+        
         threadCanvas.appendChild(createWelcomeDirections(lane, state));
         return;
       }
 
       // After direction chosen
-      const choiceCard = document.createElement("div");
-      choiceCard.className = "next-step-card";
-      choiceCard.innerHTML =
-        "<div class=\"next-step-label\">Direction Selected</div>" +
-        "<div class=\"next-step-title\">" + state.choice + "</div>";
-      threadCanvas.appendChild(choiceCard);
+      
       threadCanvas.appendChild(createTurn("You", state.choice));
 
       if (state.drafting) {
@@ -4809,15 +4709,7 @@
         updated.textContent = "Draft direction updated.";
         threadCanvas.appendChild(updated);
 
-        // Proactive: point to learning outcomes as next step
-        const progressCard = document.createElement("div");
-        progressCard.className = "next-step-card";
-        progressCard.innerHTML =
-          "<div class=\"next-step-label\">Recommended Next Step</div>" +
-          "<div class=\"next-step-title\">Review Skills Framework alignment</div>" +
-          "<div style=\"font-size:12px;color:#4a6580;line-height:1.45\">AI has mapped the approved synopsis direction to Skills Framework codes. Review the proposed alignment before proceeding to MLOs.</div>" +
-          "<button class=\"next-step-btn\" type=\"button\" onclick=\"activateThread('skills', true)\">Continue to Skills Framework →</button>";
-        threadCanvas.appendChild(progressCard);
+        
       } else {
         threadCanvas.appendChild(createNextHelpTurn(lane));
       }
