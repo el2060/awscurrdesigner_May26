@@ -367,7 +367,7 @@
     }
 
     .analysis-accordion > summary::after {
-      content: "Browse Analysis Summaries";
+      content: "View connected analysis";
       justify-self: start;
       margin-top: 2px;
       font-size: 11px;
@@ -385,7 +385,7 @@
     }
 
     .analysis-accordion[open] > summary::after {
-      content: "Hide Analysis Summaries";
+      content: "Hide connected analysis";
     }
 
     .analysis-runs {
@@ -2059,6 +2059,69 @@
     }
     .next-step-btn:hover { background: #003366; border-color: #003366; }
 
+    /* ── Pipeline flow indicator ── */
+    .ctx-flow {
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 4px;
+    }
+    .ctx-flow-step {
+      font-size: 11px; font-weight: 700;
+      padding: 3px 9px; border-radius: 999px;
+      color: #5a6e82; background: #eef3f8; border: 1px solid #d6e2ef;
+    }
+    .ctx-flow-step--done { color: #2f7a52; background: #ecf7f1; border-color: #aed4bc; }
+    .ctx-flow-step--active { color: var(--brand); background: var(--brand-soft); border-color: #a8c4df; }
+    .ctx-flow-arrow { color: #97a3b3; font-size: 12px; font-weight: 700; }
+
+    /* ── Pipeline context cards ── */
+    .ctx-pipeline-card {
+      border: 1px solid var(--line); border-radius: 10px;
+      background: #fff; padding: 10px 12px; display: grid; gap: 8px;
+    }
+    .ctx-pipeline-card--connected { border-color: #bcd8c6; background: #fafefe; }
+    .ctx-pipeline-card--pending { opacity: 0.72; }
+    .ctx-pipeline-card-top {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 8px; flex-wrap: wrap;
+    }
+    .ctx-pipeline-card-title { font-size: 13px; font-weight: 700; color: #1f3d5a; }
+    .ctx-pipeline-card-time { font-size: 11px; color: #71869a; font-weight: 600; white-space: nowrap; }
+    .ctx-pipeline-sources { font-size: 11px; color: #5a7086; font-weight: 500; line-height: 1.4; }
+    .ctx-pipeline-status { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .ctx-pipeline-connected {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 700; color: #2f7a52;
+    }
+    .ctx-pipeline-connected::before {
+      content: ''; display: inline-block; width: 14px; height: 14px;
+      background: #2f7a52; border-radius: 50%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='2 6 5 9 10 3'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: center; background-size: 9px; flex-shrink: 0;
+    }
+    .ctx-pipeline-pending { font-size: 11px; font-weight: 600; color: #8a9bac; }
+    .ctx-pipeline-connect-btn {
+      font-size: 11px; font-weight: 700; border: 1px solid #d0dde9;
+      border-radius: 999px; background: #fff; color: #3d5a78;
+      padding: 3px 10px; cursor: pointer; font-family: var(--font-sans); transition: all 120ms;
+    }
+    .ctx-pipeline-connect-btn:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-soft); }
+
+    /* ── Downstream usage footer ── */
+    .ctx-downstream {
+      border-top: 1px dashed #dce7f2; padding-top: 10px; display: grid; gap: 7px;
+    }
+    .ctx-downstream-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #4d6580;
+    }
+    .ctx-downstream-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ctx-downstream-chip {
+      font-size: 11px; font-weight: 700; color: #2f7a52;
+      background: #ecf7f1; border: 1px solid #aed4bc;
+      border-radius: 999px; padding: 3px 9px;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .ctx-downstream-chip::before { content: "✓"; font-size: 10px; }
+
     @media (max-width: 1280px) {
       .topbar {
         padding: 0 28px;
@@ -2155,42 +2218,67 @@
       <p class="page-sub">Work with AI to shape your module while the NP module draft updates live.</p>
     </section>
 
-    <section class="setup-card analysis-setup" aria-label="Use previous analysis">
-      <details class="analysis-accordion">
+    <section class="setup-card analysis-setup" aria-label="Connected context layer">
+      <details class="analysis-accordion" open>
         <summary>
-          <div class="setup-kicker">Use Existing Inputs</div>
-          <h2 class="setup-title">Select existing inputs to guide this draft.</h2>
+          <div class="setup-kicker">Connected Context</div>
+          <h2 class="setup-title">This workspace is linked to prior AI analysis runs.</h2>
+          <div class="ctx-flow">
+            <span class="ctx-flow-step ctx-flow-step--done">Gather Context</span>
+            <span class="ctx-flow-arrow">→</span>
+            <span class="ctx-flow-step ctx-flow-step--done">AI Analysis</span>
+            <span class="ctx-flow-arrow">→</span>
+            <span class="ctx-flow-step ctx-flow-step--active">▶ Curriculum Draft</span>
+          </div>
         </summary>
 
-        <div class="analysis-runs" aria-label="Previous analysis runs">
-          <label class="analysis-run">
-            <span class="analysis-run-top">
-              <span class="analysis-run-title">ICU Curriculum Context Summary</span>
-              <span class="analysis-run-time">Updated 2 hrs ago</span>
-            </span>
-            <span class="analysis-run-desc">Industry inputs, student insights, existing materials</span>
-            <span class="analysis-run-pick"><input type="checkbox" checked>Use for this module</span>
-          </label>
+        <div class="analysis-runs" aria-label="Connected analysis contexts">
 
-          <label class="analysis-run">
-            <span class="analysis-run-top">
-              <span class="analysis-run-title">Benchmark &amp; Standards Review</span>
-              <span class="analysis-run-time">Updated yesterday</span>
-            </span>
-            <span class="analysis-run-desc">Curriculum frameworks and reference mapping</span>
-            <span class="analysis-run-pick"><input type="checkbox" checked>Use for this module</span>
-          </label>
+          <div class="ctx-pipeline-card ctx-pipeline-card--connected">
+            <div class="ctx-pipeline-card-top">
+              <div class="ctx-pipeline-card-title">ICU Curriculum Context Summary</div>
+              <div class="ctx-pipeline-card-time">AI synthesis completed 2 hrs ago</div>
+            </div>
+            <div class="ctx-pipeline-sources">Industry inputs &bull; Student insights &bull; Existing materials</div>
+            <div class="ctx-pipeline-status">
+              <span class="ctx-pipeline-connected">Connected to this workspace</span>
+            </div>
+          </div>
 
-          <label class="analysis-run">
-            <span class="analysis-run-top">
-              <span class="analysis-run-title">Existing Module Review</span>
-              <span class="analysis-run-time">Updated yesterday</span>
-            </span>
-            <span class="analysis-run-desc">Assessment and content observations</span>
-            <span class="analysis-run-pick"><input type="checkbox">Use for this module</span>
-          </label>
+          <div class="ctx-pipeline-card ctx-pipeline-card--connected">
+            <div class="ctx-pipeline-card-top">
+              <div class="ctx-pipeline-card-title">Benchmark &amp; Standards Review</div>
+              <div class="ctx-pipeline-card-time">AI synthesis completed yesterday</div>
+            </div>
+            <div class="ctx-pipeline-sources">Curriculum frameworks &bull; Benchmark analysis &bull; Reference mapping</div>
+            <div class="ctx-pipeline-status">
+              <span class="ctx-pipeline-connected">Connected to this workspace</span>
+            </div>
+          </div>
 
-          <a class="analysis-cta" href="#coDesignWorkspace">Add Selected Context →</a>
+          <div class="ctx-pipeline-card ctx-pipeline-card--pending">
+            <div class="ctx-pipeline-card-top">
+              <div class="ctx-pipeline-card-title">Existing Module Review</div>
+              <div class="ctx-pipeline-card-time">Completed yesterday</div>
+            </div>
+            <div class="ctx-pipeline-sources">Assessment observations &bull; Overlap analysis &bull; Content review</div>
+            <div class="ctx-pipeline-status">
+              <span class="ctx-pipeline-pending">Not yet connected</span>
+              <button class="ctx-pipeline-connect-btn" type="button">Connect Analysis</button>
+            </div>
+          </div>
+
+          <div class="ctx-downstream">
+            <div class="ctx-downstream-label">Connected context will be used to</div>
+            <div class="ctx-downstream-chips">
+              <span class="ctx-downstream-chip">Propose learning outcomes</span>
+              <span class="ctx-downstream-chip">Recommend topic clusters</span>
+              <span class="ctx-downstream-chip">Suggest assessment directions</span>
+              <span class="ctx-downstream-chip">Align to Skills Framework</span>
+            </div>
+          </div>
+
+          <a class="analysis-cta" href="#coDesignWorkspace">Apply Connected Context →</a>
         </div>
       </details>
     </section>
