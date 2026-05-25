@@ -10,7 +10,7 @@
 
     :root {
       --brand:        #004689;
-      --max: 1200px;
+      --max: 1440px;
       --brand-dark:   #003366;
       --brand-soft:   #f0f6fc;
       --brand-border: #b8d0e6;
@@ -43,8 +43,7 @@
     .t-div { width: 1px; height: 18px; background: var(--border); }
     .brand-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
 
-    .page { width: 100%; max-width: var(--max); margin: 0 auto; padding: 44px 40px; display: grid;
-      gap: 16px; }
+    .page { width: 100%; max-width: var(--max); margin: 0 auto; padding: 40px 32px 60px; display: grid; gap: 16px; }
 
     .page-eyebrow {
       font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
@@ -106,10 +105,12 @@
     /* Workspace Layout */
     .workspace {
       display: grid;
-      grid-template-columns: 272px minmax(0, 1fr);
-      gap: 32px;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 24px;
       align-items: start;
     }
+    .workspace-side { min-width: 280px; }
+    .workspace-main { min-width: 0; }
 
     /* ─── PLANNING ASSISTANT (LEFT RAIL) ─── */
     .ai-sidebar {
@@ -205,7 +206,8 @@
 
     /* ─── WORKSPACE MAIN ─── */
     .workspace-toolbar {
-      display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 4px;
     }
     .workspace-toolbar-title { font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.01em; }
     .workspace-toolbar-sub { font-size: 13px; color: #6b7280; margin-top: 3px; }
@@ -497,6 +499,17 @@
     </details>
   </section>
 
+  <!-- WORKSPACE TOOLBAR: spans full width above both panes -->
+  <div class="workspace-toolbar">
+    <div>
+      <div class="workspace-toolbar-title">Weekly Teaching Flow</div>
+      <div class="workspace-toolbar-sub">Edit any cell directly, or use AI to suggest and refine activities inline.</div>
+    </div>
+    <div class="save-state">
+      <span class="save-indicator"></span> Draft auto-saved just now
+    </div>
+  </div>
+
   <div class="workspace">
 
     <!-- LEFT RAIL: PLANNING ASSISTANT -->
@@ -570,17 +583,6 @@
 
     <!-- CORE WORKSPACE -->
     <div class="workspace-main">
-
-      <!-- Toolbar -->
-      <div class="workspace-toolbar">
-        <div>
-          <div class="workspace-toolbar-title">Weekly Teaching Flow</div>
-          <div class="workspace-toolbar-sub">Edit any cell directly, or use AI to suggest and refine activities inline.</div>
-        </div>
-        <div class="save-state">
-          <span class="save-indicator"></span> Draft auto-saved just now
-        </div>
-      </div>
 
       <!-- ONBOARDING: Suggested starting point -->
       <div class="start-banner">
