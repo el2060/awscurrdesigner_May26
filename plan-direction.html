@@ -5062,39 +5062,39 @@
         html += `<div style="${S.focusBlock}"><span style="color:#004689;font-size:11px;flex-shrink:0;margin-top:1px;">✦</span><span>${data.focus}</span></div>`;
       }
 
-      // 2. Connected context — first item real, rest skeleton
+      // 2. Connected context
       if (data.context && data.context.length > 0) {
-        const firstItem = `<div style="${S.ctxItem}"><span style="${S.ctxIcon}">·</span><span>${data.context[0]}</span></div>`;
-        const skelItems = data.context.length > 1
-          ? `<div style="display:grid;gap:5px;padding-top:2px;opacity:0.55;">${skelLine("80%")}${skelLine("60%")}</div>`
-          : "";
+        const contextItems = data.context.map(ctx => 
+          `<div style="${S.ctxItem}"><span style="${S.ctxIcon}">·</span><span>${ctx}</span></div>`
+        ).join("");
         html += `<div style="${S.card}">
           <div style="${S.cardHead}">Connected context</div>
-          <div style="${S.cardBody}${S.grid("8px")}">${firstItem}${skelItems}</div>
+          <div style="${S.cardBody}${S.grid("8px")}">${contextItems}</div>
         </div>`;
       }
 
-      // 3. AI Recommendations — first item real with Apply, rest skeleton
+      // 3. AI Recommendations
       if (data.support && data.support.length > 0) {
-        const firstObs = `<div style="${S.obsRow}">
-          <div style="${S.obsLabel}"><span style="${S.obsIcon}">✦</span><span>${data.support[0]}</span></div>
-          <button type="button" data-obs="0" style="${S.applyBtn}">Apply</button>
-        </div>`;
-        const skelObs = data.support.length > 1 ? skelObsRow + skelObsRow : "";
+        const supportItems = data.support.map((obs, i) => 
+          `<div style="${S.obsRow}">
+            <div style="${S.obsLabel}"><span style="${S.obsIcon}">✦</span><span>${obs}</span></div>
+            <button type="button" data-obs="${i}" style="${S.applyBtn}">Apply</button>
+          </div>`
+        ).join("");
         html += `<div style="${S.card}">
           <div style="${S.cardHead}">AI Recommendations</div>
-          <div style="${S.cardBody}${S.grid("10px")}">${firstObs}${skelObs}</div>
+          <div style="${S.cardBody}${S.grid("10px")}">${supportItems}</div>
         </div>`;
       }
 
-      // 4. Quick Actions — full-width styled buttons (first real, rest skeleton)
+      // 4. Quick Actions
       if (data.actions && data.actions.length > 0) {
-        const firstAction = `<button type="button" data-act="0" style="${S.actionBtn}"><span style="${S.actionIcon}">↗</span>${data.actions[0]}</button>`;
-        const skelAction = `<div style="${S.actionBtn} opacity:0.55; cursor:default; pointer-events:none;"><span style="${S.actionIcon}; background:#f3f4f6; color:transparent;">↗</span><div style="height:8px; width:70%; background:linear-gradient(90deg,#edf2f7 0%,#f5f8fc 50%,#edf2f7 100%); border-radius:4px;"></div></div>`;
-        const skelActions = data.actions.length > 1 ? skelAction + skelAction : "";
+        const actionItems = data.actions.map((act, i) => 
+          `<button type="button" data-act="${i}" style="${S.actionBtn}"><span style="${S.actionIcon}">↗</span>${act}</button>`
+        ).join("");
         html += `<div style="${S.card}">
           <div style="${S.cardHead}">Quick Actions</div>
-          <div style="${S.cardBody}${S.grid("5px")}">${firstAction}${skelActions}</div>
+          <div style="${S.cardBody}${S.grid("5px")}">${actionItems}</div>
         </div>`;
       }
 
