@@ -43,14 +43,8 @@
     .t-div { width: 1px; height: 18px; background: var(--border); }
     .brand-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
 
-    .page {
-      width: 100%;
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 44px 40px;
-      display: grid;
-      gap: 16px;
-    }
+    .page { width: 100%; max-width: var(--max); margin: 0 auto; padding: 44px 40px; display: grid;
+      gap: 16px; }
 
     .page-eyebrow {
       font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
@@ -390,6 +384,22 @@
       cursor: pointer; text-decoration: none; width: fit-content; margin-top: 8px;
     }
     .next-step-btn:hover { background: #003366; border-color: #003366; color: #fff; }
+
+    @media (max-width: 1280px) {
+      .page { padding: 40px 28px !important; }
+      .topbar-inner { padding: 0 28px !important; }
+    }
+    @media (max-width: 1080px) {
+      .layout { grid-template-columns: 1fr; }
+      .layout-side { position: static; }
+      .workspace { grid-template-columns: 1fr !important; }
+      .workspace-side { position: static !important; }
+    }
+    @media (max-width: 900px) {
+      .page { padding: 32px 18px !important; }
+      .topbar-inner { padding: 0 18px !important; }
+      .brand-tag { display: none; }
+    }
   </style>
 </head>
 <body>
