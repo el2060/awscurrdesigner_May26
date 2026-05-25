@@ -170,8 +170,8 @@
     /* Workspace Layout */
     .workspace {
       display: grid;
-      grid-template-columns: 288px minmax(0, 1fr);
-      gap: 24px;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 32px;
       align-items: start;
     }
 
@@ -296,20 +296,31 @@
     }
     .rail-action-btn:hover { color: #111827; }
 
-    /* Bottom Connector - Minimal */
+    /* Bottom Connector - Consistent */
     .next-step-card {
-      padding: 32px 0 0; border-top: 1px solid #e5e7eb; margin-top: 48px;
+      border: 1px solid #c4d8ed;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #eef6ff 0%, #fafcff 100%);
+      padding: 20px 24px;
+      display: grid;
+      gap: 12px;
+      margin-top: 48px;
     }
-    .next-step-label { font-size: 10px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
-    .next-step-title { font-size: 16px; font-weight: 600; color: #111827; margin-bottom: 4px; }
-    .next-step-sub { font-size: 12px; color: #6b7280; margin-bottom: 16px; }
+    .next-step-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--brand);
+    }
+    .next-step-title {
+      font-size: 15px; font-weight: 700; color: #1d3a5a; line-height: 1.35;
+    }
+    .next-step-sub { font-size: 13px; color: #4a6580; margin-top: -4px; line-height: 1.5; }
     .next-step-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      background: #fff; color: var(--text); border: 1px solid #d1d5db;
-      border-radius: 6px; padding: 6px 14px; font-size: 12px; font-weight: 500;
-      cursor: pointer; text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      background: var(--brand); color: #fff; border: 1px solid var(--brand);
+      border-radius: 7px; padding: 8px 16px; font-size: 12.5px; font-weight: 700;
+      cursor: pointer; text-decoration: none; width: fit-content; margin-top: 8px;
     }
-    .next-step-btn:hover { background: #f9fafb; border-color: #9ca3af; }
+    .next-step-btn:hover { background: #003366; border-color: #003366; color: #fff; }
 
   
     /* TA Table Structure */
@@ -423,6 +434,48 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
+    .ta-add-btn {
+      font-size: 11px;
+      color: #9ca3af;
+      background: transparent;
+      border: 1px dashed #d1d5db;
+      border-radius: 4px;
+      padding: 6px 10px;
+      margin-top: 12px;
+      cursor: pointer;
+      display: inline-block;
+      width: 100%;
+      text-align: left;
+    }
+    .ta-add-btn:hover {
+      background: #f9fafb;
+      color: #4b5563;
+      border-color: #9ca3af;
+    }
+    .ta-collapsed-row td {
+      background: #fdfdfd;
+      padding: 12px 16px;
+      text-align: center;
+      border-top: 1px dashed #e5e7eb;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+    .ta-collapsed-content {
+      font-size: 12px;
+      font-weight: 500;
+      color: #9ca3af;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .ta-collapsed-content:hover { color: #4b5563; }
+    .ta-collapsed-content::before, .ta-collapsed-content::after {
+      content: "";
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+      background: #e5e7eb;
+    }
   </style>
 </head>
 <body>
@@ -441,16 +494,19 @@
 <main class="page">
 
   <section>
-    <div class="page-eyebrow">Teaching & Assessment Planning</div>
-    <h1 class="page-title">Plan Weekly Teaching & Assessment</h1>
-    <p class="page-sub">Organise weekly learning activities, OAL/IPL delivery, assessment timing, and student learning progression.</p>
+    <div class="page-eyebrow">Draft Teaching Plan</div>
+    <h1 class="page-title">Plan Weekly Learning Activities & Assessments</h1>
+    <p class="page-sub" style="margin-bottom: 16px;">Organise weekly learning activities, OAL delivery, assessment checkpoints, and learning progression across the semester.<br>AI can help suggest activities, surface workload issues, and refine weekly sequencing.</p>
+    <div class="draft-notice" style="background: #eef2f6; border-left: 4px solid var(--brand); padding: 12px 16px; margin-bottom: 32px; font-size: 13px; color: #374151; border-radius: 4px; max-width: 720px; line-height: 1.5;">
+      <strong>Draft Teaching Plan:</strong> AI-generated draft based on approved module outcomes and assessment structure. Review, edit, and refine weekly activities before proceeding to material generation.
+    </div>
   </section>
 
   <!-- 1. TOP CONNECTOR -->
   <section class="setup-card analysis-setup" aria-label="Connected module design context">
     <details class="analysis-accordion">
       <summary>
-        <div class="setup-kicker">Continue From Module Design</div>
+        <div class="setup-kicker">Continue From Module Direction</div>
         <div class="setup-title">Review approved module context</div>
         <div class="setup-note">Approved module context carried into this workspace.</div>
       </summary>
@@ -474,30 +530,45 @@
       <div class="ai-sidebar">
         
         <div class="rail-section">
-          <div class="rail-title">AI Planning Assistant</div>
-          <div class="rail-suggest-list">
-            <div class="rail-suggest-item">
-              <div class="rail-suggest-label">Suggest retrieval activity</div>
-              <button class="rail-apply-btn">Apply</button>
-            </div>
-            <div class="rail-suggest-item warn">
-              <div class="rail-suggest-label">Assessment load heavy in Week 7</div>
-              <button class="rail-apply-btn warn-action">Resolve</button>
-            </div>
-            <div class="rail-suggest-item warn">
-              <div class="rail-suggest-label">Add formative checkpoint?</div>
-              <button class="rail-apply-btn warn-action">Insert</button>
-            </div>
+          <div class="rail-title" style="font-size: 14px; font-weight: 700; color: #111827; letter-spacing: 0; text-transform: none; margin-bottom: -4px;">Planning Workspace</div>
+          <div style="font-size: 12px; color: #4b5563; line-height: 1.5;">
+            Build and refine the weekly teaching plan for this module.
+            <br><br>
+            You can:
+            <ul style="margin-left: 16px; margin-top: 4px; display: grid; gap: 2px;">
+              <li>organise weekly learning activities</li>
+              <li>sequence assessments and checkpoints</li>
+              <li>balance workload across the semester</li>
+              <li>refine activities manually or with AI support</li>
+            </ul>
           </div>
         </div>
 
         <div class="rail-section">
-          <div class="rail-title">Accelerators</div>
+          <div class="rail-title">Suggested Starting Points</div>
           <div class="rail-action-list">
-            <button class="rail-action-btn">Generate 15-week draft</button>
+            <button class="rail-action-btn">Generate initial 15-week draft</button>
             <button class="rail-action-btn">Insert assessment milestones</button>
-            <button class="rail-action-btn">Suggest OAL activities</button>
+            <button class="rail-action-btn">Suggest OAL / pre-class activities</button>
             <button class="rail-action-btn">Review workload balance</button>
+          </div>
+        </div>
+
+        <div class="rail-section" style="margin-top: 16px; padding-top: 24px; border-top: 1px solid #e5e7eb;">
+          <div class="rail-title">Week 9 observations</div>
+          <div class="rail-suggest-list">
+            <div class="rail-suggest-item warn">
+              <div class="rail-suggest-label">CA2 overlaps with lab submission</div>
+              <button class="rail-apply-btn warn-action">Resolve</button>
+            </div>
+            <div class="rail-suggest-item warn">
+              <div class="rail-suggest-label">Workload spike detected</div>
+              <button class="rail-apply-btn warn-action">Review</button>
+            </div>
+            <div class="rail-suggest-item">
+              <div class="rail-suggest-label">Suggest lighter pre-class activity</div>
+              <button class="rail-apply-btn">Apply</button>
+            </div>
           </div>
         </div>
 
@@ -509,8 +580,8 @@
       
       <div class="workspace-toolbar" style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end;">
         <div style="display: flex; flex-direction: column; gap: 4px;">
-          <div class="workspace-toolbar-title" style="font-size: 18px;">Teaching & Assessment Schedule</div>
-          <div style="font-size: 13px; color: #6b7280;">AI suggestions available throughout the schedule.<br>Manually edit or refine any section.</div>
+          <div class="workspace-toolbar-title" style="font-size: 18px;">Plan Weekly Learning Flow</div>
+          <div style="font-size: 13px; color: #6b7280;">Edit any section directly, or use AI to suggest and refine activities, assessments, and weekly sequencing.</div>
         </div>
         <div class="save-state">
           <span class="save-indicator"></span> Draft auto-saved just now
@@ -532,22 +603,28 @@
             <td class="ta-week-cell">1</td>
             <td>
               <div class="ta-editable">
-                <div class="skel-bar" style="width: 85%;"></div>
-                <div class="skel-bar" style="width: 60%;"></div>
+                <div>Intro to Course & Tooling</div>
+                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Read Chapter 1 before class</div>
+                <button class="ta-add-btn">+ Add activity</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
             </td>
             <td>
               <div class="ta-editable">
-                <div class="skel-bar" style="width: 100%;"></div>
-                <div class="skel-bar" style="width: 70%;"></div>
+                <div>Lecture: Core Concepts</div>
+                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Group discussion (20 mins)</div>
+                <button class="ta-add-btn">+ Add activity</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
             </td>
             <td>
               <div class="ta-editable">
-                <div>Formative checkpoint</div>
+                <div style="font-style: italic; color: #9ca3af;">No assessment</div>
+                <button class="ta-add-btn">+ Add assessment note</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
+              </div>
+              <div class="ambient-intervention">
+                <div class="ambient-text">✦ No formative feedback opportunity before CA1</div>
               </div>
             </td>
           </tr>
@@ -558,23 +635,26 @@
             <td>
               <div class="ta-editable">
                 <div>Interactive simulation intro</div>
+                <button class="ta-add-btn">+ Add activity</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
             </td>
             <td>
               <div class="ta-editable">
                 <div>Diagnostic practice</div>
-                <div class="skel-bar" style="width: 50%;"></div>
+                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Case study analysis</div>
+                <button class="ta-add-btn">+ Add activity</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
                 
                 <div class="ambient-intervention">
-                  <div class="ambient-text">✦ Suggest retrieval activity</div>
+                  <div class="ambient-text">✦ Suggest introducing retrieval activity after Week 2</div>
                 </div>
               </div>
             </td>
             <td>
               <div class="ta-editable">
-                <div class="skel-bar" style="width: 80%;"></div>
+                <div>Formative checkpoint</div>
+                <button class="ta-add-btn">+ Add assessment note</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
             </td>
@@ -585,21 +665,32 @@
             <td class="ta-week-cell">3</td>
             <td>
               <div class="ta-editable">
-                <div class="skel-bar" style="width: 90%;"></div>
+                <div>Pre-recorded concept video</div>
+                <button class="ta-add-btn">+ Add activity</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
             </td>
             <td>
               <div class="ta-editable">
-                <div class="skel-bar" style="width: 75%;"></div>
-                <div class="skel-bar" style="width: 60%;"></div>
+                <div>Lab: Implementation</div>
+                <button class="ta-add-btn">+ Add activity</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
             </td>
             <td>
               <div class="ta-editable">
                 <div>Short Quiz 1</div>
+                <button class="ta-add-btn">+ Add assessment note</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
+              </div>
+            </td>
+          </tr>
+          
+          <!-- Collapsed Weeks 4-7 -->
+          <tr class="ta-collapsed-row">
+            <td colspan="4">
+              <div class="ta-collapsed-content">
+                Weeks 4–7 collapsed
               </div>
             </td>
           </tr>
@@ -616,27 +707,39 @@
 
           <!-- Week 9 -->
           <tr>
-            <td class="ta-week-cell">9</td>
-            <td>
+            <td class="ta-week-cell" style="background: #fdfaf5; border-left: 2px solid #d97706;">9</td>
+            <td style="background: #fdfaf5;">
               <div class="ta-editable">
-                <div class="skel-bar" style="width: 90%;"></div>
+                <div>Advanced Module reading</div>
+                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Self-directed prep (2 hours)</div>
+                <button class="ta-add-btn">+ Add activity</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
             </td>
-            <td>
+            <td style="background: #fdfaf5;">
               <div class="ta-editable">
-                <div class="skel-bar" style="width: 75%;"></div>
-                <div class="skel-bar" style="width: 40%;"></div>
+                <div>Lab Submission Prep</div>
+                <button class="ta-add-btn">+ Add activity</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
             </td>
-            <td>
-              <div class="ta-editable">
-                <div style="font-weight: 600; color: #111827;">CA2 Submission</div>
+            <td style="background: #fdfaf5;">
+              <div class="ta-editable" style="border: 1px solid #fde6b8; background: #fffbeb;">
+                <div style="font-weight: 600; color: #92400e;">CA2 Submission</div>
+                <button class="ta-add-btn">+ Add assessment note</button>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
               <div class="ambient-intervention">
-                <div class="ambient-text">✦ Assessment load heavy in Week 9</div>
+                <div class="ambient-text" style="color: #b45309;">! Assessment clustering detected in Weeks 7–9</div>
+              </div>
+            </td>
+          </tr>
+          
+          <!-- Collapsed Weeks 10-15 -->
+          <tr class="ta-collapsed-row">
+            <td colspan="4">
+              <div class="ta-collapsed-content">
+                Weeks 10–15 collapsed
               </div>
             </td>
           </tr>
@@ -644,13 +747,15 @@
       </table>
 
       <!-- 7. BOTTOM CONNECTOR -->
-      <div class="next-step-card" style="margin-top: 48px; border-top: 1px solid #e5e7eb; padding-top: 32px;">
-        <div class="next-step-label">Next Step</div>
+      <section class="next-step-card" aria-label="Next workflow stage">
+        <div class="next-step-label">Next Workflow Stage</div>
         <div class="next-step-title">Generate Learning Materials</div>
-        <div class="next-step-sub">Teaching flow and assessment plans will carry into material generation.</div>
+        <div class="next-step-sub">Approved teaching flow, assessments, and weekly activities will carry into lesson and material generation.</div>
         
-        <a class="next-step-btn" href="generate-materials.html">Continue</a>
-      </div>
+        <a class="next-step-btn" href="generate-materials.html">
+          Continue to Material Generation
+        </a>
+      </section>
 
     </div>
   </div>

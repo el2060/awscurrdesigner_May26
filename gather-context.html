@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gather Curriculum Context — AI Curriculum Designer</title>
+  <title>Gather Module Context — AI Curriculum Designer</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -107,8 +107,8 @@
     /* ── Layout ── */
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 288px;
-      gap: 24px;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 32px;
       align-items: flex-start;
     }
     .layout-main { min-width: 0; }
@@ -614,7 +614,7 @@
     Gather references and review the AI context summary before entering
     the co-design workspace.
   -->
-  <div class="page-title">Gather Curriculum Context</div>
+  <div class="page-title">Gather Module Context</div>
   <div class="page-sub">Upload references, insights, and existing materials to support curriculum review and module design.</div>
 
   <div class="layout">
@@ -1107,7 +1107,7 @@
         <button class="btn-ghost" type="button">Save Workspace</button>
         <button class="btn-ghost" type="button">Export Summary</button>
         <button class="btn-ghost" type="button" onclick="resetAnalysis()">← Start over</button>
-        <a class="btn-primary" href="plan-direction.html">Continue to Module Design →</a>
+        <a class="btn-primary" href="plan-direction.html">Continue to Module Direction →</a>
       </div>
       <button id="analyze-btn" class="btn-primary" type="button" onclick="runInlineAnalysis()">Review &amp; Synthesise Context</button>
     </div>
