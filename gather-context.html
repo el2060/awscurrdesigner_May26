@@ -510,7 +510,7 @@
     .ref-badge--ai {
       color: var(--amber-700); background: var(--amber-50); border: 1px solid var(--amber-100);
     }
-    .ref-badge--faculty {
+    .ref-badge--ml {
       color: var(--emerald-700); background: var(--emerald-50); border: 1px solid #a7f3d0;
     }
     .ref-row-title { font-size: 13.5px; font-weight: 600; color: var(--text); flex: 1; }
@@ -525,35 +525,41 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='2 6 5 9 10 3'/%3E%3C/svg%3E");
       background-repeat: no-repeat; background-position: center; background-size: 10px;
     }
-    .ref-annotation {
-      display: flex; align-items: flex-start; gap: 8px;
-      padding: 9px 12px;
-      background: #fffbeb; border: 1px solid #fde68a;
-      border-radius: 7px; font-size: 13px; color: #92400e; line-height: 1.5;
-    }
-    .ref-annotation + .ref-actions { margin-top: 8px; }
-    .ref-annotation-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-    .ref-annotation-text { flex: 1; }
-    .ref-actions {
-      display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
-    }
+    .ref-content { padding: 10px 0 2px; }
+    .ref-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .ref-content + .ref-actions { margin-top: 2px; }
     .ref-btn {
       font-size: 12px; font-weight: 500;
       border: 1px solid var(--border); background: #fff; color: var(--body);
       padding: 5px 11px; border-radius: 6px;
-      cursor: pointer; font-family: var(--font-sans);
-      transition: all 120ms;
+      cursor: pointer; font-family: var(--font-sans); transition: all 120ms;
     }
-    .ref-btn--keep:hover    { border-color: #6ee7b7; color: var(--emerald-700); background: var(--emerald-50); }
-    .ref-btn--rewrite:hover { border-color: #93c5fd; color: #1d4ed8; background: #eff6ff; }
-    .ref-btn--remove:hover  { border-color: #fca5a5; color: #dc2626; background: #fef2f2; }
-    .ref-btn--annotate { color: var(--muted); border-style: dashed; }
-    .ref-btn--annotate:hover { border-color: #93c5fd; color: #1d4ed8; background: #eff6ff; border-style: dashed; }
+    .ref-btn--edit { display: inline-flex; align-items: center; gap: 4px; }
+    .ref-btn--edit:hover { border-color: #aaa; color: var(--text); background: var(--bg); }
+    .ref-btn--refine-ai {
+      display: inline-flex; align-items: center; gap: 4px;
+      color: var(--amber-700); background: var(--amber-50); border-color: var(--amber-100); font-weight: 600;
+    }
+    .ref-btn--refine-ai:hover { background: #fde6b8; border-color: var(--amber-600); }
     .ref-btn--approve {
       margin-left: auto; font-weight: 600;
       color: var(--indigo-700); background: #eef3ff; border-color: #c7d7f5;
     }
     .ref-btn--approve:hover { background: #dbeafe; border-color: #93c5fd; }
+    .ref-btn--edit-light {
+      border: none; background: none; padding: 2px 0;
+      font-size: 12px; color: var(--muted);
+    }
+    .ref-btn--edit-light:hover { color: var(--indigo-700); background: none; }
+    .ref-row--collapsed { opacity: 0.7; }
+    .ref-row--collapsed .ref-row-head { margin-bottom: 0; }
+    .ref-collapse-btn {
+      margin-left: auto; font-size: 12px; font-weight: 500;
+      color: var(--muted); border: 1px solid var(--border);
+      background: #fff; padding: 4px 10px; border-radius: 6px;
+      cursor: pointer; font-family: var(--font-sans); transition: all 120ms; white-space: nowrap;
+    }
+    .ref-collapse-btn:hover { color: var(--indigo-700); border-color: #c7d7f5; background: #eef3ff; }
 
     /* ── Chat pane label ── */
     .chat-pane-label {
@@ -966,7 +972,7 @@
               </div>
               <div class="ref-head-text">
                 <div class="ref-title">Module Leader Refinement</div>
-                <div class="ref-subtitle">Review each AI-suggested insight, apply faculty judgement, and approve directions before proceeding to module design.</div>
+                <div class="ref-subtitle">Review, refine, and approve suggested directions before proceeding to module design.</div>
               </div>
             </div>
             <div class="ref-progress">1 / 5 approved</div>
@@ -974,80 +980,78 @@
 
           <div class="ref-body">
 
-            <!-- Row 1: Faculty Refined + Approved -->
+            <!-- Row 1: ML Refined + Approved -->
             <div class="ref-row ref-row--approved">
               <div class="ref-row-head">
-                <span class="ref-badge ref-badge--faculty">Faculty Refined</span>
+                <span class="ref-badge ref-badge--ml">ML Refined</span>
                 <div class="ref-row-title">Common themes across uploaded references</div>
                 <div class="ref-approved-mark">Approved</div>
               </div>
-              <div class="ref-annotation">
-                <span class="ref-annotation-icon">✎</span>
-                <span class="ref-annotation-text">Faculty note: Prioritise applied AI workflows over theoretical ML — aligns with Jan 2025 advisory panel feedback and existing Year 1 coverage.</span>
+              <div class="ref-content">
+                <div class="skel-line w-full"></div>
+                <div class="skel-line w-lg"></div>
+                <div class="skel-line w-md"></div>
+              </div>
+              <div class="ref-actions">
+                <button class="ref-btn ref-btn--edit-light" type="button">Continue editing</button>
               </div>
             </div>
 
-            <!-- Row 2: AI Suggested, annotated, not yet approved -->
+            <!-- Row 2: AI Suggested, expanded -->
             <div class="ref-row">
               <div class="ref-row-head">
                 <span class="ref-badge ref-badge--ai">AI Suggested</span>
                 <div class="ref-row-title">Draft learning outcome considerations</div>
               </div>
-              <div class="ref-annotation">
-                <span class="ref-annotation-icon">📝</span>
-                <span class="ref-annotation-text">Faculty note: Reduce scope — 4 outcomes max for 15 credit units. De-emphasise theoretical foundations; focus on applied and transferable skills.</span>
+              <div class="ref-content">
+                <div class="skel-line w-full"></div>
+                <div class="skel-line w-lg"></div>
+                <div class="skel-line w-sm"></div>
+                <div class="skel-line w-full"></div>
+                <div class="skel-line w-md"></div>
               </div>
               <div class="ref-actions">
-                <button class="ref-btn ref-btn--keep" type="button">Keep</button>
-                <button class="ref-btn ref-btn--rewrite" type="button">Rewrite</button>
-                <button class="ref-btn ref-btn--remove" type="button">Remove</button>
-                <button class="ref-btn ref-btn--annotate" type="button">+ Add faculty consideration</button>
-                <button class="ref-btn ref-btn--approve" type="button">Approve direction →</button>
+                <button class="ref-btn ref-btn--edit" type="button">✎ Edit</button>
+                <button class="ref-btn ref-btn--refine-ai" type="button">✦ Refine with AI</button>
+                <button class="ref-btn ref-btn--approve" type="button">Approve →</button>
               </div>
             </div>
 
-            <!-- Row 3 -->
+            <!-- Row 3: AI Suggested, expanded -->
             <div class="ref-row">
               <div class="ref-row-head">
                 <span class="ref-badge ref-badge--ai">AI Suggested</span>
                 <div class="ref-row-title">Suggested content emphases</div>
               </div>
+              <div class="ref-content">
+                <div class="skel-line w-full"></div>
+                <div class="skel-line w-lg"></div>
+                <div class="skel-line w-sm"></div>
+                <div class="skel-line w-full"></div>
+                <div class="skel-line w-lg"></div>
+              </div>
               <div class="ref-actions">
-                <button class="ref-btn ref-btn--keep" type="button">Keep</button>
-                <button class="ref-btn ref-btn--rewrite" type="button">Rewrite</button>
-                <button class="ref-btn ref-btn--remove" type="button">Remove</button>
-                <button class="ref-btn ref-btn--annotate" type="button">+ Add faculty consideration</button>
-                <button class="ref-btn ref-btn--approve" type="button">Approve direction →</button>
+                <button class="ref-btn ref-btn--edit" type="button">✎ Edit</button>
+                <button class="ref-btn ref-btn--refine-ai" type="button">✦ Refine with AI</button>
+                <button class="ref-btn ref-btn--approve" type="button">Approve →</button>
               </div>
             </div>
 
-            <!-- Row 4 -->
-            <div class="ref-row">
+            <!-- Row 4: Collapsed -->
+            <div class="ref-row ref-row--collapsed">
               <div class="ref-row-head">
                 <span class="ref-badge ref-badge--ai">AI Suggested</span>
                 <div class="ref-row-title">Suggested teaching &amp; learning approaches</div>
-              </div>
-              <div class="ref-actions">
-                <button class="ref-btn ref-btn--keep" type="button">Keep</button>
-                <button class="ref-btn ref-btn--rewrite" type="button">Rewrite</button>
-                <button class="ref-btn ref-btn--remove" type="button">Remove</button>
-                <button class="ref-btn ref-btn--annotate" type="button">+ Add faculty consideration</button>
-                <button class="ref-btn ref-btn--approve" type="button">Approve direction →</button>
+                <button class="ref-collapse-btn" type="button">Review ▾</button>
               </div>
             </div>
 
-            <!-- Row 5 -->
-            <div class="ref-row">
+            <!-- Row 5: Collapsed -->
+            <div class="ref-row ref-row--collapsed">
               <div class="ref-row-head">
                 <span class="ref-badge ref-badge--ai">AI Suggested</span>
                 <div class="ref-row-title">Suggested assessment considerations</div>
-              </div>
-              <div class="ref-actions">
-                <button class="ref-btn ref-btn--keep" type="button">Keep</button>
-                <button class="ref-btn ref-btn--rewrite" type="button">Rewrite</button>
-                <button class="ref-btn ref-btn--remove" type="button">Remove</button>
-                <button class="ref-btn ref-btn--annotate" type="button">+ Add faculty consideration</button>
-                <button class="ref-btn ref-btn--approve" type="button">Approve direction →</button>
+                <button class="ref-collapse-btn" type="button">Review ▾</button>
               </div>
             </div>
 
