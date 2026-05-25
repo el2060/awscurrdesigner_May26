@@ -1939,9 +1939,9 @@
       gap: 6px;
     }
     .skel-l {
-      height: 9px;
+      height: 6px;
       border-radius: 4px;
-      background: #e0e9f2;
+      background: linear-gradient(90deg, #edf2f7 0%, #f5f8fc 50%, #edf2f7 100%);
     }
     .skel-w-90 { width: 90%; }
     .skel-w-75 { width: 75%; }
@@ -2185,6 +2185,93 @@
     }
     .proposal-action-btn:hover { background: #f0f5fa; }
     .proposal-action-btn--primary:hover { opacity: 0.92; }
+
+    /* ── AI Recommendation Card (left pane) ──────────────────── */
+    .ai-rec-card {
+      border: 1px solid #e0eaf5; border-radius: 10px;
+      background: #f8fbff; padding: 12px 14px;
+      display: grid; gap: 10px; margin-bottom: 10px;
+    }
+    .ai-rec-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.09em; color: #5b78a0;
+    }
+    .ai-rec-statement { font-size: 13px; color: #1e3a52; line-height: 1.55; }
+    .ai-rec-signals { display: grid; gap: 5px; }
+    .ai-rec-signal {
+      font-size: 12px; color: #456080; line-height: 1.4;
+      display: flex; align-items: baseline; gap: 6px;
+    }
+    .ai-rec-signal::before { content: "·"; color: #7a9ab5; flex-shrink: 0; }
+
+    /* ── Welcome Thread Components ────────────────────────────── */
+    .ai-context-block {
+      background: #f3f8f4; border: 1px solid #d0e8d8;
+      border-radius: 10px; padding: 10px 12px;
+      display: grid; gap: 6px; margin-bottom: 8px;
+    }
+    .ai-context-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.09em; color: #3a6a50;
+    }
+    .ai-context-items { display: grid; gap: 3px; }
+    .ai-context-item {
+      font-size: 12px; color: #2a5040; line-height: 1.4;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .ai-context-item::before { content: "✓"; font-size: 10px; color: #3a9a60; flex-shrink: 0; }
+    .ai-context-link {
+      font-size: 11px; font-weight: 600; color: #3a6a50;
+      background: none; border: none; padding: 0; cursor: pointer;
+      text-align: left; text-decoration: underline; text-decoration-color: #b2d9bc;
+    }
+    .ai-signals-block {
+      border: 1px solid #e5eef7; border-radius: 10px;
+      background: #fafcff; padding: 10px 12px;
+      display: grid; gap: 10px; margin-bottom: 8px;
+    }
+    .ai-signals-section { display: grid; gap: 4px; }
+    .ai-signals-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #5b78a0; margin-bottom: 2px;
+    }
+    .ai-signals-item {
+      font-size: 12px; color: #3a5068; line-height: 1.4;
+      display: flex; align-items: baseline; gap: 5px;
+    }
+    .ai-signals-item::before { content: "·"; color: #8aabcc; flex-shrink: 0; }
+    .ai-rec-move {
+      border: 1px solid #e0eaf5; border-radius: 10px;
+      background: #f5f9ff; padding: 10px 12px;
+      display: grid; gap: 8px; margin-bottom: 10px;
+    }
+    .ai-rec-move-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.09em; color: #3a5880;
+    }
+    .ai-rec-move-items { display: grid; gap: 4px; }
+    .ai-rec-move-item {
+      font-size: 12px; color: #1e3a52; font-weight: 600; line-height: 1.4;
+      display: flex; align-items: baseline; gap: 6px;
+    }
+    .ai-rec-move-item::before { content: "→"; color: #5b88b5; flex-shrink: 0; }
+    .ai-rec-move-note {
+      font-size: 11px; color: #5b78a0;
+      padding-top: 6px; border-top: 1px solid #e0eaf5;
+    }
+
+    /* ── MLO progressive disclosure (right pane) ─────────────── */
+    .mdd-mo-more {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; color: #7a9ab5; padding-top: 8px;
+      border-top: 1px dashed #e0eaf5; margin-top: 4px;
+    }
+    .mdd-mo-expand-btn {
+      font-size: 11px; font-weight: 600; color: #3a5880;
+      background: none; border: none; cursor: pointer;
+      padding: 0; text-decoration: underline;
+      text-decoration-color: #b0c8e0; margin-left: auto;
+    }
 
     /* ── MDD Right-Pane Components ────────────────────────────── */
     .mdd-ai-badge {
@@ -2464,6 +2551,7 @@
           <nav class="thread-rail" aria-label="Design conversations">
             <div class="thread-rail-kicker">MDD Sections</div>
             <button class="thread-link active" data-thread="welcome" type="button">Synopsis</button>
+            <button class="thread-link" data-thread="skills" type="button">Skills Framework</button>
             <button class="thread-link" data-thread="outcomes" type="button">Module Learning Outcomes</button>
             <button class="thread-link" data-thread="mapping" type="button">Course Outcomes Mapping</button>
             <button class="thread-link" data-thread="gradskills" type="button">Graduate Skills Mapping</button>
@@ -2576,14 +2664,15 @@
               <div class="artifact-nav-kicker">MDD</div>
               <button class="active" data-section="overview" type="button">Module Info</button>
               <button data-section="synopsis" type="button">1. Synopsis</button>
-              <button data-section="outcomes" type="button">2. MLOs</button>
-              <button data-section="mapping" type="button">3. CO Mapping</button>
-              <button data-section="gradskills" type="button">4. Grad Skills</button>
-              <button data-section="content" type="button">5. Topics &amp; Schedule</button>
-              <button data-section="teaching" type="button">6. TLS</button>
-              <button data-section="assessment" type="button">7. Assessment</button>
-              <button data-section="integrity" type="button">8. AI Guidance</button>
-              <button data-section="references" type="button">9. References</button>
+              <button data-section="skills" type="button">2. Skills</button>
+              <button data-section="outcomes" type="button">3. MLOs</button>
+              <button data-section="mapping" type="button">4. CO Mapping</button>
+              <button data-section="gradskills" type="button">5. Grad Skills</button>
+              <button data-section="content" type="button">6–7. Schedule</button>
+              <button data-section="teaching" type="button">8. TLS</button>
+              <button data-section="assessment" type="button">9. Assessment</button>
+              <button data-section="integrity" type="button">AI Guidance</button>
+              <button data-section="references" type="button">10. References</button>
             </nav>
 
             <article class="artifact-scroll" id="artifactScroll">
@@ -2605,266 +2694,437 @@
               <section class="module-section" id="synopsis">
                 <div class="section-label np-sec-label">Section 1</div>
                 <h3 class="section-title">1. SYNOPSIS</h3>
-                <div class="mdd-ai-badge">AI Draft</div>
-                <p class="np-body-italic">This module prepares students to manage critically ill patients across major body systems, integrating pathophysiology, clinical reasoning, and advanced nursing practice in the critical care setting.</p>
-                <div class="np-skel-block" style="margin-top:8px">
-                  <div class="np-skel-line np-skel-w-full"></div>
-                  <div class="np-skel-line np-skel-w-85"></div>
+                <div class="mdd-text-area">
+                  <p class="np-body-italic">This module prepares students to manage critically ill patients across major body systems, integrating pathophysiology, clinical reasoning, and advanced nursing practice in the critical care setting.</p>
+                  <div class="np-skel-block" style="margin-top:8px">
+                    <div class="np-skel-line np-skel-w-full"></div>
+                    <div class="np-skel-line np-skel-w-85"></div>
+                  </div>
                 </div>
-                <div class="mdd-source-strip">
-                  <span class="mdd-source-lbl">Generated from</span>
-                  <span class="mdd-source-chip">Existing synopsis</span>
-                  <span class="mdd-source-chip">Student profile</span>
-                  <span class="mdd-source-chip">Benchmark references</span>
+                <div class="mdd-inline-actions">
+                  <button class="mdd-inline-action" type="button">Refine</button>
+                  <button class="mdd-inline-action" type="button">Simplify</button>
+                  <button class="mdd-inline-action" type="button">Expand</button>
                 </div>
               </section>
 
-              <!-- 2. Module Learning Outcomes -->
-              <section class="module-section" id="outcomes">
+              <!-- 2. Skills Framework -->
+              <section class="module-section" id="skills">
                 <div class="section-label np-sec-label">Section 2</div>
-                <h3 class="section-title">2. MODULE LEARNING OUTCOMES</h3>
-                <div class="mdd-ai-badge">AI Proposed</div>
-                <p class="np-body" style="margin-bottom:10px">On completion of this module, students will be able to:</p>
-                <div class="mdd-mo-list">
-                  <div class="mdd-mo-row">
-                    <span class="mdd-mo-num">MO1</span>
-                    <span class="mdd-mo-text">Identify and escalate early warning signs using structured clinical reasoning frameworks.</span>
-                  </div>
-                  <div class="mdd-mo-row">
-                    <span class="mdd-mo-num">MO2</span>
-                    <span class="mdd-mo-text">Apply critical care communication protocols under high-acuity time pressure.</span>
-                  </div>
-                  <div class="mdd-mo-row">
-                    <span class="mdd-mo-num">MO3</span>
-                    <div class="mdd-mo-text"><div class="np-skel-line np-skel-w-90"></div></div>
-                  </div>
-                  <div class="mdd-mo-row">
-                    <span class="mdd-mo-num">MO4</span>
-                    <div class="mdd-mo-text"><div class="np-skel-line np-skel-w-75"></div></div>
-                  </div>
-                  <div class="mdd-mo-row">
-                    <span class="mdd-mo-num">MO5</span>
-                    <div class="mdd-mo-text"><div class="np-skel-line np-skel-w-80"></div></div>
-                  </div>
-                </div>
-                <div class="mdd-source-strip">
-                  <span class="mdd-source-lbl">Generated from</span>
-                  <span class="mdd-source-chip">Module direction</span>
-                  <span class="mdd-source-chip">Skills Framework</span>
-                  <span class="mdd-source-chip">Benchmark curricula</span>
+                <h3 class="section-title">2. SKILLS FRAMEWORK</h3>
+                <table class="mdd-doc-table">
+                  <thead>
+                    <tr><th>Skills Framework Category</th><th>SF Code</th><th>Proficiency Level</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Technical Skills &amp; Competencies</td>
+                      <td><span class="mdd-sf-chip">ICU-TSC-03</span></td>
+                      <td>Intermediate</td>
+                    </tr>
+                    <tr>
+                      <td>Critical Core Skills — Communication</td>
+                      <td><span class="mdd-sf-chip">ICU-CCS-01</span></td>
+                      <td>Intermediate</td>
+                    </tr>
+                    <tr class="np-skel-tr">
+                      <td><div class="np-skel-line np-skel-w-70"></div></td>
+                      <td><div class="np-skel-line np-skel-w-60"></div></td>
+                      <td><div class="np-skel-line np-skel-w-50"></div></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="mdd-inline-actions">
+                  <button class="mdd-inline-action" type="button">Align to SF</button>
+                  <button class="mdd-inline-action" type="button">Suggest mapping</button>
+                  <button class="mdd-inline-action" type="button">Add code</button>
                 </div>
               </section>
 
-              <!-- 3. Course Outcomes Mapping -->
-              <section class="module-section" id="mapping">
+              <!-- 3. Module Learning Outcomes -->
+              <section class="module-section" id="outcomes">
                 <div class="section-label np-sec-label">Section 3</div>
-                <h3 class="section-title">3. COURSE OUTCOMES MAPPING</h3>
-                <div class="mdd-ai-badge">AI Mapped</div>
-                <div class="mdd-mapping-list">
-                  <div class="mdd-mapping-row">
-                    <span class="mdd-mapping-from">MO1</span>
-                    <span class="mdd-mapping-arrow">→</span>
-                    <div class="mdd-mapping-cos">
-                      <span class="mdd-mapping-co">CO2</span>
-                      <span class="mdd-mapping-co">CO4</span>
-                      <span class="mdd-mapping-co">CO7</span>
-                    </div>
-                  </div>
-                  <div class="mdd-mapping-row">
-                    <span class="mdd-mapping-from">MO2</span>
-                    <span class="mdd-mapping-arrow">→</span>
-                    <div class="mdd-mapping-cos">
-                      <span class="mdd-mapping-co">CO1</span>
-                      <span class="mdd-mapping-co">CO5</span>
-                    </div>
-                  </div>
-                  <div class="mdd-mapping-row">
-                    <span class="mdd-mapping-from">MO3</span>
-                    <span class="mdd-mapping-arrow">→</span>
-                    <div class="mdd-mapping-cos"><div class="np-skel-line np-skel-w-50" style="height:16px;flex:1"></div></div>
-                  </div>
-                  <div class="mdd-mapping-row">
-                    <span class="mdd-mapping-from">MO4–5</span>
-                    <span class="mdd-mapping-arrow">→</span>
-                    <div class="mdd-mapping-cos"><div class="np-skel-line np-skel-w-70" style="height:16px;flex:1"></div></div>
-                  </div>
-                </div>
-                <div class="mdd-source-strip">
-                  <span class="mdd-source-lbl">Auto-mapped from</span>
-                  <span class="mdd-source-chip">MLOs (approved)</span>
-                  <span class="mdd-source-chip">Course document</span>
+                <h3 class="section-title">3. MODULE LEARNING OUTCOMES</h3>
+                <p class="np-body" style="margin-bottom:8px">On completion of this module, students will be able to:</p>
+                <table class="mdd-doc-table">
+                  <tbody>
+                    <tr>
+                      <td class="mdd-mo-tag">MO1</td>
+                      <td>Identify and escalate early warning signs using structured clinical reasoning frameworks.</td>
+                    </tr>
+                    <tr>
+                      <td class="mdd-mo-tag">MO2</td>
+                      <td>Apply critical care communication protocols under high-acuity time pressure.</td>
+                    </tr>
+                    <tr>
+                      <td class="mdd-mo-tag">MO3</td>
+                      <td>Demonstrate safe handover practice with traceable escalation rationale.</td>
+                    </tr>
+                    <tr class="np-skel-tr">
+                      <td class="mdd-mo-tag">MO4</td>
+                      <td><div class="np-skel-line np-skel-w-80"></div></td>
+                    </tr>
+                    <tr class="np-skel-tr">
+                      <td class="mdd-mo-tag">MO5</td>
+                      <td><div class="np-skel-line np-skel-w-65"></div></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="mdd-inline-actions">
+                  <button class="mdd-inline-action" type="button">Refine</button>
+                  <button class="mdd-inline-action" type="button">Check alignment</button>
+                  <button class="mdd-inline-action" type="button">Add outcome</button>
                 </div>
               </section>
 
-              <!-- 4. Graduate Skills Mapping -->
-              <section class="module-section" id="gradskills">
+              <!-- 4. Course Outcomes Mapping -->
+              <section class="module-section" id="mapping">
                 <div class="section-label np-sec-label">Section 4</div>
-                <h3 class="section-title">4. NP GRADUATE SKILLS MAPPING</h3>
-                <div class="mdd-ai-badge">AI Aligned</div>
-                <div class="mdd-skill-list">
-                  <div class="mdd-skill-row">
-                    <span class="mdd-skill-status mdd-skill-status--strong">Strong</span>
-                    Communication
-                  </div>
-                  <div class="mdd-skill-row">
-                    <span class="mdd-skill-status mdd-skill-status--strong">Strong</span>
-                    Critical Thinking &amp; Problem Solving
-                  </div>
-                  <div class="mdd-skill-row">
-                    <span class="mdd-skill-status mdd-skill-status--moderate">Moderate</span>
-                    Collaboration &amp; Cross-cultural Sensitivity
-                  </div>
-                  <div class="mdd-skill-row">
-                    <span class="mdd-skill-status mdd-skill-status--gap">Gap detected</span>
-                    Digital Competence
-                  </div>
-                </div>
-                <div class="mdd-assess-flag" style="margin-top:8px">AI recommends: add one digitally mediated escalation task to close gap.</div>
-                <div class="mdd-source-strip">
-                  <span class="mdd-source-lbl">Mapped from</span>
-                  <span class="mdd-source-chip">MLOs</span>
-                  <span class="mdd-source-chip">NP Graduate Standards</span>
+                <h3 class="section-title">4. COURSE OUTCOMES MAPPING</h3>
+
+                <div class="mdd-subsec-label">4a. Course Outcomes</div>
+                <table class="mdd-doc-table">
+                  <tbody>
+                    <tr>
+                      <td class="mdd-mo-tag">CO1</td>
+                      <td>Demonstrate clinical decision-making in critical care contexts.</td>
+                    </tr>
+                    <tr>
+                      <td class="mdd-mo-tag">CO2</td>
+                      <td>Apply escalation protocols using structured clinical communication.</td>
+                    </tr>
+                    <tr>
+                      <td class="mdd-mo-tag">CO3</td>
+                      <td>Evaluate patient data to justify interdisciplinary escalation decisions.</td>
+                    </tr>
+                    <tr class="np-skel-tr">
+                      <td class="mdd-mo-tag">CO4</td>
+                      <td><div class="np-skel-line np-skel-w-70"></div></td>
+                    </tr>
+                    <tr class="np-skel-tr">
+                      <td class="mdd-mo-tag">CO5</td>
+                      <td><div class="np-skel-line np-skel-w-55"></div></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="mdd-subsec-label">4b. MLO → CO Mapping</div>
+                <table class="mdd-matrix-table">
+                  <thead>
+                    <tr>
+                      <th class="mdd-matrix-mo">MLO</th>
+                      <th class="mdd-dot-cell">CO1</th>
+                      <th class="mdd-dot-cell">CO2</th>
+                      <th class="mdd-dot-cell">CO3</th>
+                      <th class="mdd-dot-cell">CO4</th>
+                      <th class="mdd-dot-cell">CO5</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="mdd-mo-tag">MO1</td>
+                      <td class="mdd-dot-cell"><span class="mdd-y">●</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-y">●</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-y">●</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                    </tr>
+                    <tr>
+                      <td class="mdd-mo-tag">MO2</td>
+                      <td class="mdd-dot-cell"><span class="mdd-y">●</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-y">●</span></td>
+                    </tr>
+                    <tr>
+                      <td class="mdd-mo-tag">MO3</td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-y">●</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-dash">·</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                    </tr>
+                    <tr class="np-skel-tr">
+                      <td class="mdd-mo-tag">MO4</td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                    </tr>
+                    <tr class="np-skel-tr">
+                      <td class="mdd-mo-tag">MO5</td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="mdd-inline-actions">
+                  <button class="mdd-inline-action" type="button">Suggest mapping</button>
+                  <button class="mdd-inline-action" type="button">Check alignment</button>
+                  <button class="mdd-inline-action" type="button">Flag unresolved</button>
                 </div>
               </section>
 
-              <!-- 5. Module Topics & Teaching Schedule -->
-              <section class="module-section" id="content">
+              <!-- 5. Graduate Skills Mapping -->
+              <section class="module-section" id="gradskills">
                 <div class="section-label np-sec-label">Section 5</div>
-                <h3 class="section-title">5. MODULE TOPICS &amp; TEACHING SCHEDULE</h3>
-                <div class="mdd-ai-badge">AI Proposed</div>
-                <div class="mdd-week-list">
-                  <div class="mdd-week-block">
-                    <span class="mdd-week-range">Wk 1–3</span>
-                    <span class="mdd-week-title">Foundations — Pathophysiology, Monitoring &amp; Normal Ranges</span>
-                  </div>
-                  <div class="mdd-week-block">
-                    <span class="mdd-week-range">Wk 4–6</span>
-                    <span class="mdd-week-title">Diagnostics Cycle 1 + Guided Asynchronous Review</span>
-                  </div>
-                  <div class="mdd-week-block">
-                    <span class="mdd-week-range">Wk 7–9</span>
-                    <span class="mdd-week-title">Simulation Series — Low-acuity to High-acuity Progressive</span>
-                  </div>
-                  <div class="mdd-week-block">
-                    <span class="mdd-week-range">Wk 10–12</span>
-                    <div class="mdd-week-title"><div class="np-skel-line np-skel-w-80"></div></div>
-                  </div>
-                  <div class="mdd-week-block">
-                    <span class="mdd-week-range">Wk 13</span>
-                    <div class="mdd-week-title"><div class="np-skel-line np-skel-w-60"></div></div>
-                  </div>
-                </div>
-                <div class="mdd-hours-grid">
-                  <div class="mdd-hours-item">
-                    <span class="mdd-hours-val">26</span>
-                    <span class="mdd-hours-label">contact hrs</span>
-                  </div>
-                  <div class="mdd-hours-item">
-                    <span class="mdd-hours-val">13</span>
-                    <span class="mdd-hours-label">OAL hrs</span>
-                  </div>
-                </div>
-                <div class="mdd-source-strip">
-                  <span class="mdd-source-lbl">Generated from</span>
-                  <span class="mdd-source-chip">MLOs</span>
-                  <span class="mdd-source-chip">Assessment sequence</span>
-                  <span class="mdd-source-chip">Pedagogy selections</span>
+                <h3 class="section-title">5. NP GRADUATE SKILLS &amp; COMPETENCIES</h3>
+                <table class="mdd-doc-table">
+                  <thead>
+                    <tr>
+                      <th>Graduate Skills &amp; Competencies</th>
+                      <th>Module Learning Outcomes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Communication</td>
+                      <td>MO1, MO2, MO3</td>
+                    </tr>
+                    <tr>
+                      <td>Critical Thinking &amp; Problem Solving</td>
+                      <td>MO1, MO3</td>
+                    </tr>
+                    <tr>
+                      <td>Collaboration &amp; Cross-cultural Sensitivity</td>
+                      <td>MO2, MO3</td>
+                    </tr>
+                    <tr class="mdd-gap-row">
+                      <td>Digital Competence</td>
+                      <td><span class="mdd-gap-badge">Gap</span> No current MLO addresses this</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="mdd-inline-actions">
+                  <button class="mdd-inline-action" type="button">Align to SF</button>
+                  <button class="mdd-inline-action" type="button">Address gap</button>
+                  <button class="mdd-inline-action" type="button">Check alignment</button>
                 </div>
               </section>
 
-              <!-- 6. Teaching & Learning Strategies -->
+              <!-- 6–7. Module Topics & Teaching Schedule + Teaching Hours -->
+              <section class="module-section" id="content">
+                <div class="section-label np-sec-label">Sections 6 &amp; 7</div>
+                <h3 class="section-title">6. MODULE TOPICS &amp; TEACHING SCHEDULE</h3>
+                <table class="mdd-schedule-table">
+                  <thead>
+                    <tr>
+                      <th class="mdd-week-col">Week</th>
+                      <th>Topics / Sub-topics</th>
+                      <th class="mdd-hrs-col">Hrs</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="mdd-week-num">1–3</td>
+                      <td>Foundations — Pathophysiology, Monitoring &amp; Normal Ranges</td>
+                      <td class="mdd-hrs-num">6</td>
+                    </tr>
+                    <tr>
+                      <td class="mdd-week-num">4–6</td>
+                      <td>Diagnostics Cycle 1 + Guided Asynchronous Review</td>
+                      <td class="mdd-hrs-num">6</td>
+                    </tr>
+                    <tr>
+                      <td class="mdd-week-num">7–9</td>
+                      <td>Simulation Series — Low-acuity to High-acuity Progressive</td>
+                      <td class="mdd-hrs-num">6</td>
+                    </tr>
+                    <tr class="np-skel-tr">
+                      <td class="mdd-week-num">10–12</td>
+                      <td><div class="np-skel-line np-skel-w-80"></div></td>
+                      <td class="mdd-hrs-num"><div class="np-skel-line np-skel-w-full"></div></td>
+                    </tr>
+                    <tr class="np-skel-tr">
+                      <td class="mdd-week-num">13</td>
+                      <td><div class="np-skel-line np-skel-w-60"></div></td>
+                      <td class="mdd-hrs-num"><div class="np-skel-line np-skel-w-full"></div></td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr class="mdd-hours-total">
+                      <td colspan="2" style="text-align:right;font-weight:700;font-size:11px;padding-right:10px">Total</td>
+                      <td class="mdd-hrs-num" style="font-weight:700">39</td>
+                    </tr>
+                  </tfoot>
+                </table>
+
+                <div class="mdd-sec-heading">7. TEACHING HOURS</div>
+                <div class="mdd-kv-list">
+                  <div class="mdd-kv-row">
+                    <span class="mdd-kv-label">Contact hours (IPL)</span>
+                    <span class="mdd-kv-value">26</span>
+                  </div>
+                  <div class="mdd-kv-row">
+                    <span class="mdd-kv-label">Online asynchronous learning (OAL)</span>
+                    <span class="mdd-kv-value">13</span>
+                  </div>
+                  <div class="mdd-kv-row">
+                    <span class="mdd-kv-label">Total student learning time</span>
+                    <span class="mdd-kv-value">39</span>
+                  </div>
+                </div>
+                <div class="mdd-inline-actions">
+                  <button class="mdd-inline-action" type="button">Rebalance</button>
+                  <button class="mdd-inline-action" type="button">Add week</button>
+                  <button class="mdd-inline-action" type="button">Check hours</button>
+                </div>
+              </section>
+
+              <!-- 8. Teaching & Learning Strategies -->
               <section class="module-section" id="teaching">
-                <div class="section-label np-sec-label">Section 6</div>
-                <h3 class="section-title">6. TEACHING &amp; LEARNING STRATEGIES</h3>
-                <div class="mdd-ai-badge">AI Proposed</div>
-                <div class="mdd-strategy-list">
-                  <span class="mdd-strategy-chip">Discussion-based Learning</span>
-                  <span class="mdd-strategy-chip">Direct Instruction</span>
-                  <span class="mdd-strategy-chip">Scenario-based Learning</span>
-                </div>
-                <div class="mdd-strategy-note">Suggested delivery: IPL 70% · OAL 30%</div>
-                <div class="np-skel-block" style="margin-top:8px">
-                  <div class="np-skel-line np-skel-w-full"></div>
-                  <div class="np-skel-line np-skel-w-80"></div>
-                </div>
-                <div class="mdd-source-strip">
-                  <span class="mdd-source-lbl">Generated from</span>
-                  <span class="mdd-source-chip">Approved direction</span>
-                  <span class="mdd-source-chip">Benchmark facilitation models</span>
-                </div>
-              </section>
-
-              <!-- 7. Assessment -->
-              <section class="module-section" id="assessment">
-                <div class="section-label np-sec-label">Section 7</div>
-                <h3 class="section-title">7. ASSESSMENT</h3>
-                <div class="mdd-ai-badge">AI Proposed</div>
-                <div class="mdd-assess-list">
-                  <div class="mdd-assess-row">
-                    <span class="mdd-assess-name">Assessment 1 — Live Simulation Stations</span>
-                    <span class="mdd-assess-pct">60%</span>
-                  </div>
-                  <div class="mdd-assess-mo">Aligned MO1 · MO2 · MO5</div>
-                  <div class="mdd-assess-row">
-                    <span class="mdd-assess-name">Assessment 2 — Written Reasoning Memo</span>
-                    <span class="mdd-assess-pct">30%</span>
-                  </div>
-                  <div class="mdd-assess-mo">Aligned MO3 · MO4</div>
-                  <div class="mdd-assess-row">
-                    <span class="mdd-assess-name"><div class="np-skel-line np-skel-w-70"></div></span>
-                    <span class="mdd-assess-pct">10%</span>
-                  </div>
-                </div>
-                <div class="mdd-assess-flag">Assessment cluster detected: Weeks 7–9 — redistribution recommended</div>
-                <div class="mdd-source-strip">
-                  <span class="mdd-source-lbl">Aligned to</span>
-                  <span class="mdd-source-chip">MLOs</span>
-                  <span class="mdd-source-chip">Benchmark evidence models</span>
-                </div>
-              </section>
-
-              <!-- 8. AI Use & Guidance -->
-              <section class="module-section" id="integrity">
                 <div class="section-label np-sec-label">Section 8</div>
-                <h3 class="section-title">8. AI USE &amp; GUIDANCE</h3>
-                <div class="mdd-ai-badge">AI Draft</div>
-                <div class="mdd-strategy-list">
-                  <span class="mdd-strategy-chip">Permitted: Case research &amp; reasoning drafts</span>
-                  <span class="mdd-strategy-chip">Restricted: Simulation substitution</span>
-                  <span class="mdd-strategy-chip">Required: Reasoning trace annotation</span>
+                <h3 class="section-title">8. TEACHING &amp; LEARNING STRATEGIES</h3>
+                <table class="mdd-doc-table">
+                  <thead>
+                    <tr><th>Strategy</th><th>Code</th><th>% Share</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="mdd-strategy-check">✓</span> Discussion-based Learning</td>
+                      <td><span class="mdd-strategy-code">DL</span></td>
+                      <td>30%</td>
+                    </tr>
+                    <tr>
+                      <td><span class="mdd-strategy-check">✓</span> Direct Instruction</td>
+                      <td><span class="mdd-strategy-code">DI</span></td>
+                      <td>20%</td>
+                    </tr>
+                    <tr>
+                      <td><span class="mdd-strategy-check">✓</span> Scenario-based Learning</td>
+                      <td><span class="mdd-strategy-code">ScL</span></td>
+                      <td>40%</td>
+                    </tr>
+                    <tr>
+                      <td><span class="mdd-strategy-check">✓</span> Self-directed Study</td>
+                      <td><span class="mdd-strategy-code">S</span></td>
+                      <td>10%</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="mdd-inline-actions">
+                  <button class="mdd-inline-action" type="button">Adjust %</button>
+                  <button class="mdd-inline-action" type="button">Add strategy</button>
                 </div>
+              </section>
+
+              <!-- 9. Assessment -->
+              <section class="module-section" id="assessment">
+                <div class="section-label np-sec-label">Section 9</div>
+                <h3 class="section-title">9. ASSESSMENT</h3>
+                <table class="mdd-assess-matrix">
+                  <thead>
+                    <tr>
+                      <th>Period</th>
+                      <th>Code</th>
+                      <th>Component</th>
+                      <th class="mdd-pct-col">Wt%</th>
+                      <th class="mdd-dot-cell">MO1</th>
+                      <th class="mdd-dot-cell">MO2</th>
+                      <th class="mdd-dot-cell">MO3</th>
+                      <th class="mdd-dot-cell">MO4</th>
+                      <th class="mdd-dot-cell">MO5</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>CA1</td>
+                      <td><span class="mdd-strategy-code">SIM</span></td>
+                      <td>Live Simulation Stations</td>
+                      <td class="mdd-pct-col">60%</td>
+                      <td class="mdd-dot-cell"><span class="mdd-y">Y</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-y">Y</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-y">Y</span></td>
+                    </tr>
+                    <tr>
+                      <td>CA2</td>
+                      <td><span class="mdd-strategy-code">WR</span></td>
+                      <td>Written Reasoning Memo</td>
+                      <td class="mdd-pct-col">30%</td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-y">Y</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-y">Y</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                    </tr>
+                    <tr class="np-skel-tr">
+                      <td><div class="np-skel-line np-skel-w-full"></div></td>
+                      <td><div class="np-skel-line np-skel-w-full"></div></td>
+                      <td><div class="np-skel-line np-skel-w-70"></div></td>
+                      <td class="mdd-pct-col"><div class="np-skel-line np-skel-w-full"></div></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                      <td class="mdd-dot-cell"><span class="mdd-n">–</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="mdd-assess-flag">Simulation tasks are AI-restricted by design</div>
+                <div class="mdd-inline-actions">
+                  <button class="mdd-inline-action" type="button">Refine</button>
+                  <button class="mdd-inline-action" type="button">Check alignment</button>
+                  <button class="mdd-inline-action" type="button">Add component</button>
+                </div>
+              </section>
+
+              <!-- AI Use & Guidance (unnumbered) -->
+              <section class="module-section" id="integrity">
+                <div class="section-label np-sec-label">AI Guidance</div>
+                <h3 class="section-title">AI USE &amp; GUIDANCE</h3>
+                <table class="mdd-doc-table">
+                  <tbody>
+                    <tr>
+                      <td class="mdd-ai-category">Permitted</td>
+                      <td>AI for case research, scenario preparation, and reasoning drafts</td>
+                    </tr>
+                    <tr>
+                      <td class="mdd-ai-category mdd-ai-restricted">Restricted</td>
+                      <td>AI substitution of clinical judgement in live simulation tasks</td>
+                    </tr>
+                    <tr>
+                      <td class="mdd-ai-category mdd-ai-required">Required</td>
+                      <td>Reasoning trace annotation on all AI-assisted written work</td>
+                    </tr>
+                  </tbody>
+                </table>
                 <div class="np-skel-block" style="margin-top:8px">
                   <div class="np-skel-line np-skel-w-full"></div>
                   <div class="np-skel-line np-skel-w-75"></div>
                 </div>
-                <div class="mdd-source-strip">
-                  <span class="mdd-source-lbl">Aligned to</span>
-                  <span class="mdd-source-chip">Assessment boundaries</span>
-                  <span class="mdd-source-chip">Benchmark policy language</span>
+                <div class="mdd-inline-actions">
+                  <button class="mdd-inline-action" type="button">Refine</button>
+                  <button class="mdd-inline-action" type="button">Add guideline</button>
                 </div>
               </section>
 
-              <!-- 9. References -->
+              <!-- 10. References -->
               <section class="module-section" id="references">
-                <div class="section-label np-sec-label">Section 9</div>
-                <h3 class="section-title">9. RECOMMENDED TEXTS / REFERENCES</h3>
-                <div class="mdd-ai-badge">AI Shortlisted</div>
-                <div class="mdd-ref-skel">
-                  <div class="mdd-ref-skel-item">
+                <div class="section-label np-sec-label">Section 10</div>
+                <h3 class="section-title">10. RECOMMENDED TEXTS / REFERENCES</h3>
+                <div class="mdd-ref-list">
+                  <div class="mdd-ref-list-item">
                     <span class="mdd-ref-num">1.</span>
                     <div class="mdd-ref-lines">
                       <div class="np-skel-line np-skel-w-full"></div>
                       <div class="np-skel-line np-skel-w-60" style="margin-top:3px"></div>
                     </div>
                   </div>
-                  <div class="mdd-ref-skel-item">
+                  <div class="mdd-ref-list-item">
                     <span class="mdd-ref-num">2.</span>
                     <div class="mdd-ref-lines">
                       <div class="np-skel-line np-skel-w-90"></div>
                       <div class="np-skel-line np-skel-w-50" style="margin-top:3px"></div>
                     </div>
                   </div>
-                  <div class="mdd-ref-skel-item">
+                  <div class="mdd-ref-list-item">
                     <span class="mdd-ref-num">3.</span>
                     <div class="mdd-ref-lines">
                       <div class="np-skel-line np-skel-w-80"></div>
@@ -2872,10 +3132,9 @@
                     </div>
                   </div>
                 </div>
-                <div class="mdd-source-strip">
-                  <span class="mdd-source-lbl">Shortlisted from</span>
-                  <span class="mdd-source-chip">Module topics</span>
-                  <span class="mdd-source-chip">Benchmark institution libraries</span>
+                <div class="mdd-inline-actions">
+                  <button class="mdd-inline-action" type="button">Suggest references</button>
+                  <button class="mdd-inline-action" type="button">Add reference</button>
                 </div>
               </section>
 
@@ -2974,6 +3233,24 @@
           { label: "", copy: "Draft option prepared with clear scope, learner intent, and progression into outcomes and assessment." }
         ],
         tradeoffs: "A narrower synopsis improves focus. A broader synopsis improves adaptability across cohorts."
+      },
+      skills: {
+        title: "Skills Framework",
+        subtitle: "Map module outcomes to Skills Framework codes and proficiency levels.",
+        stage: "Alignment",
+        sectionLabel: "Skills Framework",
+        contextUsed: [
+          "Approved MLOs",
+          "Skills Framework TSC and CCS codes",
+          "Industry benchmark proficiency levels"
+        ],
+        downstream: ["Module Learning Outcomes", "Graduate Skills"],
+        systemSignal: "AI note: SF alignment informs the Graduate Skills mapping in Section 5.",
+        options: ["Depth — fewer codes, stronger evidence", "Breadth — more codes, moderate coverage", "Accept current alignment"],
+        blocks: [
+          { label: "AI Co-Design", copy: "Should the Skills Framework mapping prioritise depth (fewer codes, stronger evidence) or breadth (more codes, moderate coverage)?" }
+        ],
+        inputHint: "Refine Skills Framework alignment..."
       },
       outcomes: {
         title: "Learning Outcomes",
@@ -3226,6 +3503,7 @@
 
     const railLabels = {
       welcome: "Synopsis",
+      skills: "Skills Framework",
       outcomes: "Module Learning Outcomes",
       mapping: "Course Outcomes Mapping",
       gradskills: "Graduate Skills Mapping",
@@ -3560,7 +3838,113 @@
       return card;
     }
 
+    const aiRecData = {
+      skills: {
+        statement: "I've mapped the draft MLOs against the Skills Framework. Two TSC codes align strongly — escalation and clinical reasoning are well-covered. One Critical Core Skills gap (Digital Competence) remains unaddressed.",
+        signals: [
+          "ICU-TSC-03 aligns to escalation and clinical reasoning outcomes",
+          "ICU-CCS-01 maps to communication and handover outcomes",
+          "No current MLO addresses Digital Skills competency"
+        ]
+      },
+      outcomes: {
+        statement: "I'm proposing a stronger escalation and decision-making emphasis. The current module over-indexes on recall, and employer panels consistently flag clinical reasoning under pressure as the key gap.",
+        signals: [
+          "Current module over-indexes on theory recall",
+          "Employers emphasise escalation judgement",
+          "Benchmark programmes assess through simulation"
+        ]
+      },
+      mapping: {
+        statement: "Auto-mapping suggests strong alignment for MO1–MO2. MO3–MO5 have partial matches that need your confirmation before the mapping is finalised.",
+        signals: [
+          "MO1 and MO2 map confidently to CO2, CO4, CO5",
+          "MO3–MO5 have partial or ambiguous CO matches",
+          "3 Course Outcomes appear uncovered — recommend review"
+        ]
+      },
+      gradskills: {
+        statement: "Communication and Critical Thinking coverage is strong. Digital Competence has no clear MLO mapping — this is a gap worth addressing before finalising outcomes.",
+        signals: [
+          "Communication: well-covered by MO1, MO2, MO3",
+          "Critical Thinking: strong through escalation outcomes",
+          "Digital Competence: no current MLO addresses this"
+        ]
+      },
+      content: {
+        statement: "The current sequence clusters too much in Weeks 7–9. I'm proposing redistribution to spread simulation prep and reduce preparation overload.",
+        signals: [
+          "Assessment-heavy cluster detected in Weeks 7–9",
+          "Simulation preparation load needs redistribution",
+          "Asynchronous review can replace 2 lecture-heavy sessions"
+        ]
+      },
+      teaching: {
+        statement: "Based on the escalation-focused MLOs, I'm proposing discussion-based and scenario-led strategies as primary pedagogies — moving away from lecture-heavy delivery.",
+        signals: [
+          "Escalation MLOs need applied practice, not lecture delivery",
+          "Benchmark ICU modules use simulation with structured debrief",
+          "Current module under-uses peer feedback mechanisms"
+        ]
+      },
+      assessment: {
+        statement: "Simulation-weighted assessment aligns best with the approved escalation direction. Written tasks should be brief and traceable — not recall-heavy.",
+        signals: [
+          "Simulation evidence most authentic for escalation outcomes",
+          "Written tasks should support reasoning traces, not recall",
+          "Assessment clustering in Weeks 7–9 needs addressing"
+        ]
+      },
+      integrity: {
+        statement: "A coaching-led tone keeps AI use as a learning scaffold rather than a shortcut. High-stakes simulation tasks should remain clearly AI-restricted.",
+        signals: [
+          "Simulation tasks should be explicitly AI-restricted",
+          "Reasoning trace annotation preserves academic integrity",
+          "Coaching framing increases student adoption"
+        ]
+      },
+      references: {
+        statement: "I've shortlisted 3 resource bundles aligned to simulation realism and escalation case work — drawing from NP library access, current journals, and simulation templates.",
+        signals: [
+          "Local case library covers high-acuity escalation scenarios",
+          "Current journal digest: 2022–2024 critical care evidence",
+          "Simulation briefing templates support handover tasks"
+        ]
+      }
+    };
+
+    function createAiRecommendation(lane, key) {
+      const rec = aiRecData[key];
+      if (!rec) return null;
+
+      const card = document.createElement("div");
+      card.className = "ai-rec-card";
+
+      const label = document.createElement("div");
+      label.className = "ai-rec-label";
+      label.textContent = "AI Recommendation";
+      card.appendChild(label);
+
+      const statement = document.createElement("div");
+      statement.className = "ai-rec-statement";
+      statement.textContent = rec.statement;
+      card.appendChild(statement);
+
+      const signals = document.createElement("div");
+      signals.className = "ai-rec-signals";
+      rec.signals.forEach(function(s) {
+        const item = document.createElement("div");
+        item.className = "ai-rec-signal";
+        item.textContent = s;
+        signals.appendChild(item);
+      });
+      card.appendChild(signals);
+
+      return card;
+    }
+
     const decisionPrompts = {
+      skills: "Should the SF mapping prioritise depth or breadth of coverage?",
       outcomes: "What should these MLOs prioritise?",
       mapping: "Should I flag any unresolved CO links?",
       gradskills: "Which graduate skills gap should we address first?",
@@ -3920,22 +4304,23 @@
         const state = threadState[key] || {};
         const label = railLabels[key] || button.textContent;
         
-        let meta = "AI proposed";
+        let meta = "Proposed";
         if (state.updatedAt) {
-          meta = "✓ Approved";
+          meta = "✓";
         } else {
           const metaMap = {
-            welcome: "Direction pending",
-            outcomes: "Draft ready",
-            mapping: "Auto-mapped",
-            gradskills: "Gap detected",
-            content: "AI proposed",
-            teaching: "AI proposed",
-            assessment: "Draft ready",
-            integrity: "AI proposed",
-            references: "AI proposed"
+            welcome: "Active",
+            skills: "Proposed",
+            outcomes: "Ready",
+            mapping: "Connected",
+            gradskills: "Attention",
+            content: "Proposed",
+            teaching: "Proposed",
+            assessment: "Ready",
+            integrity: "Proposed",
+            references: "Proposed"
           };
-          meta = metaMap[key] || "AI proposed";
+          meta = metaMap[key] || "Proposed";
         }
 
         button.innerHTML = "<span class=\"thread-link-title\">" + label + "</span><span class=\"thread-link-meta\">" + meta + "</span>";
@@ -3994,18 +4379,34 @@
     function renderWelcomeThread(lane) {
       const state = threadState.welcome || {};
 
-      // Context Applied — always shown immediately; AI is already grounded
+      // Connected Context block
       const ctxBlock = document.createElement("div");
-      ctxBlock.className = "ctx-applied";
-      const ctxItems = (lane.reviewed || []).map(item => "<li>" + item + "</li>").join("");
+      ctxBlock.className = "ai-context-block";
+      const ctxItemsHtml = (lane.reviewed || []).map(function(item) {
+        return "<div class=\"ai-context-item\">" + item + "</div>";
+      }).join("");
       ctxBlock.innerHTML =
-        "<div class=\"ctx-applied-label\">Context Applied</div>" +
-        "<ul class=\"ctx-applied-list\">" + ctxItems + "</ul>" +
-        "<button class=\"ctx-applied-link\" type=\"button\" onclick=\"document.getElementById('contextModal').classList.add('show')\">View sources →</button>";
+        "<div class=\"ai-context-label\">Connected Context</div>" +
+        "<div class=\"ai-context-items\">" + ctxItemsHtml + "</div>" +
+        "<button class=\"ai-context-link\" type=\"button\" onclick=\"document.getElementById('contextModal').classList.add('show')\">View sources →</button>";
       threadCanvas.appendChild(ctxBlock);
 
-      // AI signal chips — compact, shown immediately
-      threadCanvas.appendChild(createSignalChips(lane.patterns));
+      // AI Design Signals block — current module vs benchmark trends
+      const signalsBlock = document.createElement("div");
+      signalsBlock.className = "ai-signals-block";
+      signalsBlock.innerHTML =
+        "<div class=\"ai-signals-section\">" +
+          "<div class=\"ai-signals-label\">Current module</div>" +
+          "<div class=\"ai-signals-item\">Over-indexes on theory recall</div>" +
+          "<div class=\"ai-signals-item\">Assessment load clusters around Week 9</div>" +
+          "<div class=\"ai-signals-item\">Limited simulation-based practice</div>" +
+        "</div>" +
+        "<div class=\"ai-signals-section\">" +
+          "<div class=\"ai-signals-label\">Benchmark trends</div>" +
+          "<div class=\"ai-signals-item\">Simulation-led assessment</div>" +
+          "<div class=\"ai-signals-item\">Escalation-focused clinical reasoning</div>" +
+        "</div>";
+      threadCanvas.appendChild(signalsBlock);
 
       // Brief delay before showing suggested directions (AI proposing, not reviewing)
       if (!state.choice && !state.directionsReady) {
@@ -4026,6 +4427,17 @@
       }
 
       if (!state.choice) {
+        const recMove = document.createElement("div");
+        recMove.className = "ai-rec-move";
+        recMove.innerHTML =
+          "<div class=\"ai-rec-move-label\">Recommended next move</div>" +
+          "<div class=\"ai-rec-move-items\">" +
+            "<div class=\"ai-rec-move-item\">Strengthen escalation judgement</div>" +
+            "<div class=\"ai-rec-move-item\">Reduce content-heavy sequencing</div>" +
+            "<div class=\"ai-rec-move-item\">Increase applied simulation practice</div>" +
+          "</div>" +
+          "<div class=\"ai-rec-move-note\">This will influence: MLOs · T&amp;L Strategies · Assessment · Teaching Schedule</div>";
+        threadCanvas.appendChild(recMove);
         threadCanvas.appendChild(createWelcomeDirections(lane, state));
         return;
       }
@@ -4068,9 +4480,9 @@
         progressCard.className = "next-step-card";
         progressCard.innerHTML =
           "<div class=\"next-step-label\">Recommended Next Step</div>" +
-          "<div class=\"next-step-title\">Review draft Module Learning Outcomes</div>" +
-          "<div style=\"font-size:12px;color:#4a6580;line-height:1.45\">AI has prepared draft MLOs based on your approved synopsis direction and benchmark references.</div>" +
-          "<button class=\"next-step-btn\" type=\"button\" onclick=\"activateThread('outcomes', true)\">Continue to Module Learning Outcomes →</button>";
+          "<div class=\"next-step-title\">Review Skills Framework alignment</div>" +
+          "<div style=\"font-size:12px;color:#4a6580;line-height:1.45\">AI has mapped the approved synopsis direction to Skills Framework codes. Review the proposed alignment before proceeding to MLOs.</div>" +
+          "<button class=\"next-step-btn\" type=\"button\" onclick=\"activateThread('skills', true)\">Continue to Skills Framework →</button>";
         threadCanvas.appendChild(progressCard);
       } else {
         threadCanvas.appendChild(createNextHelpTurn(lane));
@@ -4112,9 +4524,9 @@
 
       const state = threadState[key] || {};
 
-      // AI proposal — actual draft content with provenance, shown immediately
-      const proposalBlock = createAiProposalBlock(lane, key);
-      if (proposalBlock) threadCanvas.appendChild(proposalBlock);
+      // AI recommendation — intelligent statement + signals, not a content dump
+      const recBlock = createAiRecommendation(lane, key);
+      if (recBlock) threadCanvas.appendChild(recBlock);
 
       threadCanvas.appendChild(createLaneQuestion(lane, state, key));
 
@@ -4134,7 +4546,7 @@
         updated.textContent = "✓ " + state.updatedNote;
         threadCanvas.appendChild(updated);
 
-        const nextKeyMap = { outcomes: "mapping", mapping: "gradskills", gradskills: "content", content: "teaching", teaching: "assessment", assessment: "integrity", integrity: "references" };
+        const nextKeyMap = { skills: "outcomes", outcomes: "mapping", mapping: "gradskills", gradskills: "content", content: "teaching", teaching: "assessment", assessment: "integrity", integrity: "references" };
         const nextKey = nextKeyMap[key];
         if (nextKey && threadData[nextKey]) {
           const nextLane = threadData[nextKey];
@@ -4546,9 +4958,9 @@
     }
 
     .np-skel-line {
-      height: 10px;
+      height: 6px;
       border-radius: 4px;
-      background: #e4eaf1;
+      background: linear-gradient(90deg, #edf2f7 0%, #f5f8fc 50%, #edf2f7 100%);
     }
 
     .np-skel-w-full { width: 100%; }
@@ -4575,19 +4987,167 @@
     }
 
     .np-skel-lbl {
-      height: 10px;
+      height: 6px;
       border-radius: 4px;
-      background: #d8e0e9;
+      background: linear-gradient(90deg, #e5edf4 0%, #edf2f7 100%);
     }
 
     .np-skel-val {
-      height: 10px;
+      height: 6px;
       border-radius: 4px;
-      background: #e4eaf1;
+      background: linear-gradient(90deg, #edf2f7 0%, #f5f8fc 50%, #edf2f7 100%);
     }
 
     .np-skel-val.np-skel-short { width: 60%; }
     .np-skel-val.np-skel-med   { width: 80%; }
+
+    /* ── MDD Document Table Components ── */
+
+    .mdd-doc-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 12px; border: 1px solid #b8c7d4; margin: 8px 0;
+    }
+    .mdd-doc-table th, .mdd-doc-table td {
+      border: 1px solid #b8c7d4; padding: 6px 9px; vertical-align: middle;
+    }
+    .mdd-doc-table th {
+      background: #f0f4f8; font-weight: 700; font-size: 11px;
+      color: #2b3b4c; text-align: left;
+    }
+    .mdd-doc-table td.mdd-mo-tag,
+    .mdd-doc-table td.mdd-mo-tag-wide {
+      background: #f5f8fb;
+    }
+
+    .mdd-mo-tag {
+      font-weight: 700; font-size: 11px; color: #1e3a52;
+      white-space: nowrap; width: 40px;
+    }
+
+    /* Dot matrix */
+    .mdd-matrix-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 11px; border: 1px solid #b8c7d4; margin: 8px 0;
+    }
+    .mdd-matrix-table th, .mdd-matrix-table td {
+      border: 1px solid #b8c7d4; padding: 5px 4px; vertical-align: middle;
+    }
+    .mdd-matrix-table th {
+      background: #f0f4f8; font-weight: 700; font-size: 10.5px;
+      color: #2b3b4c; text-align: center;
+    }
+    .mdd-matrix-mo { text-align: left; width: 44px; }
+    .mdd-dot-cell { text-align: center; width: 38px; }
+    .mdd-y  { font-size: 14px; color: #1a7a4a; font-weight: 700; }
+    .mdd-n  { font-size: 13px; color: #b0bec5; }
+    .mdd-dash { font-size: 11px; color: #d0dae2; }
+
+    /* Schedule table */
+    .mdd-schedule-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 12px; border: 1px solid #b8c7d4; margin: 8px 0;
+    }
+    .mdd-schedule-table th, .mdd-schedule-table td {
+      border: 1px solid #b8c7d4; padding: 6px 8px; vertical-align: middle;
+    }
+    .mdd-schedule-table th {
+      background: #f0f4f8; font-weight: 700; font-size: 10.5px;
+      color: #2b3b4c; text-align: left;
+    }
+    .mdd-week-col { width: 52px; }
+    .mdd-hrs-col  { width: 46px; text-align: center; }
+    .mdd-week-num { font-size: 11px; font-weight: 700; color: #2b3b4c; white-space: nowrap; text-align: center; }
+    .mdd-hrs-num  { text-align: center; font-size: 12px; color: #1e3a52; }
+    .mdd-hours-total td { background: #f7f9fb; font-size: 11.5px; }
+
+    /* Teaching hours key-value */
+    .mdd-kv-list { display: grid; gap: 4px; margin: 6px 0; }
+    .mdd-kv-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 4px 9px; background: #f7f9fb;
+      border: 1px solid #dde6ee; border-radius: 4px; font-size: 12px;
+    }
+    .mdd-kv-label { color: #3a4e62; }
+    .mdd-kv-value { font-weight: 700; color: #1e3a52; }
+
+    /* T&L Strategy marks */
+    .mdd-strategy-check { display: inline-block; color: #1a7a4a; font-weight: 700; margin-right: 4px; }
+    .mdd-strategy-code {
+      display: inline-block; font-size: 10.5px; font-weight: 700;
+      color: #2f5470; background: #eef4fb;
+      border: 1px solid #c8ddf0; border-radius: 3px; padding: 1px 5px;
+    }
+
+    /* Assessment matrix */
+    .mdd-assess-matrix {
+      width: 100%; border-collapse: collapse;
+      font-size: 11px; border: 1px solid #b8c7d4; margin: 8px 0;
+    }
+    .mdd-assess-matrix th, .mdd-assess-matrix td {
+      border: 1px solid #b8c7d4; padding: 5px 5px; vertical-align: middle;
+    }
+    .mdd-assess-matrix th {
+      background: #f0f4f8; font-weight: 700; font-size: 10px;
+      color: #2b3b4c; text-align: center;
+    }
+    .mdd-pct-col { width: 40px; text-align: center; font-weight: 700; }
+
+    /* SF chips */
+    .mdd-sf-chip {
+      display: inline-flex; font-size: 10.5px; font-weight: 700;
+      color: #1e3a52; background: #f0f6fc;
+      border: 1px solid #c8ddf0; border-radius: 4px; padding: 2px 6px;
+    }
+
+    /* Inline edit affordances */
+    .mdd-inline-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .mdd-inline-action {
+      font-size: 11px; font-weight: 600; color: #3b6080;
+      background: transparent; border: 1px solid #c2d4e2;
+      border-radius: 5px; padding: 3px 9px; cursor: pointer;
+      line-height: 1.4; transition: background 100ms, border-color 100ms;
+    }
+    .mdd-inline-action:hover { background: #eef4fb; border-color: #8fb4cc; }
+
+    /* Subsection heading */
+    .mdd-subsec-label {
+      font-size: 11px; font-weight: 700; color: #3a4e62;
+      text-transform: uppercase; letter-spacing: 0.07em; margin: 10px 0 5px;
+    }
+
+    /* Inline section heading (e.g. Teaching Hours within content section) */
+    .mdd-sec-heading {
+      font-size: 12px; font-weight: 700; color: #1e3a52;
+      margin: 12px 0 4px; padding-bottom: 3px; border-bottom: 1px solid #dde6ee;
+    }
+
+    /* Gap badge */
+    .mdd-gap-badge {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      color: #b34700; background: #fff4ed;
+      border: 1px solid #f5c5a3; border-radius: 4px; padding: 1px 6px; margin-right: 4px;
+    }
+    .mdd-gap-row td:first-child { color: #b34700; font-style: italic; }
+
+    /* AI use category cells */
+    .mdd-ai-category { font-size: 11px; font-weight: 700; color: #1a7a4a; white-space: nowrap; width: 70px; }
+    .mdd-ai-restricted { color: #a64c00; }
+    .mdd-ai-required   { color: #1d3f6a; }
+
+    /* Text area wrapper for synopsis */
+    .mdd-text-area {
+      border: 1px solid #d0dce8; border-radius: 5px;
+      padding: 10px 12px; background: #fafcff; margin-bottom: 8px;
+    }
+    .mdd-text-area .np-body-italic { margin-bottom: 0; }
+
+    /* References list */
+    .mdd-ref-list { display: grid; gap: 7px; margin: 6px 0; }
+    .mdd-ref-list-item {
+      display: flex; gap: 8px; align-items: flex-start;
+      padding: 6px 9px; border: 1px solid #e5eef7; border-radius: 5px;
+      background: #f7fbff;
+    }
 
   </style>
   <style>
