@@ -400,6 +400,47 @@
       .topbar-inner { padding: 0 18px !important; }
       .brand-tag { display: none; }
     }
+
+    /* Planning Direction Strip */
+    .direction-strip {
+      border: 1px solid #d8e8f5;
+      border-radius: 10px;
+      background: #fff;
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .direction-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #5f748a; flex-shrink: 0; white-space: nowrap;
+    }
+    .direction-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; flex: 1; }
+    .dir-chip {
+      font-size: 11.5px; font-weight: 500; color: #1d3a5a;
+      background: #eef6ff; border: 1px solid #cde0f4;
+      border-radius: 6px; padding: 4px 10px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .dir-chip::before { content: "✓"; color: #2563eb; font-weight: 700; font-size: 10px; }
+    .dir-add-btn {
+      font-size: 11px; font-weight: 500; color: #9ca3af;
+      background: transparent; border: 1px dashed #d1d5db;
+      border-radius: 6px; padding: 4px 10px; cursor: pointer;
+    }
+    .dir-add-btn:hover { color: var(--brand); border-color: var(--brand); background: #f0f6fc; }
+
+    /* Skeleton placeholder bar */
+    .skel-bar {
+      height: 11px; background: #e9ecf0; border-radius: 4px; margin-bottom: 6px;
+      animation: shimmer 1.8s ease-in-out infinite;
+    }
+    .skel-bar.short { width: 60%; }
+    @keyframes shimmer {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.55; }
+    }
   </style>
 </head>
 <body>
@@ -420,8 +461,19 @@
   <section>
     <div class="page-eyebrow">Teaching Plan</div>
     <h1 class="page-title">Review &amp; Refine Weekly Teaching Plan</h1>
-    <p class="page-sub" style="margin-bottom: 28px;">AI has drafted a weekly teaching flow from your approved module direction. Review, edit, and refine the plan — then use it as the basis for material generation.</p>
+    <p class="page-sub" style="margin-bottom: 28px;">Review, edit, and refine the weekly teaching plan before generating materials.</p>
   </section>
+
+  <!-- PLANNING DIRECTION -->
+  <div class="direction-strip">
+    <div class="direction-label">Module Leader Direction</div>
+    <div class="direction-chips">
+      <span class="dir-chip">Combine content from retired modules</span>
+      <span class="dir-chip">Reduce lecture-heavy delivery</span>
+      <span class="dir-chip">Simulation-led approach</span>
+      <button class="dir-add-btn">+ Add direction</button>
+    </div>
+  </div>
 
   <!-- TOP CONNECTOR -->
   <section class="setup-card analysis-setup" aria-label="Connected module design context">
@@ -534,14 +586,14 @@
       <div class="start-banner">
         <div class="start-banner-body">
           <div class="start-banner-label">✦ Suggested starting point</div>
-          <div class="start-banner-title">AI has prepared a draft teaching flow — where to begin:</div>
+          <div class="start-banner-title">Where to begin:</div>
           <div class="start-banner-steps">
             <div class="start-step"><span class="step-num">1</span> Review assessment timing</div>
             <div class="start-step"><span class="step-num">2</span> Refine weekly T&amp;L activities</div>
             <div class="start-step"><span class="step-num">3</span> Check workload balance</div>
           </div>
         </div>
-        <button class="start-banner-cta">Review AI Draft</button>
+        <button class="start-banner-cta">Review Flagged Areas</button>
       </div>
 
       <!-- TEACHING PLAN TABLE -->
@@ -570,11 +622,10 @@
             <td>
               <div class="ta-editable">
                 <div>Lecture: Core Concepts</div>
-                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Group discussion (20 mins)</div>
-                <div class="cell-ai-suggest">AI suggests adding a short retrieval prompt to close class</div>
+                <div class="cell-ai-suggest">AI suggests adding a collaborative discussion or retrieval activity</div>
                 <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
               </div>
-              <button class="ta-add-btn">+ Add activity</button>
+              <button class="cell-generate"><span class="gen-icon">✦</span> Generate in-class activity</button>
             </td>
             <td>
               <div class="ta-editable">
@@ -590,11 +641,8 @@
           <tr>
             <td class="ta-week-cell">2</td>
             <td>
-              <div class="ta-editable">
-                <div>Interactive simulation intro</div>
-                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
-              </div>
-              <button class="ta-add-btn">+ Add pre-class activity</button>
+              <button class="cell-generate" style="margin-bottom: 6px;"><span class="gen-icon">✦</span> Generate pre-class activity</button>
+              <button class="ta-add-btn">+ Add manually</button>
             </td>
             <td>
               <div class="ta-editable">
@@ -618,11 +666,11 @@
           <tr>
             <td class="ta-week-cell">3</td>
             <td>
-              <div class="ta-editable">
-                <div>Pre-recorded concept video</div>
-                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
+              <div style="padding: 6px 8px;">
+                <div class="skel-bar" style="width: 80%;"></div>
+                <div class="skel-bar short"></div>
               </div>
-              <button class="ta-add-btn">+ Add pre-class activity</button>
+              <button class="cell-generate"><span class="gen-icon">✦</span> Generate pre-class / OAL</button>
             </td>
             <td>
               <div class="ta-editable">
@@ -633,18 +681,15 @@
               <button class="cell-generate"><span class="gen-icon">✦</span> Generate MLO2 activity</button>
             </td>
             <td>
-              <div class="ta-editable">
-                <div>Short Quiz 1</div>
-                <div class="ta-inline-actions"><span>Edit</span><span class="divider">|</span><span class="ai">✦ AI Suggest</span></div>
-              </div>
-              <button class="ta-add-btn">+ Add feedback note</button>
+              <button class="cell-generate" style="margin-bottom: 6px;"><span class="gen-icon">✦</span> Generate assessment checkpoint</button>
+              <button class="ta-add-btn">+ Add manually</button>
             </td>
           </tr>
 
           <!-- Collapsed Weeks 4–7 -->
           <tr class="ta-collapsed-row">
             <td colspan="4">
-              <div class="ta-collapsed-content">Weeks 4–7 collapsed &mdash; click to expand</div>
+              <div class="ta-collapsed-content">Weeks 4–7 &mdash; AI has scaffolded, click to review &amp; refine</div>
             </td>
           </tr>
 
@@ -687,7 +732,7 @@
           <!-- Collapsed Weeks 10–15 -->
           <tr class="ta-collapsed-row">
             <td colspan="4">
-              <div class="ta-collapsed-content">Weeks 10–15 collapsed &mdash; click to expand</div>
+              <div class="ta-collapsed-content">Weeks 10–15 &mdash; AI has scaffolded, click to review &amp; refine</div>
             </td>
           </tr>
 
