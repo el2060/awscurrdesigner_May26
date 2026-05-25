@@ -2186,6 +2186,117 @@
     .proposal-action-btn:hover { background: #f0f5fa; }
     .proposal-action-btn--primary:hover { opacity: 0.92; }
 
+    /* ── MDD Right-Pane Components ────────────────────────────── */
+    .mdd-ai-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #5b78a0;
+      background: #edf4fb; border: 1px solid #c8ddf0;
+      border-radius: 999px; padding: 2px 8px; margin-bottom: 8px;
+    }
+    .mdd-ai-badge::before { content: "✦"; margin-right: 2px; color: #7a9ab5; }
+    .mdd-source-strip {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 5px;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid #e5eef7;
+    }
+    .mdd-source-lbl {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: #7a9ab5; flex-shrink: 0;
+    }
+    .mdd-source-chip {
+      font-size: 10px; color: #3a7a5a; font-weight: 600;
+      background: #eaf5ef; border: 1px solid #b2d9c4;
+      border-radius: 999px; padding: 2px 7px;
+      display: inline-flex; align-items: center; gap: 3px;
+    }
+    .mdd-source-chip::before { content: "✓"; font-size: 9px; }
+    .mdd-mo-list { display: grid; gap: 8px; margin: 4px 0; }
+    .mdd-mo-row { display: flex; align-items: baseline; gap: 10px; }
+    .mdd-mo-num {
+      font-size: 11px; font-weight: 700; color: #5b78a0;
+      background: #edf4fb; border: 1px solid #c8ddf0;
+      border-radius: 4px; padding: 2px 6px; flex-shrink: 0; font-family: monospace;
+    }
+    .mdd-mo-text { font-size: 13px; color: #1e3a52; line-height: 1.5; flex: 1; }
+    .mdd-mapping-list { display: grid; gap: 7px; margin: 4px 0; }
+    .mdd-mapping-row { display: flex; align-items: center; gap: 8px; }
+    .mdd-mapping-from {
+      font-size: 11px; font-weight: 700; color: #5b78a0; font-family: monospace;
+      background: #edf4fb; border: 1px solid #c8ddf0;
+      border-radius: 4px; padding: 2px 6px; flex-shrink: 0; min-width: 44px;
+    }
+    .mdd-mapping-arrow { color: #97a3b3; font-size: 12px; flex-shrink: 0; }
+    .mdd-mapping-cos { display: flex; flex-wrap: wrap; gap: 4px; }
+    .mdd-mapping-co {
+      font-size: 11px; font-weight: 600; color: #3a6070;
+      background: #eaf5f0; border: 1px solid #aed4bc;
+      border-radius: 4px; padding: 1px 5px;
+    }
+    .mdd-skill-list { display: grid; gap: 6px; margin: 4px 0; }
+    .mdd-skill-row {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: #1e3a52; line-height: 1.4;
+    }
+    .mdd-skill-status {
+      font-size: 10px; font-weight: 700; border-radius: 999px;
+      padding: 2px 7px; flex-shrink: 0;
+    }
+    .mdd-skill-status--strong  { color: #1d6b45; background: #eaf5ef; border: 1px solid #aed4bc; }
+    .mdd-skill-status--moderate { color: #7c5c00; background: #fef9ec; border: 1px solid #e8d285; }
+    .mdd-skill-status--gap     { color: #b34700; background: #fff4ed; border: 1px solid #f5c5a3; }
+    .mdd-week-list { display: grid; gap: 8px; margin: 4px 0; }
+    .mdd-week-block { display: flex; align-items: baseline; gap: 10px; }
+    .mdd-week-range {
+      font-size: 11px; font-weight: 700; color: #5b78a0; white-space: nowrap;
+      background: #edf4fb; border: 1px solid #c8ddf0;
+      border-radius: 4px; padding: 2px 6px; flex-shrink: 0; min-width: 52px; text-align: center;
+    }
+    .mdd-week-title { font-size: 13px; color: #1e3a52; line-height: 1.4; }
+    .mdd-hours-grid {
+      display: flex; gap: 16px; margin-top: 8px; padding-top: 8px;
+      border-top: 1px solid #e5eef7;
+    }
+    .mdd-hours-item { display: flex; gap: 5px; align-items: baseline; }
+    .mdd-hours-val { font-size: 16px; font-weight: 700; color: #1e3a52; }
+    .mdd-hours-label { font-size: 11px; color: #5b78a0; font-weight: 600; }
+    .mdd-strategy-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0; }
+    .mdd-strategy-chip {
+      font-size: 12px; font-weight: 600; color: #2f5470;
+      background: #f0f6fc; border: 1px solid #c8ddf0;
+      border-radius: 6px; padding: 4px 10px;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .mdd-strategy-chip::before { content: "◉"; font-size: 10px; color: #5b88a5; }
+    .mdd-strategy-note {
+      font-size: 11px; color: #5b78a0; margin-top: 6px;
+      background: #f7fbff; border: 1px solid #dde8f5;
+      border-radius: 6px; padding: 5px 10px;
+    }
+    .mdd-assess-list { display: grid; gap: 6px; margin: 4px 0; }
+    .mdd-assess-row { display: flex; align-items: center; gap: 8px; }
+    .mdd-assess-name { font-size: 12px; font-weight: 600; color: #1e3a52; flex: 1; line-height: 1.4; }
+    .mdd-assess-pct {
+      font-size: 13px; font-weight: 700; color: #2f5470;
+      background: #edf4fb; border: 1px solid #c8ddf0;
+      border-radius: 4px; padding: 2px 7px; flex-shrink: 0;
+    }
+    .mdd-assess-mo { font-size: 11px; color: #5b78a0; padding: 0 2px; margin-top: -2px; }
+    .mdd-assess-flag {
+      font-size: 11px; font-weight: 600; color: #b34700;
+      background: #fff4ed; border: 1px solid #f5c5a3;
+      border-radius: 6px; padding: 5px 10px; margin-top: 6px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .mdd-assess-flag::before { content: "⚠"; }
+    .mdd-ref-skel { display: grid; gap: 7px; margin: 4px 0; }
+    .mdd-ref-skel-item {
+      display: flex; gap: 8px; align-items: flex-start;
+      padding: 7px 10px; border: 1px solid #e5eef7; border-radius: 6px;
+      background: #f7fbff;
+    }
+    .mdd-ref-num { font-size: 10px; font-weight: 700; color: #7a9ab5; flex-shrink: 0; padding-top: 2px; }
+    .mdd-ref-lines { flex: 1; display: grid; gap: 3px; }
+
     @media (max-width: 1280px) {
       .topbar {
         padding: 0 28px;
@@ -2351,13 +2462,16 @@
       <aside class="workspace-side" aria-label="Conversation workspace">
         <div class="thread-shell">
           <nav class="thread-rail" aria-label="Design conversations">
-            <div class="thread-rail-kicker">Design Stages</div>
-            <button class="thread-link active" data-thread="welcome" type="button">Module Direction</button>
-            <button class="thread-link" data-thread="outcomes" type="button">Learning Outcomes</button>
-            <button class="thread-link" data-thread="content" type="button">Topics &amp; Sequence</button>
-            <button class="thread-link" data-thread="teaching" type="button">Learning Activities</button>
-            <button class="thread-link" data-thread="assessment" type="button">Assessment Strategy</button>
+            <div class="thread-rail-kicker">MDD Sections</div>
+            <button class="thread-link active" data-thread="welcome" type="button">Synopsis</button>
+            <button class="thread-link" data-thread="outcomes" type="button">Module Learning Outcomes</button>
+            <button class="thread-link" data-thread="mapping" type="button">Course Outcomes Mapping</button>
+            <button class="thread-link" data-thread="gradskills" type="button">Graduate Skills Mapping</button>
+            <button class="thread-link" data-thread="content" type="button">Topics &amp; Teaching Schedule</button>
+            <button class="thread-link" data-thread="teaching" type="button">Teaching &amp; Learning Strategies</button>
+            <button class="thread-link" data-thread="assessment" type="button">Assessment</button>
             <button class="thread-link" data-thread="integrity" type="button">AI Use &amp; Guidance</button>
+            <button class="thread-link" data-thread="references" type="button">References</button>
             <div class="thread-rail-divider"></div>
             <div class="design-intent">
               <div class="design-intent-label">Design Priorities</div>
@@ -2459,16 +2573,17 @@
 
           <div class="artifact-body">
             <nav class="artifact-nav" aria-label="Module section navigation">
-              <div class="artifact-nav-kicker">Sections</div>
+              <div class="artifact-nav-kicker">MDD</div>
               <button class="active" data-section="overview" type="button">Module Info</button>
-              <button data-section="synopsis" type="button">1. Synopsis &amp; Aims</button>
-              <button data-section="outcomes" type="button">2. Learning Outcomes</button>
-              <button data-section="content" type="button">3. Content &amp; Hours</button>
-              <button data-section="teaching" type="button">4. Teaching Methods</button>
-              <button data-section="assessment" type="button">5. Assessment</button>
-              <button data-section="resources" type="button">6. Plagiarism Policy</button>
-              <button data-section="alignment" type="button">7. References</button>
-              <button data-section="integrity" type="button">7.2 Journals</button>
+              <button data-section="synopsis" type="button">1. Synopsis</button>
+              <button data-section="outcomes" type="button">2. MLOs</button>
+              <button data-section="mapping" type="button">3. CO Mapping</button>
+              <button data-section="gradskills" type="button">4. Grad Skills</button>
+              <button data-section="content" type="button">5. Topics &amp; Schedule</button>
+              <button data-section="teaching" type="button">6. TLS</button>
+              <button data-section="assessment" type="button">7. Assessment</button>
+              <button data-section="integrity" type="button">8. AI Guidance</button>
+              <button data-section="references" type="button">9. References</button>
             </nav>
 
             <article class="artifact-scroll" id="artifactScroll">
@@ -2486,268 +2601,282 @@
                 </div>
               </section>
 
-              <!-- Section 1: Synopsis and Aims -->
+              <!-- 1. Synopsis -->
               <section class="module-section" id="synopsis">
                 <div class="section-label np-sec-label">Section 1</div>
-                <h3 class="section-title">1.&nbsp;&nbsp;SYNOPSIS AND AIMS</h3>
-                <p class="np-body-italic">
-                  This module aims to provide students with an understanding and comprehensive foundation on the principles of critical care nursing practice and a continuity of basic nursing science from general nursing training. Gastro-intestinal, hepato-biliary, endocrine and nephrology diseases and altered conditions of these major body systems are covered in depth with integration of pathophysiology and applied human anatomy. Interpretation of relevant laboratory and diagnostic studies results are included and advanced nursing skills that are performed commonly in the acute care setting, this module serves to equip critical care practitioners with the necessary knowledge and skills for critical thinking to make informed clinical decisions.
-                </p>
-                <div class="np-skel-block">
+                <h3 class="section-title">1. SYNOPSIS</h3>
+                <div class="mdd-ai-badge">AI Draft</div>
+                <p class="np-body-italic">This module prepares students to manage critically ill patients across major body systems, integrating pathophysiology, clinical reasoning, and advanced nursing practice in the critical care setting.</p>
+                <div class="np-skel-block" style="margin-top:8px">
                   <div class="np-skel-line np-skel-w-full"></div>
-                  <div class="np-skel-line np-skel-w-90"></div>
                   <div class="np-skel-line np-skel-w-85"></div>
-                  <div class="np-skel-line np-skel-w-95"></div>
-                  <div class="np-skel-line np-skel-w-70"></div>
+                </div>
+                <div class="mdd-source-strip">
+                  <span class="mdd-source-lbl">Generated from</span>
+                  <span class="mdd-source-chip">Existing synopsis</span>
+                  <span class="mdd-source-chip">Student profile</span>
+                  <span class="mdd-source-chip">Benchmark references</span>
                 </div>
               </section>
 
-              <!-- Section 2: Learning Outcomes -->
+              <!-- 2. Module Learning Outcomes -->
               <section class="module-section" id="outcomes">
                 <div class="section-label np-sec-label">Section 2</div>
-                <h3 class="section-title">2.&nbsp;&nbsp;LEARNING OUTCOMES</h3>
-                <p class="np-body">On completion of the module, the students should be able to:</p>
-
-                <div class="np-outcome-row">
-                  <span class="np-onum">2.1</span>
-                  <div class="np-odesc">discuss the nursing care management* of critically ill patients with gastrointestinal and hepato-biliary disorders:
-                    <ul class="np-olist">
-                      <li>acute abdomen</li>
-                      <li>abdominal trauma</li>
-                      <li>gastrointestinal bleeding</li>
-                      <li>cholecystitis and cholelithiasis</li>
-                      <li>acute pancreatitis</li>
-                      <li>hepatic failure</li>
-                    </ul>
+                <h3 class="section-title">2. MODULE LEARNING OUTCOMES</h3>
+                <div class="mdd-ai-badge">AI Proposed</div>
+                <p class="np-body" style="margin-bottom:10px">On completion of this module, students will be able to:</p>
+                <div class="mdd-mo-list">
+                  <div class="mdd-mo-row">
+                    <span class="mdd-mo-num">MO1</span>
+                    <span class="mdd-mo-text">Identify and escalate early warning signs using structured clinical reasoning frameworks.</span>
+                  </div>
+                  <div class="mdd-mo-row">
+                    <span class="mdd-mo-num">MO2</span>
+                    <span class="mdd-mo-text">Apply critical care communication protocols under high-acuity time pressure.</span>
+                  </div>
+                  <div class="mdd-mo-row">
+                    <span class="mdd-mo-num">MO3</span>
+                    <div class="mdd-mo-text"><div class="np-skel-line np-skel-w-90"></div></div>
+                  </div>
+                  <div class="mdd-mo-row">
+                    <span class="mdd-mo-num">MO4</span>
+                    <div class="mdd-mo-text"><div class="np-skel-line np-skel-w-75"></div></div>
+                  </div>
+                  <div class="mdd-mo-row">
+                    <span class="mdd-mo-num">MO5</span>
+                    <div class="mdd-mo-text"><div class="np-skel-line np-skel-w-80"></div></div>
                   </div>
                 </div>
-
-                <div class="np-outcome-row">
-                  <span class="np-onum">2.2</span>
-                  <div class="np-odesc">discuss the nursing care management* of critically ill patients with endocrinal disorders:
-                    <ul class="np-olist">
-                      <li>diabetic ketoacidosis</li>
-                      <li>hyperosmolar hyperglycemic non-ketotic syndrome</li>
-                      <li>thyroid storm</li>
-                      <li>myxedema coma</li>
-                      <li>diabetes insipidus and SIADH</li>
-                      <li>adrenal insufficiency</li>
-                      <li>Cushing's syndrome</li>
-                    </ul>
-                  </div>
+                <div class="mdd-source-strip">
+                  <span class="mdd-source-lbl">Generated from</span>
+                  <span class="mdd-source-chip">Module direction</span>
+                  <span class="mdd-source-chip">Skills Framework</span>
+                  <span class="mdd-source-chip">Benchmark curricula</span>
                 </div>
-
-                <div class="np-outcome-row">
-                  <span class="np-onum">2.3</span>
-                  <div class="np-odesc">discuss the nursing care management* of critically ill patients with thermoregulation disorders:
-                    <ul class="np-olist">
-                      <li>hypothermia/hyperthermia</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div class="np-outcome-row np-skel-outcome">
-                  <span class="np-onum">2.4</span>
-                  <div class="np-odesc">
-                    <div class="np-skel-line np-skel-w-90"></div>
-                    <div class="np-skel-line np-skel-w-60" style="margin-top:6px"></div>
-                    <div class="np-skel-line np-skel-w-50" style="margin-top:4px"></div>
-                  </div>
-                </div>
-
-                <div class="np-outcome-row np-skel-outcome">
-                  <span class="np-onum">2.5</span>
-                  <div class="np-odesc">
-                    <div class="np-skel-line np-skel-w-80"></div>
-                    <div class="np-skel-line np-skel-w-55" style="margin-top:6px"></div>
-                  </div>
-                </div>
-
-                <div class="np-outcome-row np-skel-outcome">
-                  <span class="np-onum">2.6</span>
-                  <div class="np-odesc">
-                    <div class="np-skel-line np-skel-w-70"></div>
-                    <div class="np-skel-line np-skel-w-45" style="margin-top:6px"></div>
-                  </div>
-                </div>
-
-                <p class="np-note">[Note * — includes definition, pathophysiology, clinical manifestations, diagnostic tests, treatment (medical, surgical), complications, and nursing care in critical care]</p>
               </section>
 
-              <!-- Section 3: Content -->
-              <section class="module-section" id="content">
+              <!-- 3. Course Outcomes Mapping -->
+              <section class="module-section" id="mapping">
                 <div class="section-label np-sec-label">Section 3</div>
-                <h3 class="section-title">3.&nbsp;&nbsp;CONTENT</h3>
-                <p class="np-subsec-title">Topics and Hours</p>
-                <p class="np-body" style="margin-bottom:8px"><em>Online e-learning hours*: 30 hours</em></p>
-                <table class="np-ct-table">
-                  <thead>
-                    <tr>
-                      <th class="np-ct-no">No</th>
-                      <th class="np-ct-topic">Topic</th>
-                      <th class="np-ct-hrs">Lecture-Tutorial hours</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td><strong>GASTROINTESTINAL</strong><br>
-                        <span class="np-sub">- Acute abdomen (includes intestinal obstruction and peritonitis)</span><br>
-                        <span class="np-sub">- Abdominal trauma and compartment syndrome</span><br>
-                        <span class="np-sub">- Gastrointestinal bleeding</span>
-                      </td>
-                      <td class="np-ct-hrs-val">3<br><small class="np-elearn">3*</small></td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td><strong>GASTROINTESTINAL</strong><br>
-                        <span class="np-sub">- Cholecystitis and cholelithiasis</span><br>
-                        <span class="np-sub">- Acute pancreatitis</span><br>
-                        <span class="np-sub">- Hepatic failure</span>
-                      </td>
-                      <td class="np-ct-hrs-val">3<br><small class="np-elearn">3*</small></td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td><strong>GASTROINTESTINAL</strong><br>
-                        <span class="np-sub">- Endoscopic procedures</span><br>
-                        <span class="np-sub">- Gastrointestinal surgery (includes ostomies/stomas)</span><br>
-                        <span class="np-sub">- Sengstaken-Blackmore tube in esophageal varices</span>
-                      </td>
-                      <td class="np-ct-hrs-val">3<br><small class="np-elearn">3*</small></td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td><strong>ENDOCRINE</strong><br>
-                        <em class="np-sub">Diabetic disorders</em><br>
-                        <span class="np-sub">- Diabetic ketoacidosis (DKA)</span><br>
-                        <span class="np-sub">- Hyperosmolar hyperglycemic non-ketotic syndrome (HHNS)</span>
-                        <div class="np-skel-line np-skel-w-80" style="margin-top:6px"></div>
-                        <div class="np-skel-line np-skel-w-60" style="margin-top:4px"></div>
-                      </td>
-                      <td class="np-ct-hrs-val">4<br><small class="np-elearn">4*</small></td>
-                    </tr>
-                    <tr class="np-skel-tr">
-                      <td>5</td>
-                      <td><div class="np-skel-line np-skel-w-70"></div><div class="np-skel-line np-skel-w-50" style="margin-top:5px"></div></td>
-                      <td><div class="np-skel-line np-skel-w-full"></div></td>
-                    </tr>
-                    <tr class="np-skel-tr">
-                      <td>6</td>
-                      <td><div class="np-skel-line np-skel-w-80"></div><div class="np-skel-line np-skel-w-60" style="margin-top:5px"></div></td>
-                      <td><div class="np-skel-line np-skel-w-full"></div></td>
-                    </tr>
-                    <tr class="np-skel-tr">
-                      <td>7</td>
-                      <td><div class="np-skel-line np-skel-w-75"></div><div class="np-skel-line np-skel-w-55" style="margin-top:5px"></div></td>
-                      <td><div class="np-skel-line np-skel-w-full"></div></td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <td colspan="2" class="np-ct-total-label">Overall total</td>
-                      <td class="np-ct-total">60</td>
-                    </tr>
-                  </tfoot>
-                </table>
+                <h3 class="section-title">3. COURSE OUTCOMES MAPPING</h3>
+                <div class="mdd-ai-badge">AI Mapped</div>
+                <div class="mdd-mapping-list">
+                  <div class="mdd-mapping-row">
+                    <span class="mdd-mapping-from">MO1</span>
+                    <span class="mdd-mapping-arrow">→</span>
+                    <div class="mdd-mapping-cos">
+                      <span class="mdd-mapping-co">CO2</span>
+                      <span class="mdd-mapping-co">CO4</span>
+                      <span class="mdd-mapping-co">CO7</span>
+                    </div>
+                  </div>
+                  <div class="mdd-mapping-row">
+                    <span class="mdd-mapping-from">MO2</span>
+                    <span class="mdd-mapping-arrow">→</span>
+                    <div class="mdd-mapping-cos">
+                      <span class="mdd-mapping-co">CO1</span>
+                      <span class="mdd-mapping-co">CO5</span>
+                    </div>
+                  </div>
+                  <div class="mdd-mapping-row">
+                    <span class="mdd-mapping-from">MO3</span>
+                    <span class="mdd-mapping-arrow">→</span>
+                    <div class="mdd-mapping-cos"><div class="np-skel-line np-skel-w-50" style="height:16px;flex:1"></div></div>
+                  </div>
+                  <div class="mdd-mapping-row">
+                    <span class="mdd-mapping-from">MO4–5</span>
+                    <span class="mdd-mapping-arrow">→</span>
+                    <div class="mdd-mapping-cos"><div class="np-skel-line np-skel-w-70" style="height:16px;flex:1"></div></div>
+                  </div>
+                </div>
+                <div class="mdd-source-strip">
+                  <span class="mdd-source-lbl">Auto-mapped from</span>
+                  <span class="mdd-source-chip">MLOs (approved)</span>
+                  <span class="mdd-source-chip">Course document</span>
+                </div>
               </section>
 
-              <!-- Section 4: Teaching Methodology -->
-              <section class="module-section" id="teaching">
+              <!-- 4. Graduate Skills Mapping -->
+              <section class="module-section" id="gradskills">
                 <div class="section-label np-sec-label">Section 4</div>
-                <h3 class="section-title">4.&nbsp;&nbsp;TEACHING METHODOLOGY / TEACHING &amp; LEARNING STRATEGIES</h3>
-                <p class="np-subsec-title">Case-Based Learning</p>
-                <p class="np-body">In <strong>Case-Based Learning</strong>, students are typically posed a realistic story or set of circumstances, or complex situation. Students will actively learn to integrate knowledge, skills and attitudes using analytical and critical thinking skills to make decisions or solve issues at various points. They are encouraged to explore assumptions and alternatives, or even future factors, to arrive at different solutions or conclusions.</p>
-                <div class="np-skel-block" style="margin-top:10px">
-                  <div class="np-skel-line np-skel-w-full"></div>
-                  <div class="np-skel-line np-skel-w-90"></div>
-                  <div class="np-skel-line np-skel-w-85"></div>
+                <h3 class="section-title">4. NP GRADUATE SKILLS MAPPING</h3>
+                <div class="mdd-ai-badge">AI Aligned</div>
+                <div class="mdd-skill-list">
+                  <div class="mdd-skill-row">
+                    <span class="mdd-skill-status mdd-skill-status--strong">Strong</span>
+                    Communication
+                  </div>
+                  <div class="mdd-skill-row">
+                    <span class="mdd-skill-status mdd-skill-status--strong">Strong</span>
+                    Critical Thinking &amp; Problem Solving
+                  </div>
+                  <div class="mdd-skill-row">
+                    <span class="mdd-skill-status mdd-skill-status--moderate">Moderate</span>
+                    Collaboration &amp; Cross-cultural Sensitivity
+                  </div>
+                  <div class="mdd-skill-row">
+                    <span class="mdd-skill-status mdd-skill-status--gap">Gap detected</span>
+                    Digital Competence
+                  </div>
                 </div>
-                <p class="np-subsec-title" style="margin-top:14px">ICT-enabled learning</p>
-                <div class="np-skel-block">
+                <div class="mdd-assess-flag" style="margin-top:8px">AI recommends: add one digitally mediated escalation task to close gap.</div>
+                <div class="mdd-source-strip">
+                  <span class="mdd-source-lbl">Mapped from</span>
+                  <span class="mdd-source-chip">MLOs</span>
+                  <span class="mdd-source-chip">NP Graduate Standards</span>
+                </div>
+              </section>
+
+              <!-- 5. Module Topics & Teaching Schedule -->
+              <section class="module-section" id="content">
+                <div class="section-label np-sec-label">Section 5</div>
+                <h3 class="section-title">5. MODULE TOPICS &amp; TEACHING SCHEDULE</h3>
+                <div class="mdd-ai-badge">AI Proposed</div>
+                <div class="mdd-week-list">
+                  <div class="mdd-week-block">
+                    <span class="mdd-week-range">Wk 1–3</span>
+                    <span class="mdd-week-title">Foundations — Pathophysiology, Monitoring &amp; Normal Ranges</span>
+                  </div>
+                  <div class="mdd-week-block">
+                    <span class="mdd-week-range">Wk 4–6</span>
+                    <span class="mdd-week-title">Diagnostics Cycle 1 + Guided Asynchronous Review</span>
+                  </div>
+                  <div class="mdd-week-block">
+                    <span class="mdd-week-range">Wk 7–9</span>
+                    <span class="mdd-week-title">Simulation Series — Low-acuity to High-acuity Progressive</span>
+                  </div>
+                  <div class="mdd-week-block">
+                    <span class="mdd-week-range">Wk 10–12</span>
+                    <div class="mdd-week-title"><div class="np-skel-line np-skel-w-80"></div></div>
+                  </div>
+                  <div class="mdd-week-block">
+                    <span class="mdd-week-range">Wk 13</span>
+                    <div class="mdd-week-title"><div class="np-skel-line np-skel-w-60"></div></div>
+                  </div>
+                </div>
+                <div class="mdd-hours-grid">
+                  <div class="mdd-hours-item">
+                    <span class="mdd-hours-val">26</span>
+                    <span class="mdd-hours-label">contact hrs</span>
+                  </div>
+                  <div class="mdd-hours-item">
+                    <span class="mdd-hours-val">13</span>
+                    <span class="mdd-hours-label">OAL hrs</span>
+                  </div>
+                </div>
+                <div class="mdd-source-strip">
+                  <span class="mdd-source-lbl">Generated from</span>
+                  <span class="mdd-source-chip">MLOs</span>
+                  <span class="mdd-source-chip">Assessment sequence</span>
+                  <span class="mdd-source-chip">Pedagogy selections</span>
+                </div>
+              </section>
+
+              <!-- 6. Teaching & Learning Strategies -->
+              <section class="module-section" id="teaching">
+                <div class="section-label np-sec-label">Section 6</div>
+                <h3 class="section-title">6. TEACHING &amp; LEARNING STRATEGIES</h3>
+                <div class="mdd-ai-badge">AI Proposed</div>
+                <div class="mdd-strategy-list">
+                  <span class="mdd-strategy-chip">Discussion-based Learning</span>
+                  <span class="mdd-strategy-chip">Direct Instruction</span>
+                  <span class="mdd-strategy-chip">Scenario-based Learning</span>
+                </div>
+                <div class="mdd-strategy-note">Suggested delivery: IPL 70% · OAL 30%</div>
+                <div class="np-skel-block" style="margin-top:8px">
                   <div class="np-skel-line np-skel-w-full"></div>
                   <div class="np-skel-line np-skel-w-80"></div>
-                  <div class="np-skel-line np-skel-w-95"></div>
-                  <div class="np-skel-line np-skel-w-70"></div>
+                </div>
+                <div class="mdd-source-strip">
+                  <span class="mdd-source-lbl">Generated from</span>
+                  <span class="mdd-source-chip">Approved direction</span>
+                  <span class="mdd-source-chip">Benchmark facilitation models</span>
                 </div>
               </section>
 
-              <!-- Section 5: Assessment Strategies -->
+              <!-- 7. Assessment -->
               <section class="module-section" id="assessment">
-                <div class="section-label np-sec-label">Section 5</div>
-                <h3 class="section-title">5.&nbsp;&nbsp;ASSESSMENT STRATEGIES</h3>
-                <p class="np-body">This is a continuous assessment module and the weightages for the assessments are as follows:</p>
-                <table class="np-assess-table">
-                  <tbody>
-                    <tr>
-                      <td class="np-assess-name"><strong>Group Project</strong></td>
-                      <td class="np-assess-pct"><strong>50%</strong></td>
-                    </tr>
-                  </tbody>
-                </table>
-                <p class="np-body np-small-body">The students are required to explore and critically analyse a case scenario. A variety of approaches and delivery methods can be used for the group project presentation. The assessment encompasses <strong>30%</strong> group and <strong>20%</strong> individual components.</p>
-                <table class="np-assess-table" style="margin-top:10px">
-                  <tbody>
-                    <tr>
-                      <td class="np-assess-name"><strong>Class Test 1</strong></td>
-                      <td class="np-assess-pct"><strong>25%</strong></td>
-                    </tr>
-                    <tr>
-                      <td class="np-assess-name"><strong>Class Test 2</strong></td>
-                      <td class="np-assess-pct"><strong>25%</strong></td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="np-skel-block" style="margin-top:10px">
-                  <div class="np-skel-line np-skel-w-full"></div>
-                  <div class="np-skel-line np-skel-w-85"></div>
+                <div class="section-label np-sec-label">Section 7</div>
+                <h3 class="section-title">7. ASSESSMENT</h3>
+                <div class="mdd-ai-badge">AI Proposed</div>
+                <div class="mdd-assess-list">
+                  <div class="mdd-assess-row">
+                    <span class="mdd-assess-name">Assessment 1 — Live Simulation Stations</span>
+                    <span class="mdd-assess-pct">60%</span>
+                  </div>
+                  <div class="mdd-assess-mo">Aligned MO1 · MO2 · MO5</div>
+                  <div class="mdd-assess-row">
+                    <span class="mdd-assess-name">Assessment 2 — Written Reasoning Memo</span>
+                    <span class="mdd-assess-pct">30%</span>
+                  </div>
+                  <div class="mdd-assess-mo">Aligned MO3 · MO4</div>
+                  <div class="mdd-assess-row">
+                    <span class="mdd-assess-name"><div class="np-skel-line np-skel-w-70"></div></span>
+                    <span class="mdd-assess-pct">10%</span>
+                  </div>
+                </div>
+                <div class="mdd-assess-flag">Assessment cluster detected: Weeks 7–9 — redistribution recommended</div>
+                <div class="mdd-source-strip">
+                  <span class="mdd-source-lbl">Aligned to</span>
+                  <span class="mdd-source-chip">MLOs</span>
+                  <span class="mdd-source-chip">Benchmark evidence models</span>
                 </div>
               </section>
 
-              <!-- Section 6: Plagiarism Policy -->
-              <section class="module-section" id="resources">
-                <div class="section-label np-sec-label">Section 6</div>
-                <h3 class="section-title">6.&nbsp;&nbsp;PLAGIARISM POLICY</h3>
-                <p class="np-body-italic">The Ngee Ann Polytechnic Plagiarism policy mandates that students must acknowledge the original author when they submit work. Failing to do so will constitute plagiarism.</p>
-                <p class="np-body-italic">Students are expected to reference their individual case study report and case presentation slides as per American Psychology Association (APA) format. Students assume full responsibility for the content and integrity of the academic work they submit.</p>
-                <div class="np-skel-block" style="margin-top:10px">
+              <!-- 8. AI Use & Guidance -->
+              <section class="module-section" id="integrity">
+                <div class="section-label np-sec-label">Section 8</div>
+                <h3 class="section-title">8. AI USE &amp; GUIDANCE</h3>
+                <div class="mdd-ai-badge">AI Draft</div>
+                <div class="mdd-strategy-list">
+                  <span class="mdd-strategy-chip">Permitted: Case research &amp; reasoning drafts</span>
+                  <span class="mdd-strategy-chip">Restricted: Simulation substitution</span>
+                  <span class="mdd-strategy-chip">Required: Reasoning trace annotation</span>
+                </div>
+                <div class="np-skel-block" style="margin-top:8px">
                   <div class="np-skel-line np-skel-w-full"></div>
-                  <div class="np-skel-line np-skel-w-90"></div>
                   <div class="np-skel-line np-skel-w-75"></div>
                 </div>
-              </section>
-
-              <!-- Section 7: Recommended Texts -->
-              <section class="module-section" id="alignment">
-                <div class="section-label np-sec-label">Section 7</div>
-                <h3 class="section-title">7.&nbsp;&nbsp;RECOMMENDED TEXTS / REFERENCES / LEARNING RESOURCES</h3>
-                <p class="np-body">The reference list here is carefully selected but by no means a complete list. Students are encouraged to read widely and to share good articles with the group.</p>
-                <p class="np-subsec-title">7.1 Textbooks</p>
-                <ul class="np-ref-list">
-                  <li>Aitken, L., Marshall, A., &amp; Chaboyer, W. (2019). <em>ACCCN's Critical Care Nursing.</em> (4th ed.). Chatswood, N.S.W.: Elsevier Australia.</li>
-                  <li>Morton, P. G., &amp; Thurman, P. (2023). <em>Critical Care Nursing: a holistic approach.</em> (12th ed.). Philadelphia: Wolters Kluwer Health/Lippincott Williams &amp; Wilkins.</li>
-                  <li>Urden, L. P., Stacy, M. K., &amp; Lough, M. E. (2021). <em>Critical Care Nursing: diagnosis and management.</em> (9th ed.). St. Louis, Mo.: Saunders / Elsevier.</li>
-                </ul>
-                <div class="np-skel-block" style="margin-top:8px">
-                  <div class="np-skel-line np-skel-w-90"></div>
-                  <div class="np-skel-line np-skel-w-80" style="margin-top:8px"></div>
-                  <div class="np-skel-line np-skel-w-85" style="margin-top:8px"></div>
+                <div class="mdd-source-strip">
+                  <span class="mdd-source-lbl">Aligned to</span>
+                  <span class="mdd-source-chip">Assessment boundaries</span>
+                  <span class="mdd-source-chip">Benchmark policy language</span>
                 </div>
               </section>
 
-              <!-- Section 7.2: Journals -->
-              <section class="module-section" id="integrity">
-                <div class="section-label np-sec-label">Section 7.2</div>
-                <h3 class="section-title">7.2 Journals</h3>
-                <ul class="np-ref-list">
-                  <li>American Association of Critical Care Nurse (AACN) Advanced Critical Care</li>
-                  <li>American Journal of Critical Care</li>
-                  <li>American Journal of Respiratory and Critical Care Medicine</li>
-                  <li>Critical Care Nursing Journal</li>
-                  <li>Journal of Advanced Nursing</li>
-                  <li>Journal of Critical Care</li>
-                  <li>Journal of Trauma Nursing</li>
-                </ul>
+              <!-- 9. References -->
+              <section class="module-section" id="references">
+                <div class="section-label np-sec-label">Section 9</div>
+                <h3 class="section-title">9. RECOMMENDED TEXTS / REFERENCES</h3>
+                <div class="mdd-ai-badge">AI Shortlisted</div>
+                <div class="mdd-ref-skel">
+                  <div class="mdd-ref-skel-item">
+                    <span class="mdd-ref-num">1.</span>
+                    <div class="mdd-ref-lines">
+                      <div class="np-skel-line np-skel-w-full"></div>
+                      <div class="np-skel-line np-skel-w-60" style="margin-top:3px"></div>
+                    </div>
+                  </div>
+                  <div class="mdd-ref-skel-item">
+                    <span class="mdd-ref-num">2.</span>
+                    <div class="mdd-ref-lines">
+                      <div class="np-skel-line np-skel-w-90"></div>
+                      <div class="np-skel-line np-skel-w-50" style="margin-top:3px"></div>
+                    </div>
+                  </div>
+                  <div class="mdd-ref-skel-item">
+                    <span class="mdd-ref-num">3.</span>
+                    <div class="mdd-ref-lines">
+                      <div class="np-skel-line np-skel-w-80"></div>
+                      <div class="np-skel-line np-skel-w-65" style="margin-top:3px"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mdd-source-strip">
+                  <span class="mdd-source-lbl">Shortlisted from</span>
+                  <span class="mdd-source-chip">Module topics</span>
+                  <span class="mdd-source-chip">Benchmark institution libraries</span>
+                </div>
               </section>
 
             </article>
@@ -2775,10 +2904,10 @@
   <script>
     const threadData = {
       welcome: {
-        title: "Module Direction",
-        subtitle: "Set the overall direction for this module. AI will scaffold each subsequent step from here.",
+        title: "Synopsis",
+        subtitle: "Set the module direction and synopsis. AI will scaffold each MDD section from here.",
         stage: "Getting started",
-        sectionLabel: "Module Overview",
+        sectionLabel: "Synopsis",
         prompts: ["Strengthen escalation judgement", "Increase applied simulation practice"],
         reviewed: [
           "Industry inputs reviewed",
@@ -3026,6 +3155,54 @@
           { label: "", copy: "Draft includes permitted AI actions, prohibited substitutions, and mandatory reasoning trace annotations." }
         ],
         tradeoffs: "Coaching tone improves adoption. Strong enforcement clauses are still required in high-stakes assessment sections."
+      },
+      mapping: {
+        title: "Course Outcomes Mapping",
+        subtitle: "Map module learning outcomes to course outcomes.",
+        stage: "Auto-mapping",
+        sectionLabel: "CO Mapping",
+        contextUsed: [
+          "Approved module learning outcomes",
+          "Course document CO list",
+          "Skills Framework alignment"
+        ],
+        options: ["Confirm auto-mapping", "Adjust specific mappings", "Flag unresolved COs"],
+        blocks: [
+          { label: "AI Co-Design", copy: "Auto-mapping has been applied. Should I flag any unresolved course outcome links?" }
+        ],
+        inputHint: "Review or adjust CO mapping..."
+      },
+      gradskills: {
+        title: "Graduate Skills Mapping",
+        subtitle: "Align module outcomes to NP Graduate Skills and Competencies.",
+        stage: "Alignment",
+        sectionLabel: "Graduate Skills",
+        contextUsed: [
+          "Approved MLOs",
+          "NP Graduate Skills framework",
+          "Existing module coverage patterns"
+        ],
+        options: ["Accept alignment", "Address Digital Competence gap", "Review Communication coverage"],
+        blocks: [
+          { label: "AI Co-Design", copy: "Digital Competence is underrepresented. Should I propose a task to address this gap?" }
+        ],
+        inputHint: "Refine graduate skills alignment..."
+      },
+      references: {
+        title: "References",
+        subtitle: "Review AI-shortlisted references for this module.",
+        stage: "Shortlisting",
+        sectionLabel: "References",
+        contextUsed: [
+          "Module topics and teaching schedule",
+          "Benchmark institution libraries",
+          "Industry-recommended resources"
+        ],
+        options: ["Accept shortlist", "Prioritise NP library access", "Add journal set"],
+        blocks: [
+          { label: "AI Co-Design", copy: "Should references prioritise simulation case libraries, current journal digests, or both?" }
+        ],
+        inputHint: "Refine reference list..."
       }
     };
 
@@ -3048,12 +3225,15 @@
     let welcomeFlowTimers = [];
 
     const railLabels = {
-      welcome: "Module Direction",
-      outcomes: "Learning Outcomes",
-      content: "Topics & Sequence",
-      teaching: "Learning Activities",
-      assessment: "Assessment Strategy",
-      integrity: "AI Use & Guidance"
+      welcome: "Synopsis",
+      outcomes: "Module Learning Outcomes",
+      mapping: "Course Outcomes Mapping",
+      gradskills: "Graduate Skills Mapping",
+      content: "Topics & Teaching Schedule",
+      teaching: "Teaching & Learning Strategies",
+      assessment: "Assessment",
+      integrity: "AI Use & Guidance",
+      references: "References"
     };
 
     const threadOpeners = {
@@ -3256,37 +3436,56 @@
 
     const draftProposals = {
       outcomes: {
-        subtitle: "3 draft LOs — escalation focus, inheriting approved direction",
+        subtitle: "5 draft MLOs — escalation focus, inheriting synopsis direction",
         lines: [
-          "Identify and escalate early warning signs using structured clinical reasoning.",
-          "Apply critical care communication frameworks under high-acuity time pressure.",
-          "Demonstrate safe handover practice with traceable escalation rationale."
+          "MO1  Identify and escalate early warning signs using structured clinical reasoning.",
+          "MO2  Apply critical care communication protocols under high-acuity time pressure.",
+          "MO3  Demonstrate safe handover practice with traceable escalation rationale.",
+          "MO4  ████████████████████████████████████████",
+          "MO5  ████████████████████████████"
+        ]
+      },
+      mapping: {
+        subtitle: "Auto-mapped MLOs to Course Outcomes — 2 resolved, 3 pending confirmation",
+        lines: [
+          "MO1 → CO2 · CO4 · CO7 (escalation, clinical reasoning, communication)",
+          "MO2 → CO1 · CO5 (communication under pressure, clinical protocols)",
+          "MO3–MO5 → pending — CO3 · CO6 likely (handover, interdisciplinary)"
+        ]
+      },
+      gradskills: {
+        subtitle: "Graduate skills alignment — 3 strong, 1 gap flagged",
+        lines: [
+          "Strong — Communication (MO1, MO2, MO3)",
+          "Strong — Critical Thinking & Problem Solving (MO1)",
+          "Moderate — Collaboration (peer debrief activities)",
+          "Gap detected — Digital Competence (one task recommended)"
         ]
       },
       content: {
-        subtitle: "13-week sequence — redistributed diagnostics load, simulation-led",
+        subtitle: "13-week teaching schedule — redistributed load, simulation-led",
         lines: [
-          "Wks 1–3: Foundation (pathophysiology, monitoring, normal ranges)",
-          "Wks 4–6: Diagnostics cycle 1 + guided asynchronous review",
-          "Wks 7–9: Simulation series — low-acuity to high-acuity progressive",
-          "Wks 10–12: Escalation communication + interdisciplinary handover",
+          "Wk 1–3: Foundation (pathophysiology, monitoring, normal ranges)",
+          "Wk 4–6: Diagnostics cycle 1 + guided asynchronous review",
+          "Wk 7–9: Simulation series — low to high acuity progressive",
+          "Wk 10–12: Escalation communication + interdisciplinary handover",
           "Wk 13: Integrated debrief + assessment preparation"
         ]
       },
       teaching: {
-        subtitle: "Teaching approach — debrief-centred, reasoning checkpoints fortnightly",
+        subtitle: "Teaching & Learning Strategies — debrief-centred, reasoning checkpoints",
         lines: [
-          "Short-cycle simulation (30 min) + structured debrief (20 min) every fortnight",
-          "Peer reasoning checkpoints after each simulation round",
-          "Facilitator-guided escalation timing discussions with threshold criteria",
-          "Asynchronous case prep with structured reflection prompts"
+          "Discussion-based Learning — simulation debrief every fortnight",
+          "Direct Instruction — threshold criteria and escalation reasoning",
+          "Scenario-based Learning — low to high acuity case progression",
+          "Suggested delivery: IPL 70% · OAL 30%"
         ]
       },
       assessment: {
-        subtitle: "Assessment strategy — simulation-weighted, minimal written recall",
+        subtitle: "Assessment strategy — simulation-weighted, aligned to MLOs",
         lines: [
           "60% — Live simulation stations: escalation decision + communication",
-          "30% — Brief written reasoning memo (500 words, traceable rationale)",
+          "30% — Written reasoning memo (500 words, traceable rationale)",
           "10% — Reflective peer assessment on escalation timing"
         ]
       },
@@ -3297,6 +3496,14 @@
           "Restricted: AI substitution of clinical judgement in simulation tasks",
           "Required: Reasoning trace annotation on all AI-assisted written work",
           "Boundary: live assessment tasks are AI-restricted by design"
+        ]
+      },
+      references: {
+        subtitle: "AI shortlisted 3 reference bundles — pending ML review",
+        lines: [
+          "Local case library — high-acuity escalation scenarios (NP Library access)",
+          "Current journal digest — AACN Advanced Critical Care (2022–2024)",
+          "Simulation briefing templates — aligned to interdisciplinary handover tasks"
         ]
       }
     };
@@ -3354,11 +3561,14 @@
     }
 
     const decisionPrompts = {
-      outcomes: "What should these outcomes prioritise?",
-      content: "Where should the sequence be adjusted?",
-      teaching: "What should the teaching approach emphasise?",
+      outcomes: "What should these MLOs prioritise?",
+      mapping: "Should I flag any unresolved CO links?",
+      gradskills: "Which graduate skills gap should we address first?",
+      content: "Where should the teaching schedule be adjusted?",
+      teaching: "What should the TLS emphasise?",
       assessment: "What should the assessment evidence show?",
-      integrity: "What tone should the AI guidance take?"
+      integrity: "What tone should the AI guidance take?",
+      references: "Should references prioritise simulation or journal depth?"
     };
 
     function laneQuestionText(lane, key) {
@@ -3411,7 +3621,7 @@
     }
 
     function sectionIdForThread(threadKey) {
-      return threadKey === "welcome" ? "overview" : threadKey;
+      return threadKey === "welcome" ? "synopsis" : threadKey;
     }
 
     function nowLabel() {
@@ -3710,16 +3920,22 @@
         const state = threadState[key] || {};
         const label = railLabels[key] || button.textContent;
         
-        let meta = "Not yet started";
+        let meta = "AI proposed";
         if (state.updatedAt) {
-          meta = "✓ Updated";
+          meta = "✓ Approved";
         } else {
-          if (key === "welcome") meta = "Active";
-          else if (key === "outcomes") meta = "Outcomes to review";
-          else if (key === "content") meta = "Content hours to check";
-          else if (key === "teaching") meta = "Teaching methods to confirm";
-          else if (key === "assessment") meta = "Assessment to confirm";
-          else if (key === "integrity") meta = "AI guidance to confirm";
+          const metaMap = {
+            welcome: "Direction pending",
+            outcomes: "Draft ready",
+            mapping: "Auto-mapped",
+            gradskills: "Gap detected",
+            content: "AI proposed",
+            teaching: "AI proposed",
+            assessment: "Draft ready",
+            integrity: "AI proposed",
+            references: "AI proposed"
+          };
+          meta = metaMap[key] || "AI proposed";
         }
 
         button.innerHTML = "<span class=\"thread-link-title\">" + label + "</span><span class=\"thread-link-meta\">" + meta + "</span>";
@@ -3852,9 +4068,9 @@
         progressCard.className = "next-step-card";
         progressCard.innerHTML =
           "<div class=\"next-step-label\">Recommended Next Step</div>" +
-          "<div class=\"next-step-title\">Review draft learning outcomes</div>" +
-          "<div style=\"font-size:12px;color:#4a6580;line-height:1.45\">AI has prepared draft outcome considerations based on your approved direction and benchmark references.</div>" +
-          "<button class=\"next-step-btn\" type=\"button\" onclick=\"activateThread('outcomes', true)\">Continue to Learning Outcomes →</button>";
+          "<div class=\"next-step-title\">Review draft Module Learning Outcomes</div>" +
+          "<div style=\"font-size:12px;color:#4a6580;line-height:1.45\">AI has prepared draft MLOs based on your approved synopsis direction and benchmark references.</div>" +
+          "<button class=\"next-step-btn\" type=\"button\" onclick=\"activateThread('outcomes', true)\">Continue to Module Learning Outcomes →</button>";
         threadCanvas.appendChild(progressCard);
       } else {
         threadCanvas.appendChild(createNextHelpTurn(lane));
@@ -3918,7 +4134,7 @@
         updated.textContent = "✓ " + state.updatedNote;
         threadCanvas.appendChild(updated);
 
-        const nextKeyMap = { outcomes: "content", content: "teaching", teaching: "assessment", assessment: "integrity" };
+        const nextKeyMap = { outcomes: "mapping", mapping: "gradskills", gradskills: "content", content: "teaching", teaching: "assessment", assessment: "integrity", integrity: "references" };
         const nextKey = nextKeyMap[key];
         if (nextKey && threadData[nextKey]) {
           const nextLane = threadData[nextKey];
@@ -3957,7 +4173,7 @@
       });
 
       renderThread(key);
-      setActiveSection(key === "welcome" ? "overview" : key, shouldScroll);
+      setActiveSection(key === "welcome" ? "synopsis" : key, shouldScroll);
     }
 
     threadButtons.forEach((button) => {
