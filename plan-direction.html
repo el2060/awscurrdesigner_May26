@@ -937,9 +937,9 @@
 
     .thread-canvas {
       overflow-y: auto;
-      padding: 16px 18px 16px;
+      padding: 14px 14px 14px;
       display: grid;
-      gap: 14px;
+      gap: 10px;
       align-content: start;
     }
 
@@ -2708,6 +2708,65 @@
       border-radius: 4px;
     }
 
+    /* ── Redesigned thread canvas blocks ── */
+    .mdd-panel-section { margin-bottom: 0; }
+    .mdd-panel-label {
+      font-size: 9.5px; font-weight: 700; color: #9ca3af;
+      text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 0;
+    }
+    .mdd-focus-block {
+      background: #f0f6fc; border: 1px solid #d6e6f5; border-radius: 8px;
+      padding: 10px 12px; font-size: 12.5px; color: #1d3a5a; line-height: 1.55;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .mdd-focus-icon { color: var(--brand); font-size: 11px; flex-shrink: 0; margin-top: 1px; }
+    .mdd-ctx-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+    .mdd-ctx-chip {
+      font-size: 10px; font-weight: 600; color: #3a6a9e;
+      background: #ddeaf8; border-radius: 4px; padding: 2px 7px;
+    }
+    .mdd-observe-list { display: grid; gap: 8px; margin-top: 8px; }
+    .mdd-observe-item {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 6px; font-size: 11.5px; color: #374151;
+    }
+    .mdd-observe-label {
+      display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; flex: 1;
+    }
+    .mdd-observe-label::before {
+      content: "✦"; color: var(--brand); font-size: 10px; margin-top: 2px; flex-shrink: 0;
+    }
+    .mdd-observe-item.warn .mdd-observe-label::before { content: "⚠"; color: #b45309; }
+    .mdd-apply-btn {
+      font-size: 10px; font-weight: 600; color: var(--brand);
+      background: #f0f6fc; border: 1px solid #d8e6f4; border-radius: 4px;
+      padding: 3px 8px; cursor: pointer; flex-shrink: 0; white-space: nowrap;
+      font-family: var(--font-sans);
+    }
+    .mdd-apply-btn:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+    .mdd-action-list { display: grid; gap: 5px; margin-top: 8px; }
+    .mdd-action-btn {
+      text-align: left; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 7px;
+      padding: 8px 11px; font-size: 12px; font-weight: 500; color: #374151; cursor: pointer;
+      display: flex; align-items: center; gap: 8px; width: 100%; font-family: var(--font-sans);
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .mdd-action-btn:hover { border-color: var(--brand); color: var(--brand); background: #f0f6fc; }
+    .mdd-action-btn .mdd-action-icon {
+      width: 18px; height: 18px; border-radius: 4px; background: #e5e7eb;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; flex-shrink: 0; color: #6b7280;
+    }
+    .mdd-action-btn:hover .mdd-action-icon { background: #ddeaf8; color: var(--brand); }
+    .mdd-canvas-section {
+      display: grid; gap: 0; border: 1px solid #edf2f8; border-radius: 8px;
+      background: #fff; overflow: hidden;
+    }
+    .mdd-canvas-section-head {
+      padding: 9px 12px; border-bottom: 1px solid #edf2f8; background: #fafbfd;
+    }
+    .mdd-canvas-section-body { padding: 10px 12px; }
+
   </style>
 </head>
 <body>
@@ -3008,10 +3067,12 @@
                 <div class="section-label np-sec-label">Section 1</div>
                 <h3 class="section-title">1. SYNOPSIS</h3>
                 <div class="mdd-text-area" contenteditable="true">
-                  <p class="np-body-italic">████████████████████████████████████████████████████████████████████████</p>
-                  <div class="np-skel-block" style="margin-top:8px">
+                  <p class="np-body-italic"></p>
+                  <div class="np-skel-block">
                     <div class="np-skel-line np-skel-w-full"></div>
-                    <div class="np-skel-line np-skel-w-85"></div>
+                    <div class="np-skel-line np-skel-w-90"></div>
+                    <div class="np-skel-line np-skel-w-80"></div>
+                    <div class="np-skel-line np-skel-w-85" style="margin-top:4px;"></div>
                   </div>
                 </div>
                 <div class="mdd-hybrid-footer">
@@ -3067,15 +3128,15 @@
                   <tbody>
                     <tr>
                       <td contenteditable="true" class="mdd-mo-tag">MO1</td>
-                      <td contenteditable="true">████████████████████████████████████████████████████</td>
+                      <td contenteditable="true"><div class="np-skel-line np-skel-w-full" style="height:10px;"></div></td>
                     </tr>
                     <tr>
                       <td contenteditable="true" class="mdd-mo-tag">MO2</td>
-                      <td contenteditable="true">████████████████████████████████████████████████</td>
+                      <td contenteditable="true"><div class="np-skel-line np-skel-w-90" style="height:10px;"></div></td>
                     </tr>
                     <tr>
                       <td contenteditable="true" class="mdd-mo-tag">MO3</td>
-                      <td contenteditable="true">████████████████████████████████████████████</td>
+                      <td contenteditable="true"><div class="np-skel-line np-skel-w-80" style="height:10px;"></div></td>
                     </tr>
                     <tr class="np-skel-tr">
                       <td contenteditable="true" class="mdd-mo-tag">MO4</td>
@@ -3102,9 +3163,9 @@
                 <h3 class="section-title">4a. COURSE OUTCOMES</h3>
                 <table class="mdd-doc-table">
                   <tbody>
-                    <tr><td contenteditable="true" class="mdd-mo-tag">CO1</td><td contenteditable="true">████████████████████████████████████████</td></tr>
-                    <tr><td contenteditable="true" class="mdd-mo-tag">CO2</td><td contenteditable="true">████████████████████████████████████████████████</td></tr>
-                    <tr><td contenteditable="true" class="mdd-mo-tag">CO3</td><td contenteditable="true">████████████████████████████████████████████</td></tr>
+                    <tr><td contenteditable="true" class="mdd-mo-tag">CO1</td><td contenteditable="true"><div class="np-skel-line np-skel-w-full" style="height:10px;"></div></td></tr>
+                    <tr><td contenteditable="true" class="mdd-mo-tag">CO2</td><td contenteditable="true"><div class="np-skel-line np-skel-w-90" style="height:10px;"></div></td></tr>
+                    <tr><td contenteditable="true" class="mdd-mo-tag">CO3</td><td contenteditable="true"><div class="np-skel-line np-skel-w-80" style="height:10px;"></div></td></tr>
                     <tr class="np-skel-tr"><td contenteditable="true" class="mdd-mo-tag">CO4</td><td contenteditable="true"><div class="np-skel-line np-skel-w-70"></div></td></tr>
                     <tr class="np-skel-tr"><td contenteditable="true" class="mdd-mo-tag">CO5</td><td contenteditable="true"><div class="np-skel-line np-skel-w-55"></div></td></tr>
                   </tbody>
@@ -3222,17 +3283,17 @@
                   <tbody>
                     <tr>
                       <td contenteditable="true" class="mdd-week-num">1–3</td>
-                      <td contenteditable="true">████████████████████████████████████████</td>
+                      <td contenteditable="true"><div class="np-skel-line np-skel-w-full" style="height:10px;"></div></td>
                       <td contenteditable="true" class="mdd-hrs-num">6</td>
                     </tr>
                     <tr>
                       <td contenteditable="true" class="mdd-week-num">4–6</td>
-                      <td contenteditable="true">████████████████████████████████████████████████</td>
+                      <td contenteditable="true"><div class="np-skel-line np-skel-w-90" style="height:10px;"></div></td>
                       <td contenteditable="true" class="mdd-hrs-num">6</td>
                     </tr>
                     <tr>
                       <td contenteditable="true" class="mdd-week-num">7–9</td>
-                      <td contenteditable="true">████████████████████████████████████████████</td>
+                      <td contenteditable="true"><div class="np-skel-line np-skel-w-80" style="height:10px;"></div></td>
                       <td contenteditable="true" class="mdd-hrs-num">6</td>
                     </tr>
                     <tr class="np-skel-tr">
@@ -3355,7 +3416,7 @@
                     <tr>
                       <td contenteditable="true">CA1</td>
                       <td contenteditable="true"><span class="mdd-strategy-code">SIM</span></td>
-                      <td contenteditable="true">████████████████████████████████</td>
+                      <td contenteditable="true"><div class="np-skel-line np-skel-w-full" style="height:10px;"></div></td>
                       <td contenteditable="true" class="mdd-pct-col">60%</td>
                       <td contenteditable="true" class="mdd-dot-cell"><span class="mdd-y">Y</span></td>
                       <td contenteditable="true" class="mdd-dot-cell"><span class="mdd-y">Y</span></td>
@@ -3366,7 +3427,7 @@
                     <tr>
                       <td contenteditable="true">CA2</td>
                       <td contenteditable="true"><span class="mdd-strategy-code">WR</span></td>
-                      <td contenteditable="true">████████████████████████████</td>
+                      <td contenteditable="true"><div class="np-skel-line np-skel-w-80" style="height:10px;"></div></td>
                       <td contenteditable="true" class="mdd-pct-col">30%</td>
                       <td contenteditable="true" class="mdd-dot-cell"><span class="mdd-n">–</span></td>
                       <td contenteditable="true" class="mdd-dot-cell"><span class="mdd-n">–</span></td>
@@ -4219,8 +4280,8 @@
           "MO1  Identify and escalate early warning signs using structured clinical reasoning.",
           "MO2  Apply critical care communication protocols under high-acuity time pressure.",
           "MO3  Demonstrate safe handover practice with traceable escalation rationale.",
-          "MO4  ████████████████████████████████████████",
-          "MO5  ████████████████████████████"
+          "MO4  — Pending: select an action above to draft this outcome.",
+          "MO5  — Pending: select an action above to draft this outcome."
         ]
       },
       mapping: {
@@ -4972,11 +5033,11 @@
     }
 
     function renderThread(key) {
-      const data = sectionData[key] || sectionData['synopsis']; // fallback
-      
+      const data = sectionData[key] || sectionData['synopsis'];
+
       threadTitle.textContent = data.title || "Module Section";
       threadSubtitle.textContent = "AI Support for this section";
-      activeSectionPill.textContent = data.num + " " + data.title;
+      activeSectionPill.textContent = (data.num || "") + " " + data.title;
       activeThreadKey = key;
 
       const syncEl = document.getElementById("syncLabel");
@@ -4989,39 +5050,95 @@
 
       threadCanvas.innerHTML = "";
 
-      // Current drafting focus
+      // 1. Current drafting focus — AI callout block
       if (data.focus) {
-        const focusSect = document.createElement("div");
-        focusSect.className = "mdd-panel-section";
-        focusSect.innerHTML = `<div class="mdd-panel-label">Current drafting focus</div><div class="mdd-panel-body">${data.focus}</div>`;
-        threadCanvas.appendChild(focusSect);
+        const focusBlock = document.createElement("div");
+        focusBlock.className = "mdd-focus-block";
+        focusBlock.innerHTML = `<span class="mdd-focus-icon">✦</span><span>${data.focus}</span>`;
+        threadCanvas.appendChild(focusBlock);
       }
 
-      // Connected context
+      // 2. Connected context — compact chips inside a card
       if (data.context && data.context.length > 0) {
-        const ctxSect = document.createElement("div");
-        ctxSect.className = "mdd-panel-section";
-        let ctxList = data.context.map(c => `<li>${c}</li>`).join("");
-        ctxSect.innerHTML = `<div class="mdd-panel-label">Connected context</div><ul class="mdd-panel-list">${ctxList}</ul>`;
-        threadCanvas.appendChild(ctxSect);
+        const card = document.createElement("div");
+        card.className = "mdd-canvas-section";
+        const head = document.createElement("div");
+        head.className = "mdd-canvas-section-head";
+        head.innerHTML = `<div class="mdd-panel-label">Connected context</div>`;
+        const body = document.createElement("div");
+        body.className = "mdd-canvas-section-body";
+        const chips = document.createElement("div");
+        chips.className = "mdd-ctx-chips";
+        chips.style.marginTop = "0";
+        data.context.forEach(c => {
+          const chip = document.createElement("span");
+          chip.className = "mdd-ctx-chip";
+          chip.textContent = c;
+          chips.appendChild(chip);
+        });
+        body.appendChild(chips);
+        card.appendChild(head);
+        card.appendChild(body);
+        threadCanvas.appendChild(card);
       }
 
-      // AI drafting support
+      // 3. AI Observations — styled items with Apply buttons inside a card
       if (data.support && data.support.length > 0) {
-        const supSect = document.createElement("div");
-        supSect.className = "mdd-panel-section";
-        let supList = data.support.map(s => `<li>${s}</li>`).join("");
-        supSect.innerHTML = `<div class="mdd-panel-label">AI drafting support</div><div class="mdd-panel-body" style="margin-bottom:6px">Suggested improvements:</div><ul class="mdd-support-list">${supList}</ul>`;
-        threadCanvas.appendChild(supSect);
+        const card = document.createElement("div");
+        card.className = "mdd-canvas-section";
+        const head = document.createElement("div");
+        head.className = "mdd-canvas-section-head";
+        head.innerHTML = `<div class="mdd-panel-label">AI Observations</div>`;
+        const body = document.createElement("div");
+        body.className = "mdd-canvas-section-body";
+        const list = document.createElement("div");
+        list.className = "mdd-observe-list";
+        list.style.marginTop = "0";
+        data.support.forEach(s => {
+          const item = document.createElement("div");
+          item.className = "mdd-observe-item";
+          const lbl = document.createElement("div");
+          lbl.className = "mdd-observe-label";
+          lbl.textContent = s;
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "mdd-apply-btn";
+          btn.textContent = "Apply";
+          btn.addEventListener("click", function() { triggerDraftUpdate(key, "Applying: " + s); });
+          item.appendChild(lbl);
+          item.appendChild(btn);
+          list.appendChild(item);
+        });
+        body.appendChild(list);
+        card.appendChild(head);
+        card.appendChild(body);
+        threadCanvas.appendChild(card);
       }
 
-      // Quick actions
+      // 4. Quick Actions — styled action buttons inside a card
       if (data.actions && data.actions.length > 0) {
-        const actSect = document.createElement("div");
-        actSect.className = "mdd-panel-section";
-        let actBtns = data.actions.map(a => `<button class="mdd-panel-action-btn" type="button" onclick="triggerDraftUpdate('${key}', 'Applying action: ${a}...')">${a}</button>`).join("");
-        actSect.innerHTML = `<div class="mdd-panel-label">Quick actions</div><div class="mdd-panel-actions">${actBtns}</div>`;
-        threadCanvas.appendChild(actSect);
+        const card = document.createElement("div");
+        card.className = "mdd-canvas-section";
+        const head = document.createElement("div");
+        head.className = "mdd-canvas-section-head";
+        head.innerHTML = `<div class="mdd-panel-label">Quick Actions</div>`;
+        const body = document.createElement("div");
+        body.className = "mdd-canvas-section-body";
+        const list = document.createElement("div");
+        list.className = "mdd-action-list";
+        list.style.marginTop = "0";
+        data.actions.forEach(a => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "mdd-action-btn";
+          btn.innerHTML = `<span class="mdd-action-icon">↗</span>${a}`;
+          btn.addEventListener("click", function() { triggerDraftUpdate(key, "Applying action: " + a); });
+          list.appendChild(btn);
+        });
+        body.appendChild(list);
+        card.appendChild(head);
+        card.appendChild(body);
+        threadCanvas.appendChild(card);
       }
     }
 
