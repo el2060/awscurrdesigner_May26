@@ -94,6 +94,15 @@
     }
 
 
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand, #004689);
+      margin-bottom: 12px;
+    }
+
     .page-title {
       font-size: 32px; font-weight: 700; color: var(--text);
       letter-spacing: -0.022em; line-height: 1.18;
@@ -618,9 +627,15 @@
     Gather references and review the AI context summary before entering
     the co-design workspace.
   -->
-  <div class="page-title">Gather Module Context</div>
-  <div class="page-sub">Upload references, insights, and existing materials to support curriculum review and module design.</div>
-
+  <section>
+    <div class="page-eyebrow">Discovery Phase</div>
+    <h1 class="page-title">Gather Module Context</h1>
+    <p class="page-sub" style="margin-bottom: 20px;">Upload industry references, past materials, and notes to guide your module design. AI will synthesize these insights into a starting point for your curriculum.</p>
+    <div class="draft-notice" style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid var(--brand, #004689); padding: 14px 18px; margin-bottom: 36px; font-size: 13px; color: #475569; border-radius: 6px; max-width: 720px; line-height: 1.5; display: flex; align-items: flex-start; gap: 10px;">
+      <span style="font-size: 16px; line-height: 1.2; color: var(--brand, #004689);">✦</span>
+      <div><strong>AI Context Analysis:</strong> Review the synthesized findings below. When you're ready, proceed to design your module.</div>
+    </div>
+  </section>
   <div class="layout">
 
     <!-- Upload zones -->

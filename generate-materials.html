@@ -100,9 +100,9 @@
 
     /* ── Page layout ── */
     .page { width: 100%; max-width: var(--max); margin: 0 auto; padding: 44px 40px; display: grid; gap: 16px; }
-    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand); margin-bottom: 10px; }
-    .title { font-size: 30px; font-weight: 700; letter-spacing: -0.022em; line-height: 1.18; margin-bottom: 10px; }
-    .sub { font-size: 15px; line-height: 1.6; color: var(--ink-mid); max-width: 680px; }
+    .page-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand); margin-bottom: 12px; }
+    .page-title { font-size: 32px; font-weight: 700; letter-spacing: -0.022em; line-height: 1.18; margin-bottom: 12px; }
+    .page-sub { font-size: 16px; line-height: 1.6; color: var(--ink-mid); max-width: 720px; }
 
     /* ── Shared section card ── */
     .section-card { border: 1px solid var(--line); background: #fff; border-radius: var(--radius); overflow: hidden; }
@@ -448,10 +448,14 @@
 
   <main class="page">
 
-    <!-- Page header -->
     <section>
-      <h1 class="title">Select Teaching Materials</h1>
-      <p class="sub">Select materials to generate from your curriculum draft.</p>
+      <div class="page-eyebrow">Material Generation</div>
+      <h1 class="page-title">Generate Teaching Materials</h1>
+      <p class="page-sub" style="margin-bottom: 20px;">Create your weekly slides, case studies, and rubrics. Let AI do the heavy lifting of drafting content based on your teaching plan.</p>
+      <div class="draft-notice" style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid var(--brand, #004689); padding: 14px 18px; margin-bottom: 36px; font-size: 13px; color: #475569; border-radius: 6px; max-width: 720px; line-height: 1.5; display: flex; align-items: flex-start; gap: 10px;">
+        <span style="font-size: 16px; line-height: 1.2; color: var(--brand, #004689);">✦</span>
+        <div><strong>AI Generated Content:</strong> Review and tweak your generated materials. Once approved, you can publish them directly to Brightspace.</div>
+      </div>
     </section>
 
     <!-- ─── Step 1: Connected curriculum context ─── -->
