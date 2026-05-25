@@ -50,10 +50,10 @@
     /* ── Topbar ── */
     .topbar {
       height: 56px; border-bottom: 1px solid var(--line); background: #fff;
-      display: flex; align-items: center; padding: 0 40px;
+      display: flex; align-items: center; 
       position: sticky; top: 0; z-index: 50;
     }
-    .topbar-inner { width: 100%; max-width: var(--max); margin: 0 auto; display: flex; align-items: center; }
+    .topbar-inner { width: 100%; max-width: var(--max); margin: 0 auto; display: flex; align-items: center;  padding: 0 40px;}
     .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
     .t-div { width: 1px; height: 18px; background: var(--line); margin: 0 8px; }
     .brand-name { font-size: 13px; font-weight: 600; color: #111827; letter-spacing: -0.01em; }
@@ -99,7 +99,7 @@
     .ss-sep { width: 16px; height: 1px; background: #d8dde5; flex-shrink: 0; }
 
     /* ── Page layout ── */
-    .page { max-width: var(--max); margin: 0 auto; padding: 44px 40px; display: grid; gap: 16px; }
+    .page { width: 100%; max-width: var(--max); margin: 0 auto; padding: 44px 40px; display: grid; gap: 16px; }
     .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand); margin-bottom: 10px; }
     .title { font-size: 30px; font-weight: 700; letter-spacing: -0.022em; line-height: 1.18; margin-bottom: 10px; }
     .sub { font-size: 15px; line-height: 1.6; color: var(--ink-mid); max-width: 680px; }
@@ -420,12 +420,14 @@
       .pref-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 1280px) {
-      .topbar { padding: 0 28px; }
-      .page { padding: 40px 28px; }
+      
+      .page { width: 100%; padding: 40px 28px; 
+      .topbar-inner { padding: 0 28px !important; }}
     }
     @media (max-width: 900px) {
-      .topbar { padding: 0 18px; }
-      .page { padding: 32px 18px; }
+      
+      .page { width: 100%; padding: 32px 18px; 
+      .topbar-inner { padding: 0 18px !important; }}
       .mat-grid { grid-template-columns: 1fr; }
       .brand-tag { display: none; }
     }

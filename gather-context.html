@@ -48,13 +48,13 @@
       border-bottom: 1px solid var(--border);
       background: #fff;
       display: flex; align-items: center; justify-content: center;
-      padding: 0 var(--pad);
+      
       position: sticky; top: 0; z-index: 100;
     }
     .topbar-inner {
       width: 100%; max-width: var(--max);
       margin: 0 auto; display: flex; align-items: center;
-    }
+     padding: 0 40px;}
     .topbar-brand {
       display: flex; align-items: center; gap: 10px;
       text-decoration: none; color: var(--text);
@@ -87,10 +87,10 @@
     .topbar-link:hover { color: var(--text); }
 
     /* ── Page ── */
-    .page {
+    .page { width: 100%;
       max-width: var(--max);
       margin: 0 auto;
-      padding: 44px var(--pad) 56px;
+      padding: 44px 40px 56px;
     }
 
 
@@ -570,7 +570,9 @@
 
     /* ── Responsive ── */
     @media (max-width: 1280px) {
-      :root { --pad: 28px; }
+      :root { --pad: 28px; 
+      .topbar-inner { padding: 0 28px !important; }
+      .page { padding: 40px 28px !important; }}
       .page-title { font-size: 30px; }
     }
     @media (max-width: 1080px) {
@@ -578,8 +580,10 @@
       .layout-side { width: 100%; position: static; }
     }
     @media (max-width: 900px) {
-      :root { --pad: 18px; }
-      .page { padding-top: 32px; }
+      :root { --pad: 18px; 
+      .topbar-inner { padding: 0 18px !important; }
+      .page { padding: 32px 18px !important; }}
+      .page { width: 100%; padding-top: 32px; }
       .page-title { font-size: 26px; }
       .page-sub { font-size: 15px; margin-bottom: 24px; }
       .brand-tag { display: none; }

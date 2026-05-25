@@ -166,7 +166,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 40px;
+      
       position: sticky;
       top: 0;
       z-index: 20;
@@ -179,7 +179,7 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
-    }
+     padding: 0 40px;}
 
     .topbar-brand {
       display: flex;
@@ -244,7 +244,7 @@
       color: var(--ink);
     }
 
-    .page {
+    .page { width: 100%;
       max-width: var(--max);
       margin: 0 auto;
       padding: 44px 40px;
@@ -2447,13 +2447,12 @@
     .mdd-ref-lines { flex: 1; display: grid; gap: 3px; }
 
     @media (max-width: 1280px) {
-      .topbar {
-        padding: 0 28px;
-      }
+      
 
-      .page {
+      .page { width: 100%;
         padding: 40px 28px;
-      }
+      
+      .topbar-inner { padding: 0 28px !important; }}
 
       .workspace {
         grid-template-columns: 1fr;
@@ -2470,19 +2469,19 @@
     }
 
     @media (max-width: 900px) {
-      .topbar {
-        padding: 0 18px;
-      }
+      
 
       .topbar-pill {
         display: none;
-      }
+      
+      .topbar-inner { padding: 0 18px !important; }
+      .page { padding: 32px 18px !important; }}
 
       .brand-tag {
         display: none;
       }
 
-      .page {
+      .page { width: 100%;
         padding: 32px 18px;
       }
 
@@ -5776,9 +5775,9 @@
       width: 100% !important;
       max-width: var(--max) !important;
       margin: 0 auto !important;
-    }
+     padding: 0 40px;}
 
-    .page {
+    .page { width: 100%;
       max-width: var(--max) !important;
       margin: 0 auto !important;
       padding: 44px 40px !important;
@@ -5814,9 +5813,10 @@
     }
 
     @media (max-width: 1280px) {
-      .page {
+      .page { width: 100%;
         padding: 40px 28px !important;
-      }
+      
+      .topbar-inner { padding: 0 28px !important; }}
 
       .workspace {
         grid-template-columns: 1fr !important;
@@ -5833,9 +5833,10 @@
     }
 
     @media (max-width: 900px) {
-      .page {
+      .page { width: 100%;
         padding: 32px 18px !important;
-      }
+      
+      .topbar-inner { padding: 0 18px !important; }}
 
       .thread-shell {
         grid-template-columns: 1fr !important;
