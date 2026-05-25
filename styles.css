@@ -1965,3 +1965,55 @@ tr:hover .row-actions { opacity: 1; }
   .panel-title { font-size: 17px; }
 }
 
+
+/* --- Editable Section Footer (mdd-hybrid-footer) --- */
+.mdd-hybrid-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--color-border);
+}
+
+.mdd-hf-status {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+  font-style: italic;
+}
+
+.mdd-hf-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.mdd-hf-btn {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text-secondary);
+}
+
+.mdd-hf-btn:hover {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  border-color: #888;
+}
+
+.mdd-hf-btn-edit {
+  color: var(--color-accent);
+  background: var(--color-accent-light);
+  border-color: var(--color-accent-mid);
+}
+
+.mdd-hf-btn-edit:hover {
+  background: var(--color-accent-mid);
+  color: var(--color-accent-hover);
+  border-color: var(--color-accent);
+}
