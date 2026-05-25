@@ -1967,6 +1967,98 @@
       margin-right: 4px;
     }
 
+    /* ── Context Applied block ── */
+    .ctx-applied {
+      border: 1px solid #c4deca;
+      border-radius: 10px;
+      background: #f3fbf5;
+      padding: 9px 12px;
+      display: grid;
+      gap: 7px;
+    }
+    .ctx-applied-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #2b7a52;
+    }
+    .ctx-applied-list {
+      list-style: none; display: grid; gap: 3px;
+    }
+    .ctx-applied-list li {
+      font-size: 12px; color: #264a38; font-weight: 600;
+      display: flex; align-items: flex-start; gap: 6px; line-height: 1.35;
+    }
+    .ctx-applied-list li::before {
+      content: "✓"; color: #2f7a52; font-weight: 700; flex-shrink: 0;
+    }
+    .ctx-applied-link {
+      font-size: 11px; color: #3a6a52; font-weight: 600;
+      background: #fff; border: 1px solid #aacfba;
+      border-radius: 999px; padding: 3px 10px;
+      cursor: pointer; font-family: var(--font-sans); width: fit-content;
+      transition: all 120ms;
+    }
+    .ctx-applied-link:hover { border-color: #2f7a52; color: #2b5e3f; background: #edf7f2; }
+
+    /* ── AI Insights block ── */
+    .ai-insights {
+      border: 1px solid #e0d9f3;
+      border-radius: 10px;
+      background: #faf8ff;
+      padding: 9px 12px;
+      display: grid;
+      gap: 6px;
+    }
+    .ai-insights-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #5a4a90;
+    }
+    .ai-insights-list {
+      list-style: none; display: grid; gap: 4px;
+    }
+    .ai-insights-list li {
+      font-size: 12px; color: #2c2560; line-height: 1.4; font-weight: 500;
+      display: flex; align-items: flex-start; gap: 6px;
+    }
+    .ai-insights-list li::before {
+      content: "•"; color: #7a5ccc; flex-shrink: 0; font-size: 14px; line-height: 1.1;
+    }
+
+    /* ── Next Step card ── */
+    .next-step-card {
+      border: 1px solid #c4d8ed;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #eef6ff 0%, #fafcff 100%);
+      padding: 10px 12px;
+      display: grid;
+      gap: 8px;
+    }
+    .next-step-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--brand);
+    }
+    .next-step-title {
+      font-size: 13px; font-weight: 700; color: #1d3a5a; line-height: 1.35;
+    }
+    .next-step-basis {
+      list-style: none; display: grid; gap: 3px;
+    }
+    .next-step-basis li {
+      font-size: 11px; color: #4a6580; font-weight: 600;
+      display: flex; align-items: flex-start; gap: 5px; line-height: 1.35;
+    }
+    .next-step-basis li::before {
+      content: "→"; color: var(--brand); font-size: 10px; flex-shrink: 0; margin-top: 1px;
+    }
+    .next-step-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--brand); color: #fff;
+      border: 1px solid var(--brand); border-radius: 7px;
+      padding: 7px 13px; font-size: 12px; font-weight: 700;
+      cursor: pointer; font-family: var(--font-sans); width: fit-content;
+      transition: background 120ms;
+    }
+    .next-step-btn:hover { background: #003366; border-color: #003366; }
+
     @media (max-width: 1280px) {
       .topbar {
         padding: 0 28px;
@@ -2107,13 +2199,13 @@
       <aside class="workspace-side" aria-label="Conversation workspace">
         <div class="thread-shell">
           <nav class="thread-rail" aria-label="Design conversations">
-            <div class="thread-rail-kicker">Curriculum Areas</div>
-            <button class="thread-link active" data-thread="welcome" type="button">Module Focus</button>
+            <div class="thread-rail-kicker">Design Stages</div>
+            <button class="thread-link active" data-thread="welcome" type="button">Module Direction</button>
             <button class="thread-link" data-thread="outcomes" type="button">Learning Outcomes</button>
-            <button class="thread-link" data-thread="content" type="button">Topics &amp; Content</button>
-            <button class="thread-link" data-thread="teaching" type="button">Teaching Approach</button>
-            <button class="thread-link" data-thread="assessment" type="button">Assessment</button>
-            <button class="thread-link" data-thread="integrity" type="button">AI Guidance</button>
+            <button class="thread-link" data-thread="content" type="button">Topics &amp; Sequence</button>
+            <button class="thread-link" data-thread="teaching" type="button">Learning Activities</button>
+            <button class="thread-link" data-thread="assessment" type="button">Assessment Strategy</button>
+            <button class="thread-link" data-thread="integrity" type="button">AI Use &amp; Guidance</button>
             <div class="thread-rail-divider"></div>
             <div class="design-intent">
               <div class="design-intent-label">Design Priorities</div>
@@ -2130,7 +2222,7 @@
               <div class="thread-head-top">
                 <h2 class="thread-title" id="threadTitle">Module Design Workspace</h2>
               </div>
-              <p class="thread-sub" id="threadSubtitle">Build and refine your module draft with AI.</p>
+              <p class="thread-sub" id="threadSubtitle">AI has reviewed your context and is ready to support module design. Review, refine, and approve each step.</p>
               <div class="thread-pulse" id="threadPulse"></div>
             </header>
 
@@ -2140,7 +2232,7 @@
               <div class="thread-thinking" id="threadThinking">Updating draft...</div>
               <form class="composer" id="threadComposer">
                 <div class="composer-row">
-                  <input class="composer-input" id="threadInput" type="text" placeholder="Ask AI to refine this section...">
+                  <input class="composer-input" id="threadInput" type="text" placeholder="Refine or guide the next design step…">
                   <button class="composer-send" type="submit">Send</button>
                 </div>
               </form>
@@ -2233,7 +2325,7 @@
               <section class="module-section active" id="overview">
                 <div class="section-label np-sec-label">Module Overview</div>
                 <h3 class="section-title">Module Information</h3>
-                <p class="np-overview-note">AI-generated draft — review and refine before finalising.</p>
+                <p class="np-overview-note">AI-assisted draft — review, refine, and approve before finalising.</p>
                 <div class="np-skel-rows">
                   <div class="np-skel-row"><div class="np-skel-lbl"></div><div class="np-skel-val"></div></div>
                   <div class="np-skel-row"><div class="np-skel-lbl"></div><div class="np-skel-val np-skel-short"></div></div>
@@ -2531,29 +2623,32 @@
   <script>
     const threadData = {
       welcome: {
-        title: "Module Focus",
-        subtitle: "Set the overall focus and approach for this module.",
+        title: "Module Direction",
+        subtitle: "Set the overall direction for this module. AI will scaffold each subsequent step from here.",
         stage: "Getting started",
         sectionLabel: "Module Overview",
         prompts: ["Strengthen escalation judgement", "Increase applied simulation practice"],
         reviewed: [
-          "Existing module materials",
-          "Industry inputs",
-          "Student feedback"
+          "Industry inputs reviewed",
+          "Existing module materials analysed",
+          "Student feedback mapped",
+          "Skills Framework aligned"
         ],
         reviewing: [
-          "Existing module materials",
-          "Industry inputs",
-          "Student feedback"
+          "Industry inputs reviewed",
+          "Existing module materials analysed",
+          "Student feedback mapped",
+          "Skills Framework aligned"
         ],
         synthesisLead: "Based on the inputs reviewed, here are some areas we could strengthen.",
         patterns: [
-          "Applied clinical judgement",
-          "Reduced content overload",
-          "Simulation-based practice"
+          "Escalation reasoning underweighted in current outcomes",
+          "Assessment-heavy Week 9 cluster detected",
+          "Student feedback highlights simulation depth gap",
+          "Benchmark institutions use simulation-led evidence"
         ],
-        workingStatus: "Synthesising focus areas...",
-        draftStatus: "Updating module focus...",
+        workingStatus: "Preparing suggested directions...",
+        draftStatus: "Updating module direction...",
         question: "For this draft, what matters most?",
         questionOptions: [
           "stronger clinical escalation judgement",
@@ -2561,10 +2656,9 @@
           "smoother ICU transition readiness"
         ],
         nextHelp: [
-          "module aims",
-          "learning outcomes",
-          "content hours",
-          "assessment mix"
+          "Approved module direction",
+          "Benchmark references",
+          "Existing module analysis"
         ],
         actions: [
           "Strengthen escalation judgement",
@@ -2572,9 +2666,9 @@
           "Reduce overlapping theory content",
           "Prepare students for ICU transitions"
         ],
-        greeting: "Possible focus areas",
-        intro: "Which direction would you like to prioritise first?",
-        inputHint: "Describe the module focus you want AI to draft..."
+        greeting: "Suggested module directions",
+        intro: "Select a direction to begin. AI will use your choice to scaffold learning outcomes next.",
+        inputHint: "Refine or guide the next design step…"
       },
       synopsis: {
         title: "Synopsis & Aims",
@@ -2802,12 +2896,12 @@
     let welcomeFlowTimers = [];
 
     const railLabels = {
-      welcome: "Module Focus",
+      welcome: "Module Direction",
       outcomes: "Learning Outcomes",
-      content: "Topics & Content",
-      teaching: "Teaching Approach",
-      assessment: "Assessment",
-      integrity: "AI Guidance"
+      content: "Topics & Sequence",
+      teaching: "Learning Activities",
+      assessment: "Assessment Strategy",
+      integrity: "AI Use & Guidance"
     };
 
     const threadOpeners = {
@@ -3393,45 +3487,63 @@
     function renderWelcomeThread(lane) {
       const state = threadState.welcome || {};
 
-      if (!state.synthesisReady) {
-        threadCanvas.appendChild(createReviewWorkingBlock(lane.reviewing));
-        queueWelcomeFlow(() => {
-          if (activeThreadKey !== "welcome") {
-            return;
-          }
-          threadState.welcome = {
-            ...(threadState.welcome || {}),
-            synthesisReady: true
-          };
-          renderThread("welcome");
-        }, 900);
-        return;
-      }
+      // Context Applied — always shown immediately; AI is already grounded
+      const ctxBlock = document.createElement("div");
+      ctxBlock.className = "ctx-applied";
+      const ctxItems = (lane.reviewed || []).map(item => "<li>" + item + "</li>").join("");
+      ctxBlock.innerHTML =
+        "<div class=\"ctx-applied-label\">Context Applied</div>" +
+        "<ul class=\"ctx-applied-list\">" + ctxItems + "</ul>" +
+        "<button class=\"ctx-applied-link\" type=\"button\" onclick=\"document.getElementById('contextModal').classList.add('show')\">View sources →</button>";
+      threadCanvas.appendChild(ctxBlock);
 
-      threadCanvas.appendChild(createTurn("AI", buildWelcomeSynthesis(lane)));
+      // AI Insights — always shown immediately
+      const insightsBlock = document.createElement("div");
+      insightsBlock.className = "ai-insights";
+      const insightItems = (lane.patterns || []).map(item => "<li>" + item + "</li>").join("");
+      insightsBlock.innerHTML =
+        "<div class=\"ai-insights-label\">AI Insights</div>" +
+        "<ul class=\"ai-insights-list\">" + insightItems + "</ul>";
+      threadCanvas.appendChild(insightsBlock);
 
+      // Brief delay before showing suggested directions (AI proposing, not reviewing)
       if (!state.choice && !state.directionsReady) {
-        threadCanvas.appendChild(createWorkingBlock(lane.workingStatus));
+        const loadCard = document.createElement("div");
+        loadCard.className = "next-step-card";
+        loadCard.innerHTML =
+          "<div class=\"next-step-label\">Recommended Next Step</div>" +
+          "<div class=\"next-step-title\">Propose module direction based on context</div>" +
+          "<div class=\"skel-synth-header\" style=\"margin-top:2px\"><span class=\"skel-role-chip\">AI</span><span class=\"skel-synth-status\">" + lane.workingStatus + "</span></div>" +
+          "<div class=\"skel-lines\" style=\"margin-top:6px\"><div class=\"skel-l skel-w-90\"></div><div class=\"skel-l skel-w-75\"></div></div>";
+        threadCanvas.appendChild(loadCard);
         queueWelcomeFlow(() => {
-          if (activeThreadKey !== "welcome") {
-            return;
-          }
-          threadState.welcome = {
-            ...(threadState.welcome || {}),
-            synthesisReady: true,
-            directionsReady: true
-          };
+          if (activeThreadKey !== "welcome") return;
+          threadState.welcome = { ...(threadState.welcome || {}), directionsReady: true };
           renderThread("welcome");
-        }, 900);
+        }, 800);
         return;
       }
 
       if (!state.choice) {
+        const nextCard = document.createElement("div");
+        nextCard.className = "next-step-card";
+        const basisItems = (lane.nextHelp || []).map(item => "<li>" + item + "</li>").join("");
+        nextCard.innerHTML =
+          "<div class=\"next-step-label\">Recommended Next Step</div>" +
+          "<div class=\"next-step-title\">Select a direction to begin</div>" +
+          "<ul class=\"next-step-basis\">" + basisItems + "</ul>";
+        threadCanvas.appendChild(nextCard);
         threadCanvas.appendChild(createWelcomeDirections(lane, state));
         return;
       }
 
-      threadCanvas.appendChild(createWelcomeDirections(lane, state));
+      // After direction chosen
+      const choiceCard = document.createElement("div");
+      choiceCard.className = "next-step-card";
+      choiceCard.innerHTML =
+        "<div class=\"next-step-label\">Direction Selected</div>" +
+        "<div class=\"next-step-title\">" + state.choice + "</div>";
+      threadCanvas.appendChild(choiceCard);
       threadCanvas.appendChild(createTurn("You", state.choice));
 
       if (state.drafting) {
@@ -3447,7 +3559,7 @@
         threadCanvas.appendChild(createTurn("You", state.questionChoice));
 
         if (state.questionDrafting) {
-          threadCanvas.appendChild(createWorkingBlock("Checking alignment across outcomes, teaching methods, assessment..."));
+          threadCanvas.appendChild(createWorkingBlock("Updating draft alignment..."));
           queueWelcomeFlow(() => finishWelcomeDraft("question"), 950);
           return;
         }
@@ -3455,8 +3567,18 @@
         threadCanvas.appendChild(createTurn("AI", state.questionReply));
         const updated = document.createElement("div");
         updated.className = "draft-update";
-        updated.textContent = "Draft rationale updated.";
+        updated.textContent = "Draft direction updated.";
         threadCanvas.appendChild(updated);
+
+        // Proactive: point to learning outcomes as next step
+        const progressCard = document.createElement("div");
+        progressCard.className = "next-step-card";
+        progressCard.innerHTML =
+          "<div class=\"next-step-label\">Recommended Next Step</div>" +
+          "<div class=\"next-step-title\">Review draft learning outcomes</div>" +
+          "<div style=\"font-size:12px;color:#4a6580;line-height:1.45\">AI has prepared draft outcome considerations based on your approved direction and benchmark references.</div>" +
+          "<button class=\"next-step-btn\" type=\"button\" onclick=\"activateThread('outcomes', true)\">Continue to Learning Outcomes →</button>";
+        threadCanvas.appendChild(progressCard);
       } else {
         threadCanvas.appendChild(createNextHelpTurn(lane));
       }
@@ -3495,28 +3617,28 @@
         return;
       }
 
-      const opener = threadOpeners[key] || "Let us refine this section.";
-      threadCanvas.appendChild(createTurn("AI", opener));
-
       const state = threadState[key] || {};
+
+      // Context Applied — show what AI reviewed for this section
+      if (lane.contextUsed && lane.contextUsed.length) {
+        const ctxBlock = document.createElement("div");
+        ctxBlock.className = "ctx-applied";
+        const ctxItems = lane.contextUsed.slice(0, 3).map(item => "<li>" + item + "</li>").join("");
+        ctxBlock.innerHTML =
+          "<div class=\"ctx-applied-label\">Context Applied</div>" +
+          "<ul class=\"ctx-applied-list\">" + ctxItems + "</ul>";
+        threadCanvas.appendChild(ctxBlock);
+      }
+
+      // Proactive next-step card
+      const nextCard = document.createElement("div");
+      nextCard.className = "next-step-card";
+      nextCard.innerHTML =
+        "<div class=\"next-step-label\">Suggested Design Step</div>" +
+        "<div class=\"next-step-title\">" + (lane.title || "Review this section") + " — select a direction to refine the draft</div>";
+      threadCanvas.appendChild(nextCard);
+
       threadCanvas.appendChild(createLaneQuestion(lane, state, key));
-
-      const supportActions = document.createElement("div");
-      supportActions.className = "support-actions";
-      supportActions.innerHTML = "<div class=\"support-actions-label\">Other ways to steer this draft</div>";
-
-      const prompts = document.createElement("div");
-      prompts.className = "lane-options";
-      lane.prompts.slice(0, 2).forEach((prompt) => {
-        const chip = document.createElement("button");
-        chip.type = "button";
-        chip.className = "lane-chip";
-        chip.textContent = prompt;
-        chip.addEventListener("click", () => chooseDirection(key, prompt));
-        prompts.appendChild(chip);
-      });
-      supportActions.appendChild(prompts);
-      threadCanvas.appendChild(supportActions);
 
       if (state.choice) {
         threadCanvas.appendChild(createTurn("You", state.choice));
@@ -3548,6 +3670,20 @@
         updated.className = "draft-update";
         updated.textContent = "✓ " + state.updatedNote;
         threadCanvas.appendChild(updated);
+
+        const nextKeyMap = { outcomes: "content", content: "teaching", teaching: "assessment", assessment: "integrity" };
+        const nextKey = nextKeyMap[key];
+        if (nextKey && threadData[nextKey]) {
+          const nextLane = threadData[nextKey];
+          const progressCard = document.createElement("div");
+          progressCard.className = "next-step-card";
+          progressCard.innerHTML =
+            "<div class=\"next-step-label\">Recommended Next Step</div>" +
+            "<div class=\"next-step-title\">" + nextLane.title + "</div>" +
+            "<div style=\"font-size:12px;color:#4a6580;line-height:1.45\">AI will build on your approved direction to prepare draft " + nextLane.title.toLowerCase() + " considerations.</div>" +
+            "<button class=\"next-step-btn\" type=\"button\" onclick=\"activateThread('" + nextKey + "', true)\">Continue to " + nextLane.title + " →</button>";
+          threadCanvas.appendChild(progressCard);
+        }
       }
     }
 
