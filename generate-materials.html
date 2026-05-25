@@ -9,16 +9,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --brand:        #004689;
-      --max: 1200px;
-      --brand-dark:   #003366;
-      --brand-soft:   #f0f6fc;
+      --brand:      #004689;
+      --max:        1440px;
+      --brand-dark: #003366;
+      --brand-soft: #f0f6fc;
       --brand-border: #b8d0e6;
       --text:   #111827;
-      --body:   #4b5563;
-      --muted:  #9ca3af;
       --border: #e5e7eb;
-      --bg:     #fafaf9;
     }
 
     body {
@@ -30,144 +27,179 @@
     }
 
     /* Topbar */
-    .topbar {
-      height: 56px; border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(255,255,255,0.94); position: sticky; top: 0; z-index: 20;
-      backdrop-filter: blur(8px);
-    }
+    .topbar { height: 56px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: rgba(255,255,255,0.94); position: sticky; top: 0; z-index: 20; backdrop-filter: blur(8px); }
     .topbar-inner { width: 100%; max-width: var(--max); margin: 0 auto; display: flex; align-items: center; padding: 0 40px; }
     .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
     .t-div { width: 1px; height: 18px; background: var(--border); }
     .brand-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
 
-    /* Page layout */
-    .page { width: 100%; max-width: var(--max); margin: 0 auto; padding: 44px 40px 60px; display: grid; gap: 18px; }
+    /* Page */
+    .page { width: 100%; max-width: var(--max); margin: 0 auto; padding: 40px 32px 60px; display: grid; gap: 16px; }
     .page-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand); margin-bottom: 12px; }
     .page-title { font-size: 28px; font-weight: 700; color: #111827; letter-spacing: -0.02em; line-height: 1.18; margin-bottom: 8px; }
     .page-sub { font-size: 15px; color: #4d5d70; line-height: 1.5; max-width: 720px; }
 
     /* Top Connector */
-    .setup-card { border: 1px solid #c8daec; border-radius: 12px; background: #fff; padding: 16px; display: grid; gap: 12px; margin-bottom: 24px; }
+    .setup-card { border: 1px solid #c8daec; border-radius: 12px; background: #fff; padding: 18px; display: grid; gap: 16px; }
     .setup-kicker { color: var(--brand); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
-    .setup-title { color: #111827; font-size: 16px; font-weight: 700; }
+    .setup-title { color: #111827; font-size: 17px; font-weight: 700; }
+    .setup-note { color: #4b5563; font-size: 12px; line-height: 1.5; }
     .analysis-setup { padding: 0; overflow: hidden; border-color: #d7e3ef; background: #fcfeff; }
-    .analysis-accordion > summary { list-style: none; cursor: pointer; padding: 12px 16px; display: grid; gap: 4px; }
+    .analysis-accordion > summary { list-style: none; cursor: pointer; padding: 14px 16px; display: grid; gap: 6px; }
     .analysis-accordion > summary::-webkit-details-marker { display: none; }
+    .analysis-accordion > summary::after { content: "Review handoff"; justify-self: start; margin-top: 2px; font-size: 11px; font-weight: 700; color: #5f748a; border: 1px solid #d8e4ef; border-radius: 999px; padding: 4px 10px; background: #fff; }
+    .analysis-accordion[open] > summary { border-bottom: 1px solid #e3ecf4; background: #fff; }
+    .analysis-accordion[open] > summary::after { content: "Hide handoff"; }
     .analysis-runs { padding: 10px 12px 14px; display: grid; gap: 8px; background: #f9fcff; }
-    .connected-strip { border: 1px solid #d8e5f2; border-radius: 10px; background: linear-gradient(180deg, #f8fbff 0%, #f5f9fe 100%); padding: 12px 14px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .connected-strip { border: 1px solid #d8e5f2; border-radius: 12px; background: linear-gradient(180deg, #f8fbff 0%, #f5f9fe 100%); padding: 14px 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
     .ctx-downstream-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-    .ctx-downstream-chip { font-size: 11px; font-weight: 600; color: #365872; background: #fff; border: 1px solid #d6e2ef; border-radius: 999px; padding: 3px 10px; }
-    .ctx-more-chip { font-size: 11px; font-weight: 500; color: #6b7280; padding: 3px 6px; }
+    .ctx-downstream-chip { font-size: 11px; font-weight: 600; color: #365872; background: #fff; border: 1px solid #d6e2ef; border-radius: 999px; padding: 4px 10px; }
+    .ctx-more-chip { font-size: 11px; font-weight: 500; color: #6b7280; padding: 4px 6px; }
 
-    /* Workspace */
-    .workspace { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 32px; align-items: start; }
+    /* Workspace grid */
+    .workspace { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 24px; align-items: start; }
     .workspace-side { min-width: 280px; }
     .workspace-main { min-width: 0; }
 
-    /* ─── TEACHING PACK ASSISTANT (LEFT RAIL) ─── */
+    /* Full-width toolbar */
+    .workspace-toolbar { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 4px; }
+    .workspace-toolbar-title { font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.01em; }
+    .workspace-toolbar-sub { font-size: 13px; color: #6b7280; margin-top: 3px; }
+    .save-state { font-size: 11px; color: #6b7280; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+    .save-indicator { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #10b981; }
+
+    /* ─── LEFT RAIL: TEACHING PACK ASSISTANT ─── */
     .workspace-sidebar {
       position: sticky; top: 76px; display: grid; gap: 0;
       background: #fff; border: 1px solid #dce8f5; border-radius: 12px; overflow: hidden;
     }
-    .assistant-header-block { padding: 16px 16px 12px; border-bottom: 1px solid #edf2f8; background: linear-gradient(180deg, #f6faff 0%, #fff 100%); }
-    .assistant-name { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 6px; }
-    .rail-sub { font-size: 12px; color: #4b5563; line-height: 1.4; }
 
-    .rail-block { padding: 14px 16px; border-bottom: 1px solid #edf2f8; display: grid; gap: 6px; }
+    /* Assistant identity */
+    .assistant-header-block { padding: 14px 16px 12px; border-bottom: 1px solid #edf2f8; background: linear-gradient(180deg, #f6faff 0%, #fff 100%); }
+    .assistant-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .assistant-icon { width: 30px; height: 30px; border-radius: 7px; background: var(--brand); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+    .assistant-name { font-size: 13px; font-weight: 700; color: #111827; }
+    .assistant-status { font-size: 10px; color: #6b7280; font-weight: 500; margin-top: 1px; }
+    .assistant-context { font-size: 12px; color: #4b5563; line-height: 1.55; background: #f0f6fc; border: 1px solid #d6e6f5; border-radius: 7px; padding: 9px 11px; }
+    .assistant-sources { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+    .source-chip { font-size: 10px; font-weight: 600; color: #3a6a9e; background: #ddeaf8; border-radius: 4px; padding: 2px 7px; }
+
+    /* Rail blocks */
+    .rail-block { padding: 14px 16px; border-bottom: 1px solid #edf2f8; display: grid; gap: 10px; }
     .rail-block:last-child { border-bottom: none; }
-    .rail-title { font-size: 11px; font-weight: 700; color: #111827; margin-bottom: 2px; }
+    .rail-title { font-size: 9.5px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.09em; }
 
-    /* Scope in rail */
-    .scope-chips-rail { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
-    .scope-chip-rail { cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 11.5px; color: #374151; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px; transition: 0.15s; }
-    .scope-chip-rail:has(input:checked) { background: var(--brand-soft); border-color: var(--brand-border); color: var(--brand-dark); font-weight: 600; }
-    .scope-chip-rail input { display: none; }
-    .rec-pill { font-size: 10px; font-weight: 600; color: #1d6b45; background: #f0faf5; padding: 3px 8px; border-radius: 4px; margin-top: 4px; display: inline-block; }
+    /* Action buttons */
+    .rail-action-list { display: grid; gap: 5px; }
+    .rail-action-btn { text-align: left; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 7px; padding: 8px 11px; font-size: 12px; font-weight: 500; color: #374151; cursor: pointer; display: flex; align-items: center; gap: 8px; width: 100%; transition: border-color 0.15s, background 0.15s, color 0.15s; }
+    .rail-action-btn:hover { border-color: var(--brand); color: var(--brand); background: #f0f6fc; }
+    .rail-action-btn .btn-icon { width: 18px; height: 18px; border-radius: 4px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; color: #6b7280; }
+    .rail-action-btn:hover .btn-icon { background: var(--brand-soft); color: var(--brand); }
+    .rail-action-btn.generate { background: var(--brand); color: #fff; border-color: var(--brand); font-weight: 600; }
+    .rail-action-btn.generate:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
+    .rail-action-btn.generate .btn-icon { background: rgba(255,255,255,0.2); color: #fff; }
 
-    /* Material Checkboxes */
-    .rail-check-list { display: grid; gap: 4px; margin-bottom: 6px; }
-    .rail-check-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #374151; cursor: pointer; padding: 2px 0; }
-    .rail-check-item input { accent-color: var(--brand); cursor: pointer; width: 13px; height: 13px; }
+    /* AI observations */
+    .rail-suggest-list { display: grid; gap: 8px; }
+    .rail-suggest-item { font-size: 11.5px; color: #374151; display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
+    .rail-suggest-label { display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; flex: 1; }
+    .rail-suggest-label::before { content: "✦"; color: var(--brand); font-size: 10px; margin-top: 2px; flex-shrink: 0; }
+    .rail-suggest-item.warn .rail-suggest-label::before { content: "⚠"; color: #b45309; }
+    .rail-apply-btn { font-size: 10px; font-weight: 600; color: var(--brand); background: #f0f6fc; border: 1px solid #d8e6f4; border-radius: 4px; padding: 3px 8px; cursor: pointer; flex-shrink: 0; white-space: nowrap; }
+    .rail-apply-btn:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+    .rail-apply-btn.warn-action { color: #b45309; background: #fffbeb; border-color: #fde6b8; }
+    .rail-apply-btn.warn-action:hover { background: #b45309; color: #fff; border-color: #b45309; }
 
-    /* Suggested by plan */
-    .rail-rec-item { font-size: 11.5px; color: #4b5563; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; margin-bottom: 4px; }
-    .rail-rec-item::before { content: "✓"; color: #1d6b45; font-weight: 700; flex-shrink: 0; }
+    /* ─── MAIN WORKSPACE ─── */
 
-    .primary-cta { width: 100%; background: var(--brand); color: #fff; border: 1px solid var(--brand); border-radius: 8px; padding: 9px; font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 4px; transition: 0.15s; }
-    .primary-cta:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
-    .cta-sub { font-size: 10.5px; color: #6b7280; line-height: 1.3; text-align: center; }
+    /* Compact config strip */
+    .config-strip {
+      display: flex; align-items: center; gap: 0;
+      border: 1px solid #dce8f5; border-radius: 10px; background: #fff;
+      overflow: hidden; margin-bottom: 20px;
+    }
+    .config-zone { padding: 12px 16px; display: grid; gap: 5px; }
+    .config-zone + .config-zone { border-left: 1px solid #edf2f8; }
+    .config-label { font-size: 9.5px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.09em; }
+    .config-scope-chips { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 2px; }
+    .config-scope-chip { cursor: pointer; }
+    .config-scope-chip input { position: absolute; opacity: 0; pointer-events: none; }
+    .config-scope-chip span { font-size: 11.5px; font-weight: 600; color: #4b5563; border: 1px solid #e5e7eb; border-radius: 6px; background: #f9fafb; padding: 3px 9px; cursor: pointer; display: block; transition: 0.12s; }
+    .config-scope-chip input:checked + span { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); }
+    .config-mat-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 2px; align-items: center; }
+    .config-mat-tag { font-size: 11px; font-weight: 500; color: #4b5563; background: #f3f4f6; border-radius: 4px; padding: 2px 7px; }
+    .config-mat-more { font-size: 11px; color: #9ca3af; }
+    .config-cta-zone { padding: 12px 16px; margin-left: auto; display: flex; align-items: center; flex-shrink: 0; }
+    .config-gen-btn { background: var(--brand); color: #fff; border: 1px solid var(--brand); border-radius: 8px; padding: 9px 18px; font-size: 12.5px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+    .config-gen-btn:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
 
-    /* ─── WORKSPACE MAIN ─── */
-    .workspace-toolbar { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 4px; }
-    .workspace-toolbar-title { font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.01em; margin-bottom: 4px; }
-    .workspace-toolbar-sub { font-size: 13px; color: #6b7280; }
+    /* Material cards */
+    .mat-card-list { display: grid; gap: 12px; }
+    .mc-card { border: 1px solid #dce8f5; border-radius: 10px; background: #fff; overflow: hidden; position: relative; }
+    .mc-card.generating { border-style: dashed; border-color: #d1dce8; }
 
-    /* Empty State */
-    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: linear-gradient(180deg, #f8fbff 0%, #fff 100%); border: 1px solid #e0e8f0; border-radius: 12px; margin-top: 0; min-height: 400px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
-    .empty-icon { font-size: 32px; margin-bottom: 16px; opacity: 0.8; background: #eef6ff; width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 1px solid #dce8f5; }
-    .empty-title { font-size: 17px; font-weight: 700; color: #111827; margin-bottom: 8px; }
-    .empty-desc { font-size: 13.5px; color: #6b7280; max-width: 360px; line-height: 1.5; }
+    .mc-header { padding: 16px 18px; display: flex; align-items: flex-start; gap: 14px; cursor: pointer; }
+    .mc-icon { width: 36px; height: 36px; border-radius: 9px; background: var(--brand-soft); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .mc-card.generating .mc-icon { background: #f0f3f7; }
+    .mc-body { flex: 1; min-width: 0; }
+    .mc-title { font-size: 13.5px; font-weight: 700; color: #111827; margin-bottom: 3px; }
+    .mc-card.generating .mc-title { color: #9ca3af; }
+    .mc-meta { font-size: 11.5px; color: #6b7280; }
 
-    /* Generated State */
-    .generated-state { display: none; }
+    .mc-actions { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
+    .mc-action-btn { background: transparent; border: none; font-size: 11px; font-weight: 500; color: #9ca3af; cursor: pointer; padding: 4px 7px; border-radius: 5px; }
+    .mc-action-btn:hover { background: #f3f4f6; color: #374151; }
+    .mc-action-btn.ai { color: var(--brand); }
+    .mc-action-btn.ai:hover { background: var(--brand-soft); }
+    .generating-badge { font-size: 10px; font-weight: 600; color: var(--brand); background: var(--brand-soft); border: 1px solid var(--brand-border); border-radius: 4px; padding: 2px 8px; white-space: nowrap; animation: pulse 1.8s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-    /* Material Cards */
-    .mat-card-list { display: grid; gap: 16px; margin-top: 20px; }
-    .mc-card { border: 1px solid #dce8f5; border-radius: 10px; background: #fff; overflow: hidden; }
-    .mc-header { padding: 20px; display: grid; gap: 12px; }
-    .mc-title { font-size: 16px; font-weight: 700; color: #111827; }
-    .mc-meta { font-size: 13px; color: #4b5563; line-height: 1.5; }
-    .mc-meta ul { padding-left: 20px; margin-top: 4px; color: #6b7280; list-style: disc; }
-    
-    .mc-inline-actions { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: #9ca3af; margin-top: 4px; }
-    .mc-btn-inline { background: none; border: none; font-size: 12px; font-weight: 500; color: #6b7280; cursor: pointer; padding: 0; }
-    .mc-btn-inline:hover { color: var(--brand); text-decoration: underline; }
-    
-    .btn { border: 1px solid #d2dcef; border-radius: 8px; background: #fff; color: #344b61; font-size: 12px; font-weight: 700; padding: 8px 16px; cursor: pointer; font-family: var(--font-sans, system-ui); white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; }
-    .btn:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-soft); }
-    .btn.primary { border-color: var(--brand); background: var(--brand); color: #fff; }
-    .btn.primary:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
-    .mc-open-btn { justify-self: start; margin-top: 4px; }
-    
-    .mc-preview { padding: 20px; border-top: 1px solid #f0f3f6; background: #fafbfc; display: none; }
+    .mc-preview { padding: 0 18px 16px; display: none; }
     .mc-card.open .mc-preview { display: block; }
-    .mc-card.open .mc-open-btn { display: none; }
+    .mc-divider { height: 1px; background: #f0f3f7; margin: 0 0 14px; }
 
-    /* AI Refine Box */
-    .ai-refine-box { border: 1px solid #d6e6f3; border-radius: 8px; background: #f8fbff; padding: 14px 16px; margin-bottom: 20px; }
-    .ai-refine-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--brand); margin-bottom: 10px; }
-    .ai-refine-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    .refine-chip { font-size: 11.5px; font-weight: 600; color: var(--brand); background: #fff; border: 1px solid #b8d0e6; border-radius: 999px; padding: 5px 12px; cursor: pointer; transition: 0.15s; }
+    /* Refine chips inside card */
+    .card-refine { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .refine-chip { font-size: 11.5px; font-weight: 600; color: var(--brand); background: #fff; border: 1px solid #b8d0e6; border-radius: 999px; padding: 5px 11px; cursor: pointer; transition: 0.12s; }
     .refine-chip:hover { background: var(--brand-soft); border-color: var(--brand); }
 
-    /* Skeleton content */
-    .skel-preview { display: grid; gap: 10px; }
+    /* Skeleton lines */
+    .skel-preview { display: grid; gap: 8px; }
     .skel-line { height: 10px; border-radius: 999px; background: #e5eaf0; }
     .skel-line.w-full { width: 100%; }
     .skel-line.w-80 { width: 80%; }
     .skel-line.w-60 { width: 60%; }
     .skel-line.w-40 { width: 40%; }
-    .skel-box { height: 120px; border-radius: 8px; background: #e5eaf0; margin-top: 8px; border: 1px dashed #dce8f5; }
+    .skel-box { height: 110px; border-radius: 8px; background: #edf2f8; border: 1px dashed #dce8f5; margin-top: 6px; }
 
-    /* Export Section */
-    .export-section { border: 1px solid #c4d8ed; border-radius: 10px; background: linear-gradient(180deg, #eef6ff 0%, #fafcff 100%); padding: 24px; display: grid; gap: 12px; margin-top: 48px; }
-    .export-title { font-size: 16px; font-weight: 700; color: #1d3a5a; }
-    .export-sub { font-size: 13.5px; color: #4a6580; margin-top: -4px; line-height: 1.5; }
-    .export-actions { display: flex; gap: 10px; margin-top: 8px; }
+    /* Shared btn */
+    .btn { border: 1px solid #d2dcef; border-radius: 8px; background: #fff; color: #344b61; font-size: 12px; font-weight: 700; padding: 7px 14px; cursor: pointer; font-family: var(--font-sans, system-ui); white-space: nowrap; }
+    .btn:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-soft); }
+    .btn.primary { border-color: var(--brand); background: var(--brand); color: #fff; }
+    .btn.primary:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
 
-    @media (max-width: 1280px) {
-      .page { padding: 40px 28px !important; }
-      .topbar-inner { padding: 0 28px !important; }
-    }
-    @media (max-width: 1080px) {
-      .workspace { grid-template-columns: 1fr; }
-      .workspace-sidebar { position: static; }
-    }
-    @media (max-width: 900px) {
-      .page { padding: 32px 18px !important; }
-      .topbar-inner { padding: 0 18px !important; }
-    }
+    /* AI chat refine */
+    .chat-section { border: 1px solid #d6e6f3; border-radius: 10px; background: #f8fbff; padding: 14px 16px; display: grid; gap: 10px; margin-top: 20px; }
+    .chat-label { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: #7a8fa3; }
+    .chat-prompts { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chat-prompt-btn { border: 1px solid #b8d0e6; border-radius: 999px; background: #fff; color: var(--brand); font-size: 12px; font-weight: 600; padding: 5px 12px; cursor: pointer; transition: 0.12s; }
+    .chat-prompt-btn:hover { background: var(--brand-soft); border-color: var(--brand); }
+    .chat-input-row { display: flex; gap: 8px; }
+    .chat-input { flex: 1; border: 1px solid #c8daec; border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--text); font-family: var(--font-sans, system-ui); background: #fff; outline: none; }
+    .chat-input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0,70,137,0.08); }
+    .chat-send { border: none; background: var(--brand); color: #fff; font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
+    .chat-send:hover { background: var(--brand-dark); }
+
+    /* Export / next step */
+    .next-step-card { border: 1px solid #c4d8ed; border-radius: 10px; background: linear-gradient(180deg, #eef6ff 0%, #fafcff 100%); padding: 20px 24px; display: grid; gap: 12px; margin-top: 32px; }
+    .next-step-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--brand); }
+    .next-step-title { font-size: 15px; font-weight: 700; color: #1d3a5a; line-height: 1.35; }
+    .next-step-sub { font-size: 13px; color: #4a6580; margin-top: -4px; line-height: 1.5; }
+    .export-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+    @media (max-width: 1280px) { .page { padding: 40px 24px 60px; } .topbar-inner { padding: 0 24px; } }
+    @media (max-width: 1080px) { .workspace { grid-template-columns: 1fr; } .workspace-sidebar { position: static; } }
+    @media (max-width: 900px) { .page { padding: 32px 16px 60px; } .topbar-inner { padding: 0 16px; } }
   </style>
 </head>
 <body>
@@ -186,10 +218,43 @@
 <main class="page">
 
   <section>
-    <div class="page-eyebrow">Generate Teaching Materials</div>
-    <h1 class="page-title">Generate Teaching Materials</h1>
-    <p class="page-sub" style="margin-bottom: 28px;">Prepare teaching materials from your approved teaching and assessment plan.</p>
+    <div class="page-eyebrow">Material Generation</div>
+    <h1 class="page-title">Generate &amp; Refine Teaching Materials</h1>
+    <p class="page-sub">Review, refine, and regenerate AI-drafted materials before publishing or exporting to your LMS.</p>
   </section>
+
+  <!-- TOP CONNECTOR -->
+  <section class="setup-card analysis-setup" aria-label="Connected teaching plan context">
+    <details class="analysis-accordion">
+      <summary>
+        <div class="setup-kicker">Continue From Teaching &amp; Assessment Planning</div>
+        <div class="setup-title">Approved weekly teaching flow carried into material generation</div>
+        <div class="setup-note">Teaching activities, assessment schedule, and OAL plan carried forward.</div>
+      </summary>
+      <div class="analysis-runs">
+        <div class="connected-strip">
+          <div class="ctx-downstream-chips">
+            <div class="ctx-downstream-chip">Weekly teaching flow</div>
+            <div class="ctx-downstream-chip">OAL / IPL activities</div>
+            <div class="ctx-downstream-chip">Assessment schedule</div>
+            <div class="ctx-downstream-chip">Teaching strategies</div>
+            <div class="ctx-more-chip">+2 connected inputs</div>
+          </div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- FULL-WIDTH TOOLBAR -->
+  <div class="workspace-toolbar">
+    <div>
+      <div class="workspace-toolbar-title">Teaching Pack — Week 1–6</div>
+      <div class="workspace-toolbar-sub">AI is drafting materials from your approved teaching flow. Review and refine each component.</div>
+    </div>
+    <div class="save-state">
+      <span class="save-indicator"></span> Draft auto-saved just now
+    </div>
+  </div>
 
   <div class="workspace">
 
@@ -197,58 +262,66 @@
     <div class="workspace-side">
       <div class="workspace-sidebar">
 
+        <!-- Identity -->
         <div class="assistant-header-block">
-          <div class="assistant-name">Teaching Pack Assistant</div>
-          <div class="rail-sub">
-            AI can draft teaching materials based on your approved weekly teaching plan.<br><br>
-            Select what you would like to prepare, then review and refine the generated drafts.
+          <div class="assistant-header">
+            <div class="assistant-icon">✦</div>
+            <div>
+              <div class="assistant-name">Teaching Pack Assistant</div>
+              <div class="assistant-status">Generating · Week 1–6 · 7 materials</div>
+            </div>
+          </div>
+          <div class="assistant-context">
+            AI is drafting materials from your approved teaching flow.
+            <div class="assistant-sources" style="margin-top: 8px;">
+              <span class="source-chip">Weekly flow</span>
+              <span class="source-chip">OAL plan</span>
+              <span class="source-chip">Assessment schedule</span>
+            </div>
+            <div style="margin-top: 8px; font-size: 12px; color: #4b5563;">Review and refine each component on the right.</div>
           </div>
         </div>
 
+        <!-- Suggested Actions -->
         <div class="rail-block">
-          <div class="rail-title">What would you like to prepare?</div>
-          <div class="scope-chips-rail">
-            <label class="scope-chip-rail"><input type="radio" name="scope" value="all"> Module</label>
-            <label class="scope-chip-rail"><input type="radio" name="scope" value="w1-6" checked> Wks 1–6</label>
-            <label class="scope-chip-rail"><input type="radio" name="scope" value="w7-12"> Wks 7–12</label>
-            <label class="scope-chip-rail"><input type="radio" name="scope" value="custom"> Custom</label>
+          <div class="rail-title">Suggested Actions</div>
+          <div class="rail-action-list">
+            <button class="rail-action-btn generate">
+              <span class="btn-icon">↺</span>
+              Regenerate full teaching pack
+            </button>
+            <button class="rail-action-btn">
+              <span class="btn-icon">+</span>
+              Add formative quiz (Week 5)
+            </button>
+            <button class="rail-action-btn">
+              <span class="btn-icon">↗</span>
+              Expand facilitation guide
+            </button>
+            <button class="rail-action-btn">
+              <span class="btn-icon">✎</span>
+              Simplify for Year 1 level
+            </button>
           </div>
-          <div class="rec-pill">Recommended: Wks 1–3</div>
         </div>
 
+        <!-- AI Observations -->
         <div class="rail-block">
-          <div class="rail-title">OAL / Pre-Class</div>
-          <div class="rail-check-list">
-            <label class="rail-check-item"><input type="checkbox" checked> E-Lecture Slides (PPTX)</label>
-            <label class="rail-check-item"><input type="checkbox" checked> Understanding Check Quiz</label>
-            <label class="rail-check-item"><input type="checkbox" checked> Reading Notes</label>
+          <div class="rail-title">AI Observations</div>
+          <div class="rail-suggest-list">
+            <div class="rail-suggest-item warn">
+              <div class="rail-suggest-label">Week 5 has no OAL activity scheduled</div>
+              <button class="rail-apply-btn warn-action">Add</button>
+            </div>
+            <div class="rail-suggest-item">
+              <div class="rail-suggest-label">Quiz recommended before CA1 (Week 7)</div>
+              <button class="rail-apply-btn">Generate</button>
+            </div>
+            <div class="rail-suggest-item">
+              <div class="rail-suggest-label">Facilitation slides for Wk 3–4 simulation</div>
+              <button class="rail-apply-btn">Include</button>
+            </div>
           </div>
-
-          <div class="rail-title" style="margin-top: 4px;">IPL / In-Class</div>
-          <div class="rail-check-list">
-            <label class="rail-check-item"><input type="checkbox" checked> Facilitation Slides</label>
-            <label class="rail-check-item"><input type="checkbox" checked> Applied Activity</label>
-            <label class="rail-check-item"><input type="checkbox"> Discussion Prompts</label>
-          </div>
-
-          <div class="rail-title" style="margin-top: 4px;">Lecturer Support</div>
-          <div class="rail-check-list" style="margin-bottom: 0;">
-            <label class="rail-check-item"><input type="checkbox" checked> Facilitation Guide</label>
-            <label class="rail-check-item"><input type="checkbox" checked> Suggested Answers</label>
-            <label class="rail-check-item"><input type="checkbox"> Assessment Support</label>
-          </div>
-        </div>
-
-        <div class="rail-block">
-          <div class="rail-title" style="margin-bottom: 6px;">Recommended From Plan</div>
-          <div class="rail-rec-item">Quiz recommended before CA1</div>
-          <div class="rail-rec-item">Facilitation guide for Wk 4 sim</div>
-          <div class="rail-rec-item">OAL slides for Wks 1–2</div>
-        </div>
-
-        <div class="rail-block" style="border-bottom: none; padding-top: 16px;">
-          <button class="primary-cta" onclick="generateMaterials()">Generate Draft Materials</button>
-          <div class="cta-sub">AI will draft materials based on your approved teaching plan and selected scope.</div>
         </div>
 
       </div>
@@ -257,170 +330,183 @@
     <!-- MAIN WORKSPACE -->
     <div class="workspace-main">
 
-      <!-- TOP CONNECTOR MOVED INSIDE WORKSPACE MAIN -->
-      <section class="setup-card analysis-setup" aria-label="Connected teaching plan context">
-        <details class="analysis-accordion" open>
-          <summary>
-            <div class="setup-kicker">Continue From Teaching &amp; Assessment Planning</div>
-            <div class="setup-title">Approved weekly teaching flow, OAL/IPL activities, and assessment plans carried forward.</div>
-          </summary>
-          <div class="analysis-runs">
-            <div class="connected-strip">
-              <div class="ctx-downstream-chips">
-                <div class="ctx-downstream-chip">Weekly Activities</div>
-                <div class="ctx-downstream-chip">OAL / IPL Flow</div>
-                <div class="ctx-downstream-chip">Assessment Schedule</div>
-                <div class="ctx-downstream-chip">Teaching Strategies</div>
-                <div class="ctx-more-chip">+2 more</div>
-              </div>
-            </div>
+      <!-- COMPACT CONFIG STRIP -->
+      <div class="config-strip">
+        <div class="config-zone">
+          <div class="config-label">Teaching Scope</div>
+          <div class="config-scope-chips">
+            <label class="config-scope-chip"><input type="radio" name="scope" value="w1-3"><span>Wks 1–3</span></label>
+            <label class="config-scope-chip"><input type="radio" name="scope" value="w1-6" checked><span>Wks 1–6</span></label>
+            <label class="config-scope-chip"><input type="radio" name="scope" value="all"><span>Module</span></label>
           </div>
-        </details>
-      </section>
-
-      <!-- INITIAL STATE -->
-      <div id="initial-state" class="empty-state">
-        <div class="empty-icon">📑</div>
-        <div class="empty-title">Ready to Generate</div>
-        <div class="empty-desc">Select your scope and materials in the assistant, then click "Generate Draft Materials" to begin drafting your teaching pack.</div>
+        </div>
+        <div class="config-zone" style="flex: 1;">
+          <div class="config-label">Materials selected (7)</div>
+          <div class="config-mat-tags">
+            <span class="config-mat-tag">E-Lecture Slides</span>
+            <span class="config-mat-tag">Quiz</span>
+            <span class="config-mat-tag">Reading Notes</span>
+            <span class="config-mat-tag">Facilitation Slides</span>
+            <span class="config-mat-more">+3 more</span>
+          </div>
+        </div>
+        <div class="config-cta-zone">
+          <button class="config-gen-btn" onclick="regenerateAll()">Regenerate Pack →</button>
+        </div>
       </div>
 
-      <!-- GENERATED STATE -->
-      <div id="generated-state" class="generated-state">
-        
-        <div class="workspace-toolbar">
-          <div>
-            <div class="workspace-toolbar-title">Draft Teaching Pack</div>
-            <div class="workspace-toolbar-sub">AI-generated materials are ready for review and refinement.</div>
+      <!-- GENERATED MATERIAL CARDS (always visible) -->
+      <div class="mat-card-list">
+
+        <!-- Card 1: Open with preview -->
+        <div class="mc-card open" id="card-1">
+          <div class="mc-header" onclick="toggleCard('card-1')">
+            <div class="mc-icon">📊</div>
+            <div class="mc-body">
+              <div class="mc-title">Week 1–2 E-Lecture Slides (PPTX)</div>
+              <div class="mc-meta">Introduction to Critical Care Environments · 18 slides · OAL</div>
+            </div>
+            <div class="mc-actions">
+              <button class="mc-action-btn">Edit</button>
+              <button class="mc-action-btn">Regenerate</button>
+              <button class="mc-action-btn ai">✦ Suggest</button>
+            </div>
+          </div>
+          <div class="mc-preview">
+            <div class="mc-divider"></div>
+            <div class="card-refine">
+              <span class="refine-chip">+ Simplify explanations</span>
+              <span class="refine-chip">+ Add applied example</span>
+              <span class="refine-chip">+ Add retrieval questions</span>
+              <span class="refine-chip">+ Reduce slide density</span>
+            </div>
+            <div class="skel-preview">
+              <div class="skel-line w-80"></div>
+              <div class="skel-line w-full"></div>
+              <div class="skel-line w-60"></div>
+              <div class="skel-box"></div>
+              <div class="skel-line w-40" style="margin-top: 6px;"></div>
+            </div>
           </div>
         </div>
 
-        <div class="mat-card-list">
-          
-          <!-- Card 1 -->
-          <div class="mc-card" id="card-1">
-            <div class="mc-header">
-              <div class="mc-title">Week 1–2 E-Lecture Slides</div>
-              <div class="mc-meta">
-                Generated from:
-                <ul>
-                  <li>Week 1 OAL activities</li>
-                  <li>MLO 1–2</li>
-                  <li>Introductory concepts</li>
-                </ul>
-              </div>
-              <div class="mc-inline-actions">
-                <button class="mc-btn-inline">Edit</button> &middot; 
-                <button class="mc-btn-inline">Refine with AI</button> &middot; 
-                <button class="mc-btn-inline">Regenerate</button>
-              </div>
-              <button class="btn mc-open-btn" onclick="openPreview('card-1')">Open Preview</button>
+        <!-- Card 2: Collapsed -->
+        <div class="mc-card" id="card-2">
+          <div class="mc-header" onclick="toggleCard('card-2')">
+            <div class="mc-icon">📊</div>
+            <div class="mc-body">
+              <div class="mc-title">Week 3–4 Facilitation Slides (PPTX)</div>
+              <div class="mc-meta">Haemodynamic Monitoring · 22 slides · IPL</div>
             </div>
-            <div class="mc-preview">
-              <div class="ai-refine-box">
-                <div class="ai-refine-label">Ask AI to refine this material...</div>
-                <div class="ai-refine-chips">
-                  <span class="refine-chip">+ Simplify explanations</span>
-                  <span class="refine-chip">+ Add applied example</span>
-                  <span class="refine-chip">+ Add retrieval questions</span>
-                  <span class="refine-chip">+ Reduce slide density</span>
-                </div>
-              </div>
-              <div class="skel-preview">
-                <div class="skel-line w-80"></div>
-                <div class="skel-line w-full"></div>
-                <div class="skel-line w-60"></div>
-                <div class="skel-box"></div>
-                <div class="skel-line w-40" style="margin-top: 8px;"></div>
-              </div>
+            <div class="mc-actions">
+              <button class="mc-action-btn">Edit</button>
+              <button class="mc-action-btn">Regenerate</button>
+              <button class="mc-action-btn ai">✦ Suggest</button>
             </div>
           </div>
-
-          <!-- Card 2 -->
-          <div class="mc-card" id="card-2">
-            <div class="mc-header">
-              <div class="mc-title">Week 3–4 Facilitation Slides</div>
-              <div class="mc-meta">
-                Generated from:
-                <ul>
-                  <li>Week 3–4 IPL session plan</li>
-                  <li>Group case activity requirements</li>
-                </ul>
-              </div>
-              <div class="mc-inline-actions">
-                <button class="mc-btn-inline">Edit</button> &middot; 
-                <button class="mc-btn-inline">Refine with AI</button> &middot; 
-                <button class="mc-btn-inline">Regenerate</button>
-              </div>
-              <button class="btn mc-open-btn" onclick="openPreview('card-2')">Open Preview</button>
+          <div class="mc-preview">
+            <div class="mc-divider"></div>
+            <div class="card-refine">
+              <span class="refine-chip">+ Add discussion prompts</span>
+              <span class="refine-chip">+ Include timing markers</span>
+              <span class="refine-chip">+ Expand simulation scenario</span>
             </div>
-            <div class="mc-preview">
-              <div class="ai-refine-box">
-                <div class="ai-refine-label">Ask AI to refine this material...</div>
-                <div class="ai-refine-chips">
-                  <span class="refine-chip">+ Add discussion prompts</span>
-                  <span class="refine-chip">+ Include timing markers</span>
-                </div>
-              </div>
-              <div class="skel-preview">
-                <div class="skel-line w-full"></div>
-                <div class="skel-line w-60"></div>
-                <div class="skel-box" style="height: 160px;"></div>
-              </div>
+            <div class="skel-preview">
+              <div class="skel-line w-full"></div>
+              <div class="skel-line w-60"></div>
+              <div class="skel-box" style="height: 140px;"></div>
             </div>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="mc-card" id="card-3">
-            <div class="mc-header">
-              <div class="mc-title">Facilitation Guide (Weeks 1–6)</div>
-              <div class="mc-meta">
-                Generated from:
-                <ul>
-                  <li>Full teaching flow</li>
-                  <li>Assessment schedule</li>
-                  <li>Recommended simulation scenarios</li>
-                </ul>
-              </div>
-              <div class="mc-inline-actions">
-                <button class="mc-btn-inline">Edit</button> &middot; 
-                <button class="mc-btn-inline">Refine with AI</button> &middot; 
-                <button class="mc-btn-inline">Regenerate</button>
-              </div>
-              <button class="btn mc-open-btn" onclick="openPreview('card-3')">Open Preview</button>
-            </div>
-            <div class="mc-preview">
-              <div class="ai-refine-box">
-                <div class="ai-refine-label">Ask AI to refine this material...</div>
-                <div class="ai-refine-chips">
-                  <span class="refine-chip">+ Expand Week 4 simulation notes</span>
-                  <span class="refine-chip">+ Add common student misconceptions</span>
-                  <span class="refine-chip">+ Shorten introduction</span>
-                </div>
-              </div>
-              <div class="skel-preview">
-                <div class="skel-line w-40"></div>
-                <div class="skel-line w-full"></div>
-                <div class="skel-line w-80"></div>
-                <div class="skel-line w-full"></div>
-                <div class="skel-line w-60"></div>
-                <div class="skel-box"></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- EXPORT SECTION -->
-        <div class="export-section">
-          <div class="export-title">Teaching Pack Ready for Export</div>
-          <div class="export-sub">Review, refine, and export materials for teaching delivery.</div>
-          <div class="export-actions">
-            <button class="btn primary">Download Teaching Pack</button>
-            <button class="btn">Continue Refining</button>
           </div>
         </div>
 
+        <!-- Card 3: Collapsed -->
+        <div class="mc-card" id="card-3">
+          <div class="mc-header" onclick="toggleCard('card-3')">
+            <div class="mc-icon">🩺</div>
+            <div class="mc-body">
+              <div class="mc-title">Applied Case Activity — Septic Shock</div>
+              <div class="mc-meta">Group case activity · Week 3 · 45 mins · IPL</div>
+            </div>
+            <div class="mc-actions">
+              <button class="mc-action-btn">Edit</button>
+              <button class="mc-action-btn">Regenerate</button>
+              <button class="mc-action-btn ai">✦ Suggest</button>
+            </div>
+          </div>
+          <div class="mc-preview">
+            <div class="mc-divider"></div>
+            <div class="card-refine">
+              <span class="refine-chip">+ Add debrief questions</span>
+              <span class="refine-chip">+ Increase complexity</span>
+            </div>
+            <div class="skel-preview">
+              <div class="skel-line w-80"></div>
+              <div class="skel-line w-full"></div>
+              <div class="skel-line w-60"></div>
+              <div class="skel-box"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Generating state -->
+        <div class="mc-card generating" id="card-4">
+          <div class="mc-header">
+            <div class="mc-icon">⭐</div>
+            <div class="mc-body">
+              <div class="mc-title">Facilitation Guide — Week 1–6</div>
+              <div style="display:grid; gap:4px; margin-top:6px;">
+                <div class="skel-line w-60" style="height:9px;"></div>
+                <div class="skel-line w-80" style="height:9px;"></div>
+              </div>
+            </div>
+            <span class="generating-badge">Generating…</span>
+          </div>
+        </div>
+
+        <!-- Card 5: Generating state -->
+        <div class="mc-card generating" id="card-5">
+          <div class="mc-header">
+            <div class="mc-icon">✅</div>
+            <div class="mc-body">
+              <div class="mc-title">Understanding Check Quiz — Week 1 (Brightspace)</div>
+              <div style="display:grid; gap:4px; margin-top:6px;">
+                <div class="skel-line w-80" style="height:9px;"></div>
+                <div class="skel-line w-50" style="height:9px;"></div>
+              </div>
+            </div>
+            <span class="generating-badge">Generating…</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- AI REFINE CHAT -->
+      <div class="chat-section">
+        <div class="chat-label">Refine with AI</div>
+        <div class="chat-prompts">
+          <button class="chat-prompt-btn" onclick="fillChat('Add a second applied case activity for Week 5')">Add case activity — Week 5</button>
+          <button class="chat-prompt-btn" onclick="fillChat('Expand the facilitation guide with suggested discussion questions')">Expand facilitation guide</button>
+          <button class="chat-prompt-btn" onclick="fillChat('Simplify pre-class reading notes for Year 1 students')">Simplify for Year 1</button>
+          <button class="chat-prompt-btn" onclick="fillChat('Generate an understanding check quiz for Week 5')">Add quiz — Week 5</button>
+        </div>
+        <div class="chat-input-row">
+          <input type="text" id="chat-input" class="chat-input" placeholder="Ask AI to adjust, extend, or regenerate any part of your teaching pack…">
+          <button class="chat-send">Send →</button>
+        </div>
+      </div>
+
+      <!-- EXPORT / NEXT STEP -->
+      <div class="next-step-card">
+        <div class="next-step-label">Export &amp; Publish</div>
+        <div class="next-step-title">Teaching Pack Ready for Delivery</div>
+        <div class="next-step-sub">Download individual files or push the complete pack directly to Brightspace.</div>
+        <div class="export-actions">
+          <button class="btn">PPTX</button>
+          <button class="btn">DOCX</button>
+          <button class="btn">Brightspace (QTI)</button>
+          <button class="btn primary">Download Teaching Pack</button>
+          <button class="btn primary">Push to LMS</button>
+        </div>
       </div>
 
     </div>
@@ -429,15 +515,20 @@
 </main>
 
 <script>
-  function generateMaterials() {
-    document.getElementById('initial-state').style.display = 'none';
-    document.getElementById('generated-state').style.display = 'block';
+  function toggleCard(id) {
+    document.getElementById(id).classList.toggle('open');
   }
-
-  function openPreview(cardId) {
-    document.getElementById(cardId).classList.add('open');
+  function fillChat(text) {
+    const input = document.getElementById('chat-input');
+    if (input) { input.value = text; input.focus(); }
+  }
+  function regenerateAll() {
+    document.querySelectorAll('.mc-card').forEach(function(c) {
+      if (c.classList.contains('generating')) {
+        c.querySelector('.mc-title') && (c.querySelector('.mc-title').style.color = '');
+      }
+    });
   }
 </script>
-
 </body>
 </html>
