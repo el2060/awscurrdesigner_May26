@@ -9,16 +9,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --brand:        #004689;
+      --brand:        #0B132B;
       --max: 1200px;
-      --brand-dark:   #003366;
-      --brand-soft:   #f0f6fc;
-      --brand-border: #b8d0e6;
-      --text:   #111827;
-      --body:   #4b5563;
-      --muted:  #9ca3af;
-      --border: #e5e7eb;
-      --bg:     #fafaf9;
+      --brand-dark:   #1C2541;
+      --brand-soft:   #F1F5F9;
+      --brand-border: #CBD5E1;
+      --text:   #0F172A;
+      --body:   #475569;
+      --muted:  #94A3B8;
+      --border: #E2E8F0;
+      --bg:     #F8F9FA;
     }
 
     body {
@@ -58,13 +58,14 @@
 
     /* Top Connector */
     .setup-card {
-      border: 1px solid #c8daec;
-      border-radius: 12px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
       background: #fff;
-      padding: 18px;
+      padding: 24px;
       display: grid;
       gap: 16px;
       margin-bottom: 40px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
     .setup-kicker {
       color: var(--brand);
@@ -115,9 +116,10 @@
     .workspace-sidebar {
       position: sticky; top: 76px; display: grid; gap: 0;
       background: #fff;
-      border: 1px solid #dce8f5;
-      border-radius: 12px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
       overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
 
     .assistant-header-block {

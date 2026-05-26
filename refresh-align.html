@@ -37,20 +37,23 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --hp-bg: #fafaf9;
-      --hp-text: #111827;
-      --hp-body: #4b5563;
-      --hp-muted: #9ca3af;
-      --hp-border: #e5e7eb;
-      --hp-border-soft: #f1f1ee;
-      --hp-emerald-700: #047857;
-      --hp-emerald-600: #059669;
-      --hp-emerald-100: #c7ecd9;
-      --hp-emerald-50: #ecfdf5;
-      --hp-amber-700: #b45309;
-      --hp-amber-100: #fde6b8;
-      --hp-amber-50: #fffbeb;
-      --hp-indigo-700: #3730a3;
+      --hp-bg: #F8F9FA;
+      --hp-text: #0F172A;
+      --hp-body: #475569;
+      --hp-muted: #94A3B8;
+      --hp-border: #E2E8F0;
+      --hp-border-soft: #F1F5F9;
+      
+      --hp-emerald-700: #1D4ED8; /* Mapping emerald to electric blue for consistency */
+      --hp-emerald-600: #2563EB;
+      --hp-emerald-100: #BFDBFE;
+      --hp-emerald-50: #EFF6FF;
+      
+      --hp-amber-700: #0B132B; /* Mapping amber to navy */
+      --hp-amber-100: #CBD5E1;
+      --hp-amber-50: #F1F5F9;
+      
+      --hp-indigo-700: #070B19;
       --max: 1200px;
     }
     body {
@@ -162,13 +165,13 @@
       .layout-side { position: static; }
     }
 
-    /* ── Section cards ── */
     .section-card {
       border: 1px solid var(--hp-border);
       background: #fff;
-      border-radius: 12px;
+      border-radius: 16px;
       margin-bottom: 14px;
       overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
     .sc-header {
       display: flex;
@@ -510,9 +513,10 @@
     /* ── Sidebar ── */
     .side-card {
       border: 1px solid var(--hp-border);
-      border-radius: 12px;
+      border-radius: 16px;
       background: #fff;
       overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
     .side-label {
       font-size: 11px; font-weight: 700;

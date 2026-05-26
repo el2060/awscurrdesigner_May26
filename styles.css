@@ -135,35 +135,35 @@
    ============================================================ */
 
 /* --- Google Fonts --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 /* --- Design Tokens (Wireframe with NP color accents) --- */
 :root {
-  /* Brand — NP Blue for primary actions, NP Gold for AI moments */
-  --np-blue: #004689;
-  --np-blue-hover: #003366;
-  --np-blue-dark: #002a52;
-  --np-blue-light: #f0f6fc;
-  --np-blue-mid: #b8d0e6;
-  --np-gold: #FCB040;
-  --np-gold-hover: #e89a2a;
-  --np-gold-light: #fffef8;
-  --np-gold-mid: #ecd88f;
-  --np-dark: #1a1a1a;
+  /* Brand — Modern Deep Navy */
+  --np-blue: #0B132B;
+  --np-blue-hover: #1C2541;
+  --np-blue-dark: #070B19;
+  --np-blue-light: #F1F5F9;
+  --np-blue-mid: #CBD5E1;
+  --np-gold: #1D4ED8; /* Using vibrant electric blue for AI instead of gold */
+  --np-gold-hover: #2563EB;
+  --np-gold-light: #EFF6FF;
+  --np-gold-mid: #BFDBFE;
+  --np-dark: #0B132B;
 
   /* Surfaces */
-  --color-bg: #FFFFFF;
-  --color-surface: #F7F7F5;
-  --color-surface-hover: #EFEFED;
-  --color-border: #E5E5E2;
-  --color-border-hover: #CCCCC8;
-  --color-sidebar: #FAFAF8;
+  --color-bg: #F8F9FA;
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F1F5F9;
+  --color-border: #E2E8F0;
+  --color-border-hover: #CBD5E1;
+  --color-sidebar: #FFFFFF;
 
   /* Text */
-  --color-text-primary: #1a1a1a;
-  --color-text-secondary: #6B6B6E;
-  --color-text-tertiary: #9B9B9E;
-  --color-text-placeholder: #C4C4C0;
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #94A3B8;
+  --color-text-placeholder: #CBD5E1;
 
   /* Accent → NP Blue */
   --color-accent: #004689;
@@ -206,15 +206,15 @@
   --color-npgc-6-light: #f5f5f5;
   --color-npgc-7-light: #f0f0f0;
 
-  --shadow-card: 0 1px 3px rgba(55,53,47,0.08), 0 0 0 1px rgba(55,53,47,0.06);
-  --shadow-card-hover: 0 4px 12px rgba(55,53,47,0.12), 0 0 0 1px rgba(55,53,47,0.08);
-  --shadow-modal: 0 8px 32px rgba(55,53,47,0.18), 0 0 0 1px rgba(55,53,47,0.08);
-  --shadow-dropdown: 0 4px 16px rgba(55,53,47,0.12), 0 0 0 1px rgba(55,53,47,0.08);
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-modal: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-dropdown: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-sidebar: 1px 0 0 var(--color-border);
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
   --radius-full: 9999px;
 
   --space-1: 4px;
@@ -232,8 +232,8 @@
   --ai-sidebar-width: 0px;
   --content-max-width: 1200px;
 
-  --font-sans: 'Inter', 'Open Sans', Arial, Helvetica, sans-serif;
-  --font-heading: 'Montserrat', 'Inter', Arial, sans-serif;
+  --font-sans: 'Outfit', system-ui, sans-serif;
+  --font-heading: 'Instrument Serif', Georgia, serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   --transition-fast: 150ms ease;

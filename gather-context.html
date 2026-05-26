@@ -13,25 +13,25 @@
       --max: 1200px;
       --pad: 40px;
 
-      --bg:          #fafaf9;
-      --card:        #ffffff;
-      --text:        #111827;
-      --body:        #4b5563;
-      --muted:       #9ca3af;
-      --border:      #e5e7eb;
-      --border-soft: #f1f1ef;
+      --bg:          #F8F9FA;
+      --card:        #FFFFFF;
+      --text:        #0F172A;
+      --body:        #475569;
+      --muted:       #94A3B8;
+      --border:      #E2E8F0;
+      --border-soft: #F1F5F9;
 
-      --amber-700: #b45309;
-      --amber-600: #d97706;
-      --amber-100: #fde6b8;
-      --amber-50:  #fffbeb;
+      --amber-700: #1D4ED8; /* Electric blue instead of amber */
+      --amber-600: #2563EB;
+      --amber-100: #BFDBFE;
+      --amber-50:  #EFF6FF;
 
-      --indigo-700: #004689;
-      --indigo-600: #003366;
-      --indigo-100: #b8d0e6;
+      --indigo-700: #0B132B;
+      --indigo-600: #1C2541;
+      --indigo-100: #CBD5E1;
 
-      --emerald-700: #047857;
-      --emerald-50:  #ecfdf5;
+      --emerald-700: #059669;
+      --emerald-50:  #ECFDF5;
     }
 
     body {
@@ -126,13 +126,15 @@
     .upload-zone {
       border: 1px solid var(--border);
       background: var(--card);
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
-      transition: border-color 150ms, box-shadow 150ms;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
     .upload-zone:hover {
       border-color: var(--amber-100);
-      box-shadow: 0 2px 12px rgba(180,83,9,0.05);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
     .uz-header {
@@ -236,9 +238,9 @@
       margin-top: 28px;
       border: 1px solid var(--amber-100);
       background: var(--card);
-      border-radius: 14px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 6px 24px rgba(180,83,9,0.07);
+      box-shadow: 0 10px 25px -5px rgba(29,78,216,0.15);
     }
     .analysis-inline.hidden { display: none; }
 
@@ -347,8 +349,9 @@
 
     /* ── Sidebar ── */
     .side-box {
-      border: 1px solid var(--border); border-radius: 12px;
+      border: 1px solid var(--border); border-radius: 16px;
       background: var(--card); overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
     }
     .side-title {
       font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
