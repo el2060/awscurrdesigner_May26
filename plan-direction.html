@@ -2783,39 +2783,39 @@
 
   <main class="page">
     <section>
-      <div class="page-eyebrow">Module Design Workspace</div>
+      <div class="page-eyebrow">Module Design</div>
       <h1 class="page-title">Design Module Structure &amp; Outcomes</h1>
       <p class="page-sub" style="margin-bottom: 20px;">Use connected inputs, upload your own documents, or start from scratch.</p>
       <section class="setup-card" style="padding: 24px; border: 1px solid var(--brand-border, #b8d0e6); background: #fdfdfe;">
       <div style="margin-bottom: 16px;">
-      <h2 style="font-size: 16px; font-weight: 700; color: #1a2e40;">Workspace Starting Point</h2>
+      <h2 style="font-size: 16px; font-weight: 700; color: #1a2e40;">How do you want to start?</h2>
     </div>
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
       <label style="position: relative;">
         <input type="radio" name="start_mode" class="start-radio" value="opt0" checked>
         <div class="so-card">
-          <div class="so-title">Connected Context</div>
-          <div class="so-desc">Auto-import upstream discovery & benchmarking</div>
+          <div class="so-title">Continue from Context</div>
+          <div class="so-desc">Auto-import insights from the context you gathered</div>
         </div>
       </label>
       <label style="position: relative;">
         <input type="radio" name="start_mode" class="start-radio" value="opt1" >
         <div class="so-card">
           <div class="so-title">Upload Documents</div>
-          <div class="so-desc">Import existing MDD or reference files</div>
+          <div class="so-desc">Upload an existing Module Definition Document</div>
         </div>
       </label>
       <label style="position: relative;">
         <input type="radio" name="start_mode" class="start-radio" value="opt2" >
         <div class="so-card">
-          <div class="so-title">Blank Draft</div>
-          <div class="so-desc">Start fresh with AI design guidance</div>
+          <div class="so-title">Start from Scratch</div>
+          <div class="so-desc">Let AI guide you in creating a new structure</div>
         </div>
       </label>
     </div>
 <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
-        <button class="analysis-primary" type="button" onclick="this.closest('.setup-card').style.display='none'">Open Workspace →</button>
+        <button class="analysis-primary" type="button" onclick="this.closest('.setup-card').style.display='none'">Start Designing →</button>
       </div>
     </section>
 
@@ -2873,7 +2873,7 @@
           <section class="thread-workspace" aria-live="polite">
             <header class="thread-head">
               <div class="thread-head-top">
-                <h2 class="thread-title" id="threadTitle">Module Design Workspace</h2>
+                <h2 class="thread-title" id="threadTitle">Module Design</h2>
               </div>
               <p class="thread-sub" id="threadSubtitle">AI has reviewed your context and is ready to support module design. Review, refine, and approve each step.</p>
               <div class="thread-pulse" id="threadPulse"></div>
