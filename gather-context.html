@@ -51,7 +51,7 @@
       
       position: sticky; top: 0; z-index: 100;
     }
-.topbar-inner { width: 100%; max-width: var(--max); margin: 0 auto; display: flex; align-items: center; padding: 0 40px; }
+.topbar-inner { width: 100%; max-width: var(--max); margin: 0 auto; display: flex; align-items: center;   padding: 0 40px;}
     .topbar-brand {
       display: flex; align-items: center; gap: 10px;
       text-decoration: none; color: var(--text);
@@ -572,8 +572,8 @@
 
     /* ── Responsive ── */
     @media (max-width: 1280px) {
-      .topbar-inner { padding: 0 28px !important; }
-      .page { padding: 40px 28px !important; }
+      .topbar-inner { padding: 0 28px !important;  padding: 0 40px;}
+      .page { width: 100%; padding: 40px 28px !important; }
       .page-title { font-size: 30px; }
     }
     @media (max-width: 1080px) {
@@ -581,12 +581,29 @@
       .layout-side { width: 100%; position: static; }
     }
     @media (max-width: 900px) {
-      .topbar-inner { padding: 0 18px !important; }
-      .page { padding: 32px 18px !important; }
+      .topbar-inner { padding: 0 18px !important;  padding: 0 40px;}
+      .page { width: 100%; padding: 32px 18px !important; }
       .page { width: 100%; padding-top: 32px; }
       .page-title { font-size: 26px; }
       .page-sub { font-size: 15px; margin-bottom: 24px; }
-      .brand-tag { display: none; }
+    .brand-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      font-style: italic;
+      color: #5c430c;
+      background: #fefce8;
+      border: 1px solid #d9bc3c;
+      border-radius: 3px;
+      padding: 5px 10px;
+      letter-spacing: 0;
+      line-height: 1.4;
+      text-transform: none;
+      box-shadow: 0 2px 7px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.06);
+      max-width: 220px;
+      white-space: normal;
+      vertical-align: middle;
+    }
       .uz-desc, .uz-controls { padding-left: 18px; }
       .ai-stat-strip { grid-template-columns: 1fr; }
       .ai-stat { border-right: none; border-bottom: 1px solid var(--border-soft); }
@@ -605,7 +622,7 @@
            alt="Ngee Ann Polytechnic" style="height:28px; width:auto;">
       <div class="t-div"></div>
       <span class="brand-name">AI Curriculum Designer</span>
-      <span class="brand-tag">Updated concept direction prepared by NP following discussions with AWS on 15 May</span>
+      <span class="brand-tag">NP-refined workflow and UX direction following 15 May discussion with AWS.</span>
     </a>
   </div>
 </nav>
