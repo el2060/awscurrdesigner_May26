@@ -429,32 +429,57 @@
 <main class="page">
 
   <section>
-    <div class="page-eyebrow">Teaching Plan</div>
-    <h1 class="page-title">Review &amp; Refine Weekly Teaching Plan</h1>
-    <p class="page-sub" style="margin-bottom: 28px;">Refine the weekly teaching plan before generating materials.</p>
+    <div class="page-eyebrow">Teaching Plan Workspace</div>
+    <h1 class="page-title">Plan Teaching Schedule</h1>
+    <p class="page-sub" style="margin-bottom: 28px;">Use connected inputs, upload your own documents, or start from scratch.</p>
   </section>
 
 
   <!-- TOP CONNECTOR -->
-  <section class="setup-card analysis-setup" aria-label="Connected module design context">
-    <details class="analysis-accordion">
-      <summary>
-        <div class="setup-kicker">Continue From Module Direction</div>
-        <div class="setup-title">Review approved module context</div>
-        <div class="setup-note">Approved module context carried into this workspace.</div>
-      </summary>
-      <div class="analysis-runs">
-        <div class="connected-strip">
-          <div class="ctx-downstream-chips">
-            <div class="ctx-downstream-chip">MLOs</div>
-            <div class="ctx-downstream-chip">Assessment Structure</div>
-            <div class="ctx-downstream-chip">Graduate Skills</div>
-            <div class="ctx-downstream-chip">Skills Priorities</div>
-            <div class="ctx-more-chip">+3 connected inputs</div>
+  <section class="setup-card" style="padding: 24px; border: 1px solid var(--brand-border, #b8d0e6); background: #fff;">
+    <h2 style="font-size: 16px; font-weight: 700; color: #1a2e40; margin-bottom: 16px;">Start Teaching Plan From</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+      <label class="analysis-run" style="cursor: pointer;">
+        <div class="analysis-run-top">
+          <div class="analysis-run-pick">
+            <input type="radio" name="start_mode" value="context" checked>
+            <span class="analysis-run-title">Approved Module Design</span>
           </div>
         </div>
-      </div>
-    </details>
+        <div class="analysis-run-desc" style="margin-left: 21px;">
+          Use existing approved module structure
+        </div>
+      </label>
+
+      <label class="analysis-run" style="cursor: pointer;">
+        <div class="analysis-run-top">
+          <div class="analysis-run-pick">
+            <input type="radio" name="start_mode" value="upload">
+            <span class="analysis-run-title">Upload Existing Teaching Plan / MDD</span>
+          </div>
+        </div>
+        <div class="analysis-run-desc" style="margin-left: 21px;">
+          Import current teaching schedule or module documents
+        </div>
+      </label>
+
+      <label class="analysis-run" style="cursor: pointer;">
+        <div class="analysis-run-top">
+          <div class="analysis-run-pick">
+            <input type="radio" name="start_mode" value="blank">
+            <span class="analysis-run-title">Start New Weekly Plan</span>
+          </div>
+        </div>
+        <div class="analysis-run-desc" style="margin-left: 21px;">
+          AI drafts a weekly flow from scratch
+        </div>
+      </label>
+    </div>
+
+    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+      <button class="analysis-primary" type="button" onclick="this.closest('.setup-card').style.display='none'">Start Workspace →</button>
+    </div>
   </section>
 
   <!-- WORKSPACE TOOLBAR: spans full width above both panes -->

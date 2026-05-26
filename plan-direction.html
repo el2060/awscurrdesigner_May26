@@ -2786,94 +2786,53 @@
 
   <main class="page">
     <section>
-      <div class="page-eyebrow">Module Design</div>
-      <h1 class="page-title">Plan Module Direction</h1>
-      <p class="page-sub" style="margin-bottom: 20px;">Define outcomes, skills, and assessments. AI drafts the core structure.</p>
-      <div class="draft-notice" style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid var(--brand, #004689); padding: 14px 18px; margin-bottom: 36px; font-size: 13px; color: #475569; border-radius: 6px; max-width: 720px; line-height: 1.5; display: flex; align-items: flex-start; gap: 10px;">
-        <span style="font-size: 16px; line-height: 1.2; color: var(--brand, #004689);">✦</span>
-        <div><strong>AI Draft Design:</strong> Review context-based draft. Finalize before weekly planning.</div>
+      <div class="page-eyebrow">Module Design Workspace</div>
+      <h1 class="page-title">Design Module Structure &amp; Outcomes</h1>
+      <p class="page-sub" style="margin-bottom: 20px;">Use connected inputs, upload your own documents, or start from scratch.</p>
+      <section class="setup-card" style="padding: 24px; border: 1px solid var(--brand-border, #b8d0e6); background: #fff;">
+      <h2 style="font-size: 16px; font-weight: 700; color: #1a2e40; margin-bottom: 16px;">How would you like to start?</h2>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+        <label class="analysis-run" style="cursor: pointer;">
+          <div class="analysis-run-top">
+            <div class="analysis-run-pick">
+              <input type="radio" name="start_mode" value="context" checked>
+              <span class="analysis-run-title">Continue from Gathered Context</span>
+            </div>
+          </div>
+          <div class="analysis-run-desc" style="margin-left: 21px;">
+            Uses reviewed discovery inputs and benchmarking analysis
+          </div>
+        </label>
+
+        <label class="analysis-run" style="cursor: pointer;">
+          <div class="analysis-run-top">
+            <div class="analysis-run-pick">
+              <input type="radio" name="start_mode" value="upload">
+              <span class="analysis-run-title">Upload Existing MDD / Module Docs</span>
+            </div>
+          </div>
+          <div class="analysis-run-desc" style="margin-left: 21px;">
+            Import existing module documents for AI-assisted refinement
+          </div>
+        </label>
+
+        <label class="analysis-run" style="cursor: pointer;">
+          <div class="analysis-run-top">
+            <div class="analysis-run-pick">
+              <input type="radio" name="start_mode" value="blank">
+              <span class="analysis-run-title">Start from Blank Draft</span>
+            </div>
+          </div>
+          <div class="analysis-run-desc" style="margin-left: 21px;">
+            Begin a new module design with AI guidance
+          </div>
+        </label>
       </div>
-    </section>
 
-    <section class="setup-card analysis-setup" aria-label="Connected discovery analysis">
-      <details class="analysis-accordion">
-        <summary>
-          <div class="setup-kicker">Continue From Module Context</div>
-
-          <div class="setup-title">
-            Choose a context analysis to continue from
-          </div>
-
-          <div class="setup-note">
-            Connected curriculum signals and benchmarking insights carried into this workspace.
-          </div>
-        </summary>
-
-        <div class="analysis-runs">
-          <div class="connected-strip">
-
-            <div class="connected-top">
-              <div>
-                <div class="connected-kicker">
-                  Connected Module Context
-                </div>
-
-                <div class="connected-title">
-                  Healthcare AI &amp; Respiratory Care Benchmarking
-                </div>
-              </div>
-
-              <div class="connected-meta">
-                Completed 2h ago
-              </div>
-            </div>
-
-            <div class="ctx-flow">
-              <div class="ctx-flow-step ctx-flow-step--done">
-                Discovery
-              </div>
-
-              <div class="ctx-flow-arrow">→</div>
-
-              <div class="ctx-flow-step ctx-flow-step--active">
-                Module Design
-              </div>
-
-              <div class="ctx-flow-arrow">→</div>
-
-              <div class="ctx-flow-step">
-                Teaching Plan
-              </div>
-            </div>
-
-            <div class="connected-metrics">
-              Connected analysis context available
-            </div>
-
-            <div class="connected-chips">
-              <div class="connected-chip">Industry Signals</div>
-              <div class="connected-chip">Benchmarking</div>
-              <div class="connected-chip">Skills Framework</div>
-              <div class="connected-chip">Competency Gaps</div>
-            </div>
-
-            <div class="analysis-actions">
-              <button class="analysis-primary" type="button">
-                Continue
-              </button>
-
-              <a class="analysis-cta" href="#">
-                View Summary
-              </a>
-
-              <a class="analysis-text-link" href="#">
-                Change Analysis
-              </a>
-            </div>
-
-          </div>
-        </div>
-      </details>
+      <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+        <button class="analysis-primary" type="button" onclick="this.closest('.setup-card').style.display='none'">Start Workspace →</button>
+      </div>
     </section>
 
     <section class="setup-card" aria-label="Module Design Direction" style="margin-bottom: 18px; border-color: #d8e5f2; background: linear-gradient(180deg, #fff 0%, #fbfdff 100%);">

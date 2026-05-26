@@ -218,31 +218,69 @@
 <main class="page">
 
   <section>
-    <div class="page-eyebrow">Material Generation</div>
-    <h1 class="page-title">Generate &amp; Refine Teaching Materials</h1>
-    <p class="page-sub">Refine AI-drafted materials before LMS export.</p>
+    <div class="page-eyebrow">Material Generation Workspace</div>
+    <h1 class="page-title">Generate Teaching Materials</h1>
+    <p class="page-sub">Use connected inputs, upload your own documents, or start from scratch.</p>
   </section>
 
   <!-- TOP CONNECTOR -->
-  <section class="setup-card analysis-setup" aria-label="Connected teaching plan context">
-    <details class="analysis-accordion">
-      <summary>
-        <div class="setup-kicker">Continue From Teaching &amp; Assessment Planning</div>
-        <div class="setup-title">Approved weekly teaching flow carried into material generation</div>
-        <div class="setup-note">Teaching activities, assessment schedule, and OAL plan carried forward.</div>
-      </summary>
-      <div class="analysis-runs">
-        <div class="connected-strip">
-          <div class="ctx-downstream-chips">
-            <div class="ctx-downstream-chip">Weekly teaching flow</div>
-            <div class="ctx-downstream-chip">OAL / IPL activities</div>
-            <div class="ctx-downstream-chip">Assessment schedule</div>
-            <div class="ctx-downstream-chip">Teaching strategies</div>
-            <div class="ctx-more-chip">+2 connected inputs</div>
+  <section class="setup-card" style="padding: 24px; border: 1px solid var(--brand-border, #b8d0e6); background: #fff;">
+    <h2 style="font-size: 16px; font-weight: 700; color: #1a2e40; margin-bottom: 16px;">Choose what to generate from</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+      <label class="analysis-run" style="cursor: pointer;">
+        <div class="analysis-run-top">
+          <div class="analysis-run-pick">
+            <input type="radio" name="start_mode" value="context" checked>
+            <span class="analysis-run-title">Approved Teaching Plan</span>
           </div>
         </div>
+        <div class="analysis-run-desc" style="margin-left: 21px;">
+          Use existing approved teaching schedule
+        </div>
+      </label>
+
+      <label class="analysis-run" style="cursor: pointer;">
+        <div class="analysis-run-top">
+          <div class="analysis-run-pick">
+            <input type="radio" name="start_mode" value="upload">
+            <span class="analysis-run-title">Upload Existing Materials</span>
+          </div>
+        </div>
+        <div class="analysis-run-desc" style="margin-left: 21px;">
+          PPTs, worksheets, quizzes, lesson plans
+        </div>
+      </label>
+
+      <label class="analysis-run" style="cursor: pointer;">
+        <div class="analysis-run-top">
+          <div class="analysis-run-pick">
+            <input type="radio" name="start_mode" value="blank">
+            <span class="analysis-run-title">Upload Module Documents</span>
+          </div>
+        </div>
+        <div class="analysis-run-desc" style="margin-left: 21px;">
+          MDD, assessment briefs, teaching schedule
+        </div>
+      </label>
+    </div>
+
+    <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #e3ecf4;">
+      <h3 style="font-size: 14px; font-weight: 700; color: #1a2e40; margin-bottom: 12px;">Select material types to generate</h3>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Slides</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Quiz</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> OAL activities</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Facilitation guide</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Case study</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Worksheet</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Discussion prompts</label>
       </div>
-    </details>
+    </div>
+
+    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+      <button class="analysis-primary" type="button" onclick="this.closest('.setup-card').style.display='none'">Start Generating →</button>
+    </div>
   </section>
 
   <!-- FULL-WIDTH TOOLBAR -->
