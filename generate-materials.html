@@ -247,25 +247,33 @@
         <input type="radio" name="start_mode" class="start-radio" value="opt0" checked>
         <div class="so-card">
           <div class="so-title">Continue from Teaching Plan</div>
-          <div class="so-desc">Auto-import your weekly flow and activities</div>
+          <div class="so-desc">Use connected weekly flow, activities, and assessment schedule</div>
         </div>
       </label>
       <label style="position: relative;">
-        <input type="radio" name="start_mode" class="start-radio" value="opt1" >
+        <input type="radio" name="start_mode" class="start-radio" value="opt1">
         <div class="so-card">
           <div class="so-title">Upload Materials</div>
-          <div class="so-desc">Upload existing slides, worksheets, or lesson plans</div>
+          <div class="so-desc">Upload existing slides, worksheets, quizzes, or lesson materials</div>
         </div>
       </label>
       <label style="position: relative;">
-        <input type="radio" name="start_mode" class="start-radio" value="opt2" >
+        <input type="radio" name="start_mode" class="start-radio" value="opt2">
         <div class="so-card">
           <div class="so-title">Upload Documents</div>
-          <div class="so-desc">Upload module references or assessment briefs</div>
+          <div class="so-desc">Upload MDDs, teaching schedules, or assessment briefs</div>
+        </div>
+      </label>
+      <label style="position: relative;">
+        <input type="radio" name="start_mode" class="start-radio" value="opt3">
+        <div class="so-card">
+          <div class="so-title">Start from Scratch</div>
+          <div class="so-desc">Let AI generate materials from a simple topic or module prompt</div>
         </div>
       </label>
     </div>
-<div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #e3ecf4;">
+    
+    <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #e3ecf4;">
       <h3 style="font-size: 14px; font-weight: 700; color: #1a2e40; margin-bottom: 12px;">Choose materials to generate</h3>
       <div style="display: flex; flex-wrap: wrap; gap: 8px;">
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Slides</label>
@@ -276,15 +284,26 @@
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Worksheets</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Discussion Prompts</label>
       </div>
-    </div>
-
-    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
-      <button class="analysis-primary" type="button" onclick="this.closest('.setup-card').style.display='none'">Generate Materials →</button>
+      <div style="margin-top: 20px;">
+        <button class="analysis-primary" type="button" onclick="document.getElementById('placeholder-area').style.display='none'; document.getElementById('workspace-toolbar').style.display='flex'; document.getElementById('workspace-area').style.display='grid';">Generate Materials →</button>
+      </div>
     </div>
   </section>
 
+  
+  <!-- PLACEHOLDER AREA -->
+  <div id="placeholder-area" style="text-align: center; padding: 60px 20px; border: 1px dashed #c8daec; border-radius: 12px; margin-top: 24px; background: #fbfdff;">
+    <div style="font-size: 15px; font-weight: 600; color: #4a6580; margin-bottom: 8px;">Generated materials will appear here</div>
+    <div style="font-size: 13px; color: #7a8fa3; margin-bottom: 32px;">Configure your starting point above to begin.</div>
+    <div style="display: flex; gap: 16px; justify-content: center; opacity: 0.5;">
+      <div style="width: 220px; height: 160px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);"></div>
+      <div style="width: 220px; height: 160px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);"></div>
+      <div style="width: 220px; height: 160px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);"></div>
+    </div>
+  </div>
+
   <!-- FULL-WIDTH TOOLBAR -->
-  <div class="workspace-toolbar">
+  <div id="workspace-toolbar" class="workspace-toolbar" style="display: none;">
     <div>
       <div class="workspace-toolbar-title">Teaching Pack — Week 1–6</div>
       <div class="workspace-toolbar-sub">AI is drafting materials from your approved teaching flow. Review and refine each component.</div>
@@ -294,7 +313,7 @@
     </div>
   </div>
 
-  <div class="workspace">
+  <div id="workspace-area" class="workspace" style="display: none;">
 
     <!-- LEFT RAIL: TEACHING PACK ASSISTANT -->
     <div class="workspace-side">
@@ -537,13 +556,12 @@
       <div class="next-step-card">
         <div class="next-step-label">Export &amp; Publish</div>
         <div class="next-step-title">Teaching Pack Ready for Delivery</div>
-        <div class="next-step-sub">Download files or push directly to Brightspace LMS.</div>
-        <div class="export-actions">
-          <button class="btn">PPTX</button>
-          <button class="btn">DOCX</button>
-          <button class="btn">Brightspace (QTI)</button>
+        <div class="next-step-sub">Export teaching materials for review or LMS upload.</div>
+        <div class="export-actions" style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <button class="btn">Download PPTX</button>
+          <button class="btn">Download DOCX</button>
+          <button class="btn">Export Quiz Package</button>
           <button class="btn primary">Download Teaching Pack</button>
-          <button class="btn primary">Push to LMS</button>
         </div>
       </div>
 
