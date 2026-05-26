@@ -225,18 +225,18 @@
 
   <!-- TOP CONNECTOR -->
   <section class="setup-card" style="padding: 24px; border: 1px solid var(--brand-border, #b8d0e6); background: #fff;">
-    <h2 style="font-size: 16px; font-weight: 700; color: #1a2e40; margin-bottom: 16px;">Choose what to generate from</h2>
+    <h2 style="font-size: 16px; font-weight: 700; color: #1a2e40; margin-bottom: 16px;">Choose how to start material generation</h2>
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
       <label class="analysis-run" style="cursor: pointer;">
         <div class="analysis-run-top">
           <div class="analysis-run-pick">
             <input type="radio" name="start_mode" value="context" checked>
-            <span class="analysis-run-title">Approved Teaching Plan</span>
+            <span class="analysis-run-title">Continue from Teaching Plan</span>
           </div>
         </div>
         <div class="analysis-run-desc" style="margin-left: 21px;">
-          Use existing approved teaching schedule
+          Use connected weekly teaching flow, OAL/IPL activities, and assessment schedule
         </div>
       </label>
 
@@ -248,7 +248,7 @@
           </div>
         </div>
         <div class="analysis-run-desc" style="margin-left: 21px;">
-          PPTs, worksheets, quizzes, lesson plans
+          Import PPTs, worksheets, quizzes, facilitation notes, or lesson plans
         </div>
       </label>
 
@@ -260,26 +260,26 @@
           </div>
         </div>
         <div class="analysis-run-desc" style="margin-left: 21px;">
-          MDD, assessment briefs, teaching schedule
+          Import MDDs, assessment briefs, teaching schedules, or module references
         </div>
       </label>
     </div>
 
     <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #e3ecf4;">
-      <h3 style="font-size: 14px; font-weight: 700; color: #1a2e40; margin-bottom: 12px;">Select material types to generate</h3>
+      <h3 style="font-size: 14px; font-weight: 700; color: #1a2e40; margin-bottom: 12px;">Choose materials to generate</h3>
       <div style="display: flex; flex-wrap: wrap; gap: 8px;">
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Slides</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Quiz</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> OAL activities</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Facilitation guide</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Case study</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Worksheet</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Discussion prompts</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Quizzes</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> OAL Activities</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Facilitation Notes</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Case Studies</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Worksheets</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Discussion Prompts</label>
       </div>
     </div>
 
     <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
-      <button class="analysis-primary" type="button" onclick="this.closest('.setup-card').style.display='none'">Start Generating →</button>
+      <button class="analysis-primary" type="button" onclick="this.closest('.setup-card').style.display='none'">Generate Materials →</button>
     </div>
   </section>
 
