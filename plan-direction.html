@@ -2786,48 +2786,35 @@
       <div class="page-eyebrow">Module Design Workspace</div>
       <h1 class="page-title">Design Module Structure &amp; Outcomes</h1>
       <p class="page-sub" style="margin-bottom: 20px;">Use connected inputs, upload your own documents, or start from scratch.</p>
-      <section class="setup-card" style="padding: 24px; border: 1px solid var(--brand-border, #b8d0e6); background: #fff;">
-      <h2 style="font-size: 16px; font-weight: 700; color: #1a2e40; margin-bottom: 16px;">Choose how to start this workspace</h2>
-      
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
-        <label class="analysis-run" style="cursor: pointer;">
-          <div class="analysis-run-top">
-            <div class="analysis-run-pick">
-              <input type="radio" name="start_mode" value="context" checked>
-              <span class="analysis-run-title">Continue from Gathered Context</span>
-            </div>
-          </div>
-          <div class="analysis-run-desc" style="margin-left: 21px;">
-            Uses reviewed discovery inputs and benchmarking analysis
-          </div>
-        </label>
-
-        <label class="analysis-run" style="cursor: pointer;">
-          <div class="analysis-run-top">
-            <div class="analysis-run-pick">
-              <input type="radio" name="start_mode" value="upload">
-              <span class="analysis-run-title">Upload Existing MDD / Module Docs</span>
-            </div>
-          </div>
-          <div class="analysis-run-desc" style="margin-left: 21px;">
-            Import existing module documents for AI-assisted refinement
-          </div>
-        </label>
-
-        <label class="analysis-run" style="cursor: pointer;">
-          <div class="analysis-run-top">
-            <div class="analysis-run-pick">
-              <input type="radio" name="start_mode" value="blank">
-              <span class="analysis-run-title">Start from Blank Draft</span>
-            </div>
-          </div>
-          <div class="analysis-run-desc" style="margin-left: 21px;">
-            Begin a new module design with AI guidance
-          </div>
-        </label>
-      </div>
-
-      <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+      <section class="setup-card" style="padding: 24px; border: 1px solid var(--brand-border, #b8d0e6); background: #fdfdfe;">
+      <div style="margin-bottom: 16px;">
+      <h2 style="font-size: 16px; font-weight: 700; color: #1a2e40;">Workspace Starting Point</h2>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+      <label style="position: relative;">
+        <input type="radio" name="start_mode" class="start-radio" value="opt0" checked>
+        <div class="so-card">
+          <div class="so-title">Connected Context</div>
+          <div class="so-desc">Auto-import upstream discovery & benchmarking</div>
+        </div>
+      </label>
+      <label style="position: relative;">
+        <input type="radio" name="start_mode" class="start-radio" value="opt1" >
+        <div class="so-card">
+          <div class="so-title">Upload Documents</div>
+          <div class="so-desc">Import existing MDD or reference files</div>
+        </div>
+      </label>
+      <label style="position: relative;">
+        <input type="radio" name="start_mode" class="start-radio" value="opt2" >
+        <div class="so-card">
+          <div class="so-title">Blank Draft</div>
+          <div class="so-desc">Start fresh with AI design guidance</div>
+        </div>
+      </label>
+    </div>
+<div style="margin-top: 20px; display: flex; justify-content: flex-end;">
         <button class="analysis-primary" type="button" onclick="this.closest('.setup-card').style.display='none'">Open Workspace →</button>
       </div>
     </section>

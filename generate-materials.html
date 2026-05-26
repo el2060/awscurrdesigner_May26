@@ -224,48 +224,48 @@
   </section>
 
   <!-- TOP CONNECTOR -->
-  <section class="setup-card" style="padding: 24px; border: 1px solid var(--brand-border, #b8d0e6); background: #fff;">
-    <h2 style="font-size: 16px; font-weight: 700; color: #1a2e40; margin-bottom: 16px;">Choose how to start material generation</h2>
+
+    <style>
+      .start-radio { position: absolute; opacity: 0; pointer-events: none; }
+      .so-card { border: 1px solid #dce8f5; border-radius: 10px; padding: 14px 18px; background: #fff; height: 100%; transition: all 0.2s; cursor: pointer; }
+      .so-card:hover { border-color: #b8d0e6; background: #f8fbff; }
+      .start-radio:checked + .so-card { border: 2px solid var(--brand); background: #f4f8fe; box-shadow: 0 4px 12px rgba(0,70,137,0.06); padding: 13px 17px; }
+      .so-title { font-size: 13.5px; font-weight: 700; color: #1a2e40; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+      .start-radio:checked + .so-card .so-title { color: var(--brand); }
+      .start-radio:checked + .so-card .so-title::before { content: ''; display: inline-block; width: 14px; height: 14px; background: var(--brand); border-radius: 50%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='2 6 5 9 10 3'/%3E%3C/svg%3E"); background-size: 9px; background-position: center; background-repeat: no-repeat; flex-shrink: 0; }
+      .start-radio:not(:checked) + .so-card .so-title::before { content: ''; display: inline-block; width: 14px; height: 14px; border: 1px solid #c8daec; border-radius: 50%; flex-shrink: 0; }
+      .so-desc { font-size: 12px; color: #5f748a; line-height: 1.4; padding-left: 22px; }
+    </style>
+
+  <section class="setup-card" style="padding: 24px; border: 1px solid var(--brand-border, #b8d0e6); background: #fdfdfe;">
+    <div style="margin-bottom: 16px;">
+      <h2 style="font-size: 16px; font-weight: 700; color: #1a2e40;">Workspace Starting Point</h2>
+    </div>
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
-      <label class="analysis-run" style="cursor: pointer;">
-        <div class="analysis-run-top">
-          <div class="analysis-run-pick">
-            <input type="radio" name="start_mode" value="context" checked>
-            <span class="analysis-run-title">Continue from Teaching Plan</span>
-          </div>
-        </div>
-        <div class="analysis-run-desc" style="margin-left: 21px;">
-          Use connected weekly teaching flow, OAL/IPL activities, and assessment schedule
+      <label style="position: relative;">
+        <input type="radio" name="start_mode" class="start-radio" value="opt0" checked>
+        <div class="so-card">
+          <div class="so-title">Continue from Teaching Plan</div>
+          <div class="so-desc">Auto-import weekly flow & activities</div>
         </div>
       </label>
-
-      <label class="analysis-run" style="cursor: pointer;">
-        <div class="analysis-run-top">
-          <div class="analysis-run-pick">
-            <input type="radio" name="start_mode" value="upload">
-            <span class="analysis-run-title">Upload Existing Materials</span>
-          </div>
-        </div>
-        <div class="analysis-run-desc" style="margin-left: 21px;">
-          Import PPTs, worksheets, quizzes, facilitation notes, or lesson plans
+      <label style="position: relative;">
+        <input type="radio" name="start_mode" class="start-radio" value="opt1" >
+        <div class="so-card">
+          <div class="so-title">Upload Materials</div>
+          <div class="so-desc">Import PPTs, quizzes, or lesson plans</div>
         </div>
       </label>
-
-      <label class="analysis-run" style="cursor: pointer;">
-        <div class="analysis-run-top">
-          <div class="analysis-run-pick">
-            <input type="radio" name="start_mode" value="blank">
-            <span class="analysis-run-title">Upload Module Documents</span>
-          </div>
-        </div>
-        <div class="analysis-run-desc" style="margin-left: 21px;">
-          Import MDDs, assessment briefs, teaching schedules, or module references
+      <label style="position: relative;">
+        <input type="radio" name="start_mode" class="start-radio" value="opt2" >
+        <div class="so-card">
+          <div class="so-title">Upload Documents</div>
+          <div class="so-desc">Import MDDs or assessment briefs</div>
         </div>
       </label>
     </div>
-
-    <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #e3ecf4;">
+<div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #e3ecf4;">
       <h3 style="font-size: 14px; font-weight: 700; color: #1a2e40; margin-bottom: 12px;">Choose materials to generate</h3>
       <div style="display: flex; flex-wrap: wrap; gap: 8px;">
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Slides</label>
