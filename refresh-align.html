@@ -795,26 +795,26 @@
 
     <div class="layout-main">
 
-      <!-- ── Section A: Gather Review Context ── -->
+      <!-- ── Section 1: Add Core Module Documents ── -->
       <div class="section-card">
         <div class="sc-header">
           <div class="sc-num">1</div>
           <div class="sc-title-wrap">
-            <div class="sc-title">Add Module Materials</div>
-            <div class="sc-desc">Upload or paste your module materials for AI review</div>
+            <div class="sc-title">Add Core Module Documents</div>
+            <div class="sc-desc">Upload your existing module materials for AI review</div>
           </div>
         </div>
         <div class="sc-body">
           <div class="add-row">
-            <button class="btn-action" type="button" onclick="loadModule()">Upload Files</button>
-            <button class="btn-subtle" type="button" onclick="document.getElementById('module-paste').focus()">Paste Content</button>
+            <button class="btn-action" type="button" onclick="loadModule()">Upload Module Files</button>
+            <button class="btn-subtle" type="button" onclick="document.getElementById('module-paste').focus()">Paste Notes</button>
             <span class="state-pill" id="import-state">No materials added</span>
           </div>
 
           <div class="drop-zone" onclick="loadModule()">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--hp-muted);display:block;margin:0 auto 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <div style="font-size:13px;font-weight:500;color:var(--hp-body);">Drag files here, or <span style="color:var(--hp-emerald-700);font-weight:600;">browse to upload</span></div>
-            <div style="font-size:11px;color:var(--hp-muted);margin-top:4px;">Module outlines, assessment briefs, slides, rubrics, and reference documents</div>
+            <div style="font-size:11px;color:var(--hp-muted);margin-top:4px;">MDDs, teaching schedules, assessment briefs, slides, rubrics</div>
           </div>
 
           <div class="field">
@@ -847,25 +847,25 @@
             <summary>
               <span class="ctx-summary-label">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                Review context sources
+                Optional Context Sources
               </span>
               <span class="ctx-badge">4 active</span>
             </summary>
             <div class="ctx-drawer-body">
-              <div class="ctx-sub">AI grounds its review in NP institutional frameworks and your module materials. Add optional external context to enrich the recommendations.</div>
-              <div class="ctx-group-label">Active Context</div>
+              <div class="ctx-sub">Add supporting references to enrich the review</div>
+              <div class="ctx-group-label">Connected Inputs</div>
               <ul class="ctx-active-list">
-                <li>Module materials uploaded above</li>
-                <li>NP Assessment Framework</li>
-                <li>NP Graduate Competencies (NPGC)</li>
-                <li>Communication Competency Toolkit</li>
+                <li>Gather Context workspace outputs</li>
+                <li>Industry scan</li>
+                <li>Benchmarking insights</li>
+                <li>Employer feedback</li>
               </ul>
-              <div class="ctx-group-label">Add Optional Context</div>
+              <div class="ctx-group-label">Add Optional References</div>
               <div class="ctx-add-row">
-                <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Industry reports</button>
                 <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Accreditation requirements</button>
+                <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Workplace trend reports</button>
                 <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Benchmarking references</button>
-                <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Workplace trend signals</button>
+                <button class="ctx-add-btn" type="button" onclick="toggleCtxAdd(this)">+ Industry reports</button>
               </div>
             </div>
           </details>
