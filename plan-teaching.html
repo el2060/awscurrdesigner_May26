@@ -504,7 +504,7 @@
             <div class="assistant-icon">✦</div>
             <div>
               <div class="assistant-name">Teaching Plan Assistant</div>
-              <div class="assistant-status">Draft ready &middot; 15-week flow</div>
+              <div class="assistant-status">Draft ready &middot; Weekly teaching flow</div>
             </div>
           </div>
           <div class="assistant-context">
@@ -565,11 +565,36 @@
     <!-- CORE WORKSPACE -->
     <div class="workspace-main">
 
+            <!-- TEACHING PLAN CONFIGURATION -->
+      <div class="config-strip" style="display: flex; align-items: center; border: 1px solid #dce8f5; border-radius: 10px; background: #fff; margin-bottom: 24px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,70,137,0.02);">
+        <div class="config-zone" style="padding: 12px 18px; display: flex; align-items: center; gap: 14px;">
+          <div class="config-label" style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #5b78a0; letter-spacing: 0.08em;">Module Duration</div>
+          <select style="border: 1px solid #c8daec; border-radius: 6px; padding: 7px 34px 7px 12px; font-size: 13px; font-weight: 600; color: #1a2e40; outline: none; background: #f8fbff url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"%235b78a0\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"6 9 12 15 18 9\"></polyline></svg>') no-repeat right 12px center; appearance: none; font-family: var(--font-sans, system-ui); cursor: pointer; transition: 0.12s;">
+            <option value="15" selected>15 Weeks (Standard)</option>
+            <option value="13">13 Weeks</option>
+            <option value="7">7 Weeks (Half-term)</option>
+            <option value="custom">Custom...</option>
+          </select>
+        </div>
+        <div style="width: 1px; height: 32px; background: #edf2f8;"></div>
+        <div class="config-zone" style="padding: 12px 18px; display: flex; align-items: center; gap: 14px;">
+          <div class="config-label" style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #5b78a0; letter-spacing: 0.08em;">Format</div>
+          <select style="border: 1px solid #c8daec; border-radius: 6px; padding: 7px 34px 7px 12px; font-size: 13px; font-weight: 600; color: #1a2e40; outline: none; background: #f8fbff url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"%235b78a0\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"6 9 12 15 18 9\"></polyline></svg>') no-repeat right 12px center; appearance: none; font-family: var(--font-sans, system-ui); cursor: pointer; transition: 0.12s;">
+            <option value="weekly" selected>Weekly Teaching</option>
+            <option value="block">Block Teaching</option>
+          </select>
+        </div>
+        <div style="flex: 1;"></div>
+        <div class="config-zone" style="padding: 12px 18px; border-left: 1px solid #edf2f8;">
+          <button style="background: transparent; border: 1px solid #c8daec; color: var(--brand); font-size: 12px; font-weight: 700; padding: 7px 16px; border-radius: 6px; cursor: pointer; transition: 0.12s;" onmouseover="this.style.background='var(--brand-soft)'; this.style.borderColor='var(--brand)'" onmouseout="this.style.background='transparent'; this.style.borderColor='#c8daec'">Update Structure</button>
+        </div>
+      </div>
+
       <!-- MODULE LEADER PROMPT / DIRECTION -->
       <div class="prompt-section">
         <div>
           <div class="prompt-label">Step 1: Steer the AI Draft</div>
-          <div class="prompt-desc">Provide specific instructions on how you want to structure the 15-week flow beyond the upstream module context.</div>
+          <div class="prompt-desc">Provide specific instructions on how you want to structure the teaching flow beyond the upstream module context.</div>
         </div>
         <div class="prompt-input-row">
           <textarea class="prompt-input" placeholder="E.g., Front-load theoretical concepts in Weeks 1-4, leave Weeks 12-14 for project work, and ensure practicals are aligned with equipment availability..."></textarea>
