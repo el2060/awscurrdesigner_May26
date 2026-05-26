@@ -46,22 +46,33 @@
     .t-div { width: 1px; height: 18px; background: var(--border); }
     .brand-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
     .brand-tag {
+      position: relative;
       display: inline-block;
       font-size: 10px;
       font-weight: 500;
       font-style: italic;
       color: #5c430c;
-      background: #fefce8;
-      border: 1px solid #d9bc3c;
-      border-radius: 3px;
-      padding: 5px 10px;
+      background: #fef08a;
+      border: none;
+      border-radius: 2px;
+      padding: 6px 12px 10px 10px;
       letter-spacing: 0;
-      line-height: 1.4;
+      line-height: 1.45;
       text-transform: none;
-      box-shadow: 0 2px 7px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.06);
-      max-width: 220px;
+      box-shadow: 2px 3px 8px rgba(0,0,0,0.18), 1px 1px 0 rgba(0,0,0,0.06);
+      max-width: 230px;
       white-space: normal;
       vertical-align: middle;
+      transform: rotate(-1.2deg);
+      transform-origin: top left;
+    }
+    .brand-tag::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 14px; height: 14px;
+      background: linear-gradient(225deg, #d9c240 50%, transparent 50%);
+      border-radius: 0 0 2px 0;
     }
 
     /* ── Page ── */
@@ -253,7 +264,7 @@
            alt="Ngee Ann Polytechnic" style="height:28px; width:auto; display:block;">
       <div class="t-div"></div>
       <span class="brand-name">AI Curriculum Designer</span>
-      <span class="brand-tag">Updated concept direction prepared by NP following discussions with AWS on 15 May</span>
+      <span class="brand-tag">Proposed AI-assisted curriculum design experience conceptualised and designed by NP, for platform adaptation and implementation with AWS.</span>
     </a>
   </div>
 </nav>
