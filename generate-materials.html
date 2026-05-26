@@ -255,37 +255,57 @@
       .start-radio:checked + .so-card .so-title::before { content: ''; display: inline-block; width: 14px; height: 14px; background: var(--brand); border-radius: 50%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='2 6 5 9 10 3'/%3E%3C/svg%3E"); background-size: 9px; background-position: center; background-repeat: no-repeat; flex-shrink: 0; }
       .start-radio:not(:checked) + .so-card .so-title::before { content: ''; display: inline-block; width: 14px; height: 14px; border: 1px solid #c8daec; border-radius: 50%; flex-shrink: 0; }
       .so-desc { font-size: 11.5px; color: #64748b; line-height: 1.45; padding-left: 22px; }
+      
+      .analysis-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--brand);
+        border-radius: 999px;
+        background: var(--brand);
+        color: #fff;
+        padding: 8px 14px;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        cursor: pointer;
+        font-family: var(--font-sans);
+      }
+      .analysis-primary:hover {
+        background: #003366;
+        border-color: #003366;
+      }
     </style>
 
-  <section class="setup-card" style="padding: 20px 24px; border: 1px solid var(--border); background: #fff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-bottom: 24px;">
+  <section class="setup-card" id="start-step-1" style="padding: 20px 24px; border: 1px solid var(--brand-border, #b8d0e6); background: #fdfdfe; margin-bottom: 16px;">
     <div style="margin-bottom: 16px;">
       <h2 style="font-size: 14px; font-weight: 600; color: #1a2e40; letter-spacing: -0.01em;">How do you want to start?</h2>
     </div>
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
       <label style="position: relative;">
-        <input type="radio" name="start_mode" class="start-radio" value="opt0" checked>
+        <input type="radio" name="start_mode" class="start-radio" value="opt0" onchange="updateStartMode()">
         <div class="so-card">
           <div class="so-title">Continue from Teaching Plan</div>
           <div class="so-desc">Use connected weekly flow, activities, and assessment schedule</div>
         </div>
       </label>
       <label style="position: relative;">
-        <input type="radio" name="start_mode" class="start-radio" value="opt1">
+        <input type="radio" name="start_mode" class="start-radio" value="opt1" checked onchange="updateStartMode()">
         <div class="so-card">
-          <div class="so-title">Upload Materials</div>
-          <div class="so-desc">Upload existing slides, worksheets, quizzes, or lesson materials</div>
+          <div class="so-title">Refresh Existing Materials</div>
+          <div class="so-desc">Upload existing slides or notes to modernize design and update content</div>
         </div>
       </label>
       <label style="position: relative;">
-        <input type="radio" name="start_mode" class="start-radio" value="opt2">
+        <input type="radio" name="start_mode" class="start-radio" value="opt2" onchange="updateStartMode()">
         <div class="so-card">
-          <div class="so-title">Upload Documents</div>
-          <div class="so-desc">Upload MDDs, teaching schedules, or assessment briefs</div>
+          <div class="so-title">From Reference Documents</div>
+          <div class="so-desc">Upload MDDs, teaching schedules, or assessment briefs to build from</div>
         </div>
       </label>
       <label style="position: relative;">
-        <input type="radio" name="start_mode" class="start-radio" value="opt3">
+        <input type="radio" name="start_mode" class="start-radio" value="opt3" onchange="updateStartMode()">
         <div class="so-card">
           <div class="so-title">Start from Scratch</div>
           <div class="so-desc">Let AI generate materials from a simple topic or module prompt</div>
@@ -293,9 +313,16 @@
       </label>
     </div>
     
-    <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #e3ecf4;">
-      <h3 style="font-size: 14px; font-weight: 700; color: #1a2e40; margin-bottom: 12px;">Choose materials to generate</h3>
-      <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;">
+    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+      <button class="analysis-primary" type="button" onclick="document.getElementById('start-step-1').style.display='none'; document.getElementById('start-step-2').style.display='none'">Start Generating →</button>
+    </div>
+  </section>
+
+  <section class="setup-card" id="start-step-2" style="padding: 20px 24px; border: 1px solid #dce8f5; background: #fff; margin-bottom: 24px;">
+    <h3 style="font-size: 14px; font-weight: 700; color: #1a2e40; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #4a6580; font-size: 11px;">Configuration</h3>
+    <div style="margin-bottom: 16px;">
+      <div style="font-size: 13px; font-weight: 600; color: #1a2e40; margin-bottom: 8px;">Choose materials to generate</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Slides</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Quizzes</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> OAL Activities</label>
@@ -304,12 +331,16 @@
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Worksheets</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Discussion Prompts</label>
       </div>
+    </div>
 
-      <div style="background: #f8fbff; border: 1px solid #dce8f5; border-radius: 8px; padding: 12px;">
-        <div style="font-size: 12px; font-weight: 600; color: #344b61; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-          <span style="color: var(--brand);">✦</span> Additional Instructions (Optional)
-        </div>
-        <textarea placeholder="e.g. Focus on real-world industry examples. Keep language simple for Year 1 students." style="width: 100%; height: 50px; border: 1px solid #c8daec; border-radius: 6px; padding: 8px 12px; font-size: 13px; color: var(--text); font-family: var(--font-sans, system-ui); resize: none; background: #fff; outline: none; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);"></textarea>
+    <div style="background: #f8fbff; border: 1px solid #dce8f5; border-radius: 8px; padding: 12px;">
+      <div id="dyn-instr-title" style="font-size: 12px; font-weight: 600; color: #344b61; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+        <span style="color: var(--brand);">✦</span> Additional Instructions (Optional)
+      </div>
+      <textarea id="dyn-instr-area" placeholder="e.g. Focus on real-world industry examples. Keep language simple for Year 1 students." style="width: 100%; height: 50px; border: 1px solid #c8daec; border-radius: 6px; padding: 8px 12px; font-size: 13px; color: var(--text); font-family: var(--font-sans, system-ui); resize: none; background: #fff; outline: none; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);"></textarea>
+      <div id="dyn-instr-actions" style="margin-top: 8px; display: none; gap: 8px; flex-wrap: wrap;">
+        <button type="button" style="border: 1px dashed #b8d0e6; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: #4a6580; cursor: pointer;">+ Upload Old Files</button>
+        <button type="button" style="border: 1px dashed #b8d0e6; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: #4a6580; cursor: pointer;">+ Add Reference Link</button>
       </div>
     </div>
   </section>
@@ -596,6 +627,32 @@
       }
     });
   }
+
+  function updateStartMode() {
+    const mode = document.querySelector('input[name="start_mode"]:checked').value;
+    const title = document.getElementById('dyn-instr-title');
+    const area = document.getElementById('dyn-instr-area');
+    const actions = document.getElementById('dyn-instr-actions');
+    
+    if (mode === 'opt1') {
+      title.innerHTML = '<span style="color: var(--brand);">✦</span> Refresh Directions & Uploads';
+      area.placeholder = 'e.g. Modernize the visual layout. Keep the core concepts but simplify explanations for Year 1.';
+      actions.style.display = 'flex';
+      actions.innerHTML = '<button type="button" style="border: 1px dashed #b8d0e6; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: #4a6580; cursor: pointer;">+ Upload Old Files</button><button type="button" style="border: 1px dashed #b8d0e6; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: #4a6580; cursor: pointer;">+ Add Reference Link</button>';
+    } else if (mode === 'opt2') {
+      title.innerHTML = '<span style="color: var(--brand);">✦</span> Reference Documents & Notes';
+      area.placeholder = 'e.g. Ensure all generated slides strictly follow the week-by-week MDD schedule.';
+      actions.style.display = 'flex';
+      actions.innerHTML = '<button type="button" style="border: 1px dashed #b8d0e6; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: #4a6580; cursor: pointer;">+ Upload Reference Doc</button>';
+    } else {
+      title.innerHTML = '<span style="color: var(--brand);">✦</span> Additional Instructions (Optional)';
+      area.placeholder = 'e.g. Focus on real-world industry examples. Keep language simple for Year 1 students.';
+      actions.style.display = 'none';
+    }
+  }
+
+  // Initialize dynamic area on load
+  updateStartMode();
 </script>
 </body>
 </html>
