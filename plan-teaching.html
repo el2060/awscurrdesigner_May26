@@ -429,7 +429,46 @@
       font-size: 11px; font-weight: 500; padding: 4px 10px; cursor: pointer; transition: 0.12s;
     }
     .prompt-sug-btn:hover { background: var(--brand-soft); border-color: var(--brand-border); color: var(--brand); }
-  </style>
+      /* --- Global Aesthetic Override --- */
+    :root {
+      --brand: #0f172a !important;
+      --font-sans: 'Outfit', system-ui, sans-serif !important;
+    }
+    body {
+      font-family: var(--font-sans);
+    }
+    .setup-card {
+      border: 1px solid rgba(15, 23, 42, 0.08) !important;
+      background: #ffffff !important;
+      box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.05), 0 4px 12px -4px rgba(15, 23, 42, 0.02) !important;
+      border-radius: 12px !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .so-card {
+      border: 1px solid rgba(15, 23, 42, 0.1) !important;
+      box-shadow: 0 2px 4px -1px rgba(15, 23, 42, 0.02) !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .so-card:hover {
+      border-color: rgba(15, 23, 42, 0.2) !important;
+      box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.05) !important;
+      transform: translateY(-1px);
+    }
+    .start-radio:checked + .so-card {
+      border: 2px solid var(--brand) !important;
+      background: #f8fafc !important;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08) !important;
+      transform: translateY(-1px);
+    }
+    .analysis-primary {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15) !important;
+    }
+    .analysis-primary:hover {
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25) !important;
+      transform: translateY(-1px);
+    }
+</style>
 </head>
 <body>
 
@@ -466,7 +505,46 @@
       .start-radio:checked + .so-card .so-title::before { content: ''; display: inline-block; width: 14px; height: 14px; background: var(--brand); border-radius: 50%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='2 6 5 9 10 3'/%3E%3C/svg%3E"); background-size: 9px; background-position: center; background-repeat: no-repeat; flex-shrink: 0; }
       .start-radio:not(:checked) + .so-card .so-title::before { content: ''; display: inline-block; width: 14px; height: 14px; border: 1px solid #c8daec; border-radius: 50%; flex-shrink: 0; }
       .so-desc { font-size: 11.5px; color: #64748b; line-height: 1.45; padding-left: 22px; }
-    </style>
+        /* --- Global Aesthetic Override --- */
+    :root {
+      --brand: #0f172a !important;
+      --font-sans: 'Outfit', system-ui, sans-serif !important;
+    }
+    body {
+      font-family: var(--font-sans);
+    }
+    .setup-card {
+      border: 1px solid rgba(15, 23, 42, 0.08) !important;
+      background: #ffffff !important;
+      box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.05), 0 4px 12px -4px rgba(15, 23, 42, 0.02) !important;
+      border-radius: 12px !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .so-card {
+      border: 1px solid rgba(15, 23, 42, 0.1) !important;
+      box-shadow: 0 2px 4px -1px rgba(15, 23, 42, 0.02) !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .so-card:hover {
+      border-color: rgba(15, 23, 42, 0.2) !important;
+      box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.05) !important;
+      transform: translateY(-1px);
+    }
+    .start-radio:checked + .so-card {
+      border: 2px solid var(--brand) !important;
+      background: #f8fafc !important;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08) !important;
+      transform: translateY(-1px);
+    }
+    .analysis-primary {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15) !important;
+    }
+    .analysis-primary:hover {
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25) !important;
+      transform: translateY(-1px);
+    }
+</style>
 
   <section class="setup-card" style="padding: 20px 24px; border: 1px solid var(--brand-border, #b8d0e6); background: #fdfdfe;">
     <div style="margin-bottom: 16px;">
@@ -848,3 +926,4 @@
 
 </body>
 </html>
+
