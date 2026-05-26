@@ -590,12 +590,19 @@
         </div>
       </div>
 
-      <!-- MODULE LEADER PROMPT / DIRECTION -->
-      <div class="prompt-section">
-        <div>
-          <div class="prompt-label">Step 1: Steer the AI Draft</div>
-          <div class="prompt-desc">Provide specific instructions on how you want to structure the teaching flow beyond the upstream module context.</div>
+      <!-- AI REFINE CHAT -->
+      <div class="chat-section" style="border: 1px solid #d6e6f3; border-radius: 10px; background: #f8fbff; padding: 14px 16px; display: grid; gap: 10px; margin-bottom: 24px;">
+        <div class="chat-label" style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: #7a8fa3;">Refine with AI</div>
+        <div class="chat-prompts" style="display: flex; flex-wrap: wrap; gap: 6px;">
+          <button class="chat-prompt-btn" style="border: 1px solid #b8d0e6; border-radius: 999px; background: #fff; color: var(--brand); font-size: 12px; font-weight: 600; padding: 5px 12px; cursor: pointer; transition: 0.12s;" onmouseover="this.style.background='var(--brand-soft)'; this.style.borderColor='var(--brand)'" onmouseout="this.style.background='#fff'; this.style.borderColor='#b8d0e6'" onclick="document.getElementById('chat-input-flow').value=this.innerText; document.getElementById('chat-input-flow').focus();">Focus on active learning in tutorials</button>
+          <button class="chat-prompt-btn" style="border: 1px solid #b8d0e6; border-radius: 999px; background: #fff; color: var(--brand); font-size: 12px; font-weight: 600; padding: 5px 12px; cursor: pointer; transition: 0.12s;" onmouseover="this.style.background='var(--brand-soft)'; this.style.borderColor='var(--brand)'" onmouseout="this.style.background='#fff'; this.style.borderColor='#b8d0e6'" onclick="document.getElementById('chat-input-flow').value=this.innerText; document.getElementById('chat-input-flow').focus();">Ensure CA2 falls in Week 10</button>
+          <button class="chat-prompt-btn" style="border: 1px solid #b8d0e6; border-radius: 999px; background: #fff; color: var(--brand); font-size: 12px; font-weight: 600; padding: 5px 12px; cursor: pointer; transition: 0.12s;" onmouseover="this.style.background='var(--brand-soft)'; this.style.borderColor='var(--brand)'" onmouseout="this.style.background='#fff'; this.style.borderColor='#b8d0e6'" onclick="document.getElementById('chat-input-flow').value=this.innerText; document.getElementById('chat-input-flow').focus();">Shift heavy theory to OAL</button>
         </div>
+        <div class="chat-input-row" style="display: flex; gap: 8px;">
+          <input type="text" id="chat-input-flow" class="chat-input" style="flex: 1; border: 1px solid #c8daec; border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--text); font-family: var(--font-sans, system-ui); background: #fff; outline: none;" placeholder="Ask AI to adjust, restructure, or balance the weekly teaching plan…" onfocus="this.style.borderColor='var(--brand)'; this.style.boxShadow='0 0 0 3px rgba(0,70,137,0.08)'" onblur="this.style.borderColor='#c8daec'; this.style.boxShadow='none'">
+          <button class="chat-send" style="border: none; background: var(--brand); color: #fff; font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 8px; cursor: pointer;" onmouseover="this.style.background='var(--brand-dark)'" onmouseout="this.style.background='var(--brand)'">Send →</button>
+        </div>
+      </div>
         <div class="prompt-input-row">
           <textarea class="prompt-input" placeholder="E.g., Front-load theoretical concepts in Weeks 1-4, leave Weeks 12-14 for project work, and ensure practicals are aligned with equipment availability..."></textarea>
           <button class="prompt-send">✦ Update Plan</button>
