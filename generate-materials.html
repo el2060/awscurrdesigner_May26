@@ -357,42 +357,35 @@
 
   <section class="setup-card" id="start-step-1" style="padding: 20px 24px; border: 1px solid var(--brand-border, #b8d0e6); background: #fdfdfe; margin-bottom: 16px;">
     <div style="margin-bottom: 16px;">
-      <h2 style="font-size: 14px; font-weight: 600; color: #1a2e40; letter-spacing: -0.01em;">How do you want to start?</h2>
+      <h2 style="font-size: 14px; font-weight: 600; color: #1a2e40; letter-spacing: -0.01em;">How would you like to begin?</h2>
     </div>
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
       <label style="position: relative;">
-        <input type="radio" name="start_mode" class="start-radio" value="opt0" onchange="updateStartMode()">
+        <input type="radio" name="start_mode" class="start-radio" value="opt0" checked onchange="updateStartMode()">
         <div class="so-card">
           <div class="so-title">Continue from Teaching Plan</div>
-          <div class="so-desc">Use connected weekly flow, activities, and assessment schedule</div>
+          <div class="so-desc">Generate materials aligned to the weekly teaching and assessment plan.</div>
         </div>
       </label>
       <label style="position: relative;">
-        <input type="radio" name="start_mode" class="start-radio" value="opt1" checked onchange="updateStartMode()">
+        <input type="radio" name="start_mode" class="start-radio" value="opt1" onchange="updateStartMode()">
         <div class="so-card">
           <div class="so-title">Refresh Existing Materials</div>
-          <div class="so-desc">Upload existing slides or notes to modernize design and update content</div>
+          <div class="so-desc">Upload slides, notes, worksheets, or previous semester materials to refresh and update them.</div>
         </div>
       </label>
       <label style="position: relative;">
         <input type="radio" name="start_mode" class="start-radio" value="opt2" onchange="updateStartMode()">
         <div class="so-card">
-          <div class="so-title">From Reference Documents</div>
-          <div class="so-desc">Upload MDDs, teaching schedules, or assessment briefs to build from</div>
-        </div>
-      </label>
-      <label style="position: relative;">
-        <input type="radio" name="start_mode" class="start-radio" value="opt3" onchange="updateStartMode()">
-        <div class="so-card">
-          <div class="so-title">Start from Scratch</div>
-          <div class="so-desc">Let AI generate materials from a simple topic or module prompt</div>
+          <div class="so-title">Create New Materials</div>
+          <div class="so-desc">Quickly generate e-lecture slides, quizzes, worksheets, learning activities, and supporting teaching resources.</div>
         </div>
       </label>
     </div>
     
     <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
-      <button class="analysis-primary" type="button" onclick="document.getElementById('start-step-1').style.display='none'; document.getElementById('start-step-2').style.display='none'">Start Generating →</button>
+      <button class="analysis-primary" type="button" onclick="document.getElementById('start-step-1').style.display='none'; document.getElementById('start-step-2').style.display='none'">Generate Materials →</button>
     </div>
   </section>
 
