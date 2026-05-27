@@ -634,37 +634,37 @@
       <label style="position: relative;">
         <input type="radio" name="start_mode" class="start-radio" value="opt2" onchange="updateStartMode()">
         <div class="so-card">
-          <div class="so-title">Create New Materials</div>
-          <div class="so-desc">Quickly generate e-lecture slides, quizzes, worksheets, learning activities, and supporting teaching resources.</div>
+          <div class="so-title">Create New Teaching Materials</div>
+          <div class="so-desc">Generate teaching materials aligned to your weekly lessons, OAL activities, and classroom facilitation.</div>
         </div>
       </label>
     </div>
     
     <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
-      <button class="analysis-primary" type="button" onclick="document.getElementById('start-step-1').style.display='none'; document.getElementById('start-step-2').style.display='none'">Generate Materials →</button>
+      <button class="analysis-primary" type="button" onclick="document.getElementById('start-step-1').style.display='none'; document.getElementById('start-step-2').style.display='none'">Generate Teaching Pack →</button>
     </div>
   </section>
 
   <section class="setup-card" id="start-step-2" style="padding: 20px 24px; border: 1px solid #dce8f5; background: #fff; margin-bottom: 24px;">
-    <h3 style="font-size: 14px; font-weight: 700; color: #1a2e40; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #4a6580; font-size: 11px;">Configuration</h3>
+    <h3 style="font-size: 14px; font-weight: 700; color: #1a2e40; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #4a6580; font-size: 11px;">Teaching Materials Setup</h3>
     <div style="margin-bottom: 16px;">
-      <div style="font-size: 13px; font-weight: 600; color: #1a2e40; margin-bottom: 8px;">Choose materials to generate</div>
+      <div style="font-size: 13px; font-weight: 600; color: #1a2e40; margin-bottom: 8px;">Select materials to prepare</div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px;">
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Slides</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Quizzes</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> OAL Activities</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Facilitation Notes</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> OAL / Pre-Class Activities</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Facilitation Guides</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Case Studies</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Worksheets</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Discussion Prompts</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Discussion Questions</label>
       </div>
     </div>
 
     <div style="background: #f8fbff; border: 1px solid #dce8f5; border-radius: 8px; padding: 12px;">
       <div id="dyn-instr-title" style="font-size: 12px; font-weight: 600; color: #344b61; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-        <span style="color: var(--brand);">✦</span> Additional Instructions (Optional)
+        <span style="color: var(--brand);">✦</span> Teaching Notes & Preferences (Optional)
       </div>
-      <textarea id="dyn-instr-area" placeholder="e.g. Focus on real-world industry examples. Keep language simple for Year 1 students." style="width: 100%; height: 50px; border: 1px solid #c8daec; border-radius: 6px; padding: 8px 12px; font-size: 13px; color: var(--text); font-family: var(--font-sans, system-ui); resize: none; background: #fff; outline: none; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);"></textarea>
+      <textarea id="dyn-instr-area" placeholder="e.g. Reduce lecture content for flipped learning, add more applied activities, or simplify content for Year 1 students." style="width: 100%; height: 50px; border: 1px solid #c8daec; border-radius: 6px; padding: 8px 12px; font-size: 13px; color: var(--text); font-family: var(--font-sans, system-ui); resize: none; background: #fff; outline: none; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);"></textarea>
       <div id="dyn-instr-actions" style="margin-top: 8px; display: none; gap: 8px; flex-wrap: wrap;">
         <button type="button" style="border: 1px dashed #b8d0e6; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: #4a6580; cursor: pointer;">+ Upload Old Files</button>
         <button type="button" style="border: 1px dashed #b8d0e6; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: #4a6580; cursor: pointer;">+ Add Reference Link</button>
@@ -677,7 +677,7 @@
   <div id="workspace-toolbar" class="workspace-toolbar">
     <div>
       <div class="workspace-toolbar-title">Teaching Pack — Week 1–6</div>
-      <div class="workspace-toolbar-sub">Review and refine your auto-generated teaching materials. Use the AI chat to iterate.</div>
+      <div class="workspace-toolbar-sub">Review, edit, and refine your teaching materials before delivery or LMS upload. Use the AI chat to iterate.</div>
     </div>
     <div class="save-state">
       <span class="save-indicator"></span> Draft auto-saved just now
@@ -733,10 +733,10 @@
 
         <!-- AI Observations -->
         <div class="rail-block">
-          <div class="rail-title">AI Observations</div>
+          <div class="rail-title">Teaching Suggestions</div>
           <div class="rail-suggest-list">
             <div class="rail-suggest-item warn">
-              <div class="rail-suggest-label">Week 5 missing OAL activity</div>
+              <div class="rail-suggest-label">Week 5 has no pre-class OAL activity</div>
               <button class="rail-apply-btn warn-action">Add</button>
             </div>
             <div class="rail-suggest-item">
@@ -908,11 +908,11 @@
 
       <!-- AI REFINE CHAT -->
       <div class="chat-section">
-        <div class="chat-label">Refine with AI</div>
+        <div class="chat-label">Refine Teaching Pack</div>
         <div class="chat-prompts">
           <button class="chat-prompt-btn" onclick="fillChat('Add a second applied case activity for Week 5')">Add case activity — Week 5</button>
-          <button class="chat-prompt-btn" onclick="fillChat('Expand the facilitation guide with suggested discussion questions')">Expand facilitation guide</button>
-          <button class="chat-prompt-btn" onclick="fillChat('Simplify pre-class reading notes for Year 1 students')">Simplify for Year 1</button>
+          <button class="chat-prompt-btn" onclick="fillChat('Add facilitation questions and prompts')">Add facilitation questions and prompts</button>
+          <button class="chat-prompt-btn" onclick="fillChat('Reduce complexity for Year 1 students')">Reduce complexity for Year 1 students</button>
           <button class="chat-prompt-btn" onclick="fillChat('Generate an understanding check quiz for Week 5')">Add quiz — Week 5</button>
         </div>
         <div class="chat-input-row">
@@ -929,7 +929,7 @@
         <div class="export-actions" style="display: flex; flex-wrap: wrap; gap: 8px;">
           <button class="btn">Download PPTX</button>
           <button class="btn">Download DOCX</button>
-          <button class="btn">Export Quiz Package</button>
+          <button class="btn">Export Brightspace Quiz</button>
           <button class="btn primary">Download Teaching Pack</button>
         </div>
       </div>
@@ -972,8 +972,8 @@
       actions.style.display = 'flex';
       actions.innerHTML = '<button type="button" style="border: 1px dashed #b8d0e6; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: #4a6580; cursor: pointer;">+ Upload Reference Doc</button>';
     } else {
-      title.innerHTML = '<span style="color: var(--brand);">✦</span> Additional Instructions (Optional)';
-      area.placeholder = 'e.g. Focus on real-world industry examples. Keep language simple for Year 1 students.';
+      title.innerHTML = '<span style="color: var(--brand);">✦</span> Teaching Notes &amp; Preferences (Optional)';
+      area.placeholder = 'e.g. Reduce lecture content for flipped learning, add more applied activities, or simplify content for Year 1 students.';
       actions.style.display = 'none';
     }
   }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ═════════════════════════════════════════════════════════════════════════
-  PATH A · PHASE 2 — Create New Module Curriculum
+  PATH A · PHASE 2 — Design New Module
   ═════════════════════════════════════════════════════════════════════════
   CONCEPT
     Conversational AI workspace on the left and a live module draft on the
@@ -2966,8 +2966,8 @@
   <main class="page">
     <section>
       <div class="page-eyebrow">Module Design</div>
-      <h1 class="page-title">Design &amp; Review Module</h1>
-      <p class="page-sub" style="margin-bottom: 20px;">Use connected inputs, upload your own documents, or start from scratch.</p>
+      <h1 class="page-title">Design New Module</h1>
+      <p class="page-sub" style="margin-bottom: 20px;">Use connected context, upload your own documents, or start from scratch.</p>
   </section>
       
     <style>
@@ -3215,7 +3215,7 @@
     </section>
 
     <section class="workspace" id="coDesignWorkspace">
-      <aside class="workspace-side" aria-label="Conversation workspace">
+      <aside class="workspace-side" aria-label="Design Discussion workspace">
         <div class="thread-shell">
           <nav class="thread-rail" aria-label="MDD section drafting">
             <div class="thread-rail-kicker">AI-Assisted Drafting</div>
@@ -3256,7 +3256,7 @@
         </div>
       </aside>
 
-      <section class="workspace-main" aria-label="Live module artifact">
+      <section class="workspace-main" aria-label="Live module draft">
         <div class="artifact">
           <header class="artifact-head np-doc-head">
             <div class="np-masthead">
@@ -3900,7 +3900,7 @@
       },
       outcomes: {
         title: "Learning Outcomes",
-        subtitle: "What should students be able to do by the end of this module?",
+        subtitle: "What should students be able to apply by the end of the module?",
         stage: "Current focus",
         sectionLabel: "Learning Outcomes",
         contextUsed: [
@@ -4797,7 +4797,7 @@
 
     const decisionPrompts = {
       skills: "Should the SF mapping prioritise depth or breadth of coverage?",
-      outcomes: "What should these MLOs prioritise?",
+      outcomes: "What practical skills or industry tasks should students be prepared for?",
       mapping: "Should I flag any unresolved CO links?",
       gradskills: "Which graduate skills gap should we address first?",
       content: "Where should the teaching schedule be adjusted?",
@@ -4980,7 +4980,7 @@
 
       const delta = document.createElement("div");
       delta.className = "section-delta";
-      const provLabel = railLabels[threadKey] || railLabels[activeThreadKey] || "current conversation";
+      const provLabel = railLabels[threadKey] || railLabels[activeThreadKey] || "current design discussion";
       const impactBullets = buildImpactBullets(threadKey, driver)
         .map((item) => "<li>" + item + "</li>")
         .join("");
