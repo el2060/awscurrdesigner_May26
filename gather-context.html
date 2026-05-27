@@ -374,29 +374,25 @@
     }
     .side-total-num { font-weight: 700; color: var(--amber-700); }
 
-    /* ── Bottom bar ── */
-    .bb-done-state { display: flex; align-items: center; gap: 12px; }
-    .bb-ready-label {
-      font-size: 13px; font-weight: 600; color: var(--amber-700);
-      display: flex; align-items: center; gap: 6px;
+    /* Bottom Connector */
+    .next-step-card {
+      border: 1px solid #c4d8ed; border-radius: 10px;
+      background: linear-gradient(180deg, #eef6ff 0%, #fafcff 100%);
+      padding: 20px 24px; display: grid; gap: 12px; margin-top: 48px;
     }
-    .bb-ready-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--amber-700); flex-shrink: 0;
-      box-shadow: 0 0 0 3px var(--amber-50);
+    .next-step-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--brand);
     }
-    .bottom-bar {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      height: 64px; background: #fff;
-      border-top: 1px solid var(--border); z-index: 50;
+    .next-step-title { font-size: 15px; font-weight: 700; color: #1d3a5a; line-height: 1.35; }
+    .next-step-sub { font-size: 13px; color: #4a6580; margin-top: -4px; line-height: 1.5; }
+    .next-step-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      background: var(--brand); color: #fff; border: 1px solid var(--brand);
+      border-radius: 7px; padding: 8px 16px; font-size: 12.5px; font-weight: 700;
+      cursor: pointer; text-decoration: none; width: fit-content; margin-top: 8px;
     }
-    .bottom-inner {
-      max-width: var(--max); height: 100%;
-      margin: 0 auto; width: 100%;
-      padding: 0 var(--pad);
-      display: flex; align-items: center; justify-content: flex-end;
-    }
-    .bb-actions { display: flex; gap: 10px; align-items: center; }
+    .next-step-btn:hover { background: #003366; border-color: #003366; color: #fff; }
 
     /* ── Buttons ── */
     .btn-ghost {
@@ -1229,6 +1225,16 @@
         </div>
       </section>
 
+      <!-- BOTTOM CONNECTOR -->
+      <section class="next-step-card" aria-label="Next workflow stage">
+        <div class="next-step-label">Next Workflow Stage</div>
+        <div class="next-step-title">Module Design</div>
+        <div class="next-step-sub">Continue to design the module based on the gathered context.</div>
+        <a class="next-step-btn" href="plan-direction.html">
+          Continue to Module Design &rarr;
+        </a>
+      </section>
+
     </div>
 
     <!-- Sidebar -->
@@ -1253,27 +1259,13 @@
 
 </main>
 
-<!-- Bottom bar -->
-<div class="bottom-bar">
-  <div class="bottom-inner">
-    <div class="bb-actions">
-      <div id="bb-done" class="bb-done-state" style="display:none;">
-        <span class="bb-ready-label"><span class="bb-ready-dot"></span>Ready to progress</span>
-        <button class="btn-ghost" type="button">Save Workspace</button>
-        <button class="btn-ghost" type="button">Export Summary</button>
-        <button class="btn-ghost" type="button" onclick="resetAnalysis()">← Start over</button>
-        <a class="btn-primary" href="plan-direction.html">Continue to Module Design →</a>
-      </div>
-      <button id="analyze-btn" class="btn-primary" type="button" onclick="runInlineAnalysis()">Review &amp; Synthesise Context</button>
-    </div>
-  </div>
-</div>
+
 
 <script>
   // Track counts per zone (5 grouped source categories)
   const counts = [4, 6, 5, 3, 2];
   const sideIds = ['cnt-0','cnt-1','cnt-2','cnt-3','cnt-4'];
-  let analysisVisible = false;
+  let analysisVisible = true;
 
   function stampAnalysisTime() {
     const now = new Date();
@@ -1287,24 +1279,6 @@
     document.getElementById('ai-sources').textContent = total;
     document.getElementById('ai-signals').textContent = Math.max(1, activeCategories);
     document.getElementById('ai-gaps').textContent = Math.max(3, activeCategories + 2);
-  }
-
-  function runInlineAnalysis() {
-    const analysis = document.getElementById('analysis-results');
-    analysis.classList.remove('hidden');
-    analysisVisible = true;
-    refreshInlineAnalysisStats();
-    stampAnalysisTime();
-    analysis.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    document.getElementById('analyze-btn').style.display = 'none';
-    document.getElementById('bb-done').style.display = 'flex';
-  }
-
-  function resetAnalysis() {
-    document.getElementById('analysis-results').classList.add('hidden');
-    analysisVisible = false;
-    document.getElementById('analyze-btn').style.display = '';
-    document.getElementById('bb-done').style.display = 'none';
   }
 
   function updateTotals() {
@@ -1393,6 +1367,7 @@
   }
 
   updateTotals();
+  stampAnalysisTime();
 </script>
 
 </body>
