@@ -63,6 +63,35 @@
       white-space: normal;
       vertical-align: middle;
     }
+    .topbar-icon {
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: background 0.2s, color 0.2s;
+    }
+    .topbar-icon:hover {
+      background: var(--border);
+      color: var(--text);
+    }
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--amber-soft);
+      color: var(--amber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      border: 1px solid var(--amber-border);
+    }
 
     /* ── Page ── */
     .page {
@@ -428,21 +457,32 @@
 
 <nav class="topbar">
   <div class="topbar-inner" style="justify-content: space-between; width: 100%; max-width: 1200px;">
-    <a href="dashboard.html" class="topbar-brand">
+    <a href="index.html" class="topbar-brand">
       <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
            alt="Ngee Ann Polytechnic" style="height:28px; width:auto; display:block;">
       <div class="t-div"></div>
       <span class="brand-name">AI Curriculum Designer</span>
       <span class="brand-tag">NP-refined workflow and UX direction following 15 May discussion with AWS.</span>
     </a>
-    <a href="dashboard.html" class="btn-ghost" style="text-decoration: none; padding: 8px 16px; border: 1px solid var(--border-strong); border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-      Dashboard
-    </a>
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <div class="topbar-icon" title="Search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </div>
+      <div class="topbar-icon" title="Notifications">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+      </div>
+      <div class="avatar" title="Ee-Lon Lim">EL</div>
+    </div>
   </div>
 </nav>
 
 <main class="page">
+  <div style="margin-bottom: 32px;">
+    <a href="dashboard.html" style="text-decoration: none; font-size: 13px; font-weight: 600; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      Back to My Workspaces
+    </a>
+  </div>
 
   <div class="page-eyebrow">AI-Assisted Curriculum Design</div>
   <h1 class="page-title">What do you want to work on?</h1>
