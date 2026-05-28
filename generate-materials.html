@@ -652,9 +652,9 @@
       <div style="display: flex; flex-wrap: wrap; gap: 8px;">
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Slides</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Quizzes</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Assessment Briefs</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> OAL / Pre-Class Activities</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Facilitation Guides</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Case Studies</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Worksheets</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Discussion Questions</label>
       </div>
@@ -812,6 +812,43 @@
               <div class="skel-line w-60"></div>
               <div class="skel-box"></div>
               <div class="skel-line w-40" style="margin-top: 6px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Assessment Brief -->
+        <div class="mc-card open" id="card-assessment-brief">
+          <div class="mc-header" onclick="toggleCard('card-assessment-brief')">
+            <div class="mc-icon">📝</div>
+            <div class="mc-body">
+              <div class="mc-title">Assignment 1: Assessment Brief & Rubric (Word Doc)</div>
+              <div class="mc-meta">Mapped to MLO1, MLO2 · Context: Industry panel feedback · 4 pages</div>
+            </div>
+            <div class="mc-actions">
+              <button class="mc-action-btn">Edit</button>
+              <button class="mc-action-btn">Regenerate</button>
+              <button class="mc-action-btn ai">✦ Suggest</button>
+            </div>
+          </div>
+          <div class="mc-preview">
+            <div class="mc-divider"></div>
+            <div class="card-refine">
+              <span class="refine-chip">✦ Add adult-learner scaffolding</span>
+              <span class="refine-chip">✦ Align rubric to CET standards</span>
+              <span class="refine-chip">✦ Inject industry case study</span>
+            </div>
+            <div style="font-size: 13px; color: #4b5563; line-height: 1.6; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; background: #fafaf9;">
+              <h4 style="font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 8px;">Assignment 1: Cloud Architecture Proposal</h4>
+              <p style="margin-bottom: 12px;"><strong>Objective:</strong> Design a scalable cloud architecture for a mid-sized enterprise, demonstrating mastery of cloud foundations.</p>
+              <div class="skel-box" style="height: 60px; margin-top: 0; margin-bottom: 12px;"></div>
+              
+              <div class="chat-section" style="margin-top: 0; padding: 12px; border-radius: 8px; background: #fff; border-color: #e5e7eb;">
+                <div class="chat-label" style="color: #6b7280; margin-bottom: 8px;">Refine this Assessment Brief with AI</div>
+                <div class="chat-input-row">
+                  <input type="text" class="chat-input" placeholder="e.g. Make the grading rubric more detailed for the security section...">
+                  <button class="chat-send">Refine</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
