@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curriculum Co-Designer — AI Curriculum Designer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F8F9FA;
+      --card: #FFFFFF;
+      --text: #0F172A;
+      --body: #475569;
+      --muted: #94A3B8;
+      --border: #E2E8F0;
+      --border-soft: #F1F5F9;
+
+      --curr-700: #4338ca;
+      --curr-600: #4f46e5;
+      --curr-500: #6366f1;
+      --curr-100: #c7d2fe;
+      --curr-50: #eef2ff;
+
+      --emerald-700: #059669;
+      --emerald-50: #ecfdf5;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Topbar ── */
+    .topbar {
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-inner { width: 100%; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; padding: 0 40px; }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+    .t-div { width: 1px; height: 18px; background: var(--border); margin: 0 8px; }
+    .brand-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+    .brand-tag {
+      display: inline-block; font-size: 10px; font-weight: 500; font-style: italic;
+      color: #5c430c; background: #fefce8; border: 1px solid #d9bc3c;
+      border-radius: 3px; padding: 5px 10px; letter-spacing: 0; line-height: 1.4;
+      text-transform: none; box-shadow: 0 2px 7px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.06);
+      max-width: 220px; white-space: normal; vertical-align: middle;
+    }
+
+    /* ── Page ── */
+    .page { width: 100%; max-width: 900px; margin: 0 auto; padding: 44px 40px 80px; }
+
+    .back-link {
+      text-decoration: none; font-size: 13px; font-weight: 600; color: var(--muted);
+      display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; margin-bottom: 32px;
+    }
+    .back-link:hover { color: var(--text); }
+
+    .page-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--curr-700); margin-bottom: 10px;
+    }
+    .page-title {
+      font-size: 30px; font-weight: 700; color: var(--text);
+      letter-spacing: -0.02em; line-height: 1.18; margin-bottom: 10px;
+    }
+    .page-sub {
+      font-size: 15px; color: var(--body); line-height: 1.55; margin-bottom: 12px; max-width: 640px;
+    }
+
+    /* ── Context strip ── */
+    .context-strip {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+      padding: 14px 18px; border: 1px solid var(--curr-100);
+      background: linear-gradient(180deg, var(--curr-50) 0%, #fff 100%);
+      border-radius: 12px; margin-bottom: 36px;
+    }
+    .context-icon {
+      width: 36px; height: 36px; background: var(--curr-700); color: #fff;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .context-icon svg { width: 18px; height: 18px; }
+    .context-info { flex: 1; min-width: 200px; }
+    .context-info-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .context-info-meta { font-size: 12px; color: var(--body); }
+    .context-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .context-chip {
+      font-size: 11px; font-weight: 600; color: var(--curr-700);
+      background: #fff; border: 1px solid var(--curr-100);
+      border-radius: 999px; padding: 4px 11px;
+    }
+
+    /* ── Phase cards ── */
+    .phase-stack { display: flex; flex-direction: column; gap: 0; }
+
+    .phase-connector {
+      display: flex; align-items: center; gap: 0; padding: 0 0 0 32px; height: 32px;
+    }
+    .phase-connector-line {
+      width: 2px; height: 32px;
+      background: linear-gradient(180deg, var(--curr-100), var(--border));
+    }
+
+    .phase-card {
+      display: flex; align-items: flex-start; gap: 16px;
+      border: 1px solid var(--border); border-radius: 14px;
+      background: var(--card); padding: 20px 22px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none; color: inherit;
+      position: relative;
+    }
+    .phase-card:hover:not(.phase-card--disabled) {
+      border-color: var(--curr-100);
+      box-shadow: 0 8px 24px rgba(67,56,202,0.08);
+      transform: translateY(-2px);
+    }
+    .phase-card--disabled {
+      opacity: 0.55;
+      cursor: default;
+    }
+    .phase-card--active {
+      border-color: var(--curr-100);
+      background: linear-gradient(180deg, var(--curr-50) 0%, #fff 60%);
+      box-shadow: 0 4px 16px rgba(67,56,202,0.08);
+    }
+
+    .phase-num {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+      background: var(--border-soft); color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .phase-card--active .phase-num {
+      background: var(--curr-700); color: #fff; border-color: var(--curr-700);
+      box-shadow: 0 2px 8px rgba(67,56,202,0.25);
+    }
+
+    .phase-body { flex: 1; min-width: 0; }
+    .phase-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+    .phase-title { font-size: 16px; font-weight: 700; color: var(--text); }
+    .phase-badge-soon {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--muted); background: var(--border-soft);
+      border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px;
+    }
+    .phase-badge-ready {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--curr-700); background: var(--curr-50);
+      border: 1px solid var(--curr-100); border-radius: 999px; padding: 3px 10px;
+    }
+    .phase-desc { font-size: 13px; color: var(--body); line-height: 1.55; margin-bottom: 10px; }
+    .phase-ai-role {
+      font-size: 11px; color: var(--muted); font-weight: 600; font-style: italic;
+    }
+    .phase-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 700; color: #fff;
+      background: var(--curr-700); border: 1px solid var(--curr-700);
+      border-radius: 8px; padding: 8px 16px; text-decoration: none;
+      transition: all 0.15s ease-out; margin-top: 12px;
+    }
+    .phase-cta:hover {
+      background: var(--curr-600); border-color: var(--curr-600);
+      box-shadow: 0 4px 12px rgba(67,56,202,0.2);
+      transform: translateY(-1px);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page { padding: 32px 18px 60px; }
+      .page-title { font-size: 26px; }
+      .context-strip { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* --- Premium UI/UX Aesthetic Override --- */
+    :root {
+      --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif !important;
+      --text-main: #0f172a !important;
+      --text-muted: #475569 !important;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03) !important;
+      --shadow-hover: 0 14px 28px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04) !important;
+      --trans-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      --trans-fast: all 0.15s ease-out !important;
+    }
+    body {
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: #fcfcfd !important;
+    }
+    .topbar {
+      box-shadow: var(--shadow-sm) !important;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+      background: rgba(255, 255, 255, 0.9) !important;
+      backdrop-filter: blur(8px) !important;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="topbar-brand">
+      <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
+           alt="Ngee Ann Polytechnic" style="height:28px; width:auto; display:block;">
+      <div class="t-div"></div>
+      <span class="brand-name">AI Curriculum Designer</span>
+      <span class="brand-tag">NP-refined workflow and UX direction following 15 May discussion with AWS.</span>
+    </a>
+  </div>
+</nav>
+
+<main class="page">
+
+  <a href="index.html" class="back-link" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    Back to Workflows
+  </a>
+
+  <div class="page-eyebrow">Curriculum Strategy</div>
+  <h1 class="page-title">Course Curriculum Co-Designer</h1>
+  <p class="page-sub">Work through five phases with AI to design, structure, and audit your entire program — from industry needs to cross-module checks.</p>
+
+  <!-- Context strip -->
+  <div class="context-strip">
+    <div class="context-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+    </div>
+    <div class="context-info">
+      <div class="context-info-title">Diploma in Infocomm &amp; Security</div>
+      <div class="context-info-meta">3-year program · 18 modules loaded · Graduate profile: Draft</div>
+    </div>
+    <div class="context-chips">
+      <span class="context-chip">6 semesters</span>
+      <span class="context-chip">~120 credit units</span>
+      <span class="context-chip">Last edited 2h ago</span>
+    </div>
+  </div>
+
+  <!-- Phase stack -->
+  <div class="phase-stack">
+
+    <!-- Phase 1 -->
+    <a href="phase-1-scan.html" class="phase-card phase-card--active" style="text-decoration: none; color: inherit;">
+      <div class="phase-num">1</div>
+      <div class="phase-body">
+        <div class="phase-title-row">
+          <span class="phase-title">Industry Needs Scan</span>
+          <span class="phase-badge-ready">Ready</span>
+        </div>
+        <p class="phase-desc">Explore industry trends, skills frameworks, and employer feedback to identify what your graduates will need.</p>
+        <span class="phase-ai-role">AI role: Research assistant — surfaces data, asks probing questions</span>
+        <span class="phase-cta">Start Industry Scan &rarr;</span>
+      </div>
+    </a>
+
+    <div class="phase-connector"><div class="phase-connector-line"></div></div>
+
+    <!-- Phase 2 -->
+    <a href="phase-2-profile.html" class="phase-card phase-card--active" style="text-decoration: none; color: inherit;">
+      <div class="phase-num">2</div>
+      <div class="phase-body">
+        <div class="phase-title-row">
+          <span class="phase-title">Graduate Profile</span>
+          <span class="phase-badge-ready">Ready</span>
+        </div>
+        <p class="phase-desc">Define the skills, knowledge, and professional qualities your graduates must have when they complete the program.</p>
+        <span class="phase-ai-role">AI role: Structured interviewer — walks you through each competency domain</span>
+        <span class="phase-cta">Define Profile &rarr;</span>
+      </div>
+    </a>
+
+    <div class="phase-connector"><div class="phase-connector-line"></div></div>
+
+    <!-- Phase 3 -->
+    <a href="phase-3-architecture.html" class="phase-card phase-card--active" style="text-decoration: none; color: inherit;">
+      <div class="phase-num">3</div>
+      <div class="phase-body">
+        <div class="phase-title-row">
+          <span class="phase-title">Map Curriculum Structure</span>
+          <span class="phase-badge-ready">Ready</span>
+        </div>
+        <p class="phase-desc">Arrange modules across 6 semesters. AI checks prerequisite flows, flags competency gaps, and warns about workload imbalances.</p>
+        <span class="phase-ai-role">AI role: Architecture advisor — validates dependencies, tracks competency coverage</span>
+        <span class="phase-cta">Map Curriculum Structure &rarr;</span>
+      </div>
+    </a>
+
+    <div class="phase-connector"><div class="phase-connector-line"></div></div>
+
+    <!-- Phase 4 -->
+    <a href="phase-4-alignment.html" class="phase-card phase-card--active" style="text-decoration: none; color: inherit;">
+      <div class="phase-num">4</div>
+      <div class="phase-body">
+        <div class="phase-title-row">
+          <span class="phase-title">Module Alignment Check</span>
+          <span class="phase-badge-ready">Ready</span>
+        </div>
+        <p class="phase-desc">Drill into each module to ensure learning outcomes, assessments, and teaching methods are properly aligned.</p>
+        <span class="phase-ai-role">AI role: Alignment auditor — flags mismatches between outcomes and assessments</span>
+        <span class="phase-cta">Check Module Alignment &rarr;</span>
+      </div>
+    </a>
+
+    <div class="phase-connector"><div class="phase-connector-line"></div></div>
+
+    <!-- Phase 5 -->
+    <a href="phase-5-audit.html" class="phase-card phase-card--active" style="text-decoration: none; color: inherit;">
+      <div class="phase-num">5</div>
+      <div class="phase-body">
+        <div class="phase-title-row">
+          <span class="phase-title">Curriculum Audit</span>
+          <span class="phase-badge-ready">Ready</span>
+        </div>
+        <p class="phase-desc">AI reviews your entire curriculum for content overlaps, workload bottlenecks, assessment variety, and industry alignment issues.</p>
+        <span class="phase-ai-role">AI role: Systems analyst — surfaces cross-module issues you can't see in isolation</span>
+        <span class="phase-cta">
+          Run Curriculum Audit →
+        </span>
+      </div>
+    </a>
+
+  </div>
+
+</main>
+
+</body>
+</html>

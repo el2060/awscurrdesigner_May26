@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map Curriculum Structure — AI Curriculum Designer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F8F9FA;
+      --card: #FFFFFF;
+      --text: #0F172A;
+      --body: #475569;
+      --muted: #94A3B8;
+      --border: #E2E8F0;
+      --border-soft: #F1F5F9;
+
+      --curr-700: #4338ca;
+      --curr-600: #4f46e5;
+      --curr-500: #6366f1;
+      --curr-100: #c7d2fe;
+      --curr-50: #eef2ff;
+
+      --emerald-700: #059669;
+      --emerald-50: #ecfdf5;
+      
+      --amber-500: #f59e0b;
+      --blue-500: #3b82f6;
+      --red-500: #ef4444;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Topbar ── */
+    .topbar {
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-inner { width: 100%; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; padding: 0 40px; }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+    .t-div { width: 1px; height: 18px; background: var(--border); margin: 0 8px; }
+    .brand-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+    .brand-tag {
+      display: inline-block; font-size: 10px; font-weight: 500; font-style: italic;
+      color: #5c430c; background: #fefce8; border: 1px solid #d9bc3c;
+      border-radius: 3px; padding: 5px 10px; letter-spacing: 0; line-height: 1.4;
+      text-transform: none; box-shadow: 0 2px 7px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.06);
+      max-width: 220px; white-space: normal; vertical-align: middle;
+    }
+
+    /* ── Page Layout ── */
+    .page { 
+      width: 100%; max-width: 1200px; margin: 0 auto; padding: 32px 40px 80px; 
+      display: grid; gap: 24px;
+    }
+    
+    .page-header { margin-bottom: 8px; }
+
+    .back-link {
+      text-decoration: none; font-size: 13px; font-weight: 600; color: var(--muted);
+      display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; margin-bottom: 24px;
+    }
+    .back-link:hover { color: var(--text); }
+
+    .page-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--curr-700); margin-bottom: 8px;
+    }
+    .page-title {
+      font-size: 28px; font-weight: 700; color: var(--text);
+      letter-spacing: -0.02em; line-height: 1.18; margin-bottom: 8px;
+    }
+    .page-sub {
+      font-size: 14px; color: var(--body); line-height: 1.5; max-width: 800px;
+    }
+    
+    /* ── Step Strip ── */
+    .step-strip {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+      margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+    }
+    .ss-step {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; color: var(--muted);
+      letter-spacing: 0.02em; white-space: nowrap;
+    }
+    .ss-num {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--border-soft); color: var(--muted);
+      font-size: 10px; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+    }
+    .ss-step.active { color: var(--curr-700); }
+    .ss-step.active .ss-num { background: var(--curr-700); color: #fff; border-color: var(--curr-700); }
+    .ss-sep { width: 12px; height: 1px; background: var(--border); flex-shrink: 0; }
+
+    /* ── Workspace Grid ── */
+    .workspace {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ── Left Panel: AI Advisor ── */
+    .advisor-panel {
+      position: sticky; top: 88px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    
+    .advisor-header {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .advisor-icon {
+      width: 36px; height: 36px; background: var(--curr-700); color: #fff;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(67,56,202,0.2);
+    }
+    .advisor-icon svg { width: 18px; height: 18px; }
+    .advisor-title-box { display: flex; flex-direction: column; }
+    .advisor-title { font-size: 15px; font-weight: 700; color: var(--text); }
+    .advisor-subtitle { font-size: 12px; color: var(--body); }
+    
+    .draft-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #fffbe8; color: #b45309; border: 1px solid #fde68a;
+      padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 600;
+      width: fit-content;
+    }
+    
+    .obs-list { display: flex; flex-direction: column; gap: 12px; }
+    
+    .obs-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px; box-shadow: var(--shadow-sm);
+      border-left-width: 4px;
+    }
+    .obs-card.warning { border-left-color: var(--amber-500); }
+    .obs-card.info { border-left-color: var(--blue-500); }
+    
+    .obs-text {
+      font-size: 13px; color: var(--text); line-height: 1.5; margin-bottom: 12px;
+    }
+    .obs-actions {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .obs-btn {
+      font-size: 11px; font-weight: 600; font-family: var(--font-sans);
+      padding: 6px 10px; border-radius: 6px; cursor: pointer; transition: var(--trans-fast);
+      border: 1px solid transparent; background: transparent;
+    }
+    .obs-btn.primary {
+      background: var(--curr-50); color: var(--curr-700); border-color: var(--curr-100);
+    }
+    .obs-btn.primary:hover { background: var(--curr-100); }
+    .obs-btn.secondary {
+      background: #fff; color: var(--body); border-color: var(--border);
+    }
+    .obs-btn.secondary:hover { background: var(--bg); color: var(--text); }
+    
+    .comp-tracker {
+      background: #fff; border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px; box-shadow: var(--shadow-sm);
+    }
+    .comp-tracker-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 12px; }
+    .comp-list { display: flex; flex-direction: column; gap: 8px; list-style: none; }
+    .comp-item { font-size: 12px; display: flex; align-items: flex-start; gap: 8px; color: var(--body); line-height: 1.4; }
+    .comp-icon { flex-shrink: 0; margin-top: 2px; }
+    .comp-icon.ok { color: var(--emerald-700); }
+    .comp-icon.warn { color: var(--amber-500); }
+    .comp-text strong { color: var(--text); font-weight: 600; }
+
+    /* ── Right Panel: Curriculum Map ── */
+    .map-panel {
+      background: #fff; border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px; box-shadow: var(--shadow-sm);
+    }
+    
+    .map-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border-soft);
+    }
+    .map-title { font-size: 18px; font-weight: 700; color: var(--text); }
+    .map-pill {
+      font-size: 12px; font-weight: 600; color: var(--curr-700); background: var(--curr-50);
+      padding: 4px 12px; border-radius: 999px; border: 1px solid var(--curr-100);
+    }
+    
+    .semester-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+      position: relative;
+    }
+    
+    .year-header {
+      grid-column: span 2;
+      text-align: center; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); padding-bottom: 8px; border-bottom: 2px solid var(--border);
+      margin-bottom: 8px;
+    }
+    
+    .sem-col { display: flex; flex-direction: column; gap: 12px; }
+    .sem-title { font-size: 13px; font-weight: 600; color: var(--text); text-align: center; margin-bottom: 4px; }
+    
+    .module-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 10px;
+      padding: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      transition: var(--trans-fast); cursor: pointer;
+      position: relative; z-index: 2;
+    }
+    .module-card:hover { border-color: var(--curr-100); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+    .mod-code { font-size: 11px; font-weight: 700; color: var(--curr-700); margin-bottom: 2px; }
+    .mod-title { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 8px; }
+    .mod-meta { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+    .mod-cu { font-size: 10px; font-weight: 600; color: var(--muted); background: var(--bg); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+    .mod-tag { font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 4px; border: 1px solid; }
+    .mod-tag.intro { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+    .mod-tag.prac { background: #fefce8; color: #a16207; border-color: #fde047; }
+    .mod-tag.master { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
+    
+    /* ── SVG Dependency Arrows ── */
+    .arrows-layer {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;
+    }
+    .arrow-path { fill: none; stroke-width: 2; stroke-linecap: round; }
+    .arrow-healthy { stroke: var(--emerald-700); opacity: 0.5; }
+    .arrow-broken { stroke: var(--red-500); stroke-dasharray: 4, 4; }
+    
+    /* ── Competency Coverage Bars ── */
+    .coverage-section {
+      margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-soft);
+    }
+    .cov-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+    
+    .cov-grid { display: grid; gap: 12px; }
+    .cov-row { display: grid; grid-template-columns: 140px 1fr; align-items: center; gap: 16px; }
+    .cov-label { font-size: 12px; font-weight: 600; color: var(--body); text-align: right; }
+    .cov-bar-container { height: 12px; background: var(--border-soft); border-radius: 6px; overflow: hidden; display: flex; }
+    .cov-segment { height: 100%; }
+    .cov-seg-intro { background: #bfdbfe; }
+    .cov-seg-prac { background: #fde047; }
+    .cov-seg-master { background: #a7f3d0; }
+    .cov-seg-missing { background: transparent; }
+    
+    /* Status specific bars */
+    .cov-status-ok { background: var(--emerald-700); }
+    .cov-status-warn { background: var(--amber-500); }
+    .cov-status-err { background: var(--red-500); }
+
+    /* --- Premium UI/UX Aesthetic Override --- */
+    :root {
+      --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif !important;
+      --text-main: #0f172a !important;
+      --text-muted: #475569 !important;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03) !important;
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -2px rgba(0, 0, 0, 0.04) !important;
+      --shadow-hover: 0 14px 28px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04) !important;
+      --trans-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      --trans-fast: all 0.15s ease-out !important;
+    }
+    body {
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: #fcfcfd !important;
+    }
+    .topbar {
+      box-shadow: var(--shadow-sm) !important;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+      background: rgba(255, 255, 255, 0.9) !important;
+      backdrop-filter: blur(8px) !important;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="topbar-brand">
+      <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
+           alt="Ngee Ann Polytechnic" style="height:28px; width:auto; display:block;">
+      <div class="t-div"></div>
+      <span class="brand-name">AI Curriculum Designer</span>
+      <span class="brand-tag">NP-refined workflow and UX direction following 15 May discussion with AWS.</span>
+    </a>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="page-header">
+    <a href="curriculum-hub.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      Back to Curriculum Hub
+    </a>
+    
+    <div class="page-eyebrow">Curriculum Strategy</div>
+    <h1 class="page-title">Map Your Curriculum Structure</h1>
+    <p class="page-sub">Arrange modules across semesters. AI will check prerequisite flows, competency coverage, and workload balance.</p>
+  </div>
+
+  <div class="step-strip">
+    <span class="ss-step"><span class="ss-num">1</span> Scan</span> <span class="ss-sep"></span>
+    <span class="ss-step"><span class="ss-num">2</span> Profile</span> <span class="ss-sep"></span>
+    <span class="ss-step active"><span class="ss-num">3</span> Structure</span> <span class="ss-sep"></span>
+    <span class="ss-step"><span class="ss-num">4</span> Alignment</span> <span class="ss-sep"></span>
+    <span class="ss-step"><span class="ss-num">5</span> Audit</span>
+  </div>
+
+  <div class="workspace">
+    <!-- Left Panel: AI Advisor -->
+    <aside class="advisor-panel">
+      <div class="advisor-header">
+        <div class="advisor-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.52 14.33a5 5 0 0 0 4.96 0"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m4.93 19.07 1.41-1.41"/><path d="m17.66 6.34 1.41-1.41"/></svg>
+        </div>
+        <div class="advisor-title-box">
+          <span class="advisor-title">AI Curriculum Advisor</span>
+          <span class="advisor-subtitle">Analysing your program structure</span>
+        </div>
+      </div>
+      
+      <div class="draft-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+        Draft — AI-generated observations for your review
+      </div>
+      
+      <div class="obs-list">
+        <!-- Observation 1 -->
+        <div class="obs-card warning">
+          <div class="obs-text">
+            <strong>IT1101 Cloud Fundamentals</strong> in Semester 1 has no bridging module connecting to <strong>IT2201 Cloud Security</strong> in Semester 4. Students may lack prerequisite knowledge in network protocols. Consider adding a bridging module in Semester 2 or 3.
+          </div>
+          <div class="obs-actions">
+            <button class="obs-btn primary">Accept suggestion</button>
+            <button class="obs-btn secondary">Dismiss</button>
+            <button class="obs-btn secondary">Ask AI more</button>
+          </div>
+        </div>
+        
+        <!-- Observation 2 -->
+        <div class="obs-card warning">
+          <div class="obs-text">
+            <strong>Security Operations</strong> is listed in your Graduate Profile but has no mastery-level module in Semesters 5–6. The competency is only introduced in Semester 3 and never revisited.
+          </div>
+          <div class="obs-actions">
+            <button class="obs-btn primary">Accept suggestion</button>
+            <button class="obs-btn secondary">Dismiss</button>
+            <button class="obs-btn secondary">Ask AI more</button>
+          </div>
+        </div>
+        
+        <!-- Observation 3 -->
+        <div class="obs-card info">
+          <div class="obs-text">
+            <strong>Semester 4</strong> has 5 modules including 2 project-based modules (IT2102 and BA2201). This may create workload pressure. Consider redistributing one project to Semester 3 or 5.
+          </div>
+          <div class="obs-actions">
+            <button class="obs-btn primary">Accept suggestion</button>
+            <button class="obs-btn secondary">Dismiss</button>
+            <button class="obs-btn secondary">Ask AI more</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="comp-tracker">
+        <div class="comp-tracker-title">Graduate Profile Coverage</div>
+        <ul class="comp-list">
+          <li class="comp-item">
+            <svg class="comp-icon ok" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span class="comp-text"><strong>Cloud Architecture</strong><br/>Mapped (Intro → Prac → Master)</span>
+          </li>
+          <li class="comp-item">
+            <svg class="comp-icon ok" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span class="comp-text"><strong>Data Pipeline Design</strong><br/>Mapped (Intro → Prac → Master)</span>
+          </li>
+          <li class="comp-item">
+            <svg class="comp-icon ok" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span class="comp-text"><strong>Full-Stack Development</strong><br/>Mapped (Intro → Prac)</span>
+          </li>
+          <li class="comp-item">
+            <svg class="comp-icon warn" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span class="comp-text"><strong>Security Operations</strong><br/>UNMAPPED at mastery level</span>
+          </li>
+          <li class="comp-item">
+            <svg class="comp-icon ok" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span class="comp-text"><strong>Stakeholder Communication</strong><br/>Mapped (Prac → Master)</span>
+          </li>
+          <li class="comp-item">
+            <svg class="comp-icon warn" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span class="comp-text"><strong>AI/ML Integration</strong><br/>Introduced only, no practice</span>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Right Panel: Curriculum Map -->
+    <section class="map-panel">
+      <div class="map-header">
+        <div class="map-title">Diploma in Infocomm &amp; Security — Curriculum Map</div>
+        <div class="map-pill">18 Modules · 3 Years</div>
+      </div>
+      
+      <div class="semester-grid">
+        <!-- SVG Overlays for dependency arrows -->
+        <svg class="arrows-layer" viewBox="0 0 800 600" preserveAspectRatio="none">
+          <!-- IT1101 to IT2101 -->
+          <path class="arrow-path arrow-healthy" d="M 120,50 Q 250,50 380,50" marker-end="url(#arrowhead-healthy)" />
+          <!-- IT2101 to IT3101 -->
+          <path class="arrow-path arrow-healthy" d="M 380,50 Q 520,50 650,50" marker-end="url(#arrowhead-healthy)" />
+          
+          <!-- IT1101 to IT2201 (Broken) -->
+          <path class="arrow-path arrow-broken" d="M 120,60 Q 250,150 500,60" marker-end="url(#arrowhead-broken)" />
+          
+          <!-- IT1102 to IT1201 -->
+          <path class="arrow-path arrow-healthy" d="M 120,130 Q 180,130 240,50" marker-end="url(#arrowhead-healthy)" />
+          <!-- IT1201 to IT2102 -->
+          <path class="arrow-path arrow-healthy" d="M 240,60 Q 310,130 380,130" marker-end="url(#arrowhead-healthy)" />
+          
+          <!-- IT2103 to IT2201 -->
+          <path class="arrow-path arrow-healthy" d="M 380,210 Q 440,210 500,70" marker-end="url(#arrowhead-healthy)" />
+          
+          <defs>
+            <marker id="arrowhead-healthy" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <polygon points="0 0, 6 3, 0 6" fill="var(--emerald-700)" opacity="0.5"/>
+            </marker>
+            <marker id="arrowhead-broken" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <polygon points="0 0, 6 3, 0 6" fill="var(--red-500)"/>
+            </marker>
+          </defs>
+        </svg>
+
+        <!-- Headers -->
+        <div class="year-header">Year 1</div>
+        <div class="year-header">Year 2</div>
+        <div class="year-header">Year 3</div>
+        
+        <!-- Sem 1 -->
+        <div class="sem-col">
+          <div class="sem-title">Sem 1</div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT1101</div>
+            <div class="mod-title">Cloud Fundamentals</div>
+            <div class="mod-meta">
+              <span class="mod-cu">4 CU</span>
+              <span class="mod-tag intro">Cloud [Intro]</span>
+            </div>
+          </div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT1102</div>
+            <div class="mod-title">Programming Foundations</div>
+            <div class="mod-meta">
+              <span class="mod-cu">4 CU</span>
+              <span class="mod-tag intro">Dev [Intro]</span>
+            </div>
+          </div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT1103</div>
+            <div class="mod-title">Networking Essentials</div>
+            <div class="mod-meta">
+              <span class="mod-cu">3 CU</span>
+              <span class="mod-tag intro">Network [Intro]</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Sem 2 -->
+        <div class="sem-col">
+          <div class="sem-title">Sem 2</div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT1201</div>
+            <div class="mod-title">Data Structures &amp; Algorithms</div>
+            <div class="mod-meta">
+              <span class="mod-cu">4 CU</span>
+              <span class="mod-tag prac">Dev [Prac]</span>
+            </div>
+          </div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT1202</div>
+            <div class="mod-title">Database Systems</div>
+            <div class="mod-meta">
+              <span class="mod-cu">3 CU</span>
+              <span class="mod-tag intro">Data [Intro]</span>
+            </div>
+          </div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT1203</div>
+            <div class="mod-title">Web Development</div>
+            <div class="mod-meta">
+              <span class="mod-cu">3 CU</span>
+              <span class="mod-tag prac">Dev [Prac]</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Sem 3 -->
+        <div class="sem-col">
+          <div class="sem-title">Sem 3</div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT2101</div>
+            <div class="mod-title">Cloud Architecture</div>
+            <div class="mod-meta">
+              <span class="mod-cu">4 CU</span>
+              <span class="mod-tag prac">Cloud [Prac]</span>
+            </div>
+          </div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT2102</div>
+            <div class="mod-title">Software Engineering Project</div>
+            <div class="mod-meta">
+              <span class="mod-cu">4 CU</span>
+              <span class="mod-tag prac">Dev [Prac]</span>
+              <span class="mod-tag prac">Comms [Prac]</span>
+            </div>
+          </div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT2103</div>
+            <div class="mod-title">Intro to Security</div>
+            <div class="mod-meta">
+              <span class="mod-cu">3 CU</span>
+              <span class="mod-tag intro">SecOps [Intro]</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Sem 4 -->
+        <div class="sem-col">
+          <div class="sem-title">Sem 4</div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT2201</div>
+            <div class="mod-title">Cloud Security</div>
+            <div class="mod-meta">
+              <span class="mod-cu">4 CU</span>
+              <span class="mod-tag prac">Cloud [Prac]</span>
+              <span class="mod-tag prac">SecOps [Prac]</span>
+            </div>
+          </div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT2202</div>
+            <div class="mod-title">Data Analytics</div>
+            <div class="mod-meta">
+              <span class="mod-cu">3 CU</span>
+              <span class="mod-tag prac">Data [Prac]</span>
+            </div>
+          </div>
+          
+          <div class="module-card">
+            <div class="mod-code">BA2201</div>
+            <div class="mod-title">Tech Business Case Project</div>
+            <div class="mod-meta">
+              <span class="mod-cu">3 CU</span>
+              <span class="mod-tag prac">Comms [Prac]</span>
+            </div>
+          </div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT2203</div>
+            <div class="mod-title">DevOps Fundamentals</div>
+            <div class="mod-meta">
+              <span class="mod-cu">3 CU</span>
+              <span class="mod-tag prac">Cloud [Prac]</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Sem 5 -->
+        <div class="sem-col">
+          <div class="sem-title">Sem 5</div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT3101</div>
+            <div class="mod-title">Advanced Cloud Services</div>
+            <div class="mod-meta">
+              <span class="mod-cu">4 CU</span>
+              <span class="mod-tag master">Cloud [Master]</span>
+            </div>
+          </div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT3102</div>
+            <div class="mod-title">Data Pipeline Engineering</div>
+            <div class="mod-meta">
+              <span class="mod-cu">4 CU</span>
+              <span class="mod-tag master">Data [Master]</span>
+            </div>
+          </div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT3103</div>
+            <div class="mod-title">AI/ML Foundations</div>
+            <div class="mod-meta">
+              <span class="mod-cu">3 CU</span>
+              <span class="mod-tag intro">AI/ML [Intro]</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Sem 6 -->
+        <div class="sem-col">
+          <div class="sem-title">Sem 6</div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT3201</div>
+            <div class="mod-title">Capstone Project</div>
+            <div class="mod-meta">
+              <span class="mod-cu">6 CU</span>
+              <span class="mod-tag master">Cloud [Master]</span>
+              <span class="mod-tag master">Dev [Master]</span>
+              <span class="mod-tag master">Comms [Master]</span>
+            </div>
+          </div>
+          
+          <div class="module-card">
+            <div class="mod-code">IT3202</div>
+            <div class="mod-title">Industry Attachment</div>
+            <div class="mod-meta">
+              <span class="mod-cu">6 CU</span>
+              <span class="mod-tag master">All [Master]</span>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+      <!-- Competency Coverage Bars -->
+      <div class="coverage-section">
+        <div class="cov-title">Competency Progression Coverage</div>
+        <div class="cov-grid">
+          
+          <div class="cov-row">
+            <div class="cov-label">Cloud Architecture</div>
+            <div class="cov-bar-container">
+              <div class="cov-segment cov-status-ok" style="width: 100%;"></div>
+            </div>
+          </div>
+          
+          <div class="cov-row">
+            <div class="cov-label">Data Pipeline Design</div>
+            <div class="cov-bar-container">
+              <div class="cov-segment cov-status-ok" style="width: 100%;"></div>
+            </div>
+          </div>
+          
+          <div class="cov-row">
+            <div class="cov-label">Full-Stack Dev</div>
+            <div class="cov-bar-container">
+              <div class="cov-segment cov-status-warn" style="width: 80%;"></div>
+            </div>
+          </div>
+          
+          <div class="cov-row">
+            <div class="cov-label">Security Operations</div>
+            <div class="cov-bar-container">
+              <div class="cov-segment cov-status-err" style="width: 20%;"></div>
+            </div>
+          </div>
+          
+          <div class="cov-row">
+            <div class="cov-label">Stakeholder Comms</div>
+            <div class="cov-bar-container">
+              <div class="cov-segment cov-seg-missing" style="width: 20%;"></div>
+              <div class="cov-segment cov-status-ok" style="width: 80%;"></div>
+            </div>
+          </div>
+          
+          <div class="cov-row">
+            <div class="cov-label">AI/ML Integration</div>
+            <div class="cov-bar-container">
+              <div class="cov-segment cov-seg-missing" style="width: 60%;"></div>
+              <div class="cov-segment cov-status-err" style="width: 20%;"></div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <div style="display: flex; justify-content: flex-end; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-soft);">
+        <a href="phase-4-alignment.html" style="padding: 12px 24px; border-radius: 8px; background: var(--curr-700); color: #fff; font-weight: 600; text-decoration: none;">
+          Proceed to Phase 4: Module Alignment &rarr;
+        </a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+  // Simple interactions for mockup
+  document.querySelectorAll('.obs-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      if(this.textContent === 'Dismiss' || this.textContent === 'Accept suggestion') {
+        this.closest('.obs-card').style.display = 'none';
+      }
+    });
+  });
+</script>
+</body>
+</html>

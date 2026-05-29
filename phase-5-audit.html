@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curriculum Audit — AI Curriculum Designer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F8F9FA;
+      --card: #FFFFFF;
+      --text: #0F172A;
+      --body: #475569;
+      --muted: #94A3B8;
+      --border: #E2E8F0;
+      --border-soft: #F1F5F9;
+
+      --curr-700: #4338ca;
+      --curr-600: #4f46e5;
+      --curr-500: #6366f1;
+      --curr-100: #c7d2fe;
+      --curr-50: #eef2ff;
+
+      --emerald-700: #059669;
+      --emerald-50: #ecfdf5;
+      
+      --amber-500: #f59e0b;
+      --blue-500: #3b82f6;
+      --red-500: #ef4444;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Topbar ── */
+    .topbar {
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-inner { width: 100%; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; padding: 0 40px; }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+    .t-div { width: 1px; height: 18px; background: var(--border); margin: 0 8px; }
+    .brand-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+    .brand-tag {
+      display: inline-block; font-size: 10px; font-weight: 500; font-style: italic;
+      color: #5c430c; background: #fefce8; border: 1px solid #d9bc3c;
+      border-radius: 3px; padding: 5px 10px; letter-spacing: 0; line-height: 1.4;
+      text-transform: none; box-shadow: 0 2px 7px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.06);
+      max-width: 220px; white-space: normal; vertical-align: middle;
+    }
+
+    /* ── Page Layout ── */
+    .page { 
+      width: 100%; max-width: 1200px; margin: 0 auto; padding: 32px 40px 80px; 
+      display: grid; gap: 24px;
+    }
+    
+    .page-header { margin-bottom: 8px; }
+
+    .back-link {
+      text-decoration: none; font-size: 13px; font-weight: 600; color: var(--muted);
+      display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; margin-bottom: 24px;
+    }
+    .back-link:hover { color: var(--text); }
+
+    .page-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--curr-700); margin-bottom: 8px;
+    }
+    .page-title {
+      font-size: 28px; font-weight: 700; color: var(--text);
+      letter-spacing: -0.02em; line-height: 1.18; margin-bottom: 8px;
+    }
+    .page-sub {
+      font-size: 14px; color: var(--body); line-height: 1.5; max-width: 800px;
+    }
+    
+    /* ── Step Strip ── */
+    .step-strip {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+      margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+    }
+    .ss-step {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; color: var(--muted);
+      letter-spacing: 0.02em; white-space: nowrap;
+    }
+    .ss-num {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--border-soft); color: var(--muted);
+      font-size: 10px; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+    }
+    .ss-step.active { color: var(--curr-700); }
+    .ss-step.active .ss-num { background: var(--curr-700); color: #fff; border-color: var(--curr-700); }
+    .ss-sep { width: 12px; height: 1px; background: var(--border); flex-shrink: 0; }
+
+    /* ── Workspace Grid ── */
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ── Main Area: Audit Issues ── */
+    .audit-main { display: flex; flex-direction: column; gap: 24px; }
+    
+    .cat-section {
+      background: #fff; border: 1px solid var(--border); border-radius: 16px;
+      box-shadow: var(--shadow-sm); overflow: hidden;
+    }
+    .cat-header {
+      padding: 16px 20px; background: var(--bg); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; user-select: none;
+    }
+    .cat-title-row { display: flex; align-items: center; gap: 12px; }
+    .cat-title { font-size: 16px; font-weight: 700; color: var(--text); }
+    .cat-badge {
+      font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px;
+    }
+    .cat-badge.warn { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+    .cat-badge.ok { background: var(--emerald-50); color: var(--emerald-700); border: 1px solid #a7f3d0; }
+    .cat-icon { color: var(--muted); transition: transform 0.2s; }
+    
+    .cat-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+    
+    .issue-card {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      border-left-width: 4px; border-left-color: var(--amber-500);
+      background: #fff;
+    }
+    .issue-card.industry {
+      border-left-color: var(--curr-600);
+      background: linear-gradient(90deg, var(--curr-50) 0%, #fff 10px);
+    }
+    .issue-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .issue-title { font-size: 14px; font-weight: 700; color: var(--text); }
+    
+    .industry-signal {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--curr-700); background: #fff; border: 1px solid var(--curr-100);
+      padding: 3px 8px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px;
+    }
+    
+    .draft-inline-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10px; font-weight: 600; color: #b45309; background: #fffbe8;
+      border: 1px solid #fde68a; padding: 2px 6px; border-radius: 4px; margin-bottom: 8px;
+    }
+    
+    .issue-body { font-size: 13px; color: var(--body); line-height: 1.5; margin-bottom: 12px; white-space: pre-wrap; }
+    
+    .ai-suggestion {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 12px; font-size: 13px; color: var(--text); line-height: 1.5; margin-bottom: 12px;
+    }
+    .ai-suggestion strong { color: var(--curr-700); }
+    
+    .affected-mods { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .mod-pill {
+      font-size: 11px; font-weight: 600; color: var(--body); background: #fff;
+      border: 1px solid var(--border); padding: 2px 8px; border-radius: 999px;
+    }
+    
+    .source-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; color: var(--body); background: var(--bg);
+      border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px; margin-bottom: 16px;
+    }
+    
+    .issue-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .btn {
+      font-size: 12px; font-weight: 600; font-family: var(--font-sans);
+      padding: 8px 14px; border-radius: 6px; cursor: pointer; transition: var(--trans-fast);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-primary { background: var(--curr-50); color: var(--curr-700); border: 1px solid var(--curr-100); }
+    .btn-primary:hover { background: var(--curr-100); }
+    .btn-secondary { background: #fff; color: var(--body); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: var(--bg); color: var(--text); }
+    
+    /* Dismissed State */
+    .issue-card.dismissed {
+      border-left-width: 1px; border-left-color: var(--border);
+      opacity: 0.7; padding: 12px 16px;
+    }
+    .issue-card.dismissed .issue-body, 
+    .issue-card.dismissed .ai-suggestion,
+    .issue-card.dismissed .affected-mods,
+    .issue-card.dismissed .issue-actions,
+    .issue-card.dismissed .visual-element { display: none; }
+    .dismissed-reason {
+      font-size: 12px; color: var(--body); margin-top: 4px; font-style: italic;
+    }
+    .dismissed-badge {
+      font-size: 10px; font-weight: 600; color: var(--muted); background: var(--border-soft);
+      padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border);
+    }
+    
+    /* Visualizations */
+    .visual-element { margin: 16px 0; }
+    
+    /* Calendar Heatmap */
+    .heatmap-grid {
+      display: grid; grid-template-columns: auto repeat(13, 1fr); gap: 4px;
+      background: #fff; border: 1px solid var(--border); padding: 12px; border-radius: 8px;
+    }
+    .hm-label { font-size: 10px; font-weight: 600; color: var(--muted); align-self: center; text-align: right; padding-right: 8px; }
+    .hm-col-header { font-size: 10px; font-weight: 600; color: var(--muted); text-align: center; margin-bottom: 4px; }
+    .hm-cell { height: 20px; border-radius: 4px; }
+    .hm-low { background: #ecfdf5; }
+    .hm-med { background: #fefce8; }
+    .hm-high { background: #fecaca; }
+    .hm-crit { background: #ef4444; border: 1px solid #b91c1c; }
+    
+    .hm-legend {
+      display: flex; gap: 12px; margin-top: 12px; font-size: 10px; color: var(--body); font-weight: 600;
+    }
+    .hm-legend-item { display: flex; align-items: center; gap: 4px; }
+    .hm-legend-box { width: 12px; height: 12px; border-radius: 2px; }
+
+    /* Bar Chart */
+    .assessment-bar {
+      display: flex; height: 24px; border-radius: 6px; overflow: hidden;
+      border: 1px solid var(--border); margin-bottom: 12px;
+    }
+    .ab-segment { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; }
+    .ab-written { background: var(--curr-600); width: 72%; }
+    .ab-prac { background: var(--amber-500); width: 15%; }
+    .ab-oral { background: var(--emerald-700); width: 8%; }
+    .ab-port { background: var(--body); width: 5%; }
+    
+    .ab-legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px; font-weight: 600; color: var(--body); }
+    .ab-leg-item { display: flex; align-items: center; gap: 6px; }
+    .ab-leg-box { width: 10px; height: 10px; border-radius: 2px; }
+
+    /* ── Sidebar: Audit Summary ── */
+    .summary-panel {
+      position: sticky; top: 88px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    
+    .sum-header { display: flex; align-items: center; gap: 12px; }
+    .sum-icon {
+      width: 36px; height: 36px; background: var(--curr-700); color: #fff;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(67,56,202,0.2);
+    }
+    .sum-icon svg { width: 18px; height: 18px; }
+    .sum-title { font-size: 16px; font-weight: 700; color: var(--text); }
+    
+    .draft-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #fffbe8; color: #b45309; border: 1px solid #fde68a;
+      padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 600;
+    }
+    
+    .status-list {
+      background: #fff; border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px; box-shadow: var(--shadow-sm);
+    }
+    .sl-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; border-bottom: 1px solid var(--border-soft);
+      font-size: 12px; font-weight: 600; color: var(--body);
+    }
+    .sl-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .sl-item:first-child { padding-top: 0; }
+    
+    .sl-val { display: flex; align-items: center; gap: 6px; }
+    .sl-val.warn { color: var(--amber-500); }
+    .sl-val.ok { color: var(--emerald-700); }
+    .sl-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .sl-dot.warn { background: var(--amber-500); }
+    .sl-dot.ok { background: var(--emerald-700); }
+    
+    .qual-summary {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px;
+    }
+    .qual-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+    
+    .sum-actions { display: flex; flex-direction: column; gap: 8px; }
+    .btn-block { width: 100%; justify-content: center; }
+
+    /* Single row passed state */
+    .passed-row {
+      display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+      background: #fff; border: 1px solid var(--border); border-radius: 12px;
+      box-shadow: var(--shadow-sm); border-left: 4px solid var(--emerald-700);
+    }
+    .passed-icon { color: var(--emerald-700); }
+    .passed-text { font-size: 14px; font-weight: 600; color: var(--text); }
+    .passed-note { font-size: 12px; color: var(--amber-500); font-weight: 600; margin-left: auto; }
+
+    /* --- Premium UI/UX Aesthetic Override --- */
+    :root {
+      --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif !important;
+      --text-main: #0f172a !important;
+      --text-muted: #475569 !important;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03) !important;
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -2px rgba(0, 0, 0, 0.04) !important;
+      --shadow-hover: 0 14px 28px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04) !important;
+      --trans-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      --trans-fast: all 0.15s ease-out !important;
+    }
+    body {
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: #fcfcfd !important;
+    }
+    .topbar {
+      box-shadow: var(--shadow-sm) !important;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+      background: rgba(255, 255, 255, 0.9) !important;
+      backdrop-filter: blur(8px) !important;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="topbar-brand">
+      <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
+           alt="Ngee Ann Polytechnic" style="height:28px; width:auto; display:block;">
+      <div class="t-div"></div>
+      <span class="brand-name">AI Curriculum Designer</span>
+      <span class="brand-tag">NP-refined workflow and UX direction following 15 May discussion with AWS.</span>
+    </a>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="page-header">
+    <a href="curriculum-hub.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      Back to Curriculum Hub
+    </a>
+    
+    <div class="page-eyebrow">Curriculum Strategy</div>
+    <h1 class="page-title">Curriculum Audit</h1>
+    <p class="page-sub">AI has reviewed your curriculum for systemic issues. Review each finding, then accept, modify, or dismiss with your rationale.</p>
+  </div>
+
+  <div class="step-strip">
+    <span class="ss-step"><span class="ss-num">1</span> Scan</span> <span class="ss-sep"></span>
+    <span class="ss-step"><span class="ss-num">2</span> Profile</span> <span class="ss-sep"></span>
+    <span class="ss-step"><span class="ss-num">3</span> Structure</span> <span class="ss-sep"></span>
+    <span class="ss-step"><span class="ss-num">4</span> Alignment</span> <span class="ss-sep"></span>
+    <span class="ss-step active"><span class="ss-num">5</span> Audit</span>
+  </div>
+
+  <div class="workspace">
+    <!-- Main Area: Audit Issues -->
+    <div class="audit-main">
+      
+      <!-- Category 1 -->
+      <section class="cat-section">
+        <div class="cat-header" onclick="this.parentElement.querySelector('.cat-body').style.display = this.parentElement.querySelector('.cat-body').style.display === 'none' ? 'flex' : 'none';">
+          <div class="cat-title-row">
+            <h2 class="cat-title">Content Overlap &amp; Redundancy</h2>
+            <span class="cat-badge warn">⚠ 3 issues found</span>
+          </div>
+          <svg class="cat-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        
+        <div class="cat-body">
+          <!-- Issue 1.1 -->
+          <div class="issue-card" id="issue-1-1">
+            <div class="issue-header">
+              <h3 class="issue-title">Python Fundamentals taught across 3 modules</h3>
+              <div class="draft-inline-badge">⚠ Draft</div>
+            </div>
+            <div class="issue-body">Introduction to Python is covered in IT1102 Programming Foundations (Weeks 1–3), BA2201 Tech Business Case Project (Weeks 2–4), and IT3103 AI/ML Foundations (Weeks 1–2). Total: approximately 7 weeks of overlapping introductory content across the program.</div>
+            
+            <div class="ai-suggestion">
+              <strong>AI Suggestion:</strong> Consolidate Python foundations into IT1102 as the single entry point. Other modules can list IT1102 as a prerequisite and begin at an intermediate level. This frees ~4 weeks of teaching time.
+            </div>
+            
+            <div class="affected-mods">
+              <span class="mod-pill">IT1102</span>
+              <span class="mod-pill">BA2201</span>
+              <span class="mod-pill">IT3103</span>
+            </div>
+            
+            <div class="issue-actions">
+              <button class="btn btn-primary" onclick="acceptIssue('issue-1-1')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Accept</button>
+              <button class="btn btn-secondary">Modify</button>
+              <button class="btn btn-secondary" onclick="dismissIssue('issue-1-1', 'Different faculties teach Python differently, needed for context.')">Dismiss — explain why</button>
+            </div>
+          </div>
+          
+          <!-- Issue 1.2 -->
+          <div class="issue-card" id="issue-1-2">
+            <div class="issue-header">
+              <h3 class="issue-title">Database fundamentals duplicated in IT1202 and IT2202</h3>
+              <div class="draft-inline-badge">⚠ Draft</div>
+            </div>
+            <div class="issue-body">IT1202 Database Systems (Weeks 1–4) and IT2202 Data Analytics (Weeks 1–3) both cover SQL basics and relational model theory. ~3 weeks of duplicated instruction.</div>
+            
+            <div class="ai-suggestion">
+              <strong>AI Suggestion:</strong> Ensure IT2202 lists IT1202 as a prerequisite and starts from intermediate SQL (joins, subqueries, window functions) rather than re-teaching SELECT basics.
+            </div>
+            
+            <div class="affected-mods">
+              <span class="mod-pill">IT1202</span>
+              <span class="mod-pill">IT2202</span>
+            </div>
+            
+            <div class="issue-actions">
+              <button class="btn btn-primary" onclick="acceptIssue('issue-1-2')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Accept</button>
+              <button class="btn btn-secondary">Modify</button>
+              <button class="btn btn-secondary" onclick="dismissIssue('issue-1-2')">Dismiss — explain why</button>
+            </div>
+          </div>
+          
+          <!-- Issue 1.3 -->
+          <div class="issue-card" id="issue-1-3">
+            <div class="issue-header">
+              <h3 class="issue-title">Networking concepts repeated in IT1103 and IT2201</h3>
+              <div class="draft-inline-badge">⚠ Draft</div>
+            </div>
+            <div class="issue-body">IT1103 Networking Essentials covers OSI model and TCP/IP in Weeks 2–5. IT2201 Cloud Security re-introduces the same networking layer concepts in Weeks 1–2 as background.</div>
+            
+            <div class="ai-suggestion">
+              <strong>AI Suggestion:</strong> Add explicit prerequisite link from IT1103 to IT2201. Remove the networking recap from IT2201 syllabus and reallocate those 2 weeks to advanced cloud security topics.
+            </div>
+            
+            <div class="affected-mods">
+              <span class="mod-pill">IT1103</span>
+              <span class="mod-pill">IT2201</span>
+            </div>
+            
+            <div class="issue-actions">
+              <button class="btn btn-primary" onclick="acceptIssue('issue-1-3')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Accept</button>
+              <button class="btn btn-secondary">Modify</button>
+              <button class="btn btn-secondary" onclick="dismissIssue('issue-1-3')">Dismiss — explain why</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Category 2 -->
+      <section class="cat-section">
+        <div class="cat-header" onclick="this.parentElement.querySelector('.cat-body').style.display = this.parentElement.querySelector('.cat-body').style.display === 'none' ? 'flex' : 'none';">
+          <div class="cat-title-row">
+            <h2 class="cat-title">Workload Bottlenecks</h2>
+            <span class="cat-badge warn">⚠ 2 issues found</span>
+          </div>
+          <svg class="cat-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        
+        <div class="cat-body">
+          <!-- Issue 2.1 -->
+          <div class="issue-card" id="issue-2-1">
+            <div class="issue-header">
+              <h3 class="issue-title">Semester 4, Week 8: Three major deadlines collide</h3>
+              <div class="draft-inline-badge">⚠ Draft</div>
+            </div>
+            <div class="issue-body">Students face simultaneous submission deadlines for:
+• IT2102 Software Engineering Group Project (25% weighting)
+• BA2201 Tech Business Case Report (30% weighting)
+• IT2203 DevOps Portfolio Checkpoint (20% weighting)
+Combined assessment weight: 75% of a typical week's capacity.</div>
+            
+            <div class="visual-element">
+              <div class="heatmap-grid">
+                <div></div>
+                <div class="hm-col-header">W1</div><div class="hm-col-header">W2</div><div class="hm-col-header">W3</div><div class="hm-col-header">W4</div><div class="hm-col-header">W5</div><div class="hm-col-header">W6</div><div class="hm-col-header">W7</div><div class="hm-col-header">W8</div><div class="hm-col-header">W9</div><div class="hm-col-header">W10</div><div class="hm-col-header">W11</div><div class="hm-col-header">W12</div><div class="hm-col-header">W13</div>
+                
+                <div class="hm-label">IT2102</div>
+                <div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-med"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-med"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-crit"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-med"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div>
+                
+                <div class="hm-label">BA2201</div>
+                <div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-med"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-med"></div><div class="hm-cell hm-crit"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div>
+                
+                <div class="hm-label">IT2203</div>
+                <div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-crit"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div>
+                
+                <div class="hm-label">IT2201</div>
+                <div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-med"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-med"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div><div class="hm-cell hm-low"></div>
+              </div>
+              <div class="hm-legend">
+                <div class="hm-legend-item"><div class="hm-legend-box hm-low"></div> Low</div>
+                <div class="hm-legend-item"><div class="hm-legend-box hm-med"></div> Medium</div>
+                <div class="hm-legend-item"><div class="hm-legend-box hm-high"></div> High</div>
+                <div class="hm-legend-item"><div class="hm-legend-box hm-crit"></div> Critical</div>
+              </div>
+            </div>
+            
+            <div class="ai-suggestion">
+              <strong>AI Suggestion:</strong> Shift BA2201 report deadline to Week 10 and IT2203 checkpoint to Week 6. This distributes the load more evenly.
+            </div>
+            
+            <div class="issue-actions">
+              <button class="btn btn-primary" onclick="acceptIssue('issue-2-1')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Accept rescheduling</button>
+              <button class="btn btn-secondary">Modify</button>
+              <button class="btn btn-secondary" onclick="dismissIssue('issue-2-1')">Dismiss — explain why</button>
+            </div>
+          </div>
+          
+          <!-- Issue 2.2 -->
+          <div class="issue-card" id="issue-2-2">
+            <div class="issue-header">
+              <h3 class="issue-title">Semester 6 front-loading: Capstone milestone + attachment overlap</h3>
+              <div class="draft-inline-badge">⚠ Draft</div>
+            </div>
+            <div class="issue-body">IT3201 Capstone Project has a major milestone (proposal + prototype demo, 30%) due in Week 4, which overlaps with the first month of IT3202 Industry Attachment orientation and onboarding period.</div>
+            
+            <div class="ai-suggestion">
+              <strong>AI Suggestion:</strong> Move Capstone milestone to Week 6 to give students 2 additional weeks to settle into their attachment workplace.
+            </div>
+            
+            <div class="issue-actions">
+              <button class="btn btn-primary" onclick="acceptIssue('issue-2-2')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Accept</button>
+              <button class="btn btn-secondary">Modify</button>
+              <button class="btn btn-secondary" onclick="dismissIssue('issue-2-2')">Dismiss — explain why</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category 3 -->
+      <section class="cat-section">
+        <div class="cat-header" onclick="this.parentElement.querySelector('.cat-body').style.display = this.parentElement.querySelector('.cat-body').style.display === 'none' ? 'flex' : 'none';">
+          <div class="cat-title-row">
+            <h2 class="cat-title">Assessment Variety</h2>
+            <span class="cat-badge warn">⚠ 1 issue found</span>
+          </div>
+          <svg class="cat-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        
+        <div class="cat-body">
+          <!-- Issue 3.1 -->
+          <div class="issue-card" id="issue-3-1">
+            <div class="issue-header">
+              <h3 class="issue-title">Assessment methods skew heavily toward written reports</h3>
+              <div class="draft-inline-badge">⚠ Draft</div>
+            </div>
+            <div class="issue-body">Across all 18 modules, 72% of assessment components are written submissions (reports, essays, documentation). Only 8% involve oral presentations or pitches, and 5% are portfolio-based.</div>
+            
+            <div class="visual-element">
+              <div class="assessment-bar">
+                <div class="ab-segment ab-written">72%</div>
+                <div class="ab-segment ab-prac">15%</div>
+                <div class="ab-segment ab-oral">8%</div>
+                <div class="ab-segment ab-port">5%</div>
+              </div>
+              <div class="ab-legend">
+                <div class="ab-leg-item"><div class="ab-leg-box ab-written"></div> Written Reports/Essays</div>
+                <div class="ab-leg-item"><div class="ab-leg-box ab-prac"></div> Practical/Lab</div>
+                <div class="ab-leg-item"><div class="ab-leg-box ab-oral"></div> Oral Presentations</div>
+                <div class="ab-leg-item"><div class="ab-leg-box ab-port"></div> Portfolio</div>
+              </div>
+            </div>
+            
+            <div class="ai-suggestion">
+              <strong>AI Suggestion:</strong> Consider converting at least 2 written report assessments to presentation-based or portfolio-based formats. Modules IT2102 and BA2201 are strong candidates — their learning outcomes emphasise communication and stakeholder engagement.
+            </div>
+            
+            <div class="issue-actions">
+              <button class="btn btn-primary" onclick="acceptIssue('issue-3-1')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Explore rebalancing with AI</button>
+              <button class="btn btn-secondary" onclick="dismissIssue('issue-3-1')">Dismiss — explain why</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category 4 -->
+      <section class="cat-section">
+        <div class="cat-header" onclick="this.parentElement.querySelector('.cat-body').style.display = this.parentElement.querySelector('.cat-body').style.display === 'none' ? 'flex' : 'none';">
+          <div class="cat-title-row">
+            <h2 class="cat-title">Industry Alignment</h2>
+            <span class="cat-badge warn">⚠ 1 issue found</span>
+          </div>
+          <svg class="cat-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        
+        <div class="cat-body">
+          <!-- Issue 4.1 -->
+          <div class="issue-card industry" id="issue-4-1">
+            <div class="issue-header">
+              <h3 class="issue-title">Cloud architecture assessment misaligned with current AWS framework</h3>
+              <div class="industry-signal">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                Industry Signal
+              </div>
+            </div>
+            <div class="issue-body">Based on the uploaded AWS Cloud Practitioner 2025 framework, cloud architecture competencies are now assessed industry-wide through hands-on lab environments and scenario-based practical exercises. Your curriculum (IT2101 Cloud Architecture) currently tests this competency via a written examination worth 40% of the module grade. This is a significant misalignment with industry assessment practice.</div>
+            
+            <div class="source-pill">
+              📎 Source: AWS Cloud Practitioner 2025 Framework, Section 3.2
+            </div>
+            
+            <div class="ai-suggestion">
+              <strong>AI Suggestion:</strong> Replace the IT2101 written exam (40%) with a practical lab assessment where students architect and deploy a multi-tier cloud application. This directly mirrors the AWS certification assessment format and better evidences the 'Cloud Architecture' competency in your Graduate Profile.
+            </div>
+            
+            <div class="issue-actions">
+              <button class="btn btn-primary" onclick="acceptIssue('issue-4-1')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Accept</button>
+              <button class="btn btn-secondary">Modify</button>
+              <button class="btn btn-secondary" onclick="dismissIssue('issue-4-1')">Dismiss — explain why</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category 5 -->
+      <div class="passed-row">
+        <svg class="passed-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span class="passed-text">Progression Coherence</span>
+        <span style="font-size: 13px; color: var(--body); margin-left: 12px;">All prerequisite chains are valid. No orphan modules detected.</span>
+      </div>
+
+      <!-- Category 6 -->
+      <div class="passed-row">
+        <svg class="passed-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span class="passed-text">Graduate Profile Coverage</span>
+        <span style="font-size: 13px; color: var(--body); margin-left: 12px;">All 6 competencies mapped to Intro &amp; Practice modules.</span>
+        <span class="passed-note">1 competency lacks Mastery (flagged in Phase 3)</span>
+      </div>
+
+    </div>
+
+    <!-- Sidebar: Audit Summary -->
+    <aside class="summary-panel">
+      <div class="sum-header">
+        <div class="sum-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <span class="sum-title">Audit Summary</span>
+      </div>
+      
+      <div class="draft-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+        Draft — for course leader's final approval
+      </div>
+      
+      <div class="status-list">
+        <div class="sl-item">
+          <span>Content Overlap</span>
+          <div class="sl-val warn"><div class="sl-dot warn"></div> ⚠ 3 issues</div>
+        </div>
+        <div class="sl-item">
+          <span>Workload Balance</span>
+          <div class="sl-val warn"><div class="sl-dot warn"></div> ⚠ 2 issues</div>
+        </div>
+        <div class="sl-item">
+          <span>Assessment Variety</span>
+          <div class="sl-val warn"><div class="sl-dot warn"></div> ⚠ 1 issue</div>
+        </div>
+        <div class="sl-item">
+          <span>Industry Alignment</span>
+          <div class="sl-val warn"><div class="sl-dot warn"></div> ⚠ 1 issue</div>
+        </div>
+        <div class="sl-item">
+          <span>Progression</span>
+          <div class="sl-val ok"><div class="sl-dot ok"></div> ✓ Clear</div>
+        </div>
+        <div class="sl-item">
+          <span>Graduate Profile</span>
+          <div class="sl-val ok"><div class="sl-dot ok"></div> ✓ Mapped</div>
+        </div>
+      </div>
+      
+      <div class="qual-summary">
+        <p class="qual-text">Your curriculum shows strong progression coherence and solid graduate profile coverage. However, there is significant content overlap in foundational programming topics, with approximately 7 weeks of duplicated Python instruction across three modules. Three assessment deadline clusters in Semester 4 need redistribution, and the overall assessment mix is heavily weighted toward written reports. One industry alignment gap was flagged — cloud architecture is being assessed via written exam rather than hands-on labs, which diverges from current AWS certification practice.</p>
+      </div>
+      
+      <div class="sum-actions">
+        <button class="btn btn-secondary btn-block"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Export Summary (PDF)</button>
+        <button class="btn btn-secondary btn-block"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg> Share with Team</button>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<script>
+  function dismissIssue(id, defaultReason = 'Not a priority right now.') {
+    const reason = prompt('Please provide a rationale for dismissing this issue:', defaultReason);
+    if (reason !== null) {
+      const card = document.getElementById(id);
+      card.classList.add('dismissed');
+      
+      // Update header
+      const header = card.querySelector('.issue-header');
+      header.innerHTML = `
+        <h3 class="issue-title" style="text-decoration: line-through; color: var(--muted);">${card.querySelector('.issue-title').innerText}</h3>
+        <span class="dismissed-badge">Dismissed</span>
+      `;
+      
+      // Add rationale
+      const reasonEl = document.createElement('div');
+      reasonEl.className = 'dismissed-reason';
+      reasonEl.innerText = `Rationale: "${reason}"`;
+      card.appendChild(reasonEl);
+    }
+  }
+
+  function acceptIssue(id) {
+    const card = document.getElementById(id);
+    const header = card.querySelector('.issue-header');
+    
+    // Add accepted badge
+    const badge = document.createElement('span');
+    badge.className = 'draft-inline-badge';
+    badge.style.background = 'var(--emerald-50)';
+    badge.style.color = 'var(--emerald-700)';
+    badge.style.borderColor = '#a7f3d0';
+    badge.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Accepted';
+    
+    // Remove draft badge
+    const oldBadge = header.querySelector('.draft-inline-badge');
+    if(oldBadge) oldBadge.remove();
+    
+    header.appendChild(badge);
+    card.style.opacity = '0.8';
+    
+    // Disable buttons
+    card.querySelectorAll('.btn').forEach(b => {
+      b.style.opacity = '0.5';
+      b.style.pointerEvents = 'none';
+    });
+  }
+</script>
+</body>
+</html>

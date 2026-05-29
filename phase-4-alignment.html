@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module Alignment Check — AI Curriculum Designer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F8F9FA; --card: #FFFFFF; --text: #0F172A; --body: #475569;
+      --muted: #94A3B8; --border: #E2E8F0; --border-soft: #F1F5F9;
+      --curr-700: #4338ca; --curr-600: #4f46e5; --curr-100: #c7d2fe; --curr-50: #eef2ff;
+      --amber-500: #f59e0b; --emerald-700: #059669; --emerald-50: #ecfdf5;
+    }
+    body { font-family: 'Outfit', 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    
+    .topbar { height: 56px; border-bottom: 1px solid var(--border); background: #fff; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; z-index: 100; }
+    .topbar-inner { width: 100%; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; padding: 0 40px; }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; }
+    
+    .page { width: 100%; max-width: 900px; margin: 0 auto; padding: 32px 40px 80px; display: flex; flex-direction: column; gap: 24px; }
+    .back-link { text-decoration: none; font-size: 13px; font-weight: 600; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; margin-bottom: 24px; }
+    .page-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--curr-700); margin-bottom: 8px; }
+    .page-title { font-size: 28px; font-weight: 700; color: var(--text); line-height: 1.18; margin-bottom: 8px; }
+    .page-sub { font-size: 14px; color: var(--body); }
+    
+    .step-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .ss-step { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: var(--muted); }
+    .ss-num { width: 18px; height: 18px; border-radius: 50%; background: var(--border-soft); color: var(--muted); font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--border); }
+    .ss-step.active { color: var(--curr-700); }
+    .ss-step.active .ss-num { background: var(--curr-700); color: #fff; border-color: var(--curr-700); }
+    .ss-sep { width: 12px; height: 1px; background: var(--border); }
+
+    .module-list { display: flex; flex-direction: column; gap: 16px; }
+    
+    .mod-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: 0 1px 2px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 20px; }
+    .mod-card.warning { border-left: 4px solid var(--amber-500); }
+    .mod-card.ok { border-left: 4px solid var(--emerald-700); }
+    
+    .mod-info { flex: 1; }
+    .mod-code { font-size: 12px; font-weight: 700; color: var(--curr-700); margin-bottom: 4px; }
+    .mod-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    
+    .ai-note { display: inline-flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--body); background: var(--bg); padding: 10px 14px; border-radius: 8px; width: 100%; border: 1px solid var(--border-soft); }
+    .ai-note.warn-note { background: #fffbe8; border-color: #fde68a; color: #92400e; }
+    .ai-note.ok-note { background: var(--emerald-50); border-color: #a7f3d0; color: #065f46; }
+    
+    .mod-actions { flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; }
+    .btn { font-size: 12px; font-weight: 600; padding: 8px 16px; border-radius: 8px; text-decoration: none; text-align: center; display: inline-block; cursor: pointer; border: 1px solid var(--border); }
+    .btn.primary { background: #fff; color: var(--text); }
+    .btn.primary:hover { background: var(--bg); }
+    
+    /* Premium UI */
+    :root { --font-sans: 'Outfit', 'Inter', sans-serif !important; }
+    body { background-color: #fcfcfd !important; }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="topbar-brand">
+      <div class="brand-name">AI Curriculum Designer</div>
+    </a>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="page-header">
+    <a href="curriculum-hub.html" class="back-link">&larr; Back to Curriculum Hub</a>
+    <div class="page-eyebrow">Curriculum Strategy</div>
+    <h1 class="page-title">Module Alignment Check</h1>
+    <p class="page-sub">AI has scanned the 18 modules in your program. Dive into the module-level workspace to fix alignment issues.</p>
+  </div>
+
+  <div class="step-strip">
+    <span class="ss-step"><span class="ss-num">1</span> Scan</span> <span class="ss-sep"></span>
+    <span class="ss-step"><span class="ss-num">2</span> Profile</span> <span class="ss-sep"></span>
+    <span class="ss-step"><span class="ss-num">3</span> Structure</span> <span class="ss-sep"></span>
+    <span class="ss-step active"><span class="ss-num">4</span> Alignment</span> <span class="ss-sep"></span>
+    <span class="ss-step"><span class="ss-num">5</span> Audit</span>
+  </div>
+
+  <div class="module-list">
+    <!-- Module 1: Issue -->
+    <div class="mod-card warning">
+      <div class="mod-info">
+        <div class="mod-code">IT2101</div>
+        <div class="mod-title">Cloud Architecture</div>
+        <div class="ai-note warn-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div><strong>Assessment Mismatch:</strong> Learning Outcome 3 ("Design multi-tier applications") is assessed entirely via a written examination (40% weight). AI recommends a practical lab assessment.</div>
+        </div>
+      </div>
+      <div class="mod-actions">
+        <a href="plan-direction.html" class="btn primary">Open in Module Designer &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Module 2: Issue -->
+    <div class="mod-card warning">
+      <div class="mod-info">
+        <div class="mod-code">IT2201</div>
+        <div class="mod-title">Cloud Security</div>
+        <div class="ai-note warn-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div><strong>Teaching Gap:</strong> "Zero-Trust Architecture" is tested in the final exam but not covered in any weekly teaching plan.</div>
+        </div>
+      </div>
+      <div class="mod-actions">
+        <a href="plan-direction.html" class="btn primary">Open in Module Designer &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Module 3: OK -->
+    <div class="mod-card ok">
+      <div class="mod-info">
+        <div class="mod-code">IT1102</div>
+        <div class="mod-title">Programming Foundations</div>
+        <div class="ai-note ok-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <div><strong>Aligned:</strong> All 5 learning outcomes map correctly to corresponding teaching weeks and continuous assessments.</div>
+        </div>
+      </div>
+      <div class="mod-actions">
+        <a href="plan-direction.html" class="btn primary">View Module</a>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 16px; margin-bottom: 24px;">
+      <button style="background: none; border: none; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer;">Show 15 more modules...</button>
+    </div>
+    
+    <div style="display: flex; justify-content: flex-end;">
+      <a href="phase-5-audit.html" style="padding: 12px 24px; border-radius: 8px; background: var(--curr-700); color: #fff; font-weight: 600; text-decoration: none;">
+        Proceed to Phase 5: Audit &rarr;
+      </a>
+    </div>
+
+  </div>
+</main>
+</body>
+</html>
