@@ -677,6 +677,11 @@
       grid-template-columns: 164px minmax(0, 1fr);
       min-height: calc(100vh - 220px);
       overflow: hidden;
+      transition: grid-template-columns 0.3s ease;
+    }
+
+    .thread-shell.drawer-collapsed {
+      grid-template-columns: 0px minmax(0, 1fr);
     }
 
     .thread-rail {
@@ -687,6 +692,14 @@
       flex-direction: column;
       align-content: start;
       gap: 8px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      width: 164px;
+    }
+
+    .thread-shell.drawer-collapsed .thread-rail {
+      transform: translateX(-100%);
+      opacity: 0;
+      pointer-events: none;
     }
 
     .thread-rail-kicker {
@@ -3218,8 +3231,9 @@
       <aside class="workspace-side" aria-label="Design Discussion workspace">
         <div class="thread-shell">
           <nav class="thread-rail" aria-label="MDD section drafting">
-            <div class="thread-rail-kicker">AI-Assisted Drafting</div>
-            <button class="thread-link active" data-thread="synopsis" type="button"><span class="tl-name">Synopsis</span></button>
+            <div class="thread-rail-kicker">Design Workflow</div>
+            <button class="thread-link active" data-thread="welcome" type="button"><span class="tl-name">Getting Started</span></button>
+            <button class="thread-link" data-thread="synopsis" type="button"><span class="tl-name">Synopsis</span></button>
             <button class="thread-link" data-thread="skills" type="button"><span class="tl-name">Skills Framework</span></button>
             <button class="thread-link" data-thread="outcomes" type="button"><span class="tl-name">Module Learning Outcomes</span></button>
             <button class="thread-link" data-thread="co_outcomes" type="button"><span class="tl-name">Course Outcomes</span></button>
@@ -3234,14 +3248,94 @@
 
           <section class="thread-workspace" aria-live="polite">
             <header class="thread-head">
-              <div class="thread-head-top">
-                <h2 class="thread-title" id="threadTitle">Module Design</h2>
+              <div class="thread-head-top" style="display: flex; align-items: center; gap: 10px;">
+                <button id="navToggleBtn" onclick="document.querySelector('.thread-shell').classList.toggle('drawer-collapsed')" style="background:none; border:none; cursor:pointer; color:var(--text-muted); padding:4px; display:flex; align-items:center; justify-content:center; border-radius:6px; transition: background 0.2s;" onmouseover="this.style.background='var(--brand-light)'" onmouseout="this.style.background='transparent'" title="Toggle sidebar">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+                <h2 class="thread-title" id="threadTitle">Getting Started</h2>
               </div>
-              <p class="thread-sub" id="threadSubtitle">AI has reviewed your context and is ready to support module design. Review, refine, and approve each step.</p>
+              <p class="thread-sub" id="threadSubtitle" style="margin-top: 4px;">Suggestions for this section</p>
+              <div class="global-context-indicators" id="globalContextIndicators" style="display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap;">
+                <span style="background: var(--brand-light); border: 1px solid var(--border-soft); border-radius: 4px; padding: 4px 8px; font-size: 11px; color: var(--text-muted); font-weight: 600;">Target: Adult Learners</span>
+                <span style="background: var(--brand-light); border: 1px solid var(--border-soft); border-radius: 4px; padding: 4px 8px; font-size: 11px; color: var(--text-muted); font-weight: 600;">Focus: Clinical Escalation</span>
+                <span style="background: var(--brand-light); border: 1px solid var(--border-soft); border-radius: 4px; padding: 4px 8px; font-size: 11px; color: var(--text-muted); font-weight: 600;">Format: 13-Weeks</span>
+              </div>
               <div class="thread-pulse" id="threadPulse"></div>
             </header>
 
-            <div class="thread-canvas" id="threadCanvas"></div>
+            <div class="ripple-alert" style="margin: 12px 16px 0; background: #fff8eb; border: 1px solid #fde6b3; border-radius: 8px; padding: 10px 14px; display: none; align-items: flex-start; gap: 8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 1px; flex-shrink: 0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              <div>
+                <div style="font-size: 12px; color: #8a6a1c; font-weight: 600; line-height: 1.4;">Note: Removing this outcome will require adjustments to the Week 5 Assessment.</div>
+                <a href="#" style="font-size: 11px; color: #b8860b; font-weight: 700; text-decoration: underline; margin-top: 4px; display: inline-block;">Review Impact</a>
+              </div>
+            </div>
+
+            <div class="thread-canvas" id="threadCanvas">
+              <div class="decision-log-entry ai" style="border-left-color: var(--brand); background: #fbfdff; padding: 18px 16px;">
+                <div class="decision-log-label" style="color: var(--brand); margin-bottom: 8px;">Design Assistant</div>
+                <div class="decision-log-copy" style="margin-bottom: 20px; color: var(--text-main); font-size: 13.5px; line-height: 1.5;">
+                  <strong style="display: block; margin-bottom: 6px;">Module context is ready.</strong>
+                  I've analyzed the inputs to help guide the design.
+                </div>
+                
+                <div style="background: #f8fafc; border: 1px solid var(--border-soft); border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+                  <h4 style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.08em;">Context Prepared</h4>
+                  <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; color: var(--text-main); font-size: 13px; font-weight: 600;">
+                    <li style="display: flex; align-items: flex-start; gap: 8px;">
+                      <span style="color: #059669; font-weight: bold; margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span> 
+                      <div style="width: 100%;">
+                        Programme intent &amp; learner profile identified
+                        <div style="display: flex; gap: 4px; margin-top: 5px;">
+                          <div style="height:5px;width:40%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                          <div style="height:5px;width:30%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                        </div>
+                      </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 8px;">
+                      <span style="color: #059669; font-weight: bold; margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span> 
+                      <div style="width: 100%;">
+                        Existing curriculum context reviewed
+                        <div style="display: flex; gap: 4px; margin-top: 5px;">
+                          <div style="height:5px;width:55%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                          <div style="height:5px;width:25%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                        </div>
+                      </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 8px;">
+                      <span style="color: #059669; font-weight: bold; margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span> 
+                      <div style="width: 100%;">
+                        Industry &amp; skills signals considered
+                        <div style="display: flex; gap: 4px; margin-top: 5px;">
+                          <div style="height:5px;width:35%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                          <div style="height:5px;width:45%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                        </div>
+                      </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 8px;">
+                      <span style="color: #059669; font-weight: bold; margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span> 
+                      <div style="width: 100%;">
+                        NP curriculum requirements applied
+                        <div style="display: flex; gap: 4px; margin-top: 5px;">
+                          <div style="height:5px;width:60%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div style="margin-bottom: 12px; color: var(--text-main); font-size: 13.5px;">
+                  <strong style="display: block; margin-bottom: 4px;">Ready to begin</strong>
+                  Start by defining the module purpose and positioning.
+                </div>
+                
+                <div style="display: flex; justify-content: flex-start; margin-top: 14px;">
+                  <button class="btn-primary" type="button" style="font-size: 12.5px; padding: 8px 16px; margin: 0; width: 100%; justify-content: space-between;" onclick="this.closest('.decision-log-entry').style.opacity='0.6'; this.innerHTML='Synopsis started'; this.disabled=true;">
+                    Begin with Module Synopsis <span>&rarr;</span>
+                  </button>
+                </div>
+              </div>
+            </div>
 
             <footer class="thread-footer">
               <div class="thread-thinking" id="threadThinking">Updating draft...</div>
@@ -3810,10 +3904,10 @@
   <script>
     const threadData = {
       welcome: {
-        title: "Synopsis",
-        subtitle: "Set the module direction and synopsis. AI will scaffold each MDD section from here.",
+        title: "Getting Started",
+        subtitle: "Module context and initial setup.",
         stage: "Getting started",
-        sectionLabel: "Synopsis",
+        sectionLabel: "Getting Started",
         prompts: ["Strengthen escalation judgement", "Increase applied simulation practice"],
         reviewed: [
           "Industry inputs reviewed",
@@ -4149,7 +4243,7 @@
     let welcomeFlowTimers = [];
 
     const railLabels = {
-      welcome:      "Synopsis",
+      welcome:      "Getting Started",
       synopsis:     "Synopsis",
       skills:       "Skills Framework",
       outcomes:     "Module Learning Outcomes",
@@ -5345,9 +5439,18 @@
       const data = sectionData[key] || sectionData['synopsis'];
 
       threadTitle.textContent = data.title || "Module Section";
-      threadSubtitle.textContent = "AI Support for this section";
+      threadSubtitle.textContent = "Suggestions for this section";
       activeSectionPill.textContent = (data.num || "") + " " + data.title;
       activeThreadKey = key;
+      
+      const contextIndicators = document.getElementById("globalContextIndicators");
+      if (key === "welcome") {
+        threadSubtitle.style.display = "none";
+        if (contextIndicators) contextIndicators.style.display = "none";
+      } else {
+        threadSubtitle.style.display = "block";
+        if (contextIndicators) contextIndicators.style.display = "flex";
+      }
 
       const syncEl = document.getElementById("syncLabel");
       if (syncEl) {
@@ -5365,45 +5468,113 @@
 
       let html = "";
 
-      // 1. Focus callout
-      if (data.focus) {
-        html += `<div style="${S.focusBlock}"><span style="color:#004689;font-size:11px;flex-shrink:0;margin-top:1px;">✦</span><span>${data.focus}</span></div>`;
-      }
+      if (key === "welcome") {
+        html = `
+              <div class="decision-log-entry ai" style="border-left-color: var(--brand); background: #fbfdff; padding: 18px 16px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 16px;">
+                <div class="decision-log-label" style="color: var(--brand); margin-bottom: 8px; font-weight: 600; font-size: 12px;">Design Assistant</div>
+                <div class="decision-log-copy" style="margin-bottom: 20px; color: var(--text-main); font-size: 13.5px; line-height: 1.5;">
+                  <strong style="display: block; margin-bottom: 6px;">Module context is ready.</strong>
+                  I've analyzed the inputs to help guide the design.
+                </div>
+                
+                <div style="background: #f8fafc; border: 1px solid var(--border-soft); border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+                  <h4 style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.08em;">Context Prepared</h4>
+                  <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; color: var(--text-main); font-size: 13px; font-weight: 600;">
+                    <li style="display: flex; align-items: flex-start; gap: 8px;">
+                      <span style="color: #059669; font-weight: bold; margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span> 
+                      <div style="width: 100%;">
+                        Programme intent &amp; learner profile identified
+                        <div style="display: flex; gap: 4px; margin-top: 5px;">
+                          <div style="height:5px;width:40%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                          <div style="height:5px;width:30%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                        </div>
+                      </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 8px;">
+                      <span style="color: #059669; font-weight: bold; margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span> 
+                      <div style="width: 100%;">
+                        Existing curriculum context reviewed
+                        <div style="display: flex; gap: 4px; margin-top: 5px;">
+                          <div style="height:5px;width:55%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                          <div style="height:5px;width:25%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                        </div>
+                      </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 8px;">
+                      <span style="color: #059669; font-weight: bold; margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span> 
+                      <div style="width: 100%;">
+                        Industry &amp; skills signals considered
+                        <div style="display: flex; gap: 4px; margin-top: 5px;">
+                          <div style="height:5px;width:35%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                          <div style="height:5px;width:45%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                        </div>
+                      </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 8px;">
+                      <span style="color: #059669; font-weight: bold; margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span> 
+                      <div style="width: 100%;">
+                        NP curriculum requirements applied
+                        <div style="display: flex; gap: 4px; margin-top: 5px;">
+                          <div style="height:5px;width:60%;border-radius:3px;background:var(--border-strong); opacity: 0.6;"></div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div style="margin-bottom: 12px; color: var(--text-main); font-size: 13.5px;">
+                  <strong style="display: block; margin-bottom: 4px;">Ready to begin</strong>
+                  Start by defining the module purpose and positioning.
+                </div>
+                
+                <div style="display: flex; justify-content: flex-start; margin-top: 14px;">
+                  <button class="btn-primary" type="button" style="font-size: 12.5px; padding: 8px 16px; margin: 0; width: 100%; justify-content: space-between;" onclick="activateThread('synopsis', true);">
+                    Begin with Module Synopsis <span>&rarr;</span>
+                  </button>
+                </div>
+              </div>
+        `;
+      } else {
+        // 1. Focus callout
+        if (data.focus) {
+          html += `<div style="${S.focusBlock}"><span style="color:#004689;font-size:11px;flex-shrink:0;margin-top:1px;">✦</span><span>${data.focus}</span></div>`;
+        }
 
-      // 2. Connected context
-      if (data.context && data.context.length > 0) {
-        const contextItems = data.context.map(ctx => 
-          `<div style="${S.ctxItem}"><span style="${S.ctxIcon}">·</span><span>${ctx}</span></div>`
-        ).join("");
-        html += `<div style="${S.card}">
-          <div style="${S.cardHead}">Connected context</div>
-          <div style="${S.cardBody}${S.grid("8px")}">${contextItems}</div>
-        </div>`;
-      }
+        // 2. Connected context
+        if (data.context && data.context.length > 0) {
+          const contextItems = data.context.map(ctx => 
+            `<div style="${S.ctxItem}"><span style="${S.ctxIcon}">·</span><span>${ctx}</span></div>`
+          ).join("");
+          html += `<div style="${S.card}">
+            <div style="${S.cardHead}">Connected context</div>
+            <div style="${S.cardBody}${S.grid("8px")}">${contextItems}</div>
+          </div>`;
+        }
 
-      // 3. AI Recommendations
-      if (data.support && data.support.length > 0) {
-        const supportItems = data.support.map((obs, i) => 
-          `<div style="${S.obsRow}">
-            <div style="${S.obsLabel}"><span style="${S.obsIcon}">✦</span><span>${obs}</span></div>
-            <button type="button" data-obs="${i}" style="${S.applyBtn}">Apply</button>
-          </div>`
-        ).join("");
-        html += `<div style="${S.card}">
-          <div style="${S.cardHead}">AI Recommendations</div>
-          <div style="${S.cardBody}${S.grid("10px")}">${supportItems}</div>
-        </div>`;
-      }
+        // 3. AI Recommendations
+        if (data.support && data.support.length > 0) {
+          const supportItems = data.support.map((obs, i) => 
+            `<div style="${S.obsRow}">
+              <div style="${S.obsLabel}"><span style="${S.obsIcon}">✦</span><span>${obs}</span></div>
+              <button type="button" data-obs="${i}" style="${S.applyBtn}">Apply</button>
+            </div>`
+          ).join("");
+          html += `<div style="${S.card}">
+            <div style="${S.cardHead}">AI Recommendations</div>
+            <div style="${S.cardBody}${S.grid("10px")}">${supportItems}</div>
+          </div>`;
+        }
 
-      // 4. Quick Actions
-      if (data.actions && data.actions.length > 0) {
-        const actionItems = data.actions.map((act, i) => 
-          `<button type="button" data-act="${i}" style="${S.actionBtn}"><span style="${S.actionIcon}">↗</span>${act}</button>`
-        ).join("");
-        html += `<div style="${S.card}">
-          <div style="${S.cardHead}">Quick Actions</div>
-          <div style="${S.cardBody}${S.grid("5px")}">${actionItems}</div>
-        </div>`;
+        // 4. Quick Actions
+        if (data.actions && data.actions.length > 0) {
+          const actionItems = data.actions.map((act, i) => 
+            `<button type="button" data-act="${i}" style="${S.actionBtn}"><span style="${S.actionIcon}">↗</span>${act}</button>`
+          ).join("");
+          html += `<div style="${S.card}">
+            <div style="${S.cardHead}">Quick Actions</div>
+            <div style="${S.cardBody}${S.grid("5px")}">${actionItems}</div>
+          </div>`;
+        }
       }
 
       threadCanvas.innerHTML = html;
