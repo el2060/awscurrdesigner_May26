@@ -75,7 +75,7 @@
     .ctx-more-chip { font-size: 11px; font-weight: 500; color: #6b7280; padding: 4px 6px; }
 
     /* Workspace grid */
-    .workspace { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 32px; align-items: start; }
+    .workspace { display: block; }
     .workspace-side { min-width: 280px; }
     .workspace-main { min-width: 0; }
 
@@ -640,35 +640,114 @@
       </label>
     </div>
     
-    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
-      <button class="analysis-primary" type="button" onclick="document.getElementById('start-step-1').style.display='none'; document.getElementById('start-step-2').style.display='none'">Generate Teaching Pack →</button>
     </div>
   </section>
 
   <section class="setup-card" id="start-step-2" style="padding: 20px 24px; border: 1px solid #dce8f5; background: #fff; margin-bottom: 24px;">
     <h3 style="font-size: 14px; font-weight: 700; color: #1a2e40; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #4a6580; font-size: 11px;">Teaching Materials Setup</h3>
-    <div style="margin-bottom: 16px;">
-      <div style="font-size: 13px; font-weight: 600; color: #1a2e40; margin-bottom: 8px;">Select materials to prepare</div>
+    <div style="margin-bottom: 24px;">
+      <div style="font-size: 13px; font-weight: 600; color: #1a2e40; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 16px;">1. Teaching Context</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px;">
+        <div>
+          <div style="font-size: 12px; font-weight: 600; color: #4b5563; margin-bottom: 8px;">Teaching Scope</div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <select style="font-size: 13px; color: #4b5563; border: 1px solid #dce8f5; border-radius: 6px; padding: 4px 8px; background: #fff; outline: none; cursor: pointer;">
+              <option selected>Wk 1</option>
+              <option>Wk 2</option>
+              <option>Wk 3</option>
+              <option>Wk 4</option>
+              <option>Wk 5</option>
+            </select>
+            <span style="font-size: 13px; color: #6b7280; font-weight: 500;">to</span>
+            <select style="font-size: 13px; color: #4b5563; border: 1px solid #dce8f5; border-radius: 6px; padding: 4px 8px; background: #fff; outline: none; cursor: pointer;">
+              <option>Wk 1</option>
+              <option>Wk 2</option>
+              <option>Wk 3</option>
+              <option>Wk 4</option>
+              <option>Wk 5</option>
+              <option selected>Wk 6</option>
+              <option>Wk 7</option>
+              <option>Wk 8</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 12px; font-weight: 600; color: #4b5563; margin-bottom: 8px;">Learner Profile</div>
+          <div class="config-scope-chips">
+            <label class="config-scope-chip"><input type="radio" name="audience" value="y1"><span>Year 1 Foundation</span></label>
+            <label class="config-scope-chip"><input type="radio" name="audience" value="cet" checked><span>Adult Learners (CET)</span></label>
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 12px; font-weight: 600; color: #4b5563; margin-bottom: 8px;">Learning Design Focus</div>
+          <div class="config-scope-chips">
+            <label class="config-scope-chip"><input type="radio" name="mode" value="balanced" checked><span>Balanced</span></label>
+            <label class="config-scope-chip"><input type="radio" name="mode" value="guided"><span>More Guided</span></label>
+            <label class="config-scope-chip"><input type="radio" name="mode" value="applied"><span>More Applied</span></label>
+            <label class="config-scope-chip"><input type="radio" name="mode" value="self"><span>More Self-directed</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-size: 13px; font-weight: 600; color: #1a2e40; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 16px;">2. Materials to Generate</div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px;">
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Slides</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Quizzes</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Assessment Briefs</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> OAL / Pre-Class Activities</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Facilitation Guides</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Facilitation Guide</label>
         <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Worksheets</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Discussion Questions</label>
+        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Discussion Activities</label>
       </div>
     </div>
 
-    <div style="background: #f8fbff; border: 1px solid #dce8f5; border-radius: 8px; padding: 12px;">
-      <div id="dyn-instr-title" style="font-size: 12px; font-weight: 600; color: #344b61; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-        <span style="color: var(--brand);">✦</span> Teaching Notes & Preferences (Optional)
+    <div style="margin-bottom: 24px;">
+      <div style="font-size: 13px; font-weight: 600; color: #1a2e40; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 16px;">3. Reference & Enrichment Sources</div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px; opacity: 0.8;">
+            <input type="checkbox" checked disabled> Use module documents and teaching plan
+          </label>
+          <div style="font-size: 11px; color: #6b7280; margin-left: 19px;">
+            ✓ Inherited and connected from Phase 1 Planning.
+          </div>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;">
+            <input type="checkbox" checked> Include NP Library Resources where relevant
+          </label>
+          <div style="font-size: 11px; color: #6b7280; margin-left: 19px; max-width: 600px; line-height: 1.4;">
+            Enhance generated materials with authoritative references from Lien Ying Chow Library resources (e.g., ProQuest, EBSCOhost, Statista), where applicable.
+          </div>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;">
+            <input type="checkbox"> Suggest external learning resources
+          </label>
+          <div style="font-size: 11px; color: #6b7280; margin-left: 19px; max-width: 600px; line-height: 1.4;">
+            (e.g. videos, readings, industry examples)
+          </div>
+        </div>
+        
       </div>
-      <textarea id="dyn-instr-area" placeholder="e.g. Reduce lecture content for flipped learning, add more applied activities, or simplify content for Year 1 students." style="width: 100%; height: 50px; border: 1px solid #c8daec; border-radius: 6px; padding: 8px 12px; font-size: 13px; color: var(--text); font-family: var(--font-sans, system-ui); resize: none; background: #fff; outline: none; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);"></textarea>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-size: 13px; font-weight: 600; color: #1a2e40; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 16px;">4. Customisation Notes (Optional)</div>
+      <div style="background: #f8fbff; border: 1px solid #dce8f5; border-radius: 8px; padding: 12px;">
+        <textarea id="dyn-instr-area" placeholder="e.g. Make activities more applied, simplify explanations for Year 1 learners, include more industry scenarios, or reduce content for flipped learning." style="width: 100%; height: 50px; border: 1px solid #c8daec; border-radius: 6px; padding: 8px 12px; font-size: 13px; color: var(--text); font-family: var(--font-sans, system-ui); resize: none; background: #fff; outline: none; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);"></textarea>
       <div id="dyn-instr-actions" style="margin-top: 8px; display: none; gap: 8px; flex-wrap: wrap;">
         <button type="button" style="border: 1px dashed #b8d0e6; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: #4a6580; cursor: pointer;">+ Upload Old Files</button>
         <button type="button" style="border: 1px dashed #b8d0e6; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: #4a6580; cursor: pointer;">+ Add Reference Link</button>
       </div>
+      </div>
+    <div style="margin-top: 24px; display: flex; justify-content: flex-end; padding-bottom: 32px; border-bottom: 1px solid #e2e8f0; margin-bottom: 32px;">
+      <button class="analysis-primary" type="button" style="padding: 12px 24px; font-size: 14px;">Generate Teaching Pack →</button>
     </div>
   </section>
 
@@ -677,7 +756,10 @@
   <div id="workspace-toolbar" class="workspace-toolbar">
     <div>
       <div class="workspace-toolbar-title">Teaching Pack — Week 1–6</div>
-      <div class="workspace-toolbar-sub">Review, edit, and refine your teaching materials before delivery or LMS upload. Use the AI chat to iterate.</div>
+      <div class="workspace-toolbar-sub">
+        Review, edit, and refine your teaching materials before delivery or LMS upload. Use the AI chat to iterate.<br>
+        <span style="color: #4a6580; font-weight: 500;">🏛️ 3 new Statista datasets available and 1 NP Subject Guide appended.</span>
+      </div>
     </div>
     <div class="save-state">
       <span class="save-indicator"></span> Draft auto-saved just now
@@ -686,100 +768,8 @@
 
   <div id="workspace-area" class="workspace">
 
-    <!-- LEFT RAIL: TEACHING PACK ASSISTANT -->
-    <div class="workspace-side">
-      <div class="workspace-sidebar">
-
-        <!-- Identity -->
-        <div class="assistant-header-block">
-          <div class="assistant-header">
-            <div class="assistant-icon">✦</div>
-            <div>
-              <div class="assistant-name">Teaching Pack Assistant</div>
-              <div class="assistant-status">Generating · Week 1–6 · 7 materials</div>
-            </div>
-          </div>
-          <div class="assistant-context">
-            <div style="margin-bottom: 8px;">Drafted from approved teaching flow.</div>
-            <div class="skel-preview" style="gap: 5px;">
-              <div class="skel-line w-80" style="margin-top: 2px;"></div>
-              <div class="skel-line w-60"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Suggested Actions -->
-        <div class="rail-block">
-          <div class="rail-title">Suggested Actions</div>
-          <div class="rail-action-list">
-            <button class="rail-action-btn generate" style="margin-bottom: 6px;">
-              <span class="btn-icon">↺</span>
-              Regenerate full teaching pack
-            </button>
-            <div class="rail-action-btn" style="pointer-events: none; border-color: transparent; background: transparent;">
-              <span class="btn-icon">+</span>
-              <div class="skel-line w-80" style="margin:0;"></div>
-            </div>
-            <div class="rail-action-btn" style="pointer-events: none; border-color: transparent; background: transparent;">
-              <span class="btn-icon">↗</span>
-              <div class="skel-line w-60" style="margin:0;"></div>
-            </div>
-            <div class="rail-action-btn" style="pointer-events: none; border-color: transparent; background: transparent;">
-              <span class="btn-icon">✎</span>
-              <div class="skel-line w-80" style="margin:0;"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- AI Observations -->
-        <div class="rail-block">
-          <div class="rail-title">Teaching Suggestions</div>
-          <div class="rail-suggest-list">
-            <div class="rail-suggest-item warn">
-              <div class="rail-suggest-label">Week 5 has no pre-class OAL activity</div>
-              <button class="rail-apply-btn warn-action">Add</button>
-            </div>
-            <div class="rail-suggest-item">
-              <div class="rail-suggest-label">Pull latest consumer behaviour data from Statista for Week 3 case study</div>
-              <button class="rail-apply-btn">Apply</button>
-            </div>
-            <div class="rail-suggest-item">
-              <div class="rail-suggest-label"><div class="skel-line w-60" style="margin-top:3px;"></div></div>
-              <button class="rail-apply-btn">View</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
     <!-- MAIN WORKSPACE -->
     <div class="workspace-main">
-
-      <!-- COMPACT CONFIG STRIP -->
-      <div class="config-strip">
-        <div class="config-zone">
-          <div class="config-label">Teaching Scope</div>
-          <div class="config-scope-chips">
-            <label class="config-scope-chip"><input type="radio" name="scope" value="w1-3"><span>Wks 1–3</span></label>
-            <label class="config-scope-chip"><input type="radio" name="scope" value="w1-6" checked><span>Wks 1–6</span></label>
-            <label class="config-scope-chip"><input type="radio" name="scope" value="all"><span>Module</span></label>
-          </div>
-        </div>
-        <div class="config-zone" style="flex: 1;">
-          <div class="config-label">Materials selected (7)</div>
-          <div class="config-mat-tags">
-            <span class="config-mat-tag">E-Lecture Slides</span>
-            <span class="config-mat-tag">Quiz</span>
-            <span class="config-mat-tag">Reading Notes</span>
-            <span class="config-mat-tag">Facilitation Slides</span>
-            <span class="config-mat-more">+3 more</span>
-          </div>
-        </div>
-        <div class="config-cta-zone">
-          <button class="config-gen-btn" onclick="regenerateAll()">Regenerate Pack →</button>
-        </div>
-      </div>
 
       <!-- GENERATED MATERIAL CARDS (always visible) -->
       <div class="mat-card-list">
@@ -794,7 +784,6 @@
             </div>
             <div class="mc-actions">
               <button class="mc-action-btn">Edit</button>
-              <button class="mc-action-btn">Regenerate</button>
               <button class="mc-action-btn ai">✦ Suggest</button>
             </div>
           </div>
@@ -826,7 +815,6 @@
             </div>
             <div class="mc-actions">
               <button class="mc-action-btn">Edit</button>
-              <button class="mc-action-btn">Regenerate</button>
               <button class="mc-action-btn ai">✦ Suggest</button>
             </div>
           </div>
@@ -863,7 +851,6 @@
             </div>
             <div class="mc-actions">
               <button class="mc-action-btn">Edit</button>
-              <button class="mc-action-btn">Regenerate</button>
               <button class="mc-action-btn ai">✦ Suggest</button>
             </div>
           </div>
@@ -892,7 +879,6 @@
             </div>
             <div class="mc-actions">
               <button class="mc-action-btn">Edit</button>
-              <button class="mc-action-btn">Regenerate</button>
               <button class="mc-action-btn ai">✦ Suggest</button>
             </div>
           </div>
@@ -949,20 +935,7 @@
 
       </div>
 
-      <!-- AI REFINE CHAT -->
-      <div class="chat-section">
-        <div class="chat-label">Refine Teaching Pack</div>
-        <div class="chat-prompts">
-          <button class="chat-prompt-btn" onclick="fillChat('Add a second applied case activity for Week 5')">Add case activity — Week 5</button>
-          <button class="chat-prompt-btn" onclick="fillChat('Add facilitation questions and prompts')">Add facilitation questions and prompts</button>
-          <button class="chat-prompt-btn" onclick="fillChat('Reduce complexity for Year 1 students')">Reduce complexity for Year 1 students</button>
-          <button class="chat-prompt-btn" onclick="fillChat('Generate an understanding check quiz for Week 5')">Add quiz — Week 5</button>
-        </div>
-        <div class="chat-input-row">
-          <input type="text" id="chat-input" class="chat-input" placeholder="Ask AI to adjust, extend, or regenerate any part of your teaching pack…">
-          <button class="chat-send">Send →</button>
-        </div>
-      </div>
+
 
       <!-- EXPORT / NEXT STEP -->
       <div class="next-step-card">
