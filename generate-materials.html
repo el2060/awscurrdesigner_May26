@@ -643,23 +643,30 @@
     </div>
   </section>
 
-  <section class="setup-card" id="start-step-2" style="padding: 20px 24px; border: 1px solid #dce8f5; background: #fff; margin-bottom: 24px;">
-    <h3 style="font-size: 14px; font-weight: 700; color: #1a2e40; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #4a6580; font-size: 11px;">Teaching Materials Setup</h3>
-    <div style="margin-bottom: 24px;">
-      <div style="font-size: 13px; font-weight: 600; color: #1a2e40; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 16px;">1. Teaching Context</div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px;">
-        <div>
-          <div style="font-size: 12px; font-weight: 600; color: #4b5563; margin-bottom: 8px;">Teaching Scope</div>
+      <section class="setup-card" id="start-step-2" style="padding: 32px 36px; border: 1px solid #dce8f5; border-radius: 12px; background: #fff; margin-bottom: 24px; box-shadow: 0 4px 24px rgba(22, 45, 68, 0.03);">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;">
+      <h3 style="font-size: 16px; font-weight: 800; color: #1a2e40; margin: 0; letter-spacing: -0.01em;">Teaching Materials Setup</h3>
+    </div>
+
+    <!-- 1. Teaching Context -->
+    <div style="margin-bottom: 32px;">
+      <div style="display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eef2f6; padding-bottom: 12px; margin-bottom: 20px;">
+        <div style="width: 24px; height: 24px; border-radius: 6px; background: var(--brand-soft); color: var(--brand); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;">1</div>
+        <div style="font-size: 14.5px; font-weight: 700; color: #1a2e40;">Teaching Context</div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+        <div style="background: #f8fbff; border: 1px solid #e1ebf4; border-radius: 10px; padding: 18px;">
+          <div style="font-size: 12px; font-weight: 700; color: #344b61; margin-bottom: 12px;">Teaching Scope</div>
           <div style="display: flex; align-items: center; gap: 8px;">
-            <select style="font-size: 13px; color: #4b5563; border: 1px solid #dce8f5; border-radius: 6px; padding: 4px 8px; background: #fff; outline: none; cursor: pointer;">
+            <select style="font-size: 13px; font-weight: 500; color: #4b5563; border: 1px solid #dce8f5; border-radius: 6px; padding: 6px 10px; background: #fff; outline: none; cursor: pointer;">
               <option selected>Wk 1</option>
               <option>Wk 2</option>
               <option>Wk 3</option>
               <option>Wk 4</option>
               <option>Wk 5</option>
             </select>
-            <span style="font-size: 13px; color: #6b7280; font-weight: 500;">to</span>
-            <select style="font-size: 13px; color: #4b5563; border: 1px solid #dce8f5; border-radius: 6px; padding: 4px 8px; background: #fff; outline: none; cursor: pointer;">
+            <span style="font-size: 12px; color: #9ca3af; font-weight: 600;">to</span>
+            <select style="font-size: 13px; font-weight: 500; color: #4b5563; border: 1px solid #dce8f5; border-radius: 6px; padding: 6px 10px; background: #fff; outline: none; cursor: pointer;">
               <option>Wk 1</option>
               <option>Wk 2</option>
               <option>Wk 3</option>
@@ -671,15 +678,15 @@
             </select>
           </div>
         </div>
-        <div>
-          <div style="font-size: 12px; font-weight: 600; color: #4b5563; margin-bottom: 8px;">Learner Profile</div>
+        <div style="background: #f8fbff; border: 1px solid #e1ebf4; border-radius: 10px; padding: 18px;">
+          <div style="font-size: 12px; font-weight: 700; color: #344b61; margin-bottom: 12px;">Learner Profile</div>
           <div class="config-scope-chips">
             <label class="config-scope-chip"><input type="radio" name="audience" value="y1"><span>Year 1 Foundation</span></label>
             <label class="config-scope-chip"><input type="radio" name="audience" value="cet" checked><span>Adult Learners (CET)</span></label>
           </div>
         </div>
-        <div>
-          <div style="font-size: 12px; font-weight: 600; color: #4b5563; margin-bottom: 8px;">Learning Design Focus</div>
+        <div style="background: #f8fbff; border: 1px solid #e1ebf4; border-radius: 10px; padding: 18px;">
+          <div style="font-size: 12px; font-weight: 700; color: #344b61; margin-bottom: 12px;">Learning Design Focus</div>
           <div class="config-scope-chips">
             <label class="config-scope-chip"><input type="radio" name="mode" value="balanced" checked><span>Balanced</span></label>
             <label class="config-scope-chip"><input type="radio" name="mode" value="guided"><span>More Guided</span></label>
@@ -690,64 +697,81 @@
       </div>
     </div>
 
-    <div style="margin-bottom: 24px;">
-      <div style="font-size: 13px; font-weight: 600; color: #1a2e40; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 16px;">2. Materials to Generate</div>
-      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Slides</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Quizzes</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Assessment Briefs</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> OAL / Pre-Class Activities</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox" checked> Facilitation Guide</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Worksheets</label>
-        <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;"><input type="checkbox"> Discussion Activities</label>
+    <!-- 2. Materials to Generate -->
+    <div style="margin-bottom: 32px;">
+      <div style="display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eef2f6; padding-bottom: 12px; margin-bottom: 20px;">
+        <div style="width: 24px; height: 24px; border-radius: 6px; background: var(--brand-soft); color: var(--brand); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;">2</div>
+        <div style="font-size: 14.5px; font-weight: 700; color: #1a2e40;">Materials to Generate</div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <label style="font-size: 13.5px; color: #1a2e40; font-weight: 600; display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #dce8f5; border-radius: 8px; padding: 10px 16px; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.02);"><input type="checkbox" checked style="accent-color: var(--brand); width: 14px; height: 14px;"> Slides</label>
+        <label style="font-size: 13.5px; color: #1a2e40; font-weight: 600; display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #dce8f5; border-radius: 8px; padding: 10px 16px; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.02);"><input type="checkbox" checked style="accent-color: var(--brand); width: 14px; height: 14px;"> Quizzes</label>
+        <label style="font-size: 13.5px; color: #1a2e40; font-weight: 600; display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #dce8f5; border-radius: 8px; padding: 10px 16px; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.02);"><input type="checkbox" checked style="accent-color: var(--brand); width: 14px; height: 14px;"> Assessment Briefs</label>
+        <label style="font-size: 13.5px; color: #1a2e40; font-weight: 600; display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #dce8f5; border-radius: 8px; padding: 10px 16px; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.02);"><input type="checkbox" checked style="accent-color: var(--brand); width: 14px; height: 14px;"> OAL / Pre-Class Activities</label>
+        <label style="font-size: 13.5px; color: #1a2e40; font-weight: 600; display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #dce8f5; border-radius: 8px; padding: 10px 16px; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.02);"><input type="checkbox" checked style="accent-color: var(--brand); width: 14px; height: 14px;"> Facilitation Guide</label>
+        <label style="font-size: 13.5px; color: #6b7280; font-weight: 500; display: flex; align-items: center; gap: 8px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 16px; cursor: pointer; transition: all 0.2s;"><input type="checkbox" style="width: 14px; height: 14px;"> Worksheets</label>
+        <label style="font-size: 13.5px; color: #6b7280; font-weight: 500; display: flex; align-items: center; gap: 8px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 16px; cursor: pointer; transition: all 0.2s;"><input type="checkbox" style="width: 14px; height: 14px;"> Discussion Activities</label>
       </div>
     </div>
 
-    <div style="margin-bottom: 24px;">
-      <div style="font-size: 13px; font-weight: 600; color: #1a2e40; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 16px;">3. Reference & Enrichment Sources</div>
-      <div style="display: flex; flex-direction: column; gap: 12px;">
+    <!-- 3. Reference & Enrichment Sources -->
+    <div style="margin-bottom: 32px;">
+      <div style="display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eef2f6; padding-bottom: 12px; margin-bottom: 20px;">
+        <div style="width: 24px; height: 24px; border-radius: 6px; background: var(--brand-soft); color: var(--brand); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;">3</div>
+        <div style="font-size: 14.5px; font-weight: 700; color: #1a2e40;">Reference & Enrichment Sources</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; background: #fdfdfe; border: 1px solid #eef2f6; border-radius: 10px; padding: 18px;">
         
         <div style="display: flex; flex-direction: column; gap: 4px;">
-          <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px; opacity: 0.8;">
-            <input type="checkbox" checked disabled> Use module documents and teaching plan
+          <label style="font-size: 13.5px; font-weight: 600; color: #1a2e40; display: flex; align-items: center; gap: 8px; opacity: 0.6;">
+            <input type="checkbox" checked disabled style="width: 14px; height: 14px;"> Use module documents and teaching plan
           </label>
-          <div style="font-size: 11px; color: #6b7280; margin-left: 19px;">
+          <div style="font-size: 12px; color: #6b7280; margin-left: 22px;">
             ✓ Inherited and connected from Phase 1 Planning.
           </div>
         </div>
         
+        <div style="height: 1px; background: #eef2f6; margin: 8px 0 8px 22px;"></div>
+        
         <div style="display: flex; flex-direction: column; gap: 4px;">
-          <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;">
-            <input type="checkbox" checked> Include NP Library Resources where relevant
+          <label style="font-size: 13.5px; font-weight: 600; color: #1a2e40; display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" checked style="accent-color: var(--brand); width: 14px; height: 14px;"> Include NP Library Resources where relevant
           </label>
-          <div style="font-size: 11px; color: #6b7280; margin-left: 19px; max-width: 600px; line-height: 1.4;">
+          <div style="font-size: 12px; color: #6b7280; margin-left: 22px; max-width: 700px; line-height: 1.5;">
             Enhance generated materials with authoritative references from Lien Ying Chow Library resources (e.g., ProQuest, EBSCOhost, Statista), where applicable.
           </div>
         </div>
         
+        <div style="height: 1px; background: #eef2f6; margin: 8px 0 8px 22px;"></div>
+        
         <div style="display: flex; flex-direction: column; gap: 4px;">
-          <label style="font-size: 13px; color: #4b5563; display: flex; align-items: center; gap: 6px;">
-            <input type="checkbox"> Suggest external learning resources
+          <label style="font-size: 13.5px; font-weight: 600; color: #4b5563; display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" style="width: 14px; height: 14px;"> Suggest external learning resources
           </label>
-          <div style="font-size: 11px; color: #6b7280; margin-left: 19px; max-width: 600px; line-height: 1.4;">
-            (e.g. videos, readings, industry examples)
+          <div style="font-size: 12px; color: #6b7280; margin-left: 22px; max-width: 700px; line-height: 1.5;">
+            Allow AI to recommend external videos, readings, or industry examples.
           </div>
         </div>
         
       </div>
     </div>
 
+    <!-- 4. Customisation Notes -->
     <div style="margin-bottom: 24px;">
-      <div style="font-size: 13px; font-weight: 600; color: #1a2e40; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 16px;">4. Customisation Notes (Optional)</div>
-      <div style="background: #f8fbff; border: 1px solid #dce8f5; border-radius: 8px; padding: 12px;">
-        <textarea id="dyn-instr-area" placeholder="e.g. Make activities more applied, simplify explanations for Year 1 learners, include more industry scenarios, or reduce content for flipped learning." style="width: 100%; height: 50px; border: 1px solid #c8daec; border-radius: 6px; padding: 8px 12px; font-size: 13px; color: var(--text); font-family: var(--font-sans, system-ui); resize: none; background: #fff; outline: none; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);"></textarea>
-      <div id="dyn-instr-actions" style="margin-top: 8px; display: none; gap: 8px; flex-wrap: wrap;">
-        <button type="button" style="border: 1px dashed #b8d0e6; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: #4a6580; cursor: pointer;">+ Upload Old Files</button>
-        <button type="button" style="border: 1px dashed #b8d0e6; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: #4a6580; cursor: pointer;">+ Add Reference Link</button>
+      <div style="display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eef2f6; padding-bottom: 12px; margin-bottom: 20px;">
+        <div style="width: 24px; height: 24px; border-radius: 6px; background: var(--brand-soft); color: var(--brand); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;">4</div>
+        <div style="font-size: 14.5px; font-weight: 700; color: #1a2e40;">Customisation Notes <span style="color: #9ca3af; font-weight: 400; font-size: 12.5px; margin-left: 4px;">(Optional)</span></div>
       </div>
+      <div style="background: #f8fbff; border: 1px solid #dce8f5; border-radius: 10px; padding: 14px;">
+        <textarea id="dyn-instr-area" placeholder="e.g. Make activities more applied, simplify explanations for Year 1 learners, include more industry scenarios, or reduce content for flipped learning." style="width: 100%; height: 72px; border: 1px solid #c8daec; border-radius: 6px; padding: 12px 14px; font-size: 13.5px; color: var(--text); font-family: var(--font-sans, system-ui); resize: none; background: #fff; outline: none; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02); line-height: 1.5;"></textarea>
       </div>
-    <div style="margin-top: 24px; display: flex; justify-content: flex-end; padding-bottom: 32px; border-bottom: 1px solid #e2e8f0; margin-bottom: 32px;">
-      <button class="analysis-primary" type="button" style="padding: 12px 24px; font-size: 14px;">Generate Teaching Pack →</button>
+    </div>
+    
+    <div style="display: flex; justify-content: flex-end; padding-top: 24px; border-top: 1px solid #eef2f6;">
+      <button class="analysis-primary" type="button" style="padding: 14px 32px; font-size: 14.5px; border-radius: 8px; box-shadow: 0 4px 12px rgba(10, 37, 64, 0.2); display: flex; align-items: center; gap: 10px;">
+        Generate Teaching Pack
+        <span style="font-size: 15px;">✦</span>
+      </button>
     </div>
   </section>
 
