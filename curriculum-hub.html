@@ -8,44 +8,27 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --bg: #F8F9FA;
-      --card: #FFFFFF;
-      --text: #0F172A;
-      --body: #475569;
-      --muted: #94A3B8;
-      --border: #E2E8F0;
-      --border-soft: #F1F5F9;
-
-      --curr-700: #4338ca;
-      --curr-600: #4f46e5;
-      --curr-500: #6366f1;
-      --curr-100: #c7d2fe;
-      --curr-50: #eef2ff;
-
-      --emerald-700: #059669;
-      --emerald-50: #ecfdf5;
-    }
+    
 
     body {
       font-family: var(--font-sans);
-      background: var(--bg);
-      color: var(--text);
+      background: var(--color-bg);
+      color: var(--color-text-primary);
       min-height: 100vh;
     }
 
     /* ── Topbar ── */
     .topbar {
       height: 56px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--color-border);
       background: #fff;
       display: flex; align-items: center; justify-content: center;
       position: sticky; top: 0; z-index: 100;
     }
     .topbar-inner { width: 100%; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; padding: 0 40px; }
-    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
-    .t-div { width: 1px; height: 18px; background: var(--border); margin: 0 8px; }
-    .brand-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--color-text-primary); }
+    .t-div { width: 1px; height: 18px; background: var(--color-border); margin: 0 8px; }
+    .brand-name { font-size: 13px; font-weight: 600; color: var(--color-text-primary); letter-spacing: -0.01em; }
     .brand-tag {
       display: inline-block; font-size: 10px; font-weight: 500; font-style: italic;
       color: #5c430c; background: #fefce8; border: 1px solid #d9bc3c;
@@ -55,45 +38,40 @@
     }
 
     /* ── Page ── */
-    .page { width: 100%; max-width: 900px; margin: 0 auto; padding: 44px 40px 80px; }
+    .page { width: 100%; max-width: 900px; margin: 0 auto; padding: 44px 40px 60px; }
 
     .back-link {
-      text-decoration: none; font-size: 13px; font-weight: 600; color: var(--muted);
+      text-decoration: none; font-size: 13px; font-weight: 600; color: var(--color-text-tertiary);
       display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; margin-bottom: 32px;
     }
-    .back-link:hover { color: var(--text); }
+    .back-link:hover { color: var(--color-text-primary); }
 
     .page-eyebrow {
       font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--curr-700); margin-bottom: 10px;
+      text-transform: uppercase; color: #1a1a1a; margin-bottom: 10px;
     }
-    .page-title {
-      font-size: 30px; font-weight: 700; color: var(--text);
-      letter-spacing: -0.02em; line-height: 1.18; margin-bottom: 10px;
-    }
-    .page-sub {
-      font-size: 15px; color: var(--body); line-height: 1.55; margin-bottom: 12px; max-width: 640px;
-    }
+    .page-title { font-size: 32px; font-weight: 700; color: var(--color-text-primary); letter-spacing: -0.022em; line-height: 1.18; margin-bottom: 12px; }
+    .page-sub { font-size: 15px; color: var(--color-text-secondary); line-height: 1.55; max-width: 720px; margin-bottom: 12px; }
 
     /* ── Context strip ── */
     .context-strip {
       display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
-      padding: 14px 18px; border: 1px solid var(--curr-100);
-      background: linear-gradient(180deg, var(--curr-50) 0%, #fff 100%);
+      padding: 14px 18px; border: 1px solid #e0e0e0;
+      background: linear-gradient(180deg, #fafafa 0%, #fff 100%);
       border-radius: 12px; margin-bottom: 36px;
     }
     .context-icon {
-      width: 36px; height: 36px; background: var(--curr-700); color: #fff;
+      width: 36px; height: 36px; background: #1a1a1a; color: #fff;
       border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .context-icon svg { width: 18px; height: 18px; }
     .context-info { flex: 1; min-width: 200px; }
-    .context-info-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-    .context-info-meta { font-size: 12px; color: var(--body); }
+    .context-info-title { font-size: 14px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 2px; }
+    .context-info-meta { font-size: 12px; color: var(--color-text-secondary); }
     .context-chips { display: flex; flex-wrap: wrap; gap: 6px; }
     .context-chip {
-      font-size: 11px; font-weight: 600; color: var(--curr-700);
-      background: #fff; border: 1px solid var(--curr-100);
+      font-size: 11px; font-weight: 600; color: #1a1a1a;
+      background: #fff; border: 1px solid #e0e0e0;
       border-radius: 999px; padding: 4px 11px;
     }
 
@@ -105,19 +83,19 @@
     }
     .phase-connector-line {
       width: 2px; height: 32px;
-      background: linear-gradient(180deg, var(--curr-100), var(--border));
+      background: linear-gradient(180deg, #e0e0e0, var(--color-border));
     }
 
     .phase-card {
       display: flex; align-items: flex-start; gap: 16px;
-      border: 1px solid var(--border); border-radius: 14px;
-      background: var(--card); padding: 20px 22px;
+      border: 1px solid var(--color-border); border-radius: 14px;
+      background: var(--color-surface); padding: 20px 22px;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       text-decoration: none; color: inherit;
       position: relative;
     }
     .phase-card:hover:not(.phase-card--disabled) {
-      border-color: var(--curr-100);
+      border-color: #e0e0e0;
       box-shadow: 0 8px 24px rgba(67,56,202,0.08);
       transform: translateY(-2px);
     }
@@ -126,8 +104,8 @@
       cursor: default;
     }
     .phase-card--active {
-      border-color: var(--curr-100);
-      background: linear-gradient(180deg, var(--curr-50) 0%, #fff 60%);
+      border-color: #e0e0e0;
+      background: linear-gradient(180deg, #fafafa 0%, #fff 60%);
       box-shadow: 0 4px 16px rgba(67,56,202,0.08);
     }
 
@@ -135,40 +113,40 @@
       width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
       font-size: 13px; font-weight: 700;
-      background: var(--border-soft); color: var(--muted);
-      border: 1px solid var(--border);
+      background: var(--color-surface-hover); color: var(--color-text-tertiary);
+      border: 1px solid var(--color-border);
     }
     .phase-card--active .phase-num {
-      background: var(--curr-700); color: #fff; border-color: var(--curr-700);
+      background: #1a1a1a; color: #fff; border-color: #1a1a1a;
       box-shadow: 0 2px 8px rgba(67,56,202,0.25);
     }
 
     .phase-body { flex: 1; min-width: 0; }
     .phase-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
-    .phase-title { font-size: 16px; font-weight: 700; color: var(--text); }
+    .phase-title { font-size: 16px; font-weight: 700; color: var(--color-text-primary); }
     .phase-badge-soon {
       font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
-      color: var(--muted); background: var(--border-soft);
-      border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px;
+      color: var(--color-text-tertiary); background: var(--color-surface-hover);
+      border: 1px solid var(--color-border); border-radius: 999px; padding: 3px 10px;
     }
     .phase-badge-ready {
       font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
-      color: var(--curr-700); background: var(--curr-50);
-      border: 1px solid var(--curr-100); border-radius: 999px; padding: 3px 10px;
+      color: #1a1a1a; background: #fafafa;
+      border: 1px solid #e0e0e0; border-radius: 999px; padding: 3px 10px;
     }
-    .phase-desc { font-size: 13px; color: var(--body); line-height: 1.55; margin-bottom: 10px; }
+    .phase-desc { font-size: 13px; color: var(--color-text-secondary); line-height: 1.55; margin-bottom: 10px; }
     .phase-ai-role {
-      font-size: 11px; color: var(--muted); font-weight: 600; font-style: italic;
+      font-size: 11px; color: var(--color-text-tertiary); font-weight: 600; font-style: italic;
     }
     .phase-cta {
       display: inline-flex; align-items: center; gap: 6px;
       font-size: 12px; font-weight: 700; color: #fff;
-      background: var(--curr-700); border: 1px solid var(--curr-700);
+      background: #1a1a1a; border: 1px solid #1a1a1a;
       border-radius: 8px; padding: 8px 16px; text-decoration: none;
       transition: all 0.15s ease-out; margin-top: 12px;
     }
     .phase-cta:hover {
-      background: var(--curr-600); border-color: var(--curr-600);
+      background: #333333; border-color: #333333;
       box-shadow: 0 4px 12px rgba(67,56,202,0.2);
       transform: translateY(-1px);
     }
@@ -176,20 +154,12 @@
     /* ── Responsive ── */
     @media (max-width: 900px) {
       .page { padding: 32px 18px 60px; }
-      .page-title { font-size: 26px; }
+      .page-title { font-size: 32px; font-weight: 700; color: var(--color-text-primary); letter-spacing: -0.022em; line-height: 1.18; margin-bottom: 12px; }
       .context-strip { flex-direction: column; align-items: flex-start; }
     }
 
     /* --- Premium UI/UX Aesthetic Override --- */
-    :root {
-      --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif !important;
-      --text-main: #0f172a !important;
-      --text-muted: #475569 !important;
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03) !important;
-      --shadow-hover: 0 14px 28px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04) !important;
-      --trans-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      --trans-fast: all 0.15s ease-out !important;
-    }
+    
     body {
       font-family: var(--font-sans);
       -webkit-font-smoothing: antialiased;
@@ -207,20 +177,21 @@
 <body>
 
 <nav class="topbar">
-  <div class="topbar-inner">
-    <a href="index.html" class="topbar-brand">
-      <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
-           alt="Ngee Ann Polytechnic" style="height:28px; width:auto; display:block;">
-      <div class="t-div"></div>
-      <span class="brand-name">AI Curriculum Designer</span>
-      <span class="brand-tag">NP-refined workflow and UX direction following 15 May discussion with AWS.</span>
+  <div style="width: 100%; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; padding: 0 40px;">
+    <a href="index.html" style="display:flex; align-items:center; text-decoration:none; gap:12px;">
+      <img class="topbar-logo-img" src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:28px; width:auto; display:block;">
+      <div style="width:1px; height:20px; background:var(--color-border);"></div>
+      <div style="display:flex; flex-direction:column; gap:2px;">
+        <div style="font-size:14px; font-weight:700; color:var(--color-text-primary); font-family:var(--font-heading);">AI Curriculum Builder</div>
+        <div style="font-size:10px; font-weight:500; color:var(--color-text-tertiary); letter-spacing:0.06em; text-transform:uppercase;">NP � AWS Proof of Concept</div>
+      </div>
     </a>
   </div>
 </nav>
 
 <main class="page">
 
-  <a href="index.html" class="back-link" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">
+  <a href="index.html" class="back-link" onmouseover="this.style.color='var(--color-text-primary)'" onmouseout="this.style.color='var(--color-text-tertiary)'">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
     Back to Workflows
   </a>
@@ -334,3 +305,6 @@
 
 </body>
 </html>
+
+
+

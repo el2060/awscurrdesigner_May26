@@ -8,33 +8,12 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --bg: #F8F9FA;
-      --card: #FFFFFF;
-      --text: #0F172A;
-      --body: #475569;
-      --muted: #94A3B8;
-      --border: #E2E8F0;
-      --border-soft: #F1F5F9;
-
-      --curr-700: #4338ca;
-      --curr-600: #4f46e5;
-      --curr-500: #6366f1;
-      --curr-100: #c7d2fe;
-      --curr-50: #eef2ff;
-
-      --emerald-700: #059669;
-      --emerald-50: #ecfdf5;
-      
-      --amber-500: #f59e0b;
-      --blue-500: #3b82f6;
-      --red-500: #ef4444;
-    }
+    
 
     body {
       font-family: var(--font-sans);
-      background: var(--bg);
-      color: var(--text);
+      background: var(--color-bg);
+      color: var(--color-text-primary);
       min-height: 100vh;
       overflow-x: hidden;
     }
@@ -42,15 +21,15 @@
     /* ── Topbar ── */
     .topbar {
       height: 56px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--color-border);
       background: #fff;
       display: flex; align-items: center; justify-content: center;
       position: sticky; top: 0; z-index: 100;
     }
     .topbar-inner { width: 100%; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; padding: 0 40px; }
-    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
-    .t-div { width: 1px; height: 18px; background: var(--border); margin: 0 8px; }
-    .brand-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--color-text-primary); }
+    .t-div { width: 1px; height: 18px; background: var(--color-border); margin: 0 8px; }
+    .brand-name { font-size: 13px; font-weight: 600; color: var(--color-text-primary); letter-spacing: -0.01em; }
     .brand-tag {
       display: inline-block; font-size: 10px; font-weight: 500; font-style: italic;
       color: #5c430c; background: #fefce8; border: 1px solid #d9bc3c;
@@ -61,50 +40,45 @@
 
     /* ── Page Layout ── */
     .page { 
-      width: 100%; max-width: 1200px; margin: 0 auto; padding: 32px 40px 80px; 
+      width: 100%; max-width: 1200px; margin: 0 auto; padding: 44px 40px 60px; 
       display: grid; gap: 24px;
     }
     
     .page-header { margin-bottom: 8px; }
 
     .back-link {
-      text-decoration: none; font-size: 13px; font-weight: 600; color: var(--muted);
+      text-decoration: none; font-size: 13px; font-weight: 600; color: var(--color-text-tertiary);
       display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; margin-bottom: 24px;
     }
-    .back-link:hover { color: var(--text); }
+    .back-link:hover { color: var(--color-text-primary); }
 
     .page-eyebrow {
       font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--curr-700); margin-bottom: 8px;
+      text-transform: uppercase; color: #1a1a1a; margin-bottom: 8px;
     }
-    .page-title {
-      font-size: 28px; font-weight: 700; color: var(--text);
-      letter-spacing: -0.02em; line-height: 1.18; margin-bottom: 8px;
-    }
-    .page-sub {
-      font-size: 14px; color: var(--body); line-height: 1.5; max-width: 800px;
-    }
+    .page-title { font-size: 32px; font-weight: 700; color: var(--color-text-primary); letter-spacing: -0.022em; line-height: 1.18; margin-bottom: 12px; }
+    .page-sub { font-size: 15px; color: var(--color-text-secondary); line-height: 1.55; max-width: 720px; margin-bottom: 12px; }
     
     /* ── Step Strip ── */
     .step-strip {
       display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
-      margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+      margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--color-border);
     }
     .ss-step {
       display: inline-flex; align-items: center; gap: 6px;
-      font-size: 11px; font-weight: 600; color: var(--muted);
+      font-size: 11px; font-weight: 600; color: var(--color-text-tertiary);
       letter-spacing: 0.02em; white-space: nowrap;
     }
     .ss-num {
       width: 18px; height: 18px; border-radius: 50%;
-      background: var(--border-soft); color: var(--muted);
+      background: var(--color-surface-hover); color: var(--color-text-tertiary);
       font-size: 10px; font-weight: 700;
       display: inline-flex; align-items: center; justify-content: center;
-      border: 1px solid var(--border);
+      border: 1px solid var(--color-border);
     }
-    .ss-step.active { color: var(--curr-700); }
-    .ss-step.active .ss-num { background: var(--curr-700); color: #fff; border-color: var(--curr-700); }
-    .ss-sep { width: 12px; height: 1px; background: var(--border); flex-shrink: 0; }
+    .ss-step.active { color: #1a1a1a; }
+    .ss-step.active .ss-num { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .ss-sep { width: 12px; height: 1px; background: var(--color-border); flex-shrink: 0; }
 
     /* ── Workspace Grid ── */
     .workspace {
@@ -118,41 +92,41 @@
     .audit-main { display: flex; flex-direction: column; gap: 24px; }
     
     .cat-section {
-      background: #fff; border: 1px solid var(--border); border-radius: 16px;
+      background: #fff; border: 1px solid var(--color-border); border-radius: 16px;
       box-shadow: var(--shadow-sm); overflow: hidden;
     }
     .cat-header {
-      padding: 16px 20px; background: var(--bg); border-bottom: 1px solid var(--border);
+      padding: 16px 20px; background: var(--color-bg); border-bottom: 1px solid var(--color-border);
       display: flex; align-items: center; justify-content: space-between;
       cursor: pointer; user-select: none;
     }
     .cat-title-row { display: flex; align-items: center; gap: 12px; }
-    .cat-title { font-size: 16px; font-weight: 700; color: var(--text); }
+    .cat-title { font-size: 16px; font-weight: 700; color: var(--color-text-primary); }
     .cat-badge {
       font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px;
     }
     .cat-badge.warn { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
     .cat-badge.ok { background: var(--emerald-50); color: var(--emerald-700); border: 1px solid #a7f3d0; }
-    .cat-icon { color: var(--muted); transition: transform 0.2s; }
+    .cat-icon { color: var(--color-text-tertiary); transition: transform 0.2s; }
     
     .cat-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
     
     .issue-card {
-      border: 1px solid var(--border); border-radius: 12px;
+      border: 1px solid var(--color-border); border-radius: 12px;
       padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.02);
       border-left-width: 4px; border-left-color: var(--amber-500);
       background: #fff;
     }
     .issue-card.industry {
-      border-left-color: var(--curr-600);
-      background: linear-gradient(90deg, var(--curr-50) 0%, #fff 10px);
+      border-left-color: #333333;
+      background: linear-gradient(90deg, #fafafa 0%, #fff 10px);
     }
     .issue-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-    .issue-title { font-size: 14px; font-weight: 700; color: var(--text); }
+    .issue-title { font-size: 14px; font-weight: 700; color: var(--color-text-primary); }
     
     .industry-signal {
       font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
-      color: var(--curr-700); background: #fff; border: 1px solid var(--curr-100);
+      color: #1a1a1a; background: #fff; border: 1px solid #e0e0e0;
       padding: 3px 8px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px;
     }
     
@@ -162,24 +136,24 @@
       border: 1px solid #fde68a; padding: 2px 6px; border-radius: 4px; margin-bottom: 8px;
     }
     
-    .issue-body { font-size: 13px; color: var(--body); line-height: 1.5; margin-bottom: 12px; white-space: pre-wrap; }
+    .issue-body { font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; margin-bottom: 12px; white-space: pre-wrap; }
     
     .ai-suggestion {
-      background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
-      padding: 12px; font-size: 13px; color: var(--text); line-height: 1.5; margin-bottom: 12px;
+      background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 8px;
+      padding: 12px; font-size: 13px; color: var(--color-text-primary); line-height: 1.5; margin-bottom: 12px;
     }
-    .ai-suggestion strong { color: var(--curr-700); }
+    .ai-suggestion strong { color: #1a1a1a; }
     
     .affected-mods { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
     .mod-pill {
-      font-size: 11px; font-weight: 600; color: var(--body); background: #fff;
-      border: 1px solid var(--border); padding: 2px 8px; border-radius: 999px;
+      font-size: 11px; font-weight: 600; color: var(--color-text-secondary); background: #fff;
+      border: 1px solid var(--color-border); padding: 2px 8px; border-radius: 999px;
     }
     
     .source-pill {
       display: inline-flex; align-items: center; gap: 6px;
-      font-size: 11px; font-weight: 600; color: var(--body); background: var(--bg);
-      border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px; margin-bottom: 16px;
+      font-size: 11px; font-weight: 600; color: var(--color-text-secondary); background: var(--color-bg);
+      border: 1px solid var(--color-border); padding: 4px 10px; border-radius: 6px; margin-bottom: 16px;
     }
     
     .issue-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
@@ -188,14 +162,14 @@
       padding: 8px 14px; border-radius: 6px; cursor: pointer; transition: var(--trans-fast);
       display: inline-flex; align-items: center; gap: 6px;
     }
-    .btn-primary { background: var(--curr-50); color: var(--curr-700); border: 1px solid var(--curr-100); }
-    .btn-primary:hover { background: var(--curr-100); }
-    .btn-secondary { background: #fff; color: var(--body); border: 1px solid var(--border); }
-    .btn-secondary:hover { background: var(--bg); color: var(--text); }
+    .btn-primary { background: #fafafa; color: #1a1a1a; border: 1px solid #e0e0e0; }
+    .btn-primary:hover { background: #e0e0e0; }
+    .btn-secondary { background: #fff; color: var(--color-text-secondary); border: 1px solid var(--color-border); }
+    .btn-secondary:hover { background: var(--color-bg); color: var(--color-text-primary); }
     
     /* Dismissed State */
     .issue-card.dismissed {
-      border-left-width: 1px; border-left-color: var(--border);
+      border-left-width: 1px; border-left-color: var(--color-border);
       opacity: 0.7; padding: 12px 16px;
     }
     .issue-card.dismissed .issue-body, 
@@ -204,11 +178,11 @@
     .issue-card.dismissed .issue-actions,
     .issue-card.dismissed .visual-element { display: none; }
     .dismissed-reason {
-      font-size: 12px; color: var(--body); margin-top: 4px; font-style: italic;
+      font-size: 12px; color: var(--color-text-secondary); margin-top: 4px; font-style: italic;
     }
     .dismissed-badge {
-      font-size: 10px; font-weight: 600; color: var(--muted); background: var(--border-soft);
-      padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border);
+      font-size: 10px; font-weight: 600; color: var(--color-text-tertiary); background: var(--color-surface-hover);
+      padding: 2px 6px; border-radius: 4px; border: 1px solid var(--color-border);
     }
     
     /* Visualizations */
@@ -217,10 +191,10 @@
     /* Calendar Heatmap */
     .heatmap-grid {
       display: grid; grid-template-columns: auto repeat(13, 1fr); gap: 4px;
-      background: #fff; border: 1px solid var(--border); padding: 12px; border-radius: 8px;
+      background: #fff; border: 1px solid var(--color-border); padding: 12px; border-radius: 8px;
     }
-    .hm-label { font-size: 10px; font-weight: 600; color: var(--muted); align-self: center; text-align: right; padding-right: 8px; }
-    .hm-col-header { font-size: 10px; font-weight: 600; color: var(--muted); text-align: center; margin-bottom: 4px; }
+    .hm-label { font-size: 10px; font-weight: 600; color: var(--color-text-tertiary); align-self: center; text-align: right; padding-right: 8px; }
+    .hm-col-header { font-size: 10px; font-weight: 600; color: var(--color-text-tertiary); text-align: center; margin-bottom: 4px; }
     .hm-cell { height: 20px; border-radius: 4px; }
     .hm-low { background: #ecfdf5; }
     .hm-med { background: #fefce8; }
@@ -228,7 +202,7 @@
     .hm-crit { background: #ef4444; border: 1px solid #b91c1c; }
     
     .hm-legend {
-      display: flex; gap: 12px; margin-top: 12px; font-size: 10px; color: var(--body); font-weight: 600;
+      display: flex; gap: 12px; margin-top: 12px; font-size: 10px; color: var(--color-text-secondary); font-weight: 600;
     }
     .hm-legend-item { display: flex; align-items: center; gap: 4px; }
     .hm-legend-box { width: 12px; height: 12px; border-radius: 2px; }
@@ -236,15 +210,15 @@
     /* Bar Chart */
     .assessment-bar {
       display: flex; height: 24px; border-radius: 6px; overflow: hidden;
-      border: 1px solid var(--border); margin-bottom: 12px;
+      border: 1px solid var(--color-border); margin-bottom: 12px;
     }
     .ab-segment { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; }
-    .ab-written { background: var(--curr-600); width: 72%; }
+    .ab-written { background: #333333; width: 72%; }
     .ab-prac { background: var(--amber-500); width: 15%; }
     .ab-oral { background: var(--emerald-700); width: 8%; }
-    .ab-port { background: var(--body); width: 5%; }
+    .ab-port { background: var(--color-text-secondary); width: 5%; }
     
-    .ab-legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px; font-weight: 600; color: var(--body); }
+    .ab-legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px; font-weight: 600; color: var(--color-text-secondary); }
     .ab-leg-item { display: flex; align-items: center; gap: 6px; }
     .ab-leg-box { width: 10px; height: 10px; border-radius: 2px; }
 
@@ -256,12 +230,12 @@
     
     .sum-header { display: flex; align-items: center; gap: 12px; }
     .sum-icon {
-      width: 36px; height: 36px; background: var(--curr-700); color: #fff;
+      width: 36px; height: 36px; background: #1a1a1a; color: #fff;
       border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
       box-shadow: 0 2px 8px rgba(67,56,202,0.2);
     }
     .sum-icon svg { width: 18px; height: 18px; }
-    .sum-title { font-size: 16px; font-weight: 700; color: var(--text); }
+    .sum-title { font-size: 16px; font-weight: 700; color: var(--color-text-primary); }
     
     .draft-badge {
       display: inline-flex; align-items: center; gap: 6px;
@@ -270,13 +244,13 @@
     }
     
     .status-list {
-      background: #fff; border: 1px solid var(--border); border-radius: 12px;
+      background: #fff; border: 1px solid var(--color-border); border-radius: 12px;
       padding: 16px; box-shadow: var(--shadow-sm);
     }
     .sl-item {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 8px 0; border-bottom: 1px solid var(--border-soft);
-      font-size: 12px; font-weight: 600; color: var(--body);
+      padding: 8px 0; border-bottom: 1px solid var(--color-surface-hover);
+      font-size: 12px; font-weight: 600; color: var(--color-text-secondary);
     }
     .sl-item:last-child { border-bottom: none; padding-bottom: 0; }
     .sl-item:first-child { padding-top: 0; }
@@ -289,10 +263,10 @@
     .sl-dot.ok { background: var(--emerald-700); }
     
     .qual-summary {
-      background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+      background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 12px;
       padding: 16px;
     }
-    .qual-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+    .qual-text { font-size: 13px; color: var(--color-text-primary); line-height: 1.5; }
     
     .sum-actions { display: flex; flex-direction: column; gap: 8px; }
     .btn-block { width: 100%; justify-content: center; }
@@ -300,24 +274,15 @@
     /* Single row passed state */
     .passed-row {
       display: flex; align-items: center; gap: 12px; padding: 16px 20px;
-      background: #fff; border: 1px solid var(--border); border-radius: 12px;
+      background: #fff; border: 1px solid var(--color-border); border-radius: 12px;
       box-shadow: var(--shadow-sm); border-left: 4px solid var(--emerald-700);
     }
     .passed-icon { color: var(--emerald-700); }
-    .passed-text { font-size: 14px; font-weight: 600; color: var(--text); }
+    .passed-text { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
     .passed-note { font-size: 12px; color: var(--amber-500); font-weight: 600; margin-left: auto; }
 
     /* --- Premium UI/UX Aesthetic Override --- */
-    :root {
-      --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif !important;
-      --text-main: #0f172a !important;
-      --text-muted: #475569 !important;
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03) !important;
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -2px rgba(0, 0, 0, 0.04) !important;
-      --shadow-hover: 0 14px 28px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04) !important;
-      --trans-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      --trans-fast: all 0.15s ease-out !important;
-    }
+    
     body {
       font-family: var(--font-sans);
       -webkit-font-smoothing: antialiased;
@@ -335,13 +300,14 @@
 <body>
 
 <nav class="topbar">
-  <div class="topbar-inner">
-    <a href="index.html" class="topbar-brand">
-      <img src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75"
-           alt="Ngee Ann Polytechnic" style="height:28px; width:auto; display:block;">
-      <div class="t-div"></div>
-      <span class="brand-name">AI Curriculum Designer</span>
-      <span class="brand-tag">NP-refined workflow and UX direction following 15 May discussion with AWS.</span>
+  <div style="width: 100%; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; padding: 0 40px;">
+    <a href="index.html" style="display:flex; align-items:center; text-decoration:none; gap:12px;">
+      <img class="topbar-logo-img" src="https://www.np.edu.sg/_next/image?url=https%3A%2F%2Fassets.app.optical.gov.sg%2Fnp%2Fproduction%2Fpublished%2Fcollections%2Fpages%2F17c64bb4-8632-49e9-af16-047f7cabe99a%2Fab16008f-a6a0-466e-9193-e16e947261b0.png&w=1080&q=75" alt="Ngee Ann Polytechnic" style="height:28px; width:auto; display:block;">
+      <div style="width:1px; height:20px; background:var(--color-border);"></div>
+      <div style="display:flex; flex-direction:column; gap:2px;">
+        <div style="font-size:14px; font-weight:700; color:var(--color-text-primary); font-family:var(--font-heading);">AI Curriculum Builder</div>
+        <div style="font-size:10px; font-weight:500; color:var(--color-text-tertiary); letter-spacing:0.06em; text-transform:uppercase;">NP � AWS Proof of Concept</div>
+      </div>
     </a>
   </div>
 </nav>
@@ -625,14 +591,14 @@ Combined assessment weight: 75% of a typical week's capacity.</div>
       <div class="passed-row">
         <svg class="passed-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
         <span class="passed-text">Progression Coherence</span>
-        <span style="font-size: 13px; color: var(--body); margin-left: 12px;">All prerequisite chains are valid. No orphan modules detected.</span>
+        <span style="font-size: 13px; color: var(--color-text-secondary); margin-left: 12px;">All prerequisite chains are valid. No orphan modules detected.</span>
       </div>
 
       <!-- Category 6 -->
       <div class="passed-row">
         <svg class="passed-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
         <span class="passed-text">Graduate Profile Coverage</span>
-        <span style="font-size: 13px; color: var(--body); margin-left: 12px;">All 6 competencies mapped to Intro &amp; Practice modules.</span>
+        <span style="font-size: 13px; color: var(--color-text-secondary); margin-left: 12px;">All 6 competencies mapped to Intro &amp; Practice modules.</span>
         <span class="passed-note">1 competency lacks Mastery (flagged in Phase 3)</span>
       </div>
 
@@ -701,7 +667,7 @@ Combined assessment weight: 75% of a typical week's capacity.</div>
       // Update header
       const header = card.querySelector('.issue-header');
       header.innerHTML = `
-        <h3 class="issue-title" style="text-decoration: line-through; color: var(--muted);">${card.querySelector('.issue-title').innerText}</h3>
+        <h3 class="issue-title" style="text-decoration: line-through; color: var(--color-text-tertiary);">${card.querySelector('.issue-title').innerText}</h3>
         <span class="dismissed-badge">Dismissed</span>
       `;
       
@@ -741,3 +707,6 @@ Combined assessment weight: 75% of a typical week's capacity.</div>
 </script>
 </body>
 </html>
+
+
+
